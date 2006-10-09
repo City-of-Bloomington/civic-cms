@@ -28,5 +28,6 @@
 		exit();
 	}
 
+	print_r($_SESSION);
 	Header("Location: $_POST[returnURL]");
 ?>
