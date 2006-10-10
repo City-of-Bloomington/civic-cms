@@ -9,7 +9,7 @@
 		{
 			echo "<li>";
 			if (userHasRole("Administrator")) { echo "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/categories/updateCategory.php?category_id={$category->getId()}';\">Edit</button>"; }
-			echo "<a href=\"".BASE_URL."/categories/setCategory.php?category_id={$category->getId()}\">";
+			echo "<a href=\"".BASE_URL."/categories/viewCategory.php?category_id={$category->getId()}\">";
 			echo View::sanitizeString($category->getName());
 			echo "</a>";
 			if ($category->hasChildren())

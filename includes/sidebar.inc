@@ -7,7 +7,7 @@
 	{
 		foreach($categoryList as $category)
 		{
-			echo "<li><a href=\"".BASE_URL."/categories/setCategory.php?category_id={$category->getId()}\">";
+			echo "<li><a href=\"".BASE_URL."/categories/viewCategory.php?category_id={$category->getId()}\">";
 			echo View::sanitizeString($category->getName());
 			echo "</a>";
 			if ($category->hasChildren())
@@ -22,7 +22,7 @@
 ?>
 <div id="sidebar">
 	<div>
-		<div class="titleBar"><a href="<?php echo BASE_URL; ?>/categories/setCategory.php">Categories</a></div>
+		<div class="titleBar"><a href="<?php echo BASE_URL; ?>/categories">Categories</a></div>
 		<ul>
 			<?php
 				$categories = new CategoryList(array("parent_id"=>1));

@@ -13,7 +13,7 @@
 */
 	verifyUser("Administrator");
 
-	$view = new View();
+	$template = new Template();
 	$form = new Block("users/updateUserForm.inc");
 	if (isset($_GET['id'])) { $form = new User($_GET['user']); }
 
@@ -26,7 +26,7 @@
 			$user->$set($value);
 		}
 
-		$view->user = $user;
+		$template->user = $user;
 		try
 		{
 			$user->save();
@@ -40,6 +40,6 @@
 		}
 	}
 
-	$view->blocks[] = $form;
-	$view->render();
+	$template->blocks[] = $form;
+	$template->render();
 ?>

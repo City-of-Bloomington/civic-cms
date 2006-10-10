@@ -10,23 +10,23 @@
 
 	if (isset($_POST['category']))
 	{
-		$category = new Category($_POST['category_id']);
+		$category = new Category($_POST['id']);
 		foreach($_POST['category'] as $field=>$value)
 		{
 			$set = "set".ucfirst($field);
 			$category->$set($value);
+		}
 
-			try
-			{
-				$category->save();
-				Header("Location: home.php");
-				exit();
-			}
-			catch (Exception $e)
-			{
-				$_SESSION['errorMessages'][] = $e;
-				$form->category = $category;
-			}
+		try
+		{
+			$category->save();
+			Header("Location: home.php");
+			exit();
+		}
+		catch (Exception $e)
+		{
+			$_SESSION['errorMessages'][] = $e;
+			$form->category = $category;
 		}
 	}
 

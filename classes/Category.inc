@@ -8,8 +8,9 @@
 		private $id;
 		private $name;
 
-		private $parents;
+		private $content;	# Homepage content for categories will be stored in files
 
+		private $parents;
 
 
 		/**
@@ -59,11 +60,11 @@
 
 			$fields = implode(",",$fields);
 
-
 			if ($this->id) { $this->update($fields); }
 			else { $this->insert($fields); }
 
 			$this->updateParents();
+			$this->saveContent();
 		}
 
 		private function update($fields)
@@ -81,6 +82,11 @@
 			$sql = "insert categories set $fields";
 			if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 			$this->id = $PDO->lastInsertID();
+		}
+
+		private function saveContent()
+		{
+			file_put_contents(APPLICATION_HOME."/data/categories/{$this->id}.xhtml",$this->getContent());
 		}
 
 		private function updateParents()
@@ -152,6 +158,17 @@
 		public function getId() { return $this->id; }
 		public function getName() { return $this->name; }
 		public function getChildren() { return new CategoryList(array('parent_id'=>$this->id)); }
+		public function getContent()
+		{
+			if (!$this->content)
+			{
+				if (file_exists(APPLICATION_HOME."/data/categories/{$this->id}.xhtml"))
+				{
+					$this->content = file_get_contents(APPLICATION_HOME."/data/categories/{$this->id}.xhtml");
+				}
+			}
+			return $this->content;
+		}
    		public function getParents()
    		{
 			global $PDO;
@@ -170,6 +187,7 @@
 
 
 		public function setName($string) { $this->name = trim($string); }
+		public function setContent($string) { $this->content = trim($string); }
 		/**
 		 * Takes an array of parent_id's to be associated with this category
 		 * A Category cannot have itself for a parent
