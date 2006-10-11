@@ -8,12 +8,12 @@
 */
 	verifyUser('Administrator');
 
-	$template = new Template();
+	$template = new Template("transitional");
 	if (isset($_GET['category_id'])) { $category = new Category($_GET['category_id']); }
-	if (isset($_POST['category']))
+	if (isset($_POST['content']))
 	{
 		$category = new Category($_POST['id']);
-		$category->setContent($_POST['category']['content']);
+		$category->setContent($_POST['content']);
 
 		try
 		{
@@ -24,7 +24,7 @@
 		catch (Exception $e) { $_SESSION['errorMessages'][] = $e; }
 	}
 
-	$FCKeditor = new FCKeditor("category[content]");
+	$FCKeditor = new FCKeditor("content");
 	$FCKeditor->BasePath = BASE_URL."/FCKeditor/";
 	$FCKeditor->ToolbarSet = 'Custom';
 	$FCKeditor->Value = $category->getContent();
