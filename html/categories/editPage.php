@@ -26,6 +26,7 @@
 
 	$FCKeditor = new FCKeditor("category[content]");
 	$FCKeditor->BasePath = BASE_URL."/FCKeditor/";
+	$FCKeditor->ToolbarSet = 'Custom';
 	$FCKeditor->Value = $category->getContent();
 
 	$template->blocks[] = new Block("categories/editPageForm.inc",array('category'=>$category,'FCKeditor'=>$FCKeditor));
