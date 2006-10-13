@@ -3,12 +3,12 @@
  * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  */
-	class Category extends ActiveRecord
+	class Section extends ActiveRecord
 	{
 		private $id;
 		private $name;
 
-		private $content;	# Homepage content for categories will be stored in files
+		private $content;	# Homepage content for sections will be stored in files
 
 		private $parents;
 
@@ -23,7 +23,7 @@
 
 			if ($id)
 			{
-				$sql = "select * from categories where id=$id";
+				$sql = "select * from sections where id=$id";
 				$result = $PDO->query($sql);
 				if ($result)
 				{
@@ -71,7 +71,7 @@
 		{
 			global $PDO;
 
-			$sql = "update categories set $fields where id={$this->id}";
+			$sql = "update sections set $fields where id={$this->id}";
 			if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 		}
 
@@ -79,14 +79,14 @@
 		{
 			global $PDO;
 
-			$sql = "insert categories set $fields";
+			$sql = "insert sections set $fields";
 			if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 			$this->id = $PDO->lastInsertID();
 		}
 
 		private function saveContent()
 		{
-			file_put_contents(APPLICATION_HOME."/data/categories/{$this->id}.xhtml",$this->getContent());
+			file_put_contents(APPLICATION_HOME."/data/sections/{$this->id}.xhtml",$this->getContent());
 		}
 
 		private function updateParents()
@@ -94,43 +94,43 @@
 			global $PDO;
 
 			$parents = $this->getParents();
-			if (!count($parents)) { $parents[] = new Category(1); }
+			if (!count($parents)) { $parents[] = new Section(1); }
 
 
-			$sql = "delete from category_parents where category_id={$this->id}";
+			$sql = "delete from section_parents where section_id={$this->id}";
 			if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 
-			$statement = $PDO->prepare("insert category_parents set category_id={$this->id},parent_id=?");
+			$statement = $PDO->prepare("insert section_parents set section_id={$this->id},parent_id=?");
 			foreach($parents as $parent)
 			{
 				if (false === $statement->execute(array($parent->getId()))) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 			}
 
-			$sql = "delete from categoryIndex";
+			$sql = "delete from sectionIndex";
 			if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 
 			$this->createPrePostOrder(1,1);
 		}
 
-		private function createPrePostOrder($category_id,$pre)
+		private function createPrePostOrder($section_id,$pre)
 		{
 			global $PDO;
 
 			$post = $pre + 1;
 
 			$children = array();
-			$sql = "select category_id from category_parents where parent_id=$category_id";
-			foreach($PDO->query($sql) as $row) { $children[] = $row['category_id']; }
+			$sql = "select section_id from section_parents where parent_id=$section_id";
+			foreach($PDO->query($sql) as $row) { $children[] = $row['section_id']; }
 			foreach($children as $id) { $post = $this->createPrePostOrder($id,$post); }
 
-			$sql = "insert categoryIndex values($category_id,$pre,$post)";
+			$sql = "insert sectionIndex values($section_id,$pre,$post)";
 			if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 
 			return $post++;
 		}
 
 		/**
-		 * Returns the number of children for this category
+		 * Returns the number of children for this section
 		 * Useful if you just want to know if we have children, or
 		 * if you want to know how many children there are
 		 */
@@ -138,18 +138,18 @@
 		{
 			global $PDO;
 
-			$sql = "select count(*) from category_parents where parent_id={$this->id}";
+			$sql = "select count(*) from section_parents where parent_id={$this->id}";
 			$result = $PDO->query($sql);
 			list($count) = $result->fetch();
 			$result->closeCursor();
 			return $count;
 		}
 		/**
-		 * Find out if a given category is a parent of this category
+		 * Find out if a given section is a parent of this section
 		 */
-		public function hasParent($category)
+		public function hasParent($section)
 		{
-			foreach($this->getParents() as $parent) { if ($category->getId() == $parent->getId()) { return true; } }
+			foreach($this->getParents() as $parent) { if ($section->getId() == $parent->getId()) { return true; } }
 			return false;
 		}
 
@@ -157,14 +157,14 @@
 
 		public function getId() { return $this->id; }
 		public function getName() { return $this->name; }
-		public function getChildren() { return new CategoryList(array('parent_id'=>$this->id)); }
+		public function getChildren() { return new SectionList(array('parent_id'=>$this->id)); }
 		public function getContent()
 		{
 			if (!$this->content)
 			{
-				if (file_exists(APPLICATION_HOME."/data/categories/{$this->id}.xhtml"))
+				if (file_exists(APPLICATION_HOME."/data/sections/{$this->id}.xhtml"))
 				{
-					$this->content = file_get_contents(APPLICATION_HOME."/data/categories/{$this->id}.xhtml");
+					$this->content = file_get_contents(APPLICATION_HOME."/data/sections/{$this->id}.xhtml");
 				}
 			}
 			return $this->content;
@@ -176,11 +176,11 @@
 			if (!$this->parents)
 			{
 				$this->parents = array();
-				$sql = "select parent_id from category_parents where category_id={$this->id}";
+				$sql = "select parent_id from section_parents where section_id={$this->id}";
 				$query = $PDO->prepare($sql);
 				$query->execute();
 				$result = $query->fetchAll();
-				foreach($result as $row) { $this->parents[] = new Category($row['parent_id']); }
+				foreach($result as $row) { $this->parents[] = new Section($row['parent_id']); }
 			}
 			return $this->parents;
    		}
@@ -189,13 +189,13 @@
 		public function setName($string) { $this->name = trim($string); }
 		public function setContent($string) { $this->content = trim($string); }
 		/**
-		 * Takes an array of parent_id's to be associated with this category
-		 * A Category cannot have itself for a parent
+		 * Takes an array of parent_id's to be associated with this section
+		 * A Section cannot have itself for a parent
 		 */
 		public function setParents(array $array)
 		{
 			$this->parents = array();
-			foreach($array as $id) { if ($id != $this->id) { $this->parents[] = new Category($id); } }
+			foreach($array as $id) { if ($id != $this->id) { $this->parents[] = new Section($id); } }
 		}
 	}
 ?>

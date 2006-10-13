@@ -1,24 +1,24 @@
 ---------------------------------------------------------------------
--- Category tables
+-- Section tables
 ---------------------------------------------------------------------
-create table categories (
+create table sections (
   id int(10) unsigned not null primary key auto_increment,
   name varchar(50) not null unique
 ) engine=InnoDB;
 insert categories values(1,'root');
 
-create table category_parents (
-  category_id int(10) unsigned not null,
+create table section_parents (
+  section_id int(10) unsigned not null,
   parent_id int(10) unsigned not null,
-  foreign key (category_id) references categories (id),
+  foreign key (section_id) references categories (id),
   foreign key (parent_id) references categories (id)
 ) engine=InnoDB;
 
-create table categoryIndex (
-  category_id int(10) unsigned not null,
+create table sectionIndex (
+  section_id int(10) unsigned not null,
   preOrder int(10) unsigned default null,
   postOrder int(10) unsigned default null,
-  foreign key (category_id) references categories (id)
+  foreign key (section_id) references categories (id)
 ) engine=InnoDB;
 
 ---------------------------------------------------------------------
@@ -50,14 +50,16 @@ create table facetIndex (
 ---------------------------------------------------------------------
 create table documents (
   id int(10) unsigned not null primary key auto_increment,
-  dateTimeCreated timestamp not null default current_timestamp
+  dateTimeCreated timestamp not null default current_timestamp,
+  department varchar(50),
+  foreign key (department) references departments(department)
 ) engine=InnoDB;
 
 create table document_categories (
   document_id int(10) unsigned not null,
-  category_id int(10) unsigned not null,
+  section_id int(10) unsigned not null,
   foreign key (document_id) references documents (id),
-  foreign key (category_id) references categories (id)
+  foreign key (section_id) references categories (id)
 ) engine=InnoDB;
 
 create table document_facets (
@@ -78,6 +80,7 @@ create table users (
   authenticationMethod varchar(40) not null default 'LDAP',
   firstname varchar(128) not null,
   lastname varchar(128) not null,
+  department varchar(50),
   unique key (username)
 ) engine=InnoDB;
 
@@ -95,3 +98,6 @@ create table user_roles (
   foreign key (role_id) references roles (id)
 ) engine=InnoDB;
 
+create table departments (
+	department varchar(50) not null primary key
+) engine=InnoDB;

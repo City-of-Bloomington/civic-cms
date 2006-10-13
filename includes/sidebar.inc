@@ -3,17 +3,17 @@
 * @copyright Copyright (C) 2006 Cliff Ingham. All rights reserved.
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
 */
-	function listCategories($categoryList)
+	function listSections($sectionList)
 	{
-		foreach($categoryList as $category)
+		foreach($sectionList as $section)
 		{
-			echo "<li><a href=\"".BASE_URL."/categories/viewCategory.php?category_id={$category->getId()}\">";
-			echo View::sanitizeString($category->getName());
+			echo "<li><a href=\"".BASE_URL."/sections/viewSection.php?section_id={$section->getId()}\">";
+			echo View::sanitizeString($section->getName());
 			echo "</a>";
-			if ($category->hasChildren())
+			if ($section->hasChildren())
 			{
 				echo "<ul>";
-				listCategories($category->getChildren());
+				listSections($section->getChildren());
 				echo "</ul>";
 			}
 			echo "</li>";
@@ -22,11 +22,11 @@
 ?>
 <div id="sidebar">
 	<div>
-		<div class="titleBar"><a href="<?php echo BASE_URL; ?>/categories">Categories</a></div>
+		<div class="titleBar"><a href="<?php echo BASE_URL; ?>/sections">Sections</a></div>
 		<ul>
 			<?php
-				$categories = new CategoryList(array("parent_id"=>1));
-				listCategories($categories);
+				$sections = new SectionList(array("parent_id"=>1));
+				listSections($sections);
 			?>
 		</ul>
 	</div>
