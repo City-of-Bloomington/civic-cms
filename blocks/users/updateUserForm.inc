@@ -19,6 +19,21 @@
 		<td><input name="user[username]" id="user-username" value="<?php echo $this->user->getUsername(); ?>" /></td></tr>
 	<tr><td><label for="user-password">Password</label></td>
 		<td><input name="user[password]" id="user-password" /></td></tr>
+	<tr><td><label for="user-department_id">Department</label></td>
+		<td><select name="user[department_id]" id="user-department_id">
+			<?php
+				$departments = new DepartmentList();
+				$departments->find();
+				foreach($departments as $department)
+				{
+					if ($this->user->getDepartment_id() == $department->getId())
+						{ echo "<option value=\"{$department->getId()}\" selected=\"selected\">{$department->getName()}</option>"; }
+					else { echo "<option value=\"{$department->getId()}\">{$department->getName()}</option>"; }
+				}
+			?>
+			</select>
+		</td>
+	</tr>
 	<tr><td><label for="user-roles">Roles</label></td>
 		<td><select name="user[roles][]" id="user-roles" size="5" multiple="multiple">
 			<?php

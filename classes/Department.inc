@@ -3,10 +3,10 @@
  * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  */
-	class Role extends ActiveRecord
+	class Department extends ActiveRecord
 	{
 		private $id;
-		private $role;
+		private $name;
 
 
 
@@ -20,7 +20,7 @@
 
 			if ($id)
 			{
-				$sql = "select * from roles where id=?";
+				$sql = "select * from departments where id=?";
 				try
 				{
 					$query = $PDO->prepare($sql);
@@ -37,7 +37,7 @@
 				# Set any default values for properties that need it here
 			}
 		}
-
+	
 
 		/**
 		 * This generates generic SQL that should work right away.
@@ -49,7 +49,7 @@
 			# Check for required fields here.  Throw an exception if anything is missing.
 
 			$fields = array();
-			$fields['role'] = $this->role ? $this->role : null;
+			$fields['name'] = $this->name ? $this->name : null;
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
@@ -71,7 +71,7 @@
 		{
 			global $PDO;
 
-			$sql = "update roles set $preparedFields where id={$this->id}";
+			$sql = "update departments set $preparedFields where id={$this->id}";
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 			if (false === $query->execute($values)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 		}
@@ -80,7 +80,7 @@
 		{
 			global $PDO;
 
-			$sql = "insert roles set $preparedFields";
+			$sql = "insert departments set $preparedFields";
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 			if (false === $query->execute($values)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 			$this->id = $PDO->lastInsertID();
@@ -88,10 +88,10 @@
 
 
 		public function getId() { return $this->id; }
-		public function getRole() { return $this->role; }
+		public function getName() { return $this->name; }
 
 
-		public function setRole($string) { $this->role = trim($string); }
+		public function setName($string) { $this->name = trim($string); }
 
 
 	}

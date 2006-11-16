@@ -32,6 +32,21 @@
 			</select>
 		</td>
 	</tr>
+	<tr><td><label for="section-department_id">Department</label></td>
+		<td><select name="section[department_id]" id="section-department_id">
+			<?php
+				$departments = new DepartmentList();
+				$departments->find();
+				foreach($departments as $department)
+				{
+					if ($this->section->getDepartment_id() == $department->getId())
+						{ echo "<option value=\"{$department->getId()}\" selected=\"selected\">{$department->getName()}</option>"; }
+					else { echo "<option value=\"{$department->getId()}\">{$department->getName()}</option>"; }
+				}
+			?>
+			</select>
+		</td>
+	</tr>
 	</table>
 
 	<button type="submit" class="submit">Submit</button>

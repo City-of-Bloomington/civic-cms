@@ -6,7 +6,7 @@
 /*
 	$this->section
 */
-	if (userHasRole('Administrator'))
+	if (userHasRole('Publisher') && $_SESSION['USER']->getDepartment_id()==$this->section->getDepartment_id())
 	{
 		echo "
 		<div class=\"contextualMenu\">

@@ -43,20 +43,16 @@ foreach($tables as $tableName)
 
 			if (\$$key[Column_name])
 			{
-				\$sql = \"select * from $tableName where $key[Column_name]=\$$key[Column_name]\";
-				\$result = \$PDO->query(\$sql);
-				if (\$result)
+				\$sql = \"select * from $tableName where $key[Column_name]=?\";
+				try
 				{
-					if (\$row = \$result->fetch())
-					{
-						# You may want to replace this line to do your own custom loading
-						foreach(\$row as \$field=>\$value) { if (\$value) \$this->\$field = \$value; }
-
-						\$result->closeCursor();
-					}
-					else { throw new Exception(\$sql); }
+					\$query = \$PDO->prepare(\$sql);
+					\$query->execute(array(\$$key[Column_name]));
 				}
-				else { \$e = \$PDO->errorInfo(); throw new Exception(\$sql.\$e[2]); }
+				catch (Exception \$e) { throw \$e; }
+
+				\$result = \$query->fetchAll();
+				foreach(\$result[0] as \$field=>\$value) { if (\$value) \$this->\$field = \$value; }
 			}
 			else
 			{
@@ -101,7 +97,7 @@ foreach($tables as $tableName)
 		$field = substr($property,0,-3);
 		$fieldFunctionName = ucwords($field);
 		$getters.= "
-		public get$fieldFunctionName()
+		public function get$fieldFunctionName()
 		{
 			if (\$this->$property)
 			{
@@ -160,7 +156,7 @@ foreach($tables as $tableName)
 	{
 		$property = substr($field,0,-3);
 		$object = ucfirst($property);
-		$setters.= "\t\tpublic function set$object(\$$object) { \$this->$field = {$object}->getId(); \$this->$property = \$$object; }\n";
+		$setters.= "\t\tpublic function set$object(\$$property) { \$this->$field = \${$property}->getId(); \$this->$property = \$$property; }\n";
 	}
 
 	#--------------------------------------------------------------------------
@@ -189,32 +185,43 @@ $constructor
 			{
 				if ($field['Field'] != $key['Column_name'])
 				{
-					$contents.="\t\t\t\$fields[] = \$this->$field[Field] ? \"$field[Field]='{\$this->$field[Field]}'\" : \"$field[Field]=null\";\n";
+					$contents.="\t\t\t\$fields['$field[Field]'] = \$this->$field[Field] ? \$this->$field[Field] : null;\n";
 				}
 			}
 $contents.= "
-			\$fields = implode(\",\",\$fields);
+			# Split the fields up into a preparedFields array and a values array.
+			# PDO->execute cannot take an associative array for values, so we have
+			# to strip out the keys from \$fields
+			\$preparedFields = array();
+			foreach(\$fields as \$key=>\$value)
+			{
+				\$preparedFields[] = \"\$key=?\";
+				\$values[] = \$value;
+			}
+			\$preparedFields = implode(\",\",\$preparedFields);
 
 
-			if (\$this->$key[Column_name]) { \$this->update(\$fields); }
-			else { \$this->insert(\$fields); }
+			if (\$this->$key[Column_name]) { \$this->update(\$values,\$preparedFields); }
+			else { \$this->insert(\$values,\$preparedFields); }
 		}
 
-		private function update(\$fields)
+		private function update(\$values,\$preparedFields)
 		{
 			global \$PDO;
 
-			\$sql = \"update $tableName set \$fields where $key[Column_name]={\$this->$key[Column_name]}\";
-			if (false === \$PDO->exec(\$sql)) { \$e = \$PDO->errorInfo(); throw new Exception(\$sql.\$e[2]); }
+			\$sql = \"update $tableName set \$preparedFields where id={\$this->id}\";
+			if (false === \$query = \$PDO->prepare(\$sql)) { \$e = \$PDO->errorInfo(); throw new Exception(\$sql.\$e[2]); }
+			if (false === \$query->execute(\$values)) { \$e = \$PDO->errorInfo(); throw new Exception(\$sql.\$e[2]); }
 		}
 
-		private function insert(\$fields)
+		private function insert(\$values,\$preparedFields)
 		{
 			global \$PDO;
 
-			\$sql = \"insert $tableName set \$fields\";
-			if (false === \$PDO->exec(\$sql)) { \$e = \$PDO->errorInfo(); throw new Exception(\$sql.\$e[2]); }
-			\$this->$key[Column_name] = \$PDO->lastInsertID();
+			\$sql = \"insert $tableName set \$preparedFields\";
+			if (false === \$query = \$PDO->prepare(\$sql)) { \$e = \$PDO->errorInfo(); throw new Exception(\$sql.\$e[2]); }
+			if (false === \$query->execute(\$values)) { \$e = \$PDO->errorInfo(); throw new Exception(\$sql.\$e[2]); }
+			\$this->id = \$PDO->lastInsertID();
 		}
 
 

@@ -5,8 +5,8 @@
  */
 ?>
 <div class="administrator">
-	<div class="titleBar">Admin</div>
+	<div class="titleBar">Webmaster</div>
 	<ul>
-		<li><a href="<?php echo BASE_URL; ?>/users">Users</a></li>
+		<li><a href="<?php echo BASE_URL; ?>/sections">Sections</a></li>
 	</ul>
 </div>

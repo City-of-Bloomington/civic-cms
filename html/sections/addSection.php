@@ -1,5 +1,5 @@
 <?php
-	verifyUser("Administrator");
+	verifyUser("Webmaster");
 
 	$template = new Template();
 	$template->blocks[] = new Block("sections/addSectionForm.inc");

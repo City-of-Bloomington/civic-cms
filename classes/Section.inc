@@ -7,10 +7,12 @@
 	{
 		private $id;
 		private $name;
+		private $department_id;
 
+		private $department;
 		private $content;	# Homepage content for sections will be stored in files
-
 		private $parents;
+		private $documents;
 
 
 		/**
@@ -23,20 +25,16 @@
 
 			if ($id)
 			{
-				$sql = "select * from sections where id=$id";
-				$result = $PDO->query($sql);
-				if ($result)
+				$sql = "select * from sections where id=?";
+				try
 				{
-					if ($row = $result->fetch())
-					{
-						# You may want to replace this line to do your own custom loading
-						foreach($row as $field=>$value) { if ($value) $this->$field = $value; }
-
-						$result->closeCursor();
-					}
-					else { throw new Exception($sql); }
+					$query = $PDO->prepare($sql);
+					$query->execute(array($id));
 				}
-				else { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
+				catch (Exception $e) { throw $e; }
+
+				$result = $query->fetchAll();
+				foreach($result[0] as $field=>$value) { if ($value) $this->$field = $value; }
 			}
 			else
 			{
@@ -54,33 +52,47 @@
 		public function save()
 		{
 			# Check for required fields here.  Throw an exception if anything is missing.
+			if (!$this->name || !$this->department_id) { throw new Exception("missingRequiredFields"); }
 
 			$fields = array();
-			$fields[] = $this->name ? "name='{$this->name}'" : "name=null";
+			$fields['name'] = $this->name ? $this->name : null;
+			$fields['department_id'] = $this->department_id ? $this->department_id : null;
 
-			$fields = implode(",",$fields);
+			# Split the fields up into a preparedFields array and a values array.
+			# PDO->execute cannot take an associative array for values, so we have
+			# to strip out the keys from $fields
+			$preparedFields = array();
+			foreach($fields as $key=>$value)
+			{
+				$preparedFields[] = "$key=?";
+				$values[] = $value;
+			}
+			$preparedFields = implode(",",$preparedFields);
 
-			if ($this->id) { $this->update($fields); }
-			else { $this->insert($fields); }
+
+			if ($this->id) { $this->update($values,$preparedFields); }
+			else { $this->insert($values,$preparedFields); }
 
 			$this->updateParents();
 			$this->saveContent();
 		}
 
-		private function update($fields)
+		private function update($values,$preparedFields)
 		{
 			global $PDO;
 
-			$sql = "update sections set $fields where id={$this->id}";
-			if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
+			$sql = "update sections set $preparedFields where id={$this->id}";
+			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
+			if (false === $query->execute($values)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 		}
 
-		private function insert($fields)
+		private function insert($values,$preparedFields)
 		{
 			global $PDO;
 
-			$sql = "insert sections set $fields";
-			if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
+			$sql = "insert sections set $preparedFields";
+			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
+			if (false === $query->execute($values)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 			$this->id = $PDO->lastInsertID();
 		}
 
@@ -158,6 +170,16 @@
 		public function getId() { return $this->id; }
 		public function getName() { return $this->name; }
 		public function getChildren() { return new SectionList(array('parent_id'=>$this->id)); }
+		public function getDepartment_id() { return $this->department_id; }
+		public function getDepartment()
+		{
+			if ($this->department_id)
+			{
+				if (!$this->department) { $this->department = new Department($this->department_id); }
+				return $this->department;
+			}
+			else return null;
+		}
 		public function getContent()
 		{
 			if (!$this->content)
@@ -184,9 +206,16 @@
 			}
 			return $this->parents;
    		}
+   		public function getDocuments()
+   		{
+			if (!count($this->documents)) { $this->documents = new DocumentList(array('section_id'=>$this->id)); }
+			return $this->documents;
+   		}
 
 
 		public function setName($string) { $this->name = trim($string); }
+		public function setDepartment_id($int) { $this->department = new Department($int); $this->department_id = $int; }
+		public function setDepartment($department) { $this->department_id = $department->getId(); $this->department = $department; }
 		public function setContent($string) { $this->content = trim($string); }
 		/**
 		 * Takes an array of parent_id's to be associated with this section

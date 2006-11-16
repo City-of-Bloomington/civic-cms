@@ -2,7 +2,7 @@
 /*
 	$_GET variables:	section_id
 */
-	verifyUser('Administrator');
+	verifyUser('Webmaster');
 
 	$template = new Template();
 	$form = new Block("sections/updateSectionForm.inc");

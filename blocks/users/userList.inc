@@ -29,6 +29,7 @@
 				<td>{$user->getUsername()}</td>
 				<td>{$user->getFirstname()} {$user->getLastname()}</td>
 				<td>{$user->getAuthenticationMethod()}</td>
+				<td>{$user->getDepartment()->getName()}</td>
 				<td>
 			";
 					foreach($user->getRoles() as $role) { echo "$role "; }

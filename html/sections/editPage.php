@@ -6,13 +6,27 @@
 /*
 	$_GET variables:	section_id
 */
-	verifyUser('Administrator');
-
-	$template = new Template("transitional");
-	if (isset($_GET['section_id'])) { $section = new Section($_GET['section_id']); }
+	verifyUser('Publisher');
+	if (isset($_GET['section_id']))
+	{
+		$section = new Section($_GET['section_id']);
+		if (!$_SESSION['USER']->canEdit($section))
+		{
+			$_SESSION['errorMessages'][] = "noAccessAllowed";
+			Header("Location: viewSection.php?section_id={$section->getId()}");
+			exit();
+		}
+	}
 	if (isset($_POST['content']))
 	{
 		$section = new Section($_POST['id']);
+		if (!$_SESSION['USER']->canEdit($section))
+		{
+			$_SESSION['errorMessages'][] = "noAccessAllowed";
+			Header("Location: viewSection.php?section_id={$section->getId()}");
+			exit();
+		}
+
 		$section->setContent($_POST['content']);
 
 		try
@@ -29,6 +43,7 @@
 	$FCKeditor->ToolbarSet = 'Custom';
 	$FCKeditor->Value = $section->getContent();
 
+	$template = new Template("transitional");
 	$template->blocks[] = new Block("sections/editPageForm.inc",array('section'=>$section,'FCKeditor'=>$FCKeditor));
 	$template->render();
 ?>

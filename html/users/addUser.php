@@ -1,18 +1,12 @@
 <?php
+/**
+ * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+ */
 /*
-	$_POST variables:	user [ authenticationMethod		# Optional
-								username				password
-								roles					firstname
-														lastname
-														department
-														phone
-							]
+	$_POST variables:	user
 */
 	verifyUser("Administrator");
-
-	$view = new View();
-	$form = new Block("users/addUserForm.inc");
-
 	if (isset($_POST['user']))
 	{
 		$user = new User();
@@ -22,14 +16,13 @@
 			$user->$set($value);
 		}
 
+		# Load their information from LDAP
+		# Delete this statement if you're not using LDAP
 		if ($user->getAuthenticationMethod() == "LDAP")
 		{
-			# Load the rest of their stuff from LDAP
 			$ldap = new LDAPEntry($user->getUsername());
 			$user->setFirstname($ldap->getFirstname());
 			$user->setLastname($ldap->getLastname());
-			$user->setDepartment($ldap->getDepartment());
-			$user->setPhone($ldap->getPhone());
 		}
 
 		try
@@ -38,13 +31,10 @@
 			Header("Location: home.php");
 			exit();
 		}
-		catch (Exception $e)
-		{
-			$_SESSION['errorMessages'][] = $e;
-			$form->user = $user;
-		}
+		catch (Exception $e) { $_SESSION['errorMessages'][] = $e; }
 	}
 
-	$view->blocks[] = $form;
-	$view->render();
+	$template = new Template();
+	$template->blocks[] = new Block("users/addUserForm.inc");
+	$template->render();
 ?>

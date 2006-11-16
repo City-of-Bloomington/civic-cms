@@ -1,22 +1,8 @@
 <?php
 /**
-* @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
-* @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
-* This file is part of the City of Bloomington's web application Scaffolding.
-* This Scaffolding is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation; either version 2 of the License, or
-* (at your option) any later version.
-*
-* This Scaffolding is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this scaffolding; if not, write to the Free Software
-* Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
-*/
+ * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+ */
 	class User extends SystemUser
 	{
 		private $id;
@@ -26,7 +12,10 @@
 
 		private $firstname;
 		private $lastname;
+		private $department_id;
 
+
+		private $department;
 		private $roles;
 
 		public function __construct($id = null)
@@ -36,12 +25,20 @@
 			if ($id)
 			{
 				# Load an existing user
-				if (is_numeric($id)) { $sql = "select * from users where id=$id"; }
-				else { $sql = "select * from users where username='$id'"; }
-
-				$result = $PDO->query($sql);
-				if ($user = $result->fetch())
+				if (is_numeric($id)) { $sql = "select * from users where id=?"; }
+				else { $sql = "select * from users where username=?"; }
+				try
 				{
+					$query = $PDO->prepare($sql);
+					$query->execute(array($id));
+				}
+				catch (Exception $e) { throw $e; }
+
+				$result = $query->fetchAll();
+				if (count($result[0]))
+				{
+					$user = $result[0];
+
 					$this->id = $user['id'];
 					$this->username = $user['username'];
 					# Passwords are one-way encrypted.  They should not be loaded by default
@@ -49,8 +46,7 @@
 
 					$this->firstname = $user['firstname'];
 					$this->lastname = $user['lastname'];
-
-					$result->closeCursor();
+					$this->department_id = $user['department_id'];
 				}
 				else { throw new Exception("unknownUser"); }
 			}
@@ -62,14 +58,30 @@
 			if (!$this->username || !$this->firstname || !$this->lastname) { throw new Exception("missingRequiredFields"); }
 
 			$fields = array();
-			$fields[] = "username='{$this->username}'";
-			$fields[] = "firstname='{$this->firstname}'";
-			$fields[] = "lastname='{$this->lastname}'";
-			if ($this->authenticationMethod) { $fields[] = "authenticationMethod='{$this->authenticationMethod}'"; } else { $fields[] = "authenticationMethod=null"; }
-			$fields = implode(",",$fields);
+			$fields['username'] = $this->username;
+			# Passwords should not be updated by default.  Use the savePassword() function
+			$fields['firstname'] = $this->firstname ? $this->firstname : null;
+			$fields['lastname'] = $this->lastname ? $this->lastname : null;
+			$fields['authenticationMethod'] = $this->authenticationMethod ? $this->authenticationMethod : null;
+			$fields['department_id'] = $this->department_id ? $this->department_id : null;
 
-			if ($this->id) { $this->update($fields); }
-			else { $this->insert($fields); }
+			# Split the fields up into a preparedFields array and a values array.
+			# PDO->execute cannot take an associative array for values, so we have
+			# to strip out the keys from $fields
+			$preparedFields = array();
+			foreach($fields as $key=>$value)
+			{
+				$preparedFields[] = "$key=?";
+				$values[] = $value;
+			}
+			$preparedFields = implode(",",$preparedFields);
+
+			# Do the database calls
+			if ($this->id) { $this->update($values,$preparedFields); }
+			else { $this->insert($values,$preparedFields); }
+
+			# Save the password only if they've typed one
+			if ($this->getPassword()) { $this->savePassword(); }
 
 			$this->updateRoles();
 		}
@@ -89,27 +101,23 @@
 			$PDO->commit();
 		}
 
-		private function update($fields)
+		private function update($values,$preparedFields)
 		{
 			global $PDO;
 
-			$sql = "update users set $fields where id={$this->id}";
-
-			if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
+			$sql = "update users set $preparedFields where id={$this->id}";
+			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
+			if (false === $query->execute($values)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 		}
 
-		private function insert($fields)
+		private function insert($values,$preparedFields)
 		{
 			global $PDO;
 
-			$sql = "insert users set $fields";
-
-
-			if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
+			$sql = "insert users set $preparedFields";
+			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
+			if (false === $query->execute($values)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 			$this->id = $PDO->lastInsertID();
-
-			# Save the initial password if we've added one
-			if ($this->getPassword()) { $this->savePassword(); }
 		}
 
 
@@ -147,6 +155,7 @@
 			else { return false; }
 			$result->closeCursor();
 		}
+
 		/* Takes a string or an array of strings and checks if the user has that role */
 		public function hasRole($roles)
 		{
@@ -158,13 +167,31 @@
 			else { return in_array($roles,$this->getRoles()); }
 		}
 
+		/**
+		 * In this system, users can only edit stuff if they're in the same department
+		 * as the thing they're trying to edit
+		 */
+		public function canEdit($object)
+		{
+			return $this->department_id == $object->getDepartment_id();
+		}
+
 		public function getId() { return $this->id; }
 		public function getUsername() { return $this->username; }
 		public function getPassword() { return $this->password; }
 		public function getAuthenticationMethod() { return $this->authenticationMethod; }
 		public function getFirstname() { return $this->firstname; }
 		public function getLastname() { return $this->lastname; }
-
+		public function getDepartment_id() { return $this->department_id; }
+		public function getDepartment()
+		{
+			if ($this->department_id)
+			{
+				if (!$this->department) { $this->department = new Department($this->department_id); }
+				return $this->department;
+			}
+			else return null;
+		}
 		public function getRoles()
 		{
 			global $PDO;
@@ -187,6 +214,8 @@
 		public function setAuthenticationMethod($string) { $this->authenticationMethod = $string; }
 		public function setFirstname($string) { $this->firstname = trim($string); }
 		public function setLastname($string) { $this->lastname = trim($string); }
+		public function setDepartment_id($int) { $this->department = new Department($int); $this->department_id = $int; }
+		public function setDepartment($department) { $this->department_id = $department->getId(); $this->department = $department; }
 		/* Takes an array of role names.  Needs to look up the role_id and add them to the user */
 		public function setRoles($array)
 		{

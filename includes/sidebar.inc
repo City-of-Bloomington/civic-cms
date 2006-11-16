@@ -1,8 +1,8 @@
 <?php
 /**
-* @copyright Copyright (C) 2006 Cliff Ingham. All rights reserved.
-* @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
-*/
+ * @copyright Copyright (C) 2006 Cliff Ingham. All rights reserved.
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+ */
 	function listSections($sectionList)
 	{
 		foreach($sectionList as $section)
@@ -31,7 +31,10 @@
 		</ul>
 	</div>
 	<?php
-		if (!isset($_SESSION['USER'])) { include(FRAMEWORK."/sidebarBoxes/loginBox.inc"); }
-		else { if (in_array("Administrator",$_SESSION['USER']->getRoles())) { include(APPLICATION_HOME."/includes/sidebarBoxes/Administrator.inc"); } }
+		if (isset($_SESSION['USER']))
+		{
+			if (in_array("Administrator",$_SESSION['USER']->getRoles())) { include(APPLICATION_HOME."/includes/sidebarBoxes/Administrator.inc"); }
+			if (in_array("Webmaster",$_SESSION['USER']->getRoles())) { include(APPLICATION_HOME."/includes/sidebarBoxes/Webmaster.inc"); }
+		}
 	?>
 </div>

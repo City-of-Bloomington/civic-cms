@@ -11,6 +11,7 @@ foreach($PDO->query("show tables") as $row) { list($tables[]) = $row; }
 
 foreach($tables as $tableName)
 {
+	$fields = array();
 	foreach($PDO->query("describe $tableName") as $row)
 	{
 		$type = ereg_replace("[^a-z]","",$row['Type']);
