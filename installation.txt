@@ -12,34 +12,19 @@ Contents
 ---------------------------------------------------------------------
 About
 ---------------------------------------------------------------------
-	This scaffolding is really just a template for our web
-applications.  It provides us the basics to get a web application up
-and running very quickly.  It also means our applications will be
-relatively uniform and easier to extend and maintain down the road.
-	While not fully MVC, it has heavily borrowed ideas from Rails
-and Struts.  It has developed over time, and will continue to develop
-as we come across better solutions to problems run into while creating
-new applications.
+	This is the content manager we use for the city of Bloomington's
+website.
 
 ---------------------------------------------------------------------
 Copyright
 ---------------------------------------------------------------------
-	This scaffolding is written and copyrighted by the
+	This content manager is written and copyrighted by the
 City of Bloomington, IN.  It is being released as free software;
 you can redistribute it and/or modify it under the terms of the
 GNU General Public License as published by the Free Software Foundation;
 either version 2 of the License, or (at your option) any later version.
 
-	This scaffolding includes code generators to create classes to
-work with your database.  While the generators fall under the GPL,
-any code you generate with them belongs to you.  However, we highly
-encourage you to uphold the values of Free Software and release your
-application as Free Software as well.
-
-	In any case, you own the copyright to any generated code and should
-edit the copyright statement that will be generated in
-/scripts/generateClasses.php and /scripts/generateLists.php
-as needed.
+See: LICENSE.txt
 
 
 ---------------------------------------------------------------------
@@ -80,14 +65,21 @@ LDAP:
 If you're not going to do any LDAP authentication, you can delete or
 comment out the LDAP stuff.
 
+Subversion:
+	Content is versioned using subversion.  You will need subversion
+installed on your webserver, so that PHP can call the svn commands
+to keep track of the documents.
+	The repository does not have to be located on the webserver,
+however, in our case, we just create the repository inside the
+web application directory once it's installed.
+
 ---------------------------------------------------------------------
 Installation
 ---------------------------------------------------------------------
-	This scaffolding is essentially a working web application that is
-ready to be extended.  It has authentication and user management
-already built.
+	Put the web application somewhere accessible by Apache.
 
-	The best way is to have PHP auto_prepend the configuration.inc.
+	All of the application's settings are set in configuration.inc.
+The best way is to have PHP auto_prepend the configuration.inc.
 If this is the only web application on your apache server, you can just point
 your apache's web directory to the html directory inside the application and
 edit the auto_prepend in your php.ini file.
@@ -120,3 +112,22 @@ add an include() command to the top of every last PHP script in the html directo
 Configuration
 ---------------------------------------------------------------------
 	Edit configuration.inc with appropriate values for your installation.
+
+
+---------------------------------------------------------------------
+Subversion
+---------------------------------------------------------------------
+	This application uses subversion to track changes to the documents.
+You will need to set up a repository that PHP can checkout and commit to.
+Typically you just create the repository in the application's directory
+once it's installed.
+
+cd /path/to/application_name
+svnadmin create repository
+cd ../data
+svn import file:///var/www/sites/content_manager/repository -m 'Initial repository population.'
+cd ..
+rm -Rf data
+svn checkout file:///var/www/sites/content_manager/repository/ data
+chown -R apache repository
+chown -R apache data

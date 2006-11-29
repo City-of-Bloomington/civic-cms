@@ -59,6 +59,13 @@
 	define("LDAP_SERVER","ldap.bloomington.in.gov");
 	define("LDAP_PASSWORD_ATTRIBUTE","userpassword");
 
+	/**
+	 * Subversion setup
+	 * This is required in order to use Subversion to version documents
+	 * If you do not want to use Subversion, you can comment this out
+	 */
+	 define("SVN","/usr/local/bin/svn");
+
 
 	/**
 	 * Import global functions that we use for many applications we write

@@ -55,7 +55,7 @@
 		public function save()
 		{
 			# Check for required fields here.  Throw an exception if anything is missing.
-			if (!$this->department_id || !count($this->sections)) { throw new Exception('missingRequiredFields'); }
+			if (!$this->department_id || !count($this->getSections())) { throw new Exception('missingRequiredFields'); }
 
 			$fields = array();
 			$fields['dateTimeCreated'] = $this->dateTimeCreated ? $this->dateTimeCreated : null;
@@ -105,8 +105,15 @@
 		private function saveContent()
 		{
 			$directory = $this->getContentDirectory();
+			$file = "$directory/{$this->id}.xhtml";
+
 			if (!is_dir($directory)) { mkdir($directory,0775,true); }
-			file_put_contents("$directory/{$this->id}.xhtml",$this->getContent());
+			file_put_contents($file,$this->getContent());
+
+			$sandbox = new SubversionWorkingCopy(APPLICATION_HOME."/data");
+			$out = $sandbox->status($file);
+			if (count($out) && $out[0]{0} == "?") { $sandbox->add($file); }
+			$sandbox->commit($file,$_SESSION['USER']->getUsername());
 		}
 		private function getContentDirectory()
 		{
