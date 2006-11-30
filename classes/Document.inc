@@ -105,7 +105,7 @@
 		private function saveContent()
 		{
 			$directory = $this->getContentDirectory();
-			$file = "$directory/{$this->id}.xhtml";
+			$file = "$directory/{$this->id}.$_SESSION[LANGUAGE]";
 
 			list($year,$month,$day) = explode("-",$this->getDateCreated());
 
@@ -121,6 +121,28 @@
 			if (count($out) && $out[0]{0} == "?") { $sandbox->add($file); }
 			$sandbox->commit(APPLICATION_HOME."/data/documents/$year",$_SESSION['USER']->getUsername());
 		}
+		public function getContent()
+		{
+			# Content won't exist as a file until it's been saved to the database
+			# The database will give it an ID and a dateTimeCreated
+			if ($this->id)
+			{
+				if (!$this->content)
+				{
+					$directory = $this->getContentDirectory();
+					# Try to load the preferred language version of the document
+					if (file_exists("$directory/{$this->id}.$_SESSION[LANGUAGE]"))
+					{
+						$this->content = file_get_contents("$directory/{$this->id}.$_SESSION[LANGUAGE]");
+					}
+					#elseif (file_exists("$directory/{$this->id}.".DEFAULT_LANGUAGE))
+					#{
+					#	$this->content = file_get_contents("$directory/{$this->id}.".DEFAULT_LANGUAGE);
+					#}
+				}
+			}
+			return $this->content;
+		}
 		private function getContentDirectory()
 		{
 			if (!$this->contentDirectory)
@@ -129,6 +151,16 @@
 				$this->contentDirectory = APPLICATION_HOME."/data/documents/$year/$month/$day";
 			}
 			return $this->contentDirectory;
+		}
+		public function getLanguages()
+		{
+			$languages = array();
+			foreach(glob($this->getContentDirectory()."/{$this->id}.*") as $file)
+			{
+				list($id,$ext) = explode(".",basename($file));
+				$languages[] = new Language($ext);
+			}
+			return $languages;
 		}
 
 		private function saveSections()
@@ -182,23 +214,6 @@
 				}
 			}
 			return $this->sections;
-		}
-		public function getContent()
-		{
-			# Content won't exist as a file until it's been saved to the database
-			# The database will give it an ID and a dateTimeCreated
-			if ($this->id)
-			{
-				if (!$this->content)
-				{
-					$directory = $this->getContentDirectory();
-					if (file_exists("$directory/{$this->id}.xhtml"))
-					{
-						$this->content = file_get_contents("$directory/{$this->id}.xhtml");
-					}
-				}
-			}
-			return $this->content;
 		}
 		public function getDateCreated()
 		{

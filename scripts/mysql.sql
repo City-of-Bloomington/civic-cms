@@ -151,3 +151,21 @@ create table section_widgets (
 	foreign key (section_id) references sections(id),
 	foreign key (widget_name) references widgets(name)
 ) engine=InnoDB;
+
+---------------------------------------------------------------------
+-- Languages
+---------------------------------------------------------------------
+create table languages (
+	code char(2) not null primary key,
+	english varchar(128) not null,
+	native varchar(128) not null
+) engine=InnoDB CHARACTER SET utf8;
+insert languages values
+('en','English','English'),
+('fr','French','Français'),
+('es','Spanish','Español'),
+('de','German','Deutsch'),
+('it','Italian','Italiano'),
+('ko','Korean','한국어'),
+('ja','Japanese','日本語'),
+('zh','Chinese','中文');

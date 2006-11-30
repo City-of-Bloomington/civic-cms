@@ -6,5 +6,19 @@
 /*
 	$this->document
 */
+	$languages = $this->document->getLanguages();
+	#if (count($languages) > 1)
+	#{
+		$page = new URL($_SERVER['REQUEST_URI']);
+		echo "<div>";
+		foreach($languages as $language)
+		{
+			$page->parameters['lang'] = $language->getCode();
+			echo "<a href=\"{$page->getURL()}\">{$language->getNative()}</a>";
+		}
+		echo "</div>";
+	#}
+
+
 	echo $this->document->getContent();
 ?>

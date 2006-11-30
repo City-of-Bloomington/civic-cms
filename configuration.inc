@@ -76,4 +76,16 @@
 	 * Session Startup
 	 */
 	session_start();
+
+	/**
+	 * Language Negotiation
+	 * Order of precedence: GET,SESSION, HTTP_ACCEPT_LANGUAGE, en
+	 */
+	 define("DEFAULT_LANGUAGE","en");
+	 if (isset($_GET['lang'])) { $_SESSION['LANGUAGE'] = strtolower(substr($_GET['lang'],0,2)); }
+	 if (!isset($_SESSION['LANGUAGE']))
+	 {
+	 	if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) { $_SESSION['LANGUAGE'] = strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'],0,2)); }
+	 	else { $_SESSION['LANGUAGE'] = DEFAULT_LANGUAGE; }
+	 }
 ?>
