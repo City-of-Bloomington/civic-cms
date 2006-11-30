@@ -13,6 +13,7 @@
 		private $content;	# Homepage content for sections will be stored in files
 		private $parents;
 		private $documents;
+		private $widgets = array();
 
 
 		/**
@@ -210,6 +211,40 @@
    		{
 			if (!count($this->documents)) { $this->documents = new DocumentList(array('section_id'=>$this->id)); }
 			return $this->documents;
+   		}
+   		public function getWidgets()
+   		{
+   			global $PDO;
+
+   			if (!count($this->widgets))
+   			{
+				$this->widgets = array();
+
+				$sql = "select * from section_widgets where section_id={$this->id} order by layout_order";
+				foreach($PDO->query($sql) as $row) { $this->widgets[$row['layout_order']] = Widget::load($row['widget_name']); }
+			}
+			return $this->widgets;
+   		}
+   		public function hasWidget($name)
+   		{
+			foreach($this->getWidgets() as $widget) { if ($widget->getName() == $name) { return true; } }
+			return false;
+   		}
+   		public function addWidget($widget)
+   		{
+			if (!$this->hasWidget($widget->getName())) { $this->widgets[] = $widget; }
+   		}
+   		public function saveWidgets()
+   		{
+   			global $PDO;
+			$query = $PDO->prepare("delete from section_widgets where section_id={$this->id}");
+			$query->execute();
+
+			$query = $PDO->prepare("insert section_widgets values($this->id,?,?)");
+			foreach($this->getWidgets() as $key=>$widget)
+			{
+				$query->execute(array($widget->getName,$key));
+			}
    		}
 
 

@@ -36,5 +36,7 @@
 			if (in_array("Administrator",$_SESSION['USER']->getRoles())) { include(APPLICATION_HOME."/includes/sidebarBoxes/Administrator.inc"); }
 			if (in_array("Webmaster",$_SESSION['USER']->getRoles())) { include(APPLICATION_HOME."/includes/sidebarBoxes/Webmaster.inc"); }
 		}
+
+		if (isset($this->widgets)) { foreach($this->widgets as $widget) { $widget->render(); } }
 	?>
 </div>

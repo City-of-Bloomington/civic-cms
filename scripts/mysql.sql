@@ -1,3 +1,4 @@
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 ---------------------------------------------------------------------
 -- Identify all the departments of the city
 ---------------------------------------------------------------------
@@ -28,7 +29,9 @@ create table sections (
   id int(10) unsigned not null primary key auto_increment,
   name varchar(50) not null unique,
   department_id int unsigned not null,
-  foreign key (department_id) references departments(id)
+  document_id int unsigned not null,
+  foreign key (department_id) references departments(id),
+  foreign key (document_id) references documents(id)
 ) engine=InnoDB;
 insert sections values(1,'root',(select id from departments where name="Information & Technology Services (ITS)"));
 
@@ -126,3 +129,22 @@ create table user_roles (
   foreign key (user_id) references users (id),
   foreign key (role_id) references roles (id)
 ) engine=InnoDB;
+
+---------------------------------------------------------------------
+-- Widgets
+---------------------------------------------------------------------
+create table widgets (
+	name varchar(128) not null primary key
+) engine=InnoDB;
+
+create table section_widgets (
+	section_id int unsigned not null,
+	widget_name varchar(128) not null,
+	layout_order tinyint(2) unsigned not null,
+	primary key (section_id,widget_name),
+	unique (section_id,layout_order),
+	foreign key (section_id) references sections(id),
+	foreign key (widget_name) references widgets(name)
+) engine=InnoDB;
+
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
