@@ -12,6 +12,7 @@
 	$template->widgets = $section->getWidgets();
 
 	$template->blocks[] = new Block("sections/viewSection.inc",array('section'=>$section));
+	$template->blocks[] = new Block("documents/viewDocument.inc",array('document'=>$section->getDocument()));
 	$template->blocks[] = new Block("sections/documents.inc",array('section'=>$section));
 
 	$template->render();

@@ -8,9 +8,11 @@
 		private $id;
 		private $name;
 		private $department_id;
+		private $document_id;
 
 		private $department;
-		private $content;	# Homepage content for sections will be stored in files
+		private $document;
+
 		private $parents;
 		private $documents;
 		private $widgets = array();
@@ -55,9 +57,20 @@
 			# Check for required fields here.  Throw an exception if anything is missing.
 			if (!$this->name || !$this->department_id) { throw new Exception("missingRequiredFields"); }
 
+			# New Sections need a default document created for them
+			if (!$this->document_id)
+			{
+				$document = new Document();
+				$document->setDepartment($this->getDepartment());
+				$document->setContent("<h1>{$this->name}</h1>");
+				$document->save();
+				$this->setDocument($document);
+			}
+
 			$fields = array();
 			$fields['name'] = $this->name ? $this->name : null;
 			$fields['department_id'] = $this->department_id ? $this->department_id : null;
+			$fields['document_id'] = $this->document_id ? $this->document_id : null;
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
@@ -75,11 +88,13 @@
 			else { $this->insert($values,$preparedFields); }
 
 			$this->updateParents();
-			$this->saveContent();
 		}
 
 		private function update($values,$preparedFields)
 		{
+			# Make sure we still have a document assigned
+			if (!$this->document_id) { throw new Exception("missingRequiredFields"); }
+
 			global $PDO;
 
 			$sql = "update sections set $preparedFields where id={$this->id}";
@@ -95,12 +110,11 @@
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 			if (false === $query->execute($values)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 			$this->id = $PDO->lastInsertID();
+
+			$this->document->addSection($this);
+			$this->document->save();
 		}
 
-		private function saveContent()
-		{
-			file_put_contents(APPLICATION_HOME."/data/sections/{$this->id}.xhtml",$this->getContent());
-		}
 
 		private function updateParents()
 		{
@@ -172,6 +186,7 @@
 		public function getName() { return $this->name; }
 		public function getChildren() { return new SectionList(array('parent_id'=>$this->id)); }
 		public function getDepartment_id() { return $this->department_id; }
+		public function getDocument_id() { return $this->document_id; }
 		public function getDepartment()
 		{
 			if ($this->department_id)
@@ -181,16 +196,14 @@
 			}
 			else return null;
 		}
-		public function getContent()
+		public function getDocument()
 		{
-			if (!$this->content)
+			if ($this->document_id)
 			{
-				if (file_exists(APPLICATION_HOME."/data/sections/{$this->id}.xhtml"))
-				{
-					$this->content = file_get_contents(APPLICATION_HOME."/data/sections/{$this->id}.xhtml");
-				}
+				if (!$this->document) { $this->document = new Document($this->document_id); }
+				return $this->document;
 			}
-			return $this->content;
+			else return null;
 		}
    		public function getParents()
    		{
@@ -250,8 +263,10 @@
 
 		public function setName($string) { $this->name = trim($string); }
 		public function setDepartment_id($int) { $this->department = new Department($int); $this->department_id = $int; }
+		public function setDocument_id($int) { $this->document = new Document($int); $this->document_id = $int; }
+
 		public function setDepartment($department) { $this->department_id = $department->getId(); $this->department = $department; }
-		public function setContent($string) { $this->content = trim($string); }
+		public function setDocument($document) { $this->document_id = $document->getId(); $this->document = $document; }
 		/**
 		 * Takes an array of parent_id's to be associated with this section
 		 * A Section cannot have itself for a parent

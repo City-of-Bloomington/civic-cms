@@ -17,6 +17,4 @@
 		";
 	}
 	else { echo "<h1>{$this->section->getName()}</h1>"; }
-
-	echo $this->section->getContent();
 ?>

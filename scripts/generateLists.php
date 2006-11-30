@@ -72,13 +72,7 @@ $contents = "<?php
 $copyright
 	class {$className}List extends PDOResultIterator
 	{
-		public function __construct(\$fields=null,\$sort=\"id\")
-		{
-			\$this->select = \"select $tableName.id from $tableName\";
-			\$this->sort = \$sort;
-			if (is_array(\$fields)) \$this->find(\$fields);
-		}
-
+$constructor
 $findFunction
 
 		protected function loadResult(\$key) { return new $className(\$this->list[\$key]); }

@@ -27,11 +27,11 @@
 			exit();
 		}
 
-		$section->setContent($_POST['content']);
+		$section->getDocument()->setContent($_POST['content']);
 
 		try
 		{
-			$section->save();
+			$section->getDocument()->save();
 			Header("Location: viewSection.php?section_id={$section->getId()}");
 			exit();
 		}
@@ -41,7 +41,7 @@
 	$FCKeditor = new FCKeditor("content");
 	$FCKeditor->BasePath = BASE_URL."/FCKeditor/";
 	$FCKeditor->ToolbarSet = 'Custom';
-	$FCKeditor->Value = $section->getContent();
+	$FCKeditor->Value = $section->getDocument()->getContent();
 
 	$template = new Template("transitional");
 	$template->blocks[] = new Block("sections/editPageForm.inc",array('section'=>$section,'FCKeditor'=>$FCKeditor));

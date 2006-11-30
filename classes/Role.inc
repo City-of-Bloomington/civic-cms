@@ -20,7 +20,8 @@
 
 			if ($id)
 			{
-				$sql = "select * from roles where id=?";
+				if (is_numeric($id)) { $sql = "select * from roles where id=?"; }
+				else { $sql = "select * from roles where role=?"; }
 				try
 				{
 					$query = $PDO->prepare($sql);

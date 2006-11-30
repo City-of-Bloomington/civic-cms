@@ -13,7 +13,12 @@
 		}
 
 		try { $section->save(); }
-		catch (Exception $e) { $_SESSION['errorMessages'][] = $e; }
+		catch (Exception $e)
+		{
+			$_SESSION['errorMessages'][] = $e;
+			print_r($e);
+			exit();
+		}
 	}
 	$template->render();
 ?>

@@ -107,13 +107,19 @@
 			$directory = $this->getContentDirectory();
 			$file = "$directory/{$this->id}.xhtml";
 
-			if (!is_dir($directory)) { mkdir($directory,0775,true); }
-			file_put_contents($file,$this->getContent());
+			list($year,$month,$day) = explode("-",$this->getDateCreated());
 
 			$sandbox = new SubversionWorkingCopy(APPLICATION_HOME."/data");
+			if (!is_dir($directory))
+			{
+				mkdir($directory,0775,true);
+				$sandbox->add(APPLICATION_HOME."/data/documents/$year","--force");
+			}
+			file_put_contents($file,$this->getContent());
+
 			$out = $sandbox->status($file);
 			if (count($out) && $out[0]{0} == "?") { $sandbox->add($file); }
-			$sandbox->commit($file,$_SESSION['USER']->getUsername());
+			$sandbox->commit(APPLICATION_HOME."/data/documents/$year",$_SESSION['USER']->getUsername());
 		}
 		private function getContentDirectory()
 		{
