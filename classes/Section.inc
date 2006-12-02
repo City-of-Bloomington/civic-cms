@@ -14,6 +14,7 @@
 		private $document;
 
 		private $parents;
+		private $ancestors = array();
 		private $documents;
 		private $widgets = array();
 
@@ -62,7 +63,7 @@
 			{
 				$document = new Document();
 				$document->setDepartment($this->getDepartment());
-				$document->setContent("<h1>{$this->name}</h1>");
+				$document->setContent("<h2>{$this->name}</h2>");
 				$document->save();
 				$this->setDocument($document);
 			}
@@ -165,18 +166,18 @@
 		{
 			global $PDO;
 
-			$sql = "select count(*) from section_parents where parent_id={$this->id}";
-			$result = $PDO->query($sql);
-			list($count) = $result->fetch();
-			$result->closeCursor();
-			return $count;
+			$query = $PDO->prepare("select count(*) as count from section_parents where parent_id=?");
+			$query->execute(array($this->id));
+			$result = $query->fetchAll();
+			return $result[0]['count'];
 		}
 		/**
 		 * Find out if a given section is a parent of this section
 		 */
 		public function hasParent($section)
 		{
-			foreach($this->getParents() as $parent) { if ($section->getId() == $parent->getId()) { return true; } }
+			$parents = $this->getParents();
+			foreach($parents as $parent) { if ($section->getId() == $parent->getId()) { return true; } }
 			return false;
 		}
 
@@ -212,14 +213,43 @@
 			if (!$this->parents)
 			{
 				$this->parents = array();
-				$sql = "select parent_id from section_parents where section_id={$this->id}";
-				$query = $PDO->prepare($sql);
-				$query->execute();
+				$query = $PDO->prepare("select parent_id from section_parents where section_id=?");
+				$query->execute(array($this->id));
 				$result = $query->fetchAll();
 				foreach($result as $row) { $this->parents[] = new Section($row['parent_id']); }
 			}
 			return $this->parents;
    		}
+   		/**
+   		 * Returns a Multi-demensional array of ancestors.  One vector for
+   		 * each parent this section has.
+   		 */
+   		public function getAncestors()
+   		{
+   			global $PDO;
+   			if (!count($this->ancestors))
+   			{
+   				$this->ancestors = array();
+   				$query = $PDO->prepare("select * from sectionIndex where section_id=?");
+   				$query->execute(array($this->id));
+   				$result = $query->fetchAll();
+   				foreach($result as $index=>$section)
+   				{
+   					$ancestors = array();
+					$sql ="select distinct p.section_id from sectionIndex s
+							left join sectionIndex p on p.preOrder<$section[preOrder] and $section[preOrder]<p.postOrder
+							and s.section_id=$section[section_id]
+							where p.section_id is not null and p.section_id!=1
+							order by p.preOrder desc";
+					$query = $PDO->prepare($sql);
+					$query->execute();
+					$result = $query->fetchAll();
+					foreach($result as $row) { $this->ancestors[$index][] = new Section($row['section_id']); }
+   				}
+			}
+			return $this->ancestors;
+   		}
+
    		public function getDocuments()
    		{
 			if (!count($this->documents)) { $this->documents = new DocumentList(array('section_id'=>$this->id)); }

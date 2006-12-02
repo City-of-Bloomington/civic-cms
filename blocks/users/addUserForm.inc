@@ -50,6 +50,8 @@
 		<td><input name="user[firstname]" id="user-firstname" value="<?php if(isset($_POST['user']['firstname'])) echo $_POST['user']['firstname']; ?>" /></td></tr>
 	<tr><td><label for="user-lastname">Lastname</label></td>
 		<td><input name="user[lastname]" id="user-lastname" value="<?php if(isset($_POST['user']['lastname'])) echo $_POST['user']['lastname']; ?>" /></td></tr>
+	<tr><td><label for="user-email">Email</label></td>
+		<td><input name="user[email]" id="user-email" value="<?php if(isset($_POST['user']['email'])) echo $_POST['user']['email']; ?>" /></td></tr>
 	</table>
 
 	<button type="submit" class="submit">Submit</button>

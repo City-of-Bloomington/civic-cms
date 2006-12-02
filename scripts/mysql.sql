@@ -114,6 +114,7 @@ create table users (
   firstname varchar(128) not null,
   lastname varchar(128) not null,
   department_id int unsigned not null,
+  email varchar(255) not null,
   unique key (username),
   foreign key (department_id) references departments(id)
 ) engine=InnoDB;
@@ -169,3 +170,14 @@ insert languages values
 ('ko','Korean','한국어'),
 ('ja','Japanese','日本語'),
 ('zh','Chinese','中文');
+
+---------------------------------------------------------------------
+-- Watch Lists
+---------------------------------------------------------------------
+create table document_watches (
+	document_id int unsigned not null,
+	user_id int unsigned not null,
+	primary key (document_id,user_id),
+	foreign key (document_id) references documents(id),
+	foreign key (user_id) references users(id)
+) engine=InnoDB;

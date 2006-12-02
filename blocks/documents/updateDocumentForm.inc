@@ -14,5 +14,7 @@
 
 	<?php $this->FCKeditor->create(); ?>
 
+	<button type="submit" class="submit">Submit</button>
+	<button type="button" class="cancel" onclick="document.location.href='<?php echo BASE_URL; ?>/documents/viewDocument.php?document_id=<?php echo $this->document->getId(); ?>';">Cancel</button>
 	</fieldset>
 </form>

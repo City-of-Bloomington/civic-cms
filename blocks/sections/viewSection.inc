@@ -6,15 +6,5 @@
 /*
 	$this->section
 */
-	if (userHasRole('Publisher') && $_SESSION['USER']->getDepartment_id()==$this->section->getDepartment_id())
-	{
-		echo "
-		<div class=\"contextualMenu\">
-			<span class=\"title\">{$this->section->getName()}</span>
-			<ul><li><a href=\"".BASE_URL."/sections/editPage.php?section_id={$this->section->getId()}\">Edit Page</a></li>
-			</ul>
-		</div>
-		";
-	}
-	else { echo "<h1>{$this->section->getName()}</h1>"; }
 ?>
+<h1><?php echo $this->section->getName(); ?></h1>

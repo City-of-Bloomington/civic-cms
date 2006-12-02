@@ -13,6 +13,7 @@
 		private $firstname;
 		private $lastname;
 		private $department_id;
+		private $email;
 
 
 		private $department;
@@ -47,6 +48,7 @@
 					$this->firstname = $user['firstname'];
 					$this->lastname = $user['lastname'];
 					$this->department_id = $user['department_id'];
+					$this->email = $user['email'];
 				}
 				else { throw new Exception("unknownUser"); }
 			}
@@ -64,6 +66,7 @@
 			$fields['lastname'] = $this->lastname ? $this->lastname : null;
 			$fields['authenticationMethod'] = $this->authenticationMethod ? $this->authenticationMethod : null;
 			$fields['department_id'] = $this->department_id ? $this->department_id : null;
+			$fields['email'] = $this->email ? $this->email : null;
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
@@ -176,12 +179,27 @@
 			return $this->department_id == $object->getDepartment_id();
 		}
 
+		/**
+		 * Checks if the user has a watch on a document
+		 */
+		public function hasWatch($document)
+		{
+			global $PDO;
+
+			$query = $PDO->prepare("select count(*) as watches from document_watches where document_id=? and user_id=?");
+			$query->execute(array($document->getId(),$_SESSION['USER']->getId()));
+			$result = $query->fetchAll();
+			if ($result[0]['watches']) { return true; }
+			else { return false; }
+		}
+
 		public function getId() { return $this->id; }
 		public function getUsername() { return $this->username; }
 		public function getPassword() { return $this->password; }
 		public function getAuthenticationMethod() { return $this->authenticationMethod; }
 		public function getFirstname() { return $this->firstname; }
 		public function getLastname() { return $this->lastname; }
+		public function getEmail() { return $this->email; }
 		public function getDepartment_id() { return $this->department_id; }
 		public function getDepartment()
 		{
@@ -214,6 +232,7 @@
 		public function setAuthenticationMethod($string) { $this->authenticationMethod = $string; }
 		public function setFirstname($string) { $this->firstname = trim($string); }
 		public function setLastname($string) { $this->lastname = trim($string); }
+		public function setEmail($string) { $this->email = trim($string); }
 		public function setDepartment_id($int) { $this->department = new Department($int); $this->department_id = $int; }
 		public function setDepartment($department) { $this->department_id = $department->getId(); $this->department = $department; }
 		/* Takes an array of role names.  Needs to look up the role_id and add them to the user */

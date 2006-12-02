@@ -34,7 +34,7 @@
 			if (isset($fields['document_id']))
 			{
 				$this->joins.= " left join document_sections d on s.id=section_id";
-				$options[] = "document_id='$fields[document_id]'";
+				$options[] = "d.document_id='$fields[document_id]'";
 			}
 
 			$this->populateList($options);

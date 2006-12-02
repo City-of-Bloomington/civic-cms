@@ -39,7 +39,12 @@
 			Header("Location: ".BASE_URL."/documents/viewDocument.php?document_id={$document->getId()}");
 			exit();
 		}
-		catch (Exception $e) { $_SESSION['errorMessages'][] = $e; }
+		catch (Exception $e)
+		{
+			$_SESSION['errorMessages'][] = $e;
+			print_r($e);
+			exit();
+		}
 	}
 
 	$FCKeditor = new FCKeditor("content");

@@ -57,6 +57,8 @@
 		<td><input name="user[firstname]" id="user-firstname" value="<?php echo $this->user->getFirstname(); ?>" /></td></tr>
 	<tr><td><label for="user-lastname">Lastname</label></td>
 		<td><input name="user[lastname]" id="user-lastname" value="<?php echo $this->user->getLastname(); ?>" /></td></tr>
+	<tr><td><label for="user-email">Email</label></td>
+		<td><input name="user[email]" id="user-email" value="<?php echo $this->user->getEmail(); ?>" /></td></tr>
 	</table>
 
 	<button type="submit" class="submit">Submit</button>

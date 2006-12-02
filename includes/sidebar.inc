@@ -3,33 +3,11 @@
  * @copyright Copyright (C) 2006 Cliff Ingham. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  */
-	function listSections($sectionList)
-	{
-		foreach($sectionList as $section)
-		{
-			echo "<li><a href=\"".BASE_URL."/sections/viewSection.php?section_id={$section->getId()}\">";
-			echo View::sanitizeString($section->getName());
-			echo "</a>";
-			if ($section->hasChildren())
-			{
-				echo "<ul>";
-				listSections($section->getChildren());
-				echo "</ul>";
-			}
-			echo "</li>";
-		}
-	}
+/*
+	$this->document
+*/
 ?>
 <div id="sidebar">
-	<div>
-		<div class="titleBar"><a href="<?php echo BASE_URL; ?>/sections">Sections</a></div>
-		<ul>
-			<?php
-				$sections = new SectionList(array("parent_id"=>1));
-				listSections($sections);
-			?>
-		</ul>
-	</div>
 	<?php
 		if (isset($_SESSION['USER']))
 		{
@@ -38,5 +16,14 @@
 		}
 
 		if (isset($this->widgets)) { foreach($this->widgets as $widget) { $widget->render(); } }
+
+		if (isset($this->document))
+		{
+			$languages = $this->document->getLanguages();
+			#if (count($languages) > 1)
+			#{
+				include(APPLICATION_HOME."/includes/documents/languages.inc");
+			#}
+		}
 	?>
 </div>

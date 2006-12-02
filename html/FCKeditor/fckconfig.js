@@ -111,7 +111,7 @@ FCKConfig.ToolbarSets["Custom"] = [
 	['Cut','Copy','Paste','PasteText','PasteWord','-','Print','SpellCheck'],
 	['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
 	'/',
-	['Bold','Italic','Underline','StrikeThrough','-','Subscript','Superscript'],
+	['Bold','Italic','Underline','StrikeThrough','-','Subscript','Superscript','FontFormat'],
 	['OrderedList','UnorderedList'],
 	['Link','Unlink','Anchor'],
 	['Image','Flash','Table','Rule','SpecialChar','FitWindow']

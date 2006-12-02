@@ -120,6 +120,10 @@
 			$out = $sandbox->status($file);
 			if (count($out) && $out[0]{0} == "?") { $sandbox->add($file); }
 			$sandbox->commit(APPLICATION_HOME."/data/documents/$year",$_SESSION['USER']->getUsername());
+
+
+			# Inform the people on the watch list
+			foreach($this->getWatches() as $watch) { $watch->notify(); }
 		}
 		public function getContent()
 		{
@@ -194,6 +198,31 @@
 		}
 
 
+		public function addWatch($user)
+		{
+			global $PDO;
+
+			$query = $PDO->prepare("insert document_watches values(?,?)");
+			$query->execute(array($this->id,$user->getId()));
+		}
+		public function removeWatch($user)
+		{
+			global $PDO;
+
+			$query = $PDO->prepare("delete from document_watches where document_id=? and user_id=?");
+			$query->execute(array($this->id,$user->getId()));
+		}
+		public function getWatches()
+		{
+			global $PDO;
+
+			$watches = array();
+			foreach($PDO->query("select * from document_watches where document_id={$this->id}") as $row)
+			{
+				$watches[] = new Watch($this->id,$row['user_id']);
+			}
+			return $watches;
+		}
 
 		public function getId() { return $this->id; }
 		public function getDateTimeCreated() { return $this->dateTimeCreated; }

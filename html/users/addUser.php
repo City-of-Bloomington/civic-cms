@@ -23,6 +23,7 @@
 			$ldap = new LDAPEntry($user->getUsername());
 			$user->setFirstname($ldap->getFirstname());
 			$user->setLastname($ldap->getLastname());
+			$user->setEmail($ldap->getEmail());
 		}
 
 		try
