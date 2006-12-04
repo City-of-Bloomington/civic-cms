@@ -12,11 +12,11 @@
 		@import url("/skins/default/skin.css");
 	</style>
 	<style type="text/css" media="print">@import url("/skins/default/print.css");</style>
-	<title>New Application - City of Bloomington, Indiana</title>
+	<title>Content Manager - City of Bloomington, Indiana</title>
 </head>
 <body>
 <div id="banner">
-	<div id="application_name"><a href="<?php echo BASE_URL; ?>">New Application</a></div>
+	<div id="application_name"><a href="<?php echo BASE_URL; ?>">Content Manager</a></div>
 	<div id="location_name">City of Bloomington, Indiana</div>
 	<div id="navigation"></div>
 </div>
