@@ -37,7 +37,7 @@
 				# Set any default values for properties that need it here
 			}
 		}
-	
+
 
 		/**
 		 * This generates generic SQL that should work right away.
@@ -86,6 +86,7 @@
 			$this->id = $PDO->lastInsertID();
 		}
 
+		public function __toString() { return $this->name; }
 
 		public function getId() { return $this->id; }
 		public function getName() { return $this->name; }
