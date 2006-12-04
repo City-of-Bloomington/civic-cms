@@ -35,6 +35,7 @@
 		}
 
 		$document = new Document();
+		$document->setTitle($_POST['document']['title']);
 		$document->setContent($_POST['content']);
 		$document->addSection($section);
 		try

@@ -27,6 +27,7 @@
 			{
 				echo "<li><a href=\"".BASE_URL."/sections/viewSection.php?section_id={$section->getId()}\">$section</a></li>";
 			}
+			echo "<li>$this->section</li>";
 			echo "</ul>";
 		}
 		echo "</div>";

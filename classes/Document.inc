@@ -6,6 +6,7 @@
 	class Document extends ActiveRecord
 	{
 		private $id;
+		private $title;
 		private $created;
 		private $modified;
 		private $modifiedBy;
@@ -61,6 +62,7 @@
 			if (!$this->department_id || !count($this->getSections())) { throw new Exception('missingRequiredFields'); }
 
 			$fields = array();
+			$fields['title'] = $this->title;
 			$fields['created'] = $this->created ? $this->created : 'now()';
 			$fields['modified'] = null;
 			$fields['modifiedBy'] = $this->modifiedBy;
@@ -230,6 +232,7 @@
 		}
 
 		public function getId() { return $this->id; }
+		public function getTitle() { return $this->title; }
 		public function getCreated() { return $this->created; }
 		public function getModified() { return $this->modified; }
 		public function getModifiedBy() { return $this->modifiedBy; }
@@ -260,6 +263,7 @@
 
 
 
+		public function setTitle($string) { $this->title = trim($string); }
 		public function setContent($string) { $this->content = trim($string); }
 		public function setModifiedBy($user) { $this->modifiedBy = $user->getId(); }
 		public function setDepartment_id($int) { $this->department = new Department($int); $this->department_id = $int; }

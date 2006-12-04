@@ -44,6 +44,7 @@ create table departments (
 ---------------------------------------------------------------------
 create table documents (
   id int(10) unsigned not null primary key auto_increment,
+  title varchar(128) not null,
   created timestamp not null default 0,
   modified timestamp default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   modifiedBy int unsigned not null,

@@ -12,7 +12,6 @@
 	$template->widgets = $section->getWidgets();
 	$template->document = $section->getDocument();
 
-	$template->blocks[] = new Block("sections/viewSection.inc",array('section'=>$section));
 	$template->blocks[] = new Block("breadcrumbs.inc",array('section'=>$section));
 	if (userHasRole("Content Creator") && $_SESSION['USER']->getDepartment_id()==$section->getDocument()->getDepartment_id())
 	{

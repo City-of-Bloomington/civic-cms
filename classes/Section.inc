@@ -63,6 +63,7 @@
 			{
 				$document = new Document();
 				$document->setDepartment($this->getDepartment());
+				$document->setTitle($this->name);
 				$document->setContent("<h2>{$this->name}</h2>");
 				$document->save();
 				$this->setDocument($document);
@@ -239,8 +240,8 @@
 					$sql ="select distinct p.section_id from sectionIndex s
 							left join sectionIndex p on p.preOrder<$section[preOrder] and $section[preOrder]<p.postOrder
 							and s.section_id=$section[section_id]
-							where p.section_id is not null and p.section_id!=1
-							order by p.preOrder desc";
+							where p.section_id is not null
+							order by p.preOrder";
 					$query = $PDO->prepare($sql);
 					$query->execute();
 					$result = $query->fetchAll();

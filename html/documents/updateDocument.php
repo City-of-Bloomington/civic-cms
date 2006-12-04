@@ -32,7 +32,9 @@
 			exit();
 		}
 
+		$document->setTitle($_POST['document']['title']);
 		$document->setContent($_POST['content']);
+
 		try
 		{
 			$document->save();
