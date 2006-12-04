@@ -38,21 +38,6 @@ create table departments (
 	id int unsigned not null primary key auto_increment,
 	name varchar(50) not null unique
 ) engine=InnoDB;
-insert departments set name='City Clerk';
-insert departments set name='Community and Family Resources (CFRD)';
-insert departments set name='Controller';
-insert departments set name='Council Office';
-insert departments set name='Employee Services';
-insert departments set name='Housing and Neighborhood Development (HAND)';
-insert departments set name='Information & Technology Services (ITS)';
-insert departments set name='Legal';
-insert departments set name='Office of the Mayor (OOTM)';
-insert departments set name='Parks and Recreation';
-insert departments set name='Planning';
-insert departments set name='Public Works';
-insert departments set name='Fire';
-insert departments set name='Police';
-insert departments set name='Utilities';
 
 ---------------------------------------------------------------------
 -- Document tables
@@ -66,12 +51,14 @@ create table documents (
   foreign key (modifiedBy) references users(id),
   foreign key (department_id) references departments(id)
 ) engine=InnoDB;
--- Create the initial home page
--- This date matches the default home page in APPLICATION_HOME/data/documents
--- If you want to change this date, make sure to change the corresponding directory
-insert documents (id,created,department_id)
-values(1,'2006-11-15',(select id from departments where name='Office of the Mayor (OOTM)'));
 
+create table document_watches (
+	document_id int unsigned not null,
+	user_id int unsigned not null,
+	primary key (document_id,user_id),
+	foreign key (document_id) references documents(id),
+	foreign key (user_id) references users(id)
+) engine=InnoDB;
 ---------------------------------------------------------------------
 -- Section tables
 ---------------------------------------------------------------------
@@ -83,8 +70,6 @@ create table sections (
   foreign key (department_id) references departments(id),
   foreign key (document_id) references documents(id)
 ) engine=InnoDB;
--- Create the root section and assign it the initial home page
-insert sections values(1,'root',(select id from departments where name='Office of the Mayor (OOTM)'),1);
 
 create table section_parents (
   section_id int(10) unsigned not null,
@@ -174,14 +159,3 @@ insert languages values
 ('ko','Korean','한국어'),
 ('ja','Japanese','日本語'),
 ('zh','Chinese','中文');
-
----------------------------------------------------------------------
--- Watch Lists
----------------------------------------------------------------------
-create table document_watches (
-	document_id int unsigned not null,
-	user_id int unsigned not null,
-	primary key (document_id,user_id),
-	foreign key (document_id) references documents(id),
-	foreign key (user_id) references users(id)
-) engine=InnoDB;
