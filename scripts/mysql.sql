@@ -1,4 +1,12 @@
 ---------------------------------------------------------------------
+-- Identify all the departments of the city
+---------------------------------------------------------------------
+create table departments (
+	id int unsigned not null primary key auto_increment,
+	name varchar(50) not null unique
+) engine=InnoDB;
+
+---------------------------------------------------------------------
 -- User tables
 ---------------------------------------------------------------------
 create table users (
@@ -29,14 +37,6 @@ create table user_roles (
   primary key  (user_id,role_id),
   foreign key (user_id) references users (id),
   foreign key (role_id) references roles (id)
-) engine=InnoDB;
-
----------------------------------------------------------------------
--- Identify all the departments of the city
----------------------------------------------------------------------
-create table departments (
-	id int unsigned not null primary key auto_increment,
-	name varchar(50) not null unique
 ) engine=InnoDB;
 
 ---------------------------------------------------------------------

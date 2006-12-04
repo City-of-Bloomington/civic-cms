@@ -115,19 +115,26 @@ Configuration
 
 
 ---------------------------------------------------------------------
-Subversion
+Prepare Non-Database Data
 ---------------------------------------------------------------------
+Subversion :
 	This application uses subversion to track changes to the documents.
 You will need to set up a repository that PHP can checkout and commit to.
-Typically you just create the repository in the application's directory
-once it's installed.
+Typically you just create the repository in the application's data
+directory once it's installed.
 
-cd /path/to/application_name
+1) Create the document_repository
+cd /path/to/application_name/data
 svnadmin create repository
-cd ../data
-svn import file:///var/www/sites/content_manager/repository -m 'Initial repository population.'
+
+2) Import the default homepage into the document_repository
+cd documents
+svn import file:///path/to/application_name/data/document_repository -m 'Initial repository population.'
+
+3) Check the default documents out of the repository
 cd ..
-rm -Rf data
-svn checkout file:///var/www/sites/content_manager/repository/ data
-chown -R apache repository
-chown -R apache data
+rm -Rf documents
+svn checkout file:///var/www/sites/content_manager/data/document_repository documents
+
+
+

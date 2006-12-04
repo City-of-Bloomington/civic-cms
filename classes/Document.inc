@@ -105,8 +105,8 @@
 			if (false === $query->execute($values)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 			$this->id = $PDO->lastInsertID();
 
-			$sql = "select dateTimeCreated from documents where id=$this->id";
-			foreach($PDO->query($sql) as $row) { $this->dateTimeCreated = $row['dateTimeCreated']; }
+			$sql = "select created from documents where id=$this->id";
+			foreach($PDO->query($sql) as $row) { $this->created = $row['created']; }
 		}
 
 		private function saveContent()
@@ -116,7 +116,7 @@
 
 			list($year,$month,$day) = explode("-",$this->getDateCreated());
 
-			$sandbox = new SubversionWorkingCopy(APPLICATION_HOME."/data");
+			$sandbox = new SubversionWorkingCopy(APPLICATION_HOME."/data/documents");
 			if (!is_dir($directory))
 			{
 				mkdir($directory,0775,true);
@@ -135,7 +135,7 @@
 		public function getContent()
 		{
 			# Content won't exist as a file until it's been saved to the database
-			# The database will give it an ID and a dateTimeCreated
+			# The database will give it an ID and a created timestamp
 			if ($this->id)
 			{
 				if (!$this->content)
