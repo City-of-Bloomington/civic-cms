@@ -13,7 +13,16 @@
 		<?php
 			if (isset($this->section))
 			{
-				echo "<li><a href=\"".BASE_URL."/documents/addDocument.php?section_id={$this->section->getId()}\">Add Document</a></li>";
+				echo "
+				<li><form method=\"get\" action=\"".BASE_URL."/documents/addDocument.php?section_id={$this->section->getId()}\">
+						<input name=\"section_id\" type=\"hidden\" value=\"{$this->section->getId()}\" />
+						<select name=\"type\" onchange=\"this.form.submit();\">
+							<option value=\"\">New</option>
+							<option>Webpage</option>
+						</select>
+					</form>
+				</li>
+				";
 			}
 
 			if ($_SESSION['USER']->hasWatch($this->document)) { echo "<li><a href=\"".BASE_URL."/documents/removeWatch.php?document_id={$this->document->getId()}\">Remove Watch</a></li>"; }

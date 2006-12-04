@@ -1,4 +1,37 @@
 ---------------------------------------------------------------------
+-- User tables
+---------------------------------------------------------------------
+create table users (
+  id int(10) unsigned not null primary key auto_increment,
+  username varchar(30) not null,
+  password varchar(32) default null,
+  authenticationMethod varchar(40) not null default 'LDAP',
+  firstname varchar(128) not null,
+  lastname varchar(128) not null,
+  department_id int unsigned not null,
+  email varchar(255) not null,
+  unique key (username),
+  foreign key (department_id) references departments(id)
+) engine=InnoDB;
+
+create table roles (
+  id int(10) unsigned not null primary key auto_increment,
+  role varchar(30) not null unique
+) engine=InnoDB;
+insert roles set role='Administrator';
+insert roles set role='Webmaster';
+insert roles set role='Publisher';
+insert roles set role='Content Creator';
+
+create table user_roles (
+  user_id int(10) unsigned not null,
+  role_id int(10) unsigned not null,
+  primary key  (user_id,role_id),
+  foreign key (user_id) references users (id),
+  foreign key (role_id) references roles (id)
+) engine=InnoDB;
+
+---------------------------------------------------------------------
 -- Identify all the departments of the city
 ---------------------------------------------------------------------
 create table departments (
@@ -26,14 +59,18 @@ insert departments set name='Utilities';
 ---------------------------------------------------------------------
 create table documents (
   id int(10) unsigned not null primary key auto_increment,
-  dateTimeCreated timestamp not null default CURRENT_TIMESTAMP,
+  created timestamp not null default 0,
+  modified timestamp default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+  modifiedBy int unsigned not null,
   department_id int unsigned not null,
+  foreign key (modifiedBy) references users(id),
   foreign key (department_id) references departments(id)
 ) engine=InnoDB;
 -- Create the initial home page
 -- This date matches the default home page in APPLICATION_HOME/data/documents
 -- If you want to change this date, make sure to change the corresponding directory
-insert documents values(1,'2006-11-15',(select id from departments where name='Office of the Mayor (OOTM)'));
+insert documents (id,created,department_id)
+values(1,'2006-11-15',(select id from departments where name='Office of the Mayor (OOTM)'));
 
 ---------------------------------------------------------------------
 -- Section tables
@@ -102,39 +139,6 @@ create table document_facets (
 ) engine=InnoDB;
 
 
-
----------------------------------------------------------------------
--- User tables
----------------------------------------------------------------------
-create table users (
-  id int(10) unsigned not null primary key auto_increment,
-  username varchar(30) not null,
-  password varchar(32) default null,
-  authenticationMethod varchar(40) not null default 'LDAP',
-  firstname varchar(128) not null,
-  lastname varchar(128) not null,
-  department_id int unsigned not null,
-  email varchar(255) not null,
-  unique key (username),
-  foreign key (department_id) references departments(id)
-) engine=InnoDB;
-
-create table roles (
-  id int(10) unsigned not null primary key auto_increment,
-  role varchar(30) not null unique
-) engine=InnoDB;
-insert roles set role='Administrator';
-insert roles set role='Webmaster';
-insert roles set role='Publisher';
-insert roles set role='Content Creator';
-
-create table user_roles (
-  user_id int(10) unsigned not null,
-  role_id int(10) unsigned not null,
-  primary key  (user_id,role_id),
-  foreign key (user_id) references users (id),
-  foreign key (role_id) references roles (id)
-) engine=InnoDB;
 
 ---------------------------------------------------------------------
 -- Widgets

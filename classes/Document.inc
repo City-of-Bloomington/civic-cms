@@ -6,7 +6,9 @@
 	class Document extends ActiveRecord
 	{
 		private $id;
-		private $dateTimeCreated;
+		private $created;
+		private $modified;
+		private $modifiedBy;
 		private $department_id;
 
 		private $department;
@@ -42,6 +44,7 @@
 			{
 				# This is where the code goes to generate a new, empty instance.
 				# Set any default values for properties that need it here
+				$this->modifiedBy = $_SESSION['USER']->getId();
 				$this->setDepartment_id($_SESSION['USER']->getDepartment_id());
 			}
 		}
@@ -58,8 +61,10 @@
 			if (!$this->department_id || !count($this->getSections())) { throw new Exception('missingRequiredFields'); }
 
 			$fields = array();
-			$fields['dateTimeCreated'] = $this->dateTimeCreated ? $this->dateTimeCreated : null;
-			$fields['department_id'] = $this->department_id ? $this->department_id : null;
+			$fields['created'] = $this->created ? $this->created : 'now()';
+			$fields['modified'] = null;
+			$fields['modifiedBy'] = $this->modifiedBy;
+			$fields['department_id'] = $this->department_id;
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
@@ -225,7 +230,9 @@
 		}
 
 		public function getId() { return $this->id; }
-		public function getDateTimeCreated() { return $this->dateTimeCreated; }
+		public function getCreated() { return $this->created; }
+		public function getModified() { return $this->modified; }
+		public function getModifiedBy() { return $this->modifiedBy; }
 		public function getDepartment_id() { return $this->department_id; }
 		public function getDepartment()
 		{
@@ -246,7 +253,7 @@
 		}
 		public function getDateCreated()
 		{
-			list ($dateCreated,$timeCreated) = explode(' ',$this->dateTimeCreated);
+			list ($dateCreated,$timeCreated) = explode(' ',$this->created);
 			return $dateCreated;
 		}
 
@@ -254,6 +261,7 @@
 
 
 		public function setContent($string) { $this->content = trim($string); }
+		public function setModifiedBy($user) { $this->modifiedBy = $user->getId(); }
 		public function setDepartment_id($int) { $this->department = new Department($int); $this->department_id = $int; }
 		public function setDepartment($department) { $this->department_id = $department->getId(); $this->department = $department; }
 		public function setSections(array $sections)

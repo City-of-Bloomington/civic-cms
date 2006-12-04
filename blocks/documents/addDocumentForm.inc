@@ -17,4 +17,10 @@
 	<?php $this->FCKeditor->create(); ?>
 
 	</fieldset>
+
+	<fieldset><legend>Sections</legend>
+	</fieldset>
+
+	<fieldset><legend>Facets</legend>
+	</fieldset>
 </form>
