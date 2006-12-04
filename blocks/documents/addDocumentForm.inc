@@ -8,7 +8,7 @@
 	$this->FCKeditor
 */
 ?>
-<p><?php echo $this->section->getDepartment()->getTitle(); ?></p>
+<p><?php echo $this->section->getDepartment()->getName(); ?></p>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<fieldset><legend>Document Info</legend>
 		<input name="section_id" type="hidden" value="<?php echo $this->section->getId(); ?>" />
