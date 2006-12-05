@@ -52,7 +52,7 @@
 	$FCKeditor->ToolbarSet = 'Custom';
 	if (isset($document)) { $FCKeditor->Value = $document->getContent(); }
 
-	$template = new Template("transitional");
+	$template = new Template();
 	$form = new Block('documents/addDocumentForm.inc',array('section'=>$section,'FCKeditor'=>$FCKeditor));
 	$template->blocks[] = $form;
 	$template->render();

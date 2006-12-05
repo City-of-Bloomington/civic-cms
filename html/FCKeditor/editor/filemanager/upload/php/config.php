@@ -1,40 +1,40 @@
-<?php 
+<?php
 /*
  * FCKeditor - The text editor for internet
  * Copyright (C) 2003-2006 Frederico Caldeira Knabben
- * 
+ *
  * Licensed under the terms of the GNU Lesser General Public License:
  * 		http://www.opensource.org/licenses/lgpl-license.php
- * 
+ *
  * For further information visit:
  * 		http://www.fckeditor.net/
- * 
+ *
  * "Support Open Source software. What about a donation today?"
- * 
+ *
  * File Name: config.php
  * 	Configuration file for the PHP File Uploader.
- * 
+ *
  * File Authors:
  * 		Frederico Caldeira Knabben (fredck@fckeditor.net)
  */
 
 global $Config ;
 
-// SECURITY: You must explicitelly enable this "uploader". 
-$Config['Enabled'] = false ;
+// SECURITY: You must explicitelly enable this "uploader".
+$Config['Enabled'] = true ;
 
-// Set if the file type must be considere in the target path. 
+// Set if the file type must be considere in the target path.
 // Ex: /UserFiles/Image/ or /UserFiles/File/
-$Config['UseFileType'] = false ;
+$Config['UseFileType'] = true ;
 
 // Path to uploaded files relative to the document root.
-$Config['UserFilesPath'] = '/UserFiles/' ;
+$Config['UserFilesPath'] = '/content_manager/media/' ;
 
 // Fill the following value it you prefer to specify the absolute path for the
 // user files directory. Usefull if you are using a virtual directory, symbolic
 // link or alias. Examples: 'C:\\MySite\\UserFiles\\' or '/root/mysite/UserFiles/'.
 // Attention: The above 'UserFilesPath' must point to the same directory.
-$Config['UserFilesAbsolutePath'] = '' ;
+$Config['UserFilesAbsolutePath'] = APPLICATION_HOME.'/html/media/' ;
 
 // Due to security issues with Apache modules, it is reccomended to leave the
 // following setting enabled.
