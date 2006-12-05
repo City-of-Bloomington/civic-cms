@@ -45,6 +45,7 @@
 			{
 				# This is where the code goes to generate a new, empty instance.
 				# Set any default values for properties that need it here
+				$this->created = date("Y-m-d H:i:s");
 				$this->modifiedBy = $_SESSION['USER']->getId();
 				$this->setDepartment_id($_SESSION['USER']->getDepartment_id());
 			}
@@ -63,7 +64,7 @@
 
 			$fields = array();
 			$fields['title'] = $this->title;
-			$fields['created'] = $this->created ? $this->created : 'now()';
+			$fields['created'] = $this->created;
 			$fields['modified'] = null;
 			$fields['modifiedBy'] = $this->modifiedBy;
 			$fields['department_id'] = $this->department_id;
