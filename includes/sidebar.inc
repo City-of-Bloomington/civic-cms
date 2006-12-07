@@ -15,7 +15,14 @@
 			if (in_array("Webmaster",$_SESSION['USER']->getRoles())) { include(APPLICATION_HOME."/includes/sidebarBoxes/Webmaster.inc"); }
 		}
 
-		if (isset($this->widgets)) { foreach($this->widgets as $widget) { $widget->render(); } }
+		if (isset($this->widgets))
+		{
+			foreach($this->widgets as $widget)
+			{
+				include(APPLICATION_HOME."/widgets/$widget/sidebar/{$widget}.inc");
+			}
+		}
+		include(APPLICATION_HOME."/includes/sidebarBoxes/Facets.inc");
 
 		if (isset($this->document))
 		{

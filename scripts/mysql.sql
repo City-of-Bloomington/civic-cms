@@ -99,27 +99,21 @@ create table document_sections (
 ---------------------------------------------------------------------
 create table facets (
   id int(10) unsigned not null primary key auto_increment,
-  name varchar(50) not null
-) engine=InnoDB;
-insert facets set name='root';
-
-create table facet_parents (
-  facet_id int(10) unsigned not null,
-  parent_id int(10) unsigned not null,
-  foreign key (facet_id) references facets (id),
-  foreign key (parent_id) references facets (id)
+  name varchar(50) not null unique
 ) engine=InnoDB;
 
-create table facetIndex (
-  facet_id int(10) unsigned not null,
-  preOrder int(10) unsigned not null,
-  postOrder int(10) unsigned not null,
-  foreign key (facet_id) references facets (id)
+create table section_facets (
+	section_id int unsigned not null,
+	facet_id int unsigned not null,
+	primary key (section_id,facet_id),
+	foreign key (section_id) references sections(id),
+	foreign key (facet_id) references facets(id)
 ) engine=InnoDB;
 
 create table document_facets (
   document_id int(10) unsigned not null,
   facet_id int(10) unsigned not null,
+  primary key (document_id,facet_id),
   foreign key (document_id) references documents (id),
   foreign key (facet_id) references facets (id)
 ) engine=InnoDB;

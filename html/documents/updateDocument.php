@@ -21,7 +21,7 @@
 
 
 
-	if (isset($_POST['document_id']))
+	if (isset($_POST['document']))
 	{
 		$document = new Document($_POST['document_id']);
 
@@ -34,6 +34,8 @@
 
 		$document->setTitle($_POST['document']['title']);
 		$document->setContent($_POST['content']);
+		$facets = isset($_POST['document']['facets']) ? $_POST['document']['facets'] : array();
+		$document->setFacets($facets);
 
 		try
 		{

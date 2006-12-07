@@ -15,6 +15,11 @@
 		private $department;
 		private $content;
 		private $contentDirectory;
+		private $contentLanguage;
+
+		private $facets = array();
+		private $newFacetIds = array();
+		private $deletedFacetIds = array();
 
 		private $sections;
 		private $deletedSectionIds = array();
@@ -86,6 +91,7 @@
 
 			$this->saveSections();
 			$this->saveContent();
+			$this->saveFacets();
 		}
 
 		private function update($values,$preparedFields)
@@ -174,6 +180,52 @@
 			}
 			return $languages;
 		}
+
+		/**
+		 * Facet functions
+		 */
+		public function getFacets()
+		{
+			if (!count($this->facets))
+			{
+				$list = new FacetList(array('document_id'=>$this->id));
+				foreach($list as $facet) { $this->facets[$facet->getId()] = $facet; }
+			}
+			return $this->facets;
+		}
+		private function saveFacets()
+		{
+			global $PDO;
+
+			# Clear out all the old facets
+			if (count($this->deletedFacetIds))
+			{
+				$ids = implode(",",$this->deletedFacetIds);
+				$query = $PDO->prepare("delete from document_facets where document_id={$this->id} and facet_id in ($ids)");
+				$query->execute();
+			}
+
+			# Add in the new ones
+			if (count($this->newFacetIds))
+			{
+				$query = $PDO->prepare("insert document_facets set document_id={$this->id},facet_id=?");
+				foreach($this->newFacetIds as $id) { $query->execute(array($id)); }
+			}
+		}
+		public function setFacets(array $facetIds)
+		{
+			# Make sure to call $this->getFacets() at least once to ensure that
+			# the current facets are loaded before trying to determine which ones are new
+
+			# Any $facetIds that are not in $this->facets need to be added
+			$this->newFacetIds = array_diff($facetIds,array_keys($this->getFacets()));
+			foreach($this->newFacetIds as $id) { $this->facets[$id] = new Facet($id); }
+
+			# Unset any $this->facets that are not in $facetIds
+			$this->deletedFacetIds = array_diff(array_keys($this->facets),$facetIds);
+			foreach($this->deletedFacetIds as $id) { unset($this->facets[$id]); }
+		}
+		public function hasFacet($facet) { return array_key_exists($facet->getId(),$this->getFacets()); }
 
 		private function saveSections()
 		{

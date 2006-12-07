@@ -48,7 +48,21 @@
 		</td>
 	</tr>
 	</table>
+</fieldset>
 
+<fieldset><legend>Facets</legend>
+<?php
+	$facets = new FacetList();
+	$facets->find();
+	foreach($facets as $facet)
+	{
+		if ($this->section->hasFacet($facet)) { $checked = "checked=\"checked\""; } else { $checked = ""; }
+		echo "<label><input type=\"checkbox\" name=\"section[facets][{$facet->getId()}]\" value=\"{$facet->getId()}\" $checked />{$facet->getName()}</label>";
+	}
+?>
+</fieldset>
+
+<fieldset><legend>Submit</legend>
 	<button type="submit" class="submit">Submit</button>
 	<button type="button" class="done" onclick="document.location.href='<?php echo BASE_URL; ?>/sections';">Done</button>
 </fieldset>

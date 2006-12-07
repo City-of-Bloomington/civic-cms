@@ -8,5 +8,6 @@
 	<div class="titleBar">Webmaster</div>
 	<ul>
 		<li><a href="<?php echo BASE_URL; ?>/sections">Sections</a></li>
+		<li><a href="<?php echo BASE_URL; ?>/facets">Facets</a></li>
 	</ul>
 </div>

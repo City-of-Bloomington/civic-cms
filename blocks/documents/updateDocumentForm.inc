@@ -22,6 +22,15 @@
 	</fieldset>
 
 	<fieldset><legend>Facets</legend>
+	<?php
+		$facets = new FacetList();
+		$facets->find();
+		foreach($facets as $facet)
+		{
+			if ($this->document->hasFacet($facet)) { $checked = "checked=\"checked\""; } else { $checked = ""; }
+			echo "<label><input type=\"checkbox\" name=\"document[facets][{$facet->getId()}]\" value=\"{$facet->getId()}\" $checked />{$facet->getName()}</label>";
+		}
+	?>
 	</fieldset>
 
 	<fieldset><legend>Submit</legend>
