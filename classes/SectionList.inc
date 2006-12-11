@@ -5,15 +5,14 @@
  */
 	class SectionList extends PDOResultIterator
 	{
-		public function __construct($fields=null,$sort="id")
+		public function __construct($fields=null,$sort="isnull(placement),placement")
 		{
 			$this->select = "select s.id from sections s";
-			$this->sort = $sort;
-			if (is_array($fields)) $this->find($fields);
+			if (is_array($fields)) $this->find($fields,$sort);
 		}
 
 
-		public function find($fields=null,$sort="id")
+		public function find($fields=null,$sort="isnull(placement),placement")
 		{
 			$this->sort = $sort;
 
@@ -21,6 +20,7 @@
 			if (isset($fields['id'])) { $options[] = "id='$fields[id]'"; }
 			if (isset($fields['name'])) { $options[] = "name='$fields[name]'"; }
 			if (isset($fields['department_id'])) { $options[] = "department_id='$fields[department_id]'"; }
+			if (isset($fields['placement'])) { $options[] = "placement='$fields[placement]'"; }
 
 			# Finding on fields from other tables required joining those tables.
 			# You can add fields from other tables to $options by adding the join SQL

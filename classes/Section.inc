@@ -9,6 +9,7 @@
 		private $name;
 		private $department_id;
 		private $document_id;
+		private $placement;
 
 		private $department;
 		private $document;
@@ -77,6 +78,7 @@
 			$fields['name'] = $this->name ? $this->name : null;
 			$fields['department_id'] = $this->department_id ? $this->department_id : null;
 			$fields['document_id'] = $this->document_id ? $this->document_id : null;
+			$fields['placement'] = $this->placement ? $this->placement : null;
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
@@ -193,6 +195,7 @@
 		public function getName() { return $this->name; }
 		public function getChildren() { return new SectionList(array('parent_id'=>$this->id)); }
 		public function getDepartment_id() { return $this->department_id; }
+		public function getPlacement() { return $this->placement; }
 		public function getDocument_id() { return $this->document_id; }
 		public function getDepartment()
 		{
@@ -346,6 +349,7 @@
 		public function setName($string) { $this->name = trim($string); }
 		public function setDepartment_id($int) { $this->department = new Department($int); $this->department_id = $int; }
 		public function setDocument_id($int) { $this->document = new Document($int); $this->document_id = $int; }
+		public function setPlacement($int) { $this->placement = ereg_replace("[^0-9]","",$int); }
 
 		public function setDepartment($department) { $this->department_id = $department->getId(); $this->department = $department; }
 		public function setDocument($document) { $this->document_id = $document->getId(); $this->document = $document; }

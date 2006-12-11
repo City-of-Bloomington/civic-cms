@@ -1,7 +1,6 @@
 <?php
 	include(APPLICATION_HOME."/includes/xhtmlTransitionalHeader.inc");
 	include(APPLICATION_HOME."/includes/banner.inc");
-	include(APPLICATION_HOME."/includes/menubar.inc");
 	include(APPLICATION_HOME."/includes/navigation.inc");
 	include(APPLICATION_HOME."/includes/sidebar.inc");
 ?>

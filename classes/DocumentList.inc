@@ -19,6 +19,8 @@
 			$options = array();
 			if (isset($fields['id'])) { $options[] = "id='$fields[id]'"; }
 			if (isset($fields['dateTimeCreated'])) { $options[] = "dateTimeCreated='$fields[dateTimeCreated]'"; }
+			if (isset($fields['createdBy'])) { $options[] = "createdBy='$fields[createdBy]'"; }
+			if (isset($fields['modifiedBy'])) { $options[] = "modifiedBy='$fields[modifiedBy]'"; }
 			if (isset($fields['department_id'])) { $options[] = "department_id='$fields[department_id]'"; }
 
 

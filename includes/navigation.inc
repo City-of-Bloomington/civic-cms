@@ -10,8 +10,18 @@
 		$sections = new SectionList(array('parent_id'=>1));
 		foreach($sections as $section)
 		{
-			echo "<li><a href=\"".BASE_URL."/sections/viewSection.php?section_id={$section->getId()}\">";
+			echo "<li><a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$section->getDocument_id()}\">";
 			echo View::sanitizeString($section->getName());
+			if (count($section->getChildren()))
+			{
+				echo "<ul>";
+				foreach($section->getChildren() as $child)
+				{
+					echo "<li><a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$child->getDocument_id()}\">";
+					echo View::sanitizeString($child->getName());
+				}
+				echo "</ul>";
+			}
 			echo "</a></li>";
 		}
 	?>

@@ -13,6 +13,7 @@
 		{
 			if (in_array("Administrator",$_SESSION['USER']->getRoles())) { include(APPLICATION_HOME."/includes/sidebarBoxes/Administrator.inc"); }
 			if (in_array("Webmaster",$_SESSION['USER']->getRoles())) { include(APPLICATION_HOME."/includes/sidebarBoxes/Webmaster.inc"); }
+			if (userHasRole('Content Creator')) { include(APPLICATION_HOME.'/includes/sidebarBoxes/ContentCreator.inc'); }
 		}
 
 		if (isset($this->widgets))

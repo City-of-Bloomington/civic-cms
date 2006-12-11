@@ -5,11 +5,12 @@
  */
 	class WhatsNew extends Widget
 	{
-		public function __construct() { $this->name = "WhatsNew"; }
-
-		public function render()
+		public function __construct()
 		{
-			include(APPLICATION_NAME."/widgets/WhatsNew/blocks/whatsNew.inc");
+			$this->name = "WhatsNew";
+			$this->includeFile = "sidebar.inc";
 		}
+
+		public function render() { include(APPLICATION_HOME."/widgets/WhatsNew/sidebar.inc"); }
 	}
 ?>

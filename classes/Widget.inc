@@ -6,6 +6,7 @@
 	abstract class Widget extends View
 	{
 		protected $name;
+		protected $includeFile;
 
 		public static function load($name)
 		{
@@ -59,6 +60,19 @@
 			}
 			return $widgets;
 		}
+		public static function findInstalled()
+		{
+			global $PDO;
+
+			$widgets = array();
+
+			$sql = "select name from widgets";
+			foreach($PDO->query($sql) as $row) { $widgets[] = Widget::load($row['name']); }
+			return $widgets;
+		}
+
+		public function __toString() { return $this->name; }
 		public function getName() { return $this->name; }
+		public function getIncludeFile() { return $this->includeFile; }
 	}
 ?>

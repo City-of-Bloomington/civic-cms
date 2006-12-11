@@ -46,9 +46,11 @@ create table documents (
   id int(10) unsigned not null primary key auto_increment,
   title varchar(128) not null,
   created timestamp not null default 0,
+  createdBy int unsigned not null,
   modified timestamp default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   modifiedBy int unsigned not null,
   department_id int unsigned not null,
+  foreign key (createdBy) references users(id),
   foreign key (modifiedBy) references users(id),
   foreign key (department_id) references departments(id)
 ) engine=InnoDB;
@@ -68,6 +70,7 @@ create table sections (
   name varchar(50) not null unique,
   department_id int unsigned not null,
   document_id int unsigned not null,
+  placement tinyint(2) unsigned,
   foreign key (department_id) references departments(id),
   foreign key (document_id) references documents(id)
 ) engine=InnoDB;
@@ -154,3 +157,38 @@ insert languages values
 ('ko','Korean','한국어'),
 ('ja','Japanese','日本語'),
 ('zh','Chinese','中文');
+
+---------------------------------------------------------------------
+-- Events
+---------------------------------------------------------------------
+create table events (
+	id int unsigned not null primary key auto_increment,
+	created timestamp not null default CURRENT_TIMESTAMP,
+	start timestamp,
+	end timestamp,
+	summary varchar(60) not null,
+	location varchar(60) not null,
+	department_id int unsigned not null,
+	user_id int unsigned not null,
+	document_id int unsigned not null,
+	foreign key (department_id) references departments(id),
+	foreign key (user_id) references users(id),
+	foreign key (document_id) references documents(id)
+) engine=InnoDB;
+
+create table calendars (
+	id int unsigned not null primary key auto_increment,
+	name varchar(128) not null,
+	department_id int unsigned not null,
+	user_id int unsigned not null,
+	foreign key (department_id) references departments(id),
+	foreign key (user_id) references users(id)
+) engine=InnoDB;
+
+create table calendar_events (
+	calendar_id int unsigned not null,
+	event_id int unsigned not null,
+	primary key (calendar_id,event_id),
+	foreign key (calendar_id) references calendars(id),
+	foreign key (event_id) references events(id)
+) engine=InnoDB;
