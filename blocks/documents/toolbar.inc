@@ -5,26 +5,11 @@
  */
 /*
 	$this->document
-	( $this->section )
 */
 ?>
 <div class="contextualMenu">
-	<ul><?php
-			if (isset($this->section))
-			{
-				echo "
-				<li><form method=\"get\" action=\"".BASE_URL."/documents/addDocument.php?section_id={$this->section->getId()}\">
-						<input name=\"section_id\" type=\"hidden\" value=\"{$this->section->getId()}\" />
-						<select name=\"type\" onchange=\"this.form.submit();\">
-							<option value=\"\">New</option>
-							<option>Webpage</option>
-						</select>
-					</form>
-				</li>
-				";
-			}
-		?>
-		<li><a href="<?php echo BASE_URL; ?>/documents/updateDocument.php?document_id=<?php echo $this->document->getId(); ?>">Edit</a></li>
+	<ul>
+		<li><a href="<?php echo BASE_URL; ?>/documents/updateDocument.php?document_id=<?php echo $this->document->getId(); ?>;return_url=<?php echo $_SERVER['REQUEST_URI']; ?>">Edit</a></li>
 		<?php
 			if ($_SESSION['USER']->hasWatch($this->document)) { echo "<li><a href=\"".BASE_URL."/documents/removeWatch.php?document_id={$this->document->getId()}\">Unwatch</a></li>"; }
 			else { echo "<li><a href=\"".BASE_URL."/documents/addWatch.php?document_id={$this->document->getId()}\">Watch</a></li>"; }

@@ -5,20 +5,9 @@
  */
 /*
 	$this->document
+	$this->response
 	$this->FCKeditor
 */
-	function printSectionOptions($section,$depth,$document)
-	{
-		$depthIndicator = str_repeat("-",$depth);
-		$checked = $document->hasSection($section) ? "checked=\"checked\"" : "";
-		echo "<li><label><input name=\"document[sections][{$section->getId()}]\" type=\"checkbox\" value=\"{$section->getId()}\" $checked />$section</label></li>";
-		if ($section->hasChildren())
-		{
-			echo "<ul>";
-			foreach($section->getChildren() as $child) { printSectionOptions($child,$depth+1,$document); }
-			echo "</ul>";
-		}
-	}
 ?>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<fieldset><legend>Document Info</legend>
@@ -31,13 +20,19 @@
 	</fieldset>
 
 	<fieldset><legend>Sections</legend>
+	<table>
 		<?php
-			$sections = new SectionList(array("parent_id"=>"null"));
-			foreach($sections as $section)
+			$sections = new SectionList(array('department_id'=>$_SESSION['USER']->getDepartment_id()));
+			foreach ($sections as $section)
 			{
-				printSectionOptions($section,0,$this->document);
+				if ($this->document->hasSection($section)) { $checked="checked=\"checked\""; } else { $checked=""; }
+				echo "
+				<tr><td><input name=\"document[sections][{$section->getId()}]\" id=\"document-sections-{$section->getId()}\" type=\"checkbox\" value=\"{$section->getId()}\" $checked /></td>
+					<td><label for=\"document-sections-{$section->getId()}\">{$section}</label></td></tr>
+				";
 			}
 		?>
+	</table>
 	</fieldset>
 
 	<fieldset><legend>Facets</legend>
@@ -54,6 +49,6 @@
 
 	<fieldset><legend>Submit</legend>
 		<button type="submit" class="submit">Submit</button>
-		<button type="button" class="cancel" onclick="document.location.href='<?php echo BASE_URL; ?>/documents/viewDocument.php?document_id=<?php echo $this->document->getId(); ?>';">Cancel</button>
+		<button type="button" class="cancel" onclick="document.location.href='<?php echo $this->response; ?>';">Cancel</button>
 	</fieldset>
 </form>

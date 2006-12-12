@@ -9,7 +9,12 @@
 */
 ?>
 <div class="interfaceBox">
-	<div class="titleBar"><?php echo "{$this->user->getFirstname()} {$this->user->getLastname()}'s Documents"; ?></div>
+	<div class="titleBar">
+	<?php
+		if (userHasRole('Content Creator')) { echo "<button type=\"button\" class=\"addSmall\" onclick=\"document.location.href='".BASE_URL."/documents/addDocument.php?return_url=".$_SERVER['REQUEST_URI']."';\">Add</button>"; }
+		echo "{$this->user->getFirstname()} {$this->user->getLastname()}'s Documents";
+	?>
+	</div>
 	<table>
 	<tr><th></th>
 		<th></th>
@@ -17,7 +22,7 @@
 	<?php
 		foreach($this->documentList as $document)
 		{
-			if ($_SESSION['USER']->canEdit($document)) { $editButton = "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/documents/updateDocument.php?document_id={$document->getId()}';\">Edit</button>"; }
+			if ($_SESSION['USER']->canEdit($document)) { $editButton = "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/documents/updateDocument.php?document_id={$document->getId()};return_url=$_SERVER[REQUEST_URI]';\">Edit</button>"; }
 			else { $editButton = ""; }
 			echo "
 			<tr><td>$editButton</td>

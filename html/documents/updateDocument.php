@@ -5,6 +5,7 @@
  */
 /*
 	$_GET variables:	document_id
+						return_url
 */
 	verifyUser(array('Publisher','Content Creator'));
 
@@ -31,11 +32,12 @@
 			Header("Location: ".BASE_URL."/documents/viewDocument.php?document_id={$document->getId()}");
 			exit();
 		}
-
-		$document->setTitle($_POST['document']['title']);
+		foreach($_POST['document'] as $field=>$value)
+		{
+			$set = "set".ucfirst($field);
+			$document->$set($value);
+		}
 		$document->setContent($_POST['content']);
-		$facets = isset($_POST['document']['facets']) ? $_POST['document']['facets'] : array();
-		$document->setFacets($facets);
 
 		try
 		{
@@ -56,8 +58,12 @@
 	$FCKeditor->ToolbarSet = 'Custom';
 	if (isset($document)) { $FCKeditor->Value = $document->getContent(); }
 
+	$form = new Block('documents/updateDocumentForm.inc');
+	$form->FCKeditor = $FCKeditor;
+	$form->document = $document;
+	$form->response = new URL($_GET['return_url']);
+
 	$template = new Template();
-	$form = new Block('documents/updateDocumentForm.inc',array('document'=>$document,'FCKeditor'=>$FCKeditor));
 	$template->blocks[] = $form;
 	$template->render();
 ?>

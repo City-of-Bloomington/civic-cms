@@ -23,9 +23,9 @@
 		private $deletedFacetIds = array();
 		private $related = array();
 
-		private $sections;
-		private $deletedSectionIds = array();
-		private $newSectionIds = array();
+		private $sections = array();
+		private $deletedSections = array();
+		private $newSections = array();
 
 		/**
 		 * This will load all fields in the table as properties of this class.
@@ -247,38 +247,67 @@
 		/**
 		 * Section functions
 		 */
+		public function getSections()
+		{
+			# A Document cannot have sections until it has an ID
+			if (!count($this->sections) && $this->id)
+			{
+				$list = new SectionList(array('document_id'=>$this->id));
+				foreach($list as $section) { $this->sections[$section->getId()] = $section; }
+			}
+			return $this->sections;
+		}
+		public function setSections(array $sectionIds)
+		{
+			# Make sure to call $this->getSections() at least once to ensure that
+			# the current sections are loaded before trying to determine which ones are new
+
+			# Only load the new sections the user is allowed to edit
+			$newSections = array();
+			foreach($sectionIds as $id)
+			{
+				$section = new Section($id);
+				if ($_SESSION['USER']->canEdit($section)) { $newSections[$id] = $section; }
+			}
+
+			# Any Sections that are not in $this->sections need to be added
+			$this->newSections = array_diff_key($newSections,$this->getSections());
+			foreach($this->newSections as $id=>$section) { $this->sections[$id] = $section; }
+
+			# Unset any $this->sections that are not in $sectionIds
+			$this->deletedSections = array_diff_key($this->sections,$newSections);
+			foreach($this->deletedSections as $id=>$section) { unset($this->sections[$id]); }
+		}
 		private function saveSections()
 		{
 			global $PDO;
 
 			# Clear out any deleted sections
-			if (count($this->deletedSectionIds))
+			if (count($this->deletedSections))
 			{
-				$sections = implode(",",$this->deletedSectionIds);
-				$sql = "delete from document_sections where section_id in ($sections)";
-				if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
+				$deletedSections = implode(",",array_keys($this->deletedSections));
+				$query = $PDO->prepare("delete from document_sections where document_id={$this->id} and section_id in ($deletedSections)");
+				$query->execute();
 			}
 
 			# Add in any new sections
-			if (count($this->newSectionIds))
+			if (count($this->newSections))
 			{
 				$query = $PDO->prepare("insert document_sections values($this->id,?)");
-				foreach($this->newSectionIds as $section_id)
-				{
-					try { $query->execute(array($section_id)); }
-					catch (Exception $e) { throw $e; }
-				}
+				foreach($this->newSections as $id=>$section) { $query->execute(array($id)); }
 			}
 		}
-
 		public function addSection($section)
 		{
-			$this->newSectionIds[] = $section->getId();
-			$this->sections[] = $section;
+			$this->newSections[$section->getId()] = $section;
+			$this->sections[$section->getId()] = $section;
 		}
 		public function hasSection($section) { return array_key_exists($section->getId(),$this->getSections()); }
 
 
+		/**
+		 * Watch Functions
+		 */
 		public function addWatch($user)
 		{
 			global $PDO;
@@ -305,6 +334,9 @@
 			return $watches;
 		}
 
+		/**
+		 * Generic Getters
+		 */
 		public function getId() { return $this->id; }
 		public function getTitle() { return $this->title; }
 		public function getCreated() { return $this->created; }
@@ -317,18 +349,6 @@
 			if (!$this->department) { $this->department = new Department($this->department_id); }
 			return $this->department;
 		}
-		public function getSections()
-		{
-			if (!count($this->sections))
-			{
-				$this->sections = array();
-				foreach(new SectionList(array('document_id'=>$this->id)) as $section)
-				{
-					$this->sections[$section->getId()] = $section;
-				}
-			}
-			return $this->sections;
-		}
 		public function getDateCreated()
 		{
 			list ($dateCreated,$timeCreated) = explode(' ',$this->created);
@@ -336,38 +356,13 @@
 		}
 
 
-
-
+		/**
+		 * Generic Setters
+		 */
 		public function setTitle($string) { $this->title = trim($string); }
 		public function setContent($string) { $this->content = trim($string); }
 		public function setModifiedBy($user) { $this->modifiedBy = $user->getId(); }
 		public function setDepartment_id($int) { $this->department = new Department($int); $this->department_id = $int; }
 		public function setDepartment($department) { $this->department_id = $department->getId(); $this->department = $department; }
-		public function setSections(array $sections)
-		{
-			# Make sure to call $this->getSections once and only once in this function.
-			# We need to have this->sections populated, but we don't want to repopulate it
-			# once we start making changes to it.
-
-			# Delete any existing sections that aren't in the new array
-			foreach($this->getSections() as $section)
-			{
-				if (!array_key_exists($section->getId(),$sections))
-				{
-					$this->deletedSectionIds[] = $section->getId();
-					unset($this->sections[$section->getId()]);
-				}
-			}
-
-			# Add any new sections that aren't in the existing array
-			foreach($sections as $section)
-			{
-				if (!array_key_exists($section->getId(),$this->sections))
-				{
-					$this->sections[] = $section;
-					$this->newSectionIds[] = $section->getId();
-				}
-			}
-		}
 	}
 ?>

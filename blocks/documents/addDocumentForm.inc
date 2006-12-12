@@ -4,26 +4,14 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  */
 /*
-	$this->section
 	$this->FCKeditor
+	$this->response
+	$this->section ( Optional section to pre-select )
 */
-	function printSectionOptions($section,$depth,$sectionToEdit)
-	{
-		$depthIndicator = str_repeat("-",$depth);
-		$checked = $section->getId()==$sectionToEdit->getId() ? "checked=\"checked\"" : "";
-		echo "<li><label><input name=\"section[parents][{$section->getId()}]\" type=\"checkbox\" value=\"{$section->getId()}\" $checked />$section</label></li>";
-		if ($section->hasChildren())
-		{
-			echo "<ul>";
-			foreach($section->getChildren() as $child) { printSectionOptions($child,$depth+1,$sectionToEdit); }
-			echo "</ul>";
-		}
-	}
 ?>
-<p><?php echo $this->section->getDepartment()->getName(); ?></p>
+<h1>New Document</h1>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<fieldset><legend>Document Info</legend>
-		<input name="section_id" type="hidden" value="<?php echo $this->section->getId(); ?>" />
 		<table>
 		<tr><td><label for="document-title">Title</label></td>
 			<td><input name="document[title]" id="document-title" /></td></tr>
@@ -32,13 +20,19 @@
 	</fieldset>
 
 	<fieldset><legend>Sections</legend>
+	<table>
 		<?php
-			$sections = new SectionList(array("parent_id"=>"null"));
-			foreach($sections as $section)
+			$sections = new SectionList(array('department_id'=>$_SESSION['USER']->getDepartment_id()));
+			foreach ($sections as $section)
 			{
-				printSectionOptions($section,0,$this->section);
+				if (isset($this->section) && $section->getId()==$this->section->getId()) { $checked="checked=\"checked\""; } else { $checked=""; }
+				echo "
+				<tr><td><input name=\"document[sections][{$section->getId()}]\" id=\"document-sections-{$section->getId()}\" type=\"checkbox\" value=\"{$section->getId()}\" $checked /></td>
+					<td><label for=\"document-sections-{$section->getId()}\">{$section}</label></td></tr>
+				";
 			}
 		?>
+	</table>
 	</fieldset>
 
 	<fieldset><legend>Facets</legend>
@@ -54,6 +48,6 @@
 
 	<fieldset><legend>Submit</legend>
 		<button type="submit" class="submit">Submit</button>
-		<button type="button" class="cancel" onclick="document.location.href='<?php echo BASE_URL; ?>/documents/viewDocument.php?document_id=<?php echo $this->section->getDocument_id(); ?>';">Cancel</button>
+		<button type="button" class="cancel" onclick="document.location.href='<?php echo $this->response; ?>';">Cancel</button>
 	</fieldset>
 </form>
