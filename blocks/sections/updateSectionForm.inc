@@ -21,23 +21,25 @@
 	<table>
 	<tr><td><label for="section-name">Name</label></td>
 		<td><input name="section[name]" id="section-name" value="<?php echo $this->section->getName(); ?>" /></td></tr>
-	<tr><td><label for="section-department_id">Department</label></td>
-		<td><select name="section[department_id]" id="section-department_id">
-			<?php
-				$departments = new DepartmentList();
-				$departments->find();
-				foreach($departments as $department)
-				{
-					if ($this->section->getDepartment_id() == $department->getId())
-						{ echo "<option value=\"{$department->getId()}\" selected=\"selected\">{$department->getName()}</option>"; }
-					else { echo "<option value=\"{$department->getId()}\">{$department->getName()}</option>"; }
-				}
-			?>
-			</select>
-		</td>
-	</tr>
 	<tr><td><label for="section-placement">Placement</label></td>
 		<td><input name="section[placement]" id="section-placement" size="2" maxlength="2" value="<?php echo $this->section->getPlacement(); ?>" /></td></tr>
+	</table>
+</fieldset>
+
+<fieldset><legend>Departments</legend>
+	<table>
+	<?php
+		$departments = new DepartmentList();
+		$departments->find();
+		foreach($departments as $department)
+		{
+			$checked = $this->section->hasDepartment($department) ? "checked=\"checked\"" : "";
+			echo "
+			<tr><td><input type=\"checkbox\" name=\"section[departments][{$department->getId()}]\" id=\"section-departments-{$department->getId()}\" value=\"{$department->getId()}\" $checked /></td>
+				<td><label for=\"section-departments-{$department->getId()}\">{$department->getName()}</label></td></tr>
+			";
+		}
+	?>
 	</table>
 </fieldset>
 

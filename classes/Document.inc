@@ -185,6 +185,7 @@
 			return $languages;
 		}
 
+
 		/**
 		 * Facet functions
 		 */
@@ -267,7 +268,7 @@
 			foreach($sectionIds as $id)
 			{
 				$section = new Section($id);
-				if ($_SESSION['USER']->canEdit($section)) { $newSections[$id] = $section; }
+				if ($section->permitsEditingBy($_SESSION['USER'])) { $newSections[$id] = $section; }
 			}
 
 			# Any Sections that are not in $this->sections need to be added
@@ -333,6 +334,14 @@
 			}
 			return $watches;
 		}
+
+
+   		public function permitsEditingBy($user)
+   		{
+   			if ($user->hasRole(array('Webmaster','Content Creator','Administrator')) &&
+   				$this->department_id = $user->getDepartment_id()) { return true; }
+			return false;
+   		}
 
 		/**
 		 * Generic Getters

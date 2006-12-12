@@ -6,8 +6,6 @@
 /*
 	$this->section
 */
-	$this->editMode = ( userHasRole(array('Publisher','Content Creator')) &&
-						$_SESSION['USER']->getDepartment_id()==$this->section->getDepartment_id() ) ? true : false;
 ?>
 <div class="interfaceBox">
 	<div class="titleBar">Documents</div>

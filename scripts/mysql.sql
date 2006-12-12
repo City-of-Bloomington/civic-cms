@@ -68,11 +68,17 @@ create table document_watches (
 create table sections (
   id int(10) unsigned not null primary key auto_increment,
   name varchar(50) not null unique,
-  department_id int unsigned not null,
   document_id int unsigned not null,
   placement tinyint(2) unsigned,
-  foreign key (department_id) references departments(id),
   foreign key (document_id) references documents(id)
+) engine=InnoDB;
+
+create table section_departments (
+	section_id int unsigned not null,
+	department_id int unsigned not null,
+	primary key (section_id,department_id),
+	foreign key (section_id) references sections(id),
+	foreign key (department_id) references departments(id)
 ) engine=InnoDB;
 
 create table section_parents (

@@ -7,12 +7,14 @@
 	{
 		private $id;
 		private $name;
-		private $department_id;
 		private $document_id;
 		private $placement;
 
-		private $department;
 		private $document;
+
+		private $departments = array();
+		private $newDepartmentIds = array();
+		private $deletedDepartmentIds = array();
 
 		private $facets = array();
 		private $newFacetIds = array();
@@ -61,7 +63,7 @@
 		public function save()
 		{
 			# Check for required fields here.  Throw an exception if anything is missing.
-			if (!$this->name || !$this->department_id) { throw new Exception("missingRequiredFields"); }
+			if (!$this->name) { throw new Exception("missingRequiredFields"); }
 
 			# New Sections need a default document created for them
 			if (!$this->document_id)
@@ -76,7 +78,6 @@
 
 			$fields = array();
 			$fields['name'] = $this->name ? $this->name : null;
-			$fields['department_id'] = $this->department_id ? $this->department_id : null;
 			$fields['document_id'] = $this->document_id ? $this->document_id : null;
 			$fields['placement'] = $this->placement ? $this->placement : null;
 
@@ -96,6 +97,7 @@
 			else { $this->insert($values,$preparedFields); }
 
 			$this->updateParents();
+			$this->saveDepartments();
 			$this->saveFacets();
 		}
 
@@ -194,18 +196,8 @@
 		public function getId() { return $this->id; }
 		public function getName() { return $this->name; }
 		public function getChildren() { return new SectionList(array('parent_id'=>$this->id)); }
-		public function getDepartment_id() { return $this->department_id; }
 		public function getPlacement() { return $this->placement; }
 		public function getDocument_id() { return $this->document_id; }
-		public function getDepartment()
-		{
-			if ($this->department_id)
-			{
-				if (!$this->department) { $this->department = new Department($this->department_id); }
-				return $this->department;
-			}
-			else return null;
-		}
 		public function getDocument()
 		{
 			if ($this->document_id)
@@ -258,6 +250,51 @@
 			}
 			return $this->ancestors;
    		}
+
+   		/**
+   		 * Department Functions
+   		 */
+   		public function getDepartments()
+   		{
+   			if (!count($this->departments))
+   			{
+		   		$list = new DepartmentList(array('section_id'=>$this->id));
+		   		foreach($list as $department) { $this->departments[$department->getId()] = $department; }
+   			}
+   			return $this->departments;
+   		}
+   		private function saveDepartments()
+   		{
+   			global $PDO;
+			# Clear out all the old departments
+			if (count($this->deletedDepartmentIds))
+			{
+				$ids = implode(",",$this->deletedDepartmentIds);
+				$query = $PDO->prepare("delete from section_departments where section_id={$this->id} and department_id in ($ids)");
+				$query->execute();
+			}
+
+			# Add in the new ones
+			if (count($this->newDepartmentIds))
+			{
+				$query = $PDO->prepare("insert section_departments set section_id={$this->id},department_id=?");
+				foreach($this->newDepartmentIds as $id) { $query->execute(array($id)); }
+			}
+   		}
+		public function setDepartments(array $departmentIds)
+		{
+			# Make sure to call $this->getDepartments() at least once to ensure that
+			# the current departments are loaded before trying to determine which ones are new
+
+			# Any $departmentIds that are not in $this->departments need to be added
+			$this->newDepartmentIds = array_diff($departmentIds,array_keys($this->getDepartments()));
+			foreach($this->newDepartmentIds as $id) { $this->departments[$id] = new Department($id); }
+
+			# Unset any $this->departments that are not in $departmentIds
+			$this->deletedDepartmentIds = array_diff(array_keys($this->departments),$departmentIds);
+			foreach($this->deletedDepartmentIds as $id) { unset($this->departments[$id]); }
+		}
+		public function hasDepartment($department) { return array_key_exists($department->getId(),$this->getDepartments()); }
 
 		/**
 		 * Facet functions
@@ -345,13 +382,17 @@
 			}
    		}
 
+   		public function permitsEditingBy($user)
+   		{
+   			if ($user->hasRole('Webmaster') && $this->hasDepartment($user->getDepartment())) { return true; }
+			return false;
+   		}
+
 
 		public function setName($string) { $this->name = trim($string); }
-		public function setDepartment_id($int) { $this->department = new Department($int); $this->department_id = $int; }
 		public function setDocument_id($int) { $this->document = new Document($int); $this->document_id = $int; }
 		public function setPlacement($int) { $this->placement = ereg_replace("[^0-9]","",$int); }
 
-		public function setDepartment($department) { $this->department_id = $department->getId(); $this->department = $department; }
 		public function setDocument($document) { $this->document_id = $document->getId(); $this->document = $document; }
 		/**
 		 * Takes an array of parent_id's to be associated with this section

@@ -22,7 +22,7 @@
 	<?php
 		foreach($this->documentList as $document)
 		{
-			if ($_SESSION['USER']->canEdit($document)) { $editButton = "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/documents/updateDocument.php?document_id={$document->getId()};return_url=$_SERVER[REQUEST_URI]';\">Edit</button>"; }
+			if ($document->permitsEditingBy($_SESSION['USER'])) { $editButton = "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/documents/updateDocument.php?document_id={$document->getId()};return_url=$_SERVER[REQUEST_URI]';\">Edit</button>"; }
 			else { $editButton = ""; }
 			echo "
 			<tr><td>$editButton</td>

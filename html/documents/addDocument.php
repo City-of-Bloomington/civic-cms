@@ -12,7 +12,7 @@
 	if (isset($_GET['section_id']))
 	{
 		$section = new Section($_GET['section_id']);
-		if (!$_SESSION['USER']->canEdit($section)) { unset($section); }
+		if (!$section->permitsEditingBy($_SESSION['USER'])) { unset($section); }
 	}
 
 	if (isset($_POST['document']))

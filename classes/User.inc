@@ -171,15 +171,6 @@
 		}
 
 		/**
-		 * In this system, users can only edit stuff if they're in the same department
-		 * as the thing they're trying to edit
-		 */
-		public function canEdit($object)
-		{
-			return $this->department_id == $object->getDepartment_id();
-		}
-
-		/**
 		 * Checks if the user has a watch on a document
 		 */
 		public function hasWatch($document)

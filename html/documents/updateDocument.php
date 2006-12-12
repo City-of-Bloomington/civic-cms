@@ -12,7 +12,7 @@
 	if (isset($_GET['document_id']))
 	{
 		$document = new Document($_GET['document_id']);
-		if (!$_SESSION['USER']->canEdit($document))
+		if (!$document->permitsEditingBy($_SESSION['USER']))
 		{
 			$_SESSION['errorMessages'][] = "noAccessAllowed";
 			Header("Location: ".BASE_URL."/documents/viewDocument.php?document_id={$document->getId()}");
@@ -26,7 +26,7 @@
 	{
 		$document = new Document($_POST['document_id']);
 
-		if (!$_SESSION['USER']->canEdit($document))
+		if (!$document->permitsEditingBy($_SESSION['USER']))
 		{
 			$_SESSION['errorMessages'][] = "noAccessAllowed";
 			Header("Location: ".BASE_URL."/documents/viewDocument.php?document_id={$document->getId()}");

@@ -25,10 +25,15 @@
 			# Finding on fields from other tables required joining those tables.
 			# You can add fields from other tables to $options by adding the join SQL
 			# to $this->joins here
+			if (isset($fields['section_id']))
+			{
+				$this->joins.= " left join section_departments s on s.department_id=departments.id";
+				$options[] = "s.section_id=$fields[section_id]";
+			}
 
 			$this->populateList($options);
 		}
-	
+
 
 		protected function loadResult($key) { return new Department($this->list[$key]); }
 	}
