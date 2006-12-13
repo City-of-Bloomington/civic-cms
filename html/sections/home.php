@@ -6,6 +6,6 @@
 	verifyUser("Webmaster");
 
 	$template = new Template();
-	$template->blocks[] = new Block("sections/listSections.inc",array('sectionList'=>new SectionList(array("parent_id"=>1))));
+	$template->blocks[] = new Block("sections/listSections.inc",array('section'=>new Section(1)));
 	$template->render();
 ?>

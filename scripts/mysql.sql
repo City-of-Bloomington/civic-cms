@@ -49,6 +49,8 @@ create table documents (
   createdBy int unsigned not null,
   modified timestamp default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   modifiedBy int unsigned not null,
+  publishDate date not null,
+  retireDate date,
   department_id int unsigned not null,
   foreign key (createdBy) references users(id),
   foreign key (modifiedBy) references users(id),
@@ -82,10 +84,12 @@ create table section_departments (
 ) engine=InnoDB;
 
 create table section_parents (
-  section_id int(10) unsigned not null,
-  parent_id int(10) unsigned not null,
-  foreign key (section_id) references sections (id),
-  foreign key (parent_id) references sections (id)
+	node_id int unsigned not null primary key auto_increment,
+	section_id int(10) unsigned not null,
+	parent_id int(10) unsigned not null,
+	placement tinyint(2) unsigned not null,
+	foreign key (section_id) references sections (id),
+	foreign key (parent_id) references sections (id)
 ) engine=InnoDB;
 
 create table sectionIndex (

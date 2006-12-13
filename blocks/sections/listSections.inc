@@ -1,11 +1,10 @@
 <?php
 /*
-	$this->sectionList
+	$this->section
 */
-	if (userHasRole("Webmaster")) { $addButton = "<button type=\"button\" class=\"addSmall\" onclick=\"document.location.href='".BASE_URL."/sections/addSection.php';\">Add</button>"; }
-	function listEditableSections($sectionList)
+	function listEditableSections($section)
 	{
-		foreach($sectionList as $section)
+		foreach($section->getChildren() as $placement=>$section)
 		{
 			echo "<li>";
 			if (userHasRole("Webmaster")) { echo "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/sections/updateSection.php?section_id={$section->getId()}';\">Edit</button>"; }
@@ -15,7 +14,7 @@
 			if ($section->hasChildren())
 			{
 				echo "<ul>";
-				listEditableSections($section->getChildren());
+				listEditableSections($section);
 				echo "</ul>";
 			}
 			echo "</li>";
@@ -23,8 +22,21 @@
 	}
 ?>
 <div class="interfaceBox">
-	<div class="titleBar"><?php echo $addButton; ?>Sections</div>
+<?php
+	if (userHasRole('Webmaster'))
+	{
+		echo "
+		<div class=\"contextualMenu\">
+			<span class=\"title\">Sections</span>
+			<ul><li><a href=\"".BASE_URL."/sections/addSection.php\">Add</a></li>
+				<li><a href=\"".BASE_URL."/sections/rearrangeSections.php\">Rearrange</a></li>
+			</ul>
+		</div>
+		";
+	}
+	else { echo "<div class=\"titleBar\">Sections</div>"; }
+?>
 	<ul>
-		<?php listEditableSections($this->sectionList); ?>
+		<?php listEditableSections($this->section); ?>
 	</ul>
 </div>

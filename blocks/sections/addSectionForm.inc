@@ -11,13 +11,12 @@
 		}
 	}
 ?>
+<h1>New Section</h1>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 <fieldset><legend>Section Info</legend>
 	<table>
 	<tr><td><label for="section-name">Name</label></td>
 		<td><input name="section[name]" id="section-name" /></td></tr>
-	<tr><td><label for="section-placement">Placement</label></td>
-		<td><input name="section[placement]" id="section-placement" size="2" maxlength="2" /></td></tr>
 	</table>
 </fieldset>
 

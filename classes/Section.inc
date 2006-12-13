@@ -8,7 +8,6 @@
 		private $id;
 		private $name;
 		private $document_id;
-		private $placement;
 
 		private $document;
 
@@ -21,6 +20,7 @@
 		private $deletedFacetIds = array();
 
 		private $parents;
+		private $children = array();
 		private $ancestors = array();
 		private $documents;
 		private $widgets = array();
@@ -181,6 +181,19 @@
 			$result = $query->fetchAll();
 			return $result[0]['count'];
 		}
+		public function getChildren()
+		{
+			global $PDO;
+			if (!count($this->children))
+			{
+				$query = $PDO->prepare("select node_id from section_parents where parent_id={$this->id} order by isnull(placement),placement");
+				$query->execute();
+				$result = $query->fetchAll();
+
+				foreach($result as $row) { $this->children[] = new SectionNode($row['node_id']); }
+			}
+			return $this->children;
+		}
 		/**
 		 * Find out if a given section is a parent of this section
 		 */
@@ -189,23 +202,6 @@
 			$parents = $this->getParents();
 			foreach($parents as $parent) { if ($section->getId() == $parent->getId()) { return true; } }
 			return false;
-		}
-
-		public function __toString() { return $this->name; }
-
-		public function getId() { return $this->id; }
-		public function getName() { return $this->name; }
-		public function getChildren() { return new SectionList(array('parent_id'=>$this->id)); }
-		public function getPlacement() { return $this->placement; }
-		public function getDocument_id() { return $this->document_id; }
-		public function getDocument()
-		{
-			if ($this->document_id)
-			{
-				if (!$this->document) { $this->document = new Document($this->document_id); }
-				return $this->document;
-			}
-			else return null;
 		}
    		public function getParents()
    		{
@@ -221,6 +217,15 @@
 			}
 			return $this->parents;
    		}
+		/**
+		 * Takes an array of parent_id's to be associated with this section
+		 * A Section cannot have itself for a parent
+		 */
+		public function setParents(array $array)
+		{
+			$this->parents = array();
+			foreach($array as $id) { if ($id != $this->id) { $this->parents[] = new Section($id); } }
+		}
    		/**
    		 * Returns a Multi-demensional array of ancestors.  One vector for
    		 * each parent this section has.
@@ -250,6 +255,7 @@
 			}
 			return $this->ancestors;
    		}
+
 
    		/**
    		 * Department Functions
@@ -389,19 +395,29 @@
    		}
 
 
+		public function __toString() { return $this->name; }
+
+		/**
+		 * Generic Getters
+		 */
+		public function getId() { return $this->id; }
+		public function getName() { return $this->name; }
+		public function getDocument_id() { return $this->document_id; }
+		public function getDocument()
+		{
+			if ($this->document_id)
+			{
+				if (!$this->document) { $this->document = new Document($this->document_id); }
+				return $this->document;
+			}
+			else return null;
+		}
+
+		/**
+		 * Generic Setters
+		 */
 		public function setName($string) { $this->name = trim($string); }
 		public function setDocument_id($int) { $this->document = new Document($int); $this->document_id = $int; }
-		public function setPlacement($int) { $this->placement = ereg_replace("[^0-9]","",$int); }
-
 		public function setDocument($document) { $this->document_id = $document->getId(); $this->document = $document; }
-		/**
-		 * Takes an array of parent_id's to be associated with this section
-		 * A Section cannot have itself for a parent
-		 */
-		public function setParents(array $array)
-		{
-			$this->parents = array();
-			foreach($array as $id) { if ($id != $this->id) { $this->parents[] = new Section($id); } }
-		}
 	}
 ?>

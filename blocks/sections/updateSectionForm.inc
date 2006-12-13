@@ -15,14 +15,13 @@
 		}
 	}
 ?>
+<h1>Edit <?php echo $this->section; ?></h1>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 <fieldset><legend>Section Info</legend>
 	<input name="id" type="hidden" value="<?php echo $this->section->getId(); ?>" />
 	<table>
 	<tr><td><label for="section-name">Name</label></td>
 		<td><input name="section[name]" id="section-name" value="<?php echo $this->section->getName(); ?>" /></td></tr>
-	<tr><td><label for="section-placement">Placement</label></td>
-		<td><input name="section[placement]" id="section-placement" size="2" maxlength="2" value="<?php echo $this->section->getPlacement(); ?>" /></td></tr>
 	</table>
 </fieldset>
 
