@@ -9,9 +9,9 @@
 	<meta http-equiv="Content-Script-Type" content="text/javascript" />
 	<link rel="SHORTCUT ICON" href="/favicon.ico" />
 	<style type="text/css" media="screen">
-		@import url("/skins/default/skin.css");
+		@import url("<?php echo BASE_URL; ?>/skins/default/skin.css");
 	</style>
-	<style type="text/css" media="print">@import url("/skins/default/print.css");</style>
+	<style type="text/css" media="print">@import url("<?php echo BASE_URL; ?>/skins/default/print.css");</style>
 	<title>Content Manager - City of Bloomington, Indiana</title>
 </head>
 <body>

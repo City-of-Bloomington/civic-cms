@@ -30,7 +30,7 @@
 				echo "<li><a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$section->getDocument_id()}\">$section</a></li>";
 				$currentSection = $section;
 			}
-			if ($currentSection->permitsEditingBy($_SESSION['USER']))
+			if (isset($_SESSION['USER']) && $currentSection->permitsEditingBy($_SESSION['USER']))
 			{
 				echo "
 				<li><form method=\"get\" action=\"".BASE_URL."/documents/addDocument.php?section_id={$currentSection->getId()}\">
