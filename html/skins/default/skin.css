@@ -91,15 +91,13 @@ ul.compact { list-style-type:none; margin:0; padding:0; }
 
 #mainContent { background-color:inherit; padding-left:3px; margin-left:170px; }
 .contextualMenu { background-color:#fba500; color:black; border:2px solid black; margin-bottom:1em; margin-top:1em; }
+.contextualMenu div { display:inline; }
 .contextualMenu span.title { background:inherit; color:white; font-size:12pt; font-weight:bold; border:0; padding-left:1em; padding-right:0; }
 .contextualMenu ul,.contextualMenu li { display:inline; margin:0; padding:0; list-style-type:none; }
 .contextualMenu a {  }
 .contextualMenu a:hover { color:white; background-color:inherit; }
 	/* This lets us put small forms into the menubar without hurting the layout too bad */
-	.contextualMenu form { margin:0; padding:0; display:inline; height:1em; }
-	.contextualMenu form fieldset { margin:0; padding:0; border:0; display:inline; }
-	.contextualMenu form input { font-size:8pt; font-weight:normal; }
-	.contextualMenu form button { font-size:8pt; }
+	.contextualMenu form { display:inline; margin:0; padding:0; }
 
 /* For pages with tab-type system on them */
 .tabBar { background-color:inherit; font-family: serif; font-weight: bold; }

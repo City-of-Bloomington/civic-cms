@@ -7,7 +7,7 @@
 <div class="menuBar">
 	<ul>
 	<?php
-		$sections = new SectionList(array('parent_id'=>1,"placement"));
+		$sections = new SectionList(array('parent_id'=>1),"placement");
 		foreach($sections as $section)
 		{
 			echo "<li><a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$section->getDocument_id()}\">";
@@ -26,4 +26,5 @@
 		}
 	?>
 	</ul>
+	<p><?php  ?></p>
 </div>

@@ -174,6 +174,13 @@
 			}
 			return $this->contentDirectory;
 		}
+		public function getContentFilename()
+		{
+			$filename = "{$this->getContentDirectory()}/{$this->id}.$_SESSION[LANGUAGE]";
+			if (file_exists($filename)) { return $filename; }
+			else return null;
+		}
+		public function setContentFile($filename) { $this->content = file_get_contents($filename); }
 		public function getLanguages()
 		{
 			$languages = array();

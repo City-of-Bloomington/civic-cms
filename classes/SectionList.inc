@@ -8,7 +8,8 @@
 		public function __construct($fields=null,$sort=null)
 		{
 			$this->select = "select s.id from sections s";
-			if (is_array($fields)) $this->find($fields,$sort);
+			if ($sort) { $this->sort = $sort; }
+			if (is_array($fields)) { $this->find($fields); }
 		}
 
 
@@ -19,11 +20,16 @@
 			$options = array();
 			if (isset($fields['id'])) { $options[] = "id='$fields[id]'"; }
 			if (isset($fields['name'])) { $options[] = "name='$fields[name]'"; }
-			if (isset($fields['department_id'])) { $options[] = "department_id='$fields[department_id]'"; }
 
 			# Finding on fields from other tables required joining those tables.
 			# You can add fields from other tables to $options by adding the join SQL
 			# to $this->joins here
+			if (isset($fields['department_id']))
+			{
+				$this->joins.= " left join section_departments sd on s.id=sd.section_id";
+				$options[] = "department_id='$fields[department_id]'";
+			}
+
 			if (isset($fields['parent_id']))
 			{
 				$this->joins.= " left join section_parents p on s.id=p.section_id";
