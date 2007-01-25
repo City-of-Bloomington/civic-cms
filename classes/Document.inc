@@ -14,11 +14,13 @@
 		private $publishDate;
 		private $retireDate;
 		private $department_id;
+		private $documentType_id;
 
 		private $department;
 		private $content;
 		private $contentDirectory;
 		private $contentLanguage;
+		private $documentType;
 
 		private $facets = array();
 		private $newFacetIds = array();
@@ -82,6 +84,7 @@
 			$fields['publishDate'] = $this->publishDate ? $this->publishDate : null;
 			$fields['retireDate'] = $this->retireDate ? $this->retireDate : null;
 			$fields['department_id'] = $this->department_id;
+			$fields['documentType_id'] = $this->documentType_id ? $this->documentType_id : null;
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
@@ -367,6 +370,7 @@
 		public function getPublishDate() { return $this->publishDate; }
 		public function getRetireDate() { return $this->retireDate; }
 		public function getDepartment_id() { return $this->department_id; }
+		public function getDocumentType_id() { return $this->documentType_id; }
 		public function getDepartment()
 		{
 			if (!$this->department) { $this->department = new Department($this->department_id); }
@@ -376,6 +380,15 @@
 		{
 			list ($dateCreated,$timeCreated) = explode(' ',$this->created);
 			return $dateCreated;
+		}
+		public function getDocumentType()
+		{
+			if ($this->documentType_id)
+			{
+				if (!$this->documentType) { $this->documentType = new DocumentType($this->documentType_id); }
+				return $this->documentType;
+			}
+			else return null;
 		}
 
 
@@ -389,5 +402,17 @@
 		public function setRetireDate($date) { $this->retireDate = is_array($date) ? $this->dateArrayToString($date) : $date; }
 		public function setDepartment_id($int) { $this->department = new Department($int); $this->department_id = $int; }
 		public function setDepartment($department) { $this->department_id = $department->getId(); $this->department = $department; }
+		public function setDocumentType_id($int)
+		{
+			$this->documentType = new DocumentType($int);
+			$this->documentType_id = $int;
+			if (!$this->content) { $this->content = $this->documentType->getTemplate(); }
+		}
+		public function setDocumentType($type)
+		{
+			$this->documentType_id = $type->getId();
+			$this->documentType = $type;
+			if (!$this->content) { $this->content = $this->documentType->getTemplate(); }
+		}
 	}
 ?>

@@ -5,16 +5,22 @@
  */
 /*
 	$_GET variables:	return_url
+						documentType_id
 						section_id  ( Optionally include a section to pre-select )
 */
+	# Make sure they're allowed to edit stuff in this section
 	verifyUser(array('Publisher','Content Creator'));
-
 	if (isset($_GET['section_id']))
 	{
 		$section = new Section($_GET['section_id']);
 		if (!$section->permitsEditingBy($_SESSION['USER'])) { unset($section); }
 	}
 
+	# Create the new, empty document
+	$document = new Document();
+	if (isset($_GET['documentType_id'])) { $document->setDocumentType_id($_GET['documentType_id']); }
+
+	# If they've posted, populate the document with all their stuff
 	if (isset($_POST['document']))
 	{
 		$document = new Document();
@@ -37,7 +43,7 @@
 	$FCKeditor = new FCKeditor("content");
 	$FCKeditor->BasePath = BASE_URL."/FCKeditor/";
 	$FCKeditor->ToolbarSet = 'Custom';
-	if (isset($document)) { $FCKeditor->Value = $document->getContent(); }
+	$FCKeditor->Value = $document->getContent();
 
 	$form = new Block('documents/addDocumentForm.inc');
 	$form->FCKeditor = $FCKeditor;

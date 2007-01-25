@@ -42,6 +42,13 @@ create table user_roles (
 ---------------------------------------------------------------------
 -- Document tables
 ---------------------------------------------------------------------
+create table documentTypes (
+	id int unsigned not null primary key auto_increment,
+	type varchar(128) not null,
+	template text not null
+) engine=InnoDB;
+insert documentTypes set type='Webpage';
+
 create table documents (
   id int(10) unsigned not null primary key auto_increment,
   title varchar(128) not null,
@@ -52,9 +59,11 @@ create table documents (
   publishDate date not null,
   retireDate date,
   department_id int unsigned not null,
+  documentType_id int unsigned not null default 1,
   foreign key (createdBy) references users(id),
   foreign key (modifiedBy) references users(id),
-  foreign key (department_id) references departments(id)
+  foreign key (department_id) references departments(id),
+  foreign key (documentType_id) references documentTypes(id)
 ) engine=InnoDB;
 
 create table document_watches (
