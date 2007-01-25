@@ -11,6 +11,8 @@
 		private $createdBy;
 		private $modified;
 		private $modifiedBy;
+		private $publishDate;
+		private $retireDate;
 		private $department_id;
 
 		private $department;
@@ -55,6 +57,7 @@
 				$this->created = date("Y-m-d H:i:s");
 				$this->createdBy = $_SESSION['USER']->getId();
 				$this->modifiedBy = $_SESSION['USER']->getId();
+				$this->publishDate = $this->created;
 				$this->setDepartment_id($_SESSION['USER']->getDepartment_id());
 			}
 		}
@@ -76,6 +79,8 @@
 			$fields['modified'] = null;
 			$fields['createdBy'] = $this->createdBy;
 			$fields['modifiedBy'] = $this->modifiedBy;
+			$fields['publishDate'] = $this->publishDate ? $this->publishDate : null;
+			$fields['retireDate'] = $this->retireDate ? $this->retireDate : null;
 			$fields['department_id'] = $this->department_id;
 
 			# Split the fields up into a preparedFields array and a values array.
@@ -359,6 +364,8 @@
 		public function getModified() { return $this->modified; }
 		public function getCreatedBy() { return $this->createdBy; }
 		public function getModifiedBy() { return $this->modifiedBy; }
+		public function getPublishDate() { return $this->publishDate; }
+		public function getRetireDate() { return $this->retireDate; }
 		public function getDepartment_id() { return $this->department_id; }
 		public function getDepartment()
 		{
@@ -378,6 +385,8 @@
 		public function setTitle($string) { $this->title = trim($string); }
 		public function setContent($string) { $this->content = trim($string); }
 		public function setModifiedBy($user) { $this->modifiedBy = $user->getId(); }
+		public function setPublishDate($date) { $this->publishDate = is_array($date) ? $this->dateArrayToString($date) : $date; }
+		public function setRetireDate($date) { $this->retireDate = is_array($date) ? $this->dateArrayToString($date) : $date; }
 		public function setDepartment_id($int) { $this->department = new Department($int); $this->department_id = $int; }
 		public function setDepartment($department) { $this->department_id = $department->getId(); $this->department = $department; }
 	}

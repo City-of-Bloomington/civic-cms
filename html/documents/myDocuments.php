@@ -7,11 +7,16 @@
 
 	$template = new Template();
 
-	$userDocumentList = new DocumentList(array('createdBy'=>$_SESSION['USER']->getId()),'created desc');
-	$template->blocks[] = new Block('documents/userDocuments.inc',array('documentList'=>$userDocumentList,'user'=>$_SESSION['USER']));
+	$userDocuments = new Block('documents/documentList.inc');
+	$userDocuments->documentList = new DocumentList(array('createdBy'=>$_SESSION['USER']->getId()),'created desc');
+	$userDocuments->title = "{$_SESSION['USER']->getFirstname()} {$_SESSION['USER']->getLastname()}'s Documents";
+	$template->blocks[] = $userDocuments;
 
-	$departmentDocumentList = new DocumentList(array('department_id'=>$_SESSION['USER']->getDepartment_id()),'created desc');
-	$template->blocks[] = new Block('documents/departmentDocuments.inc',array('documentList'=>$departmentDocumentList,'department'=>$_SESSION['USER']->getDepartment()));
+
+	$departmentDocuments = new Block('documents/documentList.inc');
+	$departmentDocuments->documentList = new DocumentList(array('department_id'=>$_SESSION['USER']->getDepartment_id()),'created desc');
+	$departmentDocuments->title = "{$_SESSION['USER']->getDepartment()} Documents";
+	$template->blocks[] = $departmentDocuments;
 
 	$template->render();
 ?>
