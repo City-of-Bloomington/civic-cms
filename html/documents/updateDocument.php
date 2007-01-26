@@ -6,6 +6,7 @@
 /*
 	$_GET variables:	document_id
 						return_url
+						( lang ) Optional - handled in configuration.inc
 */
 	verifyUser(array('Publisher','Content Creator'));
 
@@ -15,7 +16,8 @@
 		if (!$document->permitsEditingBy($_SESSION['USER']))
 		{
 			$_SESSION['errorMessages'][] = "noAccessAllowed";
-			Header("Location: ".BASE_URL."/documents/viewDocument.php?document_id={$document->getId()}");
+			$template = new Template('closePopup');
+			$template->render();
 			exit();
 		}
 	}
@@ -42,13 +44,14 @@
 		try
 		{
 			$document->save();
-			Header("Location: ".BASE_URL."/documents/viewDocument.php?document_id={$document->getId()}");
+			$template = new Template('closePopup');
+			$template->render();
 			exit();
 		}
 		catch (Exception $e)
 		{
 			$_SESSION['errorMessages'][] = $e;
-			print_r($e);
+			print_r($_POST);
 			exit();
 		}
 	}
@@ -61,9 +64,8 @@
 	$form = new Block('documents/updateDocumentForm.inc');
 	$form->FCKeditor = $FCKeditor;
 	$form->document = $document;
-	$form->response = new URL($_GET['return_url']);
 
-	$template = new Template();
+	$template = new Template('popup');
 	$template->blocks[] = $form;
 	$template->render();
 ?>

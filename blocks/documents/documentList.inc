@@ -9,16 +9,15 @@
 */
 ?>
 <script type="text/javascript">
-	dojo.require("dojo.widget.FilteringTable");
 </script>
 <div class="interfaceBox">
 	<div class="titleBar"><?php echo $this->title; ?></div>
-	<table dojoType="filteringTable" id="documentList" multiple="false" alternateRows="true">
+	<table>
 	<thead>
 		<tr><th></th>
-			<th field="Title" dataType="string">Title</th>
-			<th field="Created" dataType="date">Created</th>
-			<th field="Published" dataType="date">Published</th>
+			<th>Title</th>
+			<th>Created</th>
+			<th>Published</th>
 			<th>Retired</th>
 		</tr>
 	</thead>
@@ -26,7 +25,7 @@
 	<?php
 		foreach($this->documentList as $document)
 		{
-			if ($document->permitsEditingBy($_SESSION['USER'])) { $editButton = "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/documents/updateDocument.php?document_id={$document->getId()}';\">Edit</button>"; }
+			if ($document->permitsEditingBy($_SESSION['USER'])) { $editButton = "<button type=\"button\" class=\"editSmall\" onclick=\"window.open('".BASE_URL."/documents/updateDocument.php?document_id={$document->getId()}');\">Edit</button>"; }
 			else { $editButton = ""; }
 
 			list($creationDate,$creationTime) = explode(" ",$document->getCreated());

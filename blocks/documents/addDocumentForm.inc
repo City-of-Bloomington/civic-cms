@@ -9,6 +9,10 @@
 	$this->section ( Optional section to pre-select )
 */
 ?>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>/wymeditor/browser.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>/wymeditor/util.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>/wymeditor/config.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>/wymeditor/wym.js"></script>
 <h1>New Document</h1>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<fieldset><legend>Document Info</legend>
@@ -16,7 +20,6 @@
 		<tr><td><label for="document-title">Title</label></td>
 			<td><input name="document[title]" id="document-title" /></td></tr>
 		</table>
-		<?php $this->FCKeditor->create(); ?>
 	</fieldset>
 
 	<fieldset><legend>Sections</legend>
@@ -48,6 +51,6 @@
 
 	<fieldset><legend>Submit</legend>
 		<button type="submit" class="submit">Submit</button>
-		<button type="button" class="cancel" onclick="document.location.href='<?php echo $this->response; ?>';">Cancel</button>
+		<button type="button" class="cancel" onclick="self.close();">Cancel</button>
 	</fieldset>
 </form>

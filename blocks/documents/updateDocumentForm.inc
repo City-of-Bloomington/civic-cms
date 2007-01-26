@@ -5,7 +5,6 @@
  */
 /*
 	$this->document
-	$this->response
 	$this->FCKeditor
 */
 ?>
@@ -49,6 +48,6 @@
 
 	<fieldset><legend>Submit</legend>
 		<button type="submit" class="submit">Submit</button>
-		<button type="button" class="cancel" onclick="document.location.href='<?php echo $this->response; ?>';">Cancel</button>
+		<button type="button" class="cancel" onclick="self.close();">Cancel</button>
 	</fieldset>
 </form>

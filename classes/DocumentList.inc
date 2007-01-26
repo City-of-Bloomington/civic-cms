@@ -24,6 +24,7 @@
 			if (isset($fields['publishDate'])) { $options[] = "publishDate='$fields[publishDate]'"; }
 			if (isset($fields['retireDate'])) { $options[] = "retireDate='$fields[retireDate]'"; }
 			if (isset($fields['department_id'])) { $options[] = "department_id='$fields[department_id]'"; }
+			if (isset($fields['documentType_id'])) { $options[] = "documentType_id='$fields[documentType_id]'"; }
 
 
 			# Finding on fields from other tables required joining those tables.

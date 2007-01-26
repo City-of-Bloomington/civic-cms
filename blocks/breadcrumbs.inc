@@ -30,24 +30,6 @@
 				echo "<li><a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$section->getDocument_id()}\">$section</a></li>";
 				$currentSection = $section;
 			}
-			if (isset($_SESSION['USER']) && $currentSection->permitsEditingBy($_SESSION['USER']))
-			{
-				echo "
-				<li><form method=\"get\" action=\"".BASE_URL."/documents/addDocument.php?section_id={$currentSection->getId()}\">
-						<input name=\"return_url\" type=\"hidden\" value=\"$_SERVER[REQUEST_URI]\" />
-						<input name=\"section_id\" type=\"hidden\" value=\"{$currentSection->getId()}\" />
-						<select name=\"documentType_id\" onchange=\"this.form.submit();\">
-							<option value=\"\">New</option>
-				";
-							$list = new DocumentTypeList();
-							$list->find();
-							foreach($list as $type) { echo "<option value=\"{$type->getId()}\">$type</option>"; }
-				echo "
-						</select>
-					</form>
-				</li>
-				";
-			}
 			echo "</ul>";
 		}
 		echo "</div>";

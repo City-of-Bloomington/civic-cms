@@ -11,13 +11,13 @@
 	$template->document = $document;
 
 	$template->blocks[] = new Block("breadcrumbs.inc",array('document'=>$document));
+	$template->blocks[] = new Block("documents/viewDocument.inc",array('document'=>$document));
+	$template->blocks[] = new Block('documents/subsections.inc',array('document'=>$document));
 
 	if (userHasRole("Content Creator") && $_SESSION['USER']->getDepartment_id()==$document->getDepartment_id())
 	{
 		$template->blocks[] = new Block("documents/toolbar.inc",array('document'=>$document));
 	}
 
-	$template->blocks[] = new Block("documents/viewDocument.inc",array('document'=>$document));
-	$template->blocks[] = new Block('documents/subsections.inc',array('document'=>$document));
 	$template->render();
 ?>

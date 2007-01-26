@@ -4,8 +4,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  */
 /*
-	$_GET variables:	return_url
-						documentType_id
+	$_GET variables:	documentType_id
 						section_id  ( Optionally include a section to pre-select )
 */
 	# Make sure they're allowed to edit stuff in this section
@@ -34,6 +33,8 @@
 		try
 		{
 			$document->save();
+			$template = new Template('closePopup');
+			$template->render();
 			#Header("Location: ".BASE_URL."/documents/viewDocument.php?document_id={$document->getId()}");
 			exit();
 		}
@@ -47,10 +48,9 @@
 
 	$form = new Block('documents/addDocumentForm.inc');
 	$form->FCKeditor = $FCKeditor;
-	$form->response = new URL($_GET['return_url']);
 	if (isset($section)) { $form->section = $section; }
 
-	$template = new Template();
+	$template = new Template('popup');
 	$template->blocks[] = $form;
 	$template->render();
 ?>

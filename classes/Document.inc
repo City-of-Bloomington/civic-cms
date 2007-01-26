@@ -73,7 +73,7 @@
 		public function save()
 		{
 			# Check for required fields here.  Throw an exception if anything is missing.
-			if (!$this->department_id || !count($this->getSections())) { throw new Exception('missingRequiredFields'); }
+			if (!$this->department_id) { throw new Exception('missingRequiredFields'); }
 
 			$fields = array();
 			$fields['title'] = $this->title;

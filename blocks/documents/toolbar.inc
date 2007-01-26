@@ -8,42 +8,73 @@
 */
 ?>
 <div class="contextualMenu">
-	<button type="button" class="edit" onclick="document.location.href='<?php echo BASE_URL; ?>/documents/updateDocument.php?document_id=<?php echo $this->document->getId(); ?>;return_url=<?php echo $_SERVER['REQUEST_URI']; ?>';">Edit</button>
+	<span class="title">This Document:</span>
+	<ul><li><button type="button" class="edit" onclick="window.open('<?php echo BASE_URL; ?>/documents/updateDocument.php?document_id=<?php echo $this->document->getId(); ?>');">Edit</button></li>
+		<?php
+			$url = $_SESSION['USER']->hasWatch($this->document) ? BASE_URL."/documents/removeWatch.php?document_id={$this->document->getId()}" : BASE_URL."/documents/addWatch.php?document_id={$this->document->getId()}";
+			if ($_SESSION['USER']->hasWatch($this->document)) { echo "<li><button type=\"button\" class=\"removeWatch\" onclick=\"document.location.href='$url';\">Unwatch</button></li>"; }
+			else { echo "<li><button type=\"button\" class=\"watch\" onclick=\"document.location.href='$url';\">Watch</button></li>"; }
+		?>
+	</ul>
+</div>
+<div class="contextualMenu">
+	<span class="title">Edit Translation:</span>
+	<ul>
 	<?php
-		$url = $_SESSION['USER']->hasWatch($this->document) ? BASE_URL."/documents/removeWatch.php?document_id={$this->document->getId()}" : BASE_URL."/documents/addWatch.php?document_id={$this->document->getId()}";
-		if ($_SESSION['USER']->hasWatch($this->document)) { echo "<button type=\"button\" class=\"removeWatch\" onclick=\"document.location.href='$url';\">Unwatch</button>"; }
-		else { echo "<button type=\"button\" class=\"watch\" onclick=\"document.location.href='$url';\">Watch</button>"; }
-	?>
-	<form method="get" action="<?php echo BASE_URL; ?>/documents/updateDocument.php">
-		<div>
-			<input name="document_id" type="hidden" value="<?php echo $this->document->getId(); ?>" />
-			<input name="return_url" type="hidden" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
-			<select name="lang" onchange="this.form.submit();">
-				<option value="">Edit Translation</option>
-				<?php
-					$list = new LanguageList();
-					$list->find();
-					foreach($list as $language)
-					{
-						echo "<option value=\"{$language->getCode()}\">{$language->getNative()}</option>";
-					}
-				?>
-			</select>
-		</div>
-	</form>
-	<?php
-		if (userHasRole('Webmaster'))
+		$list = new LanguageList();
+		$list->find();
+		foreach($list as $language)
 		{
-			echo "
-			<button type=\"button\" class=\"download\" onclick=\"document.location.href='".BASE_URL."/documents/downloadSource.php?document_id={$this->document->getId()}';\">Download</button>
-			<form method=\"post\" action=\"".BASE_URL."/documents/uploadSource.php\" enctype=\"multipart/form-data\">
-				<div>
-					<input name=\"document_id\" type=\"hidden\" value=\"{$this->document->getId()}\" />
-					<input name=\"content\" type=\"file\" />
-					<button type=\"submit\" class=\"upload\">Upload</button>
-				</div>
-			</form>
-			";
+			echo "<li><button type=\"button\" onclick=\"window.open('".BASE_URL."/documents/updateDocument.php?document_id={$this->document->getId()};lang={$language->getCode()}');\">{$language->getNative()}</button></li>";
 		}
 	?>
+	</ul>
 </div>
+<?php
+	if (userHasRole('Webmaster'))
+	{
+		echo "
+		<div class=\"contextualMenu\">
+			<span class=\"title\">Source:</span>
+			<ul><li><button type=\"button\" class=\"download\" onclick=\"document.location.href='".BASE_URL."/documents/downloadSource.php?document_id={$this->document->getId()}';\">Download</button></li>
+				<li><form method=\"post\" action=\"".BASE_URL."/documents/uploadSource.php\" enctype=\"multipart/form-data\">
+					<div>
+						<input name=\"document_id\" type=\"hidden\" value=\"{$this->document->getId()}\" />
+						<input name=\"content\" type=\"file\" />
+						<button type=\"submit\" class=\"upload\">Upload</button>
+					</div>
+					</form>
+				</li>
+			</ul>
+		</div>
+		";
+	}
+
+
+	# Create the New Document Menu
+	# For now, just use the first section_id we get
+	$sections = $this->document->getSections();
+	foreach($sections as $section)
+	{
+		if (isset($_SESSION['USER']) && $section->permitsEditingBy($_SESSION['USER']))
+		{
+			echo "
+			<div class=\"contextualMenu\">
+				<span class=\"title\">Create New:</span>
+				<ul>
+			";
+					$list = new DocumentTypeList();
+					$list->find();
+					foreach($list as $type)
+					{
+						echo "<li><button type=\"button\" onclick=\"window.open('".BASE_URL."/documents/addDocument.php?section_id={$section->getId()};documentType_id={$type->getId()}');\">$type</button></li>";
+					}
+			echo "
+				</ul>
+			</div>
+			";
+
+			break;
+		}
+	}
+?>
