@@ -41,13 +41,9 @@
 		catch (Exception $e) { $_SESSION['errorMessages'][] = $e; }
 	}
 
-	$FCKeditor = new FCKeditor("content");
-	$FCKeditor->BasePath = BASE_URL."/FCKeditor/";
-	$FCKeditor->ToolbarSet = 'Custom';
-	$FCKeditor->Value = $document->getContent();
 
 	$form = new Block('documents/addDocumentForm.inc');
-	$form->FCKeditor = $FCKeditor;
+	$form->document = $document;
 	if (isset($section)) { $form->section = $section; }
 
 	$template = new Template('popup');

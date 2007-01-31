@@ -4,15 +4,9 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  */
 /*
-	$this->FCKeditor
-	$this->response
 	$this->section ( Optional section to pre-select )
 */
 ?>
-<script type="text/javascript" src="<?php echo BASE_URL; ?>/wymeditor/browser.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL; ?>/wymeditor/util.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL; ?>/wymeditor/config.js"></script>
-<script type="text/javascript" src="<?php echo BASE_URL; ?>/wymeditor/wym.js"></script>
 <h1>New Document</h1>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<fieldset><legend>Document Info</legend>
@@ -20,6 +14,9 @@
 		<tr><td><label for="document-title">Title</label></td>
 			<td><input name="document[title]" id="document-title" /></td></tr>
 		</table>
+		<?php include(APPLICATION_HOME.'/includes/editors/'.EDITOR.'.inc'); ?>
+
+		</div>
 	</fieldset>
 
 	<fieldset><legend>Sections</legend>
