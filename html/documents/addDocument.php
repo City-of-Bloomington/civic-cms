@@ -17,7 +17,11 @@
 
 	# Create the new, empty document
 	$document = new Document();
-	if (isset($_GET['documentType_id'])) { $document->setDocumentType_id($_GET['documentType_id']); }
+	if (isset($_GET['documentType_id']))
+	{
+		$document->setDocumentType_id($_GET['documentType_id']);
+		$document->setTitle("New {$document->getDocumentType()}");
+	}
 
 	# If they've posted, populate the document with all their stuff
 	if (isset($_POST['document']))

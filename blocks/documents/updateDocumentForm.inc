@@ -5,7 +5,6 @@
  */
 /*
 	$this->document
-	$this->FCKeditor
 */
 ?>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
@@ -15,7 +14,7 @@
 		<tr><td><label for="document-title">Title</label></td>
 			<td><input name="document[title]" id="document-title" value="<?php echo $this->document->getTitle(); ?>" /></td></tr>
 		</table>
-		<?php $this->FCKeditor->create(); ?>
+		<?php include(APPLICATION_HOME.'/includes/editors/'.EDITOR.'.inc'); ?>
 	</fieldset>
 
 	<fieldset><legend>Sections</legend>

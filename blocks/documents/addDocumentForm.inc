@@ -4,15 +4,15 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  */
 /*
+	$this->document
 	$this->section ( Optional section to pre-select )
 */
 ?>
-<h1>New Document</h1>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<fieldset><legend>Document Info</legend>
 		<table>
 		<tr><td><label for="document-title">Title</label></td>
-			<td><input name="document[title]" id="document-title" /></td></tr>
+			<td><input name="document[title]" id="document-title" <?php if (isset($this->document)) echo "value=\"{$this->document->getTitle()}\""; ?> /></td></tr>
 		</table>
 		<?php include(APPLICATION_HOME.'/includes/editors/'.EDITOR.'.inc'); ?>
 

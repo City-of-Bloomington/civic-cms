@@ -56,13 +56,7 @@
 		}
 	}
 
-	$FCKeditor = new FCKeditor("content");
-	$FCKeditor->BasePath = BASE_URL."/FCKeditor/";
-	$FCKeditor->ToolbarSet = 'Custom';
-	if (isset($document)) { $FCKeditor->Value = $document->getContent(); }
-
 	$form = new Block('documents/updateDocumentForm.inc');
-	$form->FCKeditor = $FCKeditor;
 	$form->document = $document;
 
 	$template = new Template('popup');
