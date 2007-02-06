@@ -9,6 +9,11 @@
 ?>
 <h1>Widgets</h1>
 <table>
+<tr><th>Name</th>
+	<th>Description</th>
+	<th>Status</th>
+	<th></th>
+</tr>
 <?php
 	foreach($this->widgetList as $widget)
 	{
@@ -19,6 +24,7 @@
 		else { $button = "<button type=\"button\" class=\"addSmall\" onclick=\"document.location.href='".BASE_URL."/widgets/install.php?widget={$widget->getName()}';\">Install</button>"; }
 		echo "
 		<tr><td>{$widget->getName()}</td>
+			<td>{$widget->getDescription()}</td>
 			<td>{$widget->getStatus()}</td>
 			<td>$button</td>
 		</tr>

@@ -4,18 +4,14 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  */
 /*
-	$this->section
+	$this->document
 */
-	if (isset($this->section)) { $trails = $this->section->getAncestors(); }
-	elseif (isset($this->document))
+	$trails = array();
+	foreach($this->document->getSections() as $section)
 	{
-		$trails = array();
-		foreach($this->document->getSections() as $section)
-		{
-			$ancestors = $section->getAncestors();
-			foreach($ancestors as $i=>$trail) { $ancestors[$i] = array_merge($ancestors[$i],array($section)); }
-			$trails = array_merge($trails,$ancestors);
-		}
+		$ancestors = $section->getAncestors();
+		foreach($ancestors as $i=>$trail) { $ancestors[$i] = array_merge($ancestors[$i],array($section)); }
+		$trails = array_merge($trails,$ancestors);
 	}
 
 

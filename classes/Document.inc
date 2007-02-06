@@ -31,6 +31,8 @@
 		private $deletedSections = array();
 		private $newSections = array();
 
+		private $widgets = array();
+
 		/**
 		 * This will load all fields in the table as properties of this class.
 		 * You may want to replace this with, or add your own extra, custom loading
@@ -353,9 +355,41 @@
 
    		public function permitsEditingBy($user)
    		{
-   			if ($user->hasRole(array('Webmaster','Content Creator','Administrator')) &&
-   				$this->department_id = $user->getDepartment_id()) { return true; }
+   			if (	($user->hasRole(array('Webmaster','Administrator'))) ||
+   					($user->hasRole('Content Creator') && $this->department_id = $user->getDepartment_id())
+   				)
+   			{ return true; }
 			return false;
+   		}
+
+		public function getWidgets()
+   		{
+   			global $PDO;
+
+   			if (!count($this->widgets))
+   			{
+				$sectionIds = array_keys($this->getSections());
+				foreach($this->getSections() as $section)
+				{
+					foreach($section->getAncestors() as $vector)
+					{
+						foreach($vector as $ancestor) { if (!in_array($ancestor->getId(),$sectionIds)) { $sectionIds[] = $ancestor->getId(); } }
+					}
+				}
+
+				if (count($sectionIds))
+				{
+					$sections = implode(',',$sectionIds);
+					$sql = "select distinct widget_name from section_widgets where section_id in ($sections)";
+					foreach($PDO->query($sql) as $row)
+					{
+						$widget = Widget::load($row['widget_name']);
+						$widget->document = $this;
+						$this->widgets[] = $widget;
+					}
+				}
+			}
+			return $this->widgets;
    		}
 
 		/**

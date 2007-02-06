@@ -42,12 +42,6 @@
 				$options[] = "d.document_id='$fields[document_id]'";
 			}
 
-			if (isset($fields['facet_id']))
-			{
-				$this->joins.= " left join section_facets f on s.id=f.section_id";
-				$options[] = "f.facet_id='$fields[facet_id]'";
-			}
-
 			$this->populateList($options);
 		}
 

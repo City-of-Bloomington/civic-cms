@@ -2,7 +2,8 @@
 	include(APPLICATION_HOME."/includes/xhtmlTransitionalHeader.inc");
 	include(APPLICATION_HOME."/includes/banner.inc");
 	include(APPLICATION_HOME."/includes/navigation.inc");
-	include(APPLICATION_HOME."/includes/sidebar.inc");
+	include(APPLICATION_HOME."/includes/leftSidebar.inc");
+	include(APPLICATION_HOME."/includes/rightSidebar.inc");
 ?>
 <div id="mainContent">
 	<?php

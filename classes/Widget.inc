@@ -7,6 +7,7 @@
 	{
 		protected $name;
 		protected $includeFile;
+		protected $description;
 
 		public static function load($name)
 		{
@@ -74,5 +75,6 @@
 		public function __toString() { return $this->name; }
 		public function getName() { return $this->name; }
 		public function getIncludeFile() { return $this->includeFile; }
+		public function getDescription() { return $this->description; }
 	}
 ?>

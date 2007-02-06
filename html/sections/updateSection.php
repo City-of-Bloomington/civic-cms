@@ -9,7 +9,6 @@
 	{
 		$section = new Section($_POST['id']);
 
-		$_POST['section']['facets'] = isset($_POST['section']['facets']) ? $_POST['section']['facets'] : array();
 		foreach($_POST['section'] as $field=>$value)
 		{
 			$set = "set".ucfirst($field);

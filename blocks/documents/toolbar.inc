@@ -52,10 +52,10 @@
 
 
 	# Create the New Document Menu
-	# For now, just use the first section_id we get
 	$sections = $this->document->getSections();
 	foreach($sections as $section)
 	{
+		# Make sure they are allowed to create a new document in the section they're viewing
 		if (isset($_SESSION['USER']) && $section->permitsEditingBy($_SESSION['USER']))
 		{
 			echo "

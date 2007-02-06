@@ -9,5 +9,5 @@
 	try { $widget->install(); }
 	catch (Exception $e) { $_SESSION['errorMessages'][] = $e; }
 
-	Header("Location: home.php");
+	#Header("Location: home.php");
 ?>

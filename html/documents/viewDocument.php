@@ -10,6 +10,8 @@
 	$document = new Document($_GET['document_id']);
 	$template->document = $document;
 
+	$template->widgets = $document->getWidgets();
+
 	$template->blocks[] = new Block("breadcrumbs.inc",array('document'=>$document));
 	$template->blocks[] = new Block("documents/viewDocument.inc",array('document'=>$document));
 	$template->blocks[] = new Block('documents/subsections.inc',array('document'=>$document));

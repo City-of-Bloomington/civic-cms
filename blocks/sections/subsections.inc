@@ -12,7 +12,7 @@
 	<ul><?php
 			foreach($this->section->getChildren() as $section)
 			{
-				echo "<li><a href=\"".BASE_URL."/sections/viewSection.php?section_id={$section->getId()}\">";
+				echo "<li><a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$this->section->getDocument_id()}\">";
 				echo View::sanitizeString($section->getName());
 				echo "</a></li>";
 			}

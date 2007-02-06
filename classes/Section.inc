@@ -15,15 +15,18 @@
 		private $newDepartmentIds = array();
 		private $deletedDepartmentIds = array();
 
-		private $facets = array();
-		private $newFacetIds = array();
-		private $deletedFacetIds = array();
+		private $parents = array();
+		private $newParentIds = array();
+		private $deletedParentIds = array();
 
-		private $parents;
 		private $children = array();
 		private $ancestors = array();
+		private $descendants = array();
 		private $documents;
+
 		private $widgets = array();
+		private $newWidgets = array();
+		private $deletedWidgets = array();
 
 
 		/**
@@ -79,7 +82,7 @@
 			$fields = array();
 			$fields['name'] = $this->name ? $this->name : null;
 			$fields['document_id'] = $this->document_id ? $this->document_id : null;
-			$fields['placement'] = $this->placement ? $this->placement : null;
+			#$fields['placement'] = $this->placement ? $this->placement : null;
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
@@ -96,9 +99,9 @@
 			if ($this->id) { $this->update($values,$preparedFields); }
 			else { $this->insert($values,$preparedFields); }
 
-			$this->updateParents();
+			$this->saveParents();
 			$this->saveDepartments();
-			$this->saveFacets();
+			$this->saveWidgets();
 		}
 
 		private function update($values,$preparedFields)
@@ -127,28 +130,6 @@
 		}
 
 
-		private function updateParents()
-		{
-			global $PDO;
-
-			$parents = $this->getParents();
-			if (!count($parents)) { $parents[] = new Section(1); }
-
-
-			$sql = "delete from section_parents where section_id={$this->id}";
-			if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
-
-			$statement = $PDO->prepare("insert section_parents set section_id={$this->id},parent_id=?");
-			foreach($parents as $parent)
-			{
-				if (false === $statement->execute(array($parent->getId()))) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
-			}
-
-			$sql = "delete from sectionIndex";
-			if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
-
-			$this->createPrePostOrder(1,1);
-		}
 
 		private function createPrePostOrder($section_id,$pre)
 		{
@@ -195,37 +176,57 @@
 			return $this->children;
 		}
 		/**
-		 * Find out if a given section is a parent of this section
+		 * Section Parent functions
 		 */
-		public function hasParent($section)
-		{
-			$parents = $this->getParents();
-			foreach($parents as $parent) { if ($section->getId() == $parent->getId()) { return true; } }
-			return false;
-		}
    		public function getParents()
    		{
 			global $PDO;
 
-			if (!$this->parents)
+			if (!count($this->parents))
 			{
-				$this->parents = array();
 				$query = $PDO->prepare("select parent_id from section_parents where section_id=?");
 				$query->execute(array($this->id));
 				$result = $query->fetchAll();
-				foreach($result as $row) { $this->parents[] = new Section($row['parent_id']); }
+				foreach($result as $row) { $this->parents[$row['parent_id']] = new Section($row['parent_id']); }
 			}
 			return $this->parents;
    		}
-		/**
-		 * Takes an array of parent_id's to be associated with this section
-		 * A Section cannot have itself for a parent
-		 */
-		public function setParents(array $array)
+		private function saveParents()
 		{
-			$this->parents = array();
-			foreach($array as $id) { if ($id != $this->id) { $this->parents[] = new Section($id); } }
+			global $PDO;
+
+			# Clear out all the old parents
+			if (count($this->deletedParentIds))
+			{
+				$ids = implode(',',$this->deletedParentIds);
+				$query = $PDO->prepare("delete from section_parents where section_id={$this->id} and parent_id in ($ids)");
+				$query->execute();
+			}
+
+			# Add in all the new parents
+			if (count($this->newParentIds))
+			{
+				$query = $PDO->prepare("insert section_parents set section_id={$this->id},parent_id=?");
+				foreach($this->newParentIds as $id) { $query->execute(array($id)); }
+			}
+
+			# Update the index
+			$sql = "delete from sectionIndex";
+			if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
+
+			$this->createPrePostOrder(1,1);
 		}
+		public function setParents(array $parentIds)
+		{
+			# Any $parentIds that are not in $this->parents need to be added
+			$this->newParentIds = array_diff($parentIds,array_keys($this->getParents()));
+			foreach($this->newParentIds as $id) { $this->parents[$id] = new Section($id); }
+
+			# Unset any $this->parents that are not in $parentIds
+			$this->deletedParentIds = array_diff(array_keys($this->parents),$parentIds);
+			foreach($this->deletedParentIds as $id) { unset($this->parents[$id]); }
+		}
+		public function hasParent($section) { return array_key_exists($section->getId(),$this->getParents()); }
    		/**
    		 * Returns a Multi-demensional array of ancestors.  One vector for
    		 * each parent this section has.
@@ -235,13 +236,14 @@
    			global $PDO;
    			if (!count($this->ancestors))
    			{
+   				# Since a section can be in multiple places in the tree
+   				# We have to do the SQL query for each place this section is in the tree
    				$this->ancestors = array();
    				$query = $PDO->prepare("select * from sectionIndex where section_id=?");
    				$query->execute(array($this->id));
    				$result = $query->fetchAll();
    				foreach($result as $index=>$section)
    				{
-   					$ancestors = array();
 					$sql ="select distinct p.section_id from sectionIndex s
 							left join sectionIndex p on p.preOrder<$section[preOrder] and $section[preOrder]<p.postOrder
 							and s.section_id=$section[section_id]
@@ -254,6 +256,26 @@
    				}
 			}
 			return $this->ancestors;
+   		}
+
+		/**
+		 * A Section's descendants are the same no matter how many places the section exists in the tree
+		 * So we only get a single dimensional array with the list of descendants, nearest first
+		 */
+		public function getDescendants()
+   		{
+   			global $PDO;
+
+   			if (!count($this->descendants))
+   			{
+   				$sql = "select distinct s.section_id from sectionIndex s
+						left join sectionIndex p on p.preOrder<s.preOrder and s.preOrder<p.postOrder
+						where p.section_id={$this->id} order by s.preOrder";
+				$query = $PDO->query($sql);
+				$result = $query->fetchAll();
+				foreach($result as $row) { $this->descendants[$row['section_id']] = new Section($row['section_id']); }
+   			}
+   			return $this->descendants;
    		}
 
 
@@ -302,95 +324,64 @@
 		}
 		public function hasDepartment($department) { return array_key_exists($department->getId(),$this->getDepartments()); }
 
-		/**
-		 * Facet functions
-		 */
-		public function getFacets()
-		{
-			if (!count($this->facets))
-			{
-				$list = new FacetList(array('section_id'=>$this->id));
-				foreach($list as $facet) { $this->facets[$facet->getId()] = $facet; }
-			}
-			return $this->facets;
-		}
-		private function saveFacets()
-		{
-			global $PDO;
-
-			# Clear out all the old facets
-			if (count($this->deletedFacetIds))
-			{
-				$ids = implode(",",$this->deletedFacetIds);
-				$query = $PDO->prepare("delete from section_facets where section_id={$this->id} and facet_id in ($ids)");
-				$query->execute();
-			}
-
-			# Add in the new ones
-			if (count($this->newFacetIds))
-			{
-				$query = $PDO->prepare("insert section_facets set section_id={$this->id},facet_id=?");
-				foreach($this->newFacetIds as $id) { $query->execute(array($id)); }
-			}
-		}
-		public function setFacets(array $facetIds)
-		{
-			# Make sure to call $this->getFacets() at least once to ensure that
-			# the current facets are loaded before trying to determine which ones are new
-
-			# Any $facetIds that are not in $this->facets need to be added
-			$this->newFacetIds = array_diff($facetIds,array_keys($this->getFacets()));
-			foreach($this->newFacetIds as $id) { $this->facets[$id] = new Facet($id); }
-
-			# Unset any $this->facets that are not in $facetIds
-			$this->deletedFacetIds = array_diff(array_keys($this->facets),$facetIds);
-			foreach($this->deletedFacetIds as $id) { unset($this->facets[$id]); }
-		}
-		public function hasFacet($facet) { return array_key_exists($facet->getId(),$this->getFacets()); }
-
    		public function getDocuments()
    		{
 			if (!count($this->documents)) { $this->documents = new DocumentList(array('section_id'=>$this->id)); }
 			return $this->documents;
    		}
-   		public function getWidgets()
-   		{
-   			global $PDO;
 
-   			if (!count($this->widgets))
-   			{
-				$this->widgets = array();
+		/**
+		 * Widget functions
+		 */
+		public function getWidgets()
+		{
+			global $PDO;
 
-				$sql = "select * from section_widgets where section_id={$this->id} order by layout_order";
-				foreach($PDO->query($sql) as $row) { $this->widgets[$row['layout_order']] = Widget::load($row['widget_name']); }
+			if (!count($this->widgets))
+			{
+				$sql = "select widget_name from section_widgets where section_id={$this->id}";
+				foreach($PDO->query($sql) as $row) { $this->widgets[] = $row['widget_name']; }
 			}
 			return $this->widgets;
-   		}
-   		public function hasWidget($name)
-   		{
-			foreach($this->getWidgets() as $widget) { if ($widget->getName() == $name) { return true; } }
-			return false;
-   		}
-   		public function addWidget($widget)
-   		{
-			if (!$this->hasWidget($widget->getName())) { $this->widgets[] = $widget; }
-   		}
-   		public function saveWidgets()
-   		{
-   			global $PDO;
-			$query = $PDO->prepare("delete from section_widgets where section_id={$this->id}");
-			$query->execute();
+		}
+		private function quote($string) { return "'$string'"; }
+		private function saveWidgets()
+		{
+			global $PDO;
 
-			$query = $PDO->prepare("insert section_widgets values($this->id,?,?)");
-			foreach($this->getWidgets() as $key=>$widget)
+			# Clear out all the old widgets
+			if (count($this->deletedWidgets))
 			{
-				$query->execute(array($widget->getName,$key));
+				$names = implode(',',array_map(array($this,'quote'),$this->deletedWidgets));
+				$query = $PDO->prepare("delete from section_widgets where section_id={$this->id} and widget_name in ($names)");
+				$query->execute();
 			}
-   		}
+
+			# Add in the new ones
+			if (count($this->newWidgets))
+			{
+				$query = $PDO->prepare("insert section_widgets set section_id={$this->id},widget_name=?");
+				foreach($this->newWidgets as $name) { $query->execute(array($name)); }
+			}
+		}
+		public function setWidgets(array $widgets)
+		{
+			# Make sure to call $this->getWidgets() at least once to ensure that
+			# the current widgets are loaded before trying to determine which ones are new
+
+			# Any $widgets that are not in $this->widgets need to be added
+			$this->newWidgets = array_diff($widgets,$this->getWidgets());
+
+			# Flag any $this->widgets that are not in $widgets to be deleted
+			$this->deletedWidgets = array_diff($this->widgets,$widgets);
+
+			$this->widgets = $widgets;
+		}
+		public function hasWidget($widget) { return in_array($widget,$this->getWidgets()); }
 
    		public function permitsEditingBy($user)
    		{
-   			if ($user->hasRole('Webmaster') && $this->hasDepartment($user->getDepartment())) { return true; }
+   			if ($user->hasRole('Webmaster')) { return true; }
 			return false;
    		}
 

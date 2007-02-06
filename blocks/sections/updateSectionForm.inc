@@ -55,13 +55,24 @@
 </fieldset>
 
 <fieldset><legend>Widgets</legend>
-<?php
-	foreach(Widget::findInstalled() as $widget)
-	{
-		if ($this->section->hasWidget($widget)) { $checked = "checked=\"checked\""; } else { $checked = ""; }
-		echo "<label><input type=\"checkbox\" name=\"section[widgets][$widget]\" value=\"$widget\" $checked />$widget</label>";
-	}
-?>
+	<table>
+	<tr><th></th>
+		<th>Widget</th>
+		<th>Description</th>
+	</tr>
+	<?php
+		foreach(Widget::findInstalled() as $widget)
+		{
+			if ($this->section->hasWidget($widget)) { $checked = "checked=\"checked\""; } else { $checked = ""; }
+			echo "
+			<tr><td><input type=\"checkbox\" name=\"section[widgets][$widget]\" id=\"section-widgets-$widget\" value=\"$widget\" $checked /></td>
+				<td><label for=\"section-widgets-$widget\">$widget</label></td>
+				<td>{$widget->getDescription()}</td>
+			</tr>
+			";
+		}
+	?>
+	</table>
 </fieldset>
 
 <fieldset><legend>Facets</legend>

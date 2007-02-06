@@ -7,11 +7,28 @@
 	$this->documentList
 	$this->title
 */
+	if (userHasRole('Content Creator'))
+	{
+		echo "
+		<div class=\"contextualMenu\">
+			<span class=\"title\">Create New:</span>
+			<ul>
+		";
+				$list = new DocumentTypeList();
+				$list->find();
+				foreach($list as $type)
+				{
+					echo "<li><button type=\"button\" onclick=\"window.open('".BASE_URL."/documents/addDocument.php?documentType_id={$type->getId()}');\">$type</button></li>";
+				}
+		echo "
+			</ul>
+		</div>
+		";
+	}
 ?>
-<script type="text/javascript">
-</script>
 <div class="interfaceBox">
-	<div class="titleBar"><?php echo $this->title; ?></div>
+	<div class="titleBar"><?php echo $this->title; ?>
+	</div>
 	<table>
 	<thead>
 		<tr><th></th>

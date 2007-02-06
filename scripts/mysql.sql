@@ -124,14 +124,6 @@ create table facets (
   name varchar(50) not null unique
 ) engine=InnoDB;
 
-create table section_facets (
-	section_id int unsigned not null,
-	facet_id int unsigned not null,
-	primary key (section_id,facet_id),
-	foreign key (section_id) references sections(id),
-	foreign key (facet_id) references facets(id)
-) engine=InnoDB;
-
 create table document_facets (
   document_id int(10) unsigned not null,
   facet_id int(10) unsigned not null,
