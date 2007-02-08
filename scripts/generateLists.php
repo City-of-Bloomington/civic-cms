@@ -1,9 +1,4 @@
 <?php
-$copyright = "/**
- * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
- * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
- */";
-
 include("../configuration.inc");
 
 $tables = array();
@@ -68,8 +63,9 @@ foreach($tables as $tableName)
 	#--------------------------------------------------------------------------
 	# Output the class
 	#--------------------------------------------------------------------------
-$contents = "<?php
-$copyright
+$contents = "<?php\n";
+$contents.= COPYRIGHT;
+$contents.="
 	class {$className}List extends PDOResultIterator
 	{
 $constructor
@@ -78,7 +74,9 @@ $findFunction
 		protected function loadResult(\$key) { return new $className(\$this->list[\$key]); }
 	}
 ?>";
+	$dir = APPLICATION_HOME.'/scripts/stubs/classes';
+	if (!is_dir($dir)) { mkdir($dir,0770,true); }
+	file_put_contents("$dir/{$className}List.inc",$contents);
 	echo "$className\n";
-	file_put_contents("./classStubs/{$className}List.inc",$contents);
 }
 ?>
