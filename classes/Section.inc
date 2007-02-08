@@ -378,7 +378,12 @@
 			$this->widgets = $widgets;
 		}
 		public function hasWidget($widget) { return in_array($widget,$this->getWidgets()); }
-
+		public function permitsPostingBy($user)
+		{
+			if ($user->hasRole(array('Administrator','Webmaster'))) { return true; }
+			if ($user->hasRole('Content Creator') && $user->getDepartment_id()==$this->department_id) { return true; }
+			return false;
+		}
    		public function permitsEditingBy($user)
    		{
    			if ($user->hasRole('Webmaster')) { return true; }

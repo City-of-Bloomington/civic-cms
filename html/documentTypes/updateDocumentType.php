@@ -6,7 +6,7 @@
 /*
 	$_GET variables:	documentType_id
 */
-	verifyUser('Administrator');
+	verifyUser('Webmaster');
 
 	if (isset($_GET['documentType_id'])) { $documentType = new DocumentType($_GET['documentType_id']); }
 	if (isset($_POST['documentType']))

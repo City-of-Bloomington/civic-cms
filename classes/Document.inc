@@ -135,7 +135,7 @@
 			$directory = $this->getContentDirectory();
 			$file = "$directory/{$this->id}.$_SESSION[LANGUAGE]";
 
-			list($year,$month,$day) = explode("-",$this->getDateCreated());
+			list($year,$month,$day) = explode("-",substr($this->created,0,10));
 
 			$sandbox = new SubversionWorkingCopy(APPLICATION_HOME."/data/documents");
 			if (!is_dir($directory))
@@ -179,7 +179,7 @@
 		{
 			if (!$this->contentDirectory)
 			{
-				list($year,$month,$day) = explode("-",$this->getDateCreated());
+				list($year,$month,$day) = explode("-",substr($this->created,0,10));
 				$this->contentDirectory = APPLICATION_HOME."/data/documents/$year/$month/$day";
 			}
 			return $this->contentDirectory;
@@ -257,7 +257,7 @@
 						from document_facets d left join document_facets b using (facet_id)
 						where d.document_id={$this->id} and b.document_id!={$this->id}
 						group by b.document_id order by relevance";
-				foreach($PDO->query($sql) as $row) { $this->related[] = new Document($row['document_id']); }
+				foreach($PDO->query($sql) as $row) { $this->related[$row['document_id']] = new Document($row['document_id']); }
 			}
 			return $this->related;
 		}
@@ -397,23 +397,35 @@
 		 */
 		public function getId() { return $this->id; }
 		public function getTitle() { return $this->title; }
-		public function getCreated() { return $this->created; }
-		public function getModified() { return $this->modified; }
+		public function getCreated($format=null)
+		{
+			if ($format && $this->created!=0) return strftime($format,strtotime($this->created));
+			else return $this->created;
+		}
+		public function getModified($format=null)
+		{
+			if ($format && $this->modified!=0) return strftime($format,strtotime($this->modified));
+			else return $this->modified;
+		}
+		public function getPublishDate($format=null)
+		{
+			if ($format && $this->publishDate!=0) return strftime($format,strtotime($this->publishDate));
+			else return $this->publishDate;
+		}
+		public function getRetireDate($format=null)
+		{
+			if ($format && $this->retireDate!=0) return strftime($format,strtotime($this->retireDate));
+			else return $this->retireDate;
+		}
 		public function getCreatedBy() { return $this->createdBy; }
 		public function getModifiedBy() { return $this->modifiedBy; }
-		public function getPublishDate() { return $this->publishDate; }
-		public function getRetireDate() { return $this->retireDate; }
 		public function getDepartment_id() { return $this->department_id; }
 		public function getDocumentType_id() { return $this->documentType_id; }
+		public function getModifiedByUser() { return new User($this->modifiedBy); }
 		public function getDepartment()
 		{
 			if (!$this->department) { $this->department = new Department($this->department_id); }
 			return $this->department;
-		}
-		public function getDateCreated()
-		{
-			list ($dateCreated,$timeCreated) = explode(' ',$this->created);
-			return $dateCreated;
 		}
 		public function getDocumentType()
 		{
@@ -424,7 +436,6 @@
 			}
 			else return null;
 		}
-
 
 		/**
 		 * Generic Setters

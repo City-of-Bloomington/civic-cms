@@ -146,7 +146,6 @@ create table section_widgets (
 	widget_name varchar(128) not null,
 	layout_order tinyint(2) unsigned not null,
 	primary key (section_id,widget_name),
-	unique (section_id,layout_order),
 	foreign key (section_id) references sections(id),
 	foreign key (widget_name) references widgets(name)
 ) engine=InnoDB;

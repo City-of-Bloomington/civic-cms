@@ -9,5 +9,6 @@
 	<ul>
 		<li><a href="<?php echo BASE_URL; ?>/sections">Sections</a></li>
 		<li><a href="<?php echo BASE_URL; ?>/facets">Facets</a></li>
+		<li><a href="<?php echo BASE_URL; ?>/documentTypes">Document Types</a></li>
 	</ul>
 </div>
