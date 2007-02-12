@@ -27,19 +27,19 @@
 	if (isset($_POST['document']))
 	{
 		$document = new Document();
+		$language = new Language($_POST['lang']);
 		foreach($_POST['document'] as $field=>$value)
 		{
 			$set = "set".ucfirst($field);
 			$document->$set($value);
 		}
-		$document->setContent($_POST['content']);
+		$document->setContent($_POST['content'],$language->getCode());
 
 		try
 		{
 			$document->save();
 			$template = new Template('closePopup');
 			$template->render();
-			#Header("Location: ".BASE_URL."/documents/viewDocument.php?document_id={$document->getId()}");
 			exit();
 		}
 		catch (Exception $e) { $_SESSION['errorMessages'][] = $e; }
@@ -48,6 +48,7 @@
 
 	$form = new Block('documents/addDocumentForm.inc');
 	$form->document = $document;
+	$form->language = isset($language) ? $language : new Language($_SESSION['LANGUAGE']);
 	if (isset($section)) { $form->section = $section; }
 
 	$template = new Template('popup');

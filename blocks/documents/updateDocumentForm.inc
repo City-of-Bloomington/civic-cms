@@ -5,6 +5,7 @@
  */
 /*
 	$this->document
+	$this->language
 */
 ?>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
@@ -14,7 +15,26 @@
 		<tr><td><label for="document-title">Title</label></td>
 			<td><input name="document[title]" id="document-title" value="<?php echo $this->document->getTitle(); ?>" /></td></tr>
 		</table>
-		<?php include(APPLICATION_HOME.'/includes/editors/'.EDITOR.'.inc'); ?>
+	</fieldset>
+	<fieldset><legend>Content</legend>
+		<table>
+		<tr><td><label for="lang">Current Language</label></td>
+			<td><select name="lang" id="lang" onchange="document.location.href='updateDocument.php?document_id=<?php echo $this->document->getId(); ?>;lang='+this[this.selectedIndex].value;">
+				<?php
+					$list = new LanguageList();
+					$list->find();
+					foreach($list as $language)
+					{
+						if ($_SESSION['LANGUAGE'] == $language->getCode()) { echo "<option value=\"{$language->getCode()}\" selected=\"selected\">{$language->getNative()}</option>"; }
+						else { echo "<option value=\"{$language->getCode()}\">{$language->getNative()}</option>"; }
+					}
+				?>
+				</select>
+			</td>
+		</tr>
+		</tr>
+		</table>
+		<?php include APPLICATION_HOME.'/includes/editors/'.EDITOR.'.inc'; ?>
 	</fieldset>
 
 	<fieldset><legend>Sections</legend>

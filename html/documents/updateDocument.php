@@ -5,14 +5,14 @@
  */
 /*
 	$_GET variables:	document_id
-						return_url
-						( lang ) Optional - handled in configuration.inc
+						lang
 */
 	verifyUser(array('Publisher','Content Creator'));
 
 	if (isset($_GET['document_id']))
 	{
 		$document = new Document($_GET['document_id']);
+		$language = isset($_GET['lang']) ? new Language($_GET['lang']) : new Language($_SESSION['LANGUAGE']);
 		if (!$document->permitsEditingBy($_SESSION['USER']))
 		{
 			$_SESSION['errorMessages'][] = "noAccessAllowed";
@@ -27,6 +27,7 @@
 	if (isset($_POST['document']))
 	{
 		$document = new Document($_POST['document_id']);
+		$language = new Language($_POST['lang']);
 
 		if (!$document->permitsEditingBy($_SESSION['USER']))
 		{
@@ -39,7 +40,7 @@
 			$set = "set".ucfirst($field);
 			$document->$set($value);
 		}
-		$document->setContent($_POST['content']);
+		$document->setContent($_POST['content'],$language->getCode());
 
 		try
 		{
@@ -56,10 +57,7 @@
 		}
 	}
 
-	$form = new Block('documents/updateDocumentForm.inc');
-	$form->document = $document;
-
 	$template = new Template('popup');
-	$template->blocks[] = $form;
+	$template->blocks[] = new Block('documents/updateDocumentForm.inc',array('document'=>$document,'language'=>$language));
 	$template->render();
 ?>

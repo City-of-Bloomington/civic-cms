@@ -31,7 +31,7 @@
 		foreach($this->documentList as $document)
 		{
 			$url = $document->permitsEditingBy($_SESSION['USER']) ?
-					BASE_URL.'/documents/updateDocument.php?document_id='.$document->getId() :
+					BASE_URL."/documents/updateDocument.php?document_id={$document->getId()};lang=$_SESSION[LANGUAGE]" :
 					BASE_URL.'/documents/viewDocument.php?document_id='.$document->getId();
 
 			echo "
@@ -47,8 +47,24 @@
 				# Show all the editing buttons
 				$retireButton = !$document->getRetireDate() ? "<button type=\"button\" class=\"retire\" onclick=\"document.locaation.href='';\">Retire</button>" : "";
 				echo "
-				<td><button type=\"button\" class=\"view\" onclick=\"document.location.href='".BASE_URL."/documents/viewDocument.php?document_id={$document->getId()}';\">View</button>
-					$retireButton
+				<td><form method=\"get\" action=\"".BASE_URL."/documents/updateDocument.php\">
+					<fieldset>
+						<input name=\"document_id\" type=\"hidden\" value=\"{$document->getId()}\" />
+						<select name=\"lang\" onchange=\"this.form.target='_blank';this.form.submit();\">
+							<option value=\"\">Edit</option>
+				";
+						$list = new LanguageList();
+						$list->find();
+						foreach($list as $language)
+						{
+							echo "<option value=\"{$language->getCode()}\">{$language->getNative()}</option>";
+						}
+				echo "
+						</select>
+						<button type=\"button\" class=\"view\" onclick=\"window.open('".BASE_URL."/documents/viewDocument.php?document_id={$document->getId()}');\">View</button>
+						$retireButton
+					</fieldset>
+					</form>
 				</td>
 				";
 			}

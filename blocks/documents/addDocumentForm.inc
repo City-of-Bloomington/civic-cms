@@ -16,9 +16,25 @@
 		<tr><td><label for="document-title">Title</label></td>
 			<td><input name="document[title]" id="document-title" <?php if (isset($this->document)) echo "value=\"{$this->document->getTitle()}\""; ?> /></td></tr>
 		</table>
-		<?php include(APPLICATION_HOME.'/includes/editors/'.EDITOR.'.inc'); ?>
-
-		</div>
+	</fieldset>
+	<fieldset><legend>Content</legend>
+		<table>
+		<tr><td><label for="lang">Current Language</label></td>
+			<td><select name="lang" id="lang">
+				<?php
+					$list = new LanguageList();
+					$list->find();
+					foreach($list as $language)
+					{
+						if ($_SESSION['LANGUAGE'] == $language->getCode()) { echo "<option value=\"{$language->getCode()}\" selected=\"selected\">{$language->getNative()}</option>"; }
+						else { echo "<option value=\"{$language->getCode()}\">{$language->getNative()}</option>"; }
+					}
+				?>
+				</select>
+			</td>
+		</tr>
+		</table>
+		<?php include APPLICATION_HOME.'/includes/editors/'.EDITOR.'.inc'; ?>
 	</fieldset>
 
 	<fieldset><legend>Sections</legend>

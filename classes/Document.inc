@@ -17,7 +17,7 @@
 		private $documentType_id;
 
 		private $department;
-		private $content;
+		private $content = array();
 		private $contentDirectory;
 		private $contentLanguage;
 		private $documentType;
@@ -133,47 +133,47 @@
 		private function saveContent()
 		{
 			$directory = $this->getContentDirectory();
-			$file = "$directory/{$this->id}.$_SESSION[LANGUAGE]";
-
-			list($year,$month,$day) = explode("-",substr($this->created,0,10));
-
-			$sandbox = new SubversionWorkingCopy(APPLICATION_HOME."/data/documents");
-			if (!is_dir($directory))
+			foreach($this->content as $lang=>$content)
 			{
-				mkdir($directory,0775,true);
-				$sandbox->add(APPLICATION_HOME."/data/documents/$year","--force");
-			}
-			file_put_contents($file,$this->getContent());
+				$file = "$directory/{$this->id}.$lang";
 
-			$out = $sandbox->status($file);
-			if (count($out) && $out[0]{0} == "?") { $sandbox->add($file); }
+				list($year,$month,$day) = explode("-",substr($this->created,0,10));
+
+				$sandbox = new SubversionWorkingCopy(APPLICATION_HOME."/data/documents");
+				if (!is_dir($directory))
+				{
+					mkdir($directory,0775,true);
+					$sandbox->add(APPLICATION_HOME."/data/documents/$year","--force");
+				}
+				file_put_contents($file,$this->content[$lang]);
+
+				$out = $sandbox->status($file);
+				if (count($out) && $out[0]{0} == "?") { $sandbox->add($file); }
+			}
 			$sandbox->commit(APPLICATION_HOME."/data/documents/$year",$_SESSION['USER']->getUsername());
 
 
 			# Inform the people on the watch list
 			foreach($this->getWatches() as $watch) { $watch->notify(); }
 		}
-		public function getContent()
+		public function getContent($lang)
 		{
 			# Content won't exist as a file until it's been saved to the database
 			# The database will give it an ID and a created timestamp
 			if ($this->id)
 			{
-				if (!$this->content)
+				if (!isset($this->content[$lang]))
 				{
 					$directory = $this->getContentDirectory();
-					# Try to load the preferred language version of the document
-					if (file_exists("$directory/{$this->id}.$_SESSION[LANGUAGE]"))
+					if (file_exists("$directory/{$this->id}.$lang"))
 					{
-						$this->content = file_get_contents("$directory/{$this->id}.$_SESSION[LANGUAGE]");
+						$this->content[$lang] = file_get_contents("$directory/{$this->id}.$lang");
 					}
-					#elseif (file_exists("$directory/{$this->id}.".DEFAULT_LANGUAGE))
-					#{
-					#	$this->content = file_get_contents("$directory/{$this->id}.".DEFAULT_LANGUAGE);
-					#}
+					else { $this->content[$lang] = ''; }
 				}
+				return $this->content[$lang];
 			}
-			return $this->content;
+			else { return null; }
 		}
 		private function getContentDirectory()
 		{
@@ -441,7 +441,7 @@
 		 * Generic Setters
 		 */
 		public function setTitle($string) { $this->title = trim($string); }
-		public function setContent($string) { $this->content = trim($string); }
+		public function setContent($string,$lang) { $this->content[$lang] = trim($string); }
 		public function setModifiedBy($user) { $this->modifiedBy = $user->getId(); }
 		public function setPublishDate($date) { $this->publishDate = is_array($date) ? $this->dateArrayToString($date) : $date; }
 		public function setRetireDate($date) { $this->retireDate = is_array($date) ? $this->dateArrayToString($date) : $date; }

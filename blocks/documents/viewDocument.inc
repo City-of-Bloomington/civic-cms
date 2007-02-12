@@ -7,5 +7,5 @@
 	$this->document
 */
 	echo "<h2>{$this->document->getTitle()}</h2>";
-	echo $this->document->getContent();
+	echo $this->document->getContent($_SESSION['LANGUAGE']);
 ?>
