@@ -19,15 +19,14 @@
 		$user = new User($_POST['username']);
 
 		if ($user->authenticate($_POST['password'])) { $user->startNewSession(); }
-		else { throw new Exception("wrongPassword"); }
+		else { throw new Exception('wrongPassword'); }
 	}
 	catch (Exception $e)
 	{
 		$_SESSION['errorMessages'][] = $e;
-		Header("Location: ".BASE_URL);
+		Header('Location: '.BASE_URL);
 		exit();
 	}
 
-	print_r($_SESSION);
-	Header("Location: $_POST[returnURL]");
+	Header('Location: '.BASE_URL.'/documents/myDocuments.php');
 ?>

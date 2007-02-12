@@ -20,8 +20,8 @@
 	<div id="location_name">City of Bloomington, Indiana</div>
 	<div id="navigation">
 		<?php
-			if (isset($_SESSION['USER'])) { echo "<a href=\"".BASE_URL."/logout.php\">Logout</a>"; }
-			else { echo "<a href=\"".BASE_URL."/login/home.php?return=$_SERVER[REQUEST_URI]\">Login</a>"; }
+			if (isset($_SESSION['USER'])) { echo "<a href=\"".BASE_URL."/login/logout.php\">Logout</a>"; }
+			else { echo "<a href=\"".BASE_URL."/login\" onclick=\"window.open('".BASE_URL."/login');return false;\">Login</a>"; }
 		?>
 	</div>
 </div>

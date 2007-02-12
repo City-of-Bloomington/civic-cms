@@ -1,13 +1,7 @@
-<?php
-/*
-	$this->response
-*/
-?>
 <div id="login">
 	<div class="titleBar">Login</div>
 	<form method="post" action="login.php">
 	<fieldset><legend>Login</legend>
-		<input name="returnURL" type="hidden" value="<?php echo $this->response->getURL(); ?>" />
 		<table>
 		<tr><td><label for="username">User:</label></td>
 			<td><input name="username" id="username" size="10" /></td></tr>

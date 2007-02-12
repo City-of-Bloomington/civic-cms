@@ -14,7 +14,7 @@
 		}
 	}
 
-	$template = new Template();
+	$template = new Template('backend');
 	$template->blocks[] = new Block('sections/rearrangeSectionsForm.inc',array('section'=>new Section(1)));
 	$template->render();
 ?>

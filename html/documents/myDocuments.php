@@ -6,7 +6,7 @@
 	verifyUser();
 	$sort = isset($_GET['sort']) ? $_GET['sort'] : 'created desc';
 
-	$template = new Template();
+	$template = new Template('backend');
 
 	if (userHasRole('Content Creator')) { $template->blocks[] = new Block('documents/addDocumentToolbar.inc'); }
 

@@ -7,5 +7,6 @@
 	* 	Logs a user out of the system
 	*/
 	session_destroy();
-	Header("Location: ".BASE_URL);
+	$template = new Template('closePopup');
+	$template->render();
 ?>

@@ -2,10 +2,10 @@
 /*
 	$_GET variables:	id
 */
-	verifyUser("Administrator");
+	verifyUser('Administrator');
 
 	$user = new User($_GET['id']);
 	$user->delete();
 
-	Header("Location: home.php");
+	Header('Location: home.php');
 ?>

@@ -5,7 +5,7 @@
  */
 	verifyUser("Webmaster");
 
-	$template = new Template();
+	$template = new Template('backend');
 	$template->blocks[] = new Block("sections/listSections.inc",array('section'=>new Section(1)));
 	$template->render();
 ?>

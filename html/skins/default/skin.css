@@ -94,6 +94,7 @@ ul.compact { list-style-type:none; margin:0; padding:0; }
 	#breadcrumbs form button { font-size:8pt; }
 
 #mainContent { background-color:inherit; margin-left:170px; margin-right:170px; }
+#backendContent { background-color:inherit; margin-left:170px; }
 .contextualMenu { background-color:#fba500; color:black; border:2px solid black; margin-bottom:1em; margin-top:1em; }
 .contextualMenu div { display:inline; }
 .contextualMenu span.title { background:inherit; color:white; font-size:12pt; font-weight:bold; border:0; padding-left:1em; padding-right:0; }

@@ -6,7 +6,7 @@
 	$facetList = new FacetList();
 	$facetList->find();
 
-	$template = new Template();
+	$template = new Template('backend');
 	$template->blocks[] = new Block('facets/facetList.inc',array('facetList'=>$facetList));
 	$template->render();
 ?>

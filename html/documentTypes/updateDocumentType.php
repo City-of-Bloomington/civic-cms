@@ -27,7 +27,7 @@
 		catch (Exception $e) { $_SESSION['errorMessages'][] = $e; }
 	}
 
-	$template = new Template();
+	$template = new Template('backend');
 	$template->blocks[] = new Block('documentTypes/updateDocumentTypeForm.inc',array('documentType'=>$documentType));
 	$template->render();
 ?>

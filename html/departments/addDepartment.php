@@ -19,7 +19,7 @@
 		catch (Exception $e) { $_SESSION['errorMessages'][] = $e; }
 	}
 
-	$template = new Template();
+	$template = new Template('backend');
 	$template->blocks[] = new Block('departments/addDepartmentForm.inc');
 	$template->render();
 ?>
