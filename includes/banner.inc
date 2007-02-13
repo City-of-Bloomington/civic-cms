@@ -12,7 +12,7 @@
 		@import url("<?php echo BASE_URL; ?>/skins/default/skin.css");
 	</style>
 	<style type="text/css" media="print">@import url("<?php echo BASE_URL; ?>/skins/default/print.css");</style>
-	<title>Content Manager - City of Bloomington, Indiana</title>
+	<title><?php echo $title; ?></title>
 </head>
 <body>
 <div id="banner">

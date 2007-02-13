@@ -10,5 +10,7 @@
 		<li><a href="<?php echo BASE_URL; ?>/sections">Sections</a></li>
 		<li><a href="<?php echo BASE_URL; ?>/facets">Facets</a></li>
 		<li><a href="<?php echo BASE_URL; ?>/documentTypes">Document Types</a></li>
+		<li><a href="<?php echo BASE_URL; ?>/locations">Locations</a></li>
+		<li><a href="<?php echo BASE_URL; ?>/calendars">Calendars</a></li>
 	</ul>
 </div>

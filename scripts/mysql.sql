@@ -171,16 +171,23 @@ insert languages values
 ---------------------------------------------------------------------
 -- Events
 ---------------------------------------------------------------------
+create table locations (
+	id int unsigned not null primary key auto_increment,
+	name varchar(60) not null
+) engine=InnoDB;
+
 create table events (
 	id int unsigned not null primary key auto_increment,
 	created timestamp not null default CURRENT_TIMESTAMP,
-	start timestamp,
-	end timestamp,
-	summary varchar(60) not null,
-	location varchar(60) not null,
+	start datetime not null,
+	end datetime not null,
+	summary varchar(128) not null,
+	description text,
+	location_id int unsigned,
 	department_id int unsigned not null,
 	user_id int unsigned not null,
 	document_id int unsigned not null,
+	foreign key (location_id) references locations(id),
 	foreign key (department_id) references departments(id),
 	foreign key (user_id) references users(id),
 	foreign key (document_id) references documents(id)

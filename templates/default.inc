@@ -1,4 +1,5 @@
 <?php
+	$title = "City of Bloomington";
 	include(APPLICATION_HOME."/includes/xhtmlTransitionalHeader.inc");
 	include(APPLICATION_HOME."/includes/banner.inc");
 	include(APPLICATION_HOME."/includes/navigation.inc");
