@@ -129,7 +129,7 @@ file_put_contents("$dir/add{$className}Form.inc",$contents);
 $HTML = "<h1>Update $className</h1>
 <form method=\"post\" action=\"<?php echo \$_SERVER['PHP_SELF']; ?>\">
 <fieldset><legend>$className Info</legend>
-	<input name=\"$key[Column_name]\" type=\"hidden\" value=\"<?php echo \$this->$getId(); ?>\" />
+	<input name=\"$key[Column_name]\" type=\"hidden\" value=\"<?php echo \$this->{$variableName}->{$getId}(); ?>\" />
 	<table>
 ";
 foreach($fields as $field)

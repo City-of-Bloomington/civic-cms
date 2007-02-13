@@ -54,7 +54,7 @@ $PHP = "verifyUser();
 	if (isset(\$_POST['{$variableName}']))
 	{
 		\${$variableName} = new {$className}();
-		foreach(\$_POST['{$variableName}'] as \$field=>\$value
+		foreach(\$_POST['{$variableName}'] as \$field=>\$value)
 		{
 			\$set = 'set'.ucfirst(\$field);
 			\${$variableName}->\$set(\$value);
