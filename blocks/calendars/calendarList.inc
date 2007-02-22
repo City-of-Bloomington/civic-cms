@@ -14,7 +14,7 @@
 			{
 				echo "
 				<li><button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/calendars/updateCalendar.php?id={$calendar->getId()}';\">Edit</button>
-					{$calendar->getName()}</li>
+					<a href=\"".BASE_URL."/calendars/viewCalendar.php?calendar_id={$calendar->getId()}\">{$calendar->getName()}</a></li>
 				";
 			}
 		?>

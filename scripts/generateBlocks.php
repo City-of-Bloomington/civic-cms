@@ -73,16 +73,16 @@ foreach($fields as $field)
 		$fieldFunctionName = ucwords($field['Field']);
 		switch ($field['Type'])
 		{
-			case "date":
+			case 'date':
 			$HTML.="
-	<tr><td><label for=\"{$variableName}-$field[Field]-mon\">Start Date</label></td>
+	<tr><td><label for=\"{$variableName}-$field[Field]-mon\">$field[Field]</label></td>
 		<td><select name=\"{$variableName}[$field[Field]][mon]\" id=\"{$variableName}-$field[Field]-mon\"><option></option>
 			<?php
 				\$now = getdate();
 				for(\$i=1; \$i<=12; \$i++)
 				{
 					if (\$i!=\$now['mon']) { echo \"<option>\$i</option>\"; }
-					else { echo \"<option selected=\"selected\">\$i</option>\"; }
+					else { echo \"<option selected=\\\"selected\\\">\$i</option>\"; }
 				}
 			?>
 			</select>
@@ -91,18 +91,71 @@ foreach($fields as $field)
 				for(\$i=1; \$i<=31; \$i++)
 				{
 					if (\$i!=\$now['mday']) { echo \"<option>\$i</option>\"; }
-					else { echo \"<option selected=\"selected\">\$i</option>\"; }
+					else { echo \"<option selected=\\\"selected\\\">\$i</option>\"; }
 				}
 			?>
 			</select>
 			<input name=\"{$variableName}[$field[Field]][year]\" id=\"{$variableName}-$field[Field]-year\" size=\"4\" maxlength=\"4\" value=\"<?php echo \$now['year']; ?>\" />
 		</td>
 	</tr>";
-				break;
+			break;
+
+			case 'datetime':
+			case 'timestamp':
+			$HTML.="
+	<tr><td><label for=\"{$variableName}-$field[Field]-mon\">$field[Field]</label></td>
+		<td><select name=\"{$variableName}[$field[Field]][mon]\" id=\"{$variableName}-$field[Field]-mon\"><option></option>
+			<?php
+				\$now = getdate();
+				for(\$i=1; \$i<=12; \$i++)
+				{
+					if (\$i!=\$now['mon']) { echo \"<option>\$i</option>\"; }
+					else { echo \"<option selected=\\\"selected\\\">\$i</option>\"; }
+				}
+			?>
+			</select>
+			<select name=\"{$variableName}[$field[Field]][mday]\"><option></option>
+			<?php
+				for(\$i=1; \$i<=31; \$i++)
+				{
+					if (\$i!=\$now['mday']) { echo \"<option>\$i</option>\"; }
+					else { echo \"<option selected=\\\"selected\\\">\$i</option>\"; }
+				}
+			?>
+			</select>
+			<input name=\"{$variableName}[$field[Field]][year]\" id=\"{$variableName}-$field[Field]-year\" size=\"4\" maxlength=\"4\" value=\"<?php echo \$now['year']; ?>\" />
+			<select name=\"{$variableName}[$field[Field]][hours]\" id=\"{$variableName}-$field[Field]-hours\">
+			<?php
+				for(\$i=0; \$i<=23; \$i++)
+				{
+					if (\$i!=\$now['hours']) { echo \"<option>\$i</option>\"; }
+					else { echo \"<option selected=\\\"selected\\\">\$i</option>\"; }
+				}
+			?>
+			</select>
+			<select name=\"{$variableName}[$field[Field]][minutes]\" id=\"{$variableName}-$field[Field]-minutes\">
+			<?php
+				for(\$i=0; \$i<=59; \$i+=15)
+				{
+					if (\$i!=\$now['minutes']) { echo \"<option>\$i</option>\"; }
+					else { echo \"<option selected=\\\"selected\\\">\$i</option>\"; }
+				}
+			?>
+			</select>
+		</td>
+	</tr>";
+			break;
+
+			case 'text':
+		$HTML.= "
+	<tr><td><label for=\"{$variableName}-$field[Field]\">$field[Field]</label></td>
+		<td><textarea name=\"{$variableName}[$field[Field]]\" id=\"{$variableName}-$field[Field]\" rows=\"3\" cols=\"60\"></texarea></td></tr>
+		";
+			break;
 
 			default:
 		$HTML.= "
-	<tr><td><label for=\"{$variableName}-$field[Field]\">Name</label></td>
+	<tr><td><label for=\"{$variableName}-$field[Field]\">$field[Field]</label></td>
 		<td><input name=\"{$variableName}[$field[Field]]\" id=\"{$variableName}-$field[Field]\" /></td></tr>
 		";
 		}
@@ -139,16 +192,16 @@ foreach($fields as $field)
 		$fieldFunctionName = ucwords($field['Field']);
 		switch ($field['Type'])
 		{
-			case "date":
+			case 'date':
 			$HTML.="
-	<tr><td><label for=\"{$variableName}-$field[Field]-mon\">Start Date</label></td>
+	<tr><td><label for=\"{$variableName}-$field[Field]-mon\">$field[Field]</label></td>
 		<td><select name=\"{$variableName}[$field[Field]][mon]\" id=\"{$variableName}-$field[Field]-mon\"><option></option>
 			<?php
 				\$$field[Field] = \$this->{$variableName}->dateStringToArray(\$this->{$variableName}->get$fieldFunctionName());
 				for(\$i=1; \$i<=12; \$i++)
 				{
 					if (\$i!=\$$field[Field]['mon']) { echo \"<option>\$i</option>\"; }
-					else { echo \"<option selected=\"selected\">\$i</option>\"; }
+					else { echo \"<option selected=\\\"selected\\\">\$i</option>\"; }
 				}
 			?>
 			</select>
@@ -157,18 +210,71 @@ foreach($fields as $field)
 				for(\$i=1; \$i<=31; \$i++)
 				{
 					if (\$i!=\$$field[Field]['mday']) { echo \"<option>\$i</option>\"; }
-					else { echo \"<option selected=\"selected\">\$i</option>\"; }
+					else { echo \"<option selected=\\\"selected\\\">\$i</option>\"; }
 				}
 			?>
 			</select>
 			<input name=\"{$variableName}[$field[Field]][year]\" id=\"{$variableName}-$field[Field]-year\" size=\"4\" maxlength=\"4\" value=\"<?php echo \$$field[Field]['year']; ?>\" />
 		</td>
 	</tr>";
-				break;
+			break;
+
+			case 'datetime':
+			case 'timestamp':
+			$HTML.="
+	<tr><td><label for=\"{$variableName}-$field[Field]-mon\">$field[Field]</label></td>
+		<td><select name=\"{$variableName}[$field[Field]][mon]\" id=\"{$variableName}-$field[Field]-mon\"><option></option>
+			<?php
+				\$$field[Field] = \$this->{$variableName}->dateStringToArray(\$this->{$variableName}->get$fieldFunctionName());
+				for(\$i=1; \$i<=12; \$i++)
+				{
+					if (\$i!=\$$field[Field]['mon']) { echo \"<option>\$i</option>\"; }
+					else { echo \"<option selected=\\\"selected\\\">\$i</option>\"; }
+				}
+			?>
+			</select>
+			<select name=\"{$variableName}[$field[Field]][mday]\"><option></option>
+			<?php
+				for(\$i=1; \$i<=31; \$i++)
+				{
+					if (\$i!=\$$field[Field]['mday']) { echo \"<option>\$i</option>\"; }
+					else { echo \"<option selected=\\\"selected\\\">\$i</option>\"; }
+				}
+			?>
+			</select>
+			<input name=\"{$variableName}[$field[Field]][year]\" id=\"{$variableName}-$field[Field]-year\" size=\"4\" maxlength=\"4\" value=\"<?php echo \$$field[Field]['year']; ?>\" />
+			<select name=\"{$variableName}[$field[Field]][hours]\" id=\"{$variableName}-$field[Field]-hours\">
+			<?php
+				for(\$i=0; \$i<=23; \$i++)
+				{
+					if (\$i!=\$$field[Field]['hours']) { echo \"<option>\$i</option>\"; }
+					else { echo \"<option selected=\\\"selected\\\">\$i</option>\"; }
+				}
+			?>
+			</select>
+			<select name=\"{$variableName}[$field[Field]][minutes]\" id=\"{$variableName}-$field[Field]-minutes\">
+			<?php
+				for(\$i=0; \$i<=59; \$i+=15)
+				{
+					if (\$i!=\$$field[Field]['minutes']) { echo \"<option>\$i</option>\"; }
+					else { echo \"<option selected=\\\"selected\\\">\$i</option>\"; }
+				}
+			?>
+			</select>
+		</td>
+	</tr>";
+			break;
+
+			case 'text':
+		$HTML.= "
+	<tr><td><label for=\"{$variableName}-$field[Field]\">$field[Field]</label></td>
+		<td><textarea name=\"{$variableName}[$field[Field]]\" id=\"{$variableName}-$field[Field]\" rows=\"3\" cols=\"60\"><?php echo \$this->{$variableName}->get$fieldFunctionName(); ?></texarea></td></tr>
+		";
+			break;
 
 			default:
 		$HTML.= "
-	<tr><td><label for=\"{$variableName}-$field[Field]\">Name</label></td>
+	<tr><td><label for=\"{$variableName}-$field[Field]\">$field[Field]</label></td>
 		<td><input name=\"{$variableName}[$field[Field]]\" id=\"{$variableName}-$field[Field]\" value=\"<?php echo \$this->{$variableName}->get$fieldFunctionName(); ?>\" /></td></tr>
 		";
 		}

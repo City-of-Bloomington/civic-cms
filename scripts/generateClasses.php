@@ -38,7 +38,7 @@ foreach($tables as $tableName)
 
 			if (\$$key[Column_name])
 			{
-				\$sql = \"select * from $tableName where $key[Column_name]=?\";
+				\$sql = 'select * from $tableName where $key[Column_name]=?';
 				try
 				{
 					\$query = \$PDO->prepare(\$sql);
@@ -126,7 +126,7 @@ foreach($tables as $tableName)
 			$fieldFunctionName = ucwords($field['Field']);
 			switch ($field['Type'])
 			{
-				case "int":
+				case 'int':
 					if (in_array($field['Field'],$linkedProperties))
 					{
 						$property = substr($field['Field'],0,-3);
@@ -139,15 +139,17 @@ foreach($tables as $tableName)
 					}
 				break;
 
-				case "string":
+				case 'string':
 					$setters.= "\t\tpublic function set$fieldFunctionName(\$$field[Type]) { \$this->$field[Field] = trim(\$$field[Type]); }\n";
 				break;
 
-				case "date":
+				case 'date':
+				case 'datetime':
+				case 'timestamp':
 					$setters.= "\t\tpublic function set$fieldFunctionName(\$$field[Type]) { \$this->$field[Field] = is_array(\$$field[Type]) ? \$this->dateArrayToString(\$$field[Type]) : \$$field[Type]; }\n";
 				break;
 
-				case "float":
+				case 'float':
 					$setters.= "\t\tpublic function set$fieldFunctionName(\$$field[Type]) { \$this->$field[Field] = ereg_replace(\"[^0-9.\-]\",\"\",\$$field[Type]); }\n";
 				break;
 

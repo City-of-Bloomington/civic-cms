@@ -183,14 +183,12 @@ create table events (
 	end datetime not null,
 	summary varchar(128) not null,
 	description text,
+	calendar_id int unsigned not null,
 	location_id int unsigned,
-	department_id int unsigned not null,
 	user_id int unsigned not null,
-	document_id int unsigned not null,
+	foreign key (calendar_id) references calendars(id),
 	foreign key (location_id) references locations(id),
-	foreign key (department_id) references departments(id),
-	foreign key (user_id) references users(id),
-	foreign key (document_id) references documents(id)
+	foreign key (user_id) references users(id)
 ) engine=InnoDB;
 
 create table calendars (
@@ -202,10 +200,10 @@ create table calendars (
 	foreign key (user_id) references users(id)
 ) engine=InnoDB;
 
-create table calendar_events (
-	calendar_id int unsigned not null,
+create table event_sections (
 	event_id int unsigned not null,
-	primary key (calendar_id,event_id),
-	foreign key (calendar_id) references calendars(id),
-	foreign key (event_id) references events(id)
+	section_id int unsigned not null,
+	primary key (event_id,section_id),
+	foreign key (event_id) references events(id),
+	foreign key (section_id) references sections(id)
 ) engine=InnoDB;

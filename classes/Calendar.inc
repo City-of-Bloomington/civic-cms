@@ -13,7 +13,7 @@
 		private $department;
 		private $user;
 
-		private $eventList;
+		private $eventArray = array();
 
 		/**
 		 * This will load all fields in the table as properties of this class.
@@ -40,7 +40,6 @@
 			{
 				# This is where the code goes to generate a new, empty instance.
 				# Set any default values for properties that need it here
-				$this->user_id = $_SESSION['USER']->getId();
 			}
 		}
 
@@ -57,7 +56,7 @@
 			$fields = array();
 			$fields['name'] = $this->name ? $this->name : null;
 			$fields['department_id'] = $this->department_id ? $this->department_id : null;
-			$fields['user_id'] = $this->user_id ? $this->user_id : null;
+			$fields['user_id'] = $this->user_id ? $this->user_id : $_SESSION['USER']->getId();
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
@@ -122,18 +121,39 @@
 			}
 			else return null;
 		}
-		public function getEvents()
+		public function getEvents($date=null)
 		{
-			if (!$this->eventList)
+			if ($this->id) { $search['calendar_id'] = $this->id; }
+			if ($date)
 			{
-				# If this calendar is a stored calendar, then just load it's events
-				# Otherwise, grab all the events
-				$eventList = new EventList();
-
-				if ($this->id) { $eventList->find(array('calendar_id'=>$this->id)); }
-				else { $eventList->find(); }
+				if (isset($date['year'])) { $search['year'] = $date['year']; }
+				if (isset($date['mon'])) { $search['mon'] = $date['mon']; }
+				if (isset($date['mday'])) { $search['mday'] = $date['mday']; }
+				if (isset($date['week'])) { $search['week'] = $date['week']; }
 			}
-			return $this->eventList;
+
+			$eventList = new EventList();
+			if (isset($search)) { $eventList->find($search); }
+			else { $eventList->find(); }
+
+			return $eventList;
+		}
+		public function getEventArray($date=null)
+		{
+			$this->eventArray = array();
+			foreach($this->getEvents($date) as $event)
+			{
+				$e = $this->dateStringToArray($event->getStart());
+				$this->eventArray[$e['year']][$e['mon']][$e['mday']][] = $event;
+			}
+			return $this->eventArray;
+		}
+		public function permitsEditingBy($user)
+		{
+			if ($user->hasRole(array('Administrator','Webmaster')) ||
+				($user->hasRole('Content Creator') && $user->getDepartment_id()==$this->department_id))
+			{ return true; }
+			else { return false; }
 		}
 
 		/**

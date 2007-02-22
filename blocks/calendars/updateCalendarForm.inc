@@ -7,7 +7,7 @@
 <h1>Update Calendar</h1>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 <fieldset><legend>Calendar Info</legend>
-	<input name="id" type="hidden" value="<?php echo $this->calendar->getId(); ?>" />
+	<input name="calendar_id" type="hidden" value="<?php echo $this->calendar->getId(); ?>" />
 	<table>
 
 	<tr><td><label for="calendar-name">Name</label></td>
@@ -20,7 +20,7 @@
 				$list->find();
 				foreach($list as $department)
 				{
-					if ($this->calendar->getDepartment_id() = $department->getId()) { echo "<option value=\"{$department->getId()}\" selected=\"selected\">$department</option>"; }
+					if ($this->calendar->getDepartment_id() == $department->getId()) { echo "<option value=\"{$department->getId()}\" selected=\"selected\">$department</option>"; }
 					else { echo "<option value=\"{$department->getId()}\">$department</option>"; }
 				}
 			?>
