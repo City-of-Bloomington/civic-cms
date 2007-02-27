@@ -24,6 +24,7 @@
 			if (isset($fields['created'])) { $options[] = "created='$fields[created]'"; }
 			if (isset($fields['start'])) { $options[] = "start='$fields[start]'"; }
 			if (isset($fields['end'])) { $options[] = "end='$fields[end]'"; }
+			if (isset($fields['allDayEvent'])) { $options[] = "allDayEvent='$fields[allDayEvent]'"; }
 			if (isset($fields['summary'])) { $options[] = "summary='$fields[summary]'"; }
 			if (isset($fields['description'])) { $options[] = "description='$fields[description]'"; }
 			if (isset($fields['calendar_id'])) { $options[] = "calendar_id='$fields[calendar_id]'"; }

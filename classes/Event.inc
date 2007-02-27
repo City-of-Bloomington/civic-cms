@@ -9,6 +9,7 @@
 		private $created;
 		private $start;
 		private $end;
+		private $allDayEvent;
 		private $summary;
 		private $description;
 		private $calendar_id;
@@ -63,9 +64,13 @@
 			# Check for required fields here.  Throw an exception if anything is missing.
 			if (!$this->start || !$this->summary || !$this->calendar_id || !$this->location_id) { throw new Exception('missingRequiredFields'); }
 
+			# Event end time must come after the start time
+			if ($this->end < $this->start) { throw new Exception('invalidEndTime'); }
+
 			$fields = array();
 			$fields['start'] = $this->start ? $this->start : null;
 			$fields['end'] = $this->end ? $this->end : null;
+			$fields['allDayEvent'] = $this->allDayEvent ? $this->allDayEvent : null;
 			$fields['summary'] = $this->summary ? $this->summary : null;
 			$fields['description'] = $this->description ? $this->description : null;
 			$fields['calendar_id'] = $this->calendar_id ? $this->calendar_id : null;
@@ -174,6 +179,8 @@
 		}
 		public function hasSection($section) { return array_key_exists($section->getId(),$this->getSections()); }
 
+		public function isAllDayEvent() { return $this->allDayEvent; }
+
 
 		/**
 		 * Generic Getters
@@ -235,6 +242,7 @@
 		 */
 		public function setStart($datetime) { $this->start = is_array($datetime) ? $this->dateArrayToString($datetime) : $datetime; }
 		public function setEnd($datetime) { $this->end = is_array($datetime) ? $this->dateArrayToString($datetime) : $datetime; }
+		public function setAllDayEvent($int) { $this->allDayEvent = $int ? 1 : 0; }
 		public function setSummary($string) { $this->summary = trim($string); }
 		public function setDescription($text) { $this->description = $text; }
 		public function setCalendar_id($int) { $this->calendar = new Calendar($int); $this->calendar_id = $int; }
