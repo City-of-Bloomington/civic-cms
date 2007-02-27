@@ -16,90 +16,20 @@
 	<tr><td><label for="event-summary">summary</label></td>
 		<td><input name="event[summary]" id="event-summary" value="<?php echo $this->event->getSummary(); ?>" /></td></tr>
 
-	<tr><td><label for="event-start-mon">Start</label></td>
-		<td><select name="event[start][mon]" id="event-start-mon"><option></option>
+	<tr><td><label for="event-location_id">Location</label></td>
+		<td><select name="event[location_id]" id="event-location_id">
 			<?php
-				$start = $this->event->dateStringToArray($this->event->getStart());
-				for($i=1; $i<=12; $i++)
+				$list = new LocationList();
+				$list->find();
+				foreach($list as $location)
 				{
-					if ($i!=$start['mon']) { echo "<option>$i</option>"; }
-					else { echo "<option selected=\"selected\">$i</option>"; }
-				}
-			?>
-			</select>
-			<select name="event[start][mday]"><option></option>
-			<?php
-				for($i=1; $i<=31; $i++)
-				{
-					if ($i!=$start['mday']) { echo "<option>$i</option>"; }
-					else { echo "<option selected=\"selected\">$i</option>"; }
-				}
-			?>
-			</select>
-			<input name="event[start][year]" id="event-start-year" size="4" maxlength="4" value="<?php echo $start['year']; ?>" />
-			<select name="event[start][hours]" id="event-start-hours">
-			<?php
-				for($i=0; $i<=23; $i++)
-				{
-					if ($i!=$start['hours']) { echo "<option>$i</option>"; }
-					else { echo "<option selected=\"selected\">$i</option>"; }
-				}
-			?>
-			</select>
-			<select name="event[start][minutes]" id="event-start-minutes">
-			<?php
-				for($i=0; $i<=59; $i+=15)
-				{
-					if ($i!=$start['minutes']) { echo "<option>$i</option>"; }
-					else { echo "<option selected=\"selected\">$i</option>"; }
+					if ($this->event->getLocation_id()==$location->getId()) { echo "<option value=\"{$location->getId()}\" selected=\"selected\">$location</option>"; }
+					else { echo "<option value=\"{$location->getId()}\">$location</option>"; }
 				}
 			?>
 			</select>
 		</td>
 	</tr>
-	<tr><td><label for="event-end-mon">End</label></td>
-		<td><select name="event[end][mon]" id="event-end-mon"><option></option>
-			<?php
-				$end = $this->event->dateStringToArray($this->event->getEnd());
-				for($i=1; $i<=12; $i++)
-				{
-					if ($i!=$end['mon']) { echo "<option>$i</option>"; }
-					else { echo "<option selected=\"selected\">$i</option>"; }
-				}
-			?>
-			</select>
-			<select name="event[end][mday]"><option></option>
-			<?php
-				for($i=1; $i<=31; $i++)
-				{
-					if ($i!=$end['mday']) { echo "<option>$i</option>"; }
-					else { echo "<option selected=\"selected\">$i</option>"; }
-				}
-			?>
-			</select>
-			<input name="event[end][year]" id="event-end-year" size="4" maxlength="4" value="<?php echo $end['year']; ?>" />
-			<select name="event[end][hours]" id="event-end-hours">
-			<?php
-				for($i=0; $i<=23; $i++)
-				{
-					if ($i!=$end['hours']) { echo "<option>$i</option>"; }
-					else { echo "<option selected=\"selected\">$i</option>"; }
-				}
-			?>
-			</select>
-			<select name="event[end][minutes]" id="event-end-minutes">
-			<?php
-				for($i=0; $i<=59; $i+=15)
-				{
-					if ($i!=$end['minutes']) { echo "<option>$i</option>"; }
-					else { echo "<option selected=\"selected\">$i</option>"; }
-				}
-			?>
-			</select>
-		</td>
-	</tr>
-	<tr><td><label for="event-description">Description</label></td>
-		<td><textarea name="event[description]" id="event-description" rows="3" cols="60"><?php echo $this->event->getDescription(); ?></textarea></td></tr>
 
 	<tr><td><label for="event-calendar_id">Calendar</label></td>
 		<td><select name="event[calendar_id]" id="event-calendar_id">
@@ -116,24 +46,31 @@
 		</td>
 	</tr>
 
-	<tr><td><label for="event-location_id">Location</label></td>
-		<td><select name="event[location_id]" id="event-location_id">
-			<?php
-				$list = new LocationList();
-				$list->find();
-				foreach($list as $location)
-				{
-					if ($this->event->getLocation_id()==$location->getId()) { echo "<option value=\"{$location->getId()}\" selected=\"selected\">$location</option>"; }
-					else { echo "<option value=\"{$location->getId()}\">$location</option>"; }
-				}
-			?>
-			</select>
-		</td></tr>
+	<?php $start = strtotime($this->event->getStart()); ?>
+	<tr><td><label for="startDate">Start time</label></td>
+		<td><input name="startDate" id="startDate" size="10" maxlength="10" value="<?php echo date('n/j/Y',$start); ?>" />
+			<input name="startTime" id="startTime" size="7" maxlength="7" value="<?php echo date('g:ia',$start); ?>" />
+			<?php $checked = $this->event->isAllDayEvent() ? 'checked="checked"' : ''; ?>
+			<input name="allDayEvent" id="allDayEvent" type="checkbox" value="1" <?php echo $checked; ?> onclick="toggleTimes();" />
+			<label for="allDayEvent">All Day Event</label>
+		</td>
+	</tr>
+	<?php $end = strtotime($this->event->getEnd()); ?>
+	<tr><td><label for="endDate">End time</label></td>
+		<td><input name="endDate" id="endDate" size="10" maxlength="10" value="<?php echo date('n/j/Y',$end); ?>" />
+			<input name="endTime" id="endTime" size="7" maxlength="7" value="<?php echo date('g:ia',$end); ?>" />
+		</td>
+	</tr>
+
+	<tr><td colspan="2">
+			<textarea name="event[description]" id="event-description" rows="3" cols="60"><?php echo $this->event->getDescription(); ?></textarea>
+	</td></tr>
 
 	</table>
 </fieldset>
 
 <fieldset><legend>Sections</legend>
+	<p>Where on the site do you want this event to show up?</p>
 	<table>
 	<?php
 		$sections = new SectionList();
@@ -157,3 +94,40 @@
 	<button type="button" class="cancel" onclick="document.location.href='<?php echo BASE_URL; ?>/calendars';">Cancel</button>
 </fieldset>
 </form>
+
+<script type="text/javascript">
+	var startValue = document.getElementById("startTime").value;
+	var endValue = document.getElementById("endTime").value;
+
+	function toggleTimes()
+	{
+		var startTime = document.getElementById("startTime");
+		var endTime = document.getElementById("endTime");
+
+		if (startTime.style.display == "none")
+		{
+			startTime.value = startValue;
+			endTime.value = endValue;
+			startTime.style.display = "";
+			endTime.style.display = "";
+		}
+		else
+		{
+			startTime.value = "";
+			endTime.value = "";
+			startTime.style.display = "none";
+			endTime.style.display = "none";
+		}
+	}
+	<?php
+		if ($this->event->isAllDayEvent())
+		{
+			echo '
+			document.getElementById("startTime").value = "";
+			document.getElementById("endTime").value = "";
+			document.getElementById("startTime").style.display = "none";
+			document.getElementById("endTime").style.display = "none";
+			';
+		}
+	?>
+</script>

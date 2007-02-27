@@ -14,7 +14,7 @@
 	<?php
 		foreach($this->calendar->getEvents($this->date) as $event)
 		{
-			$time = date('g:i A',strtotime($event->getStart()));
+			$time = $event->isAllDayEvent() ? '' : date('g:i A',strtotime($event->getStart()));
 			echo "
 			<tr><td>$time</td>
 				<td><a href=\"".BASE_URL."/calendars/viewEvent.php?event_id={$event->getId()}\">

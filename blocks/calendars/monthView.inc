@@ -51,7 +51,7 @@
 			echo '<ul>';
 			foreach($events[$year][$month][$day] as $event)
 			{
-				$time = date('g:i A',strtotime($event->getStart()));
+				$time = $event->isAllDayEvent() ? '' : date('g:i A',strtotime($event->getStart()));
 				echo "
 				<li><a href=\"".BASE_URL."/calendars/viewEvent.php?event_id={$event->getId()}\">
 					$time {$event->getSummary()}</a></li>
