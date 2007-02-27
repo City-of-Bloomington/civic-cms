@@ -10,8 +10,9 @@
 		{
 			echo "<li><a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$section->getDocument_id()}\">";
 			echo View::sanitizeString($section->getName());
+			echo '</a>';
 			if (count($section->getChildren())) { renderMenu($section->getChildren()); }
-			echo "</a></li>";
+			echo '</li>';
 		}
 		echo "</ul>";
 	}
