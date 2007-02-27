@@ -181,6 +181,7 @@ create table events (
 	created timestamp not null default CURRENT_TIMESTAMP,
 	start datetime not null,
 	end datetime not null,
+	allDayEvent tinyint(1) unsigned,
 	summary varchar(128) not null,
 	description text,
 	calendar_id int unsigned not null,

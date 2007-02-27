@@ -31,47 +31,44 @@ See: LICENSE.txt
 Requirements
 ---------------------------------------------------------------------
 Framework:
-This scaffolding requires our Framework to be on the server somewhere.
-Our Framework is available as a seperate release.  In the configuration,
-you will need to point this scaffolding to the directory where the
-Framework is installed.
+	This scaffolding requires our Framework to be on the server somewhere.
+	Our Framework is available as a seperate release.  In the configuration,
+	you will need to point this scaffolding to the directory where the
+	Framework is installed.
 
-This application was written assuming you have control over your own web
-server.  If you are on a hosted system, you may need to make changes to
-the code to accomodate your server.
-
-All include files have been kept out of the web directory, and a configuration
-file has been included. You will need to make sure that every .php script
-in the HTML directory includes configuration.inc.  If you control your own
-webserver, you can add a <Directory> command to your httpd.conf.
+ZendFramework
+	The search engine has been built using the ZendFramework.  You will
+	need that installed on the webserver.  ZendFramework is available at
+	http://framework.zend.com
 
 PHP:
-PHP must be compiled with support for:
-	PDO
-	MySQL
-	LDAP
+	PHP must be compiled with support for:
+		PDO
+		MySQL
+		LDAP
 
 	Actually, you can substitute any database support for MySQL, as our
-framework uses PDO for database interaction.
+	framework uses PDO for database interaction.
 
 MySQL:
 	MySQL should have support for InnoDB.  Foreign keys are written into
-the database load scripts.  While MyISAM tables will just ignore them,
-you database and your application will be that much more robust with InnoDB
-support.
+	the database load scripts.  While MyISAM tables will just ignore them,
+	you database and your application will be that much more robust with InnoDB
+	support.
 
 LDAP:
 	LDAP is only used for doing LDAP authentication for users.
-If you're not going to do any LDAP authentication, you can delete or
-comment out the LDAP stuff.
+	If you're not going to do any LDAP authentication, you can delete or
+	comment out the LDAP stuff.
 
 Subversion:
 	Content is versioned using subversion.  You will need subversion
-installed on your webserver, so that PHP can call the svn commands
-to keep track of the documents.
+	installed on your webserver, so that PHP can call the svn commands
+	to keep track of the documents.
+
 	The repository does not have to be located on the webserver,
-however, in our case, we just create the repository inside the
-web application directory once it's installed.
+	however, in our case, we just create the repository inside the
+	web application directory once it's installed.
 
 ---------------------------------------------------------------------
 Installation
@@ -117,24 +114,41 @@ Configuration
 ---------------------------------------------------------------------
 Prepare Non-Database Data
 ---------------------------------------------------------------------
-Subversion :
+Install Subversion repository:
 	This application uses subversion to track changes to the documents.
-You will need to set up a repository that PHP can checkout and commit to.
-Typically you just create the repository in the application's data
-directory once it's installed.
+	You will need to set up a repository that PHP can checkout and commit to.
+	Typically you just create the repository in the application's data
+	directory once it's installed.
 
-1) Create the document_repository
-cd /path/to/application_name/data
-svnadmin create repository
+	1) Create the document_repository
+	cd /path/to/application/data
+	svnadmin create repository
 
-2) Import the default homepage into the document_repository
-cd documents
-svn import file:///path/to/application_name/data/document_repository -m 'Initial repository population.'
+	2) Import the default homepage into the document_repository
+	cd documents
+	svn import file:///path/to/application_name/data/document_repository -m 'Initial repository population.'
 
-3) Check the default documents out of the repository
-cd ..
-rm -Rf documents
-svn checkout file:///var/www/sites/content_manager/data/document_repository documents
+	3) Check the default documents out of the repository
+	cd ..
+	rm -Rf documents
+	svn checkout file:///var/www/sites/content_manager/data/document_repository documents
 
 
 
+Install Search Engine:
+	This application uses a search index stored on the hard drive.
+	You will need to install the index, then set permissions so that
+	PHP has read/write permissions to the search index.
+
+	cd /path/to/application/scripts
+	php install_search.php
+
+
+Set Permissions:
+	The data directory is where the application stores all non-database
+	information.  You will need to make sure that the webserver has read/write
+	permissions to everything in this directory
+
+	cd /path/to/application
+	chown -R apache data
+	chmod -R u+rw data

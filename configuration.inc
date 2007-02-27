@@ -14,6 +14,7 @@ define('COPYRIGHT',"/**
 	 * are a seperate package we will release.
 	 */
 	define('FRAMEWORK','/var/www/libraries/framework');
+	define('ZEND','/var/www/libraries/ZendFramework/library');
 
 
 	/**

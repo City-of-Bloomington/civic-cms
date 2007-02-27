@@ -115,6 +115,9 @@
 			$sql = "update documents set $preparedFields where id={$this->id}";
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 			if (false === $query->execute($values)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
+
+			$search = new Search();
+			$search->updateDocument($this);
 		}
 
 		private function insert($values,$preparedFields)
@@ -128,6 +131,9 @@
 
 			$sql = "select created from documents where id=$this->id";
 			foreach($PDO->query($sql) as $row) { $this->created = $row['created']; }
+
+			$search = new Search();
+			$search->addDocument($this);
 		}
 
 		private function saveContent()
@@ -156,22 +162,37 @@
 			# Inform the people on the watch list
 			foreach($this->getWatches() as $watch) { $watch->notify(); }
 		}
-		public function getContent($lang)
+		public function getContent($lang=null)
 		{
 			# Content won't exist as a file until it's been saved to the database
 			# The database will give it an ID and a created timestamp
 			if ($this->id)
 			{
-				if (!isset($this->content[$lang]))
+				# If they ask for a certain language
+				$directory = $this->getContentDirectory();
+				if ($lang)
 				{
-					$directory = $this->getContentDirectory();
-					if (file_exists("$directory/{$this->id}.$lang"))
+					# Return only the requested language content
+					if (!isset($this->content[$lang]))
 					{
-						$this->content[$lang] = file_get_contents("$directory/{$this->id}.$lang");
+						if (file_exists("$directory/{$this->id}.$lang"))
+						{
+							$this->content[$lang] = file_get_contents("$directory/{$this->id}.$lang");
+						}
+						else { $this->content[$lang] = ''; }
 					}
-					else { $this->content[$lang] = ''; }
+					return $this->content[$lang];
 				}
-				return $this->content[$lang];
+				else
+				{
+					# Otherwise, return the entire array of language content
+					foreach(glob("$directory/{$this->id}.*") as $content)
+					{
+						list($id,$ext) = explode('.',basename($content));
+						if (!isset($this->content[$ext])) { $this->content[$ext] = file_get_contents($content); }
+					}
+					return $this->content;
+				}
 			}
 			else { return null; }
 		}
@@ -201,7 +222,6 @@
 			}
 			return $languages;
 		}
-
 
 		/**
 		 * Facet functions
