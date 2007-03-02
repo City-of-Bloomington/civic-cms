@@ -2,10 +2,9 @@
 /**
  * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+ * @author Cliff Ingham <inghamn@bloomington.in.gov>
+ * @param Event $this->event
  */
-/*
-	$this->event
-*/
 ?>
 <h1>Update Event</h1>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
@@ -13,7 +12,7 @@
 	<input name="event_id" type="hidden" value="<?php echo $this->event->getId(); ?>" />
 	<table>
 
-	<tr><td><label for="event-summary">summary</label></td>
+	<tr><td><label for="event-summary">Title</label></td>
 		<td><input name="event[summary]" id="event-summary" value="<?php echo $this->event->getSummary(); ?>" /></td></tr>
 
 	<tr><td><label for="event-location_id">Location</label></td>
@@ -63,6 +62,7 @@
 	</tr>
 
 	<tr><td colspan="2">
+			<div><label for="event-description">Description</label></div>
 			<textarea name="event[description]" id="event-description" rows="3" cols="60"><?php echo $this->event->getDescription(); ?></textarea>
 	</td></tr>
 

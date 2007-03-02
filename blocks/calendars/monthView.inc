@@ -14,7 +14,24 @@
 	$events = $this->calendar->getEventArray();
 ?>
 <table class="calendar">
-<tr><th colspan="7"><?php echo "{$this->calendar->getName()} $calendarDate[month] $year"; ?></th></tr>
+<tr><th colspan="7">
+	<?php
+		$back = getdate(strtotime('-1 month',$timestamp));
+		$next = getdate(strtotime('+1 month',$timestamp));
+		$url = new URL($_SERVER['REQUEST_URI']);
+
+		$url->parameters['year'] = $back['year'];
+		$url->parameters['mon'] = $back['mon'];
+		echo "<button type=\"button\" class=\"back\" onclick=\"document.location.href='{$url->getURL()}'\">Back</button>";
+
+		echo "{$this->calendar->getName()} $calendarDate[month] $year";
+
+		$url->parameters['year'] = $next['year'];
+		$url->parameters['mon'] = $next['mon'];
+		echo "<button type=\"button\" class=\"next\" onclick=\"document.location.href='{$url->getURL()}'\">Next</button>";
+	?>
+	</th>
+</tr>
 <tr><th>S</th><th>M</th><th>T</th><th>W</th><th>R</th><th>F</th><th>S</th></tr>
 <?php
 

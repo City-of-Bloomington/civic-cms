@@ -2,11 +2,10 @@
 /**
  * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+ * @author Cliff Ingham <inghamn@bloomington.in.gov>
+ * @param GET documentType_id
  */
-/*
-	$_GET variables:	documentType_id
-*/
-	verifyUser('Webmaster');
+	verifyUser(array('Administrator','Webmaster'));
 
 	if (isset($_GET['documentType_id'])) { $documentType = new DocumentType($_GET['documentType_id']); }
 	if (isset($_POST['documentType']))

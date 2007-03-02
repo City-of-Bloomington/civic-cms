@@ -12,7 +12,7 @@
 <fieldset><legend>Event Info</legend>
 	<table>
 
-	<tr><td><label for="event-summary">Summary</label></td>
+	<tr><td><label for="event-summary">Title</label></td>
 		<td><input name="event[summary]" id="event-summary" /></td></tr>
 
 	<tr><td><label for="event-location_id">Location</label></td>
@@ -56,6 +56,7 @@
 		</td>
 	</tr>
 	<tr><td colspan="2">
+			<div><label for="event-description">Description</label></div>
 			<textarea name="event[description]" id="event-description" rows="3" cols="60"></textarea>
 	</td></tr>
 

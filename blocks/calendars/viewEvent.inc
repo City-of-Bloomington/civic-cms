@@ -17,10 +17,14 @@
 	?>
 	</div>
 	<?php
-		$start = date('Y-m-d g:i A',strtotime($this->event->getStart()));
-		$end = date('Y-m-d g:i A',strtotime($this->event->getEnd()));
+		$format = $this->event->isAllDayEvent() ? 'M j' : 'M j g:i A';
+		$start = date($format,strtotime($this->event->getStart()));
+		$end = date($format,strtotime($this->event->getEnd()));
+
+		if ($this->event->isAllDayEvent()) { echo "<p>$start</p>"; }
+		else { echo "<p>$start - $end</p>"; }
+
 		echo "
-		<p>$start - $end</p>
 		<p><strong>Location:</strong> {$this->event->getLocation()}</p>
 		<p>{$this->event->getDescription()}</p>
 		";

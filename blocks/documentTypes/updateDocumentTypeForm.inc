@@ -2,10 +2,9 @@
 /**
  * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+ * @author Cliff Ingham <inghamn@bloomington.in.gov>
+ * @param object $this->documentType
  */
-/*
-	$this->documentType
-*/
 ?>
 <h2>Edit <?php echo $this->documentType; ?></h2>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">

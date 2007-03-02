@@ -44,7 +44,7 @@ ul.compact { list-style-type:none; margin:0; padding:0; }
 .menuBar { height:1.25em; border-top:2px solid black; border-bottom:2px solid black; font-family:sans-serif; font-size:10pt; background-color:inherit; color:black; text-align:left; padding:0; margin-bottom:.5em; }
 .menuBar ul { padding: 0; margin: 0; list-style: none; border-collapse:collapse; background-color:white; }
 .menuBar li { float:left; position:relative; width:100px; border-bottom:2px solid black; }
-.menuBar li ul { position:absolute; display:none; margin:-1em,0,0,0; border:2px solid black; }
+.menuBar li ul { position:absolute; display:none; margin:-1em 0 0 0; border:2px solid black; }
 .menuBar li:hover>ul { display:block; }
 .menuBar ul ul ul { left:100%; top:0; }
 

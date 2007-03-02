@@ -35,7 +35,8 @@
 					BASE_URL.'/documents/viewDocument.php?document_id='.$document->getId();
 
 			echo "
-			<tr><td><a href=\"$url\" onclick=\"window.open('$url');return false;\">{$document->getTitle()}</a></td>
+			<tr><td style=\"width:100px; white-space:nowrap; overflow:hidden;\">
+					<a href=\"$url\" onclick=\"window.open('$url');return false;\">{$document->getTitle()}</a></td>
 				<td>{$document->getCreated('%D')}</td>
 				<td>{$document->getPublishDate('%D')}</td>
 				<td>{$document->getModified('%D')}</td>
@@ -45,7 +46,7 @@
 			if ($document->permitsEditingBy($_SESSION['USER']))
 			{
 				# Show all the editing buttons
-				$retireButton = !$document->getRetireDate() ? "<button type=\"button\" class=\"retire\" onclick=\"document.locaation.href='';\">Retire</button>" : "";
+				$retireButton = !$document->getRetireDate() ? "<button type=\"button\" class=\"retire\" onclick=\"document.location.href='".BASE_URL."/documents/retireDocument.php?document_id={$document->getId()}';\">Retire</button>" : "";
 				echo "
 				<td><button type=\"button\" class=\"view\" onclick=\"window.open('".BASE_URL."/documents/viewDocument.php?document_id={$document->getId()}');\">View</button>
 					$retireButton
