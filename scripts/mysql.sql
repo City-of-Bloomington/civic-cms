@@ -176,6 +176,15 @@ create table locations (
 	name varchar(60) not null
 ) engine=InnoDB;
 
+create table calendars (
+	id int unsigned not null primary key auto_increment,
+	name varchar(128) not null,
+	department_id int unsigned not null,
+	user_id int unsigned not null,
+	foreign key (department_id) references departments(id),
+	foreign key (user_id) references users(id)
+) engine=InnoDB;
+
 create table events (
 	id int unsigned not null primary key auto_increment,
 	created timestamp not null default CURRENT_TIMESTAMP,
@@ -189,15 +198,6 @@ create table events (
 	user_id int unsigned not null,
 	foreign key (calendar_id) references calendars(id),
 	foreign key (location_id) references locations(id),
-	foreign key (user_id) references users(id)
-) engine=InnoDB;
-
-create table calendars (
-	id int unsigned not null primary key auto_increment,
-	name varchar(128) not null,
-	department_id int unsigned not null,
-	user_id int unsigned not null,
-	foreign key (department_id) references departments(id),
 	foreign key (user_id) references users(id)
 ) engine=InnoDB;
 

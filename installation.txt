@@ -126,12 +126,12 @@ Install Subversion repository:
 
 	2) Import the default homepage into the document_repository
 	cd documents
-	svn import file:///path/to/application_name/data/document_repository -m 'Initial repository population.'
+	svn import file:///path/to/application/data/repository -m 'Initial repository population.'
 
 	3) Check the default documents out of the repository
 	cd ..
 	rm -Rf documents
-	svn checkout file:///var/www/sites/content_manager/data/document_repository documents
+	svn checkout file:///path/to/application/data/repository documents
 
 
 

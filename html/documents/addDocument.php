@@ -8,7 +8,7 @@
 						section_id  ( Optionally include a section to pre-select )
 */
 	# Make sure they're allowed to edit stuff in this section
-	verifyUser(array('Publisher','Content Creator'));
+	verifyUser(array('Administrator','Webmaster','Content Creator'));
 	if (isset($_GET['section_id']))
 	{
 		$section = new Section($_GET['section_id']);

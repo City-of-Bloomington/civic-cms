@@ -7,7 +7,7 @@
 	$_GET variables:	document_id
 						lang
 */
-	verifyUser(array('Publisher','Content Creator'));
+	verifyUser(array('Webmaster','Administrator','Content Creator'));
 
 	if (isset($_GET['document_id']))
 	{

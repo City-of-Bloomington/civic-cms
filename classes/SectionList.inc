@@ -8,14 +8,14 @@
 		public function __construct($fields=null,$sort=null)
 		{
 			$this->select = "select s.id from sections s";
-			if ($sort) { $this->sort = $sort; }
+			if ($sort) { $this->sort = "s.$sort"; }
 			if (is_array($fields)) { $this->find($fields); }
 		}
 
 
 		public function find($fields=null,$sort=null)
 		{
-			if ($sort) { $this->sort = $sort; }
+			if ($sort) { $this->sort = "s.$sort"; }
 
 			$options = array();
 			if (isset($fields['id'])) { $options[] = "id='$fields[id]'"; }
