@@ -5,6 +5,7 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Document $this->document
  * @param string $this->language
+ * @param array $this->sectionList
  */
 ?>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
@@ -86,8 +87,7 @@
 	<fieldset><legend>Sections</legend>
 	<table>
 		<?php
-			$sections = new SectionList(array('department_id'=>$_SESSION['USER']->getDepartment_id()));
-			foreach ($sections as $section)
+			foreach ($this->sectionList as $section)
 			{
 				if ($this->document->hasSection($section)) { $checked="checked=\"checked\""; } else { $checked=""; }
 				echo "
@@ -116,3 +116,21 @@
 		<button type="button" class="cancel" onclick="self.close();">Cancel</button>
 	</fieldset>
 </form>
+<?php
+	# Buttons for downloading and uploading the raw source HTML
+	if (userHasRole('Webmaster'))
+	{
+		echo "
+		<form method=\"post\" action=\"".BASE_URL."/documents/uploadSource.php\" enctype=\"multipart/form-data\">
+		<fieldset><legend>Document Source Code</legend>
+			<button type=\"button\" class=\"download\" onclick=\"document.location.href='".BASE_URL."/documents/downloadSource.php?document_id={$this->document->getId()};lang={$this->language->getCode()}';\">Download</button>
+
+			<input name=\"document_id\" type=\"hidden\" value=\"{$this->document->getId()}\" />
+			<input name=\"lang\" type=\"hidden\" value=\"{$this->language->getCode()}\" />
+			<input name=\"content\" type=\"file\" />
+			<button type=\"submit\" class=\"upload\">Upload</button>
+		</fieldset>
+		</form>
+		";
+	}
+?>

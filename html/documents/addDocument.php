@@ -1,12 +1,11 @@
 <?php
 /**
- * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+ * @author Cliff Ingham <inghamn@bloomington.in.gov>
+ * @param GET documentType_id
+ * @param GET section_id (Optionally include a section to pre-select)
  */
-/*
-	$_GET variables:	documentType_id
-						section_id  ( Optionally include a section to pre-select )
-*/
 	# Make sure they're allowed to edit stuff in this section
 	verifyUser(array('Administrator','Webmaster','Content Creator'));
 	if (isset($_GET['section_id']))
@@ -50,6 +49,7 @@
 	$form->document = $document;
 	$form->language = isset($language) ? $language : new Language($_SESSION['LANGUAGE']);
 	if (isset($section)) { $form->section = $section; }
+	$form->sectionList = new SectionList(array('postable_by'=>$_SESSION['USER']));
 
 	$template = new Template('popup');
 	$template->blocks[] = $form;
