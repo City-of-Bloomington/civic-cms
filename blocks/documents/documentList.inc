@@ -34,13 +34,15 @@
 					BASE_URL."/documents/updateDocument.php?document_id={$document->getId()};lang=$_SESSION[LANGUAGE]" :
 					BASE_URL.'/documents/viewDocument.php?document_id='.$document->getId();
 
+			$modifiedBy = substr($document->getModifiedByUser()->getFirstname(),0,1).substr($document->getModifiedByUser()->getLastname(),0,1);
+
 			echo "
 			<tr><td style=\"width:100px; white-space:nowrap; overflow:hidden;\">
 					<a href=\"$url\" onclick=\"window.open('$url');return false;\">{$document->getTitle()}</a></td>
 				<td>{$document->getCreated('%D')}</td>
 				<td>{$document->getPublishDate('%D')}</td>
 				<td>{$document->getModified('%D')}</td>
-				<td>{$document->getModifiedByUser()->getUsername()}</td>
+				<td>$modifiedBy</td>
 				<td>{$document->getRetireDate('%D')}</td>
 			";
 			if ($document->permitsEditingBy($_SESSION['USER']))
