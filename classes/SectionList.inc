@@ -26,7 +26,7 @@
 			# to $this->joins here
 			if (isset($fields['postable_by']))
 			{
-				if ($fields['postable_by']->hasRole(array('Administrator','Webmaster'))
+				if ($fields['postable_by']->hasRole(array('Administrator','Webmaster')))
 				{
 					# Administrators and webmasters can post to all sections,
 					# so there's nothing special to be done here
@@ -54,6 +54,7 @@
 
 			if (isset($fields['parent_id']))
 			{
+				if (!$this->sort) { $this->sort = 'p.placement'; }
 				$this->joins.= " left join section_parents p on s.id=p.section_id";
 				$options[] = $fields['parent_id']=='null' ? "p.parent_id is null" : "p.parent_id=$fields[parent_id]";
 			}

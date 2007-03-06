@@ -19,6 +19,6 @@
 ?>
 <div class="menuBar">
 <?php
-	renderMenu(new SectionList(array('parent_id'=>1),"placement"));
+	renderMenu(new SectionList(array('parent_id'=>1)));
 ?>
 </div>
