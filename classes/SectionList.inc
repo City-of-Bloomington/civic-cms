@@ -24,6 +24,28 @@
 			# Finding on fields from other tables required joining those tables.
 			# You can add fields from other tables to $options by adding the join SQL
 			# to $this->joins here
+			if (isset($fields['postable_by']))
+			{
+				if ($fields['postable_by']->hasRole(array('Administrator','Webmaster'))
+				{
+					# Administrators and webmasters can post to all sections,
+					# so there's nothing special to be done here
+				}
+				elseif ($fields['postable_by']->hasRole('Content Creator'))
+				{
+					# Content creators can only post to sections that their
+					# department owns
+					$fields['department_id'] = $fields['postable_by']->getDepartment_id();
+				}
+				else
+				{
+					# no one else is allowed to post to sections.  Create an option
+					# that will result in returning no sections
+					$options[] = "1=0";
+				}
+			}
+
+
 			if (isset($fields['department_id']))
 			{
 				$this->joins.= " left join section_departments sd on s.id=sd.section_id";
@@ -41,6 +63,7 @@
 				$this->joins.= " left join document_sections d on s.id=d.section_id";
 				$options[] = "d.document_id='$fields[document_id]'";
 			}
+
 
 			$this->populateList($options);
 		}

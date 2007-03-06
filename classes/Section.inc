@@ -68,13 +68,18 @@
 			# Check for required fields here.  Throw an exception if anything is missing.
 			if (!$this->name) { throw new Exception("missingRequiredFields"); }
 
+			# Sections must have a parent.  Even if they haven't chosen a parent, make it
+			# a child of HOME
+			if (!count($this->getParents())) { $this->setParents(array(1)); }
+
 			# New Sections need a default document created for them
 			if (!$this->document_id)
 			{
 				$document = new Document();
-				$document->setDepartment($this->getDepartment());
+				$document->setDepartment($_SESSION['USER']->getDepartment());
 				$document->setTitle($this->name);
-				$document->setContent("<h2>{$this->name}</h2>");
+				$document->setContent("<h2>{$this->name}</h2>",$_SESSION['LANGUAGE']);
+				$document->setDocumentType_id(1);
 				$document->save();
 				$this->setDocument($document);
 			}
