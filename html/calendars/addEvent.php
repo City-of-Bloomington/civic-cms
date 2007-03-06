@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param GET calendar_id
@@ -37,7 +37,7 @@
 		catch(Exception $e) { $_SESSION['errorMessages'][] = $e; }
 	}
 
-	$template = new Template('backend');
+	$template = new Template();
 	$form = new Block('calendars/addEventForm.inc');
 	if (isset($_GET['calendar_id'])) { $form->calendar_id = $_GET['calendar_id']; }
 	$template->blocks[] = $form;

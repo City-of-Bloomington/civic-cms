@@ -1,12 +1,12 @@
 <?php
 /**
- * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
- * @author Cliff Ingham <inghamn@bloomingon.in.gov>
+ * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param GET calendar_id
  */
 	$calendar = isset($_GET['calendar_id']) ? new Calendar($_GET['calendar_id']) : new Calendar();
-	$template = isset($_SESSION['USER']) ? new Template('backend') : new Template();
+	$template = new Template();
 
 	# Figure out which display we're going to use
 	if (isset($_GET['view']))

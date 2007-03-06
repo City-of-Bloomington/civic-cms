@@ -23,7 +23,7 @@
 		catch (Exception $e) { $_SESSION['errorMessages'][] = $e; }
 	}
 
-	$template = new Template('backend');
+	$template = new Template();
 	$template->blocks[] = new Block('departments/updateDepartmentForm.inc',array('department'=>$department));
 	$template->render();
 ?>

@@ -58,6 +58,9 @@
 	}
 
 	$template = new Template('popup');
-	$template->blocks[] = new Block('documents/updateDocumentForm.inc',array('document'=>$document,'language'=>$language));
+
+	$form = new Block('documents/updateDocumentForm.inc',array('document'=>$document,'language'=>$language));
+
+	$template->blocks[] =
 	$template->render();
 ?>

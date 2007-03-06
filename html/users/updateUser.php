@@ -1,14 +1,10 @@
 <?php
 /**
- * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+ * @author Cliff Ingham <inghamn@bloomington.in.gov>
+ * @param GET id
  */
-/*
-	$_GET variables:	id
-	---------------------------------------------------------------------------
-	$_POST variables:	id
-						user
-*/
 	verifyUser("Administrator");
 	if (isset($_GET['id'])) { $user = new User($_GET['id']); }
 	if (isset($_POST['id']))
@@ -29,7 +25,7 @@
 		catch (Exception $e) { $_SESSION['errorMessages'][] = $e; }
 	}
 
-	$template = new Template('backend');
+	$template = new Template();
 	$template->blocks[] = new Block("users/updateUserForm.inc",array('user'=>$user));
 	$template->render();
 ?>

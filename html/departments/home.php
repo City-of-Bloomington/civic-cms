@@ -6,7 +6,7 @@
 	$departmentList = new DepartmentList();
 	$departmentList->find();
 
-	$template = new Template('backend');
+	$template = new Template();
 	$template->blocks[] = new Block('departments/departmentList.inc',array('departmentList'=>$departmentList));
 	$template->render();
 ?>

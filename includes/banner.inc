@@ -2,6 +2,7 @@
 /**
  * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+ * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 ?>
 <head>
@@ -21,7 +22,7 @@
 	<div id="navigation">
 		<?php
 			if (isset($_SESSION['USER'])) { echo "<a href=\"".BASE_URL."/login/logout.php\">Logout</a>"; }
-			else { echo "<a href=\"".BASE_URL."/login\" onclick=\"window.open('".BASE_URL."/login');return false;\">Login</a>"; }
+			else { echo "<a href=\"".BASE_URL."/login\">Login</a>"; }
 		?>
 	</div>
 </div>

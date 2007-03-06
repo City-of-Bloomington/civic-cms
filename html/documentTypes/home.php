@@ -9,7 +9,7 @@
 	$list = new DocumentTypeList();
 	$list->find();
 
-	$template = new Template('backend');
+	$template = new Template();
 	$template->blocks[] = new Block('documentTypes/documentTypeList.inc',array('documentTypeList'=>$list));
 	$template->render();
 ?>

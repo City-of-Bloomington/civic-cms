@@ -1,7 +1,10 @@
 <?php
-/*
-	$_GET variables:	section_id
-*/
+/**
+ * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+ * @author Cliff Ingham <inghamn@bloomington.in.gov>
+ * @param GET section_id
+ */
 	verifyUser('Webmaster');
 
 	if (isset($_GET['section_id'])) { $section = new Section($_GET['section_id']); }
@@ -23,7 +26,7 @@
 		catch (Exception $e) { $_SESSION['errorMessages'][] = $e; }
 	}
 
-	$template = new Template('backend');
+	$template = new Template();
 	$template->blocks[] = new Block("sections/updateSectionForm.inc",array('section'=>$section));
 	$template->render();
 ?>
