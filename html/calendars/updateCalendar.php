@@ -19,7 +19,7 @@
 		try
 		{
 			$calendar->save();
-			Header('Location: home.php');
+			Header('Location: home.php?calendar_id='.$calendar->getId());
 			exit();
 		}
 		catch (Exception $e) { $_SESSION['errorMessages'][] = $e; }
