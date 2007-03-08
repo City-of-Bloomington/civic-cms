@@ -13,7 +13,7 @@
 	if (userHasRole(array('Administrator','Webmaster')))
 	{
 		$documentList = new DocumentList();
-		$documentList->find();
+		$documentList->find(null,$sort);
 
 		$documentsBlock->documentList = $documentList;
 		$documentsBlock->title = 'Documents';
