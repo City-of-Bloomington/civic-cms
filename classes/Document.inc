@@ -19,7 +19,6 @@
 		private $department;
 		private $content = array();
 		private $contentDirectory;
-		private $contentLanguage;
 		private $documentType;
 
 		private $facets = array();
@@ -136,6 +135,10 @@
 			$search->addDocument($this);
 		}
 
+		/**
+		 * Content Related Functions
+		 */
+		public function setContent($string,$lang) { $this->content[$lang] = trim($string); }
 		private function saveContent()
 		{
 			$directory = $this->getContentDirectory();
@@ -194,7 +197,13 @@
 					return $this->content;
 				}
 			}
-			else { return null; }
+			# Before content is saved, there still might be a template loaded into
+			# the content array for a given lang
+			else
+			{
+				if ($lang && isset($this->content[$lang])) { return $this->content[$lang]; }
+				else { return null; }
+			}
 		}
 		private function getContentDirectory()
 		{
@@ -211,7 +220,9 @@
 			if (file_exists($filename)) { return $filename; }
 			else return null;
 		}
-		public function setContentFile($filename) { $this->content = file_get_contents($filename); }
+
+
+
 		public function getLanguages()
 		{
 			$languages = array();
@@ -461,23 +472,22 @@
 		 * Generic Setters
 		 */
 		public function setTitle($string) { $this->title = trim($string); }
-		public function setContent($string,$lang) { $this->content[$lang] = trim($string); }
 		public function setModifiedBy($user) { $this->modifiedBy = $user->getId(); }
 		public function setPublishDate($date) { $this->publishDate = is_array($date) ? $this->dateArrayToString($date) : $date; }
 		public function setRetireDate($date) { $this->retireDate = is_array($date) ? $this->dateArrayToString($date) : $date; }
 		public function setDepartment_id($int) { $this->department = new Department($int); $this->department_id = $int; }
 		public function setDepartment($department) { $this->department_id = $department->getId(); $this->department = $department; }
-		public function setDocumentType_id($int)
+		public function setDocumentType_id($int,$lang)
 		{
 			$this->documentType = new DocumentType($int);
 			$this->documentType_id = $int;
-			if (!$this->content) { $this->content = $this->documentType->getTemplate(); }
+			if (!isset($this->content[$lang])) { $this->content[$lang] = $this->documentType->getTemplate(); }
 		}
-		public function setDocumentType($type)
+		public function setDocumentType($type,$lang)
 		{
 			$this->documentType_id = $type->getId();
 			$this->documentType = $type;
-			if (!$this->content) { $this->content = $this->documentType->getTemplate(); }
+			if (!isset($this->content[$lang])) { $this->content[$lang] = $this->documentType->getTemplate(); }
 		}
 	}
 ?>

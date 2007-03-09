@@ -48,9 +48,10 @@
 			if ($document->permitsEditingBy($_SESSION['USER']))
 			{
 				# Show all the editing buttons
-				$retireButton = !$document->getRetireDate() ? "<button type=\"button\" class=\"retire\" onclick=\"document.location.href='".BASE_URL."/documents/retireDocument.php?document_id={$document->getId()}';\">Retire</button>" : "";
+				$retireButton = !$document->getRetireDate() ? "<a href=\"".BASE_URL."/documents/retireDocument.php?document_id={$document->getId()}\">Retire</a>" : "";
 				echo "
-				<td><button type=\"button\" class=\"view\" onclick=\"window.open('".BASE_URL."/documents/viewDocument.php?document_id={$document->getId()}');\">View</button>
+				<td><a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$document->getId()}\" onclick=\"window.open('".BASE_URL."/documents/viewDocument.php?document_id={$document->getId()}');return false;\">View</a>
+					<a href=\"/documents/attachments.php?document_id={$document->getId()}\">Attachments</a>
 					$retireButton
 				</td>
 				";

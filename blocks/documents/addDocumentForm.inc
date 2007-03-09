@@ -9,7 +9,7 @@
 ?>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<fieldset><legend>Document Info</legend>
-		<input name="document[documentType_id]" type="hidden" value="<?php echo $this->document->getDocumentType_id(); ?>" />
+		<input name="documentType_id" type="hidden" value="<?php echo $this->document->getDocumentType_id(); ?>" />
 
 		<table>
 		<tr><td><label for="document-title">Title</label></td>

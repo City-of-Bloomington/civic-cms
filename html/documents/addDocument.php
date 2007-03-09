@@ -18,7 +18,7 @@
 	$document = new Document();
 	if (isset($_GET['documentType_id']))
 	{
-		$document->setDocumentType_id($_GET['documentType_id']);
+		$document->setDocumentType_id($_GET['documentType_id'],$_SESSION['LANGUAGE']);
 		$document->setTitle("New {$document->getDocumentType()}");
 	}
 
@@ -33,6 +33,7 @@
 			$document->$set($value);
 		}
 		$document->setContent($_POST['content'],$language->getCode());
+		$document->setDocumentType_id($_POST['documentType_id'],$language->getCode());
 
 		try
 		{
