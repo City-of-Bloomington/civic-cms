@@ -42,6 +42,12 @@
 				$options[] = "facet_id='$fields[facet_id]'";
 			}
 
+			if (isset($fields['media_id']))
+			{
+				$this->joins.= ' left join media_documents m on documents.id=m.document_id';
+				$options[] = "media_id='$fields[media_id]'";
+			}
+
 			$this->populateList($options);
 		}
 

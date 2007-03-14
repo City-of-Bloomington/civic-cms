@@ -31,6 +31,7 @@
 		private $newSections = array();
 
 		private $widgets = array();
+		private $attachments;
 
 		/**
 		 * This will load all fields in the table as properties of this class.
@@ -421,6 +422,12 @@
 				}
 			}
 			return $this->widgets;
+   		}
+
+   		public function getAttachments()
+   		{
+   			if (!$this->attachments) { $this->attachments = new AttachmentList(array('document_id'=>$this->id)); }
+   			return $this->attachments;
    		}
 
 		/**

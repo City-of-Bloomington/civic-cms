@@ -208,3 +208,29 @@ create table event_sections (
 	foreign key (event_id) references events(id),
 	foreign key (section_id) references sections(id)
 ) engine=InnoDB;
+
+---------------------------------------------------------------------
+-- Media
+---------------------------------------------------------------------
+create table media (
+	id int unsigned not null primary key auto_increment,
+	filename varchar(128) not null,
+	mime_type varchar(128) not null,
+	media_type varchar(24) not null,
+	title varchar(128) not null,
+	description varchar(255) not null,
+	md5 varchar(32) not null unique,
+	department_id int unsigned not null,
+	uploaded timestamp not null default CURRENT_TIMESTAMP,
+	uploadedBy int unsigned not null,
+	foreign key (department_id) references departments(id),
+	foreign key (uploadedBy) references users(id)
+) engine=InnoDB;
+
+create table media_documents (
+	media_id int unsigned not null,
+	document_id int unsigned not null,
+	primary key (media_id,document_id),
+	foreign key (media_id) references media(id),
+	foreign key (document_id) references documents(id)
+) engine=InnoDB;

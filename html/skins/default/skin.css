@@ -150,6 +150,17 @@ button.deleteSmall { width:15px; height:15px; padding-top:15px; background: url(
 button.excel { width:16px; height:16px; padding-top:16px; background: url('http://bandit.bloomington.in.gov/skins/default/images/excel.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
 button.printSmall { width:16px; height:16px; padding-top:16px; background: url('http://bandit.bloomington.in.gov/skins/default/images/printSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
 
+/* Custom Icons for mime types */
+.jpg { height:16px; padding-left:18px; background: url('/content_manager/skins/default/images/icons/jpg.png') no-repeat; }
+.gif { height:16px; padding-left:18px; background: url('/content_manager/skins/default/images/icons/gif.png') no-repeat; }
+.tiff { height:16px; padding-left:18px; background: url('/content_manager/skins/default/images/icons/tiff.png') no-repeat; }
+.pdf { height:16px; padding-left:18px; background: url('/content_manager/skins/default/images/icons/pdf.png') no-repeat; }
+.doc { height:16px; padding-left:18px; background: url('/content_manager/skins/default/images/icons/doc.png') no-repeat; }
+.xls { height:16px; padding-left:18px; background: url('/content_manager/skins/default/images/icons/xls.png') no-repeat; }
+.rtf { height:16px; padding-left:18px; background: url('/content_manager/skins/default/images/icons/rtf.png') no-repeat; }
+.zip { height:16px; padding-left:18px; background: url('/content_manager/skins/default/images/icons/zip.png') no-repeat; }
+.gz { height:16px; padding-left:18px; background: url('/content_manager/skins/default/images/icons/gz.png') no-repeat; }
+.txt { height:16px; padding-left:18px; background: url('/content_manager/skins/default/images/icons/txt.png') no-repeat; }
 
 /* Controls how error messages are displayed */
 #errorMessages { border:2px solid black; }
