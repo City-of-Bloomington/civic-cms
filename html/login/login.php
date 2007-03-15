@@ -24,5 +24,5 @@
 		exit();
 	}
 
-	Header('Location: '.BASE_URL.'/documents/myDocuments.php');
+	Header('Location: '.BASE_URL.'/documents');
 ?>

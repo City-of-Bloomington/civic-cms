@@ -17,5 +17,5 @@
 		catch (Exception $e) { $_SESSION['errorMessages'][] = $e; }
 	}
 
-	Header('Location: myDocuments.php');
+	Header('Location: index.php');
 ?>
