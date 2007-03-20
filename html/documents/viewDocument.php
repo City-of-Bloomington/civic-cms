@@ -7,14 +7,21 @@
 	$_GET variables:	document_id
 */
 	$template = new Template();
-	$document = new Document($_GET['document_id']);
-	$template->document = $document;
+	try
+	{
+		$document = new Document($_GET['document_id']);
 
-	$template->widgets = $document->getWidgets();
+		$template->document = $document;
 
-	$template->blocks[] = new Block('breadcrumbs.inc',array('document'=>$document));
-	$template->blocks[] = new Block('documents/viewDocument.inc',array('document'=>$document));
-	$template->blocks[] = new Block('documents/subsections.inc',array('document'=>$document));
+		$template->widgets = $document->getWidgets();
 
+		$template->blocks[] = new Block('breadcrumbs.inc',array('document'=>$document));
+		$template->blocks[] = new Block('documents/viewDocument.inc',array('document'=>$document));
+		$template->blocks[] = new Block('documents/subsections.inc',array('document'=>$document));
+	}
+	catch(Exception $e)
+	{
+		$_SESSION['errorMessages'][] = $e;
+	}
 	$template->render();
 ?>

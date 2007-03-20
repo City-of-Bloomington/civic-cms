@@ -21,6 +21,7 @@
 			$languages = $this->document->getLanguages();
 			#if (count($languages) > 1)
 			#{
+				include APPLICATION_HOME.'/includes/documents/sectionNavigation.inc';
 				include APPLICATION_HOME.'/includes/documents/languages.inc';
 			#}
 		}
