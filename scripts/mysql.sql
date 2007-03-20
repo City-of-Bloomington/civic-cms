@@ -70,8 +70,8 @@ create table document_watches (
 	document_id int unsigned not null,
 	user_id int unsigned not null,
 	primary key (document_id,user_id),
-	foreign key (document_id) references documents(id),
-	foreign key (user_id) references users(id)
+	foreign key (document_id) references documents(id) on delete cascade,
+	foreign key (user_id) references users(id) on delete cascade
 ) engine=InnoDB;
 ---------------------------------------------------------------------
 -- Section tables
@@ -81,7 +81,7 @@ create table sections (
   name varchar(50) not null unique,
   document_id int unsigned not null,
   placement tinyint(2) unsigned,
-  foreign key (document_id) references documents(id)
+  foreign key (document_id) references documents(id) on delete set null
 ) engine=InnoDB;
 
 create table section_departments (
@@ -111,7 +111,7 @@ create table sectionIndex (
 create table document_sections (
   document_id int(10) unsigned not null,
   section_id int(10) unsigned not null,
-  foreign key (document_id) references documents (id),
+  foreign key (document_id) references documents (id) on delete cascade,
   foreign key (section_id) references sections (id)
 ) engine=InnoDB;
 
@@ -128,8 +128,8 @@ create table document_facets (
   document_id int(10) unsigned not null,
   facet_id int(10) unsigned not null,
   primary key (document_id,facet_id),
-  foreign key (document_id) references documents (id),
-  foreign key (facet_id) references facets (id)
+  foreign key (document_id) references documents (id) on delete cascade,
+  foreign key (facet_id) references facets (id) on delete cascade
 ) engine=InnoDB;
 
 
@@ -231,6 +231,6 @@ create table media_documents (
 	media_id int unsigned not null,
 	document_id int unsigned not null,
 	primary key (media_id,document_id),
-	foreign key (media_id) references media(id),
-	foreign key (document_id) references documents(id)
+	foreign key (media_id) references media(id) on delete cascade,
+	foreign key (document_id) references documents(id) on delete cascade
 ) engine=InnoDB;

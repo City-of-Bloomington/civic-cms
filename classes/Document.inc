@@ -136,6 +136,35 @@
 			$search->addDocument($this);
 		}
 
+		public function delete()
+		{
+			global $PDO;
+			foreach($this->getWatches() as $watch) { $watch->notify("Document: '{$this->getTitle()}' has been deleted\n"); }
+
+			$search = new Search();
+			$search->removeDocument($this);
+
+			$this->deleteContent();
+
+			$query = $PDO->prepare("delete from document_watches where document_id={$this->id}");
+			$query->execute();
+
+			$query = $PDO->prepare("update sections set document_id=null where document_id={$this->id}");
+			$query->execute();
+
+			$query = $PDO->prepare("delete from document_sections where document_id={$this->id}");
+			$query->execute();
+
+			$query = $PDO->prepare("delete from document_facets where document_id={$this->id}");
+			$query->execute();
+
+			$query = $PDO->prepare("delete from media_documents where document_id={$this->id}");
+			$query->execute();
+
+			$query = $PDO->prepare("delete from documents where id={$this->id}");
+			$query->execute();
+		}
+
 		/**
 		 * Content Related Functions
 		 */
@@ -149,7 +178,7 @@
 
 				list($year,$month,$day) = explode("-",substr($this->created,0,10));
 
-				$sandbox = new SubversionWorkingCopy(APPLICATION_HOME."/data/documents");
+				$sandbox = new SubversionWorkingCopy(APPLICATION_HOME.'/data/documents');
 				if (!is_dir($directory))
 				{
 					mkdir($directory,0775,true);
@@ -165,6 +194,16 @@
 
 			# Inform the people on the watch list
 			foreach($this->getWatches() as $watch) { $watch->notify(); }
+		}
+		private function deleteContent()
+		{
+			$sandbox = new SubversionWorkingCopy(APPLICATION_HOME.'/data/documents');
+			$directory = $this->getContentDirectory();
+			foreach(glob("$directory/{$this->id}.*") as $file)
+			{
+				$sandbox->delete($file);
+			}
+			$sandbox->commit($directory,$_SESSION['USER']->getUsername());
 		}
 		public function getContent($lang=null)
 		{

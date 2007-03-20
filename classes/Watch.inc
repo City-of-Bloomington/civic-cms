@@ -27,11 +27,12 @@
 			}
 		}
 
-		public function notify()
+		public function notify($string=null)
 		{
+			$message = $string ? $string : "Document: {$this->getDocument_id()} has been updated.\n";
+
 			$to = $this->getUser()->getEmail();
 			$headers = "From: ".ADMINISTRATOR_EMAIL;
-			$message = "Document: {$this->getDocument_id()} has been updated.\n";
 			mail($to,APPLICATION_NAME." watch list",$message,$headers);
 		}
 

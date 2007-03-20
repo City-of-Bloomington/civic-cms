@@ -13,6 +13,7 @@
 		@import url("<?php echo BASE_URL; ?>/skins/default/skin.css");
 	</style>
 	<style type="text/css" media="print">@import url("<?php echo BASE_URL; ?>/skins/default/print.css");</style>
+	<script type="text/javascript" src="/functions.js"></script>
 	<title><?php echo $title; ?></title>
 </head>
 <body>
