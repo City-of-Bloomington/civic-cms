@@ -21,10 +21,12 @@
 	<?php
 		foreach($this->attachmentList as $attachment)
 		{
+			$url = new URL($_SERVER['REQUEST_URI']);
+			$url->parameters['department_id'] = $attachment->getDepartment_id();
 			echo "
 			<tr><td><a href=\"{$attachment->getURL()}\" class=\"{$attachment->getExtension()}\">{$attachment->getFilename()}</a></td>
 				<td>{$attachment->getTitle()}</td>
-				<td>{$attachment->getDepartment()}</td>
+				<td><a href=\"{$url->getURL()}\">{$attachment->getDepartment()}</a></td>
 				<td>{$attachment->getUploaded('%D')}</td>
 			</tr>
 			";
@@ -32,4 +34,3 @@
 	?>
 	</table>
 </div>
-<?php echo $this->attachmentList->getSQL(); ?>

@@ -25,18 +25,19 @@
 		private $newDocumentIds = array();
 		private $deletedDocumentIds = array();
 
-		protected $mime_types = array(	'jpg'=>'image/jpeg',
-										'gif'=>'image/gif',
-										'png'=>'image/png',
-										'tiff'=>'image/tiff',
-										'pdf'=>'application/pdf',
-										'rtf'=>'application/rtf',
-										'doc'=>'application/msword',
-										'xls'=>'application/msexcel',
-										'gz'=>'application/x-gzip',
-										'zip'=>'application/zip',
-										'txt'=>'text/plain'
+		protected $extensions = array(	'jpg'=>array('mime_type'=>'image/jpeg','media_type'=>'image'),
+										'gif'=>array('mime_type'=>'image/gif','media_type'=>'image'),
+										'png'=>array('mime_type'=>'image/png','media_type'=>'image'),
+										'tiff'=>array('mime_type'=>'image/tiff','media_type'=>'image'),
+										'pdf'=>array('mime_type'=>'application/pdf','media_type'=>'attachment'),
+										'rtf'=>array('mime_type'=>'application/rtf','media_type'=>'attachment'),
+										'doc'=>array('mime_type'=>'application/msword','media_type'=>'attachment'),
+										'xls'=>array('mime_type'=>'application/msexcel','media_type'=>'attachment'),
+										'gz'=>array('mime_type'=>'application/x-gzip','media_type'=>'attachment'),
+										'zip'=>array('mime_type'=>'application/zip','media_type'=>'attachment'),
+										'txt'=>array('mime_type'=>'text/plain','media_type'=>'attachment')
 									);
+
 		/**
 		 * This will load all fields in the table as properties of this class.
 		 * You may want to replace this with, or add your own extra, custom loading
@@ -130,43 +131,54 @@
 
 		public function setFile($file)
 		{
-			if (!is_dir($this->getDirectory())) { mkdir($this->getDirectory(),0770,true); }
-
 			# Handle passing in either a $_FILES array or just a path to a file
-			if (is_array($file)) { $newFile = $this->getDirectory().'/'.basename($file['name']); }
-			else { $newFile = $this->getDirectory.'/'.basename($file); }
-
+			$tempFile = is_array($file) ? $file['tmp_name'] : $file;
+			$filename = is_array($file) ? basename($file['name']) : basename($file);
 
 			# Find out the mime type for this file
-			preg_match("/[^.]+$/",$newFile,$matches);
+			preg_match("/[^.]+$/",$filename,$matches);
 			$extension = $matches[0];
-			if (array_key_exists($extension,$this->mime_types))
+
+			if (array_key_exists($extension,$this->extensions))
 			{
-				$this->mime_type = $this->mime_types[$extension];
+				$this->mime_type = $this->extensions[$extension]['mime_type'];
+
+				# We must have a media type set so before we can getDirectory()
+				# To avoid overriding, uncomment the if()
+				#if (!$this->media_type)
+				#{
+					# This is going to override any media type set by a subclass of media
+					# If the user goes to upload an attachment, and it's a .jpg file
+					# this will change the media_type to image, and treat it as an image,
+					# not as an attachment
+					$this->media_type = $this->extensions[$extension]['media_type'];
+				#}
 			}
 			else { throw new Exception('unknownFileType'); }
 
-
 			# Make sure the file's not already in the system
-			$this->md5 = md5_file($newFile);
+			$this->md5 = md5_file($tempFile);
 			$list = new MediaList(array('md5'=>$this->md5));
 			if (count($list)) { throw new Exception('media/fileAlreadyExists'); }
 
+
 			# Move the file where it's supposed to go
-			if (is_array($file)) { move_uploaded_file($file['tmp_name'],$newFile); }
-			else { rename($file,$newFile); }
+			if (!is_dir($this->getDirectory())) { mkdir($this->getDirectory(),0770,true); }
+			$newFile = $this->getDirectory().'/'.$this->createValidFilename($filename);
+			rename($tempFile,$newFile);
 
 			# Save the filename
-			$this->filename = basename($newFile);
+			$this->filename = $filename;
 		}
 
 		public function getDirectory()
 		{
-			return APPLICATION_HOME."/html/media/{$this->media_type}/{$this->getDepartment()->getName()}";
+			$department = $this->createValidFilename($this->getDepartment()->getName());
+			return APPLICATION_HOME."/html/media/{$this->media_type}/$department";
 		}
 		public function getURL()
 		{
-			$department = $this->getDepartment()->getName();
+			$department = $this->createValidFilename($this->getDepartment()->getName());
 			$file = $this->filename;
 			return BASE_URL."/media/{$this->media_type}/$department/$file";
 		}
@@ -235,6 +247,13 @@
 			foreach($this->deletedDocumentIds as $id) { unset($this->documents[$id]); }
 		}
 		public function hasDocument($document) { return array_key_exists($document->getId(),$this->getFacets()); }
+
+		public function createValidFilename($string)
+		{
+			$string = preg_replace('/[^A-Za-z0-9_\.\s]/','',$string);
+			$string = preg_replace('/\s+/','_',$string);
+			return $string;
+		}
 
 
 		/**

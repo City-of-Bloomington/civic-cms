@@ -7,7 +7,14 @@
 	$template = new Template();
 
 	$attachments = new AttachmentList();
-	isset($_GET['sort']) ? $attachments->find(null,$_GET['sort']) : $attachments->find();
+
+	$sort = null;
+	$search = null;
+	if (isset($_GET['sort'])) { $sort = $_GET['sort']; }
+	if (isset($_GET['department_id'])) { $search = array('department_id'=>$_GET['department_id']); }
+
+	$attachments->find($search,$sort);
+
 
 	$template->blocks[] = new Block('media/attachmentList.inc',array('attachmentList'=>$attachments));
 	$template->render();

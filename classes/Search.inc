@@ -22,6 +22,7 @@
 		{
 			$doc = new Zend_Search_Lucene_Document();
 			$doc->addField(Zend_Search_Lucene_Field::Keyword('document_id',$document->getId()));
+			$doc->addField(Zend_Search_Lucene_Field::UnStored('title',$document->getTitle()));
 			$doc->addField(Zend_Search_Lucene_Field::UnStored('content',implode("\n",$document->getContent())));
 			$this->search->addDocument($doc);
 		}
