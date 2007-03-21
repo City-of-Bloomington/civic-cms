@@ -10,7 +10,7 @@ create table departments (
 -- User tables
 ---------------------------------------------------------------------
 create table users (
-  id int(10) unsigned not null primary key auto_increment,
+  id int unsigned not null primary key auto_increment,
   username varchar(30) not null,
   password varchar(32) default null,
   authenticationMethod varchar(40) not null default 'LDAP',
@@ -23,7 +23,7 @@ create table users (
 ) engine=InnoDB;
 
 create table roles (
-  id int(10) unsigned not null primary key auto_increment,
+  id int unsigned not null primary key auto_increment,
   role varchar(30) not null unique
 ) engine=InnoDB;
 insert roles set role='Administrator';
@@ -32,8 +32,8 @@ insert roles set role='Publisher';
 insert roles set role='Content Creator';
 
 create table user_roles (
-  user_id int(10) unsigned not null,
-  role_id int(10) unsigned not null,
+  user_id int unsigned not null,
+  role_id int unsigned not null,
   primary key  (user_id,role_id),
   foreign key (user_id) references users (id),
   foreign key (role_id) references roles (id)
@@ -50,7 +50,7 @@ create table documentTypes (
 insert documentTypes set type='Webpage';
 
 create table documents (
-  id int(10) unsigned not null primary key auto_increment,
+  id int unsigned not null primary key auto_increment,
   title varchar(128) not null,
   created timestamp not null default 0,
   createdBy int unsigned not null,
@@ -77,7 +77,7 @@ create table document_watches (
 -- Section tables
 ---------------------------------------------------------------------
 create table sections (
-  id int(10) unsigned not null primary key auto_increment,
+  id int unsigned not null primary key auto_increment,
   name varchar(50) not null unique,
   document_id int unsigned not null,
   placement tinyint(2) unsigned,
@@ -94,23 +94,23 @@ create table section_departments (
 
 create table section_parents (
 	node_id int unsigned not null primary key auto_increment,
-	section_id int(10) unsigned not null,
-	parent_id int(10) unsigned not null,
+	section_id int unsigned not null,
+	parent_id int unsigned not null,
 	placement tinyint(2) unsigned not null,
 	foreign key (section_id) references sections (id),
 	foreign key (parent_id) references sections (id)
 ) engine=InnoDB;
 
 create table sectionIndex (
-  section_id int(10) unsigned not null,
-  preOrder int(10) unsigned default null,
-  postOrder int(10) unsigned default null,
+  section_id int unsigned not null,
+  preOrder int unsigned default null,
+  postOrder int unsigned default null,
   foreign key (section_id) references sections (id)
 ) engine=InnoDB;
 
 create table document_sections (
-  document_id int(10) unsigned not null,
-  section_id int(10) unsigned not null,
+  document_id int unsigned not null,
+  section_id int unsigned not null,
   foreign key (document_id) references documents (id) on delete cascade,
   foreign key (section_id) references sections (id)
 ) engine=InnoDB;
@@ -120,13 +120,13 @@ create table document_sections (
 -- Facet tables
 ---------------------------------------------------------------------
 create table facets (
-  id int(10) unsigned not null primary key auto_increment,
+  id int unsigned not null primary key auto_increment,
   name varchar(50) not null unique
 ) engine=InnoDB;
 
 create table document_facets (
-  document_id int(10) unsigned not null,
-  facet_id int(10) unsigned not null,
+  document_id int unsigned not null,
+  facet_id int unsigned not null,
   primary key (document_id,facet_id),
   foreign key (document_id) references documents (id) on delete cascade,
   foreign key (facet_id) references facets (id) on delete cascade
