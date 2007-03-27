@@ -65,3 +65,4 @@
 	</tbody>
 	</table>
 </div>
+<?php print_r($this->documentList); ?>

@@ -82,7 +82,7 @@
 </fieldset>
 
 <fieldset><legend>Submit</legend>
-	<button type="submit" class="submit">Submit</button>
-	<button type="button" class="done" onclick="document.location.href='<?php echo BASE_URL; ?>/sections';">Done</button>
+	<button type="submit" class="save">Save</button>
+	<button type="button" class="cancel" onclick="document.location.href='<?php echo BASE_URL; ?>/sections';">Cancel</button>
 </fieldset>
 </form>
