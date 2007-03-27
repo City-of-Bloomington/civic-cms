@@ -20,7 +20,9 @@
 	}
 	else
 	{
-		$documentsBlock->documentList = new DocumentList(array('department_id'=>$_SESSION['USER']->getDepartment_id()),$sort);
+		$list = new DocumentList(array('department_id'=>$_SESSION['USER']->getDepartment_id()),$sort);
+		$documentsBlock->documentList = $list;
+
 		$documentsBlock->title = "{$_SESSION['USER']->getDepartment()} Documents";
 	}
 
