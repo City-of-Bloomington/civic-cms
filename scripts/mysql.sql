@@ -81,7 +81,7 @@ create table sections (
   name varchar(50) not null unique,
   document_id int unsigned not null,
   placement tinyint(2) unsigned,
-  foreign key (document_id) references documents(id) on delete set null
+  foreign key (document_id) references documents(id)
 ) engine=InnoDB;
 
 create table section_departments (
