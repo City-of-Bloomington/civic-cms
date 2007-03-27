@@ -6,7 +6,7 @@
  */
 	class ImageList extends MediaList
 	{
-		public function __construct($fields=null,$sort=null)
+		public function __construct($fields=null,$sort=null,$limit=null,$groupBy=null)
 		{
 			# We want to make sure to tell MediaList to only find
 			# images.  But the mediaList will execute a find
@@ -25,10 +25,10 @@
 			}
 		}
 
-		public function find($fields=null,$sort=null)
+		public function find($fields=null,$sort=null,$limit=null,$groupBy=null)
 		{
 			$fields['media_type'] = 'image';
-			parent::find($fields,$sort);
+			parent::find($fields,$sort,$limit,$groupBy);
 		}
 
 		# Override the generic MediaList so we return images

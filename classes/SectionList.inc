@@ -1,21 +1,26 @@
 <?php
 /**
- * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+ * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 	class SectionList extends PDOResultIterator
 	{
-		public function __construct($fields=null,$sort=null)
+		public function __construct($fields=null,$sort=null,$limit=null,$groupBy=null)
 		{
 			$this->select = "select s.id from sections s";
-			if ($sort) { $this->sort = "s.$sort"; }
-			if (is_array($fields)) { $this->find($fields); }
+			if (is_array($fields)||$sort||$limit||$groupBy)
+			{
+				$this->find($fields,$sort,$limit,$groupBy);
+			}
 		}
 
 
-		public function find($fields=null,$sort=null)
+		public function find($fields=null,$sort=null,$limit=null,$groupBy=null)
 		{
 			if ($sort) { $this->sort = "s.$sort"; }
+			$this->limit = $limit;
+			$this->groupBy = $groupBy;
 
 			$options = array();
 			if (isset($fields['id'])) { $options[] = "id='$fields[id]'"; }
