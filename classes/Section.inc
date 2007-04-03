@@ -79,7 +79,7 @@
 				$document->setDepartment($_SESSION['USER']->getDepartment());
 				$document->setTitle($this->name);
 				$document->setContent("<h2>{$this->name}</h2>",$_SESSION['LANGUAGE']);
-				$document->setDocumentType_id(1);
+				$document->setDocumentType_id(1,$_SESSION['LANGUAGE']);
 				$document->save();
 				$this->setDocument($document);
 			}
