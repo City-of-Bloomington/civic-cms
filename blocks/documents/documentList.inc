@@ -31,8 +31,9 @@
 		foreach($this->documentList as $document)
 		{
 			$url = $document->permitsEditingBy($_SESSION['USER']) ?
-					BASE_URL."/documents/updateDocument.php?document_id={$document->getId()};lang=$_SESSION[LANGUAGE]" :
-					BASE_URL.'/documents/viewDocument.php?document_id='.$document->getId();
+					new URL(BASE_URL."/documents/updateDocument.php?document_id={$document->getId()};lang=$_SESSION[LANGUAGE]") :
+					new URL(BASE_URL.'/documents/viewDocument.php?document_id='.$document->getId());
+			$url->parameters['tab'] = 'info';
 
 			$modifiedBy = substr($document->getModifiedByUser()->getFirstname(),0,1).substr($document->getModifiedByUser()->getLastname(),0,1);
 
@@ -48,12 +49,16 @@
 			if ($document->permitsEditingBy($_SESSION['USER']))
 			{
 				# Show all the editing buttons
+				#$url->parameters['tab'] = 'attachments';
+				# <a href=\"$url\" onclick=\"window.open('$url');return false;\">Attachments</a>
 				$retireButton = !$document->getRetireDate() ? "<a href=\"".BASE_URL."/documents/retireDocument.php?document_id={$document->getId()}\">Retire</a>" : "";
+				$watch = $_SESSION['USER']->hasWatch($document) ? "<a href=\"".BASE_URL."/documents/removeWatch.php?document_id={$document->getId()}\">Unwatch</a>" : "<a href=\"".BASE_URL."/documents/addWatch.php?document_id={$document->getId()}\">Watch</a>";
+
 				echo "
 				<td><a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$document->getId()}\" onclick=\"window.open('".BASE_URL."/documents/viewDocument.php?document_id={$document->getId()}');return false;\">View</a>
-					<a href=\"".BASE_URL."/documents/attachments.php?document_id={$document->getId()}\">Attachments</a>
 					<a href=\"".BASE_URL."/documents/deleteDocument.php?document_id={$document->getId()}\" onclick=\"deleteConfirmation('".BASE_URL."/documents/deleteDocument.php?document_id={$document->getId()}');return false;\">Delete</a>
 					$retireButton
+					$watch
 				</td>
 				";
 			}

@@ -111,8 +111,8 @@ ul.compact { list-style-type:none; margin:0; padding:0; }
 
 /* For pages with tab-type system on them */
 .tabBar { background-color:inherit; font-family: serif; font-weight: bold; }
-.tabBar a:link, div.tabBar a:visited { color:white; background-color:gray; padding-left:1em; padding-right:1em; border:2px solid black; }
-.tabBar a.current:link,.tabBar a.current:visited { color:black; background-color:#3366cc; border-bottom:0; position:relative; padding-bottom:2px; z-index:1; }
+.tabBar ul { margin-left:0; padding-left:0; display:inline; }
+.tabBar li { border:2px solid black; display:inline; list-style:none; background-color:gray; }
 
 .tabPage { }
 .tabPage > .interfaceBox { margin-left:1em; margin-right:1em; }

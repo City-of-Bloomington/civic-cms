@@ -8,58 +8,106 @@
  */
 	verifyUser(array('Webmaster','Administrator','Content Creator'));
 
-	if (isset($_GET['document_id']))
+	# Load the document into the session
+	if (isset($_GET['document_id'])) { $_SESSION['document'] = new Document($_GET['document_id']); }
+
+	# Make sure they're allowed to be editing this document
+	if (!$_SESSION['document']->permitsEditingBy($_SESSION['USER']))
 	{
-		$document = new Document($_GET['document_id']);
-		$language = isset($_GET['lang']) ? new Language($_GET['lang']) : new Language($_SESSION['LANGUAGE']);
-		if (!$document->permitsEditingBy($_SESSION['USER']))
-		{
-			$_SESSION['errorMessages'][] = "noAccessAllowed";
-			$template = new Template('closePopup');
-			$template->render();
-			exit();
-		}
+		$_SESSION['errorMessages'][] = "noAccessAllowed";
+		$template = new Template('closePopup');
+		$template->render();
+		exit();
 	}
 
+	# Set the current language we're working with
+	$language = isset($_REQUEST['lang']) ? new Language($_REQUEST['lang']) : new Language($_SESSION['LANGUAGE']);
 
 
+
+
+
+	# Handle any document data that's been posted
 	if (isset($_POST['document']))
 	{
-		$document = new Document($_POST['document_id']);
-		$language = new Language($_POST['lang']);
-
-		if (!$document->permitsEditingBy($_SESSION['USER']))
-		{
-			$_SESSION['errorMessages'][] = "noAccessAllowed";
-			Header("Location: ".BASE_URL."/documents/viewDocument.php?document_id={$document->getId()}");
-			exit();
-		}
 		foreach($_POST['document'] as $field=>$value)
 		{
 			$set = "set".ucfirst($field);
-			$document->$set($value);
+			$_SESSION['document']->$set($value);
 		}
-		$document->setContent($_POST['content'],$language->getCode());
-
+	}
+	# Content has to be handled specially
+	if (isset($_POST['content'])) { $_SESSION['document']->setContent($_POST['content'],$language->getCode()); }
+	# Attachments need to be saved right away
+	if (isset($_FILES['attachment']) && $_FILES['attachment']['name'])
+	{
+		$attachment = new Attachment();
+		$attachment->setTitle($_POST['attachment']['title']);
+		$attachment->setDescription($_POST['attachment']['description']);
+		$attachment->addDocument($_SESSION['document']);
 		try
 		{
-			$document->save();
+			$attachment->setFile($_FILES['attachment']);
+			$attachment->save();
+		}
+		catch(Exception $e) { $_SESSION['errorMessages'][] = $e; }
+	}
+	# Raw source code handling
+	if (isset($_FILES['source']) && $_FILES['source']['name'])
+	{
+		# Make sure they're allowed to edit the raw source code
+		if (userHasRole('Webmaster'))
+		{
+			$_SESSION['document']->setContent(file_get_contents($_FILES['source']['tmp_name']),$_POST['lang']);
+		}
+	}
+
+	# Save the document only when they ask for it
+	if (isset($_POST['action']) && $_POST['action']=='save')
+	{
+		try
+		{
+			$_SESSION['document']->save();
+			unset($_SESSION['document']);
 			$template = new Template('closePopup');
 			$template->render();
 			exit();
 		}
-		catch (Exception $e)
-		{
-			$_SESSION['errorMessages'][] = $e;
-			print_r($_POST);
-			exit();
-		}
+		catch (Exception $e) { $_SESSION['errorMessages'][] = $e; }
 	}
 
-	$template = new Template('popup');
 
-	$sectionList = new SectionList(array('postable_by'=>$_SESSION['USER']));
-	$form = new Block('documents/updateDocumentForm.inc',array('document'=>$document,'language'=>$language,'sectionList'=>$sectionList));
+
+	# Figure out which tab we're supposed to show
+	$tab = isset($_REQUEST['tab']) ? $_REQUEST['tab'] : 'info';
+	$template = new Template('popup');
+	$template->blocks[] = new Block('documents/update/tabs.inc');
+
+	$form = new Block("documents/update/$tab.inc",array('document'=>$_SESSION['document']));
+	# Handle any extra data the current tab needs
+	switch ($tab)
+	{
+		case 'content':
+			$form->language = $language;
+		break;
+
+		case 'sections':
+			$form->sectionList = new SectionList(array('postable_by'=>$_SESSION['USER']));
+		break;
+
+		case 'attachments':
+			$list = new AttachmentList(array('document_id'=>$_SESSION['document']->getId()));
+			$template->blocks[] = new Block('media/attachmentList.inc',array('attachmentList'=>$list));
+		break;
+
+		case 'source':
+			# Make sure they're allowed to edit the raw source code
+			if (!userHasRole('Webmaster')) { $form = new Block('documents/udpate/info.inc',array('document'=>$_SESSION['document'])); }
+			$form->language = $language;
+		break;
+
+		default:
+	}
 
 	$template->blocks[] = $form;
 	$template->render();
