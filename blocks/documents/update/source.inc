@@ -11,7 +11,7 @@
 <p>This page lets you upload a text file to be used as the content of this document.  Content is used <em>as is</em>!.
 There will be no stripping or escaping of characters, tags, code, or anything else.  Use with discretion.</p>
 
-<form id="updateDocumentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
+<form id="documentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
 	<fieldset><legend>Language</legend>
 		<label for="lang">Language</label>
 		<select name="lang" id="lang">
@@ -28,7 +28,13 @@ There will be no stripping or escaping of characters, tags, code, or anything el
 	</fieldset>
 
 	<fieldset><legend>Source Code</legend>
-		<button type="button" class="download" onclick="document.location.href='<?php echo BASE_URL; ?>/documents/downloadSource.php?document_id=<?php echo $this->document->getId(); ?>;lang=<?php echo $this->language->getCode(); ?>';">Download</button>
+	<?php
+		# You can't download anything until we've saved the document, and have a document_id
+		if ($this->document->getId())
+		{
+			echo "<button type=\"button\" class=\"download\" onclick=\"document.location.href='".BASE_URL."/documents/downloadSource.php?document_id={$this->document->getId()};lang={$this->language->getCode()}';\">Download</button>";
+		}
+	?>
 		<input name="source" type="file" />
 		<button type="button" class="upload" onclick="updateDocument('source','next');">Upload</button>
 	</fieldset>

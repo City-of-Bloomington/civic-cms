@@ -6,7 +6,7 @@
  * @param Document $this->document
  */
 ?>
-<form id="updateDocumentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form id="documentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<fieldset><legend>Document Info</legend>
 		<table>
 		<tr><td><label for="document-title">Title</label></td>

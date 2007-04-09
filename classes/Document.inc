@@ -1,7 +1,8 @@
 <?php
 /**
- * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+ * @author Cliff Ingham
  */
 	class Document extends ActiveRecord
 	{
@@ -383,7 +384,7 @@
 			# Add in any new sections
 			if (count($this->newSections))
 			{
-				$query = $PDO->prepare("insert document_sections values($this->id,?)");
+				$query = $PDO->prepare("insert document_sections values({$this->id},?)");
 				foreach($this->newSections as $id=>$section) { $query->execute(array($id)); }
 			}
 		}

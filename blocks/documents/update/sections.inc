@@ -7,7 +7,7 @@
  * @param SectionList $this->sectionList
  */
 ?>
-<form id="updateDocumentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form id="documentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<fieldset><legend>Sections</legend>
 	<table>
 		<?php

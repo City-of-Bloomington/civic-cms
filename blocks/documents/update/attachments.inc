@@ -7,7 +7,7 @@
  */
 ?>
 <h2>Upload an Attachment</h2>
-<form id="updateDocumentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
+<form id="documentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
 	<fieldset><legend>Attachment Info</legend>
 		<table>
 		<tr><td><label for="attachment-title" class="required">Title</label></td>

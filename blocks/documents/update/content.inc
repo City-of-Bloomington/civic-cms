@@ -7,7 +7,7 @@
  * @param string $this->language
  */
 ?>
-<form id="updateDocumentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form id="documentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<fieldset><legend>Content</legend>
 		<table>
 		<tr><td><label for="lang">Current Language</label></td>
