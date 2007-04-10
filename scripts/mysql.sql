@@ -191,6 +191,7 @@ create table events (
 	start datetime not null,
 	end datetime not null,
 	allDayEvent tinyint(1) unsigned,
+	rrule varchar(128),
 	summary varchar(128) not null,
 	description text,
 	calendar_id int unsigned not null,
@@ -199,6 +200,12 @@ create table events (
 	foreign key (calendar_id) references calendars(id),
 	foreign key (location_id) references locations(id),
 	foreign key (user_id) references users(id)
+) engine=InnoDB;
+
+create table eventIndex (
+	event_id int unsigned not null,
+	datetime datetime not null,
+	foreign key (event_id) references events(id)
 ) engine=InnoDB;
 
 create table event_sections (

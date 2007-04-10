@@ -10,6 +10,7 @@
 		private $start;
 		private $end;
 		private $allDayEvent;
+		private $rrule;
 		private $summary;
 		private $description;
 		private $calendar_id;
@@ -71,6 +72,7 @@
 			$fields['start'] = $this->start ? $this->start : null;
 			$fields['end'] = $this->end ? $this->end : null;
 			$fields['allDayEvent'] = $this->allDayEvent ? $this->allDayEvent : null;
+			$fields['rrule'] = $this->rrule ? $this->rrule : null;
 			$fields['summary'] = $this->summary ? $this->summary : null;
 			$fields['description'] = $this->description ? $this->description : null;
 			$fields['calendar_id'] = $this->calendar_id ? $this->calendar_id : null;
@@ -201,6 +203,7 @@
 			if ($format && $this->end!=0) return strftime($format,strtotime($this->end));
 			else return $this->end;
 		}
+		public function getRRule() { return $this->rrule; }
 		public function getSummary() { return $this->summary; }
 		public function getDescription() { return $this->description; }
 		public function getCalendar_id() { return $this->calendar_id; }
@@ -243,6 +246,7 @@
 		public function setStart($datetime) { $this->start = is_array($datetime) ? $this->dateArrayToString($datetime) : $datetime; }
 		public function setEnd($datetime) { $this->end = is_array($datetime) ? $this->dateArrayToString($datetime) : $datetime; }
 		public function setAllDayEvent($int) { $this->allDayEvent = $int ? 1 : 0; }
+		public function setRRule($string) { $this->rrule = trim($string); }
 		public function setSummary($string) { $this->summary = trim($string); }
 		public function setDescription($text) { $this->description = $text; }
 		public function setCalendar_id($int) { $this->calendar = new Calendar($int); $this->calendar_id = $int; }
