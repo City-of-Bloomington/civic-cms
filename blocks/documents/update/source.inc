@@ -36,7 +36,7 @@ There will be no stripping or escaping of characters, tags, code, or anything el
 		}
 	?>
 		<input name="source" type="file" />
-		<button type="button" class="upload" onclick="updateDocument('source','next');">Upload</button>
+		<button type="button" class="upload" onclick="processTabbedForm('documentForm','source','next');">Upload</button>
 	</fieldset>
 
 	<fieldset><legend>Next</legend>
@@ -45,6 +45,6 @@ There will be no stripping or escaping of characters, tags, code, or anything el
 		<input type="hidden" name="action" id="action" value="next" />
 		<button type="submit" class="next">Next</button>
 		<button type="cancel" class="cancel" onclick="self.close();">Cancel</button>
-		<button type="button" class="save" onclick="updateDocument('source','save');">Save</button>
+		<button type="button" class="save" onclick="processTabbedForm('documentForm','source','save');">Save</button>
 	</fieldset>
 </form>
