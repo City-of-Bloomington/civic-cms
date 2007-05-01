@@ -34,4 +34,3 @@
 		<button type="button" class="save" onclick="processTabbedForm('eventForm','info','save');">Save</button>
 </fieldset>
 </form>
-<?php print_r($_SESSION['event']); ?>

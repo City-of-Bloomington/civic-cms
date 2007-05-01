@@ -110,4 +110,3 @@
 		}
 	?>
 </script>
-<?php print_r($_SESSION['event']); ?>
