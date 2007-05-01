@@ -2,6 +2,7 @@
 /**
  * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+ * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 	class Calendar extends ActiveRecord
 	{
@@ -12,8 +13,6 @@
 
 		private $department;
 		private $user;
-
-		private $eventArray = array();
 
 		/**
 		 * This will load all fields in the table as properties of this class.
@@ -121,15 +120,31 @@
 			}
 			else return null;
 		}
-		public function getEvents($date=null)
+
+		/**
+		 * Returns all the events in between rangeStart and rangeEnd, if given
+		 * Or just on rangeStart.  $rangeStart and $rangeEnd must be given
+		 * in the same format.
+		 * @param timestamp|date $rangeStart
+		 * @param timestamp|date $rangeEnd
+		 */
+		public function getEvents($rangeStart=null,$rangeEnd=null)
 		{
 			if ($this->id) { $search['calendar_id'] = $this->id; }
-			if ($date)
+			if (isset($rangeStart))
 			{
-				if (isset($date['year'])) { $search['year'] = $date['year']; }
-				if (isset($date['mon'])) { $search['mon'] = $date['mon']; }
-				if (isset($date['mday'])) { $search['mday'] = $date['mday']; }
-				if (isset($date['week'])) { $search['week'] = $date['week']; }
+				if (is_int($rangeStart))
+				{
+					# $rangeStart is a timestamp
+					$search['rangeStart'] = date('Y-m-d',$rangeStart);
+					if (isset($rangeEnd)) { $search['rangeEnd'] = date('Y-m-d',$rangeEnd); }
+				}
+				else
+				{
+					# rangeStart is a date string
+					$search['rangeStart'] = $rangeStart;
+					if (isset($rangeEnd)) { $search['rangeEnd'] = $rangeEnd; }
+				}
 			}
 
 			$eventList = new EventList();
@@ -138,16 +153,30 @@
 
 			return $eventList;
 		}
-		public function getEventArray($date=null)
+		/**
+		 * Returns all the events with the recurrences exploded into
+		 * an array, split up by year,month, and day
+		 * Events will be between rangeStart and rangeEnd, if given
+		 * or just on rangeStart.  $rangeStart and $rangeEnd must be given
+		 * in the same format.
+		 * @param timestamp|date $rangeStart
+		 * @param timestamp|date $rangeEnd
+		 */
+		public function getEventRecurrenceArray($rangeStart=null,$rangeEnd=null)
 		{
-			$this->eventArray = array();
-			foreach($this->getEvents($date) as $event)
+			$recurrenceArray = array();
+			foreach($this->getEvents($rangeStart,$rangeEnd) as $event)
 			{
-				$e = $this->dateStringToArray($event->getStart());
-				$this->eventArray[$e['year']][$e['mon']][$e['mday']][] = $event;
+				foreach($event->getRecurrences($rangeStart,$rangeEnd) as $recurrence)
+				{
+					$r = $this->dateStringToArray($recurrence->getStart());
+					$recurrenceArray[$r['year']][$r['mon']][$r['mday']][] = $recurrence;
+				}
 			}
-			return $this->eventArray;
+			return $recurrenceArray;
 		}
+
+
 		public function permitsEditingBy($user)
 		{
 			if ($user->hasRole(array('Administrator','Webmaster')) ||

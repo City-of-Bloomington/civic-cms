@@ -6,9 +6,9 @@
  * @param Calendar $this->calendar
  *
  */
-	$url = new URL(BASE_URL.'/calendars/addEvent.php');
+	$url = new URL(BASE_URL.'/events/addEvent.php');
 	if ($this->calendar->getId()) { $url->parameters['calendar_id'] = $this->calendar->getId(); }
 ?>
 <div>
-	<button type="button" class="addEvent" onclick="document.location.href='<?php echo $url->getURL(); ?>';">Add Event</button>
+	<button type="button" class="addEvent" onclick="window.open('<?php echo $url->getURL(); ?>');">Add Event</button>
 </div>

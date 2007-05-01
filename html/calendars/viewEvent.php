@@ -7,7 +7,7 @@
  */
 	$event = new Event($_GET['event_id']);
 
-	$date = $event->dateStringToArray($event->getStart());
+	$date = $event->dateStringToArray($event->getStartDate());
 	$url = new URL(BASE_URL."/calendars");
 	$url->parameters = array('year'=>$date['year'],'mon'=>$date['mon'],'mday'=>$date['mday']);
 
@@ -15,6 +15,6 @@
 
 	$template = new Template();
 	$template->blocks[] = new Block('calendars/viewButtons.inc',array('url'=>$url,'calendar'=>$calendar));
-	$template->blocks[] = new Block('calendars/viewEvent.inc',array('event'=>$event));
+	$template->blocks[] = new Block('events/viewEvent.inc',array('event'=>$event));
 	$template->render();
 ?>

@@ -7,15 +7,17 @@
  * @param array $this->date
  */
 	$timestamp = mktime(0,0,0,$this->date['mon'],$this->date['mday'],$this->date['year']);
+	$lastSunday = strtotime('-1 Sunday',$timestamp);
+	$nextSunday = strtotime('Sunday',$timestamp);
+
 	$date = getdate($timestamp);
-	if ($date['weekday'] != 'Sunday') { $timestamp = strtotime('-1 Sunday',$timestamp); }
 	$week = date('W',$timestamp);
 ?>
 <div class="interfaceBox">
 	<div class="titleBar"><?php echo "{$this->date['year']} Week $week"; ?></div>
 	<table class="calendar">
 	<?php
-		$events = $this->calendar->getEventArray(array('week'=>$week));
+		$recurrences = $this->calendar->getEventRecurrenceArray($lastSunday,$nextSunday);
 		for($i=0; $i<=6; $i++)
 		{
 			$date = getdate(strtotime("+$i day",$timestamp));
@@ -27,15 +29,15 @@
 			$year = $date['year'];
 			$month = str_pad($date['mon'],2,'0',STR_PAD_LEFT);
 			$day = str_pad($date['mday'],2,'0',STR_PAD_LEFT);
-			if (isset($events[$year][$month][$day]))
+			if (isset($recurrences[$year][$month][$day]))
 			{
 				echo '<ul>';
-				foreach($events[$year][$month][$day] as $event)
+				foreach($recurrences[$year][$month][$day] as $recurrence)
 				{
-					$time = $event->isAllDayEvent() ? '' : date('g:i A',strtotime($event->getStart()));
+					$time = $recurrence->getEvent()->isAllDayEvent() ? '' : date('g:i A',strtotime($recurrence->getStart()));
 					echo "
-					<li><a href=\"".BASE_URL."/calendars/viewEvent.php?event_id={$event->getId()}\">
-						$time {$event->getSummary()}</a></li>
+					<li><a href=\"".BASE_URL."/calendars/viewEvent.php?event_id={$recurrence->getEvent_id()}\">
+						$time {$recurrence->getEvent()->getSummary()}</a></li>
 					";
 				}
 				echo '</ul>';

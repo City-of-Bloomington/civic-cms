@@ -187,9 +187,10 @@ create table calendars (
 
 create table events (
 	id int unsigned not null primary key auto_increment,
-	created timestamp not null default CURRENT_TIMESTAMP,
-	start datetime not null,
-	end datetime not null,
+	startDate date not null,
+	startTime time,
+	endDate date,
+	endTime time,
 	allDayEvent tinyint(1) unsigned,
 	rrule varchar(128),
 	summary varchar(128) not null,
@@ -202,9 +203,12 @@ create table events (
 	foreign key (user_id) references users(id)
 ) engine=InnoDB;
 
-create table eventIndex (
+create table event_exceptions (
 	event_id int unsigned not null,
-	datetime datetime not null,
+	original_start date not null,
+	start datetime not null,
+	end datetime not null,
+	primary key (event_id,original_start),
 	foreign key (event_id) references events(id)
 ) engine=InnoDB;
 
@@ -215,6 +219,97 @@ create table event_sections (
 	foreign key (event_id) references events(id),
 	foreign key (section_id) references sections(id)
 ) engine=InnoDB;
+
+delimiter //
+create procedure select_exploded_events(rangeStart date,rangeEnd date)
+begin
+    declare done int default 0;
+    declare pk int unsigned;
+    declare s,e datetime;
+    declare f varchar(7);
+    declare i tinyint(2) unsigned;
+    declare w char(2);
+
+    declare counter int unsigned default 0;
+    declare period varchar(5);
+    declare recurrence_start datetime;
+    declare recurrence_end datetime;
+    declare r_start datetime;
+
+    declare exception_start datetime default null;
+    declare exception_end datetime default null;
+
+    declare cur cursor for
+        select id,start,end,recurrence_frequency,recurrence_interval,recurrence_weekday from events
+        where (start between rangeStart and rangeEnd)
+        or (end between rangeStart and rangeEnd)
+        or (start<=rangeStart and end>=rangeStart);
+    declare continue handler for sqlstate '02000' set done = 1;
+
+    open cur;
+
+    create temporary table eventIndex (
+        event_id int unsigned not null,
+        start datetime not null,
+        end datetime not null,
+        primary key (event_id,start)
+    );
+
+    # Grab all the events
+    repeat
+        fetch cur into pk,s,e,f,i,w;
+        if not done then
+            #If weve got recurring data
+            if !isnull(f) then
+                # Start creating recurrences
+                set recurrence_start = s;
+
+                while recurrence_start<e do
+                    # Check for Exceptions
+                    set exception_start = null;
+                    set exception_end = null;
+                    select start,end into exception_start,exception_end from event_exceptions
+                    where event_id=pk and original_start=recurrence_start;
+
+                    if !isnull(exception_start)
+                        then
+                            set r_start = exception_start;
+                            set exception_end = end;
+                        else
+                            set r_start = recurrence_start;
+                            set recurrence_end = concat_ws(' ',date(recurrence_start),time(e));
+                    end if;
+
+                    # Only create the recurrence if it falls within the range
+                    if r_start between rangeStart and rangeEnd then
+                        insert eventIndex values(pk,r_start,recurrence_end);
+                    end if;
+
+                    # Increment the recurrences
+                    # Figure out what kind of intervals we're incrementing by
+                    case f
+                        when 'daily' then set recurrence_start = recurrence_start + interval i day;
+                        when 'weekly' then set recurrence_start = recurrence_start + interval i week;
+                        when 'monthly' then set recurrence_start = recurrence_start + interval i month;
+                        when 'yearly' then set recurrence_start = recurrence_start + interval i year;
+                    end case;
+                end while;
+
+                # Otherwise, just insert one row
+                else insert eventIndex values(pk,s,e);
+
+            end if;
+        end if;
+    until done end repeat;
+
+    close cur;
+
+    select * from eventIndex;
+
+    drop temporary table eventIndex;
+end;
+//
+delimiter ;
 
 ---------------------------------------------------------------------
 -- Media

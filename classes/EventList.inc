@@ -26,19 +26,34 @@
 			$options = array();
 			if (isset($fields['id'])) { $options[] = "id='$fields[id]'"; }
 			if (isset($fields['created'])) { $options[] = "created='$fields[created]'"; }
-			if (isset($fields['start'])) { $options[] = "start='$fields[start]'"; }
-			if (isset($fields['end'])) { $options[] = "end='$fields[end]'"; }
+			if (isset($fields['startDate'])) { $options[] = "startDate='$fields[startDate]'"; }
+			if (isset($fields['startTime'])) { $options[] = "startTime='$fields[startTime]'"; }
+			if (isset($fields['endDate'])) { $options[] = "endDate='$fields[endDate]'"; }
+			if (isset($fields['endTime'])) { $options[] = "endTime='$fields[endTime]'"; }
 			if (isset($fields['allDayEvent'])) { $options[] = "allDayEvent='$fields[allDayEvent]'"; }
+			if (isset($fields['rrule'])) { $options[] = "rrule='$fields[rrule]'"; }
 			if (isset($fields['summary'])) { $options[] = "summary='$fields[summary]'"; }
 			if (isset($fields['description'])) { $options[] = "description='$fields[description]'"; }
 			if (isset($fields['calendar_id'])) { $options[] = "calendar_id='$fields[calendar_id]'"; }
 			if (isset($fields['location_id'])) { $options[] = "location_id='$fields[location_id]'"; }
 			if (isset($fields['user_id'])) { $options[] = "user_id='$fields[user_id]'"; }
 
-			if (isset($fields['year'])) { $options[] = "year(start)='$fields[year]'"; }
-			if (isset($fields['mon'])) { $options[] = "month(start)='$fields[mon]'"; }
-			if (isset($fields['mday'])) { $options[] = "dayofmonth(start)='$fields[mday]'"; }
-			if (isset($fields['week'])) { $options[] = "week(start)='$fields[week]'"; }
+			# Find events by dates
+			if (isset($fields['rangeStart']))
+			{
+				if (isset($fields['rangeEnd']))
+				{
+					# Find all the events that could possibly have recurrences inside the range
+					$options[] = "((startDate between '$fields[rangeStart]' and '$fields[rangeEnd]')
+									or (endDate between '$fields[rangeStart]' and '$fields[rangeEnd]')
+									or (startDate<='$fields[rangeStart]' and endDate>='$fields[rangeStart]'))";
+				}
+				else
+				{
+					# Just find the events that happen on $rangeStart {Date}
+					$options[] = "startDate='$fields[rangeStart]'";
+				}
+			}
 
 			# Finding on fields from other tables required joining those tables.
 			# You can add fields from other tables to $options by adding the join SQL

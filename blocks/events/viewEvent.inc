@@ -11,18 +11,20 @@
 	<?php
 		if (isset($_SESSION['USER']) && $this->event->permitsEditingBy($_SESSION['USER']))
 		{
-			echo "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/calendars/updateEvent.php?event_id={$this->event->getId()}';\">Edit</button>";
+			echo "<button type=\"button\" class=\"editSmall\" onclick=\"window.open('".BASE_URL."/events/updateEvent.php?event_id={$this->event->getId()}');\">Edit</button>";
 		}
 		echo $this->event->getSummary();
 	?>
 	</div>
 	<?php
 		$format = $this->event->isAllDayEvent() ? 'M j' : 'M j g:i A';
-		$start = date($format,strtotime($this->event->getStart()));
-		$end = date($format,strtotime($this->event->getEnd()));
+		$start = date($format,strtotime("{$this->event->getStartDate()} {$this->event->getStartTime()}"));
+		$end = date($format,strtotime("{$this->event->getEndDate()} {$this->event->getEndTime()}"));
 
 		if ($this->event->isAllDayEvent()) { echo "<p>$start</p>"; }
 		else { echo "<p>$start - $end</p>"; }
+
+		if ($this->event->getRRule()) { echo "<p>{$this->event->getRRule()}</p>"; }
 
 		echo "
 		<p><strong>Location:</strong> {$this->event->getLocation()}</p>

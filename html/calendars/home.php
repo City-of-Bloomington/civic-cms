@@ -35,9 +35,18 @@
 	$template->blocks[] = new Block($block,array('calendar'=>$calendar,'date'=>$date));
 
 
-	if (isset($_SESSION['USER']) && $calendar->permitsEditingBy($_SESSION['USER']))
+	# Only show the event buttons if they can actually add an event
+	$addable = false;
+	if (isset($_SESSION['USER']))
 	{
-		$template->blocks[] = new Block('calendars/eventButtons.inc',array('calendar'=>$calendar));
+		$list = new CalendarList();
+		$list->find();
+		foreach($list as $cal)
+		{
+			if ($cal->permitsEditingBy($_SESSION['USER'])) { $addable = true; }
+		}
 	}
+
+	if ($addable) { $template->blocks[] = new Block('calendars/eventButtons.inc',array('calendar'=>$calendar)); }
 	$template->render();
 ?>

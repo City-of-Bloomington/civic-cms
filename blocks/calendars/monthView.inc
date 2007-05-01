@@ -11,7 +11,7 @@
 	$year = $calendarDate['year'];
 	$month = str_pad($calendarDate['mon'],2,'0',STR_PAD_LEFT);
 	$lastDayOfMonth = date('t',$timestamp);
-	$events = $this->calendar->getEventArray();
+	$recurrences = $this->calendar->getEventRecurrenceArray();
 ?>
 <table class="calendar">
 <tr><th colspan="7">
@@ -63,15 +63,15 @@
 
 		echo "<td><span class=\"date\"><a href=\"{$url->getURL()}\">$currentDay</a></span>";
 		$day = str_pad($currentDay,2,'0',STR_PAD_LEFT);
-		if (isset($events[$year][$month][$day]))
+		if (isset($recurrences[$year][$month][$day]))
 		{
 			echo '<ul>';
-			foreach($events[$year][$month][$day] as $event)
+			foreach($recurrences[$year][$month][$day] as $recurrence)
 			{
-				$time = $event->isAllDayEvent() ? '' : date('g:i A',strtotime($event->getStart()));
+				$time = $recurrence->getEvent()->isAllDayEvent() ? '' : date('g:i A',strtotime($recurrence->getStart()));
 				echo "
-				<li><a href=\"".BASE_URL."/calendars/viewEvent.php?event_id={$event->getId()}\">
-					$time {$event->getSummary()}</a></li>
+				<li><a href=\"".BASE_URL."/calendars/viewEvent.php?event_id={$recurrence->getEvent_id()}\">
+					$time {$recurrence->getEvent()->getSummary()}</a></li>
 				";
 			}
 			echo '</ul>';

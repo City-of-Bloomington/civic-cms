@@ -30,13 +30,17 @@
 	</div>
 	<table>
 	<?php
-		foreach($this->calendar->getEvents($this->date) as $event)
+		$year = $this->date['year'];
+		$month = str_pad($this->date['mon'],2,'0',STR_PAD_LEFT);
+		$day = str_pad($this->date['mday'],2,'0',STR_PAD_LEFT);
+		$recurrences = $this->calendar->getEventRecurrenceArray($timestamp);
+		foreach($recurrences[$year][$month][$day] as $recurrence)
 		{
-			$time = $event->isAllDayEvent() ? '' : date('g:i A',strtotime($event->getStart()));
+			$time = $recurrence->getEvent()->isAllDayEvent() ? '' : date('g:i A',strtotime($recurrence->getStart()));
 			echo "
 			<tr><td>$time</td>
-				<td><a href=\"".BASE_URL."/calendars/viewEvent.php?event_id={$event->getId()}\">
-					{$event->getSummary()}</a>
+				<td><a href=\"".BASE_URL."/calendars/viewEvent.php?event_id={$recurrence->getEvent_id()}\">
+					{$recurrence->getEvent()->getSummary()}</a>
 				</td>
 			</tr>
 			";
