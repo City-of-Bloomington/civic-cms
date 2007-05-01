@@ -11,8 +11,6 @@
 	$byday = isset($rrule['BYDAY']) ? $rrule['BYDAY'] : array();
 	$weekdaynum = isset($byday[0]) ? substr($byday[0],0,-2) : '';
 	$bymonthday = isset($rrule['BYMONTHDAY']) ? $rrule['BYMONTHDAY'] : '';
-
-	print_r($rrule);
 ?>
 <script type="text/javascript">
 	function activate(field)
