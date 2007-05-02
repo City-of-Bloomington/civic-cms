@@ -11,7 +11,7 @@
 	<fieldset><legend>Content</legend>
 		<table>
 		<tr><td><label for="lang">Current Language</label></td>
-			<td><select name="lang" id="lang" onchange="document.location.href='updateDocument.php?document_id=<?php echo $this->document->getId(); ?>;lang='+this[this.selectedIndex].value;">
+			<td><select name="lang" id="lang" onchange="document.location.href='updateDocument.php?document_id=<?php echo $this->document->getId(); ?>;tab=content;lang='+this[this.selectedIndex].value">
 				<?php
 					$list = new LanguageList();
 					$list->find();
