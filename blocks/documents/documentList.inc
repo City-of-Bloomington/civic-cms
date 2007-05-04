@@ -9,7 +9,11 @@
 */
 ?>
 <div class="interfaceBox">
-	<div class="titleBar"><?php echo $this->title; ?>
+	<div class="titleBar">
+		<?php
+			echo $this->title;
+			include APPLICATION_HOME.'/blocks/documents/addDocumentToolbar.inc';
+		?>
 	</div>
 	<table>
 	<thead>
@@ -37,14 +41,11 @@
 
 			$modifiedBy = substr($document->getModifiedByUser()->getFirstname(),0,1).substr($document->getModifiedByUser()->getLastname(),0,1);
 
+			$partialTitle = substr($document->getTitle(),0,20);
+
 			echo "
 			<tr><td style=\"width:100px; white-space:nowrap; overflow:hidden;\">
-					<a href=\"$url\" onclick=\"window.open('$url');return false;\">{$document->getTitle()}</a></td>
-				<td>{$document->getCreated('%D')}</td>
-				<td>{$document->getPublishDate('%D')}</td>
-				<td>{$document->getModified('%D')}</td>
-				<td>$modifiedBy</td>
-				<td>{$document->getRetireDate('%D')}</td>
+					<a href=\"$url\" onclick=\"window.open('$url');return false;\" title=\"{$document->getTitle()}\">$partialTitle</a></td>
 			";
 			if ($document->permitsEditingBy($_SESSION['USER']))
 			{
@@ -63,6 +64,13 @@
 				";
 			}
 			else { echo "<td></td>"; }
+			echo "
+				<td>{$document->getCreated('%D')}</td>
+				<td>{$document->getPublishDate('%D')}</td>
+				<td>{$document->getModified('%D')}</td>
+				<td>$modifiedBy</td>
+				<td>{$document->getRetireDate('%D')}</td>
+			";
 
 			echo "</tr>";
 		}

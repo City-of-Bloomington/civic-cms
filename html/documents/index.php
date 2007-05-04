@@ -27,7 +27,6 @@
 	}
 
 	$template = new Template();
-	$template->blocks[] = new Block('documents/addDocumentToolbar.inc');
 	$template->blocks[] = $documentsBlock;
 	$template->render();
 ?>
