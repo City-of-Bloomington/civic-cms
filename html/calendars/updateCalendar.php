@@ -4,7 +4,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
-	verifyUser('Webmaster');
+	verifyUser(array('Administrator','Webmaster'));
 
 	if (isset($_GET['calendar_id'])) { $calendar = new Calendar($_GET['calendar_id']); }
 	if (isset($_POST['calendar_id']))

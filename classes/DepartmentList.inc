@@ -8,7 +8,7 @@
 	{
 		public function __construct($fields=null,$sort=null,$limit=null,$groupBy=null)
 		{
-			$this->select = "select departments.id from departments";
+			$this->select = 'select departments.id from departments';
 			if (is_array($fields)||$sort||$limit||$groupBy)
 			{
 				$this->find($fields,$sort,$limit,$groupBy);
@@ -32,8 +32,14 @@
 			# to $this->joins here
 			if (isset($fields['section_id']))
 			{
-				$this->joins.= " left join section_departments s on s.department_id=departments.id";
+				$this->joins.= ' left join section_departments s on s.department_id=departments.id';
 				$options[] = "s.section_id=$fields[section_id]";
+			}
+
+			if (isset($fields['calendar_id']))
+			{
+				$this->joins.= ' left join calendar_departments c on c.department_id=departments.id';
+				$options[] = "c.calendar_id=$fields[calendar_id]";
 			}
 
 			$this->populateList($options);

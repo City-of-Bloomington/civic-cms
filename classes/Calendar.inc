@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
@@ -8,11 +8,13 @@
 	{
 		private $id;
 		private $name;
-		private $department_id;
 		private $user_id;
 
-		private $department;
 		private $user;
+		private $departments = array();
+		private $newDepartments = array();
+		private $deletedDepartments = array();
+
 
 		/**
 		 * This will load all fields in the table as properties of this class.
@@ -54,7 +56,6 @@
 
 			$fields = array();
 			$fields['name'] = $this->name ? $this->name : null;
-			$fields['department_id'] = $this->department_id ? $this->department_id : null;
 			$fields['user_id'] = $this->user_id ? $this->user_id : $_SESSION['USER']->getId();
 
 			# Split the fields up into a preparedFields array and a values array.
@@ -71,6 +72,8 @@
 
 			if ($this->id) { $this->update($values,$preparedFields); }
 			else { $this->insert($values,$preparedFields); }
+
+			$this->saveDepartments();
 		}
 
 		private function update($values,$preparedFields)
@@ -94,32 +97,64 @@
 
 		private function fold($string) { return trim(preg_replace("/(.{1,72})/i","\\1\r\n ",trim($string))); }
 
-
 		/**
-		 * Generic Getters
+		 * Department functions
 		 */
-		public function getId() { return $this->id; }
-		public function getName() { return $this->name; }
-		public function getDepartment_id() { return $this->department_id; }
-		public function getUser_id() { return $this->user_id; }
-		public function getDepartment()
+		public function hasDepartment($department)
 		{
-			if ($this->department_id)
-			{
-				if (!$this->department) { $this->department = new Department($this->department_id); }
-				return $this->department;
-			}
-			else return null;
+			return array_key_exists($department->getId(),$this->getDepartments());
 		}
-		public function getUser()
+		public function getDepartments()
 		{
-			if ($this->user_id)
+			# A Calendar cannot have departments until it has an ID
+			if (!count($this->departments) && $this->id)
 			{
-				if (!$this->user) { $this->user = new User($this->user_id); }
-				return $this->user;
+				$list = new DepartmentList(array('calendar_id'=>$this->id));
+				foreach($list as $department) { $this->departments[$department->getId()] = $department; }
 			}
-			else return null;
+			return $this->departments;
 		}
+		public function setDepartments(array $departmentIds)
+		{
+			# Make sure to call $this->getDepartments() at least once to ensure that
+			# the current departments are loaded before trying to determine which ones are new
+
+			$newDepartments = array();
+			foreach($departmentIds as $id) { $newDepartments[$id] = new Department($id); }
+
+			# Any Departments that are not in $this->departments need to be added
+			$this->newDepartments = array_diff_key($newDepartments,$this->getDepartments());
+			foreach($this->newDepartments as $id=>$department) { $this->departments[$id] = $department; }
+
+			# Unset any $this->departments that are not in $departmentIds
+			$this->deletedDepartments = array_diff_key($this->departments,$newDepartments);
+			foreach($this->deletedDepartments as $id=>$department) { unset($this->departments[$id]); }
+		}
+		private function saveDepartments()
+		{
+			global $PDO;
+
+			# Clear out any deleted departments
+			if (count($this->deletedDepartments))
+			{
+				$deletedDepartments = implode(",",array_keys($this->deletedDepartments));
+				$query = $PDO->prepare("delete from calendar_departments where calendar_id={$this->id} and department_id in ($deletedDepartments)");
+				$query->execute();
+			}
+
+			# Add in any new departments
+			if (count($this->newDepartments))
+			{
+				$query = $PDO->prepare("insert calendar_departments values({$this->id},?)");
+				foreach($this->newDepartments as $id=>$department) { $query->execute(array($id)); }
+			}
+		}
+		public function permitsEditingBy($user)
+		{
+			return ($user->hasRole(array('Administrator','Webmaster')) ||
+				($user->hasRole('Content Creator') && $this->hasDepartment($user->getDepartment())));
+		}
+
 
 		/**
 		 * Returns all the events in between rangeStart and rangeEnd, if given
@@ -177,21 +212,29 @@
 		}
 
 
-		public function permitsEditingBy($user)
+
+		/**
+		 * Generic Getters
+		 */
+		public function getId() { return $this->id; }
+		public function getName() { return $this->name; }
+		public function getUser_id() { return $this->user_id; }
+		public function getUser()
 		{
-			if ($user->hasRole(array('Administrator','Webmaster')) ||
-				($user->hasRole('Content Creator') && $user->getDepartment_id()==$this->department_id))
-			{ return true; }
-			else { return false; }
+			if ($this->user_id)
+			{
+				if (!$this->user) { $this->user = new User($this->user_id); }
+				return $this->user;
+			}
+			else return null;
 		}
+
 
 		/**
 		 * Generic Setters
 		 */
 		public function setName($string) { $this->name = trim($string); }
-		public function setDepartment_id($int) { $this->department = new Department($int); $this->department_id = $int; }
 		public function setUser_id($int) { $this->user = new User($int); $this->user_id = $int; }
 
-		public function setDepartment($department) { $this->department_id = $department->getId(); $this->department = $department; }
 	}
 ?>

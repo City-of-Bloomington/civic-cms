@@ -8,22 +8,28 @@
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 <fieldset><legend>Calendar Info</legend>
 	<table>
-
 	<tr><td><label for="calendar-name">Name</label></td>
 		<td><input name="calendar[name]" id="calendar-name" /></td></tr>
-
-	<tr><td><label for="calendar-department_id">Name</label></td>
-		<td><select name="calendar[department_id]" id="calendar-department_id">
-			<?php
-				$list = new DepartmentList();
-				$list->find();
-				foreach($list as $department) { echo "<option value=\"{$department->getId()}\">$department</option>"; }
-			?>
-			</select>
-		</td>
-	</tr>
 	</table>
+</fieldset>
 
+<fieldset><legend>Departments</legend>
+	<table>
+	<?php
+		$list = new DepartmentList();
+		$list->find();
+		foreach($list as $department)
+		{
+			echo "
+			<tr><td><input name=\"calendar[departments][{$department->getId()}]\" id=\"calendar-departments-{$department->getId()}\" type=\"checkbox\" value=\"{$department->getId()}\" /></td>
+				<td><label for=\"calendar-departments-{$department->getId()}\">$department</label></td></tr>
+			";
+		}
+	?>
+	</table>
+</fieldset>
+
+<fieldset><legend>Submit</legend>
 	<button type="submit" class="submit">Submit</button>
 	<button type="button" class="cancel" onclick="document.location.href='<?php echo BASE_URL; ?>/calendars';">Cancel</button>
 </fieldset>
