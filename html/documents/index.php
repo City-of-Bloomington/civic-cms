@@ -26,7 +26,7 @@
 		$documentsBlock->title = "{$_SESSION['USER']->getDepartment()} Documents";
 	}
 
-	$template = new Template();
+	$template = new Template('backend');
 	$template->blocks[] = $documentsBlock;
 	$template->render();
 ?>
