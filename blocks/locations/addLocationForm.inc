@@ -1,7 +1,8 @@
 <?php
 /**
- * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+ * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 ?>
 <h1>Add Location</h1>
@@ -11,7 +12,11 @@
 
 	<tr><td><label for="location-name">Name</label></td>
 		<td><input name="location[name]" id="location-name" /></td></tr>
-		
+	<tr><td><label for="location-latitude">Latitude</label></td>
+		<td><input name="location[latitude]" id="location-latitude" /></td></tr>
+	<tr><td><label for="location-longitude">Longitude</label></td>
+		<td><input name="location[longitude]" id="location-longitude" /></td></tr>
+
 	</table>
 
 	<button type="submit" class="submit">Submit</button>

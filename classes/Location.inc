@@ -1,12 +1,15 @@
 <?php
 /**
- * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+ * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 	class Location extends ActiveRecord
 	{
 		private $id;
 		private $name;
+		private $latitude;
+		private $longitude;
 
 		/**
 		 * This will load all fields in the table as properties of this class.
@@ -48,6 +51,8 @@
 
 			$fields = array();
 			$fields['name'] = $this->name ? $this->name : null;
+			$fields['latitude'] = $this->latitude ? $this->latitude : null;
+			$fields['longitude'] = $this->longitude ? $this->longitude : null;
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
@@ -91,10 +96,14 @@
 		 */
 		public function getId() { return $this->id; }
 		public function getName() { return $this->name; }
+		public function getLatitude() { return $this->latitude; }
+		public function getLongitude() { return $this->longitude; }
 
 		/**
 		 * Generic Setters
 		 */
 		public function setName($string) { $this->name = trim($string); }
+		public function setLatitude($float) { $this->latitude = ereg_replace("[^0-9.\-]","",$float); }
+		public function setLongitude($float) { $this->longitude = ereg_replace("[^0-9.\-]","",$float); }
 	}
 ?>

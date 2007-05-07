@@ -26,6 +26,8 @@
 			$options = array();
 			if (isset($fields['id'])) { $options[] = "id='$fields[id]'"; }
 			if (isset($fields['name'])) { $options[] = "name='$fields[name]'"; }
+			if (isset($fields['latitude'])) { $options[] = "latitude='$fields[latitude]'"; }
+			if (isset($fields['longitude'])) { $options[] = "longitude='$fields[longitude]'"; }
 
 
 			# Finding on fields from other tables required joining those tables.

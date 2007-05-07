@@ -173,7 +173,9 @@ insert languages values
 ---------------------------------------------------------------------
 create table locations (
 	id int unsigned not null primary key auto_increment,
-	name varchar(60) not null
+	name varchar(60) not null,
+	latitude float(10,6),
+	longitude float(10,6)
 ) engine=InnoDB;
 
 create table calendars (
