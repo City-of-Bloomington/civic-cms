@@ -9,18 +9,21 @@
 	{
 		foreach($section->getChildren() as $placement=>$section)
 		{
+			$name = View::escape($section->getName());
 			$button = userHasRole("Webmaster") ? "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/sections/updateSection.php?section_id={$section->getId()}';\">Edit</button>" : '';
 			echo "
 			<li>$button
 				<a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$section->getDocument_id()}\">
-				{$this->escape($section->getName())}</a>
+				$name</a>
 			";
+
 			if ($section->hasChildren())
 			{
 				echo "<ul>";
 				listEditableSections($section);
 				echo "</ul>";
 			}
+
 			echo "</li>";
 		}
 	}

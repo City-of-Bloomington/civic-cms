@@ -9,11 +9,12 @@
 	{
 		foreach($section->getChildren() as $section)
 		{
+			$name = View::escape($section->getName());
 			echo "
 			<li><input name=\"node[{$section->getNode_id()}]\" id=\"node-{$section->getNode_id()}\" size=\"2\" maxlength=\"2\" value=\"{$section->getPlacement()}\" />
 				<label for=\"node-{$section->getNode_id()}\">
 					<a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$section->getDocument_id()}\">
-					{$this->escape($section->getName())}</a>
+					$name</a>
 				</label>
 			";
 				if ($section->hasChildren())
