@@ -6,15 +6,15 @@
  */
 ?>
 <div class="tabBar">
-<ul><li><a href="<?php echo BASE_URL; ?>/documents/updateDocument.php?tab=info" onclick="processTabbedForm('documentForm','info','next');return false;">Info</a></li>
-	<li><a href="<?php echo BASE_URL; ?>/documents/updateDocument.php?tab=content" onclick="processTabbedForm('documentForm','content','next');return false;">Content</a></li>
-	<li><a href="<?php echo BASE_URL; ?>/documents/updateDocument.php?tab=sections" onclick="processTabbedForm('documentForm','sections','next');return false;">Sections</a></li>
-	<li><a href="<?php echo BASE_URL; ?>/documents/updateDocument.php?tab=attachments" onclick="processTabbedForm('documentForm','attachments','next');return false;">Attachments</a></li>
-	<li><a href="<?php echo BASE_URL; ?>/documents/updateDocument.php?tab=facets" onclick="processTabbedForm('documentForm','facets','next');return false;">Facets</a></li>
+<ul><li><a href="<?php echo BASE_URL; ?>/documents/updateDocument.php?tab=info" onclick="FRAMEWORK.processTabbedForm('documentForm','info','next');return false;">Info</a></li>
+	<li><a href="<?php echo BASE_URL; ?>/documents/updateDocument.php?tab=content" onclick="FRAMEWORK.processTabbedForm('documentForm','content','next');return false;">Content</a></li>
+	<li><a href="<?php echo BASE_URL; ?>/documents/updateDocument.php?tab=sections" onclick="FRAMEWORK.processTabbedForm('documentForm','sections','next');return false;">Sections</a></li>
+	<li><a href="<?php echo BASE_URL; ?>/documents/updateDocument.php?tab=attachments" onclick="FRAMEWORK.processTabbedForm('documentForm','attachments','next');return false;">Attachments</a></li>
+	<li><a href="<?php echo BASE_URL; ?>/documents/updateDocument.php?tab=facets" onclick="FRAMEWORK.processTabbedForm('documentForm','facets','next');return false;">Facets</a></li>
 	<?php
 		if(userHasRole('Webmaster'))
 		{
-			echo "<li><a href=\"".BASE_URL."/documents/updateDocument.php?tab=facets\" onclick=\"processTabbedForm('documentForm','source','next');return false;\">Source</a></li>";
+			echo "<li><a href=\"".BASE_URL."/documents/updateDocument.php?tab=facets\" onclick=\"FRAMEWORK.processTabbedForm('documentForm','source','next');return false;\">Source</a></li>";
 		}
 	?>
 </ul>

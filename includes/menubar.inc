@@ -13,7 +13,7 @@
 	foreach($sectionList as $section)
 	{
 		echo "<li><a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$section->getDocument_id()}\">";
-		echo View::sanitizeString($section->getName());
+		echo View::escape($section->getName());
 		echo '</a></li>';
 	}
 ?>

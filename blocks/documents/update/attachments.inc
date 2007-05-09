@@ -19,7 +19,7 @@
 	<fieldset><legend>Upload</legend>
 		<input name="document_id" type="hidden" value="<?php echo $this->document->getId(); ?>" />
 		<input name="attachment" type="file" />
-		<button type="button" class="upload" onclick="processTabbedForm('documentForm','attachments','next');">Upload</button>
+		<button type="button" class="upload" onclick="FRAMEWORK.processTabbedForm('documentForm','attachments','next');">Upload</button>
 	</fieldset>
 
 	<fieldset><legend>Next</legend>
@@ -28,6 +28,6 @@
 		<input type="hidden" name="action" id="action" value="next" />
 		<button type="submit" class="next">Next</button>
 		<button type="cancel" class="cancel" onclick="self.close();">Cancel</button>
-		<button type="button" class="save" onclick="processTabbedForm('documentForm','attachments','save');">Save</button>
+		<button type="button" class="save" onclick="FRAMEWORK.processTabbedForm('documentForm','attachments','save');">Save</button>
 	</fieldset>
 </form>

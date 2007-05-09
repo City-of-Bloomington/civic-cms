@@ -31,6 +31,6 @@
 		<input type="hidden" name="action" id="action" value="next" />
 		<button type="submit" class="next">Next</button>
 		<button type="cancel" class="cancel" onclick="self.close();">Cancel</button>
-		<button type="button" class="save" onclick="processTabbedForm('eventForm','info','save');">Save</button>
+		<button type="button" class="save" onclick="FRAMEWORK.processTabbedForm('eventForm','info','save');">Save</button>
 </fieldset>
 </form>
