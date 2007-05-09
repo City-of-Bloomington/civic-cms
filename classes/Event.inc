@@ -418,9 +418,9 @@
 
 				# Recur_data now has dates set.
 				# We still need to add Time information from the event
-				foreach($recur_data as $key=>$recurrance)
+				foreach($recur_data as $key=>$recurrence)
 				{
-					$date = date('Y-m-d',$recurrance);
+					$date = date('Y-m-d',$recurrence);
 
 					# If there's not an exception for this recurrence, set the start and end
 					$r = new EventRecurrence($this,$date);
