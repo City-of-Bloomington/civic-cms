@@ -19,14 +19,10 @@
  *
  * == END LICENSE ==
  *
- * File Name: fckeditor_php5.php
- * 	This is the integration file for PHP 5.
+ * This is the integration file for PHP 5.
  *
- * 	It defines the FCKeditor class that can be used to create editor
- * 	instances in PHP pages on server side.
- *
- * File Authors:
- * 		Frederico Caldeira Knabben (www.fckeditor.net)
+ * It defines the FCKeditor class that can be used to create editor
+ * instances in PHP pages on server side.
  */
 
 class FCKeditor
