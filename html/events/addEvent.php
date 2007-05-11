@@ -33,10 +33,9 @@
 		try
 		{
 			$_SESSION['event']->save();
-			print_r($_SESSION['event']);
 			unset($_SESSION['event']);
-			#$template = new Template('closePopup');
-			#$template->render();
+			$template = new Template('closePopup');
+			$template->render();
 			exit();
 		}
 		catch (Exception $e) { $_SESSION['errorMessages'][] = $e; }
