@@ -2,9 +2,12 @@ This content management system has been written by the developers
 for the City of Bloomington, Indiana.  It is being released under
 the GPL License.  See License.txt
 
-It includes a full installation of the FCKEditor http://www.fckeditor.net/
+
+FCKEditor 2.4.2  - http://www.fckeditor.net/
+Included is a customized installation of the FCKEditor
 The FCKEditor is used under the GPL license.
 
-It also includes recurring events code, copied and modified from the
+
 PHPiCalendar project. http://phpicalendar.net/
-The PHPiCalendar project code has been used according to the GPL.
+The recurring events code used has been adapted from PHPiCalendar
+The PHPiCalendar project code has been used in accordance with the GPL.
