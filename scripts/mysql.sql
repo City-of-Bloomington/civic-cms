@@ -79,7 +79,7 @@ create table document_watches (
 create table sections (
   id int unsigned not null primary key auto_increment,
   name varchar(50) not null unique,
-  document_id int unsigned not null,
+  document_id int unsigned,
   placement tinyint(2) unsigned,
   foreign key (document_id) references documents(id)
 ) engine=InnoDB;

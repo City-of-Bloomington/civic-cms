@@ -10,9 +10,16 @@
 		foreach($section->getChildren() as $placement=>$section)
 		{
 			$name = View::escape($section->getName());
-			$button = userHasRole("Webmaster") ? "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/sections/updateSection.php?section_id={$section->getId()}';\">Edit</button>" : '';
+			if (userHasRole('Webmaster'))
+			{
+				$buttons = "
+				<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/sections/updateSection.php?section_id={$section->getId()}';\">Edit</button>
+				<button type=\"button\" class=\"deleteSmall\" onclick=\"FRAMEWORK.deleteConfirmation('".BASE_URL."/sections/deleteSection.php?section_id={$section->getId()}');\">Delete</button>
+				";
+
+			}
 			echo "
-			<li>$button
+			<li>$buttons
 				<a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$section->getDocument_id()}\">
 				$name</a>
 			";

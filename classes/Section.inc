@@ -134,8 +134,50 @@
 			$this->document->save();
 		}
 
+		public function delete()
+		{
+			global $PDO;
+
+			if ($this->getDocument()) { $this->getDocument()->delete(); }
+
+			$PDO->beginTransaction();
+
+				$sql = "delete from document_sections where section_id={$this->id}";
+				if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); $PDO->rollBack(); throw new Exception($sql.$e[2]); }
+
+				$sql = "delete from section_parents where section_id={$this->id} or parent_id={$this->id}";
+				if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); $PDO->rollBack(); throw new Exception($sql.$e[2]); }
+
+				$sql = "delete from section_departments where section_id={$this->id}";
+				if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); $PDO->rollBack(); throw new Exception($sql.$e[2]); }
+
+				$sql = "delete from section_widgets where section_id={$this->id}";
+				if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); $PDO->rollBack(); throw new Exception($sql.$e[2]); }
+
+				$sql = "delete from event_sections where section_id={$this->id}";
+				if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); $PDO->rollBack(); throw new Exception($sql.$e[2]); }
+
+				$sql = "delete from sectionIndex where section_id={$this->id}";
+				if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); $PDO->rollBack(); throw new Exception($sql.$e[2]); }
+
+				$sql = "delete from sections where id={$this->id}";
+				if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); $PDO->rollBack(); throw new Exception($sql.$e[2]); }
+
+			$PDO->commit();
+
+			$this->updateSectionIndex();
+		}
 
 
+		private function updateSectionIndex()
+		{
+			global $PDO;
+			# Update the index
+			$sql = "delete from sectionIndex";
+			if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
+
+			$this->createPrePostOrder(1,1);
+		}
 		private function createPrePostOrder($section_id,$pre)
 		{
 			global $PDO;
@@ -215,11 +257,7 @@
 				foreach($this->newParentIds as $id) { $query->execute(array($id)); }
 			}
 
-			# Update the index
-			$sql = "delete from sectionIndex";
-			if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
-
-			$this->createPrePostOrder(1,1);
+			$this->updateSectionIndex();
 		}
 		public function setParents(array $parentIds)
 		{

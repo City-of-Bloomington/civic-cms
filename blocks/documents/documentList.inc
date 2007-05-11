@@ -57,7 +57,7 @@
 
 				echo "
 				<td><a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$document->getId()}\" onclick=\"window.open('".BASE_URL."/documents/viewDocument.php?document_id={$document->getId()}');return false;\">View</a>
-					<a href=\"".BASE_URL."/documents/deleteDocument.php?document_id={$document->getId()}\" onclick=\"deleteConfirmation('".BASE_URL."/documents/deleteDocument.php?document_id={$document->getId()}');return false;\">Delete</a>
+					<a href=\"".BASE_URL."/documents/deleteDocument.php?document_id={$document->getId()}\" onclick=\"FRAMEWORK.deleteConfirmation('".BASE_URL."/documents/deleteDocument.php?document_id={$document->getId()}');return false;\">Delete</a>
 					$retireButton
 					$watch
 				</td>
