@@ -5,6 +5,30 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Document $this->document
  */
+?>
+<script type="text/javascript">
+	function toggleSubsections(button)
+	{
+		var subsections = document.getElementById('subsections');
+		if (subsections.style.display === 'none')
+		{
+			// Display the subsections
+			subsections.style.display = '';
+			button.class = 'less';
+			button.firstChild.nodeValue = 'Less';
+		}
+		else
+		{
+			// Hide the subsections
+			subsections.style.display = 'none';
+			button.class = 'more';
+			button.firstChild.nodeValue = 'More';
+		}
+	}
+</script>
+<button type="button" class="more" onclick="toggleSubsections(this);">More</button>
+<div id="subsections" style="display:none;">
+<?php
 	foreach($this->document->getSections() as $section)
 	{
 		echo "<div class=\"interfaceBox\"><div class=\"titleBar\">$section</div><ul>";
@@ -46,3 +70,4 @@
 		echo "</ul></div>";
 	}
 ?>
+</div>
