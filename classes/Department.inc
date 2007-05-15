@@ -1,14 +1,13 @@
 <?php
 /**
- * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+ * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 	class Department extends ActiveRecord
 	{
 		private $id;
 		private $name;
-
-
 
 		/**
 		 * This will load all fields in the table as properties of this class.
@@ -86,6 +85,8 @@
 			$this->id = $PDO->lastInsertID();
 		}
 
+		public function getUsers() { return new UserList(array('department_id'=>$this->id)); }
+
 		public function __toString() { return $this->name; }
 
 		public function getId() { return $this->id; }
@@ -93,7 +94,5 @@
 
 
 		public function setName($string) { $this->name = trim($string); }
-
-
 	}
 ?>

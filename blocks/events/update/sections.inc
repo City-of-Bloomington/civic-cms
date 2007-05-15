@@ -27,7 +27,7 @@
 	</table>
 </fieldset>
 <fieldset><legend>Submit</legend>
-		<input type="hidden" name="tab" id="tab" value="recurrence" />
+		<input type="hidden" name="tab" id="tab" value="info" />
 		<input type="hidden" name="action" id="action" value="next" />
 		<button type="submit" class="next">Next</button>
 		<button type="cancel" class="cancel" onclick="self.close();">Cancel</button>

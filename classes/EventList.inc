@@ -37,6 +37,7 @@
 			if (isset($fields['calendar_id'])) { $options[] = "calendar_id='$fields[calendar_id]'"; }
 			if (isset($fields['location_id'])) { $options[] = "location_id='$fields[location_id]'"; }
 			if (isset($fields['user_id'])) { $options[] = "user_id='$fields[user_id]'"; }
+			if (isset($fields['contact_id'])) { $options[] = "contact_id='$fields[contact_id]'"; }
 
 			# Find events by dates
 			if (isset($fields['rangeStart']))

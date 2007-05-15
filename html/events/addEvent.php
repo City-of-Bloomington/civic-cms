@@ -20,6 +20,11 @@
 			$_POST['endTime'] = '';
 		}
 
+		# Choosing from the Full User Contact list should override
+		# a selection from the short list
+		if (isset($_POST['contact_id']) && $_POST['contact_id']) { $_POST['event']['contact_id'] = $_POST['contact_id']; }
+
+		# Run the setters for all the POST fields
 		foreach($_POST['event'] as $field=>$value)
 		{
 			$set = 'set'.ucfirst($field);

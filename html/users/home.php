@@ -5,11 +5,22 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 	verifyUser('Administrator');
-	$template = new Template();
 
 	$userList = new UserList();
 	$userList->find();
-	$template->blocks[] = new Block('users/userList.inc',array('userList'=>$userList));
+
+	$format = isset($_GET['format']) ? $_GET['format'] : '';
+	switch ($format)
+	{
+		case 'json':
+			$template = new Template('JSON');
+			$template->blocks[] = new Block('users/userListJSON.inc',array('userList'=>$userList));
+		break;
+
+		default:
+			$template = new Template();
+			$template->blocks[] = new Block('users/userList.inc',array('userList'=>$userList));
+	}
 
 	$template->render();
 ?>

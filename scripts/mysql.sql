@@ -206,9 +206,11 @@ create table events (
 	calendar_id int unsigned not null,
 	location_id int unsigned,
 	user_id int unsigned not null,
+	contact_id int unsigned,
 	foreign key (calendar_id) references calendars(id),
 	foreign key (location_id) references locations(id),
-	foreign key (user_id) references users(id)
+	foreign key (user_id) references users(id),
+	foreign key (contact_id) references users(id)
 ) engine=InnoDB;
 
 create table event_exceptions (

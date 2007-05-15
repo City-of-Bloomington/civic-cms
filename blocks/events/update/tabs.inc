@@ -9,5 +9,4 @@
 <div class="tabBar">
 <ul><li><a href="<?php echo BASE_URL; ?>/events/updateEvent.php?tab=info" onclick="FRAMEWORK.processTabbedForm('eventForm','info','next');return false;">Event</a></li>
 	<li><a href="<?php echo BASE_URL; ?>/events/updateEvent.php?tab=sections" onclick="FRAMEWORK.processTabbedForm('eventForm','sections','next');return false;">Sections</a></li>
-	<li><a href="<?php echo BASE_URL; ?>/events/updateEvent.php?tab=recurrence" onclick="FRAMEWORK.processTabbedForm('eventForm','recurrence','next');return false;">Recurrance</a></li>
 </div>
