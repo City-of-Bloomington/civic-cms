@@ -12,9 +12,9 @@
 		foreach($this->errorMessages as $e)
 		{
 			$error = $e->getMessage();
-			if (file_exists(APPLICATION_HOME."/blocks/errorMessages/$error.inc"))
+			if (file_exists(APPLICATION_HOME."/blocks/html/errorMessages/$error.inc"))
 			{
-				include APPLICATION_HOME."/blocks/errorMessages/$error.inc";
+				include APPLICATION_HOME."/blocks/html/errorMessages/$error.inc";
 			}
 			else
 			{

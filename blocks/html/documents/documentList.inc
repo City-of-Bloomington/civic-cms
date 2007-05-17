@@ -12,7 +12,7 @@
 	<div class="titleBar">
 		<?php
 			echo $this->title;
-			include APPLICATION_HOME.'/blocks/documents/addDocumentToolbar.inc';
+			include APPLICATION_HOME.'/blocks/html/documents/addDocumentToolbar.inc';
 		?>
 	</div>
 	<table>
