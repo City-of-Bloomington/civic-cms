@@ -4,7 +4,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
-	class EventRecurrence
+	class EventRecurrence extends ActiveRecord
 	{
 		private $event_id;
 		private $original_start;
