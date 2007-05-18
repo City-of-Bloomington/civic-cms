@@ -16,6 +16,7 @@
 
 	# Set the current language we're working with
 	$language = isset($_REQUEST['lang']) ? new Language($_REQUEST['lang']) : new Language($_SESSION['LANGUAGE']);
+	echo "Language = {$language->getCode()}\n";
 
 	# Create the new, empty document
 	if (!isset($_SESSION['document']))
@@ -42,7 +43,17 @@
 		}
 	}
 	# Content has to be handled specially
-	if (isset($_POST['content'])) { $_SESSION['document']->setContent($_POST['content'],$language->getCode()); }
+	$languageList = new LanguageList();
+	$languageList->find();
+	foreach($languageList as $l)
+	{
+		$contentField = "content_{$l->getCode()}";
+		if (isset($_POST[$contentField]))
+		{
+			$_SESSION['document']->setContent($_POST[$contentField],$l->getCode());
+		}
+	}
+
 	/*
 	 Attachments cannot be created until we have a document_id.
 	 Which means we cannot do attachments until we've saved the document.

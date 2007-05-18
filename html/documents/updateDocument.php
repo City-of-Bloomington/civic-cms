@@ -37,7 +37,17 @@
 		}
 	}
 	# Content has to be handled specially
-	if (isset($_POST['content'])) { $_SESSION['document']->setContent($_POST['content'],$language->getCode()); }
+	$languageList = new LanguageList();
+	$languageList->find();
+	foreach($languageList as $l)
+	{
+		$contentField = "content_{$l->getCode()}";
+		if (isset($_POST[$contentField]))
+		{
+			$_SESSION['document']->setContent($_POST[$contentField],$l->getCode());
+		}
+	}
+
 	# Attachments need to be saved right away
 	if (isset($_FILES['attachment']) && $_FILES['attachment']['name'])
 	{

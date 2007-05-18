@@ -7,7 +7,7 @@
  * @param Language $this->language
  */
  	include APPLICATION_HOME.'/html/editors/fckeditor/FCKeditor.php';
-	$FCKeditor = new FCKeditor('content');
+	$FCKeditor = new FCKeditor("content_{$this->language->getCode()}");
 	$FCKeditor->BasePath = BASE_URL.'/editors/fckeditor/';
 	$FCKeditor->ToolbarSet = 'Custom';
 	if (isset($this->document)) { $FCKeditor->Value = $this->document->getContent($this->language->getCode()); }

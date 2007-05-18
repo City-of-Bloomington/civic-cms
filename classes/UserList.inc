@@ -30,6 +30,7 @@
 			if (isset($fields['firstname'])) { $options[] = "firstname='$fields[firstname]'"; }
 			if (isset($fields['lastname'])) { $options[] = "lastname='$fields[lastname]'"; }
 			if (isset($fields['email'])) { $options[] = "email='$fields[email]'"; }
+			if (isset($fields['access'])) { $options[] = "access='$fields[access]'"; }
 			if (isset($fields['department_id'])) { $options[] = "department_id='$fields[department_id]'"; }
 
 			# To search on Role, you have to join the userRoles table
@@ -54,6 +55,7 @@
 			if (isset($fields['firstname'])) { $options[] = "firstname like '$fields[firstname]%'"; }
 			if (isset($fields['lastname'])) { $options[] = "lastname like '$fields[lastname]%'"; }
 			if (isset($fields['email'])) { $options[] = "email='$fields[email]'"; }
+			if (isset($fields['access'])) { $options[] = "access='$fields[access]'"; }
 			if (isset($fields['department_id'])) { $options[] = "department_id='$fields[department_id]'"; }
 
 			# To search on Role, you have to join the userRoles table

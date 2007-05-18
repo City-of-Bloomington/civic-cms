@@ -14,6 +14,7 @@
 		private $lastname;
 		private $department_id;
 		private $email;
+		private $access;
 
 
 		private $department;
@@ -49,6 +50,7 @@
 					$this->lastname = $user['lastname'];
 					$this->department_id = $user['department_id'];
 					$this->email = $user['email'];
+					$this->access = $user['access'];
 				}
 				else { throw new Exception("unknownUser"); }
 			}
@@ -67,6 +69,7 @@
 			$fields['authenticationMethod'] = $this->authenticationMethod ? $this->authenticationMethod : null;
 			$fields['department_id'] = $this->department_id ? $this->department_id : null;
 			$fields['email'] = $this->email ? $this->email : null;
+			$fields['access'] = $this->access ? $this->access : null;
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
@@ -191,6 +194,7 @@
 		public function getFirstname() { return $this->firstname; }
 		public function getLastname() { return $this->lastname; }
 		public function getEmail() { return $this->email; }
+		public function getAccess() { return $this->access; }
 		public function getDepartment_id() { return $this->department_id; }
 		public function getDepartment()
 		{
@@ -224,6 +228,7 @@
 		public function setFirstname($string) { $this->firstname = trim($string); }
 		public function setLastname($string) { $this->lastname = trim($string); }
 		public function setEmail($string) { $this->email = trim($string); }
+		public function setAccess($string) { $this->access = $string==='public' ? 'public' : 'private'; }
 		public function setDepartment_id($int) { $this->department = new Department($int); $this->department_id = $int; }
 		public function setDepartment($department) { $this->department_id = $department->getId(); $this->department = $department; }
 		/* Takes an array of role names.  Needs to look up the role_id and add them to the user */
