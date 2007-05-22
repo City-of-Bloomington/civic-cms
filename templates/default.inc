@@ -1,19 +1,25 @@
 <?php
-	$title = "City of Bloomington";
-	include(APPLICATION_HOME."/includes/xhtmlTransitionalHeader.inc");
-	include(APPLICATION_HOME."/includes/banner.inc");
-	include(APPLICATION_HOME."/includes/menubar.inc");
-	include(APPLICATION_HOME."/includes/leftSidebar.inc");
-	include(APPLICATION_HOME."/includes/rightSidebar.inc");
+/**
+ * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+ * @author Cliff Ingham <inghamn@bloomington.in.gov>
+ * @param string $this->title
+ */
+	if (!isset($this->title)) { $this->title = "City of Bloomington"; }
+	include APPLICATION_HOME.'/includes/xhtmlTransitionalHeader.inc';
+	include APPLICATION_HOME.'/includes/banner.inc';
+	include APPLICATION_HOME.'/includes/menubar.inc';
+	include APPLICATION_HOME.'/includes/leftSidebar.inc';
+	include APPLICATION_HOME.'/includes/rightSidebar.inc';
 ?>
 <div id="mainContent">
 	<?php
-		include(FRAMEWORK."/errorMessages.inc");
+		include FRAMEWORK.'/errorMessages.inc';
 
 		$this->includeBlocks();
 	?>
 </div>
 <?php
-	include(APPLICATION_HOME."/includes/footer.inc");
-	include(FRAMEWORK."/xhtmlFooter.inc");
+	include APPLICATION_HOME.'/includes/footer.inc';
+	include FRAMEWORK.'/xhtmlFooter.inc';
 ?>
