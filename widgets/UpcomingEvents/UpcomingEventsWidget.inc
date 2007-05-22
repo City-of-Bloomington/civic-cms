@@ -5,7 +5,7 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Document $this->document
  */
-	class UpcomingEvents extends Widget
+	class UpcomingEventsWidget extends Widget
 	{
 		public function __construct()
 		{
