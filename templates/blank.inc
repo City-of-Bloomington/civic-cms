@@ -10,7 +10,7 @@
 	include APPLICATION_HOME.'/includes/banner.inc';
 	include APPLICATION_HOME.'/includes/menubar.inc';
 ?>
-<div id="mainContent">
+<div>
 	<?php
 		include FRAMEWORK.'/errorMessages.inc';
 

@@ -4,8 +4,8 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
- 	$template = new Template();
- 	$document = new Document(1);
-	$template->blocks[] = new Block('documents/viewDocument.inc',array('document'=>$document));
+ 	$template = new Template('blank');
+ 	$template->document = new Document(1);
+	$template->blocks[] = new Block('documents/viewDocument.inc',array('document'=>$template->document));
  	$template->render();
 ?>
