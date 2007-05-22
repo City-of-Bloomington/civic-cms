@@ -17,7 +17,7 @@
 		{
 			if (count($this->document->getRelatedDocuments()))
 			{
-				include APPLICATION_HOME.'/widgets/WhatsRelated/sidebar.inc';
+				parent::render($this);
 			}
 		}
 	}

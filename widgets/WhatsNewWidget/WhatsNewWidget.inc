@@ -39,7 +39,7 @@
 			foreach($PDO->query($sql) as $row) { $documentIds[] = $row['id']; }
 			foreach($documentIds as $id) { $this->documents[$id] = new Document($id); }
 
-			include(APPLICATION_HOME."/widgets/{$this->name}/{$this->includeFile}");
+			parent::render($this);
 		}
 	}
 ?>

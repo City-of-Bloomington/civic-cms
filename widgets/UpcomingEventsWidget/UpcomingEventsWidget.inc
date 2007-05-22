@@ -35,7 +35,7 @@
 				$upcomingEvents[] = new Event($row['event_id']);
 			}
 
-			include(APPLICATION_HOME."/widgets/{$this->name}/{$this->includeFile}");
+			parent::render($this);
 		}
 	}
 ?>

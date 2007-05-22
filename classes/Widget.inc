@@ -9,6 +9,11 @@
 		protected $includeFile;
 		protected $description;
 
+		public function render($widget)
+		{
+			include APPLICATION_HOME.'/widgets/'.get_class($widget).'/'.$widget->includeFile;
+		}
+
 		public static function load($name)
 		{
 			if (is_file(APPLICATION_HOME."/widgets/$name/$name.inc"))
