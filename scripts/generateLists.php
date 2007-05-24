@@ -41,9 +41,11 @@ foreach($tables as $tableName)
 	# Find
 	#--------------------------------------------------------------------------
 	$findFunction = "
-		public function find(\$fields=null,\$sort='id')
+		public function find(\$fields=null,\$sort='id',\$limit=null,\$groupBy=null)
 		{
 			\$this->sort = \$sort;
+			\$this->limit = \$limit;
+			\$this->groupBy = \$groupBy;
 
 			\$options = array();
 ";

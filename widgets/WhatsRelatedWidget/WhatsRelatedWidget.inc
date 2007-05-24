@@ -8,16 +8,17 @@
 	{
 		public function __construct()
 		{
-			$this->name = 'WhatsRelated';
+			$this->className = 'WhatsRelatedWidget';
+			$this->displayName = 'Whats Related';
 			$this->includeFile = 'sidebar.inc';
 			$this->description = "Lists other documents in the site that match a document's facets";
 		}
 
-		public function render()
+		public function render($template)
 		{
-			if (count($this->document->getRelatedDocuments()))
+			if (count($template->document->getRelatedDocuments()))
 			{
-				parent::render($this);
+				$this->renderIncludeFile($this);
 			}
 		}
 	}

@@ -1,56 +1,65 @@
 <?php
 /**
- * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+ * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
-	abstract class Widget extends View
+	abstract class Widget
 	{
-		protected $name;
+		protected $className;
+		protected $displayName;
 		protected $includeFile;
 		protected $description;
 
-		public function render($widget)
+		private $status;
+		private $installation;
+
+
+
+		public static function load($classname)
 		{
-			include APPLICATION_HOME.'/widgets/'.get_class($widget).'/'.$widget->includeFile;
+			global $PDO;
+
+			if (is_file(APPLICATION_HOME."/widgets/$classname/$classname.inc"))
+			{
+				require_once APPLICATION_HOME."/widgets/$classname/$classname.inc";
+				return new $classname();
+			}
 		}
 
-		public static function load($name)
+		public function getInstallation()
 		{
-			if (is_file(APPLICATION_HOME."/widgets/$name/$name.inc"))
+			if (!$this->installation)
 			{
-				require_once(APPLICATION_HOME."/widgets/$name/$name.inc");
-				return new $name();
+				$this->installation = new WidgetInstallation($this->className);
 			}
+			return $this->installation;
 		}
 
 		public function install()
 		{
-			global $PDO;
-
-			$query = $PDO->prepare("insert widgets values(?)");
-			$query->execute(array($this->name));
+			$this->getInstallation()->save();
+			$this->status = 'installed';
 		}
-
 		public function uninstall()
 		{
-			global $PDO;
-
-			$query = $PDO->prepare("delete from section_widgets where widget_name=?");
-			$query->execute(array($this->name));
-
-			$query = $PDO->prepare("delete from widgets where name=?");
-			$query->excecute(array($this->name));
+			$this->getInstallation()->delete();
+			$this->status = 'uninstalled';
 		}
 
 		public function getStatus()
 		{
 			global $PDO;
 
-			$query = $PDO->prepare("select count(*) as count from widgets where name=?");
-			$query->execute(array($this->name));
-			$result = $query->fetchAll();
-			if ($result[0]['count'] == 1) { return "installed"; }
-			else { return "uninstalled"; }
+			if (!$this->status)
+			{
+				$query = $PDO->prepare('select count(*) as count from widgets where class=?');
+				$query->execute(array($this->className));
+				$result = $query->fetchAll();
+				if ($result[0]['count'] == 1) { $this->status = 'installed'; }
+				else { $this->status = 'uninstalled'; }
+			}
+			return $this->status;
 		}
 
 		public static function findAll()
@@ -68,17 +77,47 @@
 		}
 		public static function findInstalled()
 		{
-			global $PDO;
-
-			$widgets = array();
-
-			$sql = "select name from widgets";
-			foreach($PDO->query($sql) as $row) { $widgets[] = Widget::load($row['name']); }
-			return $widgets;
+			$list = new WidgetInstallationList();
+			$list->find();
+			return $list;
 		}
 
-		public function __toString() { return $this->name; }
-		public function getName() { return $this->name; }
+		protected function renderIncludeFile($widget)
+		{
+			include APPLICATION_HOME.'/widgets/'.get_class($widget).'/'.$widget->includeFile;
+		}
+
+		/**
+		 * Aliases for the WidgetInstallation functions
+		 */
+		public function getId() { return $this->getInstallation()->getId(); }
+		public function getGlobal_panel_id() { return $this->getInstallation()->getGlobal_panel_id(); }
+		public function getGlobal_layout_order() { return $this->getInstallation()->getGlobal_layout_order(); }
+		public function getDefault_panel_id() { return $this->getInstallation()->getDefault_panel_id(); }
+		public function getDefault_layout_order() { return $this->getInstallation()->getDefault_layout_order(); }
+		public function getWidget() { return $this; }
+
+		public function getGlobal_panel() { return $this->getInstallation()->getGlobal_panel(); }
+		public function getDefault_panel() { return $this->getInstallation()->getDefault_panel(); }
+
+		public function isGlobal()
+		{
+			if ($this->getInstallation()) { return $this->installation->isGlobal(); }
+			else { return false; }
+		}
+		public function isDefault()
+		{
+			if ($this->getInstallation()) { return $this->installation->isDefault(); }
+			else { return false; }
+		}
+
+		public function __toString() { return $this->displayName; }
+
+		/**
+		 * Generic Getters
+		 */
+		public function getClassName() { return $this->className; }
+		public function getName() { return $this->displayName; }
 		public function getIncludeFile() { return $this->includeFile; }
 		public function getDescription() { return $this->description; }
 	}

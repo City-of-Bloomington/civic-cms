@@ -48,26 +48,6 @@
 	</ul>
 </fieldset>
 
-<fieldset><legend>Widgets</legend>
-	<table>
-	<tr><th></th>
-		<th>Widget</th>
-		<th>Description</th>
-	</tr>
-	<?php
-		foreach(Widget::findInstalled() as $widget)
-		{
-			echo "
-			<tr><td><input type=\"checkbox\" name=\"section[widgets][$widget]\" id=\"section-widgets-$widget\" value=\"$widget\" /></td>
-				<td><label for=\"section-widgets-$widget\">$widget</label></td>
-				<td>{$widget->getDescription()}</td>
-			</tr>
-			";
-		}
-	?>
-	</table>
-</fieldset>
-
 <fieldset><legend>Facets</legend>
 <?php
 /*

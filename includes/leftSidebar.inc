@@ -6,27 +6,13 @@
  * @param Document $this->document
  */
 ?>
-<div class="left sidebar">
-	<div><div class="titleBar">Search</div>
-		<form method="get" action="<?php echo BASE_URL; ?>/documents/search.php">
-		<fieldset><legend>Search</legend>
-			<input name="search" />
-			<button type="submit" class="search">Search</button>
-		</fieldset>
-		</form>
-	</div>
+<div id="leftSidebar" class="left sidebar">
 	<?php
-		if (isset($this->document))
-		{
-			$languages = $this->document->getLanguages();
-			#if (count($languages) > 1)
-			#{
-				include APPLICATION_HOME.'/includes/documents/sectionNavigation.inc';
-				include APPLICATION_HOME.'/includes/documents/languages.inc';
-			#}
-		}
-	?>
-	<?php
+		$panel = new Panel('leftSidebar');
+		$widgets = isset($this->document) ? $panel->getWidgets($this->document) : $panel->getWidgets();
+
+		foreach($widgets as $widget) { $widget->render($this); }
+
 		if (isset($_SESSION['USER']))
 		{
 			echo '<div><div class="titleBar">Admin</div>';

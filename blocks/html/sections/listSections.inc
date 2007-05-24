@@ -15,6 +15,7 @@
 				$buttons = "
 				<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/sections/updateSection.php?section_id={$section->getId()}';\">Edit</button>
 				<button type=\"button\" class=\"deleteSmall\" onclick=\"FRAMEWORK.deleteConfirmation('".BASE_URL."/sections/deleteSection.php?section_id={$section->getId()}');\">Delete</button>
+				<button type=\"button\" class=\"widgets\" onclick=\"document.location.href='".BASE_URL."/sections/updateWidgets.php?section_id={$section->getId()}';\">Widgets</button>
 				";
 
 			}

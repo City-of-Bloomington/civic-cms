@@ -54,27 +54,6 @@
 	</ul>
 </fieldset>
 
-<fieldset><legend>Widgets</legend>
-	<table>
-	<tr><th></th>
-		<th>Widget</th>
-		<th>Description</th>
-	</tr>
-	<?php
-		foreach(Widget::findInstalled() as $widget)
-		{
-			if ($this->section->hasWidget($widget)) { $checked = "checked=\"checked\""; } else { $checked = ""; }
-			echo "
-			<tr><td><input type=\"checkbox\" name=\"section[widgets][$widget]\" id=\"section-widgets-$widget\" value=\"$widget\" $checked /></td>
-				<td><label for=\"section-widgets-$widget\">$widget</label></td>
-				<td>{$widget->getDescription()}</td>
-			</tr>
-			";
-		}
-	?>
-	</table>
-</fieldset>
-
 <fieldset><legend>Submit</legend>
 	<button type="submit" class="submit">Submit</button>
 	<button type="button" class="cancel" onclick="document.location.href='<?php echo BASE_URL; ?>/sections';">Cancel</button>

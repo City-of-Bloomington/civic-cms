@@ -1,35 +1,58 @@
 <?php
 /**
- * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+ * @author Cliff Ingham
+ * @param WidgetInstallationList $this->widgetInstallationList
  */
-/*
-	$this->widgetList
-*/
 ?>
-<h1>Widgets</h1>
+<h1>Installed Widgets</h1>
 <table>
-<tr><th>Name</th>
+<tr><th></th>
+	<th>Name</th>
 	<th>Description</th>
-	<th>Status</th>
-	<th></th>
+	<th>Global</th>
+	<th>Default</th>
 </tr>
 <?php
-	foreach($this->widgetList as $widget)
+	$installed = array();
+	foreach($this->widgetInstallationList as $widget)
 	{
-		if ($widget->getStatus() == "installed")
-		{
-			$button = "<button type=\"button\" class=\"deleteSmall\" onclick=\"document.location.href='".BASE_URL."/widgets/uninstall.php?widget={$widget->getName()}';\">Uninstall</button>";
-		}
-		else { $button = "<button type=\"button\" class=\"addSmall\" onclick=\"document.location.href='".BASE_URL."/widgets/install.php?widget={$widget->getName()}';\">Install</button>"; }
+		$installed[] = $widget->getClass();
+
+		$global = $widget->isGlobal() ? 'yes' : 'no';
+		$default = $widget->isDefault() ? 'yes' : 'no';
+
 		echo "
-		<tr><td>{$widget->getName()}</td>
+		<tr><td><button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/widgets/updateWidget.php?widget_id={$widget->getId()}';\">Edit</button>
+				<button type=\"button\" class=\"deleteSmall\" onclick=\"document.location.href='".BASE_URL."/widgets/uninstall.php?widget_id={$widget->getId()}';\">Uninstall</button></td>
+			<td>{$widget->getName()}</td>
 			<td>{$widget->getDescription()}</td>
-			<td>{$widget->getStatus()}</td>
-			<td>$button</td>
+			<td>$global</td>
+			<td>$default</td>
 		</tr>
 		";
 	}
+?>
+</table>
 
+
+<h1>Available Widgets</h1>
+<table>
+<tr><th></th>
+	<th>Widget</th>
+	<th>Description</th></tr>
+<?php
+	foreach(Widget::findAll() as $widget)
+	{
+		if (!in_array($widget->getClassName(),$installed))
+		{
+			echo "
+			<tr><td><button type=\"button\" class=\"addSmall\" onclick=\"document.location.href='".BASE_URL."/widgets/install.php?widget={$widget->getClassName()}';\">Install</button></td>
+				<td>{$widget->getName()}</td>
+				<td>{$widget->getDescription()}</td></tr>
+			";
+		}
+	}
 ?>
 </table>

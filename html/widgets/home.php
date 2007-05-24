@@ -4,9 +4,14 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
-	verifyUser('Administrator');
+	verifyUser(array('Administrator','Webmaster'));
 
 	$template = new Template();
-	$template->blocks[] = new Block('widgets/widgetList.inc',array('widgetList'=>Widget::findAll()));
+
+	$widgets = new WidgetInstallationList();
+	$widgets->find();
+
+	$template->blocks[] = new Block('widgets/widgetList.inc',array('widgetInstallationList'=>$widgets));
+
 	$template->render();
 ?>

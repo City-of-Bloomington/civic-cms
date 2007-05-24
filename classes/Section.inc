@@ -2,6 +2,7 @@
 /**
  * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+ * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 	class Section extends ActiveRecord
 	{
@@ -378,49 +379,18 @@
 		 */
 		public function getWidgets()
 		{
-			global $PDO;
-
 			if (!count($this->widgets))
 			{
-				$sql = "select widget_name from section_widgets where section_id={$this->id}";
-				foreach($PDO->query($sql) as $row) { $this->widgets[] = $row['widget_name']; }
+				$list = new SectionWidgetList(array('section_id'=>$this->id));
+				foreach($list as $widget) { $this->widgets[$widget->getWidget_id()] = $widget; }
 			}
 			return $this->widgets;
 		}
+		public function hasWidget($widget) { return array_key_exists($widget->getId(),$this->getWidgets()); }
+
+
+
 		private function quote($string) { return "'$string'"; }
-		private function saveWidgets()
-		{
-			global $PDO;
-
-			# Clear out all the old widgets
-			if (count($this->deletedWidgets))
-			{
-				$names = implode(',',array_map(array($this,'quote'),$this->deletedWidgets));
-				$query = $PDO->prepare("delete from section_widgets where section_id={$this->id} and widget_name in ($names)");
-				$query->execute();
-			}
-
-			# Add in the new ones
-			if (count($this->newWidgets))
-			{
-				$query = $PDO->prepare("insert section_widgets set section_id={$this->id},widget_name=?");
-				foreach($this->newWidgets as $name) { $query->execute(array($name)); }
-			}
-		}
-		public function setWidgets(array $widgets)
-		{
-			# Make sure to call $this->getWidgets() at least once to ensure that
-			# the current widgets are loaded before trying to determine which ones are new
-
-			# Any $widgets that are not in $this->widgets need to be added
-			$this->newWidgets = array_diff($widgets,$this->getWidgets());
-
-			# Flag any $this->widgets that are not in $widgets to be deleted
-			$this->deletedWidgets = array_diff($this->widgets,$widgets);
-
-			$this->widgets = $widgets;
-		}
-		public function hasWidget($widget) { return in_array($widget,$this->getWidgets()); }
 		public function permitsPostingBy($user)
 		{
 			if ($user->hasRole(array('Administrator','Webmaster'))) { return true; }

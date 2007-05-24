@@ -149,7 +149,7 @@ foreach($fields as $field)
 			case 'text':
 		$HTML.= "
 	<tr><td><label for=\"{$variableName}-$field[Field]\">$field[Field]</label></td>
-		<td><textarea name=\"{$variableName}[$field[Field]]\" id=\"{$variableName}-$field[Field]\" rows=\"3\" cols=\"60\"></texarea></td></tr>
+		<td><textarea name=\"{$variableName}[$field[Field]]\" id=\"{$variableName}-$field[Field]\" rows=\"3\" cols=\"60\"></textarea></td></tr>
 		";
 			break;
 
@@ -268,7 +268,7 @@ foreach($fields as $field)
 			case 'text':
 		$HTML.= "
 	<tr><td><label for=\"{$variableName}-$field[Field]\">$field[Field]</label></td>
-		<td><textarea name=\"{$variableName}[$field[Field]]\" id=\"{$variableName}-$field[Field]\" rows=\"3\" cols=\"60\"><?php echo \$this->{$variableName}->get$fieldFunctionName(); ?></texarea></td></tr>
+		<td><textarea name=\"{$variableName}[$field[Field]]\" id=\"{$variableName}-$field[Field]\" rows=\"3\" cols=\"60\"><?php echo \$this->{$variableName}->get$fieldFunctionName(); ?></textarea></td></tr>
 		";
 			break;
 

@@ -2,7 +2,7 @@
 /**
  * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
- * @author Cliff Ingham
+ * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 	class Document extends ActiveRecord
 	{
@@ -435,7 +435,7 @@
 			return false;
    		}
 
-		public function getWidgets()
+		public function getWidgets($search=null)
    		{
    			global $PDO;
 
@@ -450,17 +450,9 @@
 					}
 				}
 
-				if (count($sectionIds))
-				{
-					$sections = implode(',',$sectionIds);
-					$sql = "select distinct widget_name from section_widgets where section_id in ($sections)";
-					foreach($PDO->query($sql) as $row)
-					{
-						$widget = Widget::load($row['widget_name']);
-						$widget->document = $this;
-						$this->widgets[] = $widget;
-					}
-				}
+				$section_id_array = array('section_id_array'=>$sectionIds);
+				$search = is_array($search) ? array_merge($section_id_array,$search) : $section_id_array;
+				$this->widgets = new SectionWidgetList($search);
 			}
 			return $this->widgets;
    		}

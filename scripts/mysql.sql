@@ -18,6 +18,7 @@ create table users (
   lastname varchar(128) not null,
   department_id int unsigned not null,
   email varchar(255) not null,
+  access enum('private','public') not null default 'private',
   unique key (username),
   foreign key (department_id) references departments(id)
 ) engine=InnoDB;
@@ -137,17 +138,33 @@ create table document_facets (
 ---------------------------------------------------------------------
 -- Widgets
 ---------------------------------------------------------------------
+create table panels (
+	id int unsigned not null primary key auto_increment,
+	div_id varchar(128) not null
+) engine=InnoDB;
+insert panels set div_id='leftSidebar';
+insert panels set div_id='rightSidebar';
+
 create table widgets (
-	name varchar(128) not null primary key
+	id int unsigned not null primary key auto_increment,
+	class varchar(128) not null unique,
+	global_panel_id int unsigned,
+	global_layout_order tinyint(2) unsigned,
+	default_panel_id int unsigned,
+	default_layout_order tinyint(2) unsigned,
+	foreign key (global_panel_id) references panels(id),
+	foreign key (default_panel_id) references panels(id)
 ) engine=InnoDB;
 
 create table section_widgets (
+	id int unsigned not null primary key auto_increment,
 	section_id int unsigned not null,
-	widget_name varchar(128) not null,
+	widget_id int unsigned not null,
+	panel_id int unsigned not null default 1,
 	layout_order tinyint(2) unsigned not null,
-	primary key (section_id,widget_name),
 	foreign key (section_id) references sections(id),
-	foreign key (widget_name) references widgets(name)
+	foreign key (widget_id) references widgets(id),
+	foreign key (panel_id) references panels(id)
 ) engine=InnoDB;
 
 ---------------------------------------------------------------------

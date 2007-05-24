@@ -9,17 +9,18 @@
 	{
 		public function __construct()
 		{
-			$this->name = "UpcomingEvents";
-			$this->includeFile = "sidebar.inc";
-			$this->description = "Lists events happening in the next week for the current section";
+			$this->className = 'UpcomingEventsWidget';
+			$this->displayName = 'Upcoming Events';
+			$this->includeFile = 'sidebar.inc';
+			$this->description = 'Lists events happening in the next week for the current section';
 		}
 
-		public function render()
+		public function render($template)
 		{
 			global $PDO;
 
 			$sections = array();
-			foreach($this->document->getSections() as $section) { $sections[] = $section->getId(); }
+			foreach($template->document->getSections() as $section) { $sections[] = $section->getId(); }
 			$sections = implode(',',$sections);
 
 
@@ -35,7 +36,7 @@
 				$upcomingEvents[] = new Event($row['event_id']);
 			}
 
-			parent::render($this);
+			$this->renderIncludeFile($this);
 		}
 	}
 ?>
