@@ -30,7 +30,12 @@
 			$template->render();
 			exit();
 		}
-		catch (Exception $e) { $_SESSION['errorMessages'][] = $e; }
+		catch (Exception $e)
+		{
+			$_SESSION['errorMessages'][] = $e;
+			$section = $sectionWidget->getSection();
+			$widget = $sectionWidget->getWidget();
+		}
 	}
 
 	$template = new Template();

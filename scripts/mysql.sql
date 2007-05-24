@@ -161,7 +161,7 @@ create table section_widgets (
 	section_id int unsigned not null,
 	widget_id int unsigned not null,
 	panel_id int unsigned not null default 1,
-	layout_order tinyint(2) unsigned not null,
+	layout_order tinyint(2) unsigned,
 	foreign key (section_id) references sections(id),
 	foreign key (widget_id) references widgets(id),
 	foreign key (panel_id) references panels(id)

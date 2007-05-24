@@ -11,7 +11,7 @@
 <div class="interfaceBox">
 	<div class="titleBar">Widgets</div>
 	<table>
-	<tr><th>Widget</th><th>Panel</th><th>Order</th></tr>
+	<tr><th></th><th>Widget</th><th>Panel</th><th>Order</th></tr>
 	<?php
 		foreach($this->sectionWidgetList as $widget)
 		{

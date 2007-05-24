@@ -439,22 +439,21 @@
    		{
    			global $PDO;
 
-   			if (!count($this->widgets))
-   			{
-				$sectionIds = array_keys($this->getSections());
-				foreach($this->getSections() as $section)
+			$sectionIds = array_keys($this->getSections());
+			foreach($this->getSections() as $section)
+			{
+				foreach($section->getAncestors() as $vector)
 				{
-					foreach($section->getAncestors() as $vector)
-					{
-						foreach($vector as $ancestor) { if (!in_array($ancestor->getId(),$sectionIds)) { $sectionIds[] = $ancestor->getId(); } }
-					}
+					foreach($vector as $ancestor) { if (!in_array($ancestor->getId(),$sectionIds)) { $sectionIds[] = $ancestor->getId(); } }
 				}
-
-				$section_id_array = array('section_id_array'=>$sectionIds);
-				$search = is_array($search) ? array_merge($section_id_array,$search) : $section_id_array;
-				$this->widgets = new SectionWidgetList($search);
 			}
-			return $this->widgets;
+
+
+			if (is_array($search)) { $search['section_id_array'] = $sectionIds; }
+			else { $search = array('section_id_array'=>$sectionIds); }
+			$widgets = new SectionWidgetList($search);
+
+			return $widgets;
    		}
 
    		public function getAttachments()
