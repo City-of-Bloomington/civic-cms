@@ -107,7 +107,6 @@
 
 			$this->saveParents();
 			$this->saveDepartments();
-			$this->saveWidgets();
 		}
 
 		private function update($values,$preparedFields)
