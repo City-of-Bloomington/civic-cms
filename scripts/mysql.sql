@@ -97,7 +97,7 @@ create table section_parents (
 	node_id int unsigned not null primary key auto_increment,
 	section_id int unsigned not null,
 	parent_id int unsigned not null,
-	placement tinyint(2) unsigned not null,
+	placement tinyint(2) unsigned not null default 99,
 	foreign key (section_id) references sections (id),
 	foreign key (parent_id) references sections (id)
 ) engine=InnoDB;

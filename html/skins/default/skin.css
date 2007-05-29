@@ -140,6 +140,28 @@ table.calendar .date { float:right; }
 table.calendar ul { list-style-type:none; margin-top:1em; padding:0; }
 table.calendar li { margin-left:0; }
 
+/* Unordered lists can be made to be expandable/collapsible */
+/* Turn off list bullets */
+ul.expandable li { list-style: none; }
+ul.expandable, ul.expandable ul, ul.expandable li { margin: 0; padding: 0; }
+
+/* This controls the indent for each sublist */
+ul.expandable ul { padding-left: 20px; }
+
+/* Provide space for our own "bullet" inside the link */
+ul.expandable li a { padding-left: 20px; }
+
+/* Show "bullets" in the links, depending on the class of the
+   LI that the link's in */
+ul.expandable li.open a { background: url('/content_manager/skins/default/images/expanded.gif') center left no-repeat; }
+ul.expandable li.closed a { background: url('/content_manager/skins/default/images/collapsed.gif') center left no-repeat; }
+ul.expandable li.bullet a { background: url('/content_manager/skins/default/images/bullet.gif') center left no-repeat; }
+
+/* Actually show and hide sublists */
+ul.expandable li.open ul { display: block; }
+ul.expandable li.closed ul { display: none; }
+
+
 /*  Custom buttons for forms */
 /* Rick doesn't want these custom images right now.
 button.login { width:52px; height:15px; padding-top:15px; background: url('/skins/default/images/login.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
