@@ -56,6 +56,11 @@ MySQL:
 	you database and your application will be that much more robust with InnoDB
 	support.
 
+	Currently MySQL is the only database supported.  Content Manager is
+	written expecting MySQL's fulltext indexing. Also, backups and
+	restores are implemented using the mysql and mysqldump executables
+	via exec()
+
 LDAP:
 	LDAP is only used for doing LDAP authentication for users.
 	If you're not going to do any LDAP authentication, you can delete or

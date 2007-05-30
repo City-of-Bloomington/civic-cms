@@ -41,13 +41,20 @@ define('COPYRIGHT',"/**
 	/**
 	 * Database Setup
 	 */
+	$DB_NAME = APPLICATION_NAME;
+	$DB_USER = APPLICATION_NAME;
+	$DB_PASS = 'password';
 	try
 	{
-		$PDO = new PDO('mysql:unix_socket=/tmp/mysql.sock;dbname=application_name',
-							'username','password',
+		$PDO = new PDO('mysql:unix_socket=/tmp/mysql.sock;dbname='.$DB_NAME,
+							$DB_USER,$DB_PASS,
 							array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
 	}
 	catch (PDOException $e) { die($e->getMessage()); }
+
+	# This application calls mysql and mysqldump from the command line through
+	# exec() and needs the path to the binaries
+	define('MYSQL_PATH','/usr/local/mysql');
 
 	/**
 	 * LDAP Configuration
