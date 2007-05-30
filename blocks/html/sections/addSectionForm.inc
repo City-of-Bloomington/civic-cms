@@ -21,14 +21,16 @@
 </fieldset>
 
 <fieldset><legend>Departments</legend>
+	<p>Choose the departments that will be allowed to post content to this section.</p>
 	<table>
 	<?php
 		$departments = new DepartmentList();
 		$departments->find();
 		foreach($departments as $department)
 		{
+			$checked = $_SESSION['USER']->getDepartment_id()===$department->getId() ? 'checked="checked"' : '';
 			echo "
-			<tr><td><input type=\"checkbox\" name=\"section[departments][{$department->getId()}]\" id=\"section-departments-{$department->getId()}\" value=\"{$department->getId()}\" /></td>
+			<tr><td><input type=\"checkbox\" name=\"section[departments][{$department->getId()}]\" id=\"section-departments-{$department->getId()}\" value=\"{$department->getId()}\" $checked /></td>
 				<td><label for=\"section-departments-{$department->getId()}\">{$department->getName()}</label></td></tr>
 			";
 		}

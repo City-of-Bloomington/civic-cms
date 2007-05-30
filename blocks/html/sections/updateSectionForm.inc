@@ -1,7 +1,10 @@
 <?php
-/*
-	$this->section
-*/
+/**
+ * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+ * @author Cliff Ingham <inghamn@bloomington.in.gov>
+ * @param Section $this->section
+ */
 	function printSectionOptions($section,$depth,$sectionToEdit)
 	{
 		$depthIndicator = str_repeat("-",$depth);
@@ -26,6 +29,7 @@
 </fieldset>
 
 <fieldset><legend>Departments</legend>
+	<p>Choose the departments that will be allowed to post content to this section.</p>
 	<table>
 	<?php
 		$departments = new DepartmentList();
@@ -43,7 +47,7 @@
 </fieldset>
 
 <fieldset><legend>Parents</legend>
-	<ul style="list-style-type:none">
+	<ul class="expandable">
 		<?php
 			$sections = new SectionList(array("parent_id"=>"null"));
 			foreach($sections as $section)
