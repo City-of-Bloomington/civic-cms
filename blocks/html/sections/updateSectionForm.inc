@@ -5,15 +5,22 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Section $this->section
  */
-	function printSectionOptions($section,$depth,$sectionToEdit)
+	function printSectionOptions($section,$depth,$sectionToEdit,$currentSection)
 	{
 		$depthIndicator = str_repeat("-",$depth);
 		$checked = $sectionToEdit->hasParent($section) ? "checked=\"checked\"" : "";
-		echo "<li><label><input name=\"section[parents][{$section->getId()}]\" type=\"checkbox\" value=\"{$section->getId()}\" $checked />$section</label></li>";
+		echo "<li><label>";
+
+		# Sections should not be allowed to be parents of themselves
+		if ($section->getId() != $currentSection->getId())
+		{
+			echo "<input name=\"section[parents][{$section->getId()}]\" type=\"checkbox\" value=\"{$section->getId()}\" $checked />";
+		}
+		echo "$section</label></li>";
 		if ($section->hasChildren())
 		{
 			echo "<ul>";
-			foreach($section->getChildren() as $child) { printSectionOptions($child,$depth+1,$sectionToEdit); }
+			foreach($section->getChildren() as $child) { printSectionOptions($child,$depth+1,$sectionToEdit,$currentSection); }
 			echo "</ul>";
 		}
 	}
@@ -52,7 +59,7 @@
 			$sections = new SectionList(array("parent_id"=>"null"));
 			foreach($sections as $section)
 			{
-				printSectionOptions($section,0,$this->section);
+				printSectionOptions($section,0,$this->section,$this->section);
 			}
 		?>
 	</ul>

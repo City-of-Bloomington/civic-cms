@@ -263,7 +263,11 @@
 		{
 			# Any $parentIds that are not in $this->parents need to be added
 			$this->newParentIds = array_diff($parentIds,array_keys($this->getParents()));
-			foreach($this->newParentIds as $id) { $this->parents[$id] = new Section($id); }
+			foreach($this->newParentIds as $id)
+			{
+				# Make sure the section is not trying to be a Parent of itself
+				if ($this->id != $id) { $this->parents[$id] = new Section($id); }
+			}
 
 			# Unset any $this->parents that are not in $parentIds
 			$this->deletedParentIds = array_diff(array_keys($this->parents),$parentIds);
