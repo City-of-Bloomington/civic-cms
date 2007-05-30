@@ -34,16 +34,19 @@
 		$month = str_pad($this->date['mon'],2,'0',STR_PAD_LEFT);
 		$day = str_pad($this->date['mday'],2,'0',STR_PAD_LEFT);
 		$recurrences = $this->calendar->getEventRecurrenceArray($timestamp);
-		foreach($recurrences[$year][$month][$day] as $recurrence)
+		if (isset($recurrences[$year][$month][$day]))
 		{
-			$time = $recurrence->getEvent()->isAllDayEvent() ? '' : date('g:i A',strtotime($recurrence->getStart()));
-			echo "
-			<tr><td>$time</td>
-				<td><a href=\"".BASE_URL."/calendars/viewEvent.php?event_id={$recurrence->getEvent_id()}\">
-					{$recurrence->getEvent()->getSummary()}</a>
-				</td>
-			</tr>
-			";
+			foreach($recurrences[$year][$month][$day] as $recurrence)
+			{
+				$time = $recurrence->getEvent()->isAllDayEvent() ? '' : date('g:i A',strtotime($recurrence->getStart()));
+				echo "
+				<tr><td>$time</td>
+					<td><a href=\"".BASE_URL."/calendars/viewEvent.php?event_id={$recurrence->getEvent_id()}\">
+						{$recurrence->getEvent()->getSummary()}</a>
+					</td>
+				</tr>
+				";
+			}
 		}
 	?>
 	</table>
