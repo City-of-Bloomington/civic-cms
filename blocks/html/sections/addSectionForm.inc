@@ -44,21 +44,6 @@
 	</table>
 </fieldset>
 
-<fieldset><legend class="required">Parents</legend>
-	<p>Choose where in the site this section will show up.</p>
-	<p>You must assign to it at least one place in the site.</p>
-
-	<ul class="compact">
-		<?php
-			$sections = new SectionList(array("parent_id"=>"null"));
-			foreach($sections as $section)
-			{
-				printSectionOptions($section,0);
-			}
-		?>
-	</ul>
-</fieldset>
-
 <fieldset><legend>Facets</legend>
 <?php
 /*

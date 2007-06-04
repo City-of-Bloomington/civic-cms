@@ -12,8 +12,10 @@
 			$section = $node->getSection();
 
 			$name = View::escape($section->getName());
+
 			echo "
 			<li><a href=\"".BASE_URL."/sections/viewSection.php?section_id={$section->getId()}\">$name</a>
+				<button type=\"button\" class=\"view\" onclick=\"document.location.href='".BASE_URL."/sections/viewSection.php?section_id={$section->getId()}';\">View</button>
 				<button type=\"button\" class=\"up\" onclick=\"document.location.href='".BASE_URL."/sections/moveUp.php?sectionNode_id={$node->getId()}';\">Move Up</button>
 				<button type=\"button\" class=\"down\" onclick=\"document.location.href='".BASE_URL."/sections/moveDown.php?sectionNode_id={$node->getId()}';\">Move Down</button>
 			";

@@ -54,21 +54,6 @@
 	</table>
 </fieldset>
 
-<fieldset><legend class="required">Parents</legend>
-	<p>Choose where in the site this section will show up.</p>
-	<p>You must assign to it at least one place in the site.</p>
-
-	<ul class="compact">
-		<?php
-			$sections = new SectionList(array("parent_id"=>"null"));
-			foreach($sections as $section)
-			{
-				printSectionOptions($section,0,$this->section,$this->section);
-			}
-		?>
-	</ul>
-</fieldset>
-
 <fieldset><legend>Submit</legend>
 	<button type="submit" class="submit">Submit</button>
 	<button type="button" class="cancel" onclick="document.location.href='<?php echo BASE_URL; ?>/sections/viewSection.php?section_id=<?php echo $this->section->getId(); ?>';">Cancel</button>
