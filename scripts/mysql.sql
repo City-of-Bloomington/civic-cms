@@ -94,12 +94,14 @@ create table section_departments (
 ) engine=InnoDB;
 
 create table section_parents (
-	node_id int unsigned not null primary key auto_increment,
+	id int unsigned not null primary key auto_increment,
 	section_id int unsigned not null,
 	parent_id int unsigned not null,
 	placement tinyint(2) unsigned not null default 99,
 	foreign key (section_id) references sections (id),
-	foreign key (parent_id) references sections (id)
+	foreign key (parent_id) references sections (id),
+	unique (section_id,parent_id),
+	unique (parent_id,placement)
 ) engine=InnoDB;
 
 create table sectionIndex (

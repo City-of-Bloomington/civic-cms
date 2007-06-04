@@ -5,7 +5,7 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param GET section_id
  */
-	verifyUser('Webmaster');
+	verifyUser(array('Administrator','Webmaster'));
 
 	if (isset($_GET['section_id'])) { $section = new Section($_GET['section_id']); }
 	if (isset($_POST['section']))
@@ -20,13 +20,13 @@
 		try
 		{
 			$section->save();
-			Header("Location: home.php");
+			Header("Location: viewSection.php?section_id={$section->getId()}");
 			exit();
 		}
 		catch (Exception $e) { $_SESSION['errorMessages'][] = $e; }
 	}
 
 	$template = new Template();
-	$template->blocks[] = new Block("sections/updateSectionForm.inc",array('section'=>$section));
+	$template->blocks[] = new Block('sections/updateSectionForm.inc',array('section'=>$section));
 	$template->render();
 ?>

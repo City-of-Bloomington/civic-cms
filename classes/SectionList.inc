@@ -6,7 +6,7 @@
  */
 	class SectionList extends PDOResultIterator
 	{
-		public function __construct($fields=null,$sort=null,$limit=null,$groupBy=null)
+		public function __construct($fields=null,$sort='name',$limit=null,$groupBy=null)
 		{
 			$this->select = "select s.id from sections s";
 			if (is_array($fields)||$sort||$limit||$groupBy)
@@ -16,7 +16,7 @@
 		}
 
 
-		public function find($fields=null,$sort=null,$limit=null,$groupBy=null)
+		public function find($fields=null,$sort='name',$limit=null,$groupBy=null)
 		{
 			if ($sort) { $this->sort = "s.$sort"; }
 			$this->limit = $limit;
@@ -59,7 +59,7 @@
 
 			if (isset($fields['parent_id']))
 			{
-				if (!$this->sort) { $this->sort = 'p.placement'; }
+				$this->sort = 'p.placement,s.name';
 				$this->joins.= " left join section_parents p on s.id=p.section_id";
 				$options[] = $fields['parent_id']=='null' ? "p.parent_id is null" : "p.parent_id=$fields[parent_id]";
 			}

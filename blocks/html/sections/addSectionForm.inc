@@ -25,8 +25,9 @@
 	</table>
 </fieldset>
 
-<fieldset><legend>Departments</legend>
+<fieldset><legend class="required">Departments</legend>
 	<p>Choose the departments that will be allowed to post content to this section.</p>
+	<p>You must choose at least one.</p>
 	<table>
 	<?php
 		$departments = new DepartmentList();
@@ -43,8 +44,11 @@
 	</table>
 </fieldset>
 
-<fieldset><legend>Parents</legend>
-	<ul style="list-style-type:none">
+<fieldset><legend class="required">Parents</legend>
+	<p>Choose where in the site this section will show up.</p>
+	<p>You must assign to it at least one place in the site.</p>
+
+	<ul class="compact">
 		<?php
 			$sections = new SectionList(array("parent_id"=>"null"));
 			foreach($sections as $section)

@@ -29,7 +29,7 @@ th { text-align:left; background-color:#dddddd; padding-left:.5em; padding-right
 th a:link,th a:visited { color:white; background-color:inherit; }
 
 ul { margin-top:0em; }
-ul.compact { list-style-type:none; margin:0; padding:0; }
+ul.compact,ul.compact li { list-style-type:none; margin:0; padding:0; }
 
 /* Some styles for the splash page of applications */
 .splashImage { float:right; }
@@ -175,11 +175,13 @@ button.deleteLarge { width:63px; height:15px; padding-top:15px; background: url(
 button.start { width:52px; height:15px; padding-top:15px; background: url('/skins/default/images/start.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
 button.print { }
 */
-button.addSmall { width:15px; height:15px; padding-top:15px; background: url('http://bandit.bloomington.in.gov/skins/default/images/addSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.editSmall { width:15px; height:15px; padding-top:15px; background: url('http://bandit.bloomington.in.gov/skins/default/images/editSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.deleteSmall { width:15px; height:15px; padding-top:15px; background: url('http://bandit.bloomington.in.gov/skins/default/images/deleteSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.excel { width:16px; height:16px; padding-top:16px; background: url('http://bandit.bloomington.in.gov/skins/default/images/excel.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.printSmall { width:16px; height:16px; padding-top:16px; background: url('http://bandit.bloomington.in.gov/skins/default/images/printSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.addSmall { width:15px; height:15px; padding-top:15px; background: url('/content_manager/skins/default/images/addSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.editSmall { width:15px; height:15px; padding-top:15px; background: url('/content_manager/skins/default/images/editSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.deleteSmall { width:15px; height:15px; padding-top:15px; background: url('/content_manager/skins/default/images/deleteSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.excel { width:16px; height:16px; padding-top:16px; background: url('/content_manager/skins/default/images/excel.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.printSmall { width:16px; height:16px; padding-top:16px; background: url('/content_manager/skins/default/images/printSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.up { width:16px; height:16px; padding-top:16px; background: url('/content_manager/skins/default/images/up.png') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.down { width:16px; height:16px; padding-top:16px; background: url('/content_manager/skins/default/images/down.png') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
 
 /* Custom Icons for mime types */
 .jpg { height:16px; padding-left:18px; background: url('/content_manager/skins/default/images/icons/jpg.png') no-repeat; }

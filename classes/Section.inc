@@ -12,17 +12,19 @@
 
 		private $document;
 
+		private $childNodes;
+		private $parentNodes;
+
+		private $parents = array();
+		private $children = array();
+		private $ancestors = array();
+		private $descendants = array();
+
 		private $departments = array();
 		private $newDepartmentIds = array();
 		private $deletedDepartmentIds = array();
 
-		private $parents = array();
-		private $newParentIds = array();
-		private $deletedParentIds = array();
 
-		private $children = array();
-		private $ancestors = array();
-		private $descendants = array();
 		private $documents;
 
 		private $widgets = array();
@@ -67,7 +69,9 @@
 		public function save()
 		{
 			# Check for required fields here.  Throw an exception if anything is missing.
-			if (!$this->name) { throw new Exception("missingRequiredFields"); }
+			if (!$this->name) { throw new Exception('sections/missingName'); }
+			if (!count($this->getParents())) { throw new Exception('sections/missingParent'); }
+			if (!count($this->getDepartments())) { throw new Exception('sections/missingDepartment'); }
 
 			# Sections must have a parent.  Even if they haven't chosen a parent, make it
 			# a child of HOME
@@ -105,7 +109,6 @@
 			if ($this->id) { $this->update($values,$preparedFields); }
 			else { $this->insert($values,$preparedFields); }
 
-			$this->saveParents();
 			$this->saveDepartments();
 		}
 
@@ -169,114 +172,54 @@
 		}
 
 
-		private function updateSectionIndex()
+		public function getChildNodes()
 		{
-			global $PDO;
-			# Update the index
-			$sql = "delete from sectionIndex";
-			if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
-
-			$this->createPrePostOrder(1,1);
+			if (!$this->childNodes) { $this->childNodes = new SectionNodeList(array('parent_id'=>$this->id)); }
+			return $this->childNodes;
 		}
-		private function createPrePostOrder($section_id,$pre)
+		public function getParentNodes()
 		{
-			global $PDO;
-
-			$post = $pre + 1;
-
-			$children = array();
-			$sql = "select section_id from section_parents where parent_id=$section_id";
-			foreach($PDO->query($sql) as $row) { $children[] = $row['section_id']; }
-			foreach($children as $id) { $post = $this->createPrePostOrder($id,$post); }
-
-			$sql = "insert sectionIndex values($section_id,$pre,$post)";
-			if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
-
-			return $post++;
+			if (!$this->parentNodes) { $this->parentNodes = new SectionNodeList(array('section_id'=>$this->id)); }
+			return $this->parentNodes;
 		}
+
+		public function hasChildren() { return count($this->getChildNodes()); }
 
 		/**
-		 * Returns the number of children for this section
-		 * Useful if you just want to know if we have children, or
-		 * if you want to know how many children there are
+		 * Returns an array of Sections with the section_id as the array index
 		 */
-		public function hasChildren()
-		{
-			global $PDO;
-
-			$query = $PDO->prepare("select count(*) as count from section_parents where parent_id=?");
-			$query->execute(array($this->id));
-			$result = $query->fetchAll();
-			return $result[0]['count'];
-		}
 		public function getChildren()
 		{
-			global $PDO;
 			if (!count($this->children))
 			{
-				$query = $PDO->prepare("select node_id from section_parents where parent_id={$this->id} order by isnull(placement),placement");
-				$query->execute();
-				$result = $query->fetchAll();
-
-				foreach($result as $row) { $this->children[] = new SectionNode($row['node_id']); }
+				foreach($this->getChildNodes() as $child)
+				{
+					$this->children[$child->getSection()->getId()] = $child->getSection();
+				}
 			}
 			return $this->children;
 		}
 		/**
-		 * Section Parent functions
+		 * Returns an array of Sections with the section_id as the array index
 		 */
    		public function getParents()
    		{
-			global $PDO;
-
 			if (!count($this->parents))
 			{
-				$query = $PDO->prepare("select parent_id from section_parents where section_id=?");
-				$query->execute(array($this->id));
-				$result = $query->fetchAll();
-				foreach($result as $row) { $this->parents[$row['parent_id']] = new Section($row['parent_id']); }
+				foreach($this->getParentNodes() as $parent)
+				{
+					$this->parents[$parent->getSection()->getId()] = $parent->getSection();
+				}
 			}
 			return $this->parents;
    		}
-		private function saveParents()
-		{
-			global $PDO;
-
-			# Clear out all the old parents
-			if (count($this->deletedParentIds))
-			{
-				$ids = implode(',',$this->deletedParentIds);
-				$query = $PDO->prepare("delete from section_parents where section_id={$this->id} and parent_id in ($ids)");
-				$query->execute();
-			}
-
-			# Add in all the new parents
-			if (count($this->newParentIds))
-			{
-				$query = $PDO->prepare("insert section_parents set section_id={$this->id},parent_id=?");
-				foreach($this->newParentIds as $id) { $query->execute(array($id)); }
-			}
-
-			$this->updateSectionIndex();
-		}
-		public function setParents(array $parentIds)
-		{
-			# Any $parentIds that are not in $this->parents need to be added
-			$this->newParentIds = array_diff($parentIds,array_keys($this->getParents()));
-			foreach($this->newParentIds as $id)
-			{
-				# Make sure the section is not trying to be a Parent of itself
-				if ($this->id != $id) { $this->parents[$id] = new Section($id); }
-			}
-
-			# Unset any $this->parents that are not in $parentIds
-			$this->deletedParentIds = array_diff(array_keys($this->parents),$parentIds);
-			foreach($this->deletedParentIds as $id) { unset($this->parents[$id]); }
-		}
 		public function hasParent($section) { return array_key_exists($section->getId(),$this->getParents()); }
+
    		/**
    		 * Returns a Multi-demensional array of ancestors.  One vector for
    		 * each parent this section has.
+   		 * This is done by looking at the sectionIndex, a Nested Set
+   		 * See: http://dev.mysql.com/tech-resources/articles/hierarchical-data.html
    		 */
    		public function getAncestors()
    		{
@@ -308,6 +251,8 @@
 		/**
 		 * A Section's descendants are the same no matter how many places the section exists in the tree
 		 * So we only get a single dimensional array with the list of descendants, nearest first
+		 * This is using a Nested Set as the sectionIndex
+		 * See: http://dev.mysql.com/tech-resources/articles/hierarchical-data.html
 		 */
 		public function getDescendants()
    		{

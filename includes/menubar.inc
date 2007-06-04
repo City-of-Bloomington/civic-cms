@@ -8,10 +8,12 @@
 <div class="menuBar">
 <ul>
 <?php
-
+	#$sectionNodeList = new SectionNodeList(array('parent_id'=>1));
+	#foreach($sectionNodeList as $node)
 	$sectionList = new SectionList(array('parent_id'=>1));
 	foreach($sectionList as $section)
 	{
+		#$section = $node->getSection();
 		echo "<li><a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$section->getDocument_id()}\">";
 		echo View::escape($section->getName());
 		echo '</a></li>';

@@ -5,30 +5,23 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Section $this->section
  */
-	function listEditableSections($section)
+	function listSections($parent)
 	{
-		foreach($section->getChildren() as $placement=>$section)
+		foreach($parent->getChildNodes() as $node)
 		{
-			$name = View::escape($section->getName());
-			if (userHasRole('Webmaster'))
-			{
-				$buttons = "
-				<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/sections/updateSection.php?section_id={$section->getId()}';\">Edit</button>
-				<button type=\"button\" class=\"deleteSmall\" onclick=\"FRAMEWORK.deleteConfirmation('".BASE_URL."/sections/deleteSection.php?section_id={$section->getId()}');\">Delete</button>
-				<button type=\"button\" class=\"widgets\" onclick=\"document.location.href='".BASE_URL."/sections/updateWidgets.php?section_id={$section->getId()}';\">Widgets</button>
-				";
+			$section = $node->getSection();
 
-			}
+			$name = View::escape($section->getName());
 			echo "
-			<li><a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$section->getDocument_id()}\">
-				$name</a>
-				$buttons
+			<li><a href=\"".BASE_URL."/sections/viewSection.php?section_id={$section->getId()}\">$name</a>
+				<button type=\"button\" class=\"up\" onclick=\"document.location.href='".BASE_URL."/sections/moveUp.php?sectionNode_id={$node->getId()}';\">Move Up</button>
+				<button type=\"button\" class=\"down\" onclick=\"document.location.href='".BASE_URL."/sections/moveDown.php?sectionNode_id={$node->getId()}';\">Move Down</button>
 			";
 
 			if ($section->hasChildren())
 			{
 				echo "<ul>";
-				listEditableSections($section);
+				listSections($section);
 				echo "</ul>";
 			}
 
@@ -43,16 +36,18 @@
 		echo "
 		<div class=\"contextualMenu\">
 			<span class=\"title\">Sections</span>
-			<ul><li><a href=\"".BASE_URL."/sections/addSection.php\">Add</a></li>
-				<li><a href=\"".BASE_URL."/sections/rearrangeSections.php\">Rearrange</a></li>
-			</ul>
+			<ul><li><a href=\"".BASE_URL."/sections/addSection.php\">Add</a></li></ul>
 		</div>
 		";
 	}
 	else { echo "<div class=\"titleBar\">Sections</div>"; }
 ?>
 	<ul class="expandable">
-		<?php listEditableSections($this->section); ?>
+		<?php
+			# Start with the top section
+			$section = new Section($this->section->getId());
+			listSections($section);
+		?>
 	</ul>
 </div>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>/tree.js"></script>
