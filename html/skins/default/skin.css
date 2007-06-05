@@ -97,6 +97,10 @@ ul.compact,ul.compact li { list-style-type:none; margin:0; padding:0; }
 	#breadcrumbs form input { font-size:8pt; font-weight:normal; }
 	#breadcrumbs form button { font-size:8pt; }
 
+/* The language bar */
+#languages ul { margin:0; float:right; }
+#languages li { display:inline; list-style-type:none; margin:0; padding:0; }
+
 /*  mainContent allows for 3 columns,	*/
 /*	backendContent allows for 2 columns	*/
 #mainContent { background-color:inherit; margin-left:170px; margin-right:170px; }
