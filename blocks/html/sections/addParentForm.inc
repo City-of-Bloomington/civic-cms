@@ -20,7 +20,7 @@
 				{
 					echo "<a href=\"$url\">$name</a>";
 				}
-				else { echo $name; }
+				else { echo "<a href=\"#\">$name</a>"; }
 
 			if ($section->hasChildren())
 			{

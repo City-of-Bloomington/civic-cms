@@ -56,13 +56,15 @@
 
 		public function save()
 		{
+			global $PDO;
+
 			# Check for required fields here.  Throw an exception if anything is missing.
 			if (!$this->section_id || !$this->parent_id) { throw new Exception('missingRequiredFields'); }
 
 			# If we don't have a placement yet, calculate one
 			if (!$this->placement)
 			{
-				$query = $PDO->prepare("select max(placement)+1 as placement from section_parents where parent_id=?");
+				$query = $PDO->prepare('select ifnull(max(placement)+1,1) as placement from section_parents where parent_id=?');
 				$query->execute(array($this->parent_id));
 				$result = $query->fetchAll();
 				$this->placement = $result[0]['placement'];
@@ -202,7 +204,7 @@
 		{
 			if ($this->parent_id)
 			{
-				if (!$this->parent) { $this->parent = new Parent($this->parent_id); }
+				if (!$this->parent) { $this->parent = new Section($this->parent_id); }
 				return $this->parent;
 			}
 			else return null;
@@ -236,7 +238,7 @@
 		{
 			if (!$this->id)
 			{
-				$this->parent = new Parent($int);
+				$this->parent = new Section($int);
 				$this->parent_id = $int;
 			}
 		}

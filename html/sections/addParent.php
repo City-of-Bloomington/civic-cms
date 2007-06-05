@@ -13,10 +13,15 @@
 
 		$sectionNode = new SectionNode();
 		$sectionNode->setSection($section);
-		$sectioNode->setParent($parent);
+		$sectionNode->setParent($parent);
 
 		try { $sectionNode->save(); }
-		catch (Exception $e) { $_SESSION['errorMessages'][] = $e; }
+		catch (Exception $e)
+		{
+			$_SESSION['errorMessages'][] = $e;
+			print_r($e);
+			exit();
+		}
 	}
 
 	$template = new Template();

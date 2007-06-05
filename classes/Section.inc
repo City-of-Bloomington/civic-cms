@@ -208,7 +208,7 @@
 			{
 				foreach($this->getParentNodes() as $parent)
 				{
-					$this->parents[$parent->getSection()->getId()] = $parent->getSection();
+					$this->parents[$parent->getParent()->getId()] = $parent->getParent();
 				}
 			}
 			return $this->parents;
