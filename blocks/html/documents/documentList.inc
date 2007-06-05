@@ -1,12 +1,11 @@
 <?php
 /**
- * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+ * @author Cliff Inghamn <inghamn@bloomington.in.gov>
+ * @param DocumentList $this->documentList
+ * @param string $this->title
  */
-/*
-	$this->documentList
-	$this->title
-*/
 ?>
 <div class="interfaceBox">
 	<div class="titleBar">
@@ -20,12 +19,29 @@
 		<tr>
 		<?php
 			$url = new URL($_SERVER['REQUEST_URI']);
-			$url->parameters['sort'] = 'title'; echo "<th><a href={$url->getURL()}>Title</a></th>";
-			$url->parameters['sort'] = 'created desc'; echo "<th><a href={$url->getURL()}>Created</a></th>";
-			$url->parameters['sort'] = 'publishDate desc'; echo "<th><a href={$url->getURL()}>Published</a></th>";
-			$url->parameters['sort'] = 'modified desc'; echo "<th><a href={$url->getURL()}>Modified</a></th>";
-			echo "<th>By</th>";
-			$url->parameters['sort'] = 'retireDate desc'; echo "<th><a href={$url->getURL()}>Retired</a></th>";
+			if (!isset($url->parameters['sort'])) { $url->parameters['sort'] = ''; }
+
+			# If title's in the sort array, toggle it
+			$temp = $url;
+			$temp->parameters['sort'] = $temp->parameters['sort']=='title' ? 'title desc' : 'title';
+			echo "<th><a href=\"$temp\">Title</a></th>";
+
+			echo '<th></th>';
+
+			$temp = $url;
+			$temp->parameters['sort'] = $temp->parameters['sort']=='created desc' ? 'created' : 'created desc';
+			echo "<th><a href=\"$temp\">Created</a></th>";
+
+			$temp->parameters['sort'] = $temp->parameters['sort']=='publishDate desc' ? 'publishDate' : 'publishDate desc';
+			echo "<th><a href=\"$temp\">Published</a></th>";
+
+			$temp->parameters['sort'] = $temp->parameters['sort']=='modified desc' ? 'modified' : 'modified desc';
+			echo "<th><a href=\"$temp\">Modified</a></th>";
+
+			echo '<th>By</th>';
+
+			$temp->parameters['sort'] = $temp->parameters['sort']=='retireDate desc' ? 'retireDate' : 'retireDate desc';
+			echo "<th><a href=\"$temp\">Retired</a></th>";
 		?>
 			<th></th>
 		</tr>
