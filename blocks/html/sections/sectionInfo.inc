@@ -23,9 +23,14 @@
 </h3>
 <ul>
 <?php
-	foreach($this->section->getParents() as $parent)
+	foreach($this->section->getParentNodes() as $node)
 	{
-		echo "<li>$parent</li>";
+		$parent = $node->getParent();
+		echo "
+		<li>$parent
+			<button type=\"button\" class=\"deleteSmall\" onclick=\"document.location.href='".BASE_URL."/sections/removeParent.php?sectionNode_id={$node->getId()}';\">Remove</button>
+		</li>
+		";
 	}
 ?>
 </ul>
