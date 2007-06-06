@@ -54,8 +54,9 @@
 				{
 					# Otherwise, create and save a new medium version
 					$this->medium = $this->resample($this->mediumSize,$this->mediumSize);
-					if (!is_dir($directory)) { mkdir($directory,0775); }
+					if (!is_dir($directory)) { mkdir($directory,0777); }
 					imagejpeg($this->medium,"$directory/$filename.jpg");
+					chmod("$directory/$filename.jpg",0666);
 				}
 			}
 			return $this->smallPhoto;
@@ -72,8 +73,9 @@
 				else
 				{
 					$this->thumbnail = $this->resample($this->thumbnailSize,$this->thumbnailSize);
-					if (!is_dir($directory)) { mkdir($directory,0775); }
+					if (!is_dir($directory)) { mkdir($directory,0777); }
 					imagegif($this->thumbnail,"$directory/$filename.gif");
+					chmod("$directory/$filename.gif",0666);
 				}
 			}
 			return $this->thumbnail;

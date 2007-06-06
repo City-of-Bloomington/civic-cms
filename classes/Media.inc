@@ -163,19 +163,27 @@
 
 
 			# Move the file where it's supposed to go
-			if (!is_dir($this->getDirectory())) { mkdir($this->getDirectory(),0770,true); }
+			if (!is_dir($this->getDirectory())) { mkdir($this->getDirectory(),0777,true); }
 			$newFile = $this->getDirectory().'/'.$this->createValidFilename($filename);
 			rename($tempFile,$newFile);
+			chmod($newFile,0666);
 
 			# Save the filename
 			$this->filename = $filename;
 		}
 
+		/**
+		 * Media is stored in the data directory, outside of the web directory
+		 */
 		public function getDirectory()
 		{
 			$department = $this->createValidFilename($this->getDepartment()->getName());
-			return APPLICATION_HOME."/html/media/{$this->media_type}/$department";
+			return APPLICATION_HOME."/data/media/{$this->media_type}/$department";
 		}
+		/**
+		 * Returns the URL for the media.  This expects to have symbolic links
+		 * to the attachment and image directories inside of /data/media/
+		 */
 		public function getURL()
 		{
 			$department = $this->createValidFilename($this->getDepartment()->getName());

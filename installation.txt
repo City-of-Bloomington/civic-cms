@@ -148,6 +148,10 @@ Install Search Engine:
 	cd /path/to/application/scripts
 	php install_search.php
 
+Create Symbolic links to media directories in Data
+	cd /path/to/application/html/media
+	ln -s ../../data/media/attachment/
+	ln -s ../../data/media/image/
 
 Set Permissions:
 	The data directory is where the application stores all non-database
