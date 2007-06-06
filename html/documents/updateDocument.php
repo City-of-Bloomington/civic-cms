@@ -26,7 +26,6 @@
 
 
 
-
 	# Handle any document data that's been posted
 	if (isset($_POST['document']))
 	{
@@ -49,19 +48,38 @@
 	}
 
 	# Attachments need to be saved right away
-	if (isset($_FILES['attachment']) && $_FILES['attachment']['name'])
+	# CONTENT_LENGTH will be set if there's a POST.  If it's too big, most
+	# likely they were trying to upload an attachment.
+	if (isset($_SERVER['CONTENT_LENGTH']))
 	{
-		$attachment = new Attachment();
-		$attachment->setTitle($_POST['attachment']['title']);
-		$attachment->setDescription($_POST['attachment']['description']);
-		$attachment->addDocument($_SESSION['document']);
-		try
+		if ($_SERVER['CONTENT_LENGTH'] > 1000000 * (int)ini_get('post_max_size'))
 		{
-			$attachment->setFile($_FILES['attachment']);
-			$attachment->save();
+			$_SESSION['errorMessages'][] = new Exception('media/uploadFailed');
+
+			# If CONTENT_LENGTH is too big, the entire POST will be deleted.
+			# They were most likely uploading an attachment, so we should send them
+			# back to the attachments tab.
+			$_REQUEST['tab'] = 'attachments';
+
 		}
-		catch(Exception $e) { $_SESSION['errorMessages'][] = $e; }
 	}
+	if (isset($_POST['attachment']))
+	{
+		if (isset($_FILES['attachment']) && $_FILES['attachment']['name'])
+		{
+			$attachment = new Attachment();
+			$attachment->setTitle($_POST['attachment']['title']);
+			$attachment->setDescription($_POST['attachment']['description']);
+			$attachment->addDocument($_SESSION['document']);
+			try
+			{
+				$attachment->setFile($_FILES['attachment']);
+				$attachment->save();
+			}
+			catch(Exception $e) { $_SESSION['errorMessages'][] = $e; }
+		}
+	}
+
 	# Raw source code handling
 	if (isset($_FILES['source']) && $_FILES['source']['name'])
 	{
@@ -112,7 +130,7 @@
 
 		case 'source':
 			# Make sure they're allowed to edit the raw source code
-			if (!userHasRole('Webmaster')) { $form = new Block('documents/udpate/info.inc',array('document'=>$_SESSION['document'])); }
+			if (!userHasRole('Webmaster')) { $form = new Block('documents/update/info.inc',array('document'=>$_SESSION['document'])); }
 			$form->language = $language;
 		break;
 

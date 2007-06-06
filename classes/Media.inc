@@ -135,6 +135,8 @@
 			$tempFile = is_array($file) ? $file['tmp_name'] : $file;
 			$filename = is_array($file) ? basename($file['name']) : basename($file);
 
+			if (!$tempFile) { throw new Exception('media/uploadFailed'); }
+
 			# Find out the mime type for this file
 			preg_match("/[^.]+$/",$filename,$matches);
 			$extension = $matches[0];

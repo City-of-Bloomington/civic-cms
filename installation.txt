@@ -89,6 +89,11 @@ edit the auto_prepend in your php.ini file.
 	For us, we're running multiple applications, and have a seperate entry in
 our Apache config for each one.  This does essentially the same thing.
 
+	We also need to allow for large file uploads.  Two other PHP.ini values
+need to be set, post_max_size and max_uploaded_file.  For our purposes, we
+put these PHP.ini settings inside of the Apache httpd.conf, along with the
+auto_prepend.
+
 Add to httpd.conf:
 
 Alias /application_name "/path/to/application_name/html"
@@ -99,6 +104,8 @@ Alias /application_name "/path/to/application_name/html"
     Allow from all
 
         php_value auto_prepend_file /path/to/application_name/configuration.inc
+        php_value post_max_size 100M
+        php_value upload_max_filesize 100M
 </Directory>
 
 

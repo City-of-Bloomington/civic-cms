@@ -17,7 +17,7 @@
 		</table>
 	</fieldset>
 	<fieldset><legend>Upload</legend>
-		<input name="document_id" type="hidden" value="<?php echo $this->document->getId(); ?>" />
+		<input name="max_file_size" type="hidden" value="<?php echo 1000000 * (int)ini_get('upload_max_filesize'); ?>" />
 		<input name="attachment" type="file" />
 		<button type="button" class="upload" onclick="FRAMEWORK.processTabbedForm('documentForm','attachments','next');">Upload</button>
 	</fieldset>
