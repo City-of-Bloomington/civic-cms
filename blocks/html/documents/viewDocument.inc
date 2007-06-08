@@ -1,11 +1,16 @@
 <?php
 /**
- * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+ * @author Cliff Ingham <inghamn@bloomington.in.gov>
+ * @param Document $this->document
  */
-/*
-	$this->document
-*/
-	echo "<h2>{$this->document->getTitle()}</h2>";
+	if (isset($_SESSION['USER']) && $this->document->permitsEditingBy($_SESSION['USER']))
+	{
+		$editButton = "<button type=\"button\" class=\"editSmall\" onclick=\"window.open('".BASE_URL."/documents/updateDocument.php?document_id={$this->document->getId()}');\">Edit</button>";
+	}
+	else { $editButton = ""; }
+
+	echo "<h2>$editButton{$this->document->getTitle()}</h2>";
 	echo $this->document->getContent($_SESSION['LANGUAGE']);
 ?>
