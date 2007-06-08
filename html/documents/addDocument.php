@@ -16,7 +16,6 @@
 
 	# Set the current language we're working with
 	$language = isset($_REQUEST['lang']) ? new Language($_REQUEST['lang']) : new Language($_SESSION['LANGUAGE']);
-	echo "Language = {$language->getCode()}\n";
 
 	# Create the new, empty document
 	if (!isset($_SESSION['document']))
@@ -26,7 +25,6 @@
 		if (isset($_GET['documentType_id']))
 		{
 			$_SESSION['document']->setDocumentType_id($_GET['documentType_id'],$_SESSION['LANGUAGE']);
-			$_SESSION['document']->setTitle("New {$_SESSION['document']->getDocumentType()}");
 		}
 	}
 
@@ -50,7 +48,15 @@
 		$contentField = "content_{$l->getCode()}";
 		if (isset($_POST[$contentField]))
 		{
-			$_SESSION['document']->setContent($_POST[$contentField],$l->getCode());
+			if ($_POST[$contentField])
+			{
+				$_SESSION['document']->setContent($_POST[$contentField],$l->getCode());
+			}
+			else
+			{
+				$_SESSION['errorMessages'][] = new Exception('documents/missingContent');
+				$_REQUEST['tab'] = 'content';
+			}
 		}
 	}
 

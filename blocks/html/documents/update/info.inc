@@ -9,7 +9,7 @@
 <form id="documentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<fieldset><legend>Document Info</legend>
 		<table>
-		<tr><td><label for="document-title">Title</label></td>
+		<tr><td><label for="document-title" class="required">Title</label></td>
 			<td><input name="document[title]" id="document-title" value="<?php echo $this->document->getTitle(); ?>" /></td></tr>
 
 		<tr><td><label for="document-publishDate-mon">Publish Date</label></td>
