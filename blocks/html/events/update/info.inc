@@ -15,7 +15,7 @@
 <form id="eventForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 <fieldset><legend>Event Info</legend>
 	<table>
-	<tr><td><label for="event-summary">Title</label></td>
+	<tr><td><label for="event-summary" class="required">Title</label></td>
 		<td><input name="event[summary]" id="event-summary" value="<?php echo $this->event->getSummary(); ?>" /></td></tr>
 
 	<tr><td><label for="event-location_id">Location</label></td>
@@ -34,7 +34,7 @@
 	</tr>
 
 
-	<tr><td><label for="event-calendar_id">Calendar</label></td>
+	<tr><td><label for="event-calendar_id" class="required">Calendar</label></td>
 		<td><select name="event[calendar_id]" id="event-calendar_id">
 			<?php
 				$list = new CalendarList();
@@ -50,7 +50,7 @@
 	</tr>
 
 	<?php $start = $this->event->getStartDate() ? strtotime("{$this->event->getStartDate()} {$this->event->getStartTime()}") : time(); ?>
-	<tr><td><label for="event-startDate">Start time</label></td>
+	<tr><td><label for="event-startDate" class="required">Start time</label></td>
 		<td><input name="event[startDate]" id="event-startDate" size="10" maxlength="10" value="<?php echo date('n/j/Y',$start); ?>" />
 			<input name="event[startTime]" id="event-startTime" size="7" maxlength="7" value="<?php echo date('g:ia',$start); ?>" />
 			<?php $checked = $this->event->isAllDayEvent() ? 'checked="checked"' : ''; ?>
