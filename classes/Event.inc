@@ -19,13 +19,14 @@
 		private $calendar_id;
 		private $location_id;
 		private $user_id;
-		private $contact_id;
+		private $contact_name;
+		private $contact_phone;
+		private $contact_email;
 
 
 		private $calendar;
 		private $location;
 		private $user;
-		private $contact;
 
 		private $sections = array();
 		private $deletedSections = array();
@@ -91,7 +92,9 @@
 			$fields['calendar_id'] = $this->calendar_id ? $this->calendar_id : null;
 			$fields['location_id'] = $this->location_id ? $this->location_id : null;
 			$fields['user_id'] = $this->user_id ? $this->user_id : $_SESSION['USER']->getId();
-			$fields['contact_id'] = $this->contact_id ? $this->contact_id : null;
+			$fields['contact_name'] = $this->contact_name ? $this->contact_name : null;
+			$fields['contact_phone'] = $this->contact_phone ? $this->contact_phone : null;
+			$fields['contact_email'] = $this->contact_email ? $this->contact_email : null;
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
@@ -549,7 +552,9 @@
 		public function getCalendar_id() { return $this->calendar_id; }
 		public function getLocation_id() { return $this->location_id; }
 		public function getUser_id() { return $this->user_id; }
-		public function getContact_id() { return $this->contact_id; }
+		public function getContact_name() { return $this->contact_name; }
+		public function getContact_phone() { return $this->contact_phone; }
+		public function getContact_email() { return $this->contact_email; }
 
 		public function getCalendar()
 		{
@@ -581,15 +586,6 @@
 			else return null;
 		}
 
-		public function getContact()
-		{
-			if ($this->contact_id)
-			{
-				if (!$this->contact) { $this->contact = new Contact($this->contact_id); }
-				return $this->contact;
-			}
-			else return null;
-		}
 
 		/**
 		 * Generic Setters
@@ -604,10 +600,11 @@
 		public function setCalendar_id($int) { $this->calendar = new Calendar($int); $this->calendar_id = $int; }
 		public function setLocation_id($int) { $this->location = new Location($int); $this->location_id = $int; }
 		public function setUser_id($int) { $this->user = new User($int); $this->user_id = $int; }
-		public function setContact_id($int) { $this->contact = new User($int); $this->contact_id = $int; }
+		public function setContact_name($string) { $this->contact_name = trim($string); }
+		public function setContact_phone($string) { $this->contact_phone = trim($string); }
+		public function setContact_email($string) { $this->contact_email = trim($string); }
 
 		public function setCalendar($calendar) { $this->calendar_id = $calendar->getId(); $this->calendar = $calendar; }
 		public function setLocation($location) { $this->location_id = $location->getId(); $this->location = $location; }
-		public function setContact($user) { $this->contact_id = $user->getId(); $this->contact = $user; }
 	}
 ?>

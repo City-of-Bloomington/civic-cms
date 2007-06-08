@@ -33,30 +33,6 @@
 		</td>
 	</tr>
 
-	<tr><td><label for="event-contact_id">Contact Person</label></td>
-		<td><select name="event[contact_id]" id="event-contact_id"><option></option>
-			<?php
-				foreach($_SESSION['USER']->getDepartment()->getUsers() as $user)
-				{
-					$selected = ($this->event->getContact_id() === $user->getId()) ? 'selected="selected"' : '';
-					echo "<option value=\"{$user->getId()}\" $selected>{$user->getLastname()}, {$user->getFirstname()}</option>";
-				}
-			?>
-			</select>
-			<button type="button" class="button" onclick="toggleFullContactList(this);">Show Full List</button>
-			<select name="contact_id" id="contact_id" style="display:none;"><option></option>
-			<?php
-				$list = new UserList();
-				$list->find();
-				foreach($list as $user)
-				{
-					$selected = ($this->event->getContact_id() === $user->getId()) ? 'selected="selected"' : '';
-					echo "<option value=\"{$user->getId()}\" $selected>{$user->getLastname()}, {$user->getFirstname()}</option>";
-				}
-			?>
-			</select>
-		</td>
-	</tr>
 
 	<tr><td><label for="event-calendar_id">Calendar</label></td>
 		<td><select name="event[calendar_id]" id="event-calendar_id">
@@ -94,6 +70,51 @@
 			<textarea name="event[description]" id="event-description" rows="3" cols="60"><?php echo $this->event->getDescription(); ?></textarea>
 	</td></tr>
 
+	</table>
+</fieldset>
+
+<fieldset><legend>Contact Info</legend>
+	<p>You can enter contact info, or select a person from the list.  Selecting a person from the list will
+		enter their info into the form.</p>
+	<table>
+	<tr><td><label for="content_manager_username">Contact Person</label></td>
+		<td><select name="content_manager_username" id="content_manager_username" onchange="updateContactInfo(this.options[this.selectedIndex].value);"><option></option>
+			<?php
+				foreach($_SESSION['USER']->getDepartment()->getUsers() as $user)
+				{
+					echo "<option value=\"{$user->getUsername()}\">{$user->getFirstname()} {$user->getLastname()}</option>";
+				}
+			?>
+			</select>
+			<button type="button" class="button" onclick="toggleLDAPList(this);">Show Full List</button>
+			<select name="ldap_username" id="ldap_username" style="display:none;" onchange="updateContactInfo(this.options[this.selectedIndex].value);"><option></option>
+			<?php
+				$ldap = new SimpleXMLElement('http://isotope.bloomington.in.gov/directory/viewCategory.php?category=City%20Hall;format=xml',null,true);
+				foreach($ldap as $department)
+				{
+					$department_name = View::escape($department['name']);
+					echo "<option value=\"\">$department_name</option>";
+					foreach($department as $office)
+					{
+						$office_name = View::escape($office['name']);
+						echo "<option value=\"\"> - $office_name</option>";
+						foreach($office as $person)
+						{
+							$person_name = View::escape($person_name);
+							echo "<option value=\"{$person->username}\"> - - {$person->name}</option>";
+						}
+					}
+				}
+			?>
+			</select>
+		</td>
+	</tr>
+	<tr><td><label for="event-contact_name">Name</label></td>
+		<td><input name="event[contact_name]" id="event-contact_name" size="30" value="<?php echo $this->event->getContact_name(); ?>" /></td></tr>
+	<tr><td><label for="event-contact_phone">Phone</label></td>
+		<td><input name="event[contact_phone]" id="event-contact_phone" size="12" value="<?php echo $this->event->getContact_phone(); ?>" /></td></tr>
+	<tr><td><label for="event-contact_email">Email</label></td>
+		<td><input name="event[contact_email]" id="event-contact_email" size="30" value="<?php echo $this->event->getContact_email(); ?>" /></td></tr>
 	</table>
 </fieldset>
 
@@ -164,7 +185,7 @@
 <script type="text/javascript">
 	var startTime = document.getElementById("event-startTime");
 	var endTime = document.getElementById("event-endTime");
-	var contact_id = document.getElementById("contact_id");
+	var LDAPSelect = document.getElementById('ldap_username');
 
 	<?php
 		if ($this->event->isAllDayEvent())
@@ -196,17 +217,27 @@
 		}
 	}
 
-	function toggleFullContactList(button)
+	function toggleLDAPList(button)
 	{
-		if (contact_id.style.display == 'none')
+		if (LDAPSelect.style.display == 'none')
 		{
-			contact_id.style.display = '';
+			LDAPSelect.style.display = '';
 			button.firstChild.nodeValue = 'Hide Full List';
 		}
 		else
 		{
-			contact_id.style.display = 'none';
+			LDAPSelect.style.display = 'none';
 			button.firstChild.nodeValue = 'Show Full List';
+		}
+	}
+
+	function updateContactInfo(username)
+	{
+		if (username)
+		{
+			document.getElementById('event-contact_name').value = people[username].name;
+			document.getElementById('event-contact_phone').value = people[username].phone;
+			document.getElementById('event-contact_email').value = people[username].email;
 		}
 	}
 
@@ -217,5 +248,17 @@
 		document.getElementById("monthly").style.display = "none";
 		if (field != 'none') document.getElementById(field).style.display = "block";
 	}
+
+	var people = {};
+	<?php
+		$people = array();
+		foreach($ldap->xpath('//person') as $person)
+		{
+			$name = View::escape($person->name);
+			$title = View::escape($person->title);
+			$phone = View::escape($person->phone);
+			$email = View::escape($person->email);
+			echo "people.{$person->username} = {'name':'$name','title':'$title','phone':'$phone','email':'$email'}\n\t";
+		}
+	?>
 </script>
-<?php print_r($this->event); ?>

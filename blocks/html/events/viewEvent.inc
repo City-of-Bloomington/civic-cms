@@ -28,6 +28,7 @@
 
 		echo "
 		<p><strong>Location:</strong> {$this->event->getLocation()}</p>
+		<p><strong>Contact:</strong> {$this->event->getContact_name()}. {$this->event->getContact_phone()}, {$this->event->getContact_email()}</p>
 		<p>{$this->event->getDescription()}</p>
 		";
 	?>

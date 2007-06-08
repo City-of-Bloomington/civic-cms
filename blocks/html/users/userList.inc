@@ -26,8 +26,8 @@
 			}
 			echo "
 			<tr><td>{$editButton}{$deleteButton}</td>
-				<td>{$user->getUsername()}</td>
-				<td>{$user->getFirstname()} {$user->getLastname()}</td>
+				<td><a href=\"".BASE_URL."/users/viewUser.php?user_id={$user->getId()}\">{$user->getUsername()}</a></td>
+				<td><a href=\"".BASE_URL."/users/viewUser.php?user_id={$user->getId()}\">{$user->getFirstname()} {$user->getLastname()}</a></td>
 				<td>{$user->getAuthenticationMethod()}</td>
 				<td>{$user->getDepartment()->getName()}</td>
 				<td>
