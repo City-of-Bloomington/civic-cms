@@ -7,6 +7,16 @@
  */
 	foreach ($this->document->getSections() as $section)
 	{
+		if ($section->hasChildren()) { renderNavigation($section); }
+		else
+		{
+			# For sections without children, show the navigation of each parent section
+			foreach($section->getParents() as $section) { renderNavigation($section); }
+		}
+	}
+
+	function renderNavigation($section)
+	{
 		echo "
 		<div><div class=\"titleBar\">$section</div>
 		<ul>
