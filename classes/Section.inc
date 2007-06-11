@@ -167,8 +167,6 @@
 				if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); $PDO->rollBack(); throw new Exception($sql.$e[2]); }
 
 			$PDO->commit();
-
-			$this->updateSectionIndex();
 		}
 
 
@@ -278,8 +276,12 @@
    		{
    			if (!count($this->departments))
    			{
-		   		$list = new DepartmentList(array('section_id'=>$this->id));
-		   		foreach($list as $department) { $this->departments[$department->getId()] = $department; }
+   				# We can only look up departments from the database once we have a section_id
+   				if ($this->id)
+   				{
+		   			$list = new DepartmentList(array('section_id'=>$this->id));
+		   			foreach($list as $department) { $this->departments[$department->getId()] = $department; }
+		   		}
    			}
    			return $this->departments;
    		}
