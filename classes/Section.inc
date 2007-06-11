@@ -77,21 +77,14 @@
 			# a child of HOME
 			if (!count($this->getParents())) { $this->setParents(array(1)); }
 
-			# New Sections need a default document created for them
-			if (!$this->document_id)
-			{
-				$document = new Document();
-				$document->setDepartment($_SESSION['USER']->getDepartment());
-				$document->setTitle($this->name);
-				$document->setContent("<h2>{$this->name}</h2>",$_SESSION['LANGUAGE']);
-				$document->setDocumentType_id(1,$_SESSION['LANGUAGE']);
-				$document->save();
-				$this->setDocument($document);
-			}
 
 			$fields = array();
 			$fields['name'] = $this->name ? $this->name : null;
+
+			# If document_id is null here, it means this is a new Section
+			# The new home document should be created during the Insert()
 			$fields['document_id'] = $this->document_id ? $this->document_id : null;
+
 			#$fields['placement'] = $this->placement ? $this->placement : null;
 
 			# Split the fields up into a preparedFields array and a values array.
@@ -128,13 +121,28 @@
 		{
 			global $PDO;
 
+			# Have to do an Insert first, so we can have a section_id to assign to the Document
 			$sql = "insert sections set $preparedFields";
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 			if (false === $query->execute($values)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 			$this->id = $PDO->lastInsertID();
 
-			$this->document->addSection($this);
-			$this->document->save();
+			# New Sections need a default document created for them
+			if (!$this->document_id)
+			{
+				$document = new Document();
+				$document->setDepartment($_SESSION['USER']->getDepartment());
+				$document->setTitle($this->name);
+				$document->setContent("<h2>{$this->name}</h2>",$_SESSION['LANGUAGE']);
+				$document->setDocumentType_id(1,$_SESSION['LANGUAGE']);
+				$document->addSection($this);
+				$document->save();
+				$this->setDocument($document);
+			}
+
+			# Now we just need to update the document_id field
+			$query = $PDO->prepare('update sections set document_id=? where id=?');
+			$query->execute(array($this->getDocument_id(),$this->getId()));
 		}
 
 		public function delete()
