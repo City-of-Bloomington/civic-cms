@@ -8,7 +8,7 @@
  */
 ?>
 <form id="documentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-	<fieldset><legend>Sections</legend>
+	<fieldset><legend class="required">Sections</legend>
 	<table>
 		<?php
 			foreach ($this->sectionList as $section)

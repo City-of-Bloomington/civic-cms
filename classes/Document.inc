@@ -80,7 +80,7 @@
 			# Check for required fields here.  Throw an exception if anything is missing.
 			if (!$this->department_id) { throw new Exception('missingRequiredFields'); }
 			if (!$this->title) { throw new Exception('documents/missingTitle'); }
-			#if (!$this->description) { throw new Exception('missingDescription'); }
+			if (!count($this->getSections())) { throw new Exception('documents/missingSection'); }#if (!$this->description) { throw new Exception('missingDescription'); }
 
 			$fields = array();
 			$fields['title'] = $this->title;
@@ -443,21 +443,28 @@
    		{
    			global $PDO;
 
-			$sectionIds = array_keys($this->getSections());
-			foreach($this->getSections() as $section)
+			if (!count($this->widgets))
 			{
-				foreach($section->getAncestors() as $vector)
+				# If a document doesn't have any Sections, we've got bigger problems.
+				# But we know that you can't find any widgets, so don't try to look them up
+				if (count($this->getSections()))
 				{
-					foreach($vector as $ancestor) { if (!in_array($ancestor->getId(),$sectionIds)) { $sectionIds[] = $ancestor->getId(); } }
+					$sectionIds = array_keys($this->getSections());
+					foreach($this->getSections() as $section)
+					{
+						foreach($section->getAncestors() as $vector)
+						{
+							foreach($vector as $ancestor) { if (!in_array($ancestor->getId(),$sectionIds)) { $sectionIds[] = $ancestor->getId(); } }
+						}
+					}
+
+
+					if (is_array($search)) { $search['section_id_array'] = $sectionIds; }
+					else { $search = array('section_id_array'=>$sectionIds); }
+					$this->widgets = new SectionWidgetList($search);
 				}
 			}
-
-
-			if (is_array($search)) { $search['section_id_array'] = $sectionIds; }
-			else { $search = array('section_id_array'=>$sectionIds); }
-			$widgets = new SectionWidgetList($search);
-
-			return $widgets;
+			return $this->widgets;
    		}
 
    		public function getAttachments()
