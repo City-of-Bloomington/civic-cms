@@ -80,7 +80,7 @@
 			# Check for required fields here.  Throw an exception if anything is missing.
 			if (!$this->department_id) { throw new Exception('missingRequiredFields'); }
 			if (!$this->title) { throw new Exception('documents/missingTitle'); }
-			if (!$this->description) { throw new Exception('missingDescription'); }
+			#if (!$this->description) { throw new Exception('missingDescription'); }
 
 			$fields = array();
 			$fields['title'] = $this->title;
