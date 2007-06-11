@@ -193,6 +193,9 @@ insert languages values
 create table locations (
 	id int unsigned not null primary key auto_increment,
 	name varchar(60) not null,
+	address varchar(128) not null,
+	description varchar(255) not null,
+	directions text,
 	latitude float(10,6),
 	longitude float(10,6)
 ) engine=InnoDB;

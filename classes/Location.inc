@@ -8,6 +8,9 @@
 	{
 		private $id;
 		private $name;
+		private $address;
+		private $description;
+		private $directions;
 		private $latitude;
 		private $longitude;
 
@@ -48,9 +51,16 @@
 		public function save()
 		{
 			# Check for required fields here.  Throw an exception if anything is missing.
+			if (!$this->name) { throw new Exception('missingName'); }
+			if (!$this->description) { throw new Exception('missingDescription'); }
+			if (!$this->address) { throw new Exception('locations/missingAddress'); }
+
 
 			$fields = array();
 			$fields['name'] = $this->name ? $this->name : null;
+			$fields['address'] = $this->address ? $this->address : null;
+			$fields['description'] = $this->description ? $this->description : null;
+			$fields['directions'] = $this->directions ? $this->directions : null;
 			$fields['latitude'] = $this->latitude ? $this->latitude : null;
 			$fields['longitude'] = $this->longitude ? $this->longitude : null;
 
@@ -96,6 +106,9 @@
 		 */
 		public function getId() { return $this->id; }
 		public function getName() { return $this->name; }
+		public function getAddress() { return $this->address; }
+		public function getDescription() { return $this->description; }
+		public function getDirections() { return $this->directions; }
 		public function getLatitude() { return $this->latitude; }
 		public function getLongitude() { return $this->longitude; }
 
@@ -103,6 +116,9 @@
 		 * Generic Setters
 		 */
 		public function setName($string) { $this->name = trim($string); }
+		public function setAddress($string) { $this->address = trim($string); }
+		public function setDescription($string) { $this->description = trim($string); }
+		public function setDirections($text) { $this->directions = $text; }
 		public function setLatitude($float) { $this->latitude = ereg_replace("[^0-9.\-]","",$float); }
 		public function setLongitude($float) { $this->longitude = ereg_replace("[^0-9.\-]","",$float); }
 	}

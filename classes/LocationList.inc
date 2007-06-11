@@ -26,6 +26,9 @@
 			$options = array();
 			if (isset($fields['id'])) { $options[] = "id='$fields[id]'"; }
 			if (isset($fields['name'])) { $options[] = "name='$fields[name]'"; }
+			if (isset($fields['address'])) { $options[] = "address='$fields[address]'"; }
+			if (isset($fields['description'])) { $options[] = "description='$fields[description]'"; }
+			if (isset($fields['directions'])) { $options[] = "directions='$fields[directions]'"; }
 			if (isset($fields['latitude'])) { $options[] = "latitude='$fields[latitude]'"; }
 			if (isset($fields['longitude'])) { $options[] = "longitude='$fields[longitude]'"; }
 

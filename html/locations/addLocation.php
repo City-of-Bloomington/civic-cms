@@ -15,6 +15,9 @@
 			$location->$set($value);
 		}
 
+		# Directions will come in from the WYSIWYG editor
+		if (isset($_POST['directions'])) { $location->setDirections($_POST['directions']); }
+
 		try
 		{
 			$location->save();
