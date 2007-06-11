@@ -8,7 +8,7 @@
  */
 	verifyUser(array('Webmaster','Administrator','Content Creator'));
 
-	# Load the document into the session
+	# If they passing a document_id in the URL, start a new Document Updating process
 	if (isset($_GET['document_id'])) { $_SESSION['document'] = new Document($_GET['document_id']); }
 
 	# Make sure they're allowed to be editing this document

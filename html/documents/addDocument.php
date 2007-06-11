@@ -17,15 +17,13 @@
 	# Set the current language we're working with
 	$language = isset($_REQUEST['lang']) ? new Language($_REQUEST['lang']) : new Language($_SESSION['LANGUAGE']);
 
-	# Create the new, empty document
-	if (!isset($_SESSION['document']))
+	# If they pass a documentType_id in the URL, start a new Add Document process
+	if (isset($_GET['documentType_id']))
 	{
+		$type = new DocumentType($_GET['documentType_id']);
 		$_SESSION['document'] = new Document();
 		if (isset($section)) { $_SESSION['document']->addSection($section); }
-		if (isset($_GET['documentType_id']))
-		{
-			$_SESSION['document']->setDocumentType_id($_GET['documentType_id'],$_SESSION['LANGUAGE']);
-		}
+		$_SESSION['document']->setDocumentType($type,$_SESSION['LANGUAGE']);
 	}
 
 
