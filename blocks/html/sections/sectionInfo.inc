@@ -34,3 +34,32 @@
 	}
 ?>
 </ul>
+
+<?php
+	if ($this->section->hasChildren())
+	{
+		echo "
+		<h3>Children</h3>
+		<form method=\"post\" action=\"$_SERVER[PHP_SELF]\">
+		<fieldset><legend>Ordering</legend>
+			<p>You can adjust the order of the child sections here.</p>
+			<ul class=\"compact\">
+		";
+			foreach($this->section->getChildNodes() as $node)
+			{
+				$child = $node->getSection();
+				echo "
+				<li><input name=\"nodePlacement[{$node->getId()}]\" id=\"nodePlacement-{$node->getId()}\" size=\"2\" maxlength=\"2\" value=\"{$node->getPlacement()}\" />
+					<label for=\"nodePlacement-{$node->getId()}\">$child</label>
+				</li>
+				";
+			}
+		echo "
+			</ul>
+			<button type=\"submit\" class=\"save\">Save</button>
+			<button type=\"button\" class=\"cancel\" onclick=\"document.location.href='".BASE_URL."/sections';\">Cancel</button>
+		</fieldset>
+		</form>
+		";
+	}
+?>

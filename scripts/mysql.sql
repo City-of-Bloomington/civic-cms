@@ -100,8 +100,7 @@ create table section_parents (
 	placement tinyint(2) unsigned not null default 99,
 	foreign key (section_id) references sections (id),
 	foreign key (parent_id) references sections (id),
-	unique (section_id,parent_id),
-	unique (parent_id,placement)
+	unique (section_id,parent_id)
 ) engine=InnoDB;
 
 create table sectionIndex (
