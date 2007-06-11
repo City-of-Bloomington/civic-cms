@@ -199,6 +199,7 @@ create table locations (
 create table calendars (
 	id int unsigned not null primary key auto_increment,
 	name varchar(128) not null,
+	description varchar(255) not null,
 	user_id int unsigned not null,
 	foreign key (user_id) references users(id)
 ) engine=InnoDB;

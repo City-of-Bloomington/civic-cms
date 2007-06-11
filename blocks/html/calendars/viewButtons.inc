@@ -7,6 +7,16 @@
  * @param URL $this->url
  * @param Calendar $this->calendar
  */
+	if ($this->calendar->getName())
+	{
+		echo '<h2>';
+		if (isset($_SESSION['USER']) && $this->calendar->permitsEditingBy($_SESSION['USER']))
+		{
+			echo "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/calendars/updateCalendar.php?calendar_id={$this->calendar->getId()}';\">Edit</button>";
+		}
+		echo $this->calendar->getName().'</h2>';
+		echo "<p>{$this->calendar->getDescription()}</p>";
+	}
 ?>
 <div class="contextualMenu">
 	<form method="get" action="<?php $_SERVER['PHP_SELF']; ?>">
@@ -51,14 +61,3 @@
 	</fieldset>
 	</form>
 </div>
-<?php
-	if ($this->calendar->getName())
-	{
-		echo '<h2>';
-		if (isset($_SESSION['USER']) && $this->calendar->permitsEditingBy($_SESSION['USER']))
-		{
-			echo "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/calendars/updateCalendar.php?calendar_id={$this->calendar->getId()}';\">Edit</button>";
-		}
-		echo $this->calendar->getName().'</h2>';
-	}
-?>

@@ -8,6 +8,7 @@
 	{
 		private $id;
 		private $name;
+		private $description;
 		private $user_id;
 
 		private $user;
@@ -53,9 +54,12 @@
 		public function save()
 		{
 			# Check for required fields here.  Throw an exception if anything is missing.
+			if (!$this->name) { throw new Exception('missingName'); }
+			if (!$this->description) { throw new Exception('missingDescription'); }
 
 			$fields = array();
 			$fields['name'] = $this->name ? $this->name : null;
+			$fields['description'] = $this->description ? $this->description : null;
 			$fields['user_id'] = $this->user_id ? $this->user_id : $_SESSION['USER']->getId();
 
 			# Split the fields up into a preparedFields array and a values array.
@@ -218,6 +222,7 @@
 		 */
 		public function getId() { return $this->id; }
 		public function getName() { return $this->name; }
+		public function getDescription() { return $this->description; }
 		public function getUser_id() { return $this->user_id; }
 		public function getUser()
 		{
@@ -234,7 +239,7 @@
 		 * Generic Setters
 		 */
 		public function setName($string) { $this->name = trim($string); }
+		public function setDescription($string) { $this->description = trim($string); }
 		public function setUser_id($int) { $this->user = new User($int); $this->user_id = $int; }
-
 	}
 ?>

@@ -12,6 +12,10 @@
 	<table>
 	<tr><td><label for="calendar-name">Name</label></td>
 		<td><input name="calendar[name]" id="calendar-name" value="<?php echo $this->calendar->getName(); ?>" /></td></tr>
+	<tr><td colspan="2">
+			<label for="calendar-description" class="required">Description</label>
+			<textarea name="calendar[description]" id="calendar-description" rows="3" cols="60"><?php echo $this->calendar->getDescription(); ?></textarea>
+	</td></tr>
 	</table>
 </fieldset>
 

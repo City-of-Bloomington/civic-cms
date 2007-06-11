@@ -26,6 +26,7 @@
 			$options = array();
 			if (isset($fields['id'])) { $options[] = "c.id='$fields[id]'"; }
 			if (isset($fields['name'])) { $options[] = "c.name='$fields[name]'"; }
+			if (isset($fields['description'])) { $options[] = "description='$fields[description]'"; }
 			if (isset($fields['department_id'])) { $options[] = "c.department_id='$fields[department_id]'"; }
 			if (isset($fields['user_id'])) { $options[] = "c.user_id='$fields[user_id]'"; }
 
