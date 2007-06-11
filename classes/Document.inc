@@ -16,6 +16,7 @@
 		private $retireDate;
 		private $department_id;
 		private $documentType_id;
+		private $description;
 
 		private $department;
 		private $content = array();
@@ -79,6 +80,7 @@
 			# Check for required fields here.  Throw an exception if anything is missing.
 			if (!$this->department_id) { throw new Exception('missingRequiredFields'); }
 			if (!$this->title) { throw new Exception('documents/missingTitle'); }
+			if (!$this->description) { throw new Exception('missingDescription'); }
 
 			$fields = array();
 			$fields['title'] = $this->title;
@@ -90,6 +92,7 @@
 			$fields['retireDate'] = $this->retireDate ? $this->retireDate : null;
 			$fields['department_id'] = $this->department_id;
 			$fields['documentType_id'] = $this->documentType_id ? $this->documentType_id : null;
+			$fields['description'] = $this->description ? $this->description : null;
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
@@ -492,6 +495,7 @@
 		public function getModifiedBy() { return $this->modifiedBy; }
 		public function getDepartment_id() { return $this->department_id; }
 		public function getDocumentType_id() { return $this->documentType_id; }
+		public function getDescription() { return $this->description; }
 		public function getModifiedByUser() { return new User($this->modifiedBy); }
 		public function getDepartment()
 		{
@@ -517,6 +521,7 @@
 		public function setRetireDate($date) { $this->retireDate = is_array($date) ? $this->dateArrayToString($date) : $date; }
 		public function setDepartment_id($int) { $this->department = new Department($int); $this->department_id = $int; }
 		public function setDepartment($department) { $this->department_id = $department->getId(); $this->department = $department; }
+		public function setDescription($string) { $this->description = trim($string); }
 		public function setDocumentType_id($int,$lang)
 		{
 			$this->documentType = new DocumentType($int);

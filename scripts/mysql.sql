@@ -61,6 +61,7 @@ create table documents (
   retireDate date,
   department_id int unsigned not null,
   documentType_id int unsigned not null default 1,
+  description varchar(255) not null,
   foreign key (createdBy) references users(id),
   foreign key (modifiedBy) references users(id),
   foreign key (department_id) references departments(id),

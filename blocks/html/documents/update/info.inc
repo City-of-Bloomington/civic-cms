@@ -11,6 +11,10 @@
 		<table>
 		<tr><td><label for="document-title" class="required">Title</label></td>
 			<td><input name="document[title]" id="document-title" value="<?php echo $this->document->getTitle(); ?>" /></td></tr>
+		<tr><td colspan="2">
+				<label for="document-description" class="required">Description</label>
+				<textarea name="document[description]" id="document-description" rows="3" cols="60"><?php echo $this->document->getDescription(); ?></textarea>
+		</td></tr>
 
 		<tr><td><label for="document-publishDate-mon">Publish Date</label></td>
 			<td><select name="document[publishDate][mon]" id="document-publishDate-mon"><option></option>
