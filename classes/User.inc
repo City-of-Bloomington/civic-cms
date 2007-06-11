@@ -14,7 +14,7 @@
 		private $lastname;
 		private $department_id;
 		private $email;
-		private $access;
+		private $access = 'private';
 
 
 		private $department;
@@ -54,6 +54,12 @@
 				}
 				else { throw new Exception("unknownUser"); }
 			}
+			else
+			{
+				/**
+				 * Create a new empty User.  Put Default values here
+				 */
+			}
 		}
 
 		public function save()
@@ -69,7 +75,7 @@
 			$fields['authenticationMethod'] = $this->authenticationMethod ? $this->authenticationMethod : null;
 			$fields['department_id'] = $this->department_id ? $this->department_id : null;
 			$fields['email'] = $this->email ? $this->email : null;
-			$fields['access'] = $this->access ? $this->access : null;
+			$fields['access'] = $this->access;
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
