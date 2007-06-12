@@ -104,4 +104,11 @@ define('COPYRIGHT',"/**
 	 	if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) { $_SESSION['LANGUAGE'] = strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'],0,2)); }
 	 	else { $_SESSION['LANGUAGE'] = DEFAULT_LANGUAGE; }
 	 }
+
+	/**
+	 * Skin Negotiation
+	 * Order of precedence: GET, SESSION, default
+	 */
+	if (isset($_GET['skin'])) { $_SESSION['skin'] = $_GET['skin']; }
+	if (!isset($_SESSION['skin'])) { $_SESSION['skin'] = 'default'; }
 ?>

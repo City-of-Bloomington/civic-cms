@@ -17,9 +17,30 @@
 		<a href="job_postings">Job Postings</a>
 		<form method="get" action="<?php echo BASE_URL; ?>/documents/search.php">
 		<div>
-		<label>SEARCH</label>
-			<input name="search" value="bloomington.in.gov" />
+		<label for="search">SEARCH</label>
+			<input name="search" id="search" value="bloomington.in.gov" />
 			<button type="submit" class="search">search</button>
+		</div>
+		</form>
+		<form method="get" action="<?php $_SERVER['REQUEST_URI']; ?>">
+		<div><label for="skin">Skin</label>
+			<select name="skin" id="skin" onchange="this.form.submit();">
+			<?php
+				$list = new DirectoryIterator(APPLICATION_HOME.'/html/skins');
+				foreach($list as $dir)
+				{
+					if ($dir!='.' && $dir!='..')
+					{
+						if (is_file(APPLICATION_HOME."/html/skins/$dir/skin.css"))
+						{
+							$skin = basename($dir);
+							$selected = (isset($_SESSION['skin']) && $_SESSION['skin']===$skin) ? 'selected="selected"' : '';
+							echo "<option $selected>$skin</option>";
+						}
+					}
+				}
+			?>
+			</select>
 		</div>
 		</form>
 	</div>
