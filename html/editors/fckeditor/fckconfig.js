@@ -39,7 +39,7 @@ FCKConfig.ToolbarComboPreviewCSS = '' ;
 
 FCKConfig.DocType = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">' ;
 
-FCKConfig.BaseHref = '/content_manager/editors/fckeditor/' ;
+FCKConfig.BaseHref = '/editors/fckeditor/' ;
 
 FCKConfig.FullPage = false ;
 
@@ -207,7 +207,7 @@ FCKConfig.LinkBrowserWindowWidth	= FCKConfig.ScreenWidth * 0.7 ;		// 70%
 FCKConfig.LinkBrowserWindowHeight	= FCKConfig.ScreenHeight * 0.7 ;	// 70%
 
 FCKConfig.ImageBrowser = true ;
-FCKConfig.ImageBrowserURL = '/content_manager/media/imageBrowser.php';
+FCKConfig.ImageBrowserURL = '/media/imageBrowser.php';
 //FCKConfig.ImageBrowserURL = FCKConfig.BasePath + 'filemanager/browser/default/browser.html?Type=Image&Connector=connectors/' + _FileBrowserLanguage + '/connector.' + _FileBrowserExtension ;
 FCKConfig.ImageBrowserWindowWidth  = FCKConfig.ScreenWidth * 0.7 ;	// 70% ;
 FCKConfig.ImageBrowserWindowHeight = FCKConfig.ScreenHeight * 0.7 ;	// 70% ;
