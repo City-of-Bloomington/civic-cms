@@ -1,27 +1,40 @@
 <?php
 /**
- * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+ * @author Cliff Ingham <inghamn@bloomington.in.gov>
+ * @param GET document_id
  */
-/*
-	$_GET variables:	document_id
-*/
+	$document = new Document($_GET['document_id']);
+
 	$template = new Template();
-	try
+
+	$template->document = $document;
+	$template->widgets = $document->getWidgets();
+
+	$template->blocks[] = new Block('breadcrumbs.inc',array('document'=>$document));
+	$template->blocks[] = new Block('documents/viewDocument.inc',array('document'=>$document));
+
+	foreach($document->getSections() as $section)
 	{
-		$document = new Document($_GET['document_id']);
-
-		$template->document = $document;
-
-		$template->widgets = $document->getWidgets();
-
-		$template->blocks[] = new Block('breadcrumbs.inc',array('document'=>$document));
-		$template->blocks[] = new Block('documents/viewDocument.inc',array('document'=>$document));
-		$template->blocks[] = new Block('documents/subsections.inc',array('document'=>$document));
+		# Find out which Sections this Document is a homepage of
+		if ($section->getDocument_id() === $document->getId())
+		{
+			# Check for Featured Documents in this Section
+			$types = new DocumentTypeList();
+			$types->find();
+			foreach($types as $type)
+			{
+				$documentList = new DocumentList(array('documentType_id'=>$type->getId(),'section_id'=>$section->getId(),'featured'=>1));
+				if (count($documentList))
+				{
+					$template->blocks[] = new Block('sections/featuredDocuments.inc',array('documentType'=>$type,'documentList'=>$documentList));
+				}
+			}
+		}
 	}
-	catch(Exception $e)
-	{
-		$_SESSION['errorMessages'][] = $e;
-	}
+
+	$template->blocks[] = new Block('documents/siblings.inc',array('document'=>$document));
+
 	$template->render();
 ?>

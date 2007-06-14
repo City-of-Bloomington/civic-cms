@@ -114,6 +114,8 @@ create table sectionIndex (
 create table document_sections (
   document_id int unsigned not null,
   section_id int unsigned not null,
+  featured tinyint(1) unsigned not null default 0,
+  unique (document_id,section_id),
   foreign key (document_id) references documents (id) on delete cascade,
   foreign key (section_id) references sections (id)
 ) engine=InnoDB;

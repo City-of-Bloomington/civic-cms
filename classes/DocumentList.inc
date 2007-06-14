@@ -41,6 +41,8 @@
 			{
 				$this->joins.= " left join document_sections s on documents.id=s.document_id";
 				$options[] = "section_id='$fields[section_id]'";
+
+				if (isset($fields['featured'])) { $options[] = "featured='$fields[featured]'"; }
 			}
 
 			if (isset($fields['facet_id']))

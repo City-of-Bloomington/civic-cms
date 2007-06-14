@@ -29,8 +29,7 @@
 		private $related = array();
 
 		private $sections = array();
-		private $deletedSections = array();
-		private $newSections = array();
+		private $document_sections = array();
 
 		private $widgets = array();
 		private $attachments;
@@ -352,52 +351,72 @@
 			}
 			return $this->sections;
 		}
-		public function setSections(array $sectionIds)
+		public function getDocumentSections()
 		{
-			# Make sure to call $this->getSections() at least once to ensure that
-			# the current sections are loaded before trying to determine which ones are new
+			global $PDO;
 
-			# Only load the new sections the user is allowed to edit
-			$newSections = array();
-			foreach($sectionIds as $id)
+			if ($this->id)
 			{
-				$section = new Section($id);
-				if ($section->permitsEditingBy($_SESSION['USER'])) { $newSections[$id] = $section; }
+				if (!count($this->document_sections))
+				{
+					$query = $PDO->prepare('select * from document_sections where document_id=?');
+					$query->execute(array($this->id));
+					$result = $query->fetchAll();
+					foreach($result as $row)
+					{
+						$this->document_sections[$row['section_id']] = array('id'=>$row['section_id'],'featured'=>$row['featured']);
+					}
+				}
 			}
+			return $this->document_sections;
 
-			# Any Sections that are not in $this->sections need to be added
-			$this->newSections = array_diff_key($newSections,$this->getSections());
-			foreach($this->newSections as $id=>$section) { $this->sections[$id] = $section; }
-
-			# Unset any $this->sections that are not in $sectionIds
-			$this->deletedSections = array_diff_key($this->sections,$newSections);
-			foreach($this->deletedSections as $id=>$section) { unset($this->sections[$id]); }
+		}
+		/**
+		 * Set the array of sections linked to this document
+		 * $sections must be an array in the form of:
+		 * $sections[$section_id]['id'] = $section_id;
+		 * $sections[$section_id]['featured'] = 0|1 <<optional>>
+		 */
+		public function setSections(array $sections)
+		{
+			$this->document_sections = $sections;
 		}
 		private function saveSections()
 		{
 			global $PDO;
 
-			# Clear out any deleted sections
-			if (count($this->deletedSections))
+			if ($this->id)
 			{
-				$deletedSections = implode(",",array_keys($this->deletedSections));
-				$query = $PDO->prepare("delete from document_sections where document_id={$this->id} and section_id in ($deletedSections)");
-				$query->execute();
-			}
+				$query = $PDO->prepare('delete from document_sections where document_id=?');
+				$query->execute(array($this->id));
 
-			# Add in any new sections
-			if (count($this->newSections))
-			{
-				$query = $PDO->prepare("insert document_sections values({$this->id},?)");
-				foreach($this->newSections as $id=>$section) { $query->execute(array($id)); }
+				$query = $PDO->prepare('insert document_sections values(?,?,?)');
+				foreach($this->document_sections as $section_id=>$section)
+				{
+					$featured = isset($section['featured']) ? $section['featured'] : 0;
+					$query->execute(array($this->id,$section_id,$featured));
+				}
 			}
 		}
-		public function addSection($section)
+		public function addSection($section,$featured=0)
 		{
-			$this->newSections[$section->getId()] = $section;
+			$this->document_sections[$section->getId()] = array('id'=>$section->getId(),'featured'=>$featured);
 			$this->sections[$section->getId()] = $section;
 		}
 		public function hasSection($section) { return array_key_exists($section->getId(),$this->getSections()); }
+
+		public function isFeaturedIn($section)
+		{
+			if (array_key_exists($section->getId(),$this->getDocumentSections()))
+			{
+				if (isset($this->document_sections[$section->getId()]['featured']))
+				{
+					return $this->document_sections[$section->getId()]['featured'];
+				}
+				return 0;
+			}
+			return 0;
+		}
 
 
 		/**

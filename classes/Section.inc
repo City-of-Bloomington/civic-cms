@@ -332,6 +332,8 @@
 			return $this->documents;
    		}
 
+
+
 		/**
 		 * Widget functions
 		 */
