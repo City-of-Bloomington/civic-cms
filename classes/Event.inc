@@ -392,7 +392,7 @@
 												$next_range_time = strtotime(date("Y-m-$last_day",$next_range_time));
 
 												$last = (date('w',$next_range_time) == $day_num) ? '' : 'last ';
-												$next_range_time = strtotime("$last$day",$next_range_time) - abs($nth) * 604800;
+												$next_range_time = strtotime("$last$day",$next_range_time) - (abs($nth)-1) * 604800;
 
 												$month = date('m',$next_range_time);
 												if (in_array(date('m',$next_range_time),$bymonth))
@@ -405,7 +405,7 @@
 											}
 											else
 											{
-												$next_date_time = strtotime($day,$next_range_time) + $nth * 604800;
+												$next_date_time = strtotime($day,$next_range_time) + ($nth-1) * 604800;
 												if (in_array(date('m',$next_date_time),$bymonth))
 												{
 													$recur_data[] = $next_date_time;
