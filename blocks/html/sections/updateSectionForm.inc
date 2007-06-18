@@ -56,6 +56,6 @@
 
 <fieldset><legend>Submit</legend>
 	<button type="submit" class="submit">Submit</button>
-	<button type="button" class="cancel" onclick="document.location.href='<?php echo BASE_URL; ?>/sections/viewSection.php?section_id=<?php echo $this->section->getId(); ?>';">Cancel</button>
+	<button type="button" class="cancel" onclick="document.location.href='<?php echo BASE_URL; ?>/sections/sectionInfo.php?section_id=<?php echo $this->section->getId(); ?>';">Cancel</button>
 </fieldset>
 </form>

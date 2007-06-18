@@ -14,8 +14,8 @@
 			$name = View::escape($section->getName());
 
 			echo "
-			<li><a href=\"".BASE_URL."/sections/viewSection.php?section_id={$section->getId()}\">$name</a>
-				<button type=\"button\" class=\"view\" onclick=\"document.location.href='".BASE_URL."/sections/viewSection.php?section_id={$section->getId()}';\">View</button>
+			<li><a href=\"".BASE_URL."/sections/sectionInfo.php?section_id={$section->getId()}\">$name</a>
+				<button type=\"button\" class=\"view\" onclick=\"document.location.href='".BASE_URL."/sections/sectionInfo.php?section_id={$section->getId()}';\">View</button>
 			";
 
 			if ($section->hasChildren())
@@ -48,8 +48,8 @@
 			$section = new Section($this->section->getId());
 			$name = View::escape($section->getName());
 			echo "
-			<a href=\"".BASE_URL."/sections/viewSection.php?section_id={$section->getId()}\">$section</a>
-			<button type=\"button\" class=\"view\" onclick=\"document.location.href='".BASE_URL."/sections/viewSection.php?section_id={$section->getId()}';\">View</button>
+			<a href=\"".BASE_URL."/sections/sectionInfo.php?section_id={$section->getId()}\">$section</a>
+			<button type=\"button\" class=\"view\" onclick=\"document.location.href='".BASE_URL."/sections/sectionInfo.php?section_id={$section->getId()}';\">View</button>
 			<ul class=\"expandable\">
 			";
 

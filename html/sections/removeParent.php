@@ -12,5 +12,5 @@
 
 	$node->delete();
 
-	Header("Location: viewSection.php?section_id=$section_id");
+	Header("Location: sectionInfo.php?section_id=$section_id");
 ?>

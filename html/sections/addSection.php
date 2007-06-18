@@ -18,7 +18,7 @@
 		try
 		{
 			$section->save();
-			Header("Location: viewSection.php?section_id={$section->getId()}");
+			Header("Location: sectionInfo.php?section_id={$section->getId()}");
 			exit();
 		}
 		catch (Exception $e) { $_SESSION['errorMessages'][] = $e; }
