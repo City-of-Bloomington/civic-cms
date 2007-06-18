@@ -9,7 +9,7 @@
 	$template = new Template();
 	$template->blocks[] = new Block("sections/listSections.inc",array('section'=>new Section(1)));
 
-	#$list = new SectionList(array('parent_id'=>'null'));
-	#$template->blocks[] = new Block('sections/unassignedSections.inc',array('sectionList'=>$list));
+	$list = new SectionList(array('parent_id'=>'null'));
+	$template->blocks[] = new Block('sections/unassignedSections.inc',array('sectionList'=>$list));
 	$template->render();
 ?>
