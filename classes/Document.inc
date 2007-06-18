@@ -548,17 +548,25 @@
 		public function setDepartment_id($int) { $this->department = new Department($int); $this->department_id = $int; }
 		public function setDepartment($department) { $this->department_id = $department->getId(); $this->department = $department; }
 		public function setDescription($string) { $this->description = trim($string); }
-		public function setDocumentType_id($int,$lang)
+		public function setDocumentType_id($int,$lang=null)
 		{
 			$this->documentType = new DocumentType($int);
 			$this->documentType_id = $int;
-			if (!isset($this->content[$lang])) { $this->content[$lang] = $this->documentType->getTemplate(); }
+			# Only load the default template if $lang is passed
+			if ($lang)
+			{
+				if (!isset($this->content[$lang])) { $this->content[$lang] = $this->documentType->getTemplate(); }
+			}
 		}
-		public function setDocumentType($type,$lang)
+		public function setDocumentType($type,$lang=null)
 		{
 			$this->documentType_id = $type->getId();
 			$this->documentType = $type;
-			if (!isset($this->content[$lang])) { $this->content[$lang] = $this->documentType->getTemplate(); }
+			# Only load the default template if $lang is passed
+			if ($lang)
+			{
+				if (!isset($this->content[$lang])) { $this->content[$lang] = $this->documentType->getTemplate(); }
+			}
 		}
 	}
 ?>

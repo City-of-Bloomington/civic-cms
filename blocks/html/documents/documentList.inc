@@ -24,26 +24,27 @@
 			# If title's in the sort array, toggle it
 			$temp = $url;
 			$temp->parameters['sort'] = $temp->parameters['sort']=='title' ? 'title desc' : 'title';
-			echo "<th><a href=\"$temp\">Title</a></th>";
+			echo "<th><a href=\"$temp\">Title</a></th>\n";
 
-			echo '<th></th>';
+			echo "<th></th>\n";
 
 			$temp = $url;
 			$temp->parameters['sort'] = $temp->parameters['sort']=='created desc' ? 'created' : 'created desc';
-			echo "<th><a href=\"$temp\">Created</a></th>";
+			echo "<th><a href=\"$temp\">Created</a></th>\n";
 
 			$temp->parameters['sort'] = $temp->parameters['sort']=='publishDate desc' ? 'publishDate' : 'publishDate desc';
-			echo "<th><a href=\"$temp\">Published</a></th>";
+			echo "<th><a href=\"$temp\">Published</a></th>\n";
 
 			$temp->parameters['sort'] = $temp->parameters['sort']=='modified desc' ? 'modified' : 'modified desc';
-			echo "<th><a href=\"$temp\">Modified</a></th>";
+			echo "<th><a href=\"$temp\">Modified</a></th>\n";
 
-			echo '<th>By</th>';
+			echo "<th>By</th>\n";
 
 			$temp->parameters['sort'] = $temp->parameters['sort']=='retireDate desc' ? 'retireDate' : 'retireDate desc';
-			echo "<th><a href=\"$temp\">Retired</a></th>";
+			echo "<th><a href=\"$temp\">Retired</a></th>\n";
+
 		?>
-			<th></th>
+			<th>Type</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -86,6 +87,7 @@
 				<td>{$document->getModified('%D')}</td>
 				<td>$modifiedBy</td>
 				<td>{$document->getRetireDate('%D')}</td>
+				<td>{$document->getDocumentType()}</td>
 			";
 
 			echo "</tr>";

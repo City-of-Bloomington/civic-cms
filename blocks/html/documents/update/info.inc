@@ -9,6 +9,20 @@
 <form id="documentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<fieldset><legend>Document Info</legend>
 		<table>
+		<tr><td><label for="document-documentType_id">Type</label></td>
+			<td><select name="document[documentType_id]" id="document-documentType_id">
+				<?php
+					$list = new DocumentTypeList();
+					$list->find();
+					foreach($list as $type)
+					{
+						$selected = $this->document->getDocumentType_id()==$type->getId() ? 'selected="selected"' : '';
+						echo "<option value=\"{$type->getId()}\" $selected>$type</option>";
+					}
+				?>
+				</select>
+			</td>
+		</tr>
 		<tr><td><label for="document-title" class="required">Title</label></td>
 			<td><input name="document[title]" id="document-title" value="<?php echo $this->document->getTitle(); ?>" /></td></tr>
 		<tr><td colspan="2">
