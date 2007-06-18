@@ -42,12 +42,22 @@
 	}
 	else { echo "<div class=\"titleBar\">Sections</div>"; }
 ?>
-	<ul class="expandable">
+	<ul><li>
 		<?php
 			# Start with the top section
 			$section = new Section($this->section->getId());
+			$name = View::escape($section->getName());
+			echo "
+			<a href=\"".BASE_URL."/sections/viewSection.php?section_id={$section->getId()}\">$section</a>
+			<button type=\"button\" class=\"view\" onclick=\"document.location.href='".BASE_URL."/sections/viewSection.php?section_id={$section->getId()}';\">View</button>
+			<ul class=\"expandable\">
+			";
+
 			listSections($section);
+
+			echo "</ul>";
 		?>
+		</li>
 	</ul>
 </div>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>/tree.js"></script>

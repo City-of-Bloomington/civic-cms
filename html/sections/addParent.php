@@ -16,12 +16,7 @@
 		$sectionNode->setParent($parent);
 
 		try { $sectionNode->save(); }
-		catch (Exception $e)
-		{
-			$_SESSION['errorMessages'][] = $e;
-			print_r($e);
-			exit();
-		}
+		catch (Exception $e) { $_SESSION['errorMessages'][] = $e; }
 	}
 
 	$template = new Template();
