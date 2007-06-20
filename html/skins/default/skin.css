@@ -30,6 +30,7 @@ th a:link,th a:visited { color:white; background-color:inherit; }
 
 ul { margin-top:0em; }
 ul.compact,ul.compact li { list-style-type:none; margin:0; padding:0; }
+li.current>a { background-color:#660000; width:100%; }
 
 /* Some styles for the splash page of applications */
 .splashImage { float:right; }

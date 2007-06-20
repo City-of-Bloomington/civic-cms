@@ -14,7 +14,7 @@
 	foreach($sectionList as $section)
 	{
 		#$section = $node->getSection();
-		echo "<li><a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$section->getDocument_id()}\">";
+		echo "<li><a href=\"".BASE_URL."/sections/viewSection.php?section_id={$section->getId()}\">";
 		echo View::escape($section->getName());
 		echo '</a></li>';
 	}

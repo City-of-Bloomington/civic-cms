@@ -4,6 +4,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param GET document_id
+ * @param array $navigation
  */
 	$document = new Document($_GET['document_id']);
 
@@ -14,7 +15,14 @@
 
 	$template->blocks[] = new Block('documents/viewDocument.inc',array('document'=>$document));
 
-	foreach($document->getSections() as $section)
+
+	# If we don't have a specific section we're in yet,
+	# choose one of the sections for this Document.
+	$sections = $document->getSections();
+	if (!isset($section)) { $section = $sections[0]; }
+
+
+	foreach($sections as $section)
 	{
 		# Find out which Sections this Document is a homepage of
 		if ($section->getDocument_id() === $document->getId())
