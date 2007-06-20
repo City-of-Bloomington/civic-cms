@@ -29,14 +29,13 @@
 
 				# Keep a running history of a user's section navigation
 				if (!isset($_SESSION['sectionHistory'])) { $_SESSION['sectionHistory'] = array(); }
+				$previousSectionId = count($_SESSION['sectionHistory']) ? end($_SESSION['sectionHistory']) : 0;
 				$_SESSION['sectionHistory'][] = $this->section->getId();
 
 				# Figure out which ancestral line we want to display in the navigation
 				$ancestors = $this->section->getAncestors();
 				if (count($_SESSION['sectionHistory']) > 1)
 				{
-					$previousSectionId = array_slice($_SESSION['sectionHistory'],-2,1);
-
 					# Check all the vectors in the ancestor array.
 					# If the last section in that vector matches the previousSectionId,
 					# that's the vector we want to display for navigation
