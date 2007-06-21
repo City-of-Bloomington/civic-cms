@@ -15,7 +15,7 @@
 			$this->className = 'NavigationWidget';
 			$this->displayName = 'Navigation';
 			$this->includeFile = 'sidebar.inc';
-			$this->description = 'Lists the sub-sections for the current section';
+			$this->description = 'Displays a two-level, collapsing navigation for Sections';
 		}
 
 		public function render($template)

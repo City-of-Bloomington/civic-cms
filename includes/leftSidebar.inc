@@ -12,15 +12,5 @@
 		$widgets = isset($this->document) ? $panel->getWidgets($this->document) : $panel->getWidgets();
 
 		foreach($widgets as $widget) { $widget->render($this); }
-
-		if (isset($_SESSION['USER']))
-		{
-			echo '<div><div class="titleBar">Admin</div>';
-			# Show all these sidebar boxes, if the user's someone in the system
-			if (userHasRole('Administrator')) { include APPLICATION_HOME.'/includes/sidebarBoxes/Administrator.inc'; }
-			if (userHasRole('Webmaster')) { include APPLICATION_HOME.'/includes/sidebarBoxes/Webmaster.inc'; }
-			if (userHasRole('Content Creator')) { include APPLICATION_HOME.'/includes/sidebarBoxes/ContentCreator.inc'; }
-			echo '</div>';
-		}
 	?>
 </div>
