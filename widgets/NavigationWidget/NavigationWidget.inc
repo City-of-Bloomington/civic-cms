@@ -50,7 +50,12 @@
 				}
 
 				# If we weren't able to find a vector, just use the first available
-				if (!$this->ancestors) { $this->ancestors = $ancestors[0]; }
+				if (!$this->ancestors)
+				{
+					# If we don't have any ancestors, just show the top level navigation
+					if (count($ancestors)) { $this->ancestors = $ancestors[0]; }
+					else { $this->ancestors = array(new Section(1)); }
+				}
 
 				$this->renderIncludeFile($this);
 			}
