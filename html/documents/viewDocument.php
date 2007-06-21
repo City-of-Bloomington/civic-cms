@@ -19,7 +19,12 @@
 	# If we don't have a specific section we're in yet,
 	# choose one of the sections for this Document.
 	$sections = $document->getSections();
-	if (!isset($section)) { $section = $sections[0]; }
+	if (!isset($section))
+	{
+		# The section list returned will not be zero based.  To get the
+		# first element, you have to call current()
+		$section = count($sections) ? current($sections) : null;
+	}
 
 
 	foreach($sections as $section)
