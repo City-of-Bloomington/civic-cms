@@ -20,7 +20,6 @@
 
 		public function render($template)
 		{
-
 			if (isset($template->document))
 			{
 				global $section;
