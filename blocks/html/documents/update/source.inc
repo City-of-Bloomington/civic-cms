@@ -28,15 +28,18 @@ There will be no stripping or escaping of characters, tags, code, or anything el
 	</fieldset>
 
 	<fieldset><legend>Source Code</legend>
-	<?php
-		# You can't download anything until we've saved the document, and have a document_id
-		if ($this->document->getId())
-		{
-			echo "<button type=\"button\" class=\"download\" onclick=\"document.location.href='".BASE_URL."/documents/downloadSource.php?document_id={$this->document->getId()};lang={$this->language->getCode()}';\">Download</button>";
-		}
-	?>
-		<input name="source" type="file" />
-		<button type="button" class="upload" onclick="FRAMEWORK.processTabbedForm('documentForm','source','next');">Upload</button>
+		<textarea name="content_<?php echo $this->language->getCode(); ?>" rows="30" cols="100"><?php echo $this->document->getContent($this->language->getCode()); ?></textarea>
+		<div>
+			<?php
+				# You can't download anything until we've saved the document, and have a document_id
+				if ($this->document->getId())
+				{
+					echo "<button type=\"button\" class=\"download\" onclick=\"document.location.href='".BASE_URL."/documents/downloadSource.php?document_id={$this->document->getId()};lang={$this->language->getCode()}';\">Download</button>";
+				}
+			?>
+			<input name="source" type="file" />
+			<button type="button" class="upload" onclick="FRAMEWORK.processTabbedForm('documentForm','source','next');">Upload</button>
+		</div>
 	</fieldset>
 
 	<fieldset><legend>Next</legend>
