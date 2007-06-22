@@ -10,16 +10,20 @@
 ?>
 <div class="interfaceBox">
 	<div class="titleBar">Featured <?php echo $type; ?></div>
-	<ul>
+	<table>
 	<?php
 		foreach($this->documentList as $document)
 		{
+			$title = View::escape($document->getTitle());
+			$description = View::escape($document->getDescription());
 			echo "
-			<li><a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$document->getId()}\">
-				{$document->getTitle()}</a>
-			</li>
+			<tr><th><img src=\"".BASE_URL."/documents/icon.php?document_id={$document->getId()}\" alt=\"$title\" /></th>
+				<td><h4><a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$document->getId()}\">$title</a></h4>
+					$description
+				</td>
+			</tr>
 			";
 		}
 	?>
-	</ul>
+	</table>
 </div>
