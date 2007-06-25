@@ -20,7 +20,12 @@
 			if ($section->getId() != 1)
 			{
 				$name = View::escape($section->getName());
-				echo "<li><a href=\"".BASE_URL."/sections/viewSection.php?section_id={$section->getId()}\">$name</a></li>";
+				echo "
+				<li><a href=\"".BASE_URL."/sections/viewSection.php?section_id={$section->getId()}\">$name</a>
+					<button type=\"button\" class=\"info\" onclick=\"document.location.href='".BASE_URL."/sections/sectionInfo.php?section_id={$section->getId()}';\">Info</button>
+					<button type=\"button\" class=\"view\" onclick=\"document.location.href='".BASE_URL."/sections/viewSection.php?section_id={$section->getId()}';\">View</button>
+				</li>
+				";
 			}
 		}
 
