@@ -20,8 +20,9 @@
 				$featured = $this->document->isFeaturedIn($section) ? 'checked="checked"' : '';
 
 				$section_id = $section->getId();
+				$name = View::escape($section->getName());
 				echo "
-				<tr><td><label for=\"document-sections-$section_id-id\">{$section}</label></td>
+				<tr><td><label for=\"document-sections-$section_id-id\">$name</label></td>
 					<td><input name=\"document[sections][$section_id][id]\" id=\"document-sections-$section_id-id\" type=\"checkbox\" value=\"$section_id\" $linked /></td>
 					<td><input name=\"document[sections][$section_id][featured]\" id=\"document-sections-$section_id-featured\" type=\"checkbox\" value=\"1\" $featured /></td>
 				</tr>

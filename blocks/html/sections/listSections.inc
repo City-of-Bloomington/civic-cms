@@ -12,7 +12,6 @@
 			$section = $node->getSection();
 
 			$name = View::escape($section->getName());
-
 			echo "
 			<li><a href=\"".BASE_URL."/sections/sectionInfo.php?section_id={$section->getId()}\">$name</a>
 				<button type=\"button\" class=\"view\" onclick=\"document.location.href='".BASE_URL."/sections/sectionInfo.php?section_id={$section->getId()}';\">View</button>
@@ -48,7 +47,7 @@
 			$section = new Section($this->section->getId());
 			$name = View::escape($section->getName());
 			echo "
-			<a href=\"".BASE_URL."/sections/sectionInfo.php?section_id={$section->getId()}\">$section</a>
+			<a href=\"".BASE_URL."/sections/sectionInfo.php?section_id={$section->getId()}\">$name</a>
 			<button type=\"button\" class=\"view\" onclick=\"document.location.href='".BASE_URL."/sections/sectionInfo.php?section_id={$section->getId()}';\">View</button>
 			<ul class=\"expandable\">
 			";

@@ -18,10 +18,11 @@
 <?php
 	foreach($this->imageList as $image)
 	{
+		$title = View::escape($image->getTitle());
 		echo "
 		<div class=\"thumbnail\">
-			<a href=\"{$image->getURL()}\" onclick=\"selectImage('{$image->getURL()}',{$image->getWidth()},{$image->getHeight()},'{$image->getTitle()}');return false;\">
-			<img src=\"".BASE_URL."/media/thumbnail.php?media_id={$image->getId()}\" alt=\"{$image->getTitle()}\" />
+			<a href=\"{$image->getURL()}\" onclick=\"selectImage('{$image->getURL()}',{$image->getWidth()},{$image->getHeight()},'$title');return false;\">
+			<img src=\"".BASE_URL."/media/thumbnail.php?media_id={$image->getId()}\" alt=\"$title\" />
 			{$image->getFilename()}</a>
 		</div>
 		";

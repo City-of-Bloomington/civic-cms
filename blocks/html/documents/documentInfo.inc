@@ -6,4 +6,4 @@
  * @param Document $this->document
  */
 ?>
-<h2><?php echo $this->document->getTitle(); ?></h2>
+<h2><?php echo View::escape($this->document->getTitle()); ?></h2>

@@ -31,14 +31,16 @@
 <?php
 	foreach($this->document->getSections() as $section)
 	{
-		echo "<div class=\"interfaceBox\"><div class=\"titleBar\">$section</div><ul>";
+		$name = View::escape($section->getName());
+		echo "<div class=\"interfaceBox\"><div class=\"titleBar\">$name</div><ul>";
 		foreach($section->getDocuments() as $document)
 		{
 			if ($document->getId() != $this->document->getId())
 			{
+				$title = View::escape($document->getTitle());
 				echo "
 				<li><a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$document->getId()}\">
-					{$this->escape($document->getTitle())}</a>
+					$title</a>
 				</li>
 				";
 			}

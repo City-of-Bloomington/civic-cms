@@ -15,9 +15,10 @@
 	<?php
 		foreach($this->sectionWidgetList as $widget)
 		{
+			$name = View::escape($widget->getName());
 			echo "
 			<tr><td><button type=\"button\" class=\"deleteSmall\" onclick=\"document.location.href='".BASE_URL."/sections/removeWidget.php?sectionWidget_id={$widget->getId()}';\">delete</button></td>
-				<td>{$widget->getName()}</td>
+				<td>$name</td>
 				<td>{$widget->getPanel()}</td>
 				<td>{$widget->getLayout_order()}</td></tr>
 			";
@@ -36,10 +37,12 @@
 		{
 			if (!$this->section->hasWidget($widget))
 			{
+				$name = View::escape($widget->getName());
+				$description = View::escape($widget->getDescription());
 				echo "
 				<tr><td><button type=\"button\" class=\"addSmall\" onclick=\"window.open('".BASE_URL."/sections/addWidget.php?section_id={$this->section->getId()};widget_id={$widget->getId()}');\">Add</button></td>
-					<td>{$widget->getName()}</td>
-					<td>{$widget->getDescription()}</td></tr>
+					<td>$name</td>
+					<td>$description</td></tr>
 				";
 			}
 		}

@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param array $this->documentTypeList
@@ -20,12 +20,12 @@
 <?php
 	foreach($this->documentTypeList as $type)
 	{
-		echo "<li>";
+		echo '<li>';
 		if (userHasRole(array('Administrator','Webmaster')))
 		{
 			echo "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/documentTypes/updateDocumentType.php?documentType_id={$type->getId()}';\">Edit</button>";
 		}
-		echo "$type</li>";
+		echo View::escape($type->getType()).'</li>';
 	}
 ?>
 </ul>

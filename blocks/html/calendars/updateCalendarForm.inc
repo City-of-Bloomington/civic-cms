@@ -11,10 +11,10 @@
 	<input name="calendar_id" type="hidden" value="<?php echo $this->calendar->getId(); ?>" />
 	<table>
 	<tr><td><label for="calendar-name">Name</label></td>
-		<td><input name="calendar[name]" id="calendar-name" value="<?php echo $this->calendar->getName(); ?>" /></td></tr>
+		<td><input name="calendar[name]" id="calendar-name" value="<?php echo View::escape($this->calendar->getName()); ?>" /></td></tr>
 	<tr><td colspan="2">
 			<label for="calendar-description" class="required">Description</label>
-			<textarea name="calendar[description]" id="calendar-description" rows="3" cols="60"><?php echo $this->calendar->getDescription(); ?></textarea>
+			<textarea name="calendar[description]" id="calendar-description" rows="3" cols="60"><?php echo View::escape($this->calendar->getDescription()); ?></textarea>
 	</td></tr>
 	</table>
 </fieldset>
@@ -27,9 +27,10 @@
 		foreach($list as $department)
 		{
 			$checked = $this->calendar->hasDepartment($department) ? 'checked="checked"' : '';
+			$name = View::escape($department->getName());
 			echo "
 			<tr><td><input name=\"calendar[departments][{$department->getId()}]\" id=\"calendar-departments-{$department->getId()}\" type=\"checkbox\" value=\"{$department->getId()}\" $checked /></td>
-				<td><label for=\"calendar-departments-{$department->getId()}\">$department</label></td></tr>
+				<td><label for=\"calendar-departments-{$department->getId()}\">$name</label></td></tr>
 			";
 		}
 	?>

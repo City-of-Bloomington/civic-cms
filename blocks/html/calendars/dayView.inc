@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Calendar $this->calendar
@@ -39,10 +39,11 @@
 			foreach($recurrences[$year][$month][$day] as $recurrence)
 			{
 				$time = $recurrence->getEvent()->isAllDayEvent() ? '' : date('g:i A',strtotime($recurrence->getStart()));
+				$summary = View::escape($recurrence->getEvent()->getSummary());
 				echo "
 				<tr><td>$time</td>
 					<td><a href=\"".BASE_URL."/calendars/viewEvent.php?event_id={$recurrence->getEvent_id()}\">
-						{$recurrence->getEvent()->getSummary()}</a>
+						$summary</a>
 					</td>
 				</tr>
 				";

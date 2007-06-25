@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Event $this->event
@@ -13,7 +13,7 @@
 		{
 			echo "<button type=\"button\" class=\"editSmall\" onclick=\"window.open('".BASE_URL."/events/updateEvent.php?event_id={$this->event->getId()}');\">Edit</button>";
 		}
-		echo $this->event->getSummary();
+		echo View::escape($this->event->getSummary());
 	?>
 	</div>
 	<?php
@@ -26,10 +26,16 @@
 
 		if ($this->event->getRRule()) { echo "<p>{$this->event->getRRule()}</p>"; }
 
+		$location = View::escape($this->event->getLocation()->getName());
+		$name = View::escape($this->event->getContact_name());
+		$phone = View::escape($this->event->getContact_phone());
+		$email = View::escape($this->event->getContact_email());
+		$description = View::escape($this->event->getDescription());
+
 		echo "
-		<p><strong>Location:</strong> {$this->event->getLocation()}</p>
-		<p><strong>Contact:</strong> {$this->event->getContact_name()}. {$this->event->getContact_phone()}, {$this->event->getContact_email()}</p>
-		<p>{$this->event->getDescription()}</p>
+		<p><strong>Location:</strong> $location</p>
+		<p><strong>Contact:</strong> $name. $phone, $email</p>
+		<p>$description</p>
 		";
 	?>
 </div>

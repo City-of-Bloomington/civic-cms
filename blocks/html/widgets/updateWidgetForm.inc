@@ -6,7 +6,7 @@
  * @param WidgetInstallation $this->widget
  */
 ?>
-<h2>Edit <?php echo $this->widget->getName(); ?></h2>
+<h2>Edit <?php echo View::escape($this->widget->getName()); ?></h2>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 <fieldset><legend>Global Widget</legend>
 	<input name="widget_id" type="hidden" value="<?php echo $this->widget->getId(); ?>" />

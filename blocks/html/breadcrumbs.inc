@@ -1,11 +1,10 @@
 <?php
 /**
- * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+ * @author Cliff Ingham <inghamn@bloomington.in.gov>
+ * @param Document $this->document
  */
-/*
-	$this->document
-*/
 	$trails = array();
 	foreach($this->document->getSections() as $section)
 	{
@@ -23,7 +22,8 @@
 			echo "<ul>";
 			foreach($trail as $section)
 			{
-				echo "<li><a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$section->getDocument_id()}\">$section</a></li>";
+				$name = View::escape($section->getName());
+				echo "<li><a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$section->getDocument_id()}\">$name</a></li>";
 				$currentSection = $section;
 			}
 			echo "</ul>";

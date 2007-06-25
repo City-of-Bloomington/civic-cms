@@ -16,14 +16,15 @@
 			$info = array();
 			foreach($this->locationList as $location)
 			{
+				$name = View::escape($location->getName());
 				$points[] = "new GLatLng({$location->getLatitude()},{$location->getLongitude()})";
-				$info[] = "\"{$this->escape($location->getName())}\"";
+				$info[] = "\"$name\"";
 
 				$i = count($points) - 1;
 				echo "
 				<li><button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/locations/updateLocation.php?id={$location->getId()}';\">Edit</button>
 					<a href=\"#map\" onclick=\"popup($i);\">
-					$location</a>
+					$name</a>
 				</li>
 				";
 			}
@@ -36,9 +37,6 @@
 <script src="http://maps.google.com/maps?file=api&amp;v=2.77&amp;key=ABQIAAAACqoQOZ2EAqg13jBR94AfexSOTeGX9w6TRh8-t3vLxMlcuGJjjBRSGREuz9NdVZhhWOn4Un1qDAxx2Q" type="text/javascript"></script>
 <script type="text/javascript">
 	<?php
-		foreach($this->locationList as $location)
-		{
-		}
 		$points = implode(',',$points);
 		$info = implode(',',$info);
 

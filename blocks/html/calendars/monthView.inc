@@ -69,9 +69,13 @@
 			foreach($recurrences[$year][$month][$day] as $recurrence)
 			{
 				$time = $recurrence->getEvent()->isAllDayEvent() ? '' : date('g:i A',strtotime($recurrence->getStart()));
+				$summary = View::escape($recurrence->getEvent()->getSummary());
 				echo "
 				<li><a href=\"".BASE_URL."/calendars/viewEvent.php?event_id={$recurrence->getEvent_id()}\">
-					$time {$recurrence->getEvent()->getSummary()}</a></li>
+					$time
+					$summary
+					</a>
+				</li>
 				";
 			}
 			echo '</ul>';

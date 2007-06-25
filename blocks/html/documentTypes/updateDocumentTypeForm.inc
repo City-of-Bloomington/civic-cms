@@ -13,7 +13,7 @@
 
 	<table>
 	<tr><td><label for="documentType-type">Type</label></td>
-		<td><input name="documentType[type]" id="documentType-type" value="<?php echo $this->documentType->getType(); ?>" /></td></tr>
+		<td><input name="documentType[type]" id="documentType-type" value="<?php echo View::escape($this->documentType->getType()); ?>" /></td></tr>
 	<tr><td colspan="2">
 		<label for="documentType-template">Template</label>
 		<textarea name="documentType[template]" id="documentType-template" rows="20" cols="60"><?php echo $this->documentType->getTemplate(); ?></textarea>

@@ -1,7 +1,10 @@
 <?php
-/*
-	$this->user
-*/
+/**
+ * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+ * @author Cliff Ingham <inghamn@bloomington.in.gov>
+ * @param User $this->user
+ */
 ?>
 <h1>Edit <?php echo $this->user->getUsername(); ?></h1>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
@@ -26,9 +29,9 @@
 				$departments->find();
 				foreach($departments as $department)
 				{
-					if ($this->user->getDepartment_id() == $department->getId())
-						{ echo "<option value=\"{$department->getId()}\" selected=\"selected\">{$department->getName()}</option>"; }
-					else { echo "<option value=\"{$department->getId()}\">{$department->getName()}</option>"; }
+					$name = View::escape($department->getName());
+					$selected = ($this->user->getDepartment_id() == $department->getId()) ? 'selected="selected"' : '';
+					echo "<option value=\"{$department->getId()}\" $selected>$name</option>";
 				}
 			?>
 			</select>
@@ -41,8 +44,8 @@
 				$roles->find();
 				foreach($roles as $role)
 				{
-					if (in_array($role,$this->user->getRoles())) { echo "<option selected=\"selected\">$role</option>"; }
-					else { echo "<option>$role</option>"; }
+					$selected = (in_array($role,$this->user->getRoles())) ? 'selected="selected"' : '';
+					echo "<option $selected>$role</option>";
 				}
 			?>
 			</select>
@@ -54,11 +57,11 @@
 <fieldset><legend>Personal Info</legend>
 	<table>
 	<tr><td><label for="user-firstname">Firstname</label></td>
-		<td><input name="user[firstname]" id="user-firstname" value="<?php echo $this->user->getFirstname(); ?>" /></td></tr>
+		<td><input name="user[firstname]" id="user-firstname" value="<?php echo View::escape($this->user->getFirstname()); ?>" /></td></tr>
 	<tr><td><label for="user-lastname">Lastname</label></td>
-		<td><input name="user[lastname]" id="user-lastname" value="<?php echo $this->user->getLastname(); ?>" /></td></tr>
+		<td><input name="user[lastname]" id="user-lastname" value="<?php echo View::escape($this->user->getLastname()); ?>" /></td></tr>
 	<tr><td><label for="user-email">Email</label></td>
-		<td><input name="user[email]" id="user-email" value="<?php echo $this->user->getEmail(); ?>" /></td></tr>
+		<td><input name="user[email]" id="user-email" value="<?php echo View::escape($this->user->getEmail()); ?>" /></td></tr>
 	</table>
 
 	<button type="submit" class="submit">Submit</button>

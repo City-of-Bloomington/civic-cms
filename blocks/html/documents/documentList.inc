@@ -58,11 +58,12 @@
 
 			$modifiedBy = substr($document->getModifiedByUser()->getFirstname(),0,1).substr($document->getModifiedByUser()->getLastname(),0,1);
 
-			$partialTitle = substr($document->getTitle(),0,20);
+			$title = View::escape($document->getTitle());
+			$partialTitle = substr($title,0,20);
 
 			echo "
 			<tr><td style=\"width:100px; white-space:nowrap; overflow:hidden;\">
-					<a href=\"$url\" onclick=\"window.open('$url');return false;\" title=\"{$document->getTitle()}\">$partialTitle</a></td>
+					<a href=\"$url\" onclick=\"window.open('$url');return false;\" title=\"$title\">$partialTitle</a></td>
 			";
 			if ($document->permitsEditingBy($_SESSION['USER']))
 			{

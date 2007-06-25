@@ -8,15 +8,13 @@
 ?>
 <h2>Upload an Attachment</h2>
 <form id="documentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
-	<fieldset><legend>Attachment Info</legend>
+	<fieldset><legend>Upload a new Attachment</legend>
 		<table>
 		<tr><td><label for="attachment-title" class="required">Title</label></td>
 			<td><input name="attachment[title]" id="attachment-title" /></td></tr>
 		<tr><td><label for="attachment-description" class="required">Description</label></td>
 			<td><input name="attachment[description]" id="attachment-description" /></td></tr>
 		</table>
-	</fieldset>
-	<fieldset><legend>Upload</legend>
 		<input name="max_file_size" type="hidden" value="<?php echo 1000000 * (int)ini_get('upload_max_filesize'); ?>" />
 		<input name="attachment" type="file" />
 		<button type="button" class="upload" onclick="FRAMEWORK.processTabbedForm('documentForm','attachments','next');">Upload</button>

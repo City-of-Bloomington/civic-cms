@@ -23,11 +23,13 @@
 		$global = $widget->isGlobal() ? 'yes' : 'no';
 		$default = $widget->isDefault() ? 'yes' : 'no';
 
+		$name = View::escape($widget->getName());
+		$description = View::escape($widget->getDescription());
 		echo "
 		<tr><td><button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/widgets/updateWidget.php?widget_id={$widget->getId()}';\">Edit</button>
 				<button type=\"button\" class=\"deleteSmall\" onclick=\"document.location.href='".BASE_URL."/widgets/uninstall.php?widget_id={$widget->getId()}';\">Uninstall</button></td>
-			<td>{$widget->getName()}</td>
-			<td>{$widget->getDescription()}</td>
+			<td>$name</td>
+			<td>$description</td>
 			<td>$global</td>
 			<td>$default</td>
 		</tr>
@@ -47,10 +49,12 @@
 	{
 		if (!in_array($widget->getClassName(),$installed))
 		{
+			$name = View::escape($widget->getName());
+			$description = View::escape($widget->getDescription());
 			echo "
 			<tr><td><button type=\"button\" class=\"addSmall\" onclick=\"document.location.href='".BASE_URL."/widgets/install.php?widget={$widget->getClassName()}';\">Install</button></td>
-				<td>{$widget->getName()}</td>
-				<td>{$widget->getDescription()}</td></tr>
+				<td>$name</td>
+				<td>$description</td></tr>
 			";
 		}
 	}

@@ -11,9 +11,10 @@
 	<ul><?php
 			foreach($this->section->getChildren() as $section)
 			{
+				$name = View::escape($section->getName());
 				echo "
 				<li><a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$this->section->getDocument_id()}\">
-					{$this->escape($section->getName())}</a>
+					$name</a>
 				</li>
 				";
 			}

@@ -20,7 +20,11 @@
 			<?php
 				$list = new LocationList();
 				$list->find();
-				foreach($list as $location) { echo "<option value=\"{$location->getId()}\">$location</option>"; }
+				foreach($list as $location)
+				{
+					$name = View::escape($location->getName());
+					echo "<option value=\"{$location->getId()}\">$name</option>";
+				}
 			?>
 			</select>
 		</td>
@@ -32,11 +36,9 @@
 				$list->find();
 				foreach($list as $calendar)
 				{
-					if (isset($this->calendar_id) && $this->calendar_id == $calendar->getId())
-					{
-						echo "<option value=\"{$calendar->getId()}\" selected=\"selected\">{$calendar->getName()}</option>";
-					}
-					else { echo "<option value=\"{$calendar->getId()}\">{$calendar->getName()}</option>"; }
+					$name = View::escape($calendar->getName());
+					$selected = (isset($this->calendar_id) && $this->calendar_id == $calendar->getId()) ? 'selected="selected"' : '';
+					echo "<option value=\"{$calendar->getId()}\" $selected>$name</option>";
 				}
 			?>
 			</select>
@@ -73,9 +75,10 @@
 
 		foreach($sections as $section)
 		{
+			$name = View::escape($section->getName());
 			echo "
 			<tr><td><input name=\"event[sections][{$section->getId()}]\" id=\"event-sections-{$section->getId()}\" type=\"checkbox\" value=\"{$section->getId()}\" /></td>
-				<td><label for=\"event-sections-{$section->getId()}\">{$section}</label></td></tr>
+				<td><label for=\"event-sections-{$section->getId()}\">$name</label></td></tr>
 			";
 		}
 	?>

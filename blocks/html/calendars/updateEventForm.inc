@@ -13,7 +13,7 @@
 	<table>
 
 	<tr><td><label for="event-summary">Title</label></td>
-		<td><input name="event[summary]" id="event-summary" value="<?php echo $this->event->getSummary(); ?>" /></td></tr>
+		<td><input name="event[summary]" id="event-summary" value="<?php echo View::escape($this->event->getSummary()); ?>" /></td></tr>
 
 	<tr><td><label for="event-location_id">Location</label></td>
 		<td><select name="event[location_id]" id="event-location_id">
@@ -22,8 +22,9 @@
 				$list->find();
 				foreach($list as $location)
 				{
-					if ($this->event->getLocation_id()==$location->getId()) { echo "<option value=\"{$location->getId()}\" selected=\"selected\">$location</option>"; }
-					else { echo "<option value=\"{$location->getId()}\">$location</option>"; }
+					$name = View::escape($location->getName());
+					$selected = ($this->event->getLocation_id()==$location->getId()) ? 'selected="selected"' : '';
+					echo "<option value=\"{$location->getId()}\" $selected>$name</option>";
 				}
 			?>
 			</select>
@@ -37,8 +38,9 @@
 				$list->find();
 				foreach($list as $calendar)
 				{
-					if ($this->event->getCalendar_id() == $calendar->getId()) { echo "<option value=\"{$calendar->getId()}\" selected=\"selected\">{$calendar->getName()}</option>"; }
-					else { echo "<option value=\"{$calendar->getId()}\">{$calendar->getName()}</option>"; }
+					$name = View::escape($calendar->getName());
+					$selected = ($this->event->getCalendar_id() == $calendar->getId());
+					echo "<option value=\"{$calendar->getId()}\" $selected>$name</option>";
 				}
 			?>
 			</select>
@@ -63,7 +65,7 @@
 
 	<tr><td colspan="2">
 			<div><label for="event-description">Description</label></div>
-			<textarea name="event[description]" id="event-description" rows="3" cols="60"><?php echo $this->event->getDescription(); ?></textarea>
+			<textarea name="event[description]" id="event-description" rows="3" cols="60"><?php echo View::escape($this->event->getDescription()); ?></textarea>
 	</td></tr>
 
 	</table>
@@ -79,10 +81,11 @@
 
 		foreach($sections as $section)
 		{
+			$name = View::escape($section->getName());
 			$checked = $this->event->hasSection($section) ? 'checked="checked"' : '';
 			echo "
 			<tr><td><input name=\"event[sections][{$section->getId()}]\" id=\"event-sections-{$section->getId()}\" type=\"checkbox\" value=\"{$section->getId()}\" $checked /></td>
-				<td><label for=\"event-sections-{$section->getId()}\">{$section}</label></td></tr>
+				<td><label for=\"event-sections-{$section->getId()}\">$name</label></td></tr>
 			";
 		}
 	?>

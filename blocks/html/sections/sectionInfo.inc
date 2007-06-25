@@ -13,7 +13,8 @@
 <?php
 	foreach($this->section->getDepartments() as $department)
 	{
-		echo "<li>$department</li>";
+		$name = View::escape($department->getName());
+		echo "<li>$name</li>";
 	}
 ?>
 </ul>
@@ -26,8 +27,9 @@
 	foreach($this->section->getParentNodes() as $node)
 	{
 		$parent = $node->getParent();
+		$name = View::escape($parent->getName());
 		echo "
-		<li>$parent
+		<li>$name
 			<button type=\"button\" class=\"deleteSmall\" onclick=\"document.location.href='".BASE_URL."/sections/removeParent.php?sectionNode_id={$node->getId()}';\">Remove</button>
 		</li>
 		";
@@ -48,9 +50,10 @@
 			foreach($this->section->getChildNodes() as $node)
 			{
 				$child = $node->getSection();
+				$name = View::escape($child->getName());
 				echo "
 				<li><input name=\"nodePlacement[{$node->getId()}]\" id=\"nodePlacement-{$node->getId()}\" size=\"2\" maxlength=\"2\" value=\"{$node->getPlacement()}\" />
-					<label for=\"nodePlacement-{$node->getId()}\">$child</label>
+					<label for=\"nodePlacement-{$node->getId()}\">$name</label>
 				</li>
 				";
 			}

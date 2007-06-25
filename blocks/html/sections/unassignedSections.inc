@@ -19,7 +19,8 @@
 		{
 			if ($section->getId() != 1)
 			{
-				echo "<li><a href=\"".BASE_URL."/sections/viewSection.php?section_id={$section->getId()}\">{$section->getName()}</a></li>";
+				$name = View::escape($section->getName());
+				echo "<li><a href=\"".BASE_URL."/sections/viewSection.php?section_id={$section->getId()}\">$name</a></li>";
 			}
 		}
 

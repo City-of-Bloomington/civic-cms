@@ -18,9 +18,10 @@
 		foreach($sections as $section)
 		{
 			$checked = $this->event->hasSection($section) ? 'checked="checked"' : '';
+			$name = View::escape($section->getName());
 			echo "
 			<tr><td><input name=\"event[sections][{$section->getId()}]\" id=\"event-sections-{$section->getId()}\" type=\"checkbox\" value=\"{$section->getId()}\" $checked /></td>
-				<td><label for=\"event-sections-{$section->getId()}\">{$section}</label></td></tr>
+				<td><label for=\"event-sections-{$section->getId()}\">$name</label></td></tr>
 			";
 		}
 	?>

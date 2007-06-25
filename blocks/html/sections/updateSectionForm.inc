@@ -31,7 +31,7 @@
 	<input name="id" type="hidden" value="<?php echo $this->section->getId(); ?>" />
 	<table>
 	<tr><td><label for="section-name">Name</label></td>
-		<td><input name="section[name]" id="section-name" value="<?php echo $this->section->getName(); ?>" /></td></tr>
+		<td><input name="section[name]" id="section-name" value="<?php echo View::escape($this->section->getName()); ?>" /></td></tr>
 	</table>
 </fieldset>
 
@@ -44,10 +44,11 @@
 		$departments->find();
 		foreach($departments as $department)
 		{
+			$name = View::escape($department->getName());
 			$checked = $this->section->hasDepartment($department) ? "checked=\"checked\"" : "";
 			echo "
 			<tr><td><input type=\"checkbox\" name=\"section[departments][{$department->getId()}]\" id=\"section-departments-{$department->getId()}\" value=\"{$department->getId()}\" $checked /></td>
-				<td><label for=\"section-departments-{$department->getId()}\">{$department->getName()}</label></td></tr>
+				<td><label for=\"section-departments-{$department->getId()}\">$name</label></td></tr>
 			";
 		}
 	?>

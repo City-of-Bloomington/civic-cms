@@ -24,9 +24,10 @@
 		$list->find();
 		foreach($list as $department)
 		{
+			$name = View::escape($department->getName());
 			echo "
 			<tr><td><input name=\"calendar[departments][{$department->getId()}]\" id=\"calendar-departments-{$department->getId()}\" type=\"checkbox\" value=\"{$department->getId()}\" /></td>
-				<td><label for=\"calendar-departments-{$department->getId()}\">$department</label></td></tr>
+				<td><label for=\"calendar-departments-{$department->getId()}\">$name</label></td></tr>
 			";
 		}
 	?>

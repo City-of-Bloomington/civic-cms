@@ -25,8 +25,9 @@
 				$list->find();
 				foreach($list as $location)
 				{
+					$name = View::escape($location->getName());
 					$selected = ($this->event->getLocation_id() === $location->getId()) ? 'selected="selected"' : '';
-					echo "<option value=\"{$location->getId()}\" $selected>$location</option>";
+					echo "<option value=\"{$location->getId()}\" $selected>$name</option>";
 				}
 			?>
 			</select>
@@ -41,8 +42,9 @@
 				$list->find();
 				foreach($list as $calendar)
 				{
+					$name = View::escape($calendar->getName());
 					$selected = ($this->event->getCalendar_id() === $calendar->getId()) ? 'selected="selected"' : '';
-					echo "<option value=\"{$calendar->getId()}\" $selected>{$calendar->getName()}</option>";
+					echo "<option value=\"{$calendar->getId()}\" $selected>$name</option>";
 				}
 			?>
 			</select>
@@ -67,7 +69,7 @@
 
 	<tr><td colspan="2">
 			<div><label for="event-description">Description</label></div>
-			<textarea name="event[description]" id="event-description" rows="3" cols="60"><?php echo $this->event->getDescription(); ?></textarea>
+			<textarea name="event[description]" id="event-description" rows="3" cols="60"><?php echo View::escape($this->event->getDescription()); ?></textarea>
 	</td></tr>
 
 	</table>
@@ -82,7 +84,9 @@
 			<?php
 				foreach($_SESSION['USER']->getDepartment()->getUsers() as $user)
 				{
-					echo "<option value=\"{$user->getUsername()}\">{$user->getFirstname()} {$user->getLastname()}</option>";
+					$firstname = View::escape($user->getFirstname());
+					$lastname = View::escape($user->getLastname());
+					echo "<option value=\"{$user->getUsername()}\">$firstname $lastname</option>";
 				}
 			?>
 			</select>
@@ -110,11 +114,11 @@
 		</td>
 	</tr>
 	<tr><td><label for="event-contact_name">Name</label></td>
-		<td><input name="event[contact_name]" id="event-contact_name" size="30" value="<?php echo $this->event->getContact_name(); ?>" /></td></tr>
+		<td><input name="event[contact_name]" id="event-contact_name" size="30" value="<?php echo View::escape($this->event->getContact_name()); ?>" /></td></tr>
 	<tr><td><label for="event-contact_phone">Phone</label></td>
-		<td><input name="event[contact_phone]" id="event-contact_phone" size="12" value="<?php echo $this->event->getContact_phone(); ?>" /></td></tr>
+		<td><input name="event[contact_phone]" id="event-contact_phone" size="12" value="<?php echo View::escape($this->event->getContact_phone()); ?>" /></td></tr>
 	<tr><td><label for="event-contact_email">Email</label></td>
-		<td><input name="event[contact_email]" id="event-contact_email" size="30" value="<?php echo $this->event->getContact_email(); ?>" /></td></tr>
+		<td><input name="event[contact_email]" id="event-contact_email" size="30" value="<?php echo View::escape($this->event->getContact_email()); ?>" /></td></tr>
 	</table>
 </fieldset>
 

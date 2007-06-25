@@ -14,8 +14,8 @@
 		{
 			echo "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/calendars/updateCalendar.php?calendar_id={$this->calendar->getId()}';\">Edit</button>";
 		}
-		echo $this->calendar->getName().'</h2>';
-		echo "<p>{$this->calendar->getDescription()}</p>";
+		echo View::escape($this->calendar->getName()).'</h2>';
+		echo "<p>".View::escape($this->calendar->getDescription())."</p>";
 	}
 ?>
 <div class="contextualMenu">
@@ -46,8 +46,9 @@
 				$list->find();
 				foreach($list as $calendar)
 				{
-					if ($this->calendar->getId() != $calendar->getId()) { echo "<option value=\"{$calendar->getId()}\">{$calendar->getName()}</option>"; }
-					else { echo "<option value=\"{$calendar->getId()}\" selected=\"selected\">{$calendar->getName()}</option>"; }
+					$name = View::escape($calendar->getName());
+					if ($this->calendar->getId() != $calendar->getId()) { echo "<option value=\"{$calendar->getId()}\">$name</option>"; }
+					else { echo "<option value=\"{$calendar->getId()}\" selected=\"selected\">$name</option>"; }
 				}
 			?>
 		</select>

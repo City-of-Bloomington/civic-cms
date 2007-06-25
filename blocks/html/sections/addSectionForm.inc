@@ -6,8 +6,9 @@
  */
 	function printSectionOptions($section,$depth)
 	{
+		$name = View::escape($section->getName());
 		$depthIndicator = str_repeat("-",$depth);
-		echo "<li><label><input name=\"section[parents][{$section->getId()}]\" type=\"checkbox\" value=\"{$section->getId()}\" />$section</label></li>";
+		echo "<li><label><input name=\"section[parents][{$section->getId()}]\" type=\"checkbox\" value=\"{$section->getId()}\" />$name</label></li>";
 		if ($section->hasChildren())
 		{
 			echo "<ul style=\"list-style-type:none\">";
@@ -34,27 +35,15 @@
 		$departments->find();
 		foreach($departments as $department)
 		{
+			$name = View::escape($department->getName());
 			$checked = $_SESSION['USER']->getDepartment_id()===$department->getId() ? 'checked="checked"' : '';
 			echo "
 			<tr><td><input type=\"checkbox\" name=\"section[departments][{$department->getId()}]\" id=\"section-departments-{$department->getId()}\" value=\"{$department->getId()}\" $checked /></td>
-				<td><label for=\"section-departments-{$department->getId()}\">{$department->getName()}</label></td></tr>
+				<td><label for=\"section-departments-{$department->getId()}\">$name</label></td></tr>
 			";
 		}
 	?>
 	</table>
-</fieldset>
-
-<fieldset><legend>Facets</legend>
-<?php
-/*
-	$facets = new FacetList();
-	$facets->find();
-	foreach($facets as $facet)
-	{
-		echo "<label><input type=\"checkbox\" name=\"section[facets][{$facet->getId()}]\" value=\"{$facet->getId()}\" />{$facet->getName()}</label>";
-	}
-*/
-?>
 </fieldset>
 
 <fieldset><legend>Submit</legend>

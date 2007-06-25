@@ -11,9 +11,10 @@
 <?php
 	foreach($this->results as $document)
 	{
+		$title = View::escape($document->getTitle());
 		echo "
 		<li><a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$document->getId()}\">
-			{$document->getTitle()}</a></li>
+			$title</a></li>
 		";
 	}
 ?>

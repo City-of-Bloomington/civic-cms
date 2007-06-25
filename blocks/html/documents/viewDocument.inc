@@ -11,6 +11,7 @@
 	}
 	else { $editButton = ""; }
 
-	echo "<h2>$editButton{$this->document->getTitle()}</h2>";
+	$title = View::escape($this->document->getTitle());
+	echo "<h2>$editButton $title</h2>";
 	echo $this->document->getContent($_SESSION['LANGUAGE']);
 ?>

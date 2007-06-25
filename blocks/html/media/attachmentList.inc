@@ -23,10 +23,13 @@
 		{
 			$url = new URL($_SERVER['REQUEST_URI']);
 			$url->parameters['department_id'] = $attachment->getDepartment_id();
+
+			$title = View::escape($attachment->getTitle());
+			$department = View::escape($attachment->getDepartment()->getName());
 			echo "
 			<tr><td><a href=\"{$attachment->getURL()}\" class=\"{$attachment->getExtension()}\">{$attachment->getFilename()}</a></td>
-				<td>{$attachment->getTitle()}</td>
-				<td><a href=\"{$url->getURL()}\">{$attachment->getDepartment()}</a></td>
+				<td>$title</td>
+				<td><a href=\"{$url->getURL()}\">$department</a></td>
 				<td>{$attachment->getUploaded('%D')}</td>
 			</tr>
 			";
