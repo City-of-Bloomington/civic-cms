@@ -135,6 +135,9 @@
 			$tempFile = is_array($file) ? $file['tmp_name'] : $file;
 			$filename = is_array($file) ? basename($file['name']) : basename($file);
 
+			# Clean all bad characters from the filename
+			$filename = $this->createValidFilename($filename);
+
 			if (!$tempFile) { throw new Exception('media/uploadFailed'); }
 
 			# Find out the mime type for this file
@@ -166,7 +169,7 @@
 
 			# Move the file where it's supposed to go
 			if (!is_dir($this->getDirectory())) { mkdir($this->getDirectory(),0777,true); }
-			$newFile = $this->getDirectory().'/'.$this->createValidFilename($filename);
+			$newFile = $this->getDirectory()."/$filename";
 			rename($tempFile,$newFile);
 			chmod($newFile,0666);
 
