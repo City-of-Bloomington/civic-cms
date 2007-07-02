@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
@@ -353,7 +353,7 @@
 		private function quote($string) { return "'$string'"; }
 		public function permitsPostingBy($user)
 		{
-			if ($user->hasRole(array('Administrator','Webmaster'))) { return true; }
+			if ($user->hasRole(array('Administrator','Webmaster','Publisher'))) { return true; }
 			if ($user->hasRole('Content Creator') && $user->getDepartment_id()==$this->department_id) { return true; }
 			return false;
 		}

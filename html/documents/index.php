@@ -4,7 +4,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
-	verifyUser(array('Administrator','Webmaster','Content Creator'));
+	verifyUser(array('Administrator','Webmaster','Content Creator','Publisher'));
 
 	$sort = isset($_GET['sort']) ? $_GET['sort'] : 'created desc';
 

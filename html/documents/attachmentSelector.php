@@ -4,7 +4,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
-	verifyUser(array('Webmaster','Administrator','Content Creator'));
+	verifyUser(array('Administrator','Webmaster','Content Creator','Publisher'));
 
 	$department_id = isset($_GET['department_id']) ? $_GET['department_id'] : $_SESSION['USER']->getDepartment_id();
 	$department = new Department($department_id);

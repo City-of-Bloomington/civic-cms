@@ -5,7 +5,7 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param GET document_id
  */
-	verifyUser();
+	verifyUser(array('Administrator','Webmaster','Content Creator','Publisher'));
 
 	$document = new Document($_GET['document_id']);
 

@@ -6,7 +6,7 @@
  * @param GET document_id
  * @param GET lang
  */
-	verifyUser(array('Webmaster','Administrator','Content Creator'));
+	verifyUser(array('Webmaster','Administrator','Content Creator','Publisher'));
 
 	# If they passing a document_id in the URL, start a new Document Updating process
 	if (isset($_GET['document_id'])) { $_SESSION['document'] = new Document($_GET['document_id']); }

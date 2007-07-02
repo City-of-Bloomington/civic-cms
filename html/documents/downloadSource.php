@@ -6,7 +6,7 @@
  * @param GET document_id
  * @param GET lang
  */
-	verifyUser('Webmaster');
+	verifyUser(array('Administrator','Webmaster'));
 
 	$document = new Document($_GET['document_id']);
 	$filename = "$_GET[document_id].$_GET[lang]";

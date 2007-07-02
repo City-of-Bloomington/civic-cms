@@ -6,7 +6,7 @@
  * @param GET document_id
  * @param GET media_id
  */
-	verifyUser();
+	verifyUser(array('Administrator','Webmaster','Content Creator','Publisher'));
 
 	$document = new Document($_GET['document_id']);
 	if ($document->permitsEditingBy($_SESSION['USER']))

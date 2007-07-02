@@ -30,7 +30,7 @@
 		";
 	}
 
-	if (userHasRole('Content Creator'))
+	if ( userHasRole('Content Creator') || userHasRole('Publisher') )
 	{
 		echo "
 		<li><a href=\"".BASE_URL."/documents\">My Documents</a></li>
