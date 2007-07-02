@@ -28,7 +28,7 @@ There will be no stripping or escaping of characters, tags, code, or anything el
 	</fieldset>
 
 	<fieldset><legend>Source Code</legend>
-		<textarea name="content_<?php echo $this->language->getCode(); ?>" rows="30" cols="100"><?php echo $this->document->getContent($this->language->getCode()); ?></textarea>
+		<textarea name="content_<?php echo $this->language->getCode(); ?>" rows="30" cols="100"><?php echo View::escape($this->document->getContent($this->language->getCode())); ?></textarea>
 		<div>
 			<?php
 				# You can't download anything until we've saved the document, and have a document_id

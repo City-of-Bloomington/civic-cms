@@ -37,6 +37,7 @@
 	}
 	# Content has to be handled specially
 	$languageList = new LanguageList();
+	$languageList->find();
 	foreach($languageList as $l)
 	{
 		$contentField = "content_{$l->getCode()}";
