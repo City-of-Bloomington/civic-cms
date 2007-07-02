@@ -22,8 +22,6 @@
 		private $department;
 
 		private $documents = array();
-		private $newDocumentIds = array();
-		private $deletedDocumentIds = array();
 
 		protected $extensions = array(	'jpg'=>array('mime_type'=>'image/jpeg','media_type'=>'image'),
 										'gif'=>array('mime_type'=>'image/gif','media_type'=>'image'),
@@ -106,8 +104,6 @@
 
 			if ($this->id) { $this->update($values,$preparedFields); }
 			else { $this->insert($values,$preparedFields); }
-
-			$this->saveDocuments();
 		}
 
 		private function update($values,$preparedFields)
@@ -219,47 +215,6 @@
 			}
 			return $this->documents;
 		}
-		private function saveDocuments()
-		{
-			global $PDO;
-
-			# Clear out all the old facets
-			if (count($this->deletedDocumentIds))
-			{
-				$ids = implode(",",$this->deletedDocumentIds);
-				$query = $PDO->prepare("delete from media_documents where media_id={$this->id} and document_id in ($ids)");
-				$query->execute();
-			}
-
-			# Add in the new ones
-			if (count($this->newDocumentIds))
-			{
-				$query = $PDO->prepare("insert media_documents set media_id={$this->id},document_id=?");
-				foreach($this->newDocumentIds as $id) { $query->execute(array($id)); }
-			}
-		}
-		public function addDocument($document)
-		{
-			if (!array_key_exists($document->getId(),$this->getDocuments()))
-			{
-				$this->documents[$document->getId()] = $document;
-				$this->newDocumentIds[] = $document->getId();
-			}
-		}
-		public function setDocuments(array $documentIds)
-		{
-			# Make sure to call $this->getDocuments() at least once to ensure that
-			# the current documents are loaded before trying to determine which ones are new
-
-			# Any $documentIds that are not in $this->documents need to be added
-			$this->newDocumentIds = array_diff($documentIds,array_keys($this->getDocuments()));
-			foreach($this->newDocumentIds as $id) { $this->Documents[$id] = new Document($id); }
-
-			# Unset any $this->documents that are not in $documentIds
-			$this->deletedDocumentIds = array_diff(array_keys($this->documents),$documentIds);
-			foreach($this->deletedDocumentIds as $id) { unset($this->documents[$id]); }
-		}
-		public function hasDocument($document) { return array_key_exists($document->getId(),$this->getFacets()); }
 
 		public function createValidFilename($string)
 		{

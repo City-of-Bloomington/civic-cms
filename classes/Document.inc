@@ -32,7 +32,7 @@
 		private $document_sections = array();
 
 		private $widgets = array();
-		private $attachments;
+		private $attachments = array();
 
 		/**
 		 * This will load all fields in the table as properties of this class.
@@ -486,11 +486,54 @@
 			return $this->widgets;
    		}
 
+   		/**
+   		 * Attachment functions
+   		 * Attachments need to be linked immediately.  Do not wait until the document is saved
+   		 * Attachments do require a document_id, though
+   		 */
    		public function getAttachments()
    		{
-   			if (!$this->attachments) { $this->attachments = new AttachmentList(array('document_id'=>$this->id)); }
-   			return $this->attachments;
+			if ($this->id)
+			{
+				if (!count($this->attachments))
+				{
+					$list = new AttachmentList(array('document_id'=>$this->id));
+					foreach($list as $attachment)
+					{
+						$this->attachments[$attachment->getId()] = $attachment;
+					}
+				}
+			}
+			return $this->attachments;
    		}
+   		public function attach($media)
+   		{
+   			global $PDO;
+
+   			if (!in_array($media->getId(),array_keys($this->getAttachments())))
+   			{
+				$query = $PDO->prepare('insert media_documents values(?,?)');
+				$query->execute(array($media->getId(),$this->id));
+
+				$this->attachments[$media->getId()] = $media;
+   			}
+   		}
+   		public function addAttachment($media) { $this->attach($media); }
+   		public function removeAttachment($media)
+   		{
+   			global $PDO;
+
+			if (is_int($media)) { $media = new Media($media); }
+
+			if (in_array($media->getId(),array_keys($this->getAttachments())))
+			{
+				$query = $PDO->prepare('delete from media_documents where media_id=? and document_id=?');
+				$query->execute(array($media->getId(),$this->id));
+
+				unset($this->attachments[$media->getId()]);
+			}
+   		}
+
 
 		/**
 		 * Generic Getters

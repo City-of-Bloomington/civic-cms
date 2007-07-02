@@ -22,7 +22,7 @@
 		catch(Exception $e) { $_SESSION['errorMessages'][] = $e; }
 	}
 
-	$template = new Template('imageBrowser');
+	$template = new Template('mediaBrowser');
 
 	$images = new ImageList(array('department_id'=>$department_id));
 	$department = new Department($department_id);

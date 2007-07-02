@@ -37,7 +37,6 @@
 	}
 	# Content has to be handled specially
 	$languageList = new LanguageList();
-	$languageList->find();
 	foreach($languageList as $l)
 	{
 		$contentField = "content_{$l->getCode()}";
@@ -73,18 +72,26 @@
 	}
 	if (isset($_POST['attachment']))
 	{
+		# Handle uploading of new media attachments
 		if (isset($_FILES['attachment']) && $_FILES['attachment']['name'])
 		{
 			$attachment = new Attachment();
 			$attachment->setTitle($_POST['attachment']['title']);
 			$attachment->setDescription($_POST['attachment']['description']);
-			$attachment->addDocument($_SESSION['document']);
 			try
 			{
 				$attachment->setFile($_FILES['attachment']);
 				$attachment->save();
 			}
 			catch(Exception $e) { $_SESSION['errorMessages'][] = $e; }
+
+			$_SESSION['document']->attach($attachment);
+		}
+		# Handle selecting existing media to attach
+		elseif ($_POST['attachment']['media_id'] && is_numeric($_POST['attachment']['media_id']))
+		{
+			$media = new Attachment($_POST['attachment']['media_id']);
+			$_SESSION['document']->attach($media);
 		}
 	}
 
@@ -132,8 +139,6 @@
 		break;
 
 		case 'attachments':
-			$list = new AttachmentList(array('document_id'=>$_SESSION['document']->getId()));
-			$template->blocks[] = new Block('media/attachmentList.inc',array('attachmentList'=>$list));
 		break;
 
 		case 'source':

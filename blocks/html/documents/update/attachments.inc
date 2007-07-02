@@ -6,8 +6,55 @@
  * @param Document $this->document
  */
 ?>
-<h2>Upload an Attachment</h2>
+<div class="interfaceBox">
+	<div class="titleBar">Attachments</div>
+	<table>
+	<?php
+		$list = new AttachmentList(array('document_id'=>$this->document->getId()));
+		foreach($list as $attachment)
+		{
+			$title = View::escape($attachment->getTitle());
+			echo "
+			<tr><td><a class=\"{$attachment->getExtension()}\">{$attachment->getFilename()}</a></td>
+				<td>$title</td>
+				<td><button type=\"button\" class=\"deleteSmall\" onclick=\"removeAttachment({$attachment->getId()});\">Delete</button></td>
+			</tr>
+			";
+		}
+	?>
+	</table>
+	<script type="text/javascript">
+		var removalRequest = FRAMEWORK.getXMLHttpRequestObject();
+		function removeAttachment(media_id)
+		{
+			removalRequest.open("get","<?php echo BASE_URL; ?>/documents/removeAttachment.php?document_id=<?php echo $this->document->getId(); ?>;media_id="+media_id);
+			removalRequest.onreadystatechange = handleRemovalResult;
+			removalRequest.send(null);
+		}
+
+		function handleRemovalResult()
+		{
+			if (removalRequest.readyState == 4)
+			{
+				FRAMEWORK.processTabbedForm('documentForm','attachments','next');
+			}
+		}
+
+		function addAttachment(media_id)
+		{
+			document.getElementById('attachment-media_id').value = media_id;
+			FRAMEWORK.processTabbedForm('documentForm','attachments','next');
+		}
+	</script>
+</div>
+
+<h2>Add an Attachment</h2>
 <form id="documentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
+	<fieldset><legend>Browse</legend>
+		<p>Browse for an existing attachment.</p>
+		<button type="button" class="browse" onclick="window.open('<?php echo BASE_URL; ?>/documents/attachmentSelector.php');">Browse</button>
+		<input type="hidden" name="attachment[media_id]" id="attachment-media_id" />
+	</fieldset>
 	<fieldset><legend>Upload a new Attachment</legend>
 		<table>
 		<tr><td><label for="attachment-title" class="required">Title</label></td>
