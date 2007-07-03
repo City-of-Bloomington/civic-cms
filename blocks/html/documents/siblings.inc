@@ -14,14 +14,14 @@
 		{
 			// Display the siblings
 			siblings.style.display = '';
-			button.class = 'less';
+			button.className = 'less';
 			button.firstChild.nodeValue = 'Less';
 		}
 		else
 		{
 			// Hide the siblings
 			siblings.style.display = 'none';
-			button.class = 'more';
+			button.className = 'more';
 			button.firstChild.nodeValue = 'More';
 		}
 	}
