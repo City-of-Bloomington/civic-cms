@@ -16,7 +16,7 @@
 
 	}
 
-	if (userHasRole('Webmaster'))
+	if (userHasRole('Webmaster') || userHasRole('Administrator'))
 	{
 		echo "
 		<li><a href=\"".BASE_URL."/documents\">Documents</a></li>

@@ -62,10 +62,12 @@ create table documents (
   department_id int unsigned not null,
   documentType_id int unsigned not null default 1,
   description varchar(255),
+  lockedBy int unsigned,
   foreign key (createdBy) references users(id),
   foreign key (modifiedBy) references users(id),
   foreign key (department_id) references departments(id),
-  foreign key (documentType_id) references documentTypes(id)
+  foreign key (documentType_id) references documentTypes(id),
+  foreign key (lockedBy) references users(id)
 ) engine=InnoDB;
 
 create table document_watches (

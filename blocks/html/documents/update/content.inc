@@ -26,7 +26,19 @@
 		</tr>
 		</tr>
 		</table>
-		<?php include APPLICATION_HOME.'/includes/editors/'.EDITOR.'.inc'; ?>
+		<?php
+			if (!$this->document->isLocked())
+			{
+				include APPLICATION_HOME.'/includes/editors/'.EDITOR.'.inc';
+			}
+			else
+			{
+				echo "
+				<p>Content editing has been locked by {$this->document->getLockedByUser()->getUsername()}.</p>
+				<p>You will need to contact that person, or an Administrator, to edit this content.</p>
+				";
+			}
+		?>
 	</fieldset>
 
 	<fieldset><legend>Next</legend>

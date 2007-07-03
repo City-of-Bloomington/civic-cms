@@ -12,7 +12,7 @@
 	<li><a href="<?php echo BASE_URL; ?>/documents/updateDocument.php?tab=attachments" onclick="FRAMEWORK.processTabbedForm('documentForm','attachments','next');return false;">Attachments</a></li>
 	<li><a href="<?php echo BASE_URL; ?>/documents/updateDocument.php?tab=facets" onclick="FRAMEWORK.processTabbedForm('documentForm','facets','next');return false;">Facets</a></li>
 	<?php
-		if(userHasRole('Webmaster'))
+		if(userHasRole('Webmaster') || userHasRole('Administrator'))
 		{
 			echo "<li><a href=\"".BASE_URL."/documents/updateDocument.php?tab=facets\" onclick=\"FRAMEWORK.processTabbedForm('documentForm','source','next');return false;\">Source</a></li>";
 		}

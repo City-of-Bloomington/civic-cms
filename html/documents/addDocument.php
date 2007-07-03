@@ -57,6 +57,22 @@
 			}
 		}
 	}
+	# Handle document locking
+	if (isset($_POST['locked']))
+	{
+		# Make sure they're allowed to change the lock status
+		if (!$_SESSION['document']->isLocked() || userHasRole('Administrator') || $_SESSION['USER']->getId()==$_SESSION['document']->getLockedBy())
+		{
+			if ($_POST['locked']=='yes')
+			{
+				if (!$_SESSION['document']->isLocked()) { $_SESSION['document']->setLockedByUser($_SESSION['USER']); }
+			}
+			else
+			{
+				$_SESSION['document']->setLockedBy(null);
+			}
+		}
+	}
 
 	/*
 	 Attachments cannot be created until we have a document_id.
@@ -67,7 +83,7 @@
 	if (isset($_FILES['source']) && $_FILES['source']['name'])
 	{
 		# Make sure they're allowed to edit the raw source code
-		if (userHasRole('Webmaster'))
+		if (userHasRole('Webmaster') || userHasRole('Administrator'))
 		{
 			$_SESSION['document']->setContent(file_get_contents($_FILES['source']['tmp_name']),$_POST['lang']);
 		}
@@ -113,7 +129,10 @@
 
 		case 'source':
 			# Make sure they're allowed to edit the raw source code
-			if (!userHasRole('Webmaster')) { $form = new Block('documents/udpate/info.inc',array('document'=>$_SESSION['document'])); }
+			if ( !(userHasRole('Webmaster') || userHasRole('Administrator')) )
+			{
+				$form = new Block('documents/update/info.inc',array('document'=>$_SESSION['document']));
+			}
 			$form->language = $language;
 		break;
 

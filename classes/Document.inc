@@ -17,11 +17,13 @@
 		private $department_id;
 		private $documentType_id;
 		private $description;
+		private $lockedBy;
 
 		private $department;
 		private $content = array();
 		private $contentDirectory;
 		private $documentType;
+		private $lockedByUser;
 
 		private $facets = array();
 		private $newFacetIds = array();
@@ -92,6 +94,7 @@
 			$fields['department_id'] = $this->department_id;
 			$fields['documentType_id'] = $this->documentType_id ? $this->documentType_id : null;
 			$fields['description'] = $this->description ? $this->description : null;
+			$fields['lockedBy'] = $this->lockedBy ? $this->lockedBy : null;
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
@@ -173,7 +176,13 @@
 		/**
 		 * Content Related Functions
 		 */
-		public function setContent($string,$lang) { $this->content[$lang] = trim($string); }
+		public function setContent($string,$lang)
+		{
+			if (!$this->isLocked())
+			{
+				$this->content[$lang] = trim($string);
+			}
+		}
 		private function saveContent()
 		{
 			$directory = $this->getContentDirectory();
@@ -202,13 +211,16 @@
 		}
 		private function deleteContent()
 		{
-			$sandbox = new SubversionWorkingCopy(APPLICATION_HOME.'/data/documents');
-			$directory = $this->getContentDirectory();
-			foreach(glob("$directory/{$this->id}.*") as $file)
+			if (!$this->isLocked())
 			{
-				$sandbox->delete($file);
+				$sandbox = new SubversionWorkingCopy(APPLICATION_HOME.'/data/documents');
+				$directory = $this->getContentDirectory();
+				foreach(glob("$directory/{$this->id}.*") as $file)
+				{
+					$sandbox->delete($file);
+				}
+				$sandbox->commit($directory,$_SESSION['USER']->getUsername());
 			}
-			$sandbox->commit($directory,$_SESSION['USER']->getUsername());
 		}
 		public function getContent($lang=null)
 		{
@@ -534,6 +546,8 @@
 			}
    		}
 
+   		public function isLocked() { return $this->lockedBy ? true : false; }
+
 
 		/**
 		 * Generic Getters
@@ -566,6 +580,15 @@
 		public function getDocumentType_id() { return $this->documentType_id; }
 		public function getDescription() { return $this->description; }
 		public function getModifiedByUser() { return new User($this->modifiedBy); }
+		public function getLockedBy() { return $this->lockedBy; }
+		public function getLockedByUser()
+		{
+			if (!$this->lockedByUser)
+			{
+				if ($this->lockedBy) { $this->lockedByUser = new User($this->lockedBy); }
+			}
+			return $this->lockedByUser;
+		}
 		public function getDepartment()
 		{
 			if (!$this->department) { $this->department = new Department($this->department_id); }
@@ -591,6 +614,20 @@
 		public function setDepartment_id($int) { $this->department = new Department($int); $this->department_id = $int; }
 		public function setDepartment($department) { $this->department_id = $department->getId(); $this->department = $department; }
 		public function setDescription($string) { $this->description = trim($string); }
+		public function setLockedBy($int=null)
+		{
+			if ($int)
+			{
+				$this->lockedByUser = new User($int);
+				$this->lockedBy = $int;
+			}
+			else
+			{
+				$this->lockedByUser = null;
+				$this->lockedBy = null;
+			}
+		}
+		public function setLockedByUser($user) { $this->lockedBy = $user->getId(); $this->lockedByUser = $user; }
 		public function setDocumentType_id($int,$lang=null)
 		{
 			$this->documentType = new DocumentType($int);

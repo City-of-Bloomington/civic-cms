@@ -28,18 +28,49 @@ There will be no stripping or escaping of characters, tags, code, or anything el
 	</fieldset>
 
 	<fieldset><legend>Source Code</legend>
-		<textarea name="content_<?php echo $this->language->getCode(); ?>" rows="30" cols="100"><?php echo View::escape($this->document->getContent($this->language->getCode())); ?></textarea>
 		<div>
 			<?php
-				# You can't download anything until we've saved the document, and have a document_id
-				if ($this->document->getId())
+				if (!$this->document->isLocked() || userHasRole('Administrator') || $_SESSION['USER']->getId()==$this->document->getLockedBy())
 				{
-					echo "<button type=\"button\" class=\"download\" onclick=\"document.location.href='".BASE_URL."/documents/downloadSource.php?document_id={$this->document->getId()};lang={$this->language->getCode()}';\">Download</button>";
+					# They are allowed to change the locked status
+					if ($this->document->isLocked())
+					{
+						$locked = 'checked="checked"';
+						$unlocked = '';
+					}
+					else
+					{
+						$locked ='';
+						$unlocked = 'checked="checked"';
+					}
+					echo "
+					<label>Locked<input name=\"locked\" type=\"radio\" value=\"yes\" $locked /></label>
+					<label>Unlocked<input name=\"locked\" type=\"radio\" value=\"no\" $unlocked /></label>
+					";
+				}
+				else
+				{
+					echo "
+					<p>Content editing has been locked by {$this->document->getLockedByUser()->getUsername()}.</p>
+					<p>You will need to contact that person, or an Administrator, to edit this content.</p>
+					";
 				}
 			?>
-			<input name="source" type="file" />
-			<button type="button" class="upload" onclick="FRAMEWORK.processTabbedForm('documentForm','source','next');">Upload</button>
 		</div>
+		<?php if (!$this->document->isLocked()) { ?>
+			<textarea name="content_<?php echo $this->language->getCode(); ?>" rows="30" cols="100"><?php echo View::escape($this->document->getContent($this->language->getCode())); ?></textarea>
+			<div>
+				<?php
+					# You can't download anything until we've saved the document, and have a document_id
+					if ($this->document->getId())
+					{
+						echo "<button type=\"button\" class=\"download\" onclick=\"document.location.href='".BASE_URL."/documents/downloadSource.php?document_id={$this->document->getId()};lang={$this->language->getCode()}';\">Download</button>";
+					}
+				?>
+				<input name="source" type="file" />
+				<button type="button" class="upload" onclick="FRAMEWORK.processTabbedForm('documentForm','source','next');">Upload</button>
+			</div>
+		<?php } ?>
 	</fieldset>
 
 	<fieldset><legend>Next</legend>
