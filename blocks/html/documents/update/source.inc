@@ -26,8 +26,9 @@ There will be no stripping or escaping of characters, tags, code, or anything el
 			?>
 		</select>
 	</fieldset>
-
-	<fieldset><legend>Source Code</legend>
+	<fieldset><legend>Locking and PHP Code</legend>
+		<p>If you are going to enable PHP code for this document, it is <strong>highly recommended</strong> that you
+			also lock the content when you are done.</p>
 		<div>
 			<?php
 				if (!$this->document->isLocked() || userHasRole('Administrator') || $_SESSION['USER']->getId()==$this->document->getLockedBy())
@@ -35,17 +36,20 @@ There will be no stripping or escaping of characters, tags, code, or anything el
 					# They are allowed to change the locked status
 					if ($this->document->isLocked())
 					{
-						$locked = 'checked="checked"';
+						$locked = 'selected="selected"';
 						$unlocked = '';
 					}
 					else
 					{
 						$locked ='';
-						$unlocked = 'checked="checked"';
+						$unlocked = 'selected="selected"';
 					}
 					echo "
-					<label>Locked<input name=\"locked\" type=\"radio\" value=\"yes\" $locked /></label>
-					<label>Unlocked<input name=\"locked\" type=\"radio\" value=\"no\" $unlocked /></label>
+					<label for=\"locked\">Locking</label>
+					<select name=\"locked\" id=\"locked\" onchange=\"FRAMEWORK.processTabbedForm('documentForm','source','next');\">
+						<option $locked>Locked</option>
+						<option $unlocked>Unlocked</option>
+					</select>
 					";
 				}
 				else
@@ -57,6 +61,16 @@ There will be no stripping or escaping of characters, tags, code, or anything el
 				}
 			?>
 		</div>
+		<div>
+			<label for="enablePHP">Enable PHP Code?</label>
+			<select name="enablePHP" id="enablePHP">
+				<option value="1" <?php if($this->document->PHPIsEnabled()) echo 'selected="selected"'; ?>>Yes</option>
+				<option value="0" <?php if(!$this->document->PHPIsEnabled()) echo 'selected="selected"'; ?>>No</option>
+			</select>
+		</div>
+	</fieldset>
+
+	<fieldset><legend>Source Code</legend>
 		<?php if (!$this->document->isLocked()) { ?>
 			<textarea name="content_<?php echo $this->language->getCode(); ?>" rows="30" cols="100"><?php echo View::escape($this->document->getContent($this->language->getCode())); ?></textarea>
 			<div>
@@ -70,7 +84,16 @@ There will be no stripping or escaping of characters, tags, code, or anything el
 				<input name="source" type="file" />
 				<button type="button" class="upload" onclick="FRAMEWORK.processTabbedForm('documentForm','source','next');">Upload</button>
 			</div>
-		<?php } ?>
+		<?php
+			}
+			else
+			{
+				echo "
+				<p>Content editing has been locked by {$this->document->getLockedByUser()->getUsername()}.</p>
+				<p>You will need to contact that person, or an Administrator, to edit this content.</p>
+				";
+			}
+		?>
 	</fieldset>
 
 	<fieldset><legend>Next</legend>

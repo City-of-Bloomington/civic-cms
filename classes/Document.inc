@@ -18,6 +18,7 @@
 		private $documentType_id;
 		private $description;
 		private $lockedBy;
+		private $enablePHP;
 
 		private $department;
 		private $content = array();
@@ -95,6 +96,7 @@
 			$fields['documentType_id'] = $this->documentType_id ? $this->documentType_id : null;
 			$fields['description'] = $this->description ? $this->description : null;
 			$fields['lockedBy'] = $this->lockedBy ? $this->lockedBy : null;
+			$fields['enablePHP'] = $this->enablePHP ? 1 : 0;
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
@@ -271,9 +273,10 @@
 			}
 			return $this->contentDirectory;
 		}
-		public function getContentFilename()
+		public function getContentFilename($lang=null)
 		{
-			$filename = "{$this->getContentDirectory()}/{$this->id}.$_SESSION[LANGUAGE]";
+			if (!$lang) { $lang = $_SESSION['LANGUAGE']; }
+			$filename = "{$this->getContentDirectory()}/{$this->id}.$lang";
 			if (file_exists($filename)) { return $filename; }
 			else return null;
 		}
@@ -547,6 +550,7 @@
    		}
 
    		public function isLocked() { return $this->lockedBy ? true : false; }
+   		public function PHPIsEnabled() { return $this->enablePHP ? true : false; }
 
 
 		/**
@@ -581,6 +585,7 @@
 		public function getDescription() { return $this->description; }
 		public function getModifiedByUser() { return new User($this->modifiedBy); }
 		public function getLockedBy() { return $this->lockedBy; }
+		public function getEnablePHP() { return $this->enablePHP; }
 		public function getLockedByUser()
 		{
 			if (!$this->lockedByUser)
@@ -614,6 +619,7 @@
 		public function setDepartment_id($int) { $this->department = new Department($int); $this->department_id = $int; }
 		public function setDepartment($department) { $this->department_id = $department->getId(); $this->department = $department; }
 		public function setDescription($string) { $this->description = trim($string); }
+		public function setEnablePHP($int) { $this->enablePHP = $int ? 1 : 0; }
 		public function setLockedBy($int=null)
 		{
 			if ($int)

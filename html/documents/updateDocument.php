@@ -61,7 +61,7 @@
 		# Make sure they're allowed to change the lock status
 		if (!$_SESSION['document']->isLocked() || userHasRole('Administrator') || $_SESSION['USER']->getId()==$_SESSION['document']->getLockedBy())
 		{
-			if ($_POST['locked']=='yes')
+			if ($_POST['locked']==='Locked')
 			{
 				if (!$_SESSION['document']->isLocked()) { $_SESSION['document']->setLockedByUser($_SESSION['USER']); }
 			}
@@ -69,6 +69,15 @@
 			{
 				$_SESSION['document']->setLockedBy(null);
 			}
+		}
+	}
+
+	# PHP code inside the content can only be allowed by an Administrator, or a Webmaster
+	if (isset($_POST['enablePHP']))
+	{
+		if (userHasRole(array('Administrator','Webmaster')))
+		{
+			$_SESSION['document']->setEnablePHP($_POST['enablePHP']);
 		}
 	}
 

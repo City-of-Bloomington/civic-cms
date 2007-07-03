@@ -18,7 +18,7 @@
 		<form method="get" action="<?php echo BASE_URL; ?>/documents/search.php">
 		<div>
 		<label for="search">SEARCH</label>
-			<input name="search" id="search" value="bloomington.in.gov" />
+			<input name="search" id="search" value="bloomington.in.gov" onclick="this.value='';" />
 			<button type="submit" class="search">search</button>
 		</div>
 		</form>

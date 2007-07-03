@@ -13,5 +13,16 @@
 
 	$title = View::escape($this->document->getTitle());
 	echo "<h2>$editButton $title</h2>";
-	echo $this->document->getContent($_SESSION['LANGUAGE']);
+
+
+	# We want to render PHP code harmless in the markup, unless
+	# it's specifically enabled by some Webmaster
+	if ($this->document->PHPIsEnabled())
+	{
+		include $this->document->getContentFilename($_SESSION['LANGUAGE']);
+	}
+	else
+	{
+		echo $this->document->getContent($_SESSION['LANGUAGE']);
+	}
 ?>

@@ -63,6 +63,7 @@ create table documents (
   documentType_id int unsigned not null default 1,
   description varchar(255),
   lockedBy int unsigned,
+  enablePHP tinyint(1) unsigned not null default 0,
   foreign key (createdBy) references users(id),
   foreign key (modifiedBy) references users(id),
   foreign key (department_id) references departments(id),
