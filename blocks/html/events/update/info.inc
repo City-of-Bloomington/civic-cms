@@ -147,7 +147,7 @@
 </fieldset>
 
 <fieldset id="monthly" <?php if($freq!='MONTHLY') echo 'style="display:none;"'; ?>>
-	<div><input name="event[RRule][MONTHLY][type]" type="radio" value="BYMONTHDAY" <?php if($bymonthday) echo 'checked="checked"'; ?> />
+	<div><input name="event[RRule][MONTHLY][type]" type="radio" value="BYMONTHDAY" <?php if($bymonthday || !$byday) echo 'checked="checked"'; ?> />
 			<label>Day <input name="event[RRule][MONTHLY][BYMONTHDAY][DAYNUM]" size="2" value="<?php if($bymonthday) echo $bymonthday; else echo 30; ?>" /></label>
 			<label>of every <input name="event[RRule][MONTHLY][BYMONTHDAY][INTERVAL]" size="1" value="<?php echo $interval; ?>" /> month</label>
 	</div>
