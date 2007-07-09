@@ -229,7 +229,9 @@
 		 */
 		public function getId() { return $this->id; }
 		public function getFilename() { return $this->filename; }
-		public function getType() { return $this->type; }
+		public function getMime_type() { return $this->mime_type; }
+		public function getMedia_type() { return $this->media_type; }
+		public function getType() { return $this->media_type; }
 		public function getTitle() { return $this->title; }
 		public function getDescription() { return $this->description; }
 		public function getMd5() { return $this->md5; }
@@ -261,6 +263,5 @@
 		public function setUploadedBy($int) { $this->uploadedBy = ereg_replace("[^0-9]","",$int); }
 
 		public function setDepartment($department) { $this->department_id = $department->getId(); $this->department = $department; }
-
 	}
 ?>

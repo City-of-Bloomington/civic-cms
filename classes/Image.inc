@@ -22,7 +22,11 @@
 		{
 			parent::__construct($media_id);
 
-			$this->media_type = 'image';
+			if (!$this->media_type) { $this->media_type = 'image'; }
+			if ($this->media_type != 'image')
+			{
+				throw new Exception('media/nonimage');
+			}
 		}
 
 		public function getImage()
@@ -38,6 +42,15 @@
 				$this->image = $load($this->getDirectory().'/'.$this->filename);
 			}
 			return $this->image;
+		}
+
+		/**
+		 * Overrides the Media's getURL.  We want Images to be served up
+		 * by PHP script, rather than creating direct URLs to them.
+		 */
+		public function getURL()
+		{
+			return BASE_URL.'/media/image.php?media_id='.$this->getId();
 		}
 
 		public function getMedium()
