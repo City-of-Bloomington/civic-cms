@@ -22,7 +22,7 @@
 			<button type="submit" class="search">search</button>
 		</div>
 		</form>
-		<form method="get" action="<?php $_SERVER['REQUEST_URI']; ?>">
+		<form method="get" action="<?php $_SERVER['PHP_SELF']; ?>">
 		<div><label for="skin">Skin</label>
 			<select name="skin" id="skin" onchange="this.form.submit();">
 			<?php
@@ -41,6 +41,15 @@
 				}
 			?>
 			</select>
+			<?php
+				# Since we're submitting the CSS changing as a FORM via GET
+				# we need to make sure to preserve any parameters in the current URL
+				$url = new URL($_SERVER['REQUEST_URI']);
+				foreach($url->parameters as $key=>$value)
+				{
+					echo "<input name=\"$key\" type=\"hidden\" value=\"$value\" />";
+				}
+			?>
 		</div>
 		</form>
 	</div>
