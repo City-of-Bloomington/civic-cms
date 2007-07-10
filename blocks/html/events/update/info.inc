@@ -164,13 +164,16 @@
 			</label>
 			<label>
 				<select name="event[RRule][MONTHLY][BYDAY][weekday]">
-					<option value="SU" <?php if(in_array('SU',$byday)) echo 'selected="selected"'; ?>>Sunday</option>
-					<option value="MO" <?php if(in_array('MO',$byday)) echo 'selected="selected"'; ?>>Monday</option>
-					<option value="TU" <?php if(in_array('TU',$byday)) echo 'selected="selected"'; ?>>Tuesday</option>
-					<option value="WE" <?php if(in_array('WE',$byday)) echo 'selected="selected"'; ?>>Wednesday</option>
-					<option value="TH" <?php if(in_array('TH',$byday)) echo 'selected="selected"'; ?>>Thursday</option>
-					<option value="FR" <?php if(in_array('FR',$byday)) echo 'selected="selected"'; ?>>Friday</option>
-					<option value="SA" <?php if(in_array('SA',$byday)) echo 'selected="selected"'; ?>>Saturday</option>
+					<?php
+						$weekday = isset($byday[0]) ? substr($byday[0],-2) : '';
+					?>
+					<option value="SU" <?php if($weekday=='SU') echo 'selected="selected"'; ?>>Sunday</option>
+					<option value="MO" <?php if($weekday=='MO') echo 'selected="selected"'; ?>>Monday</option>
+					<option value="TU" <?php if($weekday=='TU') echo 'selected="selected"'; ?>>Tuesday</option>
+					<option value="WE" <?php if($weekday=='WE') echo 'selected="selected"'; ?>>Wednesday</option>
+					<option value="TH" <?php if($weekday=='TH') echo 'selected="selected"'; ?>>Thursday</option>
+					<option value="FR" <?php if($weekday=='FR') echo 'selected="selected"'; ?>>Friday</option>
+					<option value="SA" <?php if($weekday=='SA') echo 'selected="selected"'; ?>>Saturday</option>
 				</select>
 				of every
 			</label>
