@@ -6,11 +6,20 @@
  * @param Document $this->document
  * @param Language $this->language
  */
- 	include APPLICATION_HOME.'/html/editors/fckeditor/FCKeditor.php';
-	$FCKeditor = new FCKeditor("content_{$this->language->getCode()}");
-	$FCKeditor->BasePath = BASE_URL.'/editors/fckeditor/';
-	$FCKeditor->ToolbarSet = 'Custom';
-	if (isset($this->document)) { $FCKeditor->Value = $this->document->getContent($this->language->getCode()); }
+ 	# The FCKEditor does not currently support Safari
+ 	$browser = get_browser();
+ 	if ($browser->browser != 'Safari')
+ 	{
+		include APPLICATION_HOME.'/html/editors/fckeditor/FCKeditor.php';
+		$FCKeditor = new FCKeditor("content_{$this->language->getCode()}");
+		$FCKeditor->BasePath = BASE_URL.'/editors/fckeditor/';
+		$FCKeditor->ToolbarSet = 'Custom';
+		if (isset($this->document)) { $FCKeditor->Value = $this->document->getContent($this->language->getCode()); }
 
-	$FCKeditor->create();
+		$FCKeditor->create();
+	}
+	else
+	{
+		echo "<p>The Safari web browser is not yet supported for content editing.</p>";
+	}
 ?>

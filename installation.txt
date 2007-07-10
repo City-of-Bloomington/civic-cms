@@ -46,6 +46,7 @@ PHP:
 		PDO
 		MySQL
 		LDAP
+		Browscap
 
 	Actually, you can substitute any database support for MySQL, as our
 	framework uses PDO for database interaction.
@@ -65,6 +66,15 @@ LDAP:
 	LDAP is only used for doing LDAP authentication for users.
 	If you're not going to do any LDAP authentication, you can delete or
 	comment out the LDAP stuff.
+
+Browscap
+	Browser checking functions are enabled by default in PHP, so there's
+	no compilation flags needed.
+	However; you do need to install download a copy of browscap.ini and
+	point to it with the browscap setting in php.ini.
+
+	You can download the latest version of browscap.ini from:
+	http://browsers.garykeith.com/downloads.asp
 
 Subversion:
 	Content is versioned using subversion.  You will need subversion
