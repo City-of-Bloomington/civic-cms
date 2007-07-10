@@ -12,13 +12,50 @@
 		<?php
 			echo $this->title;
 			include APPLICATION_HOME.'/blocks/html/documents/addDocumentToolbar.inc';
+
+			$url = new URL($_SERVER['REQUEST_URI']);
 		?>
 	</div>
 	<table>
 	<thead>
+		<tr><th>Filters:</th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th><?php
+					echo "
+					<select name=\"by\" onchange=\"document.location.href='{$url->script}?filter=modifiedBy-'+this.options[this.selectedIndex].value;\">
+					<option></option>
+					";
+					$list = new UserList();
+					$list->find();
+					foreach($list as $user)
+					{
+						$by = substr($user->getFirstname(),0,1).substr($user->getLastname(),0,1);
+						echo "<option value=\"{$user->getId()}\">$by</option>";
+					}
+				?>
+				</select>
+			</th>
+			<th></th>
+			<th><?php
+					echo "
+					<select name=\"documentType_id\" onchange=\"document.location.href='{$url->script}?filter=documentType_id-'+this.options[this.selectedIndex].value;\">
+					<option></option>
+					";
+					$list = new DocumentTypeList();
+					$list->find();
+					foreach($list as $type)
+					{
+						echo "<option value=\"{$type->getId()}\">$type</option>";
+					}
+				?>
+				</select>
+			</th>
+		</tr>
 		<tr>
 		<?php
-			$url = new URL($_SERVER['REQUEST_URI']);
 			if (!isset($url->parameters['sort'])) { $url->parameters['sort'] = ''; }
 
 			# If title's in the sort array, toggle it
@@ -43,8 +80,9 @@
 			$temp->parameters['sort'] = $temp->parameters['sort']=='retireDate desc' ? 'retireDate' : 'retireDate desc';
 			echo "<th><a href=\"$temp\">Retired</a></th>\n";
 
+			$temp->parameters['sort'] = $temp->parameters['sort']=='type' ? 'type desc' : 'type';
+			echo "<th><a href=\"$temp\">Type</a></th>\n";
 		?>
-			<th>Type</th>
 		</tr>
 	</thead>
 	<tbody>

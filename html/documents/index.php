@@ -7,20 +7,29 @@
 	verifyUser(array('Administrator','Webmaster','Content Creator','Publisher'));
 
 	$sort = isset($_GET['sort']) ? $_GET['sort'] : 'created desc';
+	if (isset($_GET['filter']))
+	{
+		$filter = urldecode($_GET['filter']);
+		list($field,$value) = explode('-',$filter);
+		$fields = array($field=>$value);
+	}
+	else { $fields = null; }
 
 	$documentsBlock = new Block('documents/documentList.inc');
 
 	if (userHasRole(array('Administrator','Webmaster')))
 	{
 		$documentList = new DocumentList();
-		$documentList->find(null,$sort);
+		$documentList->find($fields,$sort);
 
 		$documentsBlock->documentList = $documentList;
 		$documentsBlock->title = 'Documents';
 	}
 	else
 	{
-		$list = new DocumentList(array('department_id'=>$_SESSION['USER']->getDepartment_id()),$sort);
+		$fields['department_id'] = $_SESSION['USER']->getDepartment_id();
+
+		$list = new DocumentList($fields,$sort);
 		$documentsBlock->documentList = $list;
 
 		$documentsBlock->title = "{$_SESSION['USER']->getDepartment()} Documents";

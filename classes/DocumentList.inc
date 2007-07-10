@@ -37,9 +37,14 @@
 			# Finding on fields from other tables required joining those tables.
 			# You can add fields from other tables to $options by adding the join SQL
 			# to $this->joins here
+			if (ereg('type',$this->sort))
+			{
+				# Sorting on type needs to join the documentTypes table
+				$this->joins.= ' left join documentTypes t on documentType_id=t.id';
+			}
 			if (isset($fields['section_id']))
 			{
-				$this->joins.= " left join document_sections s on documents.id=s.document_id";
+				$this->joins.= ' left join document_sections s on documents.id=s.document_id';
 				$options[] = "section_id='$fields[section_id]'";
 
 				if (isset($fields['featured'])) { $options[] = "featured='$fields[featured]'"; }
@@ -47,7 +52,7 @@
 
 			if (isset($fields['facet_id']))
 			{
-				$this->joins.= " left join document_facets f on documents.id=f.document_id";
+				$this->joins.= ' left join document_facets f on documents.id=f.document_id';
 				$options[] = "facet_id='$fields[facet_id]'";
 			}
 
