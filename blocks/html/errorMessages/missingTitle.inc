@@ -5,4 +5,4 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 ?>
-<p>You must provide a Title for this document.</p>
+<p>You must provide a Title.</p>

@@ -331,7 +331,7 @@
 			if (!count($this->documents)) { $this->documents = new DocumentList(array('section_id'=>$this->id)); }
 			return $this->documents;
    		}
-
+   		public function getDocumentLinks() { return new DocumentLinkList(array('section_id'=>$this->id)); }
 
 
 		/**

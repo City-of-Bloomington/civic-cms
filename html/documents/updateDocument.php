@@ -122,6 +122,20 @@
 		}
 	}
 
+	# Links handling
+	if (isset($_POST['documentLink']) && $_POST['documentLink']['href'])
+	{
+		$link = new DocumentLink();
+		$link->setDocument_id($_SESSION['document']->getId());
+		foreach($_POST['documentLink'] as $field=>$value)
+		{
+			$set = 'set'.ucfirst($field);
+			$link->$set($value);
+		}
+		try { $link->save(); }
+		catch (Exception $e) { $_SESSION['errorMessages'][] = $e; }
+	}
+
 	# Raw source code handling
 	if (isset($_FILES['source']) && $_FILES['source']['name'])
 	{

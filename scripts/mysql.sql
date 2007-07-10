@@ -71,6 +71,17 @@ create table documents (
   foreign key (lockedBy) references users(id)
 ) engine=InnoDB;
 
+create table documentLinks (
+	id int unsigned not null primary key auto_increment,
+	document_id int unsigned not null,
+	href varchar(255) not null,
+	title varchar(128) not null,
+	description varchar(255) not null,
+	created date not null,
+	unique (document_id,href),
+	foreign key (document_id) references documents(id)
+) engine=InnoDB;
+
 create table document_watches (
 	document_id int unsigned not null,
 	user_id int unsigned not null,
