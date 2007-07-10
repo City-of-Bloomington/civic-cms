@@ -17,14 +17,21 @@
 			foreach($this->locationList as $location)
 			{
 				$name = View::escape($location->getName());
-				$points[] = "new GLatLng({$location->getLatitude()},{$location->getLongitude()})";
-				$info[] = "\"$name\"";
 
-				$i = count($points) - 1;
+				# Make sure the location has Latitude and Longitude before trying to map it
+				if ($location->getLatitude() && $location->getLongitude())
+				{
+					$points[] = "new GLatLng({$location->getLatitude()},{$location->getLongitude()})";
+					$info[] = "\"$name\"";
+
+					$i = count($points) - 1;
+					$mapLink = "<a href=\"#map\" onclick=\"popup($i);\">$name</a>";
+				}
+				else { $mapLink = $name; }
+
 				echo "
 				<li><button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/locations/updateLocation.php?id={$location->getId()}';\">Edit</button>
-					<a href=\"#map\" onclick=\"popup($i);\">
-					$name</a>
+					$mapLink
 				</li>
 				";
 			}
@@ -34,7 +41,7 @@
 <h2><a name="map">Map</a></h2>
 <div id="map" style="width:500px; height:500px; border:1px solid black;">
 </div>
-<script src="http://maps.google.com/maps?file=api&amp;v=2.77&amp;key=ABQIAAAACqoQOZ2EAqg13jBR94AfexSOTeGX9w6TRh8-t3vLxMlcuGJjjBRSGREuz9NdVZhhWOn4Un1qDAxx2Q" type="text/javascript"></script>
+<script src="http://maps.google.com/maps?file=api&amp;v=2.77&amp;key=ABQIAAAACqoQOZ2EAqg13jBR94AfexQNf7mhA6pY0zZO8gsdk0EdOTN8sxQDa2L0KB-dgEIEE-5Qas2VnQE6DQ" type="text/javascript"></script>
 <script type="text/javascript">
 	<?php
 		$points = implode(',',$points);
