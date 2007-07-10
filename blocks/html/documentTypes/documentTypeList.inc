@@ -25,7 +25,9 @@
 		{
 			echo "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/documentTypes/updateDocumentType.php?documentType_id={$type->getId()}';\">Edit</button>";
 		}
-		echo View::escape($type->getType()).'</li>';
+		echo View::escape($type->getType());
+		$count = count($type->getDocuments());
+		echo " ($count)</li>";
 	}
 ?>
 </ul>

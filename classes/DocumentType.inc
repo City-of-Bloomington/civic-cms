@@ -9,6 +9,8 @@
 		private $type;
 		private $template;
 
+		private $document_list;
+
 		/**
 		 * This will load all fields in the table as properties of this class.
 		 * You may want to replace this with, or add your own extra, custom loading
@@ -84,6 +86,15 @@
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 			if (false === $query->execute($values)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 			$this->id = $PDO->lastInsertID();
+		}
+
+		public function getDocuments()
+		{
+			if (!$this->document_list)
+			{
+				$this->document_list = new DocumentList(array('documentType_id'=>$this->id));
+			}
+			return $this->document_list;
 		}
 
 		public function __toString() { return $this->type; }
