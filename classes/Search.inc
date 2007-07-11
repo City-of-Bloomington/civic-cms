@@ -29,8 +29,17 @@
 
 		public function removeDocument($document)
 		{
-			$hits = $this->search->find("document_id:{$document->getId()}");
-			foreach($hits as $hit) { $this->search->delete($hit->id); }
+			$term  = new Zend_Search_Lucene_Index_Term($document->getId(),'document_id');
+			$queryTerm = new Zend_Search_Lucene_Search_Query_Term($term);
+
+			$query = new Zend_Search_Lucene_Search_Query_Boolean();
+			$query->addSubquery($queryTerm, true /* required */);
+
+			$hits = $this->search->find($query);
+			foreach($hits as $hit)
+			{
+				$this->search->delete($hit->id);
+			}
 		}
 
 		public function updateDocument($document)
