@@ -206,14 +206,23 @@ insert languages values
 ---------------------------------------------------------------------
 -- Events
 ---------------------------------------------------------------------
+create table locationTypes (
+	id int unsigned not null primary key auto_increment,
+	type varchar(128) not null
+) engine=InnoDB;
+insert locationTypes set type='City';
+insert locationTypes set type='Non-City';
+
 create table locations (
 	id int unsigned not null primary key auto_increment,
 	name varchar(60) not null,
+	locationType_id int unsigned not null default 1,
 	address varchar(128) not null,
 	description varchar(255) not null,
 	directions text,
 	latitude float(10,6),
-	longitude float(10,6)
+	longitude float(10,6),
+	foreign key (locationType_id) references locationTypes(id)
 ) engine=InnoDB;
 
 create table calendars (

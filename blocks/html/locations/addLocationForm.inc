@@ -12,6 +12,16 @@
 
 	<tr><td><label for="location-name" class="required">Name</label></td>
 		<td><input name="location[name]" id="location-name" /></td></tr>
+	<tr><td><label for="location-locationType_id" class="required">Type</label></td>
+		<td><select name="location[locationType_id]" id="location-locationType_id">
+			<?php
+				$list = new LocationTypeList();
+				$list->find();
+				foreach($list as $type) { echo "<option value=\"{$type->getId()}\">$type</option>"; }
+			?>
+			</select>
+		</td>
+	</tr>
 	<tr><td><label for="location-address" class="required">Address</label></td>
 		<td><input name="location[address]" id="location-address" /></td></tr>
 	<tr><td><label for="location-latitude">Latitude</label></td>

@@ -8,11 +8,14 @@
 	{
 		private $id;
 		private $name;
+		private $locationType_id;
 		private $address;
 		private $description;
 		private $directions;
 		private $latitude;
 		private $longitude;
+
+		private $locationType;
 
 		/**
 		 * This will load all fields in the table as properties of this class.
@@ -39,6 +42,7 @@
 			{
 				# This is where the code goes to generate a new, empty instance.
 				# Set any default values for properties that need it here
+				$this->locationType_id = 1;
 			}
 		}
 
@@ -58,6 +62,7 @@
 
 			$fields = array();
 			$fields['name'] = $this->name ? $this->name : null;
+			$fields['locationType_id'] = $this->locationType_id ? $this->locationType_id : 1;
 			$fields['address'] = $this->address ? $this->address : null;
 			$fields['description'] = $this->description ? $this->description : null;
 			$fields['directions'] = $this->directions ? $this->directions : null;
@@ -100,26 +105,40 @@
 		}
 
 		public function __toString() { return $this->name; }
+		public function getType() { return $this->getLocationType()->getType(); }
 
 		/**
 		 * Generic Getters
 		 */
 		public function getId() { return $this->id; }
 		public function getName() { return $this->name; }
+		public function getLocationType_id() { return $this->locationType_id; }
 		public function getAddress() { return $this->address; }
 		public function getDescription() { return $this->description; }
 		public function getDirections() { return $this->directions; }
 		public function getLatitude() { return $this->latitude; }
 		public function getLongitude() { return $this->longitude; }
+		public function getLocationType()
+		{
+			if ($this->locationType_id)
+			{
+				if (!$this->locationType) { $this->locationType = new LocationType($this->locationType_id); }
+				return $this->locationType;
+			}
+			else return null;
+		}
 
 		/**
 		 * Generic Setters
 		 */
 		public function setName($string) { $this->name = trim($string); }
+		public function setLocationType_id($int) { $this->locationType = new LocationType($int); $this->locationType_id = $int; }
 		public function setAddress($string) { $this->address = trim($string); }
 		public function setDescription($string) { $this->description = trim($string); }
 		public function setDirections($text) { $this->directions = $text; }
 		public function setLatitude($float) { $this->latitude = ereg_replace("[^0-9.\-]","",$float); }
 		public function setLongitude($float) { $this->longitude = ereg_replace("[^0-9.\-]","",$float); }
+
+		public function setLocationType($locationType) { $this->locationType_id = $locationType->getId(); $this->locationType = $locationType; }
 	}
 ?>
