@@ -6,6 +6,7 @@
  */
 ?>
 <div id="banner">
+	<div id="application_name"></div>
 	<div id="location_name"><a href="<?php echo BASE_URL; ?>/">City of Bloomington, Indiana</a></div>
 	<div id="navigation">
 		<?php
