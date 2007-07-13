@@ -225,6 +225,19 @@ create table locations (
 	foreign key (locationType_id) references locationTypes(id)
 ) engine=InnoDB;
 
+create table locationGroups (
+	id int unsigned not null primary key auto_increment,
+	name varchar(128) not null
+) engine=InnoDB;
+
+create table locationGroup_locations (
+	locationGroup_id int unsigned not null,
+	location_id int unsigned not null,
+	primary key (locationGroup_id,location_id),
+	foreign key (locationGroup_id) references locationGroups(id),
+	foreign key (location_id) references locations(id)
+) engine=InnoDB;
+
 create table calendars (
 	id int unsigned not null primary key auto_increment,
 	name varchar(128) not null,

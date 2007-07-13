@@ -9,7 +9,7 @@
 
 		public function __construct($fields=null,$sort=null,$limit=null,$groupBy=null)
 		{
-			$this->select = "select locations.id as id from locations";
+			$this->select = "select distinct locations.id as id from locations";
 			if (is_array($fields)||$sort||$limit||$groupBy)
 			{
 				$this->find($fields,$sort,$limit,$groupBy);
@@ -37,6 +37,11 @@
 			# Finding on fields from other tables required joining those tables.
 			# You can add fields from other tables to $options by adding the join SQL
 			# to $this->joins here
+			if (array_key_exists('locationGroup_id',$fields))
+			{
+				$this->joins.= ' left join locationGroup_locations on id=location_id';
+				$options[] = $fields['locationGroup_id'] ? "locationGroup_id='$fields[locationGroup_id]'" : "locationGroup_id is null";
+			}
 
 			$this->populateList($options);
 		}

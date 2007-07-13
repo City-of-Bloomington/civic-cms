@@ -41,6 +41,23 @@
 
 	</table>
 </fieldset>
+<fieldset><legend>Groups</legend>
+	<p>Choose groups to put this location into:</p>
+	<?php
+		$list = new LocationGroupList();
+		$list->find();
+		foreach($list as $group)
+		{
+			$checked = $this->location->hasGroup($group) ? 'checked="checked"' : '';
+			echo "
+			<label>
+				<input name=\"location[locationGroups][{$group->getId()}]\" type=\"checkbox\" value=\"{$group->getId()}\" $checked />
+				$group
+			</label>
+			";
+		}
+	?>
+</fieldset>
 <fieldset><legend>Directions</legend>
 	<?php
 		include APPLICATION_HOME.'/html/editors/fckeditor/FCKeditor.php';

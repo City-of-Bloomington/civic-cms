@@ -16,6 +16,7 @@
 		private $longitude;
 
 		private $locationType;
+		private $groups = array();
 
 		/**
 		 * This will load all fields in the table as properties of this class.
@@ -83,6 +84,8 @@
 
 			if ($this->id) { $this->update($values,$preparedFields); }
 			else { $this->insert($values,$preparedFields); }
+
+			$this->saveLocationGroups();
 		}
 
 		private function update($values,$preparedFields)
@@ -102,6 +105,45 @@
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 			if (false === $query->execute($values)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 			$this->id = $PDO->lastInsertID();
+		}
+
+		public function getLocationGroups()
+		{
+			if ($this->id)
+			{
+				if (!count($this->groups))
+				{
+					$list = new LocationGroupList(array('location_id'=>$this->id));
+					foreach($list as $group) { $this->groups[$group->getId()] = $group; }
+				}
+			}
+			return $this->groups;
+		}
+		public function hasGroup($group)
+		{
+			$id = is_int($group) ? $group : $group->getId();
+			return in_array($id,array_keys($this->getLocationGroups()));
+		}
+		public function setLocationGroups(array $group_ids)
+		{
+			$this->groups = array();
+			foreach($group_ids as $id)
+			{
+				$this->groups[$id] = new LocationGroup($id);
+			}
+		}
+		private function saveLocationGroups()
+		{
+			global $PDO;
+
+			$sql = "delete from locationGroup_locations where location_id={$this->id}";
+			if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
+
+			$query = $PDO->prepare('insert locationGroup_locations values(?,?)');
+			foreach($this->groups as $id=>$group)
+			{
+				$query->execute(array($id,$this->id));
+			}
 		}
 
 		public function __toString() { return $this->name; }

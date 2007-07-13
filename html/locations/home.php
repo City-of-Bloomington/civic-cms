@@ -12,9 +12,17 @@
 	$typeList->find();
 	$template->blocks[] = new Block('locations/locationTypeList.inc',array('locationTypeList'=>$typeList));
 
-	$locationList = new LocationList();
-	$locationList->find();
-	$template->blocks[] = new Block('locations/locationList.inc',array('locationList'=>$locationList));
+	$groupList = new LocationGroupList();
+	$groupList->find();
+	$template->blocks[] = new Block('locations/locationGroupList.inc',array('locationGroupList'=>$groupList));
+
+	foreach($groupList as $group)
+	{
+		$template->blocks[] = new Block('locations/locationList.inc',array('locationList'=>$group->getLocations(),'title'=>$group->getName()));
+	}
+
+	$locationList = new LocationList(array('locationGroup_id'=>null));
+	$template->blocks[] = new Block('locations/locationList.inc',array('locationList'=>$locationList,'title'=>'Other'));
 
 	$template->render();
 ?>
