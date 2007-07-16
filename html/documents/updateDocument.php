@@ -109,10 +109,9 @@
 			{
 				$attachment->setFile($_FILES['attachment']);
 				$attachment->save();
+				$_SESSION['document']->attach($attachment);
 			}
 			catch(Exception $e) { $_SESSION['errorMessages'][] = $e; }
-
-			$_SESSION['document']->attach($attachment);
 		}
 		# Handle selecting existing media to attach
 		elseif ($_POST['attachment']['media_id'] && is_numeric($_POST['attachment']['media_id']))
