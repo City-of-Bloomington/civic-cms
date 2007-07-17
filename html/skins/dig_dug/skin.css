@@ -1,4 +1,4 @@
-@import "/reset.css";
+@import "http://localhost/content_manager/skins/reset.css";
 
 body { font-family:sans-serif; }
 
@@ -32,8 +32,8 @@ th { text-align:left; background-color:#dddddd; padding-left:.5em; padding-right
 th a:link,th a:visited { color:white; background-color:inherit; }
 
 
-#banner { height:70px; background:url('/skins/dig_dug/images/blueCheckers.gif'); padding:15px; }
-#application_name { position:absolute; width:100px; height:102px; top:0; left:0; background:url('/skins/dig_dug/images/newFygar.gif'); }
+#banner { height:70px; background:url('http://localhost/content_manager/skins/dig_dug/images/blueCheckers.gif'); padding:15px; }
+#application_name { position:absolute; width:100px; height:102px; top:0; left:0; background:url('http://localhost/content_manager/skins/dig_dug/images/newFygar.gif'); }
 #location_name { color:black; text-align:left; font-size:12pt; margin-left:100px; }
 #navigation { position:absolute; top:15px; right:15px; }
 #banner a { color:white; text-decoration:none; }
@@ -122,46 +122,46 @@ ul.expandable ul { padding-left: 20px; }
 ul.expandable li a { padding-left: 20px; }
 /* Show "bullets" in the links, depending on the class of the
 LI that the link's in */
-ul.expandable li.open a { background: url('/skins/default/images/expanded.gif') center left no-repeat; }
-ul.expandable li.closed a { background: url('/skins/default/images/collapsed.gif') center left no-repeat; }
-ul.expandable li.bullet a { background: url('/skins/default/images/bullet.gif') center left no-repeat; }
+ul.expandable li.open a { background: url('http://localhost/content_manager/skins/default/images/expanded.gif') center left no-repeat; }
+ul.expandable li.closed a { background: url('http://localhost/content_manager/skins/default/images/collapsed.gif') center left no-repeat; }
+ul.expandable li.bullet a { background: url('http://localhost/content_manager/skins/default/images/bullet.gif') center left no-repeat; }
 /* Actually show and hide sublists */
 ul.expandable li.open ul { display: block; }
 ul.expandable li.closed ul { display: none; }
 
 
 /*  Custom buttons for forms */
-button.login { width:52px; height:15px; padding-top:15px; background: url('/skins/default/images/login.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.submit { width:70px; height:15px; padding-top:15px; background: url('/skins/default/images/submit.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.search { width:67px; height:15px; padding-top:15px; background: url('/skins/default/images/search.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.cancel { width:69px; height:15px; padding-top:15px; background: url('/skins/default/images/cancel.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.save { width:52px; height:15px; padding-top:15px; background: url('/skins/default/images/save.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.addLarge { width:52px; height:15px; padding-top:15px; background: url('/skins/default/images/addLarge.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.editLarge { width:52px; height:15px; padding-top:15px; background: url('/skins/default/images/editLarge.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.deleteLarge { width:63px; height:15px; padding-top:15px; background: url('/skins/default/images/deleteLarge.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.start { width:52px; height:15px; padding-top:15px; background: url('/skins/default/images/start.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.login { width:52px; height:15px; padding-top:15px; background: url('http://localhost/content_manger/skins/default/images/login.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.submit { width:70px; height:15px; padding-top:15px; background: url('http://localhost/content_manger/skins/default/images/submit.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.search { width:67px; height:15px; padding-top:15px; background: url('http://localhost/content_manger/skins/default/images/search.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.cancel { width:69px; height:15px; padding-top:15px; background: url('http://localhost/content_manger/skins/default/images/cancel.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.save { width:52px; height:15px; padding-top:15px; background: url('http://localhost/content_manger/skins/default/images/save.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.addLarge { width:52px; height:15px; padding-top:15px; background: url('http://localhost/content_manger/skins/default/images/addLarge.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.editLarge { width:52px; height:15px; padding-top:15px; background: url('http://localhost/content_manger/skins/default/images/editLarge.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.deleteLarge { width:63px; height:15px; padding-top:15px; background: url('http://localhost/content_manger/skins/default/images/deleteLarge.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.start { width:52px; height:15px; padding-top:15px; background: url('http://localhost/content_manger/skins/default/images/start.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
 button.print { }
 
-button.addSmall { width:15px; height:15px; padding-top:15px; background: url('/skins/default/images/addSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.editSmall { width:15px; height:15px; padding-top:15px; background: url('/skins/default/images/editSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.deleteSmall { width:15px; height:15px; padding-top:15px; background: url('/skins/default/images/deleteSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.excel { width:16px; height:16px; padding-top:16px; background: url('/skins/default/images/excel.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.printSmall { width:16px; height:16px; padding-top:16px; background: url('/skins/default/images/printSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.up { width:16px; height:16px; padding-top:16px; background: url('/skins/default/images/up.png') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.down { width:16px; height:16px; padding-top:16px; background: url('/skins/default/images/down.png') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.addSmall { width:15px; height:15px; padding-top:15px; background: url('http://localhost/content_manger/skins/default/images/addSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.editSmall { width:15px; height:15px; padding-top:15px; background: url('http://localhost/content_manger/skins/default/images/editSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.deleteSmall { width:15px; height:15px; padding-top:15px; background: url('http://localhost/content_manger/skins/default/images/deleteSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.excel { width:16px; height:16px; padding-top:16px; background: url('http://localhost/content_manger/skins/default/images/excel.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.printSmall { width:16px; height:16px; padding-top:16px; background: url('http://localhost/content_manger/skins/default/images/printSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.up { width:16px; height:16px; padding-top:16px; background: url('http://localhost/content_manger/skins/default/images/up.png') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.down { width:16px; height:16px; padding-top:16px; background: url('http://localhost/content_manger/skins/default/images/down.png') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
 
 
 /* Custom Icons for mime types */
-.jpg { height:16px; padding-left:18px; background: url('/skins/default/images/icons/jpg.png') no-repeat; }
-.gif { height:16px; padding-left:18px; background: url('/skins/default/images/icons/gif.png') no-repeat; }
-.tiff { height:16px; padding-left:18px; background: url('/skins/default/images/icons/tiff.png') no-repeat; }
-.pdf { height:16px; padding-left:18px; background: url('/skins/default/images/icons/pdf.png') no-repeat; }
-.doc { height:16px; padding-left:18px; background: url('/skins/default/images/icons/doc.png') no-repeat; }
-.xls { height:16px; padding-left:18px; background: url('/skins/default/images/icons/xls.png') no-repeat; }
-.rtf { height:16px; padding-left:18px; background: url('/skins/default/images/icons/rtf.png') no-repeat; }
-.zip { height:16px; padding-left:18px; background: url('/skins/default/images/icons/zip.png') no-repeat; }
-.gz { height:16px; padding-left:18px; background: url('/skins/default/images/icons/gz.png') no-repeat; }
-.txt { height:16px; padding-left:18px; background: url('/skins/default/images/icons/txt.png') no-repeat; }
+.jpg { height:16px; padding-left:18px; background: url('http://localhost/content_manger/skins/default/images/icons/jpg.png') no-repeat; }
+.gif { height:16px; padding-left:18px; background: url('http://localhost/content_manger/skins/default/images/icons/gif.png') no-repeat; }
+.tiff { height:16px; padding-left:18px; background: url('http://localhost/content_manger/skins/default/images/icons/tiff.png') no-repeat; }
+.pdf { height:16px; padding-left:18px; background: url('http://localhost/content_manger/skins/default/images/icons/pdf.png') no-repeat; }
+.doc { height:16px; padding-left:18px; background: url('http://localhost/content_manger/skins/default/images/icons/doc.png') no-repeat; }
+.xls { height:16px; padding-left:18px; background: url('http://localhost/content_manger/skins/default/images/icons/xls.png') no-repeat; }
+.rtf { height:16px; padding-left:18px; background: url('http://localhost/content_manger/skins/default/images/icons/rtf.png') no-repeat; }
+.zip { height:16px; padding-left:18px; background: url('http://localhost/content_manger/skins/default/images/icons/zip.png') no-repeat; }
+.gz { height:16px; padding-left:18px; background: url('http://localhost/content_manger/skins/default/images/icons/gz.png') no-repeat; }
+.txt { height:16px; padding-left:18px; background: url('http://localhost/content_manger/skins/default/images/icons/txt.png') no-repeat; }
 .thumbnail { width:100px; }
 
 
