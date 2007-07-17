@@ -9,13 +9,13 @@
 <div class="interfaceBox">
 	<div class="titleBar">Attachments</div>
 	<table>
-	<tr>
+	<tr><th></th>
 	<?php
 		$url = new URL($_SERVER['REQUEST_URI']);
-		$url->parameters['sort'] = 'filename'; echo "<td><a href=\"{$url->getURL()}\">Filename</a></td>";
-		$url->parameters['sort'] = 'title'; echo "<td><a href=\"{$url->getURL()}\">Title</a></td>";
-		$url->parameters['sort'] = 'department_id'; echo "<td><a href=\"{$url->getURL()}\">Department</a></td>";
-		$url->parameters['sort'] = 'uploaded desc'; echo "<td><a href=\"{$url->getURL()}\">Uploaded</a></td>";
+		$url->parameters['sort'] = 'filename'; echo "<th><a href=\"{$url->getURL()}\">Filename</a></th>";
+		$url->parameters['sort'] = 'title'; echo "<th><a href=\"{$url->getURL()}\">Title</a></th>";
+		$url->parameters['sort'] = 'department_id'; echo "<th><a href=\"{$url->getURL()}\">Department</a></th>";
+		$url->parameters['sort'] = 'uploaded desc'; echo "<th><a href=\"{$url->getURL()}\">Uploaded</a></th>";
 	?>
 	</tr>
 	<?php
@@ -26,8 +26,15 @@
 
 			$title = View::escape($attachment->getTitle());
 			$department = View::escape($attachment->getDepartment()->getName());
+
+			if (userHasRole(array('Administrator','Webmaster')))
+			{
+				$deleteButton = "<button type=\"button\" class=\"deleteSmall\" onclick=\"FRAMEWORK.deleteConfirmation('".BASE_URL."/media/deleteMedia.php?media_id={$attachment->getId()}');\">Delete</button>";
+			}
+			else { $deleteButton = ''; }
 			echo "
-			<tr><td><a href=\"{$attachment->getURL()}\" class=\"{$attachment->getExtension()}\">{$attachment->getFilename()}</a></td>
+			<tr><td>$deleteButton</td>
+				<td><a href=\"{$attachment->getURL()}\" class=\"{$attachment->getExtension()}\">{$attachment->getFilename()}</a></td>
 				<td>$title</td>
 				<td><a href=\"{$url->getURL()}\">$department</a></td>
 				<td>{$attachment->getUploaded('%D')}</td>

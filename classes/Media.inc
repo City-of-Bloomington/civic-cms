@@ -124,6 +124,20 @@
 			if (false === $query->execute($values)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 			$this->id = $PDO->lastInsertID();
 		}
+		public function delete()
+		{
+			global $PDO;
+
+			# Delete the file from the hard drive
+			unlink("{$this->getDirectory()}/{$this->filename}");
+
+			# Clear out the database
+			$sql = "delete from media_documents where media_id={$this->id}";
+			if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
+
+			$sql = "delete from media where id={$this->id}";
+			if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
+		}
 
 		public function setFile($file)
 		{
