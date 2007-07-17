@@ -7,17 +7,23 @@
  */
 ?>
 <form id="documentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-	<fieldset><legend>Facets</legend>
 	<?php
-		$facets = new FacetList();
-		$facets->find();
-		foreach($facets as $facet)
+		$groups = new FacetGroupList();
+		$groups->find();
+		foreach($groups as $group)
 		{
-			if ($this->document->hasFacet($facet)) { $checked = "checked=\"checked\""; } else { $checked = ""; }
-			echo "<label><input type=\"checkbox\" name=\"document[facets][{$facet->getId()}]\" value=\"{$facet->getId()}\" $checked />{$facet->getName()}</label>";
+			$name = View::escape($group->getName());
+			echo "<fieldset><legend>$name</legend>";
+
+			foreach($group->getFacets() as $facet)
+			{
+				$facetName = View::escape($facet->getName());
+				if ($this->document->hasFacet($facet)) { $checked = "checked=\"checked\""; } else { $checked = ""; }
+				echo "<label><input type=\"checkbox\" name=\"document[facets][{$facet->getId()}]\" value=\"{$facet->getId()}\" $checked />$facetName</label>";
+			}
+			echo "</fieldset>";
 		}
 	?>
-	</fieldset>
 
 	<fieldset><legend>Next</legend>
 		<p>Move on to the next tab.  The document will not be saved to the database until you click the "Save" button.</p>

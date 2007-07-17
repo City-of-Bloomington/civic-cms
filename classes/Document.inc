@@ -27,8 +27,6 @@
 		private $lockedByUser;
 
 		private $facets = array();
-		private $newFacetIds = array();
-		private $deletedFacetIds = array();
 		private $related = array();
 
 		private $sections = array();
@@ -299,10 +297,13 @@
 		 */
 		public function getFacets()
 		{
-			if (!count($this->facets))
+			if ($this->id)
 			{
-				$list = new FacetList(array('document_id'=>$this->id));
-				foreach($list as $facet) { $this->facets[$facet->getId()] = $facet; }
+				if (!count($this->facets))
+				{
+					$list = new FacetList(array('document_id'=>$this->id));
+					foreach($list as $facet) { $this->facets[$facet->getId()] = $facet; }
+				}
 			}
 			return $this->facets;
 		}
@@ -310,33 +311,19 @@
 		{
 			global $PDO;
 
-			# Clear out all the old facets
-			if (count($this->deletedFacetIds))
-			{
-				$ids = implode(",",$this->deletedFacetIds);
-				$query = $PDO->prepare("delete from document_facets where document_id={$this->id} and facet_id in ($ids)");
-				$query->execute();
-			}
+			$sql = "delete from document_facets where document_id={$this->id}";
+			if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 
-			# Add in the new ones
-			if (count($this->newFacetIds))
+			$query = $PDO->prepare('insert document_facets values(?,?)');
+			foreach($this->facets as $facet_id=>$facet)
 			{
-				$query = $PDO->prepare("insert document_facets set document_id={$this->id},facet_id=?");
-				foreach($this->newFacetIds as $id) { $query->execute(array($id)); }
+				$query->execute(array($this->id,$facet_id));
 			}
 		}
-		public function setFacets(array $facetIds)
+		public function setFacets(array $facet_ids)
 		{
-			# Make sure to call $this->getFacets() at least once to ensure that
-			# the current facets are loaded before trying to determine which ones are new
-
-			# Any $facetIds that are not in $this->facets need to be added
-			$this->newFacetIds = array_diff($facetIds,array_keys($this->getFacets()));
-			foreach($this->newFacetIds as $id) { $this->facets[$id] = new Facet($id); }
-
-			# Unset any $this->facets that are not in $facetIds
-			$this->deletedFacetIds = array_diff(array_keys($this->facets),$facetIds);
-			foreach($this->deletedFacetIds as $id) { unset($this->facets[$id]); }
+			$this->facets = array();
+			foreach($facet_ids as $facet_id) { $this->facets[$facet_id] = new Facet($facet_id); }
 		}
 		public function hasFacet($facet) { return array_key_exists($facet->getId(),$this->getFacets()); }
 		public function getRelatedDocuments()

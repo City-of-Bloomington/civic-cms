@@ -1,17 +1,15 @@
 <?php
 /**
- * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
-	class Facet extends ActiveRecord
+	class FacetGroup extends ActiveRecord
 	{
 		private $id;
 		private $name;
-		private $description;
 
-		private $documents;
-		private $groups = array();
+		private $facets = array();
 
 		/**
 		 * This will load all fields in the table as properties of this class.
@@ -23,7 +21,7 @@
 
 			if ($id)
 			{
-				$sql = "select * from facets where id=?";
+				$sql = 'select * from facetGroups where id=?';
 				try
 				{
 					$query = $PDO->prepare($sql);
@@ -51,11 +49,9 @@
 		{
 			# Check for required fields here.  Throw an exception if anything is missing.
 			if (!$this->name) { throw new Exception('missingName'); }
-			if (!count($this->getGroups())) { throw new Exception('facets/missingGroup'); }
 
 			$fields = array();
 			$fields['name'] = $this->name;
-			$fields['description'] = $this->description ? $this->description : null;
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
@@ -71,15 +67,13 @@
 
 			if ($this->id) { $this->update($values,$preparedFields); }
 			else { $this->insert($values,$preparedFields); }
-
-			$this->saveGroups();
 		}
 
 		private function update($values,$preparedFields)
 		{
 			global $PDO;
 
-			$sql = "update facets set $preparedFields where id={$this->id}";
+			$sql = "update facetGroups set $preparedFields where id={$this->id}";
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 			if (false === $query->execute($values)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 		}
@@ -88,7 +82,7 @@
 		{
 			global $PDO;
 
-			$sql = "insert facets set $preparedFields";
+			$sql = "insert facetGroups set $preparedFields";
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 			if (false === $query->execute($values)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 			$this->id = $PDO->lastInsertID();
@@ -96,76 +90,26 @@
 
 		public function __toString() { return $this->name; }
 
-		public function getGroups()
+		public function getFacets()
 		{
-			if ($this->id)
+			if (!count($this->facets))
 			{
-				if (!count($this->groups))
-				{
-					$list = new FacetGroupList(array('facet_id'=>$this->id));
-					foreach($list as $group)
-					{
-						$this->groups[$group->getId()] = $group;
-					}
-				}
+				$list = new FacetList(array('facetGroup_id'=>$this->id));
+				foreach($list as $facet) { $this->facets[$facet->getId()] = $facet; }
 			}
-			return $this->groups;
+			return $this->facets;
 		}
-		public function saveGroups()
-		{
-			global $PDO;
-
-			$sql = "delete from facetGroup_facets where facet_id={$this->id}";
-			if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
-
-			$query = $PDO->prepare('insert facetGroup_facets values(?,?)');
-			foreach($this->getGroups() as $group_id=>$group)
-			{
-				$query->execute(array($group_id,$this->id));
-			}
-		}
-		public function setFacetGroups(array $group_ids)
-		{
-			$this->groups = array();
-			foreach($group_ids as $group_id) { $this->groups[$group_id] = new FacetGroup($group_id); }
-		}
-
-		public function delete()
-		{
-			global $PDO;
-			if ($this->id)
-			{
-				$sql = "delete from document_facets where facet_id={$this->id}";
-				if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
-
-				$sql = "delete from facetGroup_facets where facet_id={$this->id}";
-				if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
-
-				$sql = "delete from facets where id={$this->id}";
-				if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
-			}
-		}
-		public function hasGroup($group) { return in_array($group->getId(),array_keys($this->getGroups())); }
-
+		public function hasFacet($facet) { return in_array($facet->getId(),array_keys($this->getFacets())); }
 
 		/**
-		 * Facets are related to each other if they both have the same documents
+		 * Generic Getters
 		 */
-		public function getRelatedFacets()
-		{
-			return new FacetList(array('facet_id'=>$this->id));
-		}
-
 		public function getId() { return $this->id; }
 		public function getName() { return $this->name; }
-		public function getDescription() { return $this->description; }
-		public function getDocuments()
-		{
-			if (!$this->documents) { $this->documents = new DocumentList(array('facet_id'=>$this->id)); }
-			return $this->documents;
-		}
 
+		/**
+		 * Generic Setters
+		 */
 		public function setName($string) { $this->name = trim($string); }
-		public function setDescription($string) { $this->description = trim($string); }
 	}
 ?>

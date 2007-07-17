@@ -138,9 +138,23 @@ create table document_sections (
 ---------------------------------------------------------------------
 -- Facet tables
 ---------------------------------------------------------------------
+create table facetGroups (
+	id int unsigned not null primary key auto_increment,
+	name varchar(128) not null
+) engine=InnoDB;
+
 create table facets (
   id int unsigned not null primary key auto_increment,
-  name varchar(50) not null unique
+  name varchar(50) not null unique,
+  description varchar(255)
+) engine=InnoDB;
+
+create table facetGroup_facets (
+	facetGroup_id int unsigned not null,
+	facet_id int unsigned not null,
+	primary key (facetGroup_id,facet_id),
+	foreign key (facetGroup_id) references facetGroups(id),
+	foreign key (facet_id) references facets(id)
 ) engine=InnoDB;
 
 create table document_facets (
@@ -222,7 +236,9 @@ create table locations (
 	directions text,
 	latitude float(10,6),
 	longitude float(10,6),
-	foreign key (locationType_id) references locationTypes(id)
+	department_id int unsigned not null,
+	foreign key (locationType_id) references locationTypes(id),
+	foreign key (department_id) references departments(id)
 ) engine=InnoDB;
 
 create table locationGroups (

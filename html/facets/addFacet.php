@@ -9,7 +9,11 @@
 	if (isset($_POST['facet']))
 	{
 		$facet = new Facet();
-		$facet->setName($_POST['facet']['name']);
+		foreach($_POST['facet'] as $field=>$value)
+		{
+			$set = 'set'.ucfirst($field);
+			$facet->$set($value);
+		}
 
 		try
 		{

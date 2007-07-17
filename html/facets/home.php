@@ -4,10 +4,20 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
-	$facetList = new FacetList();
-	$facetList->find();
+	verifyUser(array('Administrator','Webmaster'));
+
 
 	$template = new Template();
-	$template->blocks[] = new Block('facets/facetList.inc',array('facetList'=>$facetList));
+	$template->blocks[] = new Block('facets/info.inc');
+
+	$groups = new FacetGroupList();
+	$groups->find();
+	foreach($groups as $group)
+	{
+		$template->blocks[] = new Block('facets/facetList.inc',array('facetList'=>$group->getFacets(),'title'=>$group->getName(),'facetGroup'=>$group));
+	}
+
+	$template->blocks[] = new Block('facets/facetGroupList.inc',array('facetGroupList'=>$groups));
+
 	$template->render();
 ?>
