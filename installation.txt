@@ -104,6 +104,12 @@ need to be set, post_max_size and max_uploaded_file.  For our purposes, we
 put these PHP.ini settings inside of the Apache httpd.conf, along with the
 auto_prepend.
 
+	The 404 document is a custom script for this application.  Make sure
+Apache is using the correct URL for the document.  It doesn't need the
+server portion, though.  So the leading slash means root of the webserver.
+It should start with whatever Alias you're using for the site.
+
+
 Add to httpd.conf:
 
 Alias /application_name "/path/to/application_name/html"
@@ -112,6 +118,8 @@ Alias /application_name "/path/to/application_name/html"
     AllowOverride None
     Order allow,deny
     Allow from all
+
+		ErrorDocument 404 /404.php
 
         php_value auto_prepend_file /path/to/application_name/configuration.inc
         php_value post_max_size 100M

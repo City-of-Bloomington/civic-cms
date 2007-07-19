@@ -24,14 +24,18 @@
 
 			$options = array();
 			if (isset($fields['id'])) { $options[] = "id='$fields[id]'"; }
-			if (isset($fields['dateTimeCreated'])) { $options[] = "dateTimeCreated='$fields[dateTimeCreated]'"; }
+			if (isset($fields['title'])) { $options[] = "title='$fields[title]'"; }
+			if (isset($fields['created'])) { $options[] = "created='$fields[created]'"; }
 			if (isset($fields['createdBy'])) { $options[] = "createdBy='$fields[createdBy]'"; }
+			if (isset($fields['modified'])) { $options[] = "modified='$fields[modified]'"; }
 			if (isset($fields['modifiedBy'])) { $options[] = "modifiedBy='$fields[modifiedBy]'"; }
 			if (isset($fields['publishDate'])) { $options[] = "publishDate='$fields[publishDate]'"; }
 			if (isset($fields['retireDate'])) { $options[] = "retireDate='$fields[retireDate]'"; }
 			if (isset($fields['department_id'])) { $options[] = "department_id='$fields[department_id]'"; }
 			if (isset($fields['documentType_id'])) { $options[] = "documentType_id='$fields[documentType_id]'"; }
 			if (isset($fields['description'])) { $options[] = "description='$fields[description]'"; }
+			if (isset($fields['lockedBy'])) { $options[] = "lockedBy='$fields[lockedBy]'"; }
+			if (isset($fields['enablePHP'])) { $options[] = "enablePHP='$fields[enablePHP]'"; }
 
 
 			# Finding on fields from other tables required joining those tables.

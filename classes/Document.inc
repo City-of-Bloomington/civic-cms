@@ -45,7 +45,8 @@
 
 			if ($id)
 			{
-				$sql = "select * from documents where id=?";
+				if (is_numeric($id)) { $sql = "select * from documents where id=?"; }
+				else { $sql = "select * from documents where title=?"; }
 				try
 				{
 					$query = $PDO->prepare($sql);
