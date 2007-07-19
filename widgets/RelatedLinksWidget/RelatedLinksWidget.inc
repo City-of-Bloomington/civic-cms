@@ -19,13 +19,16 @@
 
 		public function render($template)
 		{
-			if (isset($template->document))
+			global $section;
+			if ($section)
 			{
-				global $section;
-				$this->section = $section;
-				$this->document = $template->document;
+				if (isset($template->document))
+				{
+					$this->section = $section;
+					$this->document = $template->document;
 
-				$this->renderIncludeFile($this);
+					$this->renderIncludeFile($this);
+				}
 			}
 		}
 	}

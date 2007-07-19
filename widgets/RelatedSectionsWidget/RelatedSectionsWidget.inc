@@ -18,14 +18,16 @@
 
 		public function render($template)
 		{
-			if (isset($template->document))
+			global $section;
+			if ($section)
 			{
-				global $section;
-
-				$this->sectionList = $section->getParents();
-				if (count($this->sectionList) > 1)
+				if (isset($template->document))
 				{
-					$this->renderIncludeFile($this);
+					$this->sectionList = $section->getParents();
+					if (count($this->sectionList) > 1)
+					{
+						$this->renderIncludeFile($this);
+					}
 				}
 			}
 		}
