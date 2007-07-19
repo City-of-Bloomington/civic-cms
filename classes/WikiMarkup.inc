@@ -48,8 +48,12 @@ class WikiMarkup
 
 		if (isset($anchor)) { $url.= "#$anchor"; }
 
-		$title = isset($linkText) ? $linkText : $title;
-		return "<a href=\"$url\">$title</a>";
+		if (isset($url))
+		{
+			$title = isset($linkText) ? $linkText : $title;
+			return "<a href=\"$url\">$title</a>";
+		}
+		else { return $matches[0]; }
 	}
 }
 ?>
