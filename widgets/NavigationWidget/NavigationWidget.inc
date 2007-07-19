@@ -38,8 +38,6 @@
 					$ancestors = $this->section->getAncestors();
 					if (count($_SESSION['sectionHistory']) > 1)
 					{
-						print_r($_SESSION['sectionHistory']);
-
 						# Check all the vectors in the ancestor array.
 						# If the last section in that vector matches the previousSectionId,
 						# that's the vector we want to display for navigation
