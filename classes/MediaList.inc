@@ -25,7 +25,6 @@
 
 			$options = array();
 			if (isset($fields['id'])) { $options[] = "id='$fields[id]'"; }
-			if (isset($fields['filename'])) { $options[] = "filename='$fields[filename]'"; }
 			if (isset($fields['mime_type'])) { $options[] = "mime_type='$fields[mime_type]'"; }
 			if (isset($fields['media_type'])) { $options[] = "media_type='$fields[media_type]'"; }
 			if (isset($fields['title'])) { $options[] = "title='$fields[title]'"; }
@@ -35,6 +34,11 @@
 			if (isset($fields['uploaded'])) { $options[] = "uploaded='$fields[uploaded]'"; }
 			if (isset($fields['uploadedBy'])) { $options[] = "uploadedBy='$fields[uploadedBy]'"; }
 
+			if (isset($fields['filename']))
+			{
+				$filename = Media::createValidFilename($fields['filename']);
+				$options[] = "filename='$filename'";
+			}
 
 			# Finding on fields from other tables required joining those tables.
 			# You can add fields from other tables to $options by adding the join SQL

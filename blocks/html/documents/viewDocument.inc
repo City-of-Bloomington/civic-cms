@@ -23,6 +23,6 @@
 	}
 	else
 	{
-		echo $this->document->getContent($_SESSION['LANGUAGE']);
+		echo WikiMarkup::parse($this->document->getContent($_SESSION['LANGUAGE']));
 	}
 ?>

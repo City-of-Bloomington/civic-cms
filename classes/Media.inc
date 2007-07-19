@@ -230,7 +230,7 @@
 			return $this->documents;
 		}
 
-		public function createValidFilename($string)
+		public static function createValidFilename($string)
 		{
 			$string = preg_replace('/[^A-Za-z0-9_\.\s]/','',$string);
 			$string = preg_replace('/\s+/','_',$string);
