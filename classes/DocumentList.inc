@@ -25,6 +25,7 @@
 			$options = array();
 			if (isset($fields['id'])) { $options[] = "id='$fields[id]'"; }
 			if (isset($fields['title'])) { $options[] = "title='$fields[title]'"; }
+			if (isset($fields['alias'])) { $options[] = "alias='$fields[alias]'"; }
 			if (isset($fields['created'])) { $options[] = "created='$fields[created]'"; }
 			if (isset($fields['createdBy'])) { $options[] = "createdBy='$fields[createdBy]'"; }
 			if (isset($fields['modified'])) { $options[] = "modified='$fields[modified]'"; }
@@ -41,6 +42,11 @@
 			# Finding on fields from other tables required joining those tables.
 			# You can add fields from other tables to $options by adding the join SQL
 			# to $this->joins here
+			if (isset($fields['title_or_alias']))
+			{
+				$options[] = "(title='$fields[title_or_alias]' or alias='$fields[title_or_alias]')";
+			}
+
 			if (ereg('type',$this->sort))
 			{
 				# Sorting on type needs to join the documentTypes table

@@ -8,6 +8,7 @@
 	{
 		private $id;
 		private $title;
+		private $alias;
 		private $created;
 		private $createdBy;
 		private $modified;
@@ -85,6 +86,7 @@
 
 			$fields = array();
 			$fields['title'] = $this->title;
+			$fields['alias'] = $this->alias ? $this->alias : null;
 			$fields['created'] = $this->created;
 			$fields['modified'] = null;
 			$fields['createdBy'] = $this->createdBy;
@@ -546,6 +548,7 @@
 		 */
 		public function getId() { return $this->id; }
 		public function getTitle() { return $this->title; }
+		public function getAlias() { return $this->alias; }
 		public function getCreated($format=null)
 		{
 			if ($format && $this->created!=0) return strftime($format,strtotime($this->created));
@@ -601,6 +604,7 @@
 		 * Generic Setters
 		 */
 		public function setTitle($string) { $this->title = trim($string); }
+		public function setAlias($string) { $this->alias = trim($string); }
 		public function setModifiedBy($user) { $this->modifiedBy = $user->getId(); }
 		public function setPublishDate($date) { $this->publishDate = is_array($date) ? $this->dateArrayToString($date) : $date; }
 		public function setRetireDate($date) { $this->retireDate = is_array($date) ? $this->dateArrayToString($date) : $date; }

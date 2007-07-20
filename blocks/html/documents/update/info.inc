@@ -25,6 +25,8 @@
 		</tr>
 		<tr><td><label for="document-title" class="required">Title</label></td>
 			<td><input name="document[title]" id="document-title" value="<?php echo View::escape($this->document->getTitle()); ?>" /></td></tr>
+		<tr><td><label for="document-alias">Alias</label></td>
+			<td><input name="document[alias]" id="document-alias" value="<?php echo View::escape($this->document->getAlias()); ?>" /></td></tr>
 		<tr><td colspan="2">
 				<label for="document-description">Description</label>
 				<textarea name="document[description]" id="document-description" rows="3" cols="60"><?php echo View::escape($this->document->getDescription()); ?></textarea>

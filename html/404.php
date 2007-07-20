@@ -7,7 +7,7 @@
 	$title = urldecode(basename($_SERVER['REQUEST_URI']));
 	$title = str_replace('_',' ',$title);
 
-	$list = new DocumentList(array('title'=>$title));
+	$list = new DocumentList(array('title_or_alias'=>$title));
 	switch (count($list))
 	{
 		case 0:

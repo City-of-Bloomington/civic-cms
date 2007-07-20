@@ -24,7 +24,7 @@ class WikiMarkup
 
 		if ($documentTitle)
 		{
-			$list = new DocumentList(array('title'=>$documentTitle));
+			$list = new DocumentList(array('title_or_alias'=>$documentTitle));
 			if (count($list))
 			{
 				# Draw a link to the first document we find
