@@ -124,7 +124,7 @@ FCKConfig.ToolbarSets["Custom"] = [
 	'/',
 	['Bold','Italic','-','Subscript','Superscript','FontFormat'],
 	['OrderedList','UnorderedList'],
-	['Link','Unlink','Anchor'],
+	['Anchor'],
 	['Image','Table','FitWindow']
 ] ;
 
