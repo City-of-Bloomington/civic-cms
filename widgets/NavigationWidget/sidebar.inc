@@ -8,6 +8,7 @@
 	echo "<div><ul>";
 	foreach($this->ancestors as $i=>$section)
 	{
+		$name = $section->getNickname() ? View::escape($section->getNickname()) : View::escape($section->getName());
 		echo "<li><a href=\"".BASE_URL."/sections/viewSection.php?section_id={$section->getId()}\">$section</a>\n";
 
 		if (count($this->ancestors) - $i <= 1)
@@ -18,15 +19,21 @@
 			{
 				if ($child->getId() == $this->section->getId())
 				{
-					echo "<li class=\"current\"><a href=\"".BASE_URL."/sections/viewSection.php?section_id={$child->getId()}\">$child</a>\n";
+					$name = $child->getNickname() ? View::escape($child->getNickname()) : View::escape($child->getName());
+					echo "<li class=\"current\"><a href=\"".BASE_URL."/sections/viewSection.php?section_id={$child->getId()}\">$name</a>\n";
 					echo "<ul>";
 					foreach($this->section->getChildren() as $child)
 					{
-						echo "<li><a href=\"".BASE_URL."/sections/viewSection.php?section_id={$child->getId()}\">$child</a></li>\n";
+						$name = $child->getNickname() ? View::escape($child->getNickname()) : View::escape($child->getName());
+						echo "<li><a href=\"".BASE_URL."/sections/viewSection.php?section_id={$child->getId()}\">$name</a></li>\n";
 					}
 					echo "</ul>";
 				}
-				else { echo "<li><a href=\"".BASE_URL."/sections/viewSection.php?section_id={$child->getId()}\">$child</a>\n"; }
+				else
+				{
+					$name = $child->getNickname() ? View::escape($child->getNickname()) : View::escape($child->getName());
+					echo "<li><a href=\"".BASE_URL."/sections/viewSection.php?section_id={$child->getId()}\">$name</a>\n";
+				}
 
 				echo "</li>";
 			}

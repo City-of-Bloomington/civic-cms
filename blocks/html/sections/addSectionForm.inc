@@ -21,8 +21,10 @@
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 <fieldset><legend>Section Info</legend>
 	<table>
-	<tr><td><label for="section-name">Name</label></td>
+	<tr><td><label for="section-name" class="required">Name</label></td>
 		<td><input name="section[name]" id="section-name" /></td></tr>
+	<tr><td><label for="section-nickname">Nickname</label></td>
+		<td><input name="section[nickname]" id="nickname" /></td></tr>
 	</table>
 </fieldset>
 

@@ -8,6 +8,7 @@
 	{
 		private $id;
 		private $name;
+		private $nickname;
 		private $document_id;
 
 		private $document;
@@ -83,6 +84,7 @@
 
 			$fields = array();
 			$fields['name'] = $this->name ? $this->name : null;
+			$fields['nickname'] = $this->nickname ? $this->nickname : null;
 
 			# If document_id is null here, it means this is a new Section
 			# The new home document should be created during the Insert()
@@ -374,6 +376,7 @@
 		 */
 		public function getId() { return $this->id; }
 		public function getName() { return $this->name; }
+		public function getNickname() { return $this->nickname; }
 		public function getDocument_id() { return $this->document_id; }
 		public function getDocument()
 		{
@@ -389,6 +392,7 @@
 		 * Generic Setters
 		 */
 		public function setName($string) { $this->name = trim($string); }
+		public function setNickname($string) { $this->nickname = trim($string); }
 		public function setDocument_id($int) { $this->document = new Document($int); $this->document_id = $int; }
 		public function setDocument($document) { $this->document_id = $document->getId(); $this->document = $document; }
 	}
