@@ -33,6 +33,18 @@ class WikiMarkup
 
 				$url = BASE_URL."/documents/viewDocument.php?document_id={$document->getId()}";
 			}
+			else
+			{
+				# We couldn't find a Document Title that matched
+				# Check if this is supposed to be a full URL
+				$pattern = '/(www\.|https?:\/\/)([\w\.]+)([\#\,\/\~\?\&\=\;\%\-\w+\.]+)/';
+				if (preg_match($pattern,$documentTitle))
+				{
+					# If they didn't put in an http://, we need to add it to the url
+					$url = $documentTitle;
+					if (!ereg('://',$url)) { $url = 'http://'.$url; }
+				}
+			}
 		}
 		if (isset($attachmentFilename))
 		{
@@ -45,11 +57,11 @@ class WikiMarkup
 				$url = $media->getURL();
 			}
 		}
-
 		if (isset($anchor)) { $url.= "#$anchor"; }
 
 		if (isset($url))
 		{
+			$title = isset($title) ? $title : $url;
 			$title = isset($linkText) ? $linkText : $title;
 			return "<a href=\"$url\">$title</a>";
 		}
