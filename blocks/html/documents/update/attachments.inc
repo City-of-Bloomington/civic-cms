@@ -6,6 +6,35 @@
  * @param Document $this->document
  */
 ?>
+<h2>Add an Attachment</h2>
+<form id="documentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
+	<fieldset><legend>Browse</legend>
+		<p>Browse for an existing attachment.</p>
+		<button type="button" class="browse" onclick="window.open('<?php echo BASE_URL; ?>/documents/attachmentSelector.php');">Browse</button>
+		<input type="hidden" name="attachment[media_id]" id="attachment-media_id" />
+	</fieldset>
+	<fieldset><legend>Upload a new Attachment</legend>
+		<table>
+		<tr><td><label for="attachment-title" class="required">Title</label></td>
+			<td><input name="attachment[title]" id="attachment-title" /></td></tr>
+		<tr><td><label for="attachment-description" class="required">Description</label></td>
+			<td><input name="attachment[description]" id="attachment-description" /></td></tr>
+		</table>
+		<input name="max_file_size" type="hidden" value="<?php echo 1000000 * (int)ini_get('upload_max_filesize'); ?>" />
+		<input name="attachment" type="file" />
+		<button type="button" class="upload" onclick="FRAMEWORK.processTabbedForm('documentForm','attachments','next');">Upload</button>
+	</fieldset>
+
+	<fieldset><legend>Next</legend>
+		<p>Move on to the next tab.  The document will not be saved to the database until you click the "Save" button.</p>
+		<input type="hidden" name="tab" id="tab" value="links" />
+		<input type="hidden" name="action" id="action" value="next" />
+		<button type="submit" class="next">Next</button>
+		<button type="cancel" class="cancel" onclick="self.close();">Cancel</button>
+		<button type="button" class="save" onclick="FRAMEWORK.processTabbedForm('documentForm','attachments','save');">Save</button>
+	</fieldset>
+</form>
+
 <div class="interfaceBox">
 	<div class="titleBar">Attachments</div>
 	<table>
@@ -47,32 +76,3 @@
 		}
 	</script>
 </div>
-
-<h2>Add an Attachment</h2>
-<form id="documentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
-	<fieldset><legend>Browse</legend>
-		<p>Browse for an existing attachment.</p>
-		<button type="button" class="browse" onclick="window.open('<?php echo BASE_URL; ?>/documents/attachmentSelector.php');">Browse</button>
-		<input type="hidden" name="attachment[media_id]" id="attachment-media_id" />
-	</fieldset>
-	<fieldset><legend>Upload a new Attachment</legend>
-		<table>
-		<tr><td><label for="attachment-title" class="required">Title</label></td>
-			<td><input name="attachment[title]" id="attachment-title" /></td></tr>
-		<tr><td><label for="attachment-description" class="required">Description</label></td>
-			<td><input name="attachment[description]" id="attachment-description" /></td></tr>
-		</table>
-		<input name="max_file_size" type="hidden" value="<?php echo 1000000 * (int)ini_get('upload_max_filesize'); ?>" />
-		<input name="attachment" type="file" />
-		<button type="button" class="upload" onclick="FRAMEWORK.processTabbedForm('documentForm','attachments','next');">Upload</button>
-	</fieldset>
-
-	<fieldset><legend>Next</legend>
-		<p>Move on to the next tab.  The document will not be saved to the database until you click the "Save" button.</p>
-		<input type="hidden" name="tab" id="tab" value="links" />
-		<input type="hidden" name="action" id="action" value="next" />
-		<button type="submit" class="next">Next</button>
-		<button type="cancel" class="cancel" onclick="self.close();">Cancel</button>
-		<button type="button" class="save" onclick="FRAMEWORK.processTabbedForm('documentForm','attachments','save');">Save</button>
-	</fieldset>
-</form>
