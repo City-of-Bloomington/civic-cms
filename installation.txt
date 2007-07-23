@@ -30,8 +30,14 @@ See: LICENSE.txt
 ---------------------------------------------------------------------
 Requirements
 ---------------------------------------------------------------------
+Apache
+	mod_rewrite
+
+	We use mod_rewrite to provide human readable URLs.  This is set
+	in either an httpd.conf file, or in a .htaccess file
+
 Framework:
-	This scaffolding requires our Framework to be on the server somewhere.
+	This application requires our Framework to be on the server somewhere.
 	Our Framework is available as a seperate release.  In the configuration,
 	you will need to point this scaffolding to the directory where the
 	Framework is installed.
@@ -104,7 +110,8 @@ need to be set, post_max_size and max_uploaded_file.  For our purposes, we
 put these PHP.ini settings inside of the Apache httpd.conf, along with the
 auto_prepend.
 
-	The 404 document is a custom script for this application.  Make sure
+	We use Apache's mod_rewrite to allow human readable URLs.  Any incoming
+url that doesn't match something on the site is sent to 404.php.  Make sure
 Apache is using the correct URL for the document.  It doesn't need the
 server portion, though.  So the leading slash means root of the webserver.
 It should start with whatever Alias you're using for the site.
@@ -119,11 +126,12 @@ Alias /application_name "/path/to/application_name/html"
     Order allow,deny
     Allow from all
 
-		ErrorDocument 404 /404.php
+	RewriteEngine On
+	RewriteRule !^($|404.php|home.php|tree.js|backups|calendars|departments|documents|documentTypes|editors|events|facets|locations|login|media|sections|skins|users|widgets) /content_manager/404.php
 
-        php_value auto_prepend_file /path/to/application_name/configuration.inc
-        php_value post_max_size 100M
-        php_value upload_max_filesize 100M
+	php_value auto_prepend_file /path/to/application_name/configuration.inc
+	php_value post_max_size 100M
+	php_value upload_max_filesize 100M
 </Directory>
 
 

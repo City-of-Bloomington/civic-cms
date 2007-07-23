@@ -12,7 +12,7 @@
 	<?php
 		foreach($this->section->getDocuments() as $document)
 		{
-			echo "<li><a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$document->getId()}\">{$document->getId()}</a></li>";
+			echo "<li><a href=\"{$document->getURL()}\">{$document->getId()}</a></li>";
 		}
 	?>
 	</ul>

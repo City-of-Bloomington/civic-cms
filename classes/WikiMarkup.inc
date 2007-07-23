@@ -31,7 +31,7 @@ class WikiMarkup
 				$document = $list[0];
 				$title = View::escape($document->getTitle());
 
-				$url = BASE_URL."/documents/viewDocument.php?document_id={$document->getId()}";
+				$url = $document->getURL();
 			}
 			else
 			{

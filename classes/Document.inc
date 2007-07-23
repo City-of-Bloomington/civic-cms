@@ -65,7 +65,6 @@
 				# Set any default values for properties that need it here
 				$this->created = date("Y-m-d H:i:s");
 				$this->createdBy = $_SESSION['USER']->getId();
-				$this->modifiedBy = $_SESSION['USER']->getId();
 				$this->publishDate = $this->created;
 				$this->setDepartment_id($_SESSION['USER']->getDepartment_id());
 			}
@@ -90,7 +89,7 @@
 			$fields['created'] = $this->created;
 			$fields['modified'] = null;
 			$fields['createdBy'] = $this->createdBy;
-			$fields['modifiedBy'] = $this->modifiedBy;
+			$fields['modifiedBy'] = $_SESSION['USER']->getId();
 			$fields['publishDate'] = $this->publishDate ? $this->publishDate : null;
 			$fields['retireDate'] = $this->retireDate ? $this->retireDate : null;
 			$fields['department_id'] = $this->department_id;
@@ -599,6 +598,8 @@
 			}
 			else return null;
 		}
+
+		public function getURL() { return BASE_URL.'/'.strtr($this->title,' ','_'); }
 
 		/**
 		 * Generic Setters

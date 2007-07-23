@@ -18,7 +18,7 @@
 			$description = View::escape($document->getDescription());
 			echo "
 			<tr><th><img src=\"".BASE_URL."/documents/icon.php?document_id={$document->getId()}\" alt=\"$title\" /></th>
-				<td><h4><a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$document->getId()}\">$title</a></h4>
+				<td><h4><a href=\"{$document->getURL()}\">$title</a></h4>
 					$description
 				</td>
 			</tr>

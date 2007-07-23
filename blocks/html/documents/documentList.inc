@@ -91,7 +91,7 @@
 		{
 			$url = $document->permitsEditingBy($_SESSION['USER']) ?
 					new URL(BASE_URL."/documents/updateDocument.php?document_id={$document->getId()};lang=$_SESSION[LANGUAGE]") :
-					new URL(BASE_URL.'/documents/viewDocument.php?document_id='.$document->getId());
+					new URL($document->getURL());
 			$url->parameters['tab'] = 'info';
 
 			$modifiedBy = substr($document->getModifiedByUser()->getFirstname(),0,1).substr($document->getModifiedByUser()->getLastname(),0,1);
@@ -112,7 +112,7 @@
 				$watch = $_SESSION['USER']->hasWatch($document) ? "<a href=\"".BASE_URL."/documents/removeWatch.php?document_id={$document->getId()}\">Unwatch</a>" : "<a href=\"".BASE_URL."/documents/addWatch.php?document_id={$document->getId()}\">Watch</a>";
 
 				echo "
-				<td><a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$document->getId()}\" onclick=\"window.open('".BASE_URL."/documents/viewDocument.php?document_id={$document->getId()}');return false;\">View</a>
+				<td><a href=\"{$document->getURL()}\" onclick=\"window.open('{$document->getURL()}');return false;\">View</a>
 					<a href=\"".BASE_URL."/documents/deleteDocument.php?document_id={$document->getId()}\" onclick=\"FRAMEWORK.deleteConfirmation('".BASE_URL."/documents/deleteDocument.php?document_id={$document->getId()}');return false;\">Delete</a>
 					$retireButton
 					$watch

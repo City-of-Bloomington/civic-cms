@@ -12,10 +12,7 @@
 	foreach($this->results as $document)
 	{
 		$title = View::escape($document->getTitle());
-		echo "
-		<li><a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$document->getId()}\">
-			$title</a></li>
-		";
+		echo "<li><a href=\"{$document->getURL()}\">$title</a></li>\n";
 	}
 ?>
 </ul>

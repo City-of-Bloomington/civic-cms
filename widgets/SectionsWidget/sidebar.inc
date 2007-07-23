@@ -23,9 +23,8 @@
 		";
 		foreach($section->getChildren() as $child)
 		{
-			echo "
-			<li><a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$child->getDocument_id()}\">$child</a></li>
-			";
+			$title = View::escape($chid->getTitle());
+			echo "<li><a href=\"{$document->getURL()}\">$title</a></li>\n";
 		}
 		echo "
 		</ul>

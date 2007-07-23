@@ -13,9 +13,7 @@
 			{
 				$name = View::escape($section->getName());
 				echo "
-				<li><a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$this->section->getDocument_id()}\">
-					$name</a>
-				</li>
+				<li><a href=\"{$this->section->getDocument()->getURL()}\">$name</a></li>
 				";
 			}
 		?>
