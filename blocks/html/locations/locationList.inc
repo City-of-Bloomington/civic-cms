@@ -50,7 +50,7 @@
 			{
 				$name = View::escape($location->getName());
 
-				if ($location->permitsEditingBy($_SESSION['USER']))
+				if (isset($_SESSION['USER']) && $location->permitsEditingBy($_SESSION['USER']))
 				{
 					$button = "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/locations/updateLocation.php?id={$location->getId()}';\">Edit</button>";
 				}

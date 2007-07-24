@@ -5,17 +5,18 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param GET locationGroup_id
  */
-	verifyUser('Webmaster');
-
 	$template = new Template();
 
-	$typeList = new LocationTypeList();
-	$typeList->find();
-	$template->blocks[] = new Block('locations/locationTypeList.inc',array('locationTypeList'=>$typeList));
+	if (userHasRole(array('Administrator','Webmaster')))
+	{
+		$typeList = new LocationTypeList();
+		$typeList->find();
+		$template->blocks[] = new Block('locations/locationTypeList.inc',array('locationTypeList'=>$typeList));
 
-	$groupList = new LocationGroupList();
-	$groupList->find();
-	$template->blocks[] = new Block('locations/locationGroupList.inc',array('locationGroupList'=>$groupList));
+		$groupList = new LocationGroupList();
+		$groupList->find();
+		$template->blocks[] = new Block('locations/locationGroupList.inc',array('locationGroupList'=>$groupList));
+	}
 
 
 	$listBlock = new Block('locations/locationList.inc');
