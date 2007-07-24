@@ -1,15 +1,35 @@
 <?php
 /**
- * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
-	verifyUser('Webmaster');
+	verifyUser(array('Administrator','Webmaster','Content Creator'));
 
-	if (isset($_GET['id'])) { $location = new Location($_GET['id']); }
+	if (isset($_GET['id']))
+	{
+		$location = new Location($_GET['id']);
+
+		# Make sure they're allowed to edit this Location
+		if (!$location->permitsEditingBy($_SESSION['USER']))
+		{
+			$_SESSION['errorMessages'][] = new Exception('noAccessAllowed');
+			Header('Location: home.php');
+			exit();
+		}
+	}
 	if (isset($_POST['id']))
 	{
 		$location = new Location($_POST['id']);
+
+		# Make sure they're allowed to edit this location
+		if (!$location->permitsEditingBy($_SESSION['USER']))
+		{
+			$_SESSION['errorMessages'][] = new Exception('noAccessAllowed');
+			Header('Location: home.php');
+			exit();
+		}
+
 		foreach($_POST['location'] as $field=>$value)
 		{
 			$set = 'set'.ucfirst($field);

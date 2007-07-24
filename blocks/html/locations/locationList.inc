@@ -17,11 +17,13 @@
 			{
 				$name = View::escape($location->getName());
 
-				echo "
-				<li><button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/locations/updateLocation.php?id={$location->getId()}';\">Edit</button>
-					$name
-				</li>
-				";
+				if ($location->permitsEditingBy($_SESSION['USER']))
+				{
+					$button = "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/locations/updateLocation.php?id={$location->getId()}';\">Edit</button>";
+				}
+				else { $button = ''; }
+
+				echo "<li>$button $name</li>\n";
 			}
 		?>
 	</ul>

@@ -6,10 +6,26 @@
  */
 	verifyUser(array('Administrator','Webmaster'));
 
-	if (isset($_GET['id'])) { $locationGroup = new LocationGroup($_GET['id']); }
+	if (isset($_GET['id']))
+	{
+		$locationGroup = new LocationGroup($_GET['id']);
+		if (!$locationGroup->permitsEditingBy($_SESSION['USER']))
+		{
+			$_SESSION['errorMessages'][] = new Exception('noAccessAllowed');
+			Header('Location: home.php');
+			exit();
+		}
+	}
 	if (isset($_POST['id']))
 	{
 		$locationGroup = new LocationGroup($_POST['id']);
+		if (!$locationGroup->permitsEditingBy($_SESSION['USER']))
+		{
+			$_SESSION['errorMessages'][] = new Exception('noAccessAllowed');
+			Header('Location: home.php');
+			exit();
+		}
+
 		foreach($_POST['locationGroup'] as $field=>$value)
 		{
 			$set = 'set'.ucfirst($field);

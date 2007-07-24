@@ -14,8 +14,10 @@
 		private $directions;
 		private $latitude;
 		private $longitude;
+		private $department_id;
 
 		private $locationType;
+		private $department;
 		private $groups = array();
 
 		/**
@@ -44,6 +46,7 @@
 				# This is where the code goes to generate a new, empty instance.
 				# Set any default values for properties that need it here
 				$this->locationType_id = 1;
+				$this->department_id = $_SESSION['USER']->getDepartmentid();
 			}
 		}
 
@@ -69,6 +72,7 @@
 			$fields['directions'] = $this->directions ? $this->directions : null;
 			$fields['latitude'] = $this->latitude ? $this->latitude : null;
 			$fields['longitude'] = $this->longitude ? $this->longitude : null;
+			$fields['department_id'] = $this->department_id;
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
@@ -146,6 +150,13 @@
 			}
 		}
 
+		public function permitsEditingBy($user)
+		{
+			if ($user->hasRole(array('Administrator','Webmaster','Publisher'))) { return true; }
+			if ($user->hasRole('Content Creator') && $user->getDepartment_id()==$this->department_id) { return true; }
+			return false;
+		}
+
 		public function __toString() { return $this->name; }
 		public function getType() { return $this->getLocationType()->getType(); }
 
@@ -160,6 +171,16 @@
 		public function getDirections() { return $this->directions; }
 		public function getLatitude() { return $this->latitude; }
 		public function getLongitude() { return $this->longitude; }
+		public function getDepartment_id() { return $this->department_id; }
+		public function getDepartment()
+		{
+			if ($this->department_id)
+			{
+				if (!$this->department) { $this->department = new Department($this->department_id); }
+				return $this->department;
+			}
+			else return null;
+		}
 		public function getLocationType()
 		{
 			if ($this->locationType_id)
@@ -180,7 +201,9 @@
 		public function setDirections($text) { $this->directions = $text; }
 		public function setLatitude($float) { $this->latitude = ereg_replace("[^0-9.\-]","",$float); }
 		public function setLongitude($float) { $this->longitude = ereg_replace("[^0-9.\-]","",$float); }
+		public function setDepartment_id($int) { $this->department = new Department($int); $this->department_id = $int; }
 
+		public function setDepartment($department) { $this->department_id = $department->getId(); $this->department = $department; }
 		public function setLocationType($locationType) { $this->locationType_id = $locationType->getId(); $this->locationType = $locationType; }
 	}
 ?>

@@ -14,10 +14,15 @@
 	<ul><?php
 			foreach($this->locationGroupList as $locationGroup)
 			{
-				echo "
-				<li><button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/locations/updateLocationGroup.php?id={$locationGroup->getId()}';\">Edit</button>
-					$locationGroup</li>
-				";
+				$name = View::escape($locationGroup->getName());
+
+				if ($locationGroup->permitsEditingBy($_SESSION['USER']))
+				{
+					$button = "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/locations/updateLocationGroup.php?id={$locationGroup->getId()}';\">Edit</button>";
+				}
+				else { $button = ''; }
+
+				echo "<li>$button $name</li>\n";
 			}
 		?>
 	</ul>

@@ -32,6 +32,7 @@
 			if (isset($fields['directions'])) { $options[] = "directions='$fields[directions]'"; }
 			if (isset($fields['latitude'])) { $options[] = "latitude='$fields[latitude]'"; }
 			if (isset($fields['longitude'])) { $options[] = "longitude='$fields[longitude]'"; }
+			if (isset($fields['department_id'])) { $options[] = "department_id='$fields[department_id]'"; }
 
 
 			# Finding on fields from other tables required joining those tables.

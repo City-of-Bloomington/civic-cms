@@ -5,12 +5,27 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 ?>
-<h1>Add LocationGroup</h1>
+<h1>Add Location Group</h1>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 <fieldset><legend>LocationGroup Info</legend>
+
 	<table>
 	<tr><td><label for="locationGroup-name" class="required">Name</label></td>
 		<td><input name="locationGroup[name]" id="locationGroup-name" /></td></tr>
+	<tr><td><label for="locationGroup-department_id" class="required">Department</label></td>
+		<td><select name="locationGroup[department_id]" id="locationGroup-department_id">
+			<?php
+				$list = new DepartmentList();
+				$list->find();
+				foreach($list as $department)
+				{
+					$name = View::escape($department->getName());
+					echo "<option value=\"{$department->getId()}\">$name</option>";
+				}
+			?>
+			</select>
+		</td>
+	</tr>
 	</table>
 
 	<button type="submit" class="submit">Submit</button>

@@ -8,6 +8,9 @@
 	{
 		private $id;
 		private $name;
+		private $department_id;
+
+		private $department;
 
 		/**
 		 * This will load all fields in the table as properties of this class.
@@ -34,6 +37,7 @@
 			{
 				# This is where the code goes to generate a new, empty instance.
 				# Set any default values for properties that need it here
+				$this->department_id = $_SESSION['USER']->getDepartment_id();
 			}
 		}
 
@@ -50,6 +54,7 @@
 
 			$fields = array();
 			$fields['name'] = $this->name;
+			$fields['department_id'] = $this->department_id;
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
@@ -86,6 +91,13 @@
 			$this->id = $PDO->lastInsertID();
 		}
 
+		public function permitsEditingBy($user)
+		{
+			if ($user->hasRole(array('Administrator','Webmaster','Publisher'))) { return true; }
+			if ($user->hasRole('Content Creator') && $user->getDepartment_id()==$this->department_id) { return true; }
+			return false;
+		}
+
 		public function getLocations()
 		{
 			return new LocationList(array('locationGroup_id'=>$this->id));
@@ -98,10 +110,22 @@
 		 */
 		public function getId() { return $this->id; }
 		public function getName() { return $this->name; }
+		public function getDepartment_id() { return $this->department_id; }
+		public function getDepartment()
+		{
+			if ($this->department_id)
+			{
+				if (!$this->department) { $this->department = new Department($this->department_id); }
+				return $this->department;
+			}
+			else return null;
+		}
 
 		/**
 		 * Generic Setters
 		 */
 		public function setName($string) { $this->name = trim($string); }
+		public function setDepartment_id($int) { $this->department = new Department($int); $this->department_id = $int; }
+		public function setDepartment($department) { $this->department_id = $department->getId(); $this->department = $department; }
 	}
 ?>
