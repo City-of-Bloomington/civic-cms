@@ -14,7 +14,7 @@
 	<?php
 		foreach($this->documentList as $document)
 		{
-			$title = View::escape($document->getTitle());
+			$title = $document->getFeature_title() ? View::escape($document->getFeature_title()) : View::escape($document->getTitle());
 			$description = View::escape($document->getDescription());
 			echo "
 			<tr><th><img src=\"".BASE_URL."/documents/icon.php?document_id={$document->getId()}\" alt=\"$title\" /></th>

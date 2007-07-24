@@ -26,6 +26,7 @@
 			if (isset($fields['id'])) { $options[] = "id='$fields[id]'"; }
 			if (isset($fields['title'])) { $options[] = "title='$fields[title]'"; }
 			if (isset($fields['alias'])) { $options[] = "alias='$fields[alias]'"; }
+			if (isset($fields['feature_title'])) { $options[] = "feature_title='$fields[feature_title]'"; }
 			if (isset($fields['created'])) { $options[] = "created='$fields[created]'"; }
 			if (isset($fields['createdBy'])) { $options[] = "createdBy='$fields[createdBy]'"; }
 			if (isset($fields['modified'])) { $options[] = "modified='$fields[modified]'"; }

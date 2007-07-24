@@ -54,6 +54,7 @@ create table documents (
   id int unsigned not null primary key auto_increment,
   title varchar(128) not null,
   alias varchar(128),
+  feature_title varchar(128),
   created timestamp not null default 0,
   createdBy int unsigned not null,
   modified timestamp default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
