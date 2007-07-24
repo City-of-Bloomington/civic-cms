@@ -22,7 +22,7 @@
 	<?php
 		if(userHasRole('Webmaster'))
 		{
-			echo "<li><a href=\"".BASE_URL."/documents/addDocument.php?tab=facets\" onclick=\"updateDocument('source','next');return false;\">Source</a></li>";
+			echo "<li><a href=\"".BASE_URL."/documents/addDocument.php?tab=source\" onclick=\"updateDocument('source','next');return false;\">Source</a></li>";
 		}
 	?>
 </ul>

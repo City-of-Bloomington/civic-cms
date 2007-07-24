@@ -15,7 +15,7 @@
 	<?php
 		if(userHasRole('Webmaster') || userHasRole('Administrator'))
 		{
-			echo "<li><a href=\"".BASE_URL."/documents/updateDocument.php?tab=facets\" onclick=\"FRAMEWORK.processTabbedForm('documentForm','source','next');return false;\">Source</a></li>";
+			echo "<li><a href=\"".BASE_URL."/documents/updateDocument.php?tab=source\" onclick=\"FRAMEWORK.processTabbedForm('documentForm','source','next');return false;\">Source</a></li>";
 		}
 	?>
 </ul>

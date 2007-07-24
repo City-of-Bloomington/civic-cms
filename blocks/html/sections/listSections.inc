@@ -61,4 +61,4 @@
 		</li>
 	</ul>
 </div>
-<script type="text/javascript" src="<?php echo BASE_URL; ?>/tree.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>/js/tree.js"></script>
