@@ -22,7 +22,8 @@
 
 			if ($id)
 			{
-				$sql = 'select * from facetGroups where id=?';
+				if (is_numeric($id)) { $sql = 'select * from facetGroups where id=?'; }
+				else { $sql = 'select * from facetGroups where name=?'; }
 				try
 				{
 					$query = $PDO->prepare($sql);
