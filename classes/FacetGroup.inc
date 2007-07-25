@@ -10,6 +10,7 @@
 		private $name;
 
 		private $facets = array();
+		private $related_groups = array();
 
 		/**
 		 * This will load all fields in the table as properties of this class.
@@ -67,6 +68,8 @@
 
 			if ($this->id) { $this->update($values,$preparedFields); }
 			else { $this->insert($values,$preparedFields); }
+
+			$this->saveRelatedGroups();
 		}
 
 		private function update($values,$preparedFields)
@@ -86,6 +89,52 @@
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 			if (false === $query->execute($values)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 			$this->id = $PDO->lastInsertID();
+		}
+
+		public function getRelatedGroups()
+		{
+			global $PDO;
+
+			if ($this->id)
+			{
+				if (!count($this->related_groups))
+				{
+					$sql = "select relatedGroup_id from facetGroups_related where facetGroup_id={$this->id}";
+					$query = $PDO->query($sql);
+					$result = $query->fetchAll();
+					foreach($result as $row)
+					{
+						$this->related_groups[$row['relatedGroup_id']] = new FacetGroup($row['relatedGroup_id']);
+					}
+				}
+			}
+			return $this->related_groups;
+		}
+
+		public function setRelatedGroups(array $group_ids)
+		{
+			$this->related_groups = array();
+			foreach($group_ids as $id)
+			{
+				$group = new FacetGroup($id);
+				$this->related_groups[$id] = $group;
+			}
+		}
+
+		private function saveRelatedGroups()
+		{
+			global $PDO;
+			if ($this->id)
+			{
+				$sql = "delete from facetGroups_related where facetGroup_id={$this->id}";
+				if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
+
+				$query = $PDO->prepare('insert facetGroups_related values(?,?)');
+				foreach($this->getRelatedGroups() as $group)
+				{
+					$query->execute(array($this->id,$group->getId()));
+				}
+			}
 		}
 
 		public function __toString() { return $this->name; }

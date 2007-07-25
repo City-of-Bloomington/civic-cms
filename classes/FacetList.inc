@@ -22,6 +22,7 @@
 			$options = array();
 			if (isset($fields['id'])) { $options[] = "id='$fields[id]'"; }
 			if (isset($fields['name'])) { $options[] = "name='$fields[name]'"; }
+			if (isset($fields['facetGroup_id'])) { $options[] = "facetGroup_id='$fields[facetGroup_id]'"; }
 			if (isset($fields['description'])) { $options[] = "description='$fields[description]'"; }
 
 
@@ -45,12 +46,6 @@
 			{
 				$this->joins.= ' left join document_facets on id=facet_id';
 				$options[] = "document_id='$fields[document_id]'";
-			}
-
-			if (isset($fields['facetGroup_id']))
-			{
-				$this->joins.= ' left join facetGroup_facets on id=facet_id';
-				$options[] = "facetGroup_id='$fields[facetGroup_id]'";
 			}
 
 			$this->populateList($options);

@@ -149,15 +149,9 @@ create table facetGroups (
 create table facets (
   id int unsigned not null primary key auto_increment,
   name varchar(50) not null unique,
-  description varchar(255)
-) engine=InnoDB;
-
-create table facetGroup_facets (
-	facetGroup_id int unsigned not null,
-	facet_id int unsigned not null,
-	primary key (facetGroup_id,facet_id),
-	foreign key (facetGroup_id) references facetGroups(id),
-	foreign key (facet_id) references facets(id)
+  facetGroup_id int unsigned not null,
+  description varchar(255),
+  foreign key (facetGroup_id) references facetGroups(id)
 ) engine=InnoDB;
 
 create table document_facets (
@@ -166,6 +160,14 @@ create table document_facets (
   primary key (document_id,facet_id),
   foreign key (document_id) references documents (id) on delete cascade,
   foreign key (facet_id) references facets (id) on delete cascade
+) engine=InnoDB;
+
+create table facetGroups_related (
+	facetGroup_id int unsigned not null,
+	relatedGroup_id int unsigned not null,
+	primary key (facetGroup_id,relatedGroup_id),
+	foreign key (facetGroup_id) references facetGroups(id),
+	foreign key (relatedGroup_id) references facetGroups(id)
 ) engine=InnoDB;
 
 

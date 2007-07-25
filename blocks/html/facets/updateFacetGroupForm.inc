@@ -15,7 +15,28 @@
 	<tr><td><label for="facetGroup-name" class="required">Name</label></td>
 		<td><input name="facetGroup[name]" id="facetGroup-name" value="<?php echo $this->facetGroup->getName(); ?>" /></td></tr>
 	</table>
+</fieldset>
 
+<fieldset><legend>Related Groups</legend>
+<p>When showing this facet, the system will also display any related documents of facets from the the groups you select here.</p>
+<?php
+	$list = new FacetGroupList();
+	$list->find();
+	foreach($list as $group)
+	{
+		$name = View::escape($group->getName());
+		$checked = in_array($group->getId(),array_keys($this->facetGroup->getRelatedGroups())) ? 'checked="checked"' : '';
+		echo "
+		<label>
+			<input name=\"facetGroup[relatedGroups][{$group->getId()}]\" id=\"facetGroup-relatedGroups-{$group->getId()}\" value=\"{$group->getId()}\" type=\"checkbox\" $checked />
+			$name
+		</label>
+		";
+	}
+?>
+</fieldset>
+
+<fieldset><legend>Submit</legend>
 	<button type="submit" class="submit">Submit</button>
 	<button type="button" class="cancel" onclick="document.location.href='<?php echo BASE_URL; ?>/facets';">Cancel</button>
 </fieldset>

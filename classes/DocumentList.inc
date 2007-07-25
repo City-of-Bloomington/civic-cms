@@ -23,6 +23,14 @@
 			$this->groupBy = $groupBy;
 
 			$options = array();
+
+			if (is_array($fields))
+			{
+				foreach($fields as $key=>$value)
+				{
+					if (!is_array($value) && !is_object($value)) { $fields[$key] = addslashes($value); }
+				}
+			}
 			if (isset($fields['id'])) { $options[] = "id='$fields[id]'"; }
 			if (isset($fields['title'])) { $options[] = "title='$fields[title]'"; }
 			if (isset($fields['alias'])) { $options[] = "alias='$fields[alias]'"; }
@@ -63,8 +71,39 @@
 
 			if (isset($fields['facet_id']))
 			{
-				$this->joins.= ' left join document_facets f on documents.id=f.document_id';
-				$options[] = "facet_id='$fields[facet_id]'";
+
+				if (is_array($fields['facet_id']))
+				{
+					$facet_array = array();
+					foreach($fields['facet_id'] as $i=>$facet_id)
+					{
+						# Build a subquery containing all the facets
+						$count = $i+1;
+						$table = "t$count";
+
+						$facet = "$table.facet_id=$facet_id";
+						$facet_array[] = $facet;
+
+						if ($i==0)
+						{
+							# Start the subquery
+							$subquery = "select $table.document_id from document_facets $table";
+						}
+						else
+						{
+							# Keep joining on itself
+							$subquery.= " left join document_facets $table on t1.document_id=$table.document_id";
+						}
+					}
+					$facets = implode(' and ',$facet_array);
+					$subquery.= " where $facets";
+					$options[] = "id in ($subquery)";
+				}
+				else
+				{
+					$this->joins.= ' left join document_facets f on documents.id=f.document_id';
+					$options[] = "facet_id='$fields[facet_id]'";
+				}
 			}
 
 			if (isset($fields['media_id']))
