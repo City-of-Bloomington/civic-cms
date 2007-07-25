@@ -14,6 +14,14 @@
 		{
 			global $PDO;
 
+			if (is_array($fields))
+			{
+				foreach($fields as $key=>$value)
+				{
+					if (!is_array($value) && !is_object($value)) { $fields[$key] = addslashes($value); }
+				}
+			}
+
 			$options = array();
 			if (isset($fields['role'])) { $options[] = "role='$fields[role]'"; }
 

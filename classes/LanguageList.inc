@@ -23,6 +23,14 @@
 			$this->limit = $limit;
 			$this->groupBy = $groupBy;
 
+			if (is_array($fields))
+			{
+				foreach($fields as $key=>$value)
+				{
+					if (!is_array($value) && !is_object($value)) { $fields[$key] = addslashes($value); }
+				}
+			}
+
 			$options = array();
 			if (isset($fields['code'])) { $options[] = "code='$fields[code]'"; }
 			if (isset($fields['english'])) { $options[] = "english='$fields[english]'"; }
