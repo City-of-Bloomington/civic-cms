@@ -457,10 +457,8 @@
 
    		public function permitsEditingBy($user)
    		{
-   			if (	($user->hasRole(array('Webmaster','Administrator','Publisher'))) ||
-   					($user->hasRole('Content Creator') && $this->department_id = $user->getDepartment_id())
-   				)
-   			{ return true; }
+   			if ($user->hasRole(array('Webmaster','Administrator','Publisher'))) { return true; }
+   			if ($user->hasRole('Content Creator') && $this->department_id == $user->getDepartment_id()) { return true; }
 			return false;
    		}
 
