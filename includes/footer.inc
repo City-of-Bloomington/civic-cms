@@ -6,7 +6,7 @@
 ?>
 <div id="footer">
 	<div class="menuBar">
-		<a href="http://bandit.bloomington.in.gov/svn/listing.php?repname=application_name;path=%2F;sc=0">Subversion</a>
+		<a href="http://locutus.bloomington.in.gov:8080/secure/CreateIssue!default.jspa?pid=10031&amp;issuetype=1">Report a problem</a>
 	</div>
 	<?php include(FRAMEWORK."/footer.inc"); ?>
 </div>
