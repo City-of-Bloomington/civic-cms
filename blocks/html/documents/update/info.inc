@@ -23,6 +23,29 @@
 				</select>
 			</td>
 		</tr>
+		<?php
+			# Departments should only be changeable by Webmasters and Administrators
+			if (userHasRole(array('Administrator','Webmaster')))
+			{
+				echo "
+				<tr><td><label for=\"department_id\">Department</label></td>
+					<td><select name=\"department_id\" id=\"department_id\">
+				";
+					$list = new DepartmentList();
+					$list->find();
+					foreach($list as $department)
+					{
+						$name = View::escape($department->getName());
+						$selected = $department->getId()==$this->document->getDepartment_id() ? 'selected="selected"' : '';
+						echo "<option value=\"{$department->getId()}\" $selected>$name</option>";
+					}
+				echo "
+						</select>
+					</td>
+				</tr>
+				";
+			}
+		?>
 		<tr><td><label for="document-title" class="required">Title</label></td>
 			<td><input name="document[title]" id="document-title" value="<?php echo View::escape($this->document->getTitle()); ?>" /></td></tr>
 		<tr><td><label for="document-alias">Alias</label></td>

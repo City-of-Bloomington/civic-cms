@@ -38,6 +38,13 @@
 			$_SESSION['document']->$set($value);
 		}
 	}
+
+	# Only Administrators and webmasters can change the Department
+	if (userHasRole(array('Administrator','Webmaster')))
+	{
+		if (isset($_POST['department_id'])) { $_SESSION['document']->setDepartment_id($_POST['department_id']); }
+	}
+
 	# Content has to be handled specially
 	$languageList = new LanguageList();
 	$languageList->find();
