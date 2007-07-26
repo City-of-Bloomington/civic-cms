@@ -6,19 +6,16 @@
  */
 	class SectionList extends PDOResultIterator
 	{
-		public function __construct($fields=null,$limit=null,$groupBy=null)
+		public function __construct($fields=null)
 		{
 			$this->select = "select s.id from sections s";
-			if (is_array($fields)||$limit||$groupBy)
-			{
-				$this->find($fields,null,$limit,$groupBy);
-			}
+			if (is_array($fields)) { $this->find($fields); }
 		}
 
 
 		public function find($fields=null,$sort='name',$limit=null,$groupBy=null)
 		{
-			if ($sort) { $this->sort = "s.$sort"; }
+			$this->sort = 's.'.$sort;
 			$this->limit = $limit;
 			$this->groupBy = $groupBy;
 
