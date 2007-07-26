@@ -5,6 +5,7 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param GET section_id
  */
+	verifyUser(array('Administrator','Webmaster'));
 	$section = new Section($_GET['section_id']);
 
 	if (isset($_GET['parent_id']))
