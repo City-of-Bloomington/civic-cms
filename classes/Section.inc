@@ -71,7 +71,7 @@
 		{
 			# Check for required fields here.  Throw an exception if anything is missing.
 			if (!$this->name) { throw new Exception('sections/missingName'); }
-			if (!count($this->getParents())) { throw new Exception('sections/missingParent'); }
+			if ($this->id!=1 && !count($this->getParents())) { throw new Exception('sections/missingParent'); }
 			if (!count($this->getDepartments())) { throw new Exception('sections/missingDepartment'); }
 
 			# If this is not a New Section, you must have a document_id
