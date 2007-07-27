@@ -46,7 +46,7 @@
 				$types->find();
 				foreach($types as $type)
 				{
-					$documentList = new DocumentList(array('documentType_id'=>$type->getId(),'section_id'=>$section->getId(),'featured'=>1));
+					$documentList = new DocumentList(array('documentType_id'=>$type->getId(),'section_id'=>$section->getId(),'featured'=>1,'active'=>date('Y-m-d')));
 					if (count($documentList))
 					{
 						$template->blocks[] = new Block('sections/featuredDocuments.inc',array('documentType'=>$type,'documentList'=>$documentList));

@@ -19,7 +19,7 @@
 		{
 			if ($facet->getId() != $this->facet->getId())
 			{
-				$list = new DocumentList(array('facet_id'=>array($this->facet->getId(),$facet->getId())));
+				$list = new DocumentList(array('facet_id'=>array($this->facet->getId(),$facet->getId()),'active'=>date('Y-m-d')));
 				if (count($list))
 				{
 					$name = View::escape($facet->getName());

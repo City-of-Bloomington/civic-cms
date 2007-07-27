@@ -139,7 +139,7 @@
 		}
 		public function getDocuments()
 		{
-			if (!$this->documents) { $this->documents = new DocumentList(array('facet_id'=>$this->id)); }
+			if (!$this->documents) { $this->documents = new DocumentList(array('facet_id'=>$this->id,'active'=>date('Y-m-d'))); }
 			return $this->documents;
 		}
 

@@ -333,7 +333,7 @@
 
    		public function getDocuments()
    		{
-			if (!count($this->documents)) { $this->documents = new DocumentList(array('section_id'=>$this->id)); }
+			if (!count($this->documents)) { $this->documents = new DocumentList(array('section_id'=>$this->id,'active'=>date('Y-m-d'))); }
 			return $this->documents;
    		}
    		public function getDocumentLinks() { return new DocumentLinkList(array('section_id'=>$this->id)); }

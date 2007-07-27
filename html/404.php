@@ -10,7 +10,7 @@
  	$title = $url[0];
 	$title = str_replace('_',' ',$title);
 
-	$list = new DocumentList(array('title_or_alias'=>$title));
+	$list = new DocumentList(array('title_or_alias'=>$title,'active'=>date('Y-m-d')));
 	switch (count($list))
 	{
 		case 0:

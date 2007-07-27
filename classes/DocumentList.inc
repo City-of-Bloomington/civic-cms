@@ -47,6 +47,13 @@
 			if (isset($fields['lockedBy'])) { $options[] = "lockedBy='$fields[lockedBy]'"; }
 			if (isset($fields['enablePHP'])) { $options[] = "enablePHP='$fields[enablePHP]'"; }
 
+			# Provide a way to find out active documents.  Documents are active during the time
+			# between their Publish and Retire dates.
+			if (isset($fields['active']))
+			{
+				$options[] = "(publishDate<='$fields[active]' and (retireDate is null or retireDate>'$fields[active]'))";
+			}
+
 
 			# Finding on fields from other tables required joining those tables.
 			# You can add fields from other tables to $options by adding the join SQL
