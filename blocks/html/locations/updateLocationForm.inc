@@ -46,7 +46,7 @@
 	<tr><td><label for="location-address" class="required">Address</label></td>
 		<td><input name="location[address]" id="location-address" value="<?php echo View::escape($this->location->getAddress()); ?>" /></td></tr>
 	<tr><td><label for="location-latitude">Latitude</label></td>
-		<td><input name="location[latitude]" id="location-latitude" value="<?php echo $this->location->getLongitude(); ?>" /></td></tr>
+		<td><input name="location[latitude]" id="location-latitude" value="<?php echo $this->location->getLatitude(); ?>" /></td></tr>
 	<tr><td><label for="location-longitude">Longitude</label></td>
 		<td><input name="location[longitude]" id="location-longitude" value="<?php echo $this->location->getLongitude(); ?>" /></td></tr>
 	<tr><td colspan="2">
