@@ -1,3 +1,4 @@
+@import "/skins/reset.css";
 /* Set the default styles for common HTML elements */
 body { color:black; background-color:white; margin:0px; font-family:sans-serif; font-size:10pt; }
 
@@ -46,14 +47,10 @@ li.current>a { background-color:#cccccc; width:100%; }
 #banner a { color:white; text-decoration:none; }
 
 /* Used to create a menu bar across any div */
-.menuBar { height:1.25em; border-top:2px solid black; border-bottom:2px solid black; font-family:sans-serif; font-size:10pt; background-color:inherit; color:black; text-align:left; padding:0; margin-bottom:.5em; border-collapse:collapse; }
-.menuBar ul { padding: 0; margin: 0; list-style: none; border-collapse:collapse; background-color:white; }
-.menuBar li { float:left; position:relative; white-space:nowrap; margin-right:2em; width:15ex; }
-.menuBar li ul { position:absolute; display:none; border:2px solid black; }
-.menuBar li:hover>ul { display:block; }
-.menuBar ul ul ul { left:100%; top:0; }
-
-.menuBar a { color:black; background-color:transparent; display:block; width:95%; text-decoration:none; }
+.menuBar { width:100%; height:34px; border-top:2px solid black; border-bottom:1px solid black; background-color:#FFFFFF; margin-bottom:1em; }
+.menuBar ul { width:100%; height:34px; border:1px solid black; }
+.menuBar li { float:left; width:129px; text-align:center; height:34px; border-left:1px solid black; border-right:1px solid black; vertical-align:middle; }
+.menuBar a { padding-right:1em; font-weight:bold; }
 	/* This lets us put small forms into the menubar without hurting the layout too bad */
 	.menuBar form { margin:0; padding:0; display:inline; height:1em; }
 	.menuBar form fieldset { margin:0; padding:0; border:0; display:inline; }
