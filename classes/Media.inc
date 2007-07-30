@@ -129,7 +129,7 @@
 			global $PDO;
 
 			# Delete the file from the hard drive
-			unlink("{$this->getDirectory()}/{$this->filename}");
+			unlink($this->getDirectory().'/'.$this->getInternalFilename());
 
 			# Clear out the database
 			$sql = "delete from media_documents where media_id={$this->id}";
@@ -147,6 +147,8 @@
 
 			# Clean all bad characters from the filename
 			$filename = $this->createValidFilename($filename);
+			# Save the original filename
+			$this->filename = $filename;
 
 			if (!$tempFile) { throw new Exception('media/uploadFailed'); }
 
@@ -179,12 +181,15 @@
 
 			# Move the file where it's supposed to go
 			if (!is_dir($this->getDirectory())) { mkdir($this->getDirectory(),0777,true); }
-			$newFile = $this->getDirectory()."/$filename";
+			$newFile = $this->getDirectory().'/'.$this->getInternalFilename();
 			rename($tempFile,$newFile);
 			chmod($newFile,0666);
 
-			# Save the filename
-			$this->filename = $filename;
+			if (!is_file($this->getDirectory().'/'.$this->getInternalFilename()))
+			{
+				echo "Upload failed\n";
+				exit();
+			}
 		}
 
 		/**
@@ -193,23 +198,39 @@
 		public function getDirectory()
 		{
 			$department = $this->createValidFilename($this->getDepartment()->getName());
-			return APPLICATION_HOME."/data/media/{$this->media_type}/$department";
+			#return APPLICATION_HOME."/data/media/{$this->media_type}/$department";
+			return APPLICATION_HOME."/data/media/{$this->mime_type}";
 		}
-		/**
-		 * Returns the URL for the media.  This expects to have symbolic links
-		 * to the attachment and image directories inside of /data/media/
-		 */
-		public function getURL()
+		public function getInternalFilename()
 		{
-			$department = $this->createValidFilename($this->getDepartment()->getName());
-			$file = $this->filename;
-			return BASE_URL."/media/{$this->media_type}/$department/$file";
+			# We've got a chicken-or-egg problem here.  We want to use the id
+			# as the filename, but the id doesn't exist until the info's been saved
+			# to the database.
+			#
+			# If we don't have an id yet, try and save to the database first.
+			# If that fails, we most likely don't have enough required info yet
+			if (!$this->id)
+			{
+				try { $this->save(); }
+				catch(Exception $e) { throw $e; }
+			}
+			return "{$this->id}.{$this->getExtension()}";
 		}
 		public function getExtension()
 		{
 			preg_match("/[^.]+$/",$this->filename,$matches);
 			return $matches[0];
 		}
+
+
+		/**
+		 *  All media will be served by scripts that stream the media to the browser
+		 */
+		public function getURL()
+		{
+			return BASE_URL."/media/media.php?media_id={$this->id}";
+		}
+
 
 		/**
 		 * Document functions

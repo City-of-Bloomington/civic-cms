@@ -39,18 +39,9 @@
 					case 'gif': $load = 'imagecreatefromgif'; break;
 					case 'png': $load = 'imagecreatefrompng'; break;
 				}
-				$this->image = $load($this->getDirectory().'/'.$this->filename);
+				$this->image = $load($this->getDirectory().'/'.$this->getInternalFilename());
 			}
 			return $this->image;
-		}
-
-		/**
-		 * Overrides the Media's getURL.  We want Images to be served up
-		 * by PHP script, rather than creating direct URLs to them.
-		 */
-		public function getURL()
-		{
-			return BASE_URL.'/media/image.php?media_id='.$this->getId();
 		}
 
 		public function getMedium()
@@ -59,7 +50,7 @@
 			if (!$this->medium)
 			{
 				$directory = $this->getDirectory().'/medium';
-				list($filename,$ext) = explode(".",$this->filename);
+				$filename = $this->getId();
 
 				# Load the medium version if it's there
 				if (file_exists("$directory/$filename.jpg")) { $this->medium = imagecreatefromjpeg("$directory/$filename.jpg"); }
@@ -80,7 +71,7 @@
 			if (!$this->thumbnail)
 			{
 				$directory = $this->getDirectory().'/thumbnail';
-				list($filename,$ext) = explode(".",$this->filename);
+				$filename = $this->getId();
 
 				if (file_exists("$directory/$filename.gif")) { $this->thumbnail = imagecreatefromgif("$directory/$filename.gif"); }
 				else
