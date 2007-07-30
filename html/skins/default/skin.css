@@ -48,9 +48,9 @@ li.current>a { background-color:#cccccc; width:100%; }
 
 /* Used to create a menu bar across any div */
 .menuBar { width:100%; height:34px; border-top:2px solid black; border-bottom:1px solid black; background-color:#FFFFFF; margin-bottom:1em; }
-.menuBar ul { width:100%; height:34px; border:1px solid black; }
-.menuBar li { float:left; width:129px; text-align:center; height:34px; border-left:1px solid black; border-right:1px solid black; vertical-align:middle; }
-.menuBar a { padding-right:1em; font-weight:bold; }
+.menuBar ul { width:100%; border:1px solid black; }
+.menuBar li { float:left; border-top:1px solid black; border-right:1px solid black; }
+.menuBar a { padding-left:1em; padding-right:1em; font-weight:bold; }
 	/* This lets us put small forms into the menubar without hurting the layout too bad */
 	.menuBar form { margin:0; padding:0; display:inline; height:1em; }
 	.menuBar form fieldset { margin:0; padding:0; border:0; display:inline; }
