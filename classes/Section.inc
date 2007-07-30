@@ -71,15 +71,10 @@
 		{
 			# Check for required fields here.  Throw an exception if anything is missing.
 			if (!$this->name) { throw new Exception('sections/missingName'); }
-			if ($this->id!=1 && !count($this->getParents())) { throw new Exception('sections/missingParent'); }
 			if (!count($this->getDepartments())) { throw new Exception('sections/missingDepartment'); }
 
 			# If this is not a New Section, you must have a document_id
 			if ($this->id && !$this->document_id) { throw new Exception('sections/missingHomeDocument'); }
-
-			# Sections must have a parent.  Even if they haven't chosen a parent, make it
-			# a child of HOME
-			if (!count($this->getParents())) { $this->setParents(array(1)); }
 
 
 			$fields = array();
