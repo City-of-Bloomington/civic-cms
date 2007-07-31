@@ -146,7 +146,7 @@
 	if (isset($_FILES['source']) && $_FILES['source']['name'])
 	{
 		# Make sure they're allowed to edit the raw source code
-		if (userHasRole('Webmaster') || userHasRole('Administrator'))
+		if (userHasRole(array('Administrator','Webmaster')))
 		{
 			$_SESSION['document']->setContent(file_get_contents($_FILES['source']['tmp_name']),$_POST['lang']);
 		}

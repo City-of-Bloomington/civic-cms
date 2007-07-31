@@ -8,6 +8,14 @@
 ?>
 <h2>Add an Attachment</h2>
 <form id="documentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
+	<fieldset><legend>Next</legend>
+		<p>Move on to the next tab.  The document will not be saved to the database until you click the "Save" button.</p>
+		<input type="hidden" name="tab" id="tab" value="links" />
+		<input type="hidden" name="action" id="action" value="next" />
+		<button type="submit" class="next">Next</button>
+		<button type="cancel" class="cancel" onclick="self.close();">Cancel</button>
+		<button type="button" class="save" onclick="FRAMEWORK.processTabbedForm('documentForm','attachments','save');">Save</button>
+	</fieldset>
 	<fieldset><legend>Browse</legend>
 		<p>Browse for an existing attachment.</p>
 		<button type="button" class="browse" onclick="window.open('<?php echo BASE_URL; ?>/documents/attachmentSelector.php');">Browse</button>
@@ -27,8 +35,6 @@
 
 	<fieldset><legend>Next</legend>
 		<p>Move on to the next tab.  The document will not be saved to the database until you click the "Save" button.</p>
-		<input type="hidden" name="tab" id="tab" value="links" />
-		<input type="hidden" name="action" id="action" value="next" />
 		<button type="submit" class="next">Next</button>
 		<button type="cancel" class="cancel" onclick="self.close();">Cancel</button>
 		<button type="button" class="save" onclick="FRAMEWORK.processTabbedForm('documentForm','attachments','save');">Save</button>
