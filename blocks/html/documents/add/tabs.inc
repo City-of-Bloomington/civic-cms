@@ -1,29 +1,33 @@
+<div class="tabBar">
+<ul>
 <?php
 /**
- * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
- * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
- * @author Cliff Ingham <inghamn@bloomington.in.gov>
- */
-?>
-<script type="text/javascript">
-	function updateDocument(tab,action)
+* @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
+* @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+* @author Cliff Ingham <inghamn@bloomington.in.gov>
+* @param string $this->current_tab
+*/
+	$href = new URL(BASE_URL.'/documents/addDocument.php');
+
+	$tabs = array('info','content','sections','facets');
+
+	foreach($tabs as $tab)
 	{
-		document.getElementById('tab').value = tab;
-		document.getElementById('action').value = action;
-		document.getElementById('documentForm').submit();
+		$name = ucfirst($tab);
+		$href->parameters['tab'] = $tab;
+		$onclick = "FRAMEWORK.processTabbedForm('documentForm','$tab','next');return false;";
+		$class = $this->current_tab==$tab ? 'class="current"' : '';
+		echo "<li><a href=\"$href\" onclick=\"$onclick\" $class>$name</a></li>";
 	}
-</script>
-<h2>New Document</h2>
-<div class="tabBar">
-<ul><li><a href="<?php echo BASE_URL; ?>/documents/updateDocument.php?tab=info" onclick="updateDocument('info','next');return false;">Info</a></li>
-	<li><a href="<?php echo BASE_URL; ?>/documents/updateDocument.php?tab=content" onclick="updateDocument('content','next');return false;">Content</a></li>
-	<li><a href="<?php echo BASE_URL; ?>/documents/updateDocument.php?tab=sections" onclick="updateDocument('sections','next');return false;">Sections</a></li>
-	<li><a href="<?php echo BASE_URL; ?>/documents/updateDocument.php?tab=facets" onclick="updateDocument('facets','next');return false;">Facets</a></li>
-	<?php
-		if(userHasRole('Webmaster'))
-		{
-			echo "<li><a href=\"".BASE_URL."/documents/addDocument.php?tab=source\" onclick=\"updateDocument('source','next');return false;\">Source</a></li>";
-		}
-	?>
+
+	# Access to the Source tab is controlled seperately
+	if(userHasRole('Webmaster') || userHasRole('Administrator'))
+	{
+		$href->parameters['tab'] = 'source';
+		$class = $this->current_tab=='source' ? 'class="current"' : '';
+		$onclick = "FRAMEWORK.processTabbedForm('documentForm','source','next');return false;";
+		echo "<li><a href=\"$href\" onclick=\"$onclick\" $class>Source</a></li>";
+	}
+?>
 </ul>
 </div>

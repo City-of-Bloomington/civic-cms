@@ -121,9 +121,11 @@ li.current>a { background-color:#cccccc; width:100%; }
 	.contextualMenu form button { font-size:8pt; }
 
 /* For pages with tab-type system on them */
-.tabBar { background-color:inherit; font-family: serif; font-weight: bold; }
-.tabBar ul { margin-left:0; padding-left:0; display:inline; }
-.tabBar li { border:2px solid black; display:inline; list-style:none; background-color:gray; }
+.tabBar ul { list-style: none; margin:0; padding-bottom:7px; border-bottom:1px solid gray; font-weight:bold; text-align:center; white-space:nowrap; }
+.tabBar li { display:inline; margin:0 2px; }
+.tabBar a { border-bottom:4px solid white; color:#999999; }
+.tabBar a.current { border-color:#ff6600; color:#0066ff; }
+.tabBar a:hover { border-color:#ff6600; color:#666666; }
 
 .tabPage { }
 .tabPage > .interfaceBox { margin-left:1em; margin-right:1em; }

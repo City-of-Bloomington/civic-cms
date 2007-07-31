@@ -120,7 +120,7 @@
 	# Figure out which tab we're supposed to show
 	$tab = isset($_REQUEST['tab']) ? $_REQUEST['tab'] : 'info';
 	$template = new Template('popup');
-	$template->blocks[] = new Block('documents/add/tabs.inc');
+	$template->blocks[] = new Block('documents/add/tabs.inc',array('current_tab'=>$tab));
 
 	$form = new Block("documents/update/$tab.inc",array('document'=>$_SESSION['document']));
 	# Handle any extra data the current tab needs
