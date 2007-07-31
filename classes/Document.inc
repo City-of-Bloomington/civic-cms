@@ -600,7 +600,7 @@
 			else return null;
 		}
 
-		public function getURL() { return BASE_URL.'/'.strtr($this->title,' ','_'); }
+		public function getURL() { return BASE_URL.'/'.urlencode(strtr($this->title,' ','_')); }
 
 		/**
 		 * Generic Setters
