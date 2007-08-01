@@ -2,6 +2,32 @@
 <!--
  * FCKeditor - The text editor for Internet - http://www.fckeditor.net
  * Copyright (C) 2003-2007 Frederico Caldeira Knabben
+ *
+ * == BEGIN LICENSE ==
+ *
+ * Licensed under the terms of any of the following licenses at your
+ * choice:
+ *
+ *  - GNU General Public License Version 2 or later (the "GPL")
+ *    http://www.gnu.org/licenses/gpl.html
+ *
+ *  - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
+ *    http://www.gnu.org/licenses/lgpl.html
+ *
+ *  - Mozilla Public License Version 1.1 or later (the "MPL")
+ *    http://www.mozilla.org/MPL/MPL-1.1.html
+ *
+ * == END LICENSE ==
+ *
+ * This is the configuration file to be used with FCKpackager to generate the
+ * compressed code files in the "js" folder.
+ *
+ * Please check http://www.fckeditor.net for more info.
+-->
+<Package>
+	<Header><![CDATA[/*
+ * FCKeditor - The text editor for Internet - http://www.fckeditor.net
+ * Copyright (C) 2003-2007 Frederico Caldeira Knabben
  * 
  * == BEGIN LICENSE ==
  * 
@@ -19,19 +45,10 @@
  * 
  * == END LICENSE ==
  * 
- * File Name: _packager.xml
- * 	This is the configuration file used by the FCKeditor.Packager to create the
- * 	compressed code files in the "js" folder.
- * 	
- * 	The FCKeditor.Packager software can be used to create the compressed files
- * 	for the FCKeditor project only. Any other use of this software is illegal. 
- * 	
- * 	Please check http://www.fckeditor.net/ckpackager for more info.
- * 
- * File Authors:
- * 		Frederico Caldeira Knabben (www.fckeditor.net)
--->
-<Package>
+ * This file has been compressed for better performance. The original source
+ * can be found at "editor/_source".
+ */
+]]></Header>
 	<Constants removeDeclaration="false">
 		<Constant name="FCK_STATUS_NOTLOADED" value="0" />
 		<Constant name="FCK_STATUS_ACTIVE" value="1" />
@@ -46,7 +63,7 @@
 		<Constant name="FCK_EDITMODE_WYSIWYG" value="0" />
 		<Constant name="FCK_EDITMODE_SOURCE" value="1" />
 	</Constants>
-	<PackageFile name="fckeditorcode_ie.js">
+	<PackageFile path="editor/js/fckeditorcode_ie.js">
 		<File path="editor/_source/fckconstants.js" />
 		<File path="editor/_source/fckjscoreextensions.js" />
 		<File path="editor/_source/classes/fckiecleanup.js" />
@@ -64,6 +81,7 @@
 		<File path="editor/_source/classes/fckimagepreloader.js" />
 
 		<File path="editor/_source/internals/fckregexlib.js" />
+		<File path="editor/_source/internals/fcklistslib.js" />
 		<File path="editor/_source/internals/fcklanguagemanager.js" />
 		<File path="editor/_source/internals/fckxhtmlentities.js" />
 		<File path="editor/_source/internals/fckxhtml.js" />
@@ -131,7 +149,7 @@
 		<File path="editor/_source/internals/fckplugins.js" />
 	</PackageFile>
 
-	<PackageFile name="fckeditorcode_gecko.js">
+	<PackageFile path="editor/js/fckeditorcode_gecko.js">
 		<File path="editor/_source/fckconstants.js" />
 		<File path="editor/_source/fckjscoreextensions.js" />
 		<File path="editor/_source/internals/fckbrowserinfo.js" />
@@ -148,6 +166,7 @@
 		<File path="editor/_source/classes/fckimagepreloader.js" />
 
 		<File path="editor/_source/internals/fckregexlib.js" />
+		<File path="editor/_source/internals/fcklistslib.js" />
 		<File path="editor/_source/internals/fcklanguagemanager.js" />
 		<File path="editor/_source/internals/fckxhtmlentities.js" />
 		<File path="editor/_source/internals/fckxhtml.js" />
@@ -210,7 +229,7 @@
 		<File path="editor/_source/classes/fckmenublockpanel.js" />
 		<File path="editor/_source/classes/fckcontextmenu.js" />
 		<File path="editor/_source/internals/fck_contextmenu.js" />
-		
+
 		<File path="editor/_source/classes/fckplugin.js" />
 		<File path="editor/_source/internals/fckplugins.js" />
 	</PackageFile>
