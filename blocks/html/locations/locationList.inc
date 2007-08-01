@@ -77,6 +77,7 @@
 </div>
 <h2><a name="map">Map</a></h2>
 <div id="map" style="width:500px; height:500px; border:1px solid black;">
+</div>
 <script src="http://maps.google.com/maps?file=api&amp;v=2.77&amp;key=ABQIAAAACqoQOZ2EAqg13jBR94AfexQNf7mhA6pY0zZO8gsdk0EdOTN8sxQDa2L0KB-dgEIEE-5Qas2VnQE6DQ" type="text/javascript"></script>
 <script type="text/javascript">
 	<?php
@@ -86,18 +87,21 @@
 		echo "var points = [$points];\n";
 		echo "var info = [$info];\n";
 	?>
-	if (GBrowserIsCompatible())
+	var map = new GMap2(document.getElementById("map"));
+	function loadMap()
 	{
-		// Create map and add controls
-		var map = new GMap2(document.getElementById("map"));
-		map.addControl(new GSmallMapControl());
-		map.addControl(new GMapTypeControl());
-		map.setCenter(new GLatLng(39.167119,-86.533800), 12);
+		if (GBrowserIsCompatible())
+		{
+			// Create map and add controls
+			map.addControl(new GSmallMapControl());
+			map.addControl(new GMapTypeControl());
+			map.setCenter(new GLatLng(39.167119,-86.533800), 12);
 
-		for(var i=0; i<points.length; i++) { map.addOverlay(createMarker(points[i],info[i])); }
+			for(var i=0; i<points.length; i++) { map.addOverlay(createMarker(points[i],info[i])); }
+		}
 	}
 
-    //Create a marker with your own icon or with default icon (where icon = null)
+	//Create a marker with your own icon or with default icon (where icon = null)
 	function createMarker(point, info, icon)
 	{
 		if (icon == null) { var marker = new GMarker(point); }
@@ -115,4 +119,6 @@
 		}
 		else { return true; }
 	}
+
+	setTimeout('loadMap()',500);
 </script>
