@@ -137,9 +137,18 @@
 			}
 			else return null;
 		}
-		public function getDocuments()
+
+		/**
+		 * @param array $fields
+		 *  Pass in an array of extra fields used to populate the DocumentList
+		 */
+		public function getDocuments($fields=null)
 		{
-			if (!$this->documents) { $this->documents = new DocumentList(array('facet_id'=>$this->id,'active'=>date('Y-m-d'))); }
+			if (!is_array($fields)) { $fields = array(); }
+			$fields['facet_id'] = $this->id;
+			$fields['active'] = date('Y-m-d');
+
+			if (!$this->documents) { $this->documents = new DocumentList($fields); }
 			return $this->documents;
 		}
 

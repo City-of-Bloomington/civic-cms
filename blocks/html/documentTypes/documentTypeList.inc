@@ -27,7 +27,7 @@
 		}
 		echo View::escape($type->getType());
 		$count = count($type->getDocuments());
-		echo " ($count)</li>";
+		echo " <a href=\"".BASE_URL."/documentTypes/documents.php?documentType_id={$type->getId()}\">($count)</a></li>";
 	}
 ?>
 </ul>
