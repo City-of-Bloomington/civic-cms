@@ -143,7 +143,7 @@ li.current>a { background-color:#cccccc; width:100%; }
 table.calendar { width:100%; border:2px solid black; }
 table.calendar tr { }
 table.calendar th { padding:0; text-align:center; }
-table.calendar td { padding:0; border:1px solid black; height:5em; }
+table.calendar td { padding:0; border:1px solid black; }
 table.calendar .date { float:right; }
 table.calendar ul { list-style-type:none; margin-top:1em; padding:0; }
 table.calendar li { margin-left:0; }
