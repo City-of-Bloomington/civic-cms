@@ -36,6 +36,12 @@
 			$location->$set($value);
 		}
 
+		# Departments should only be changeable by Webmaster/Admin
+		if (isset($_POST['department_id']) && userHasRole(array('Administrator','Webmaster')))
+		{
+			$location->setDepartment_id($_POST['department_id']);
+		}
+
 		# Directions will come in from the WYSIWYG editor
 		if (isset($_POST['directions'])) { $location->setDirections($_POST['directions']); }
 

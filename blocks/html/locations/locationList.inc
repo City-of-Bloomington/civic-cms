@@ -30,8 +30,12 @@
 
 <div class="interfaceBox">
 	<div class="titleBar">
-		<button type="button" class="addSmall" onclick="document.location.href='<?php echo BASE_URL; ?>/locations/addLocation.php';">Add</button>
 		<?php
+			if (userHasRole(array('Administrator','Webmaster','Content Creator')))
+			{
+				echo "<button type=\"button\" class=\"addSmall\" onclick=\"document.location.href='".BASE_URL."/locations/addLocation.php';\">Add</button>";
+			}
+
 			if (isset($this->locationGroup))
 			{
 				$name = View::escape($this->locationGroup->getName());

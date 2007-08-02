@@ -22,20 +22,28 @@
 			</select>
 		</td>
 	</tr>
-	<tr><td><label for="location-department_id">Department</label></td>
-		<td><select name="location[department_id]">
-			<?php
-				$list = new DepartmentList();
-				$list->find();
-				foreach($list as $department)
-				{
-					$name = View::escape($department->getName());
-					echo "<option value=\"{$department->getId()}\">$name</option>";
-				}
-			?>
-			</select>
-		</td>
-	</tr>
+	<?php
+		if (userHasRole(array('Administrator','Webmaster')))
+		{
+			echo "
+			<tr><td><label for=\"department_id\">Department</label></td>
+				<td><select name=\"department_id\" id=\"department_id\">
+			";
+					$list = new DepartmentList();
+					$list->find();
+					foreach($list as $department)
+					{
+						$name = View::escape($department->getName());
+						$selected = $this->location->getDepartment_id()==$_SESSION['USER']->getDepartment_id() ? 'selected="selected"' : '';
+						echo "<option value=\"{$department->getId()}\" $selected>$name</option>";
+					}
+			echo "
+					</select>
+				</td>
+			</tr>
+			";
+		}
+	?>
 	<tr><td><label for="location-address" class="required">Address</label></td>
 		<td><input name="location[address]" id="location-address" /></td></tr>
 	<tr><td><label for="location-latitude">Latitude</label></td>
@@ -54,7 +62,7 @@
 	<?php
 		$list = new LocationGroupList();
 		if (userHasRole(array('Administrator','Webmaster'))) { $list->find(); }
-		else { $list->find(array('department_id')); }
+		else { $list->find(array('department_id'=>$_SESSION['USER']->getDepartment_id())); }
 
 		foreach($list as $group)
 		{
