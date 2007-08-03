@@ -7,14 +7,6 @@
  */
 ?>
 <form id="documentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-	<fieldset><legend>Next</legend>
-		<p>Move on to the next tab.  The document will not be saved to the database until you click the "Save" button.</p>
-		<input type="hidden" name="tab" id="tab" value="info" />
-		<input type="hidden" name="action" id="action" value="next" />
-		<button type="submit" class="next">Next</button>
-		<button type="cancel" class="cancel" onclick="self.close();">Cancel</button>
-		<button type="button" class="save" onclick="FRAMEWORK.processTabbedForm('documentForm','facets','save');">Save</button>
-	</fieldset>
 	<?php
 		$groups = new FacetGroupList();
 		$groups->find();
@@ -32,11 +24,8 @@
 			echo "</fieldset>";
 		}
 	?>
-
-	<fieldset><legend>Next</legend>
-		<p>Move on to the next tab.  The document will not be saved to the database until you click the "Save" button.</p>
-		<button type="submit" class="next">Next</button>
-		<button type="cancel" class="cancel" onclick="self.close();">Cancel</button>
-		<button type="button" class="save" onclick="FRAMEWORK.processTabbedForm('documentForm','facets','save');">Save</button>
-	</fieldset>
+	<div>
+		<input type="hidden" name="tab" id="tab" value="info" />
+		<input type="hidden" name="action" id="action" value="next" />
+	</div>
 </form>

@@ -24,15 +24,10 @@
 	<h2>Add a Link</h2>
 
 	<form id="documentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
-	<fieldset><legend>Next</legend>
-		<p>Move on to the next tab.  The document will not be saved to the database until you click the "Save" button.</p>
-		<input type="hidden" name="tab" id="tab" value="facets" />
-		<input type="hidden" name="action" id="action" value="next" />
-		<button type="submit" class="next">Next</button>
-		<button type="cancel" class="cancel" onclick="self.close();">Cancel</button>
-		<button type="button" class="save" onclick="FRAMEWORK.processTabbedForm('documentForm','links','save');">Save</button>
-	</fieldset>
 	<fieldset><legend>Link</legend>
+		<input type="hidden" name="tab" id="tab" value="info" />
+		<input type="hidden" name="action" id="action" value="next" />
+
 		<table>
 		<tr><td><label for="documentLink-title">Title</label></td>
 			<td><input name="documentLink[title]" id="documentLink-title" size="30" /></td></tr>
@@ -47,11 +42,5 @@
 		<button type="button" class="add" onclick="FRAMEWORK.processTabbedForm('documentForm','links','next');">Add</button>
 	</fieldset>
 
-	<fieldset><legend>Next</legend>
-		<p>Move on to the next tab.  The document will not be saved to the database until you click the "Save" button.</p>
-		<button type="submit" class="next">Next</button>
-		<button type="cancel" class="cancel" onclick="self.close();">Cancel</button>
-		<button type="button" class="save" onclick="FRAMEWORK.processTabbedForm('documentForm','links','save');">Save</button>
-	</fieldset>
 	</form>
 </div>

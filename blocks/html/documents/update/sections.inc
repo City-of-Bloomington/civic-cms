@@ -8,15 +8,9 @@
  */
 ?>
 <form id="documentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-	<fieldset><legend>Next</legend>
-		<p>Move on to the next tab.  The document will not be saved to the database until you click the "Save" button.</p>
-		<input type="hidden" name="tab" id="tab" value="attachments" />
-		<input type="hidden" name="action" id="action" value="next" />
-		<button type="submit" class="next">Next</button>
-		<button type="cancel" class="cancel" onclick="self.close();">Cancel</button>
-		<button type="button" class="save" onclick="FRAMEWORK.processTabbedForm('documentForm','sections','save');">Save</button>
-	</fieldset>
 	<fieldset><legend class="required">Sections</legend>
+		<input type="hidden" name="tab" id="tab" value="facets" />
+		<input type="hidden" name="action" id="action" value="next" />
 	<table>
 	<tr><th>Section</th><th>Linked</th><th>Featured</th></tr>
 		<?php
@@ -38,12 +32,5 @@
 			}
 		?>
 	</table>
-	</fieldset>
-
-	<fieldset><legend>Next</legend>
-		<p>Move on to the next tab.  The document will not be saved to the database until you click the "Save" button.</p>
-		<button type="submit" class="next">Next</button>
-		<button type="cancel" class="cancel" onclick="self.close();">Cancel</button>
-		<button type="button" class="save" onclick="FRAMEWORK.processTabbedForm('documentForm','sections','save');">Save</button>
 	</fieldset>
 </form>
