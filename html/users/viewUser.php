@@ -9,6 +9,8 @@
  * You can send this page either a user_id or a username.
  * We want to display the user's information from LDAP
  */
+	verifyUser(array('Administrator','Webmaster'));
+
 	if (isset($_GET['user_id']))
 	{
 		$user = new User($_GET['user_id']);
