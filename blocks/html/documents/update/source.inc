@@ -13,6 +13,9 @@ There will be no stripping or escaping of characters, tags, code, or anything el
 
 <form id="documentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
 	<fieldset><legend>Language</legend>
+		<input type="hidden" name="tab" id="tab" value="info" />
+		<input type="hidden" name="action" id="action" value="next" />
+
 		<label for="lang">Language</label>
 		<select name="lang" id="lang">
 			<?php
