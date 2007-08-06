@@ -14,7 +14,7 @@
 			else { echo "<a href=\"".BASE_URL."/login\">Login</a>"; }
 		?>
 		<a href="az_index.html">A-Z Index</a>
-		<a href="contacts.html">City Contacts</a>
+		<a href="<?php echo BASE_URL; ?>/directory">City Contacts</a>
 		<a href="job_postings">Job Postings</a>
 		<form method="get" action="<?php echo BASE_URL; ?>/documents/search.php">
 		<div>

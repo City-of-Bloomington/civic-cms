@@ -113,4 +113,9 @@ define('COPYRIGHT',"/**
 	 */
 	if (isset($_GET['skin'])) { $_SESSION['skin'] = $_GET['skin']; }
 	if (!isset($_SESSION['skin'])) { $_SESSION['skin'] = 'default'; }
+
+	/**
+	 * External Web Services
+	 */
+	define('DIRECTORY_WEBSERVICE','http://isotope.bloomington.in.gov/directory');
 ?>
