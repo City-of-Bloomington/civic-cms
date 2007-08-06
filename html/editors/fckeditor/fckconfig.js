@@ -117,7 +117,7 @@ FCKConfig.ToolbarSets["Custom"] = [
 	['Cut','Copy','Paste','PasteText','PasteWord','-','Print','SpellCheck'],
 	['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
 	'/',
-	['Bold','Italic','-','Subscript','Superscript','FontFormat'],
+	['Bold','Italic','Underline','Subscript','Superscript','FontFormat'],
 	['OrderedList','UnorderedList'],
 	['Anchor'],
 	['Image','Table','FitWindow']
@@ -154,7 +154,7 @@ FCKConfig.FontColors = '000000,993300,333300,003300,003366,000080,333399,333333,
 
 FCKConfig.FontNames		= 'Arial;Comic Sans MS;Courier New;Tahoma;Times New Roman;Verdana' ;
 FCKConfig.FontSizes		= '1/xx-small;2/x-small;3/small;4/medium;5/large;6/x-large;7/xx-large' ;
-FCKConfig.FontFormats	= 'p;div;pre;address;h1;h2;h3;h4;h5;h6' ;
+FCKConfig.FontFormats	= 'p;div;pre;address;h1;h2;h3;h4;h5;h6;blockquote;code' ;
 
 FCKConfig.StylesXmlPath		= FCKConfig.EditorPath + 'fckstyles.xml' ;
 FCKConfig.TemplatesXmlPath	= FCKConfig.EditorPath + 'fcktemplates.xml' ;
