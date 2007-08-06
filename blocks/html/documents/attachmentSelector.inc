@@ -4,7 +4,9 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param AttachmentList $this->attachmentList
+ * @param Department $this->department ( optional )
  */
+	$title = isset($this->department) ? View::escape($this->department->getName()) : '';
 ?>
 <script type="text/javascript">
 	function selectAttachment(media_id)
@@ -14,7 +16,7 @@
 	}
 </script>
 <div class="interfaceBox">
-	<div class="titleBar">Attachments</div>
+	<div class="titleBar"><?php echo $title; ?> Attachments</div>
 	<table>
 	<tr>
 	<?php
