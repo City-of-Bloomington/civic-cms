@@ -424,6 +424,15 @@
 			return 0;
 		}
 
+		public function isHomepage()
+		{
+			foreach($this->getSections() as $section)
+			{
+				if ($section->getDocument_id() == $this->id) { return true; }
+			}
+			return false;
+		}
+
 
 		/**
 		 * Watch Functions

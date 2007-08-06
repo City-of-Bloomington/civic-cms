@@ -111,9 +111,13 @@
 				$retireButton = !$document->getRetireDate() ? "<a href=\"".BASE_URL."/documents/retireDocument.php?document_id={$document->getId()}\">Retire</a>" : "";
 				$watch = $_SESSION['USER']->hasWatch($document) ? "<a href=\"".BASE_URL."/documents/removeWatch.php?document_id={$document->getId()}\">Unwatch</a>" : "<a href=\"".BASE_URL."/documents/addWatch.php?document_id={$document->getId()}\">Watch</a>";
 
+				# Documents that are homepages should not be deleted.
+				# At least until we can work out a way to choose new homepages for sections
+				$deleteButton = $document->isHomepage() ? '' : "<a href=\"".BASE_URL."/documents/deleteDocument.php?document_id={$document->getId()}\" onclick=\"FRAMEWORK.deleteConfirmation('".BASE_URL."/documents/deleteDocument.php?document_id={$document->getId()}');return false;\">Delete</a>";
+
 				echo "
 				<td><a href=\"{$document->getURL()}\" onclick=\"window.open('{$document->getURL()}');return false;\">View</a>
-					<a href=\"".BASE_URL."/documents/deleteDocument.php?document_id={$document->getId()}\" onclick=\"FRAMEWORK.deleteConfirmation('".BASE_URL."/documents/deleteDocument.php?document_id={$document->getId()}');return false;\">Delete</a>
+					$deleteButton
 					$retireButton
 					$watch
 				</td>
