@@ -33,8 +33,18 @@
 
 	<tr><td><label for="department-email">Email</label></td>
 		<td><input name="department[email]" id="department-email" value="<?php echo View::escape($this->department->getEmail()); ?>" /></td></tr>
-</table>
+	</table>
+</fieldset>
 
+<fieldset><legend>Homepage</legend>
+<p>Enter the docment_id for the home page you want to use for this department.</p>
+<div>
+	<label for="department-document_id">Document ID</label>
+	<input name="department[document_id]" id="department-document_id" size="3" value="<?php echo $this->department->getDocument_id(); ?>" />
+</div>
+</fieldset>
+
+<fieldset><legend>Submit</legend>
 	<button type="submit" class="submit">Submit</button>
 	<button type="button" class="cancel" onclick="document.location.href='<?php echo BASE_URL; ?>/departments';">Cancel</button>
 </fieldset>

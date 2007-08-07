@@ -15,6 +15,9 @@
 		private $zip;
 		private $phone;
 		private $email;
+		private $document_id;
+
+		private $document;
 
 		/**
 		 * This will load all fields in the table as properties of this class.
@@ -63,6 +66,7 @@
 			$fields['zip'] = $this->zip ? $this->zip : null;
 			$fields['phone'] = $this->phone ? $this->phone : null;
 			$fields['email'] = $this->email ? $this->email : null;
+			$fields['document_id'] = $this->document_id ? $this->document_id : null;
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
@@ -112,6 +116,16 @@
 		public function getZip() { return $this->zip; }
 		public function getPhone() { return $this->phone; }
 		public function getEmail() { return $this->email; }
+		public function getDocument_id() { return $this->document_id; }
+		public function getDocument()
+		{
+			if ($this->document_id)
+			{
+				if (!$this->document) { $this->document = new Document($this->document_id); }
+				return $this->document;
+			}
+			else return null;
+		}
 
 
 		public function setName($string) { $this->name = trim($string); }
@@ -122,5 +136,28 @@
 		public function setZip($string) { $this->zip = trim($string); }
 		public function setPhone($string) { $this->phone = trim($string); }
 		public function setEmail($string) { $this->email = trim($string); }
+		public function setDocument_id($int)
+		{
+			# A document can only be set as the homepage for a department, if that
+			# document is also owned by that department
+			$document = new Document($int);
+			if ($document->getDepartment_id() == $this->id)
+			{
+				$this->document = new Document($int);
+				$this->document_id = $int;
+			}
+			else { throw new Exception('departments/documentDepartmentMismatch'); }
+		}
+		public function setDocument($document)
+		{
+			# A document can only be set as the homepage for a department, if that
+			# document is also owned by that department
+			if ($document->getDepartment_id() == $this->id)
+			{
+				$this->document_id = $document->getId();
+				$this->document = $document;
+			}
+			else { throw new Exception('departments/documentDepartmentMismatch'); }
+		}
 	}
 ?>

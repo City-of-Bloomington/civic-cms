@@ -1,3 +1,4 @@
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 ---------------------------------------------------------------------
 -- Identify all the departments of the city
 ---------------------------------------------------------------------
@@ -10,7 +11,9 @@ create table departments (
 	state varchar(50),
 	zip varchar(15),
 	phone varchar(20),
-	email varchar(128)
+	email varchar(128),
+	document_id int unsigned,
+	foreign key (document_id) references documents(id)
 ) engine=InnoDB;
 
 ---------------------------------------------------------------------
@@ -348,3 +351,5 @@ create table media_documents (
 	foreign key (media_id) references media(id) on delete cascade,
 	foreign key (document_id) references documents(id) on delete cascade
 ) engine=InnoDB;
+
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

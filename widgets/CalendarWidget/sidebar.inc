@@ -16,6 +16,7 @@
 	$month = str_pad($calendarDate['mon'],2,'0',STR_PAD_LEFT);
 	$lastDayOfMonth = date('t',$timestamp);
 ?>
+<div>
 <table class="calendar">
 <tr><th colspan="7"><?php echo $calendarDate['month']; ?></th></tr>
 <tr><th>S</th><th>M</th><th>T</th><th>W</th><th>R</th><th>F</th><th>S</th></tr>
@@ -67,3 +68,4 @@
 ?>
 </tr>
 </table>
+</div>

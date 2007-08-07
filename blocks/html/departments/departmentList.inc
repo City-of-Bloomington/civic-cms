@@ -18,6 +18,10 @@
 		$email = View::escape($department->getEmail());
 		echo "<tr>";
 		if (userHasRole('Administrator')) { echo "<td><button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/departments/updateDepartment.php?department_id={$department->getId()}';\">Edit</button></td>"; }
+		if ($department->getDocument_id())
+		{
+			$name = "<a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$department->getDocument_id()}\">$name</a>";
+		}
 		echo "
 			<td>$name</td>
 			<td>$address1</td>

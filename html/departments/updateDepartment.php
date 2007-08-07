@@ -12,14 +12,14 @@
 	if (isset($_POST['department']))
 	{
 		$department = new Department($_POST['department_id']);
-		foreach($_POST['department'] as $field=>$value)
-		{
-			$set = 'set'.ucfirst($field);
-			$department->$set($value);
-		}
-
 		try
 		{
+			foreach($_POST['department'] as $field=>$value)
+			{
+				$set = 'set'.ucfirst($field);
+				$department->$set($value);
+			}
+
 			$department->save();
 			Header("Location: home.php");
 			exit();
