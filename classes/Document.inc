@@ -151,33 +151,39 @@
 		public function delete()
 		{
 			global $PDO;
-			foreach($this->getWatches() as $watch) { $watch->notify("Document: '{$this->getTitle()}' has been deleted\n"); }
+			if ($this->id)
+			{
+				$search = new Search();
+				$search->removeDocument($this);
 
-			$search = new Search();
-			$search->removeDocument($this);
+				$this->deleteContent();
 
-			$this->deleteContent();
+				$query = $PDO->prepare("update documentLinks set document_id=null where document_id={$this->id}");
+				$query->execute();
 
-			$query = $PDO->prepare("delete from documentLinks where document_id={$this->id}");
-			$query->execute();
+				$query = $PDO->prepare("delete from documentLinks where document_id={$this->id}");
+				$query->execute();
 
-			$query = $PDO->prepare("delete from document_watches where document_id={$this->id}");
-			$query->execute();
+				$query = $PDO->prepare("delete from document_watches where document_id={$this->id}");
+				$query->execute();
 
-			$query = $PDO->prepare("update sections set document_id=null where document_id={$this->id}");
-			$query->execute();
+				$query = $PDO->prepare("update sections set document_id=null where document_id={$this->id}");
+				$query->execute();
 
-			$query = $PDO->prepare("delete from document_sections where document_id={$this->id}");
-			$query->execute();
+				$query = $PDO->prepare("delete from document_sections where document_id={$this->id}");
+				$query->execute();
 
-			$query = $PDO->prepare("delete from document_facets where document_id={$this->id}");
-			$query->execute();
+				$query = $PDO->prepare("delete from document_facets where document_id={$this->id}");
+				$query->execute();
 
-			$query = $PDO->prepare("delete from media_documents where document_id={$this->id}");
-			$query->execute();
+				$query = $PDO->prepare("delete from media_documents where document_id={$this->id}");
+				$query->execute();
 
-			$query = $PDO->prepare("delete from documents where id={$this->id}");
-			$query->execute();
+				$query = $PDO->prepare("delete from documents where id={$this->id}");
+				$query->execute();
+
+				foreach($this->getWatches() as $watch) { $watch->notify("Document: '{$this->getTitle()}' has been deleted\n"); }
+			}
 		}
 
 		/**
