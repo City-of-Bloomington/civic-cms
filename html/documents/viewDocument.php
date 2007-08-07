@@ -20,7 +20,6 @@
 	if (isset($document))
 	{
 		$template->document = $document;
-		$template->widgets = $document->getWidgets();
 
 		$template->blocks[] = new Block('documents/viewDocument.inc',array('document'=>$document));
 
