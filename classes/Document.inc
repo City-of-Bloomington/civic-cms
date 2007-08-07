@@ -158,6 +158,9 @@
 
 			$this->deleteContent();
 
+			$query = $PDO->prepare("delete from documentLinks where document_id={$this->id}");
+			$query->execute();
+
 			$query = $PDO->prepare("delete from document_watches where document_id={$this->id}");
 			$query->execute();
 
