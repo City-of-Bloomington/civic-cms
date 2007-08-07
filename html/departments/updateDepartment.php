@@ -12,7 +12,11 @@
 	if (isset($_POST['department']))
 	{
 		$department = new Department($_POST['department_id']);
-		$department->setName($_POST['department']['name']);
+		foreach($_POST['department'] as $field=>$value)
+		{
+			$set = 'set'.ucfirst($field);
+			$department->$set($value);
+		}
 
 		try
 		{

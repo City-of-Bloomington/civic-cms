@@ -8,6 +8,13 @@
 	{
 		private $id;
 		private $name;
+		private $address1;
+		private $address2;
+		private $city;
+		private $state;
+		private $zip;
+		private $phone;
+		private $email;
 
 		/**
 		 * This will load all fields in the table as properties of this class.
@@ -49,6 +56,13 @@
 
 			$fields = array();
 			$fields['name'] = $this->name ? $this->name : null;
+			$fields['address1'] = $this->address1 ? $this->address1 : null;
+			$fields['address2'] = $this->address2 ? $this->address2 : null;
+			$fields['city'] = $this->city ? $this->city : null;
+			$fields['state'] = $this->state ? $this->state : null;
+			$fields['zip'] = $this->zip ? $this->zip : null;
+			$fields['phone'] = $this->phone ? $this->phone : null;
+			$fields['email'] = $this->email ? $this->email : null;
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
@@ -91,8 +105,22 @@
 
 		public function getId() { return $this->id; }
 		public function getName() { return $this->name; }
+		public function getAddress1() { return $this->address1; }
+		public function getAddress2() { return $this->address2; }
+		public function getCity() { return $this->city; }
+		public function getState() { return $this->state; }
+		public function getZip() { return $this->zip; }
+		public function getPhone() { return $this->phone; }
+		public function getEmail() { return $this->email; }
 
 
 		public function setName($string) { $this->name = trim($string); }
+		public function setAddress1($string) { $this->address1 = trim($string); }
+		public function setAddress2($string) { $this->address2 = trim($string); }
+		public function setCity($string) { $this->city = trim($string); }
+		public function setState($string) { $this->state = trim($string); }
+		public function setZip($string) { $this->zip = trim($string); }
+		public function setPhone($string) { $this->phone = trim($string); }
+		public function setEmail($string) { $this->email = trim($string); }
 	}
 ?>

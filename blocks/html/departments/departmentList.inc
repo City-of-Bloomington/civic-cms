@@ -8,13 +8,23 @@
 ?>
 <h1><?php if (userHasRole('Administrator')) { echo "<button type=\"button\" class=\"addSmall\" onclick=\"document.location.href='".BASE_URL."/departments/addDepartment.php';\">Add</button>"; } ?>
 	Departments</h1>
-<ul>
+<table>
 <?php
 	foreach($this->departmentList as $department)
 	{
-		echo "<li>";
-		if (userHasRole('Administrator')) { echo "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/departments/updateDepartment.php?department_id={$department->getId()}';\">Edit</button>"; }
-		echo View::escape($department->getName())."</li>";
+		$name = View::escape($department->getName());
+		$address1 = View::escape($department->getAddress1());
+		$phone = View::escape($department->getPhone());
+		$email = View::escape($department->getEmail());
+		echo "<tr>";
+		if (userHasRole('Administrator')) { echo "<td><button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/departments/updateDepartment.php?department_id={$department->getId()}';\">Edit</button></td>"; }
+		echo "
+			<td>$name</td>
+			<td>$address1</td>
+			<td>$phone</td>
+			<td>$email</td>
+		</tr>
+		";
 	}
 ?>
-</ul>
+</table>

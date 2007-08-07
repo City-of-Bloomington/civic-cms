@@ -33,6 +33,13 @@
 			$options = array();
 			if (isset($fields['id'])) { $options[] = "id='$fields[id]'"; }
 			if (isset($fields['name'])) { $options[] = "name='$fields[name]'"; }
+			if (isset($fields['address1'])) { $options[] = "address1='$fields[address1]'"; }
+			if (isset($fields['address2'])) { $options[] = "address2='$fields[address2]'"; }
+			if (isset($fields['city'])) { $options[] = "city='$fields[city]'"; }
+			if (isset($fields['state'])) { $options[] = "state='$fields[state]'"; }
+			if (isset($fields['zip'])) { $options[] = "zip='$fields[zip]'"; }
+			if (isset($fields['phone'])) { $options[] = "phone='$fields[phone]'"; }
+			if (isset($fields['email'])) { $options[] = "email='$fields[email]'"; }
 
 
 			# Finding on fields from other tables required joining those tables.

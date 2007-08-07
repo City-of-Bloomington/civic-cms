@@ -3,7 +3,14 @@
 ---------------------------------------------------------------------
 create table departments (
 	id int unsigned not null primary key auto_increment,
-	name varchar(50) not null unique
+	name varchar(50) not null unique,
+	address1 varchar(128),
+	address2 varchar(128),
+	city varchar(128),
+	state varchar(50),
+	zip varchar(15),
+	phone varchar(20),
+	email varchar(128)
 ) engine=InnoDB;
 
 ---------------------------------------------------------------------
