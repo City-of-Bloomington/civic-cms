@@ -213,7 +213,7 @@ button.down { width:16px; height:16px; padding-top:16px; background: url('/skins
 .zip { height:16px; padding-left:18px; background: url('/skins/default/images/icons/zip.png') no-repeat; }
 .gz { height:16px; padding-left:18px; background: url('/skins/default/images/icons/gz.png') no-repeat; }
 .txt { height:16px; padding-left:18px; background: url('/skins/default/images/icons/txt.png') no-repeat; }
-.thumbnail { width:100px; }
+.thumbnail { width:100px; float:left; }
 
 /* Controls how error messages are displayed */
 #errorMessages { border:2px solid black; }

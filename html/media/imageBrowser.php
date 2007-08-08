@@ -24,11 +24,12 @@
 
 	$template = new Template('mediaBrowser');
 
+	$template->blocks[] = new Block('media/addImageForm.inc');
+
 	$images = new ImageList(array('department_id'=>$department_id));
 	$department = new Department($department_id);
 	$template->blocks[] = new Block('media/thumbnails.inc',array('imageList'=>$images,'department'=>$department));
 
-	$template->blocks[] = new Block('media/addImageForm.inc');
 
 
 	$template->render();

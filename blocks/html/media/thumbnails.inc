@@ -7,7 +7,8 @@
  * @param Department $this->department
  */
 ?>
-<h2><?php echo $this->department; ?></h2>
+<h2>Choose an existing image</h2>
+<h3><?php echo $this->department; ?></h3>
 <script type="text/javascript">
 	function selectImage(url,width,height,alt)
 	{
