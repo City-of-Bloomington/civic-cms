@@ -12,13 +12,13 @@
 	{
 		$section = new Section($_POST['id']);
 
-		foreach($_POST['section'] as $field=>$value)
-		{
-			$set = "set".ucfirst($field);
-			$section->$set($value);
-		}
 		try
 		{
+			foreach($_POST['section'] as $field=>$value)
+			{
+				$set = "set".ucfirst($field);
+				$section->$set($value);
+			}
 			$section->save();
 			Header("Location: sectionInfo.php?section_id={$section->getId()}");
 			exit();

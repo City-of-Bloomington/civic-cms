@@ -39,6 +39,9 @@
 
 <fieldset><legend>Homepage</legend>
 <p>You can set the document_id that will be used as the home page for this section.</p>
+<div><label for="section-document_id">Document ID</label>
+	<input name="section[document_id]" id="section-document_id" size="3" value="<?php echo $this->section->getDocument_id(); ?>" />
+</div>
 </fieldset>
 
 <fieldset><legend class="required">Departments</legend>
