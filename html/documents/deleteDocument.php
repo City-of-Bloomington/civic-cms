@@ -11,7 +11,8 @@
 
 	if ($document->permitsEditingBy($_SESSION['USER']))
 	{
-		$document->delete();
+		try { $document->delete(); }
+		catch (Exception $e) { $_SESSION['errorMessages'][] = $e; }
 	}
 
 	Header("Location: index.php");

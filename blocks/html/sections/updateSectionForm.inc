@@ -37,6 +37,10 @@
 	</table>
 </fieldset>
 
+<fieldset><legend>Homepage</legend>
+<p>You can set the document_id that will be used as the home page for this section.</p>
+</fieldset>
+
 <fieldset><legend class="required">Departments</legend>
 	<p>Choose the departments that will be allowed to post content to this section.</p>
 	<p>You must choose at least one.</p>
