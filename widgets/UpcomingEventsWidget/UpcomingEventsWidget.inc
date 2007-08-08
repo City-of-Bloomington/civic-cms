@@ -7,6 +7,8 @@
  */
 	class UpcomingEventsWidget extends Widget
 	{
+		protected $upcomingEvents = array();
+
 		public function __construct()
 		{
 			$this->className = 'UpcomingEventsWidget';
@@ -19,24 +21,26 @@
 		{
 			global $PDO;
 
-			$sections = array();
-			foreach($template->document->getSections() as $section) { $sections[] = $section->getId(); }
-			$sections = implode(',',$sections);
-
-
-			$sql = "select event_id from event_sections s
-					left join events e on s.event_id=e.id
-					where section_id in ($sections)
-					and now()<=start and start<=(now() + interval 7 day)";
-			$query = $PDO->query($sql);
-
-			$upcomingEvents = array();
-			foreach($query->fetchAll() as $row)
+			if (isset($template->document))
 			{
-				$upcomingEvents[] = new Event($row['event_id']);
-			}
+				$sections = array();
+				foreach($template->document->getSections() as $section) { $sections[] = $section->getId(); }
+				$sections = implode(',',$sections);
 
-			$this->renderIncludeFile($this);
+
+				$sql = "select event_id from event_sections s
+						left join events e on s.event_id=e.id
+						where section_id in ($sections)
+						and now()<=startDate and startDate<=(now() + interval 7 day)";
+				$query = $PDO->query($sql);
+
+				foreach($query->fetchAll() as $row)
+				{
+					$this->upcomingEvents[] = new Event($row['event_id']);
+				}
+
+				$this->renderIncludeFile($this);
+			}
 		}
 	}
 ?>

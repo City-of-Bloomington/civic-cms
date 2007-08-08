@@ -5,19 +5,18 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param array $upcomingEvents
  */
-	if (count($upcomingEvents))
+	if (count($this->upcomingEvents))
 	{
 		echo '
 		<div class="widget">
 			<div class="titleBar">Upcoming Events</div>
 			<ul>
 		';
-		foreach($upcomingEvents as $event)
+		foreach($this->upcomingEvents as $event)
 		{
-			$start = date('Y-m-d g:i A',strtotime($event->getStart()));
 			echo "
 			<li><a href=\"".BASE_URL."/calendars/viewEvent.php?event_id={$event->getId()}\">
-				{$event->getSummary()} $start
+				{$event->getSummary()} {$event->getStartDate()}</a>
 			</li>
 			";
 		}
