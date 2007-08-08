@@ -6,16 +6,11 @@
  */
 	class Image extends Media
 	{
-		private $image;
-		private $medium;
-		private $thumbnail;
-
 		/**
 		 * The sizes, in pixels for the various versions of Images
 		 */
 		private $mediumSize = 300;
 		private $thumbnailSize = 100;
-
 
 
 		public function __construct($media_id=null)
@@ -29,74 +24,57 @@
 			}
 		}
 
-		public function getImage()
+		public function outputImage()
 		{
-			if (!$this->image)
-			{
-				switch ($this->getExtension())
-				{
-					case 'jpg': $load = 'imagecreatefromjpeg'; break;
-					case 'gif': $load = 'imagecreatefromgif'; break;
-					case 'png': $load = 'imagecreatefrompng'; break;
-				}
-				$this->image = $load($this->getDirectory().'/'.$this->getInternalFilename());
-			}
-			return $this->image;
+			readfile($this->getDirectory().'/'.$this->getInternalFilename());
 		}
 
-		public function getMedium()
+		public function outputMedium()
 		{
+			$directory = $this->getDirectory().'/medium';
+			$filename = $this->getId();
+
 			# Medium sized photos will always be stored as JPEG
-			if (!$this->medium)
+			if (!is_file("$directory/$filename.jpg"))
 			{
-				$directory = $this->getDirectory().'/medium';
-				$filename = $this->getId();
+				if (!is_dir($directory)) { mkdir($directory,0777,true); }
 
-				# Load the medium version if it's there
-				if (file_exists("$directory/$filename.jpg")) { $this->medium = imagecreatefromjpeg("$directory/$filename.jpg"); }
-				else
-				{
-					# Otherwise, create and save a new medium version
-					$this->medium = $this->resample($this->mediumSize,$this->mediumSize);
-					if (!is_dir($directory)) { mkdir($directory,0777); }
-					imagejpeg($this->medium,"$directory/$filename.jpg");
-					chmod("$directory/$filename.jpg",0666);
-				}
+				$originalFile = $this->getDirectory().'/'.$this->getInternalFilename();
+				$newFile = "$directory/$filename.jpg";
+
+				exec(IMAGEMAGICK."/convert $originalFile -resize '{$this->mediumSize}x{$this->mediumSize}>' $newFile");
 			}
-			return $this->smallPhoto;
+
+			readfile("$directory/$filename.gif");
 		}
-		public function getThumbnail()
+
+		public function outputThumbnail()
 		{
+			$directory = $this->getDirectory().'/thumbnail';
+			$filename = $this->getId();
+
 			# Thumbnails will always be stored as GIF
-			if (!$this->thumbnail)
+			if (!is_file("$directory/$filename.gif"))
 			{
-				$directory = $this->getDirectory().'/thumbnail';
-				$filename = $this->getId();
+				if (!is_dir($directory)) { mkdir($directory,0777,true); }
 
-				if (file_exists("$directory/$filename.gif")) { $this->thumbnail = imagecreatefromgif("$directory/$filename.gif"); }
-				else
-				{
-					$this->thumbnail = $this->resample($this->thumbnailSize,$this->thumbnailSize);
-					if (!is_dir($directory)) { mkdir($directory,0777); }
-					imagegif($this->thumbnail,"$directory/$filename.gif");
-					chmod("$directory/$filename.gif",0666);
-				}
+				$originalFile = $this->getDirectory().'/'.$this->getInternalFilename();
+				$newFile = "$directory/$filename.gif";
+
+				exec(IMAGEMAGICK."/convert $originalFile -resize '{$this->thumbnailSize}x{$this->thumbnailSize}>' $newFile");
 			}
-			return $this->thumbnail;
+
+			readfile("$directory/$filename.gif");
 		}
 
-		private function resample($width,$height)
+
+		public function getWidth()
 		{
-			if ($this->getWidth() < $this->getHeight()) { $width = ($height / $this->getHeight()) * $this->getWidth(); }
-			else { $height = ($width / $this->getWidth()) * $this->getHeight(); }
-
-			$scaledImage = imagecreatetruecolor($width, $height);
-			imagecopyresampled($scaledImage, $this->image, 0, 0, 0, 0, $width, $height, $this->getWidth(), $this->getHeight());
-
-			return $scaledImage;
+			return exec(IMAGEMAGICK."/identify -format '%w' {$this->getDirectory()}/{$this->getInternalFilename()}");
 		}
-
-		public function getWidth() { return imagesx($this->getImage()); }
-		public function getHeight() { return imagesy($this->getImage()); }
+		public function getHeight()
+		{
+			return exec(IMAGEMAGICK."/identify -format '%h' {$this->getDirectory()}/{$this->getInternalFilename()}");
+		}
 	}
 ?>

@@ -7,5 +7,5 @@
 	$image = new Image($_GET['media_id']);
 
 	Header("Content-type: image/gif");
-	imagegif($image->getThumbnail());
+	$image->outputThumbnail();
 ?>

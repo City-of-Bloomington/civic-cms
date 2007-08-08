@@ -91,6 +91,14 @@ Subversion:
 	however, in our case, we just create the repository inside the
 	web application directory once it's installed.
 
+ImageMagick
+	Images in the content manager are resized as necessary.  This is done
+	in PHP, using exec() calls to ImageMagick's collection programs.
+
+	Most Linux distributions include ImageMagick.  If yours does not, or,
+	if you're on Windows, you can download ImageMagick from:
+	http://www.imagemagick.org
+
 ---------------------------------------------------------------------
 Installation
 ---------------------------------------------------------------------

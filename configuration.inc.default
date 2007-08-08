@@ -84,6 +84,11 @@ define('COPYRIGHT',"/**
 	 */
 	define('EDITOR','FCKeditor');
 
+	/**
+	 * Image handling library
+	 * Set the path to the ImageMagick binaries
+	 */
+	define('IMAGEMAGICK','/usr/bin');
 
 	/**
 	 * Import global functions that we use for many applications we write
