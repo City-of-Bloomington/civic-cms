@@ -24,6 +24,7 @@ class WikiMarkup
 
 		if ($documentTitle)
 		{
+			$documentTitle = html_entity_decode($documentTitle);
 			$list = new DocumentList(array('title_or_alias'=>$documentTitle));
 			if (count($list))
 			{
