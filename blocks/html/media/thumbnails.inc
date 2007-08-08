@@ -18,7 +18,7 @@
 <?php
 	foreach($this->imageList as $image)
 	{
-		$title = View::escape($image->getTitle());
+		$title = View::escape(addslashes($image->getTitle()));
 		echo "
 		<div class=\"thumbnail\">
 			<a href=\"{$image->getURL()}\" onclick=\"selectImage('{$image->getURL()}',{$image->getWidth()},{$image->getHeight()},'$title');return false;\">
