@@ -21,9 +21,9 @@ img { border:none; margin:1em; }
 
 h1 { text-align:left; margin:0; font-size:16pt; font-weight:bold; }
 h2 { margin:0; font-size:14pt; font-weight:bold; }
-h3 { margin:0; font-size:12pt; font-weight:bold; }
-h4 { margin:0; font-size:10pt; font-weight:bold; }
-h5 { margin:0; }
+h3 { margin-top:.5em; font-size:12pt; font-weight:bold; }
+h4 { margin-top:.5em; font-size:10pt; font-weight:bold; }
+h5 { margin-top:.5em; font-weight:bold; }
 h6 { margin:0; }
 
 p { margin-top:.5em; margin-bottom:.5em; }
@@ -35,11 +35,12 @@ label { font-weight:bold; }
 .required { color:red; background-color:inherit; }
 input { font-family:sans-serif; font-size:9pt; }
 
-table { border-collapse:collapse; }
+table { border-collapse:collapse; border:1px solid black; }
 tr { vertical-align:top; }
 td { padding-left:.5em; padding-right:.5em; background-color:inherit; }
 th { text-align:left; background-color:#dddddd; padding-left:.5em; padding-right:.5em; vertical-align: top; font-weight:bold; }
 th a:link,th a:visited { color:white; background-color:inherit; }
+form table { border:none; }
 
 ul { margin-top:0em; }
 ul.compact,ul.compact li { list-style-type:none; margin:0; padding:0; }
@@ -132,7 +133,7 @@ li.current>a { background-color:#cccccc; width:100%; }
 	.contextualMenu form button { font-size:8pt; }
 
 /* For pages with tab-type system on them */
-.tabBar ul { list-style: none; margin:0; padding-bottom:7px; border-bottom:1px solid gray; font-weight:bold; text-align:center; white-space:nowrap; }
+.tabBar ul { list-style: none; margin:0; padding-bottom:7px; border-bottom:1px solid gray; font-weight:bold; white-space:nowrap; }
 .tabBar li { display:inline; margin:0 2px; }
 .tabBar a { border-bottom:4px solid white; color:#999999; }
 .tabBar a.current { border-color:#ff6600; color:#0066ff; }
