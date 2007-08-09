@@ -46,7 +46,7 @@
 				# This is where the code goes to generate a new, empty instance.
 				# Set any default values for properties that need it here
 				$this->locationType_id = 1;
-				$this->department_id = $_SESSION['USER']->getDepartmentid();
+				$this->department_id = $_SESSION['USER']->getDepartment_id();
 			}
 		}
 
