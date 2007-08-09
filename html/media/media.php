@@ -8,7 +8,9 @@
  * Script to serve all media
  */
 	$media = new Media($_GET['media_id']);
-
+	Header('Expires: 0');
+	Header('Pragma: cache');
+	Header('Cache-Control: private');
 	Header('Content-type: '.$media->getMime_type());
 
 	$disposition = $media->getMedia_type()=='attachment' ? 'attachment' : 'inline';
