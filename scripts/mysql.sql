@@ -13,7 +13,9 @@ create table departments (
 	phone varchar(20),
 	email varchar(128),
 	document_id int unsigned,
-	foreign key (document_id) references documents(id)
+	location_id int unsigned,
+	foreign key (document_id) references documents(id),
+	foreign key (location_id) references locations(id)
 ) engine=InnoDB;
 
 ---------------------------------------------------------------------

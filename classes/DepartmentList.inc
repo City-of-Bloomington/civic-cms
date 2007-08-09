@@ -41,6 +41,7 @@
 			if (isset($fields['phone'])) { $options[] = "phone='$fields[phone]'"; }
 			if (isset($fields['email'])) { $options[] = "email='$fields[email]'"; }
 			if (isset($fields['document_id'])) { $options[] = "document_id='$fields[document_id]'"; }
+			if (isset($fields['location_id'])) { $options[] = "location_id='$fields[location_id]'"; }
 
 
 			# Finding on fields from other tables required joining those tables.

@@ -33,6 +33,21 @@
 
 	<tr><td><label for="department-email">Email</label></td>
 		<td><input name="department[email]" id="department-email" value="<?php echo View::escape($this->department->getEmail()); ?>" /></td></tr>
+	<tr><td><label for="department-location_id">Location</label></td>
+		<td><select name="department[location_id]" id="department-location_id"><option></option>
+			<?php
+				$list = new LocationList();
+				$list->find();
+				foreach($list as $location)
+				{
+					$name = View::escape($location->getName());
+					$selected = $location->getId()==$this->department->getLocation_id() ? 'selected="selected"' : '';
+					echo "<option value=\"{$location->getId()}\" $selected>$name</option>";
+				}
+			?>
+			</select>
+		</td>
+	</tr>
 	</table>
 </fieldset>
 

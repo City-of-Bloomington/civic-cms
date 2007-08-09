@@ -16,8 +16,10 @@
 		private $phone;
 		private $email;
 		private $document_id;
+		private $location_id;
 
 		private $document;
+		private $location;
 
 		/**
 		 * This will load all fields in the table as properties of this class.
@@ -67,6 +69,7 @@
 			$fields['phone'] = $this->phone ? $this->phone : null;
 			$fields['email'] = $this->email ? $this->email : null;
 			$fields['document_id'] = $this->document_id ? $this->document_id : null;
+			$fields['location_id'] = $this->location_id ? $this->location_id : null;
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
@@ -117,12 +120,22 @@
 		public function getPhone() { return $this->phone; }
 		public function getEmail() { return $this->email; }
 		public function getDocument_id() { return $this->document_id; }
+		public function getLocation_id() { return $this->location_id; }
 		public function getDocument()
 		{
 			if ($this->document_id)
 			{
 				if (!$this->document) { $this->document = new Document($this->document_id); }
 				return $this->document;
+			}
+			else return null;
+		}
+		public function getLocation()
+		{
+			if ($this->location_id)
+			{
+				if (!$this->location) { $this->location = new Location($this->location_id); }
+				return $this->location;
 			}
 			else return null;
 		}
@@ -136,6 +149,8 @@
 		public function setZip($string) { $this->zip = trim($string); }
 		public function setPhone($string) { $this->phone = trim($string); }
 		public function setEmail($string) { $this->email = trim($string); }
+		public function setLocation_id($int) { $this->location = new Location($int); $this->location_id = $int; }
+		public function setLocation($location) { $this->location_id = $location->getId(); $this->location = $location; }
 		public function setDocument_id($int)
 		{
 			# A document can only be set as the homepage for a department, if that
