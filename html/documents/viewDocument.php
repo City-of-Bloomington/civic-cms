@@ -54,6 +54,7 @@
 			}
 		}
 
+		$template->blocks[] = new Block('documents/subsections.inc',array('document'=>$document));
 		$template->blocks[] = new Block('documents/siblings.inc',array('document'=>$document));
 	}
 	else { $_SESSION['errorMessages'][] = new Exception('documents/unknownDocument'); }

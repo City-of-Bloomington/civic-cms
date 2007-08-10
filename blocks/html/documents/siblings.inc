@@ -15,24 +15,28 @@
 			// Display the siblings
 			siblings.style.display = '';
 			button.className = 'less';
-			button.firstChild.nodeValue = 'Less';
+			button.firstChild.nodeValue = 'Less Documents';
 		}
 		else
 		{
 			// Hide the siblings
 			siblings.style.display = 'none';
 			button.className = 'more';
-			button.firstChild.nodeValue = 'More';
+			button.firstChild.nodeValue = 'More Documents';
 		}
 	}
 </script>
-<button type="button" class="more" onclick="toggleSiblings(this);">More</button>
+<div><button type="button" class="more" onclick="toggleSiblings(this);">More Documents</button></div>
 <div id="siblings" style="display:none;">
 <?php
 	foreach($this->document->getSections() as $section)
 	{
 		$name = View::escape($section->getName());
-		echo "<div class=\"interfaceBox\"><div class=\"titleBar\">$name</div><ul>";
+		echo "
+		<div class=\"interfaceBox\">
+			<div class=\"titleBar\">$name Documents</div>
+			<ul>
+		";
 		foreach($section->getDocuments() as $document)
 		{
 			if ($document->getId() != $this->document->getId())
@@ -41,7 +45,10 @@
 				echo "<li><a href=\"{$document->getURL()}\">$title</a></li>\n";
 			}
 		}
-		echo "</ul></div>";
+		echo "
+			</ul>
+		</div>
+		";
 	}
 ?>
 </div>
