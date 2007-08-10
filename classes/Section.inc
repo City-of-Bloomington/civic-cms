@@ -238,7 +238,7 @@
    				$query = $PDO->prepare("select * from sectionIndex where section_id=?");
    				$query->execute(array($this->id));
    				$result = $query->fetchAll();
-   				foreach($result as $index=>$section)
+   				foreach($result as $section)
    				{
 					$sql ="select distinct p.section_id from sectionIndex s
 							left join sectionIndex p on p.preOrder<$section[preOrder] and $section[preOrder]<p.postOrder
@@ -248,7 +248,13 @@
 					$query = $PDO->prepare($sql);
 					$query->execute();
 					$result = $query->fetchAll();
-					foreach($result as $row) { $this->ancestors[$index][] = new Section($row['section_id']); }
+
+					$vector = array();
+					foreach($result as $row)
+					{
+						$vector[$row['section_id']] = new Section($row['section_id']);
+					}
+					$this->ancestors[] = $vector;
    				}
 			}
 			return $this->ancestors;
