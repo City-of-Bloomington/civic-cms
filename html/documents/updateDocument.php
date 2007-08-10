@@ -11,6 +11,17 @@
 	# If they passing a document_id in the URL, start a new Document Updating process
 	if (isset($_GET['document_id'])) { $_SESSION['document'] = new Document($_GET['document_id']); }
 
+	# Make sure the document they are trying to edit has not been replaced
+	# by another attempt to edit a document
+	# The system can only keep track one document being edited per session
+	if (!isset($_SESSION['document']))
+	{
+		$_SESSION['errorMessages'][] = new Exception('documents/documentNoLongerAvailable');
+		$template = new Template('closePopup');
+		$template->render();
+		exit();
+	}
+
 	# Make sure they're allowed to be editing this document
 	if (!$_SESSION['document']->permitsEditingBy($_SESSION['USER']))
 	{

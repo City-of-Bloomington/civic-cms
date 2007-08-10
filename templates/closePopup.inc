@@ -13,6 +13,5 @@
 	self.close();
 </script>
 <?php
-	include FRAMEWORK.'/errorMessages.inc';
 	include FRAMEWORK.'/xhtmlFooter.inc';
 ?>
