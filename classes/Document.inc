@@ -154,8 +154,13 @@
 			if ($this->id)
 			{
 				# Documents that are the home page for a section should not be deleted
-				$list = new SectionList(array('document_id'=>$this->id));
-				if (count($list)) { throw new Exception('documents/sectionHomepage'); }
+				$query = $PDO->prepare('select id from sections where document_id=?');
+				$query->execute(array($this->id));
+				$result = $query->fetchAll();
+				if (count($result))
+				{
+					throw new Exception('documents/sectionHomepage');
+				}
 
 				$search = new Search();
 				$search->removeDocument($this);
