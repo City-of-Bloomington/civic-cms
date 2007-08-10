@@ -97,6 +97,17 @@
 			$this->id = $PDO->lastInsertID();
 		}
 
+		public function delete()
+		{
+			global $PDO;
+
+			if ($this->id)
+			{
+				$sql = "delete from documentLinks where id={$this->id}";
+				if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
+			}
+		}
+
 		/**
 		 * Generic Getters
 		 */

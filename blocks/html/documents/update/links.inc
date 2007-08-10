@@ -40,10 +40,30 @@
 			echo '<ul>';
 			foreach($links as $link)
 			{
-				echo "<li><a href=\"{$link->getHref()}\">{$link->getTitle()}</a></li>";
+				echo "
+				<li><button type=\"button\" class=\"deleteSmall\" onclick=\"removeLink({$link->getId()});\">Delete</button>
+					<a href=\"{$link->getHref()}\">{$link->getTitle()}</a>
+				</li>
+				";
 			}
 			echo '</ul>';
-
 		}
 	?>
+	<script type="text/javascript">
+		var removalRequest = FRAMEWORK.getXMLHttpRequestObject();
+		function removeLink(link_id)
+		{
+			removalRequest.open("get","<?php echo BASE_URL; ?>/documents/removeLink.php?link_id="+link_id);
+			removalRequest.onreadystatechange = handleRemovalResult;
+			removalRequest.send(null);
+		}
+
+		function handleRemovalResult()
+		{
+			if (removalRequest.readyState == 4)
+			{
+				FRAMEWORK.processTabbedForm('documentForm','links','next');
+			}
+		}
+	</script>
 </div>
