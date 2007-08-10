@@ -34,7 +34,7 @@
 					foreach($list as $department)
 					{
 						$name = View::escape($department->getName());
-						$selected = $this->location->getDepartment_id()==$_SESSION['USER']->getDepartment_id() ? 'selected="selected"' : '';
+						$selected = $department->getId()==$_SESSION['USER']->getDepartment_id() ? 'selected="selected"' : '';
 						echo "<option value=\"{$department->getId()}\" $selected>$name</option>";
 					}
 			echo "
