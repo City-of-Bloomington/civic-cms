@@ -7,7 +7,32 @@
  */
 ?>
 <div class="interfaceBox">
-	<div class="titleBar">Links</div>
+	<h2>Add a Related Link</h2>
+	<p>Links created here will show up in a widget on the side of the page.</p>
+
+	<form id="documentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
+	<fieldset><legend>Link</legend>
+		<input type="hidden" name="tab" id="tab" value="info" />
+		<input type="hidden" name="action" id="action" value="next" />
+
+		<table>
+		<tr><td><label for="documentLink-title" class="required">Title</label></td>
+			<td><input name="documentLink[title]" id="documentLink-title" size="30" /></td></tr>
+		<tr><td><label for="documentLink-href" class="required">URL</label></td>
+			<td><input name="documentLink[href]" id="documentLink-href" size="30" /></td></tr>
+		<tr><td colspan="2">
+				<div><label for="documentLink-description" class="required">Description</label></div>
+				<textarea name="documentLink[description]" id="documentLink-description" rows="3" cols="60"></textarea>
+		</td></tr>
+		</table>
+
+		<button type="button" class="add" onclick="FRAMEWORK.processTabbedForm('documentForm','links','next');">Add</button>
+	</fieldset>
+
+	</form>
+</div>
+<div class="interfaceBox">
+	<div class="titleBar">Related Links</div>
 	<?php
 		$links = new DocumentLinkList(array('document_id'=>$this->document->getId()));
 		if (count($links))
@@ -21,26 +46,4 @@
 
 		}
 	?>
-	<h2>Add a Link</h2>
-
-	<form id="documentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
-	<fieldset><legend>Link</legend>
-		<input type="hidden" name="tab" id="tab" value="info" />
-		<input type="hidden" name="action" id="action" value="next" />
-
-		<table>
-		<tr><td><label for="documentLink-title">Title</label></td>
-			<td><input name="documentLink[title]" id="documentLink-title" size="30" /></td></tr>
-		<tr><td><label for="documentLink-href">URL</label></td>
-			<td><input name="documentLink[href]" id="documentLink-href" size="30" /></td></tr>
-		<tr><td colspan="2">
-				<div><label for="documentLink-description">Description</label></div>
-				<textarea name="documentLink[description]" id="documentLink-description" rows="3" cols="60"></textarea>
-		</td></tr>
-		</table>
-
-		<button type="button" class="add" onclick="FRAMEWORK.processTabbedForm('documentForm','links','next');">Add</button>
-	</fieldset>
-
-	</form>
 </div>
