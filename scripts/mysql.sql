@@ -162,7 +162,7 @@ create table facets (
   id int unsigned not null primary key auto_increment,
   name varchar(50) not null unique,
   facetGroup_id int unsigned not null,
-  description varchar(255),
+  description text,
   foreign key (facetGroup_id) references facetGroups(id)
 ) engine=InnoDB;
 

@@ -27,8 +27,15 @@
 		</td>
 	</tr>
 	<tr><td colspan="2">
-			<div><label for="facet-description">Description</label></div>
-			<textarea name="facet[description]" id="facet-description" rows="3" cols="60"></textarea>
+			<div><label>Description</label></div>
+			<?php
+				include APPLICATION_HOME.'/html/editors/fckeditor/FCKeditor.php';
+				$FCKeditor = new FCKeditor("description");
+				$FCKeditor->BasePath = BASE_URL.'/editors/fckeditor/';
+				$FCKeditor->ToolbarSet = 'Custom';
+
+				$FCKeditor->create();
+			?>
 	</td></tr>
 	</table>
 

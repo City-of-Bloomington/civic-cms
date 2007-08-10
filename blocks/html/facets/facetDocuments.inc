@@ -6,10 +6,10 @@
  * @param Facet $this->facet
  */
 	$name = View::escape($this->facet->getName());
-	$description = View::escape($this->facet->getDescription());
+	$description = WikiMarkup::parse($this->facet->getDescription());
 	echo "
 	<h2>$name</h2>
-	<p>$description</p>
+	<div>$description</div>
 	";
 
 	$displayedDocuments = array();

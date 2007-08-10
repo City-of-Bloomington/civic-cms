@@ -16,6 +16,7 @@
 			$set = 'set'.ucfirst($field);
 			$facet->$set($value);
 		}
+		$facet->setDescription($_POST['description']);
 
 		try
 		{

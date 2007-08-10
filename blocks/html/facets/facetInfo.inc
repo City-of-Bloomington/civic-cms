@@ -7,7 +7,7 @@
  */
 ?>
 <h2><?php echo View::escape($this->facet->getName()); ?></h2>
-<p><?php echo View::escape($this->facet->getDescription()); ?></p>
+<div><?php echo WikiMarkup::parse($this->facet->getDescription()); ?></div>
 <script type="text/javascript">
 	function toggleSiblings(button)
 	{
