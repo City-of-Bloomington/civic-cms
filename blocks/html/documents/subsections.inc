@@ -6,28 +6,7 @@
  * @param Document $this->document
  */
 ?>
-<script type="text/javascript">
-	function toggleSubsections(button)
-	{
-		var subsections = document.getElementById('subsections');
-		if (subsections.style.display === 'none')
-		{
-			// Display the subsections
-			subsections.style.display = '';
-			button.class = 'less';
-			button.firstChild.nodeValue = 'Less Sections';
-		}
-		else
-		{
-			// Hide the subsections
-			subsections.style.display = 'none';
-			button.class = 'more';
-			button.firstChild.nodeValue = 'More Sections';
-		}
-	}
-</script>
-<div><button type="button" class="more" onclick="toggleSubsections(this);">More Sections</button></div>
-<div id="subsections" style="display:none;">
+<div id="subsections">
 <?php
 	foreach($this->document->getSections() as $section)
 	{
@@ -40,7 +19,7 @@
 		foreach($section->getChildren() as $child)
 		{
 			$name = View::escape($child->getName());
-			echo "<li><a href=\"".BASE_URL."/sections/viewSection.php?section_id={$child->getName()}\">$name</a></li>\n";
+			echo "<li style=\"display:inline;margin-right:1em;\"><a href=\"".BASE_URL."/sections/viewSection.php?section_id={$child->getName()}\">$name</a></li>\n";
 		}
 		echo "
 			</ul>
