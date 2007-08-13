@@ -53,15 +53,7 @@
 		$contentField = "content_{$l->getCode()}";
 		if (isset($_POST[$contentField]))
 		{
-			if ($_POST[$contentField])
-			{
-				$_SESSION['document']->setContent($_POST[$contentField],$l->getCode());
-			}
-			else
-			{
-				$_SESSION['errorMessages'][] = new Exception('documents/missingContent');
-				$_REQUEST['tab'] = 'content';
-			}
+			$_SESSION['document']->setContent($_POST[$contentField],$l->getCode());
 		}
 	}
 	# Handle document locking

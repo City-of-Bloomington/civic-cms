@@ -82,7 +82,20 @@
 			# Check for required fields here.  Throw an exception if anything is missing.
 			if (!$this->department_id) { throw new Exception('missingRequiredFields'); }
 			if (!$this->title) { throw new Exception('documents/missingTitle'); }
-			if (!count($this->getDocumentSections())) { throw new Exception('documents/missingSection'); }#if (!$this->description) { throw new Exception('missingDescription'); }
+			if (!count($this->getDocumentSections())) { throw new Exception('documents/missingSection'); }
+			#if (!$this->description) { throw new Exception('missingDescription'); }
+
+			# Make sure we've got something for content
+			$hasContent = false;
+			foreach($this->getContent() as $lang=>$content)
+			{
+				if ($content)
+				{
+					$hasContent = true;
+					break;
+				}
+			}
+			if (!$hasContent) { throw new Exception('documents/missingContent'); }
 
 			$fields = array();
 			$fields['title'] = $this->title;
@@ -280,8 +293,12 @@
 			# the content array for a given lang
 			else
 			{
-				if ($lang && isset($this->content[$lang])) { return $this->content[$lang]; }
-				else { return null; }
+				if ($lang)
+				{
+					if (!isset($this->content[$lang])) { $this->content[$lang] = ''; }
+					return $this->content[$lang];
+				}
+				else { return $this->content; }
 			}
 		}
 		private function getContentDirectory()
