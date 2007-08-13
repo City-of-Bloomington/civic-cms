@@ -156,7 +156,7 @@
 			preg_match("/[^.]+$/",$filename,$matches);
 			$extension = $matches[0];
 
-			if (array_key_exists($extension,$this->extensions))
+			if (array_key_exists(strtolower($extension),$this->extensions))
 			{
 				$this->mime_type = $this->extensions[$extension]['mime_type'];
 
