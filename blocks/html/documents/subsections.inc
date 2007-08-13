@@ -19,7 +19,11 @@
 		foreach($section->getChildren() as $child)
 		{
 			$name = View::escape($child->getName());
-			echo "<li style=\"display:inline;margin-right:1em;\"><a href=\"".BASE_URL."/sections/viewSection.php?section_id={$child->getName()}\">$name</a></li>\n";
+			echo "
+			<li style=\"display:inline;margin-right:1em;\">
+				<a href=\"".BASE_URL."/sections/viewSection.php?section_id={$child->getId()}\">$name</a>
+			</li>
+			";
 		}
 		echo "
 			</ul>
