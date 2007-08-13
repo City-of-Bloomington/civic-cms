@@ -108,7 +108,7 @@ create table document_watches (
 ---------------------------------------------------------------------
 create table sections (
   id int unsigned not null primary key auto_increment,
-  name varchar(50) not null unique,
+  name varchar(128) not null unique,
   nickname varchar(50),
   document_id int unsigned,
   placement tinyint(2) unsigned,
