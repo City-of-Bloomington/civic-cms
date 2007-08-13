@@ -29,25 +29,22 @@
 				{
 					$this->document = $template->document;
 
-					# Keep a running history of a user's section navigation
-					if (!isset($_SESSION['sectionHistory'])) { $_SESSION['sectionHistory'] = array(); }
-					$previousSectionId = count($_SESSION['sectionHistory']) ? end($_SESSION['sectionHistory']) : 0;
-					$_SESSION['sectionHistory'][] = $this->section->getId();
-
 					# Figure out which ancestral line we want to display in the navigation
 					$ancestors = $this->section->getAncestors();
-					if (count($_SESSION['sectionHistory']) > 1)
+					if (isset($_SESSION['vector']))
 					{
-						# Check all the vectors in the ancestor array.
-						# If the last section in that vector matches the previousSectionId,
-						# that's the vector we want to display for navigation
 						foreach($ancestors as $vector)
 						{
-							$parent = end($vector);
-							if ($parent->getId() == $previousSectionId)
+							if (count($_SESSION['vector']) < count($vector))
 							{
-								# This is the vector we want to display;
-								$this->ancestors = $vector;
+								# If all of the sections are in this vector, use this one
+								$intersect = array_intersect(array_keys($_SESSION['vector']),array_keys($vector));
+								if (count($intersect)==count($_SESSION['vector'])) { $this->ancestors = $vector; }
+							}
+							else
+							{
+								$intersect = array_intersect(array_keys($vector),array_keys($_SESSION['vector']));
+								if (count($intersect)==count($vector)) { $this->ancestors = $vector; }
 							}
 						}
 					}
@@ -59,6 +56,9 @@
 						if (count($ancestors)) { $this->ancestors = $ancestors[0]; }
 						else { $this->ancestors = array(new Section(1)); }
 					}
+
+					# Remember the ancestral line we've chosen
+					$_SESSION['vector'] = $this->ancestors;
 
 					$this->renderIncludeFile($this);
 				}
