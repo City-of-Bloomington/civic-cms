@@ -33,18 +33,28 @@
 					$ancestors = $this->section->getAncestors();
 					if (isset($_SESSION['vector']))
 					{
+						$currentlyMatchedSections = 0;
 						foreach($ancestors as $vector)
 						{
+							# Choose the best matched ancestral line we can find
+							# It will be the line with the most sections in common with our previous one
 							if (count($_SESSION['vector']) < count($vector))
 							{
-								# If all of the sections are in this vector, use this one
-								$intersect = array_intersect(array_keys($_SESSION['vector']),array_keys($vector));
-								if (count($intersect)==count($_SESSION['vector'])) { $this->ancestors = $vector; }
+								# To be a candidate, all sections in SESSION[vector] must be in the vector
+								$count = count(array_intersect(array_keys($_SESSION['vector']),array_keys($vector)));
+								if ($count < count($_SESSION['vector'])) { $count = 0; }
 							}
 							else
 							{
-								$intersect = array_intersect(array_keys($vector),array_keys($_SESSION['vector']));
-								if (count($intersect)==count($vector)) { $this->ancestors = $vector; }
+								# To be a candidate, all sections in $vector must be in SESSION[vector]
+								$count = count(array_intersect(array_keys($vector),array_keys($_SESSION['vector'])));
+								if ($count < count($vector)) { $count = 0; }
+							}
+
+							if ($count > $currentlyMatchedSections)
+							{
+								$this->ancestors = $vector;
+								$currentlyMatchedSections = $count;
 							}
 						}
 					}
@@ -57,10 +67,11 @@
 						else { $this->ancestors = array(new Section(1)); }
 					}
 
-					# Remember the ancestral line we've chosen
-					$_SESSION['vector'] = $this->ancestors;
-
 					$this->renderIncludeFile($this);
+
+					# Remember the ancestral line we're on
+					$this->ancestors[$section->getId()] = $section;
+					$_SESSION['vector'] = $this->ancestors;
 				}
 			}
 		}
