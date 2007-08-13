@@ -58,7 +58,7 @@ class WikiMarkup
 				$url = $media->getURL();
 			}
 		}
-		if (isset($anchor)) { $url.= "#$anchor"; }
+		if (isset($anchor)) { $url = isset($url) ? $url."#$anchor" : "#$anchor"; }
 
 		if (isset($url))
 		{
