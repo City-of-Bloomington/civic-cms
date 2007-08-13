@@ -10,25 +10,28 @@
 <?php
 	foreach($this->document->getSections() as $section)
 	{
-		$name = View::escape($section->getName());
-		echo "
-		<div class=\"interfaceBox\">
-			<div class=\"titleBar\">$name Sections</div>
-			<ul>
-		";
-		foreach($section->getChildren() as $child)
+		if (count($section->getChildren()))
 		{
-			$name = View::escape($child->getName());
+			$name = View::escape($section->getName());
 			echo "
-			<li style=\"display:inline;margin-right:1em;\">
-				<a href=\"".BASE_URL."/sections/viewSection.php?section_id={$child->getId()}\">$name</a>
-			</li>
+			<div class=\"interfaceBox\">
+				<div class=\"titleBar\">$name Sections</div>
+				<ul>
+			";
+			foreach($section->getChildren() as $child)
+			{
+				$name = View::escape($child->getName());
+				echo "
+				<li style=\"display:inline;margin-right:1em;\">
+					<a href=\"".BASE_URL."/sections/viewSection.php?section_id={$child->getId()}\">$name</a>
+				</li>
+				";
+			}
+			echo "
+				</ul>
+			</div>
 			";
 		}
-		echo "
-			</ul>
-		</div>
-		";
 	}
 ?>
 </div>
