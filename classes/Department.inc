@@ -155,13 +155,16 @@
 		{
 			# A document can only be set as the homepage for a department, if that
 			# document is also owned by that department
-			$document = new Document($int);
-			if ($document->getDepartment_id() == $this->id)
+			if ($int)
 			{
-				$this->document = new Document($int);
-				$this->document_id = $int;
+				$document = new Document($int);
+				if ($document->getDepartment_id() == $this->id)
+				{
+					$this->document = new Document($int);
+					$this->document_id = $int;
+				}
+				else { throw new Exception('departments/documentDepartmentMismatch'); }
 			}
-			else { throw new Exception('departments/documentDepartmentMismatch'); }
 		}
 		public function setDocument($document)
 		{
