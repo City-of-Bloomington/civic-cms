@@ -52,7 +52,7 @@
 <p>Enter the docment_id for the home page you want to use for this department.</p>
 <div>
 	<label for="department-document_id">Document ID</label>
-	<input name="department[document_id]" id="department-document_id" size="3" value="<?php echo $this->department->getDocument_id(); ?>" />
+	<input name="department[document_id]" id="department-document_id" size="3" />
 </div>
 </fieldset>
 
