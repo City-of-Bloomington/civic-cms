@@ -6,3 +6,5 @@
  */
 ?>
 <p>That file has already been uploaded.</p>
+<p>Someone has previously uploaded that file; it is already on the server.  To find it,
+you should <strong>Browse for an existing attachment</strong>, and attach that file to this document.</p>
