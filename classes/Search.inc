@@ -16,6 +16,9 @@
 		public function __construct()
 		{
 			$this->search = Zend_Search_Lucene::open(APPLICATION_HOME.'/data/search_index');
+			$this->search->setMaxBufferedDocs(ZEND_SEARCH_MAX_BUFFERED_DOCS);
+			$this->search->setMaxMergeDocs(ZEND_SEARCH_MAX_MERGE_DOCS);
+			$this->search->setMergeFactor(ZEND_SEARCH_MERGE_FACTOR);
 		}
 
 		public function addDocument($document)
@@ -23,7 +26,8 @@
 			$doc = new Zend_Search_Lucene_Document();
 			$doc->addField(Zend_Search_Lucene_Field::Keyword('document_id',$document->getId()));
 			$doc->addField(Zend_Search_Lucene_Field::UnStored('title',$document->getTitle()));
-			$doc->addField(Zend_Search_Lucene_Field::UnStored('content',implode("\n",$document->getContent())));
+			$doc->addField(Zend_Search_Lucene_Field::UnStored('content',strip_tags(implode("\n",$document->getContent()))));
+
 			$this->search->addDocument($doc);
 		}
 

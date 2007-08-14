@@ -25,5 +25,7 @@
 		echo "Added document: {$document->getId()}\n";
 	}
 
+	$search->optimize();
+
 	echo "Search now has {$search->count()} documents\n";
 ?>

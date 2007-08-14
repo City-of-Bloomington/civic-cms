@@ -19,6 +19,15 @@ define('COPYRIGHT',"/**
 	 * http://framework.zend.com
 	 */
 	define('ZEND','/var/www/libraries/ZendFramework/library');
+	/**
+	 * These control search index performance.  If indexing seems slow
+	 * or PHP runs out of memory, you might try adjusting these to suit
+	 * Documentation is available at:
+	 * http://framework.zend.com/manual/en/zend.search.lucene.best-practice.html
+	 */
+	define('ZEND_SEARCH_MAX_BUFFERED_DOCS',5);
+	define('ZEND_SEARCH_MAX_MERGE_DOCS',10000);
+	define('ZEND_SEARCH_MERGE_FACTOR',10);
 
 
 	/**
