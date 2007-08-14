@@ -63,6 +63,8 @@
 			return $results;
 		}
 
+		public function optimize() { $this->search->optimize(); }
+
 		public function count() { return $this->search->count(); }
 		public function numDocs() { return $this->search->numDocs(); }
 	}

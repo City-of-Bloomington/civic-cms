@@ -15,14 +15,27 @@
 	Zend_Search_Lucene::create(APPLICATION_HOME.'/data/search_index');
 	echo APPLICATION_HOME."/data/search_index created\n";
 
+
+	ini_set('memory_limit','128M');
+	$memory_limit = ini_get('memory_limit');
+
 	# Load all the documents into the index
 	$search = new Search();
 	$documents = new DocumentList();
 	$documents->find();
+	$c = 0;
 	foreach($documents as $document)
 	{
+		$c++;
 		$search->addDocument($document);
-		echo "Added document: {$document->getId()}\n";
+		$used_memory = memory_get_usage();
+		echo "Added document: {$document->getId()} - $used_memory/$memory_limit\n";
+		if ($c>=200)
+		{
+			echo "Optimizing\n";
+			$search->optimize();
+			$c = 0;
+		}
 	}
 
 	$search->optimize();
