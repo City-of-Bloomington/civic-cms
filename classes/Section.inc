@@ -149,6 +149,8 @@
 		{
 			global $PDO;
 
+			$sql = "update sections set document_id=null where id={$this->id}";
+			if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 			if ($this->getDocument()) { $this->getDocument()->delete(); }
 
 			$PDO->beginTransaction();

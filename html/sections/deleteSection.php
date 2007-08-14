@@ -9,10 +9,7 @@
 
 	$section = new Section($_GET['section_id']);
 	try { $section->delete(); }
-	catch (Exception $e)
-	{
-		print_r($e);
-		exit();
-	}
+	catch (Exception $e) { $_SESSION['errorMessages'][] = $e; }
+
 	Header('Location: '.BASE_URL.'/sections');
 ?>
