@@ -16,8 +16,20 @@ define('COPYRIGHT',"/**
 	/**
 	 * This needs to point to the library directory inside your
 	 * installation of the ZendFramework
+	 * http://framework.zend.com
 	 */
 	define('ZEND','/var/www/libraries/ZendFramework/library');
+
+
+	/**
+	 * Optional Content cleaning - Uncomment this is you want
+	 * extra cleaning to be done on content submitted from the WYSIWYG editor
+	 *
+	 * This should point to the library directory inside your
+	 * installation of the HTMLPurifier
+	 * http://htmlpurifier.org
+	 */
+	#define('HTMLPURIFIER','/var/www/libraries/htmlpurifier/library');
 
 
 	/**

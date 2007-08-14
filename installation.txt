@@ -47,6 +47,11 @@ ZendFramework
 	need that installed on the webserver.  ZendFramework is available at
 	http://framework.zend.com
 
+HTMLPurifier
+	Content is cleaned using HTMLPurifier, a standards-compliant
+  	HTML filter library written in PHP.  HTMLPurifier is available at
+  	http://htmlpurifier.org
+
 PHP:
 	PHP must be compiled with support for:
 		PDO

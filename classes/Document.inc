@@ -209,14 +209,33 @@
 		}
 
 		/**
-		 * Content Related Functions
+		 * @param string $string content markup
+		 * @param string $lang Two-letter language code
 		 */
 		public function setContent($string,$lang)
 		{
 			if (!$this->isLocked())
 			{
+				if (defined('HTMLPURIFIER'))
+				{
+					require_once HTMLPURIFIER.'/HTMLPurifier.auto.php';
+					include APPLICATION_HOME.'/HTMLPurifier_Config.inc';
+
+					$purifier = new HTMLPurifier($config);
+					$string = $purifier->purify($string);
+				}
 				$this->content[$lang] = trim($string);
 			}
+		}
+		/**
+		 * @param string $string content source code
+		 * @param string $lang Two-letter language code
+		 * Seperate function to handle raw source code that doesn't get
+		 * cleaned or purified
+		 */
+		public function setSource($string,$lang)
+		{
+			if (!$this->isLocked()) { $this->content[$lang] = trim($string); }
 		}
 		private function saveContent()
 		{

@@ -63,6 +63,12 @@
 		{
 			$_SESSION['document']->setContent($_POST[$contentField],$l->getCode());
 		}
+
+		$sourceField = "source_{$l->getCode()}";
+		if (isset($_POST[$sourceField]))
+		{
+			$_SESSION['document']->setSource($_POST[$sourceField],$l->getCode());
+		}
 	}
 
 	# Handle document locking
