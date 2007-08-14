@@ -16,6 +16,7 @@
 			case 'month': $block = 'calendars/monthView.inc'; break;
 			case 'week': $block = 'calendars/weekView.inc'; break;
 			case 'day': $block = 'calendars/dayView.inc'; break;
+			default: $block = 'calendars/monthView.inc';
 		}
 	}
 	else { $block = 'calendars/monthView.inc'; }
