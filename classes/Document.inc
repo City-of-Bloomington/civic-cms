@@ -564,7 +564,7 @@
 			{
 				if (!count($this->attachments))
 				{
-					$list = new AttachmentList(array('document_id'=>$this->id));
+					$list = new MediaList(array('document_id'=>$this->id));
 					foreach($list as $attachment)
 					{
 						$this->attachments[$attachment->getId()] = $attachment;

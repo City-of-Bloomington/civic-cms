@@ -3,13 +3,13 @@
  * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
- * @param AttachmentList $this->attachmentList
+ * @param MediaList $this->mediaList
  * @param Department $this->department ( optional )
  */
 	$title = isset($this->department) ? View::escape($this->department->getName()) : '';
 ?>
 <div class="interfaceBox">
-	<div class="titleBar"><?php echo $title; ?> Attachments</div>
+	<div class="titleBar"><?php echo $title; ?> Media</div>
 	<table>
 	<tr><th></th>
 	<?php
@@ -21,25 +21,25 @@
 	?>
 	</tr>
 	<?php
-		foreach($this->attachmentList as $attachment)
+		foreach($this->mediaList as $media)
 		{
 			$url = new URL($_SERVER['REQUEST_URI']);
-			$url->parameters['department_id'] = $attachment->getDepartment_id();
+			$url->parameters['department_id'] = $media->getDepartment_id();
 
-			$title = View::escape($attachment->getTitle());
-			$department = View::escape($attachment->getDepartment()->getName());
+			$title = View::escape($media->getTitle());
+			$department = View::escape($media->getDepartment()->getName());
 
 			if (userHasRole(array('Administrator','Webmaster')))
 			{
-				$deleteButton = "<button type=\"button\" class=\"deleteSmall\" onclick=\"FRAMEWORK.deleteConfirmation('".BASE_URL."/media/deleteMedia.php?media_id={$attachment->getId()}');\">Delete</button>";
+				$deleteButton = "<button type=\"button\" class=\"deleteSmall\" onclick=\"FRAMEWORK.deleteConfirmation('".BASE_URL."/media/deleteMedia.php?media_id={$media->getId()}');\">Delete</button>";
 			}
 			else { $deleteButton = ''; }
 			echo "
 			<tr><td>$deleteButton</td>
-				<td><a href=\"{$attachment->getURL()}\" class=\"{$attachment->getExtension()}\">{$attachment->getFilename()}</a></td>
+				<td><a href=\"{$media->getURL()}\" class=\"{$media->getExtension()}\">{$media->getFilename()}</a></td>
 				<td>$title</td>
 				<td><a href=\"{$url->getURL()}\">$department</a></td>
-				<td>{$attachment->getUploaded('%D')}</td>
+				<td>{$media->getUploaded('%D')}</td>
 			</tr>
 			";
 		}

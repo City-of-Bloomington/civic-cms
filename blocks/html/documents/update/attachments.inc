@@ -14,7 +14,7 @@
 
 
 		<p>Browse for an existing attachment.</p>
-		<button type="button" class="browse" onclick="window.open('<?php echo BASE_URL; ?>/documents/attachmentSelector.php');">Browse</button>
+		<button type="button" class="browse" onclick="window.open('<?php echo BASE_URL; ?>/documents/mediaSelector.php');">Browse</button>
 		<input type="hidden" name="attachment[media_id]" id="attachment-media_id" />
 	</fieldset>
 	<fieldset><legend>Upload a new Attachment</legend>
@@ -35,7 +35,7 @@
 	<div class="titleBar">Attachments</div>
 	<table>
 	<?php
-		$list = new AttachmentList(array('document_id'=>$this->document->getId()));
+		$list = new MediaList(array('document_id'=>$this->document->getId()));
 		foreach($list as $attachment)
 		{
 			$title = View::escape($attachment->getTitle());

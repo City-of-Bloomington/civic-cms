@@ -8,9 +8,9 @@
 
 	$department_id = isset($_GET['department_id']) ? $_GET['department_id'] : $_SESSION['USER']->getDepartment_id();
 	$department = new Department($department_id);
-	$attachments = new AttachmentList(array('department_id'=>$department_id));
+	$mediaList = new MediaList(array('department_id'=>$department_id));
 
 	$template = new Template('mediaBrowser');
-	$template->blocks[] = new Block('media/attachmentList.inc',array('attachmentList'=>$attachments,'department'=>$department));
+	$template->blocks[] = new Block('media/mediaList.inc',array('mediaList'=>$mediaList,'department'=>$department));
 	$template->render();
 ?>

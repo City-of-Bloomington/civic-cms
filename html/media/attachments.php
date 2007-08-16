@@ -6,16 +6,16 @@
  */
 	$template = new Template();
 
-	$attachments = new AttachmentList();
+	$mediaList = new MediaList(array('media_type'=>'attachment'));
 
 	$sort = null;
 	$search = null;
 	if (isset($_GET['sort'])) { $sort = $_GET['sort']; }
 	if (isset($_GET['department_id'])) { $search = array('department_id'=>$_GET['department_id']); }
 
-	$attachments->find($search,$sort);
+	$mediaList->find($search,$sort);
 
 
-	$template->blocks[] = new Block('media/attachmentList.inc',array('attachmentList'=>$attachments));
+	$template->blocks[] = new Block('media/mediaList.inc',array('mediaList'=>$mediaList));
 	$template->render();
 ?>

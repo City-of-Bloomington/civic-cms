@@ -118,7 +118,7 @@
 		# Handle uploading of new media attachments
 		if (isset($_FILES['attachment']) && $_FILES['attachment']['name'])
 		{
-			$attachment = new Attachment();
+			$attachment = new Media();
 			$attachment->setTitle($_POST['attachment']['title']);
 			$attachment->setDescription($_POST['attachment']['description']);
 			try
@@ -132,7 +132,7 @@
 		# Handle selecting existing media to attach
 		elseif ($_POST['attachment']['media_id'] && is_numeric($_POST['attachment']['media_id']))
 		{
-			$media = new Attachment($_POST['attachment']['media_id']);
+			$media = new Media($_POST['attachment']['media_id']);
 			$_SESSION['document']->attach($media);
 		}
 	}
