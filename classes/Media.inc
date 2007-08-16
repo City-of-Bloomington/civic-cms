@@ -154,7 +154,7 @@
 
 			# Find out the mime type for this file
 			preg_match("/[^.]+$/",$filename,$matches);
-			$extension = $matches[0];
+			$extension = strtolower($matches[0]);
 
 			if (array_key_exists(strtolower($extension),$this->extensions))
 			{
@@ -219,7 +219,7 @@
 		public function getExtension()
 		{
 			preg_match("/[^.]+$/",$this->filename,$matches);
-			return $matches[0];
+			return strtolower($matches[0]);
 		}
 
 
@@ -253,8 +253,18 @@
 
 		public static function createValidFilename($string)
 		{
+			# No bad characters
 			$string = preg_replace('/[^A-Za-z0-9_\.\s]/','',$string);
+
+			# Convert spaces to underscores
 			$string = preg_replace('/\s+/','_',$string);
+
+			# Lower case any file extension
+			if (preg_match('/(^.*\.)([^\.]+)$/',$string,$matches))
+			{
+				$string = $matches[1].strtolower($matches[2]);
+			}
+
 			return $string;
 		}
 
