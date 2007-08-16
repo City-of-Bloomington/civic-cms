@@ -50,13 +50,19 @@
 			if (isset($fields['section_id']))
 			{
 				$this->joins.= ' left join section_departments s on s.department_id=departments.id';
-				$options[] = "s.section_id=$fields[section_id]";
+				$options[] = "s.section_id='$fields[section_id]'";
 			}
 
 			if (isset($fields['calendar_id']))
 			{
 				$this->joins.= ' left join calendar_departments c on c.department_id=departments.id';
-				$options[] = "c.calendar_id=$fields[calendar_id]";
+				$options[] = "c.calendar_id='$fields[calendar_id]'";
+			}
+
+			if (isset($fields['facetGroup_id']))
+			{
+				$this->joins.= ' left join facetGroup_departments f on f.department_id=departments.id';
+				$options[] = "f.facetGroup_id='$fields[facetGroup_id]'";
 			}
 
 			$this->populateList($options);

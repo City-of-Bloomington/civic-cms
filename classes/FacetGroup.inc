@@ -11,6 +11,7 @@
 
 		private $facets = array();
 		private $related_groups = array();
+		private $departments = array();
 
 		/**
 		 * This will load all fields in the table as properties of this class.
@@ -71,6 +72,7 @@
 			else { $this->insert($values,$preparedFields); }
 
 			$this->saveRelatedGroups();
+			$this->saveDepartments();
 		}
 
 		private function update($values,$preparedFields)
@@ -150,6 +152,44 @@
 			return $this->facets;
 		}
 		public function hasFacet($facet) { return in_array($facet->getId(),array_keys($this->getFacets())); }
+
+
+		public function getDepartments()
+		{
+			if ($this->id)
+			{
+				if (!count($this->departments))
+				{
+					$list = new DepartmentList(array('facetGroup_id'=>$this->id));
+					foreach($list as $department) { $this->departments[$department->getId()] = $department; }
+				}
+			}
+			return $this->departments;
+		}
+		public function setDepartments(array $department_ids)
+		{
+			$this->departments = array();
+			foreach($department_ids as $id)
+			{
+				$department = new Department($id);
+				$this->departments[$department->getId()] = $department;
+			}
+		}
+		public function hasDepartment($department) { return in_array($department->getId(),array_keys($this->getDepartments())); }
+		private function saveDepartments()
+		{
+			global $PDO;
+
+			$sql = "delete from facetGroup_departments where facetGroup_id={$this->id}";
+			if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
+
+			$query = $PDO->prepare('insert facetGroup_departments values(?,?)');
+			foreach($this->getDepartments() as $department)
+			{
+				$query->execute(array($this->id,$department->getId()));
+			}
+		}
+
 
 		/**
 		 * Generic Getters

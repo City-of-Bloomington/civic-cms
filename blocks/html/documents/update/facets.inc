@@ -4,13 +4,12 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Document $this->document
+ * @param FacetGroupList $this->facetGroupList
  */
 ?>
 <form id="documentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<?php
-		$groups = new FacetGroupList();
-		$groups->find();
-		foreach($groups as $group)
+		foreach($this->facetGroupList as $group)
 		{
 			$name = View::escape($group->getName());
 			echo "<fieldset><legend>$name</legend>";

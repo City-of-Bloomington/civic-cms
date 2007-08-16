@@ -182,6 +182,13 @@ create table facetGroups_related (
 	foreign key (relatedGroup_id) references facetGroups(id)
 ) engine=InnoDB;
 
+create table facetGroup_departments (
+	facetGroup_id int unsigned not null,
+	department_id int unsigned not null,
+	primary key (facetGroup_id,department_id),
+	foreign key (facetGroup_id) references facetGroups(id),
+	foreign key (department_id) references departments(id)
+) engine=InnoDB;
 
 
 ---------------------------------------------------------------------

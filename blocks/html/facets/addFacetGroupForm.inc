@@ -33,6 +33,25 @@
 ?>
 </fieldset>
 
+<fieldset><legend>Departments</legend>
+	<p>Choose the departments that are allowed to assign the Facets from inside this group to Documents.</p>
+	<table>
+	<?php
+		$list = new DepartmentList();
+		$list->find();
+		foreach($list as $department)
+		{
+			$name = View::escape($department->getName());
+			$checked = ($department->getId()==$_SESSION['USER']->getDepartment_id()) ? 'checked="checked"' : '';
+			echo "
+			<tr><td><input type=\"checkbox\" name=\"facetGroup[departments][{$department->getId()}]\" id=\"facetGroup-departments-{$department->getId()}\" value=\"{$department->getId()}\" $checked /></td>
+				<td><label for=\"facetGroup-departments-{$department->getId()}\">$name</label></td></tr>
+			";
+		}
+	?>
+	</table>
+</fieldset>
+
 <fieldset><legend>Submit</legend>
 	<button type="submit" class="submit">Submit</button>
 	<button type="button" class="cancel" onclick="document.location.href='<?php echo BASE_URL; ?>/facets';">Cancel</button>

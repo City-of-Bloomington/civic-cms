@@ -37,8 +37,14 @@
 			# to $this->joins here
 			if (isset($fields['facet_id']))
 			{
-				$this->joins.= ' left join facetGroup_facets on id=facetGroup_id';
-				$options[] = "facet_id='$fields[facet_id]'";
+				$this->joins.= ' left join facetGroup_facets f on id=f.facetGroup_id';
+				$options[] = "f.facet_id='$fields[facet_id]'";
+			}
+
+			if (isset($fields['department_id']))
+			{
+				$this->joins.= ' left join facetGroup_departments d on id=d.facetGroup_id';
+				$options[] = "d.department_id='$fields[department_id]'";
 			}
 
 			$this->populateList($options);

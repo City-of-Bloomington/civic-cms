@@ -206,6 +206,16 @@
 			$form->language = $language;
 		break;
 
+		case 'facets':
+			$groups = new FacetGroupList();
+			if ( !(userHasRole(array('Administrator','Webmaster'))) )
+			{
+				$groups->find(array('department_id'=>$_SESSION['USER']->getDepartment_id()));
+			}
+			else  { $groups->find(); }
+			$form->facetGroupList = $groups;
+		break;
+
 		default:
 	}
 
