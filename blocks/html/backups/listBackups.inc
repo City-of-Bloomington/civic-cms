@@ -12,20 +12,26 @@
 	</div>
 	<table>
 	<?php
+		$files = array();
 		$list = new DirectoryIterator(APPLICATION_HOME.'/backups');
 		foreach($list as $file)
 		{
-			if (substr(basename($file),0,1) !== '.')
+			if (substr(basename($file),-2) === 'gz')
 			{
-				$backup = new Backup($file);
-
-				echo "
-				<tr><td>$backup</td>
-					<td><button type=\"button\" class=\"download\" onclick=\"document.location.href='".BASE_URL."/backups/download.php?backup=$backup';\">Download</button>
-					</td>
-				</tr>
-				";
+				$files[] = $file->getFilename();
 			}
+		}
+		sort($files);
+		foreach($files as $file)
+		{
+			$backup = new Backup($file);
+
+			echo "
+			<tr><td>$backup</td>
+				<td><button type=\"button\" class=\"download\" onclick=\"document.location.href='".BASE_URL."/backups/download.php?backup=$backup';\">Download</button>
+				</td>
+			</tr>
+			";
 		}
 	?>
 	</table>
