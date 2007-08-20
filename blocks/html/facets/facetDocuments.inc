@@ -64,19 +64,29 @@
 		}
 	}
 </script>
-<button type="button" class="more" onclick="toggleSiblings(this);">More</button>
-<div id="siblings" style="display:none;">
-<ul><?php
-		foreach($this->facet->getDocuments() as $document)
+<?php
+	$documents = $this->facet->getDocuments();
+	# Don't bother showing anything if all these documents have already been listed above
+	if (count($documents)>count($displayedDocuments))
+	{
+		if (count($displayedDocuments))
+		{
+			echo "
+			<button type=\"button\" class=\"more\" onclick=\"toggleSiblings(this);\">More</button>
+			<div id=\"siblings\" style=\"display:none;\">
+			";
+		}
+		else { echo '<div id="siblings">'; }
+
+		echo '<ul>';
+		foreach($documents as $document)
 		{
 			if (!in_array($document->getId(),array_keys($displayedDocuments)))
 			{
 				$title = View::escape($document->getTitle());
-				echo "
-				<li><a href=\"{$document->getURL()}\">$title</a></li>
-				";
+				echo "<li><a href=\"{$document->getURL()}\">$title</a></li>";
 			}
 		}
-	?>
-</ul>
-</div>
+		echo '</ul></div>';
+	}
+?>
