@@ -334,9 +334,13 @@
 		}
 		public function hasDepartment($department) { return array_key_exists($department->getId(),$this->getDepartments()); }
 
-   		public function getDocuments()
+   		public function getDocuments($sort='title')
    		{
-			if (!count($this->documents)) { $this->documents = new DocumentList(array('section_id'=>$this->id,'active'=>date('Y-m-d'))); }
+			if (!count($this->documents))
+			{
+				$this->documents = new DocumentList();
+				$this->documents->find(array('section_id'=>$this->id,'active'=>date('Y-m-d')),$sort);
+			}
 			return $this->documents;
    		}
    		public function getDocumentLinks() { return new DocumentLinkList(array('section_id'=>$this->id)); }

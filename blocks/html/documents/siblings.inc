@@ -27,9 +27,11 @@
 	}
 </script>
 <?php
+	$sort = $this->document->getDocumentType()->getOrdering();
 	foreach($this->document->getSections() as $section)
 	{
-		if (count($section->getDocuments()))
+		$documents = $section->getDocuments($sort);
+		if (count($documents))
 		{
 			$name = View::escape($section->getName());
 			echo "
@@ -39,7 +41,7 @@
 			";
 			# List the first five documents
 			$count = 0;
-			foreach($section->getDocuments() as $document)
+			foreach($documents as $document)
 			{
 				# When we've displayed five documents, start new list, but keep it hidden
 				if ($count==5)

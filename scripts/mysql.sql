@@ -58,7 +58,8 @@ create table user_roles (
 create table documentTypes (
 	id int unsigned not null primary key auto_increment,
 	type varchar(128) not null,
-	template text not null
+	template text not null,
+	ordering varchar(50) not null default 'title'
 ) engine=InnoDB;
 insert documentTypes set type='Webpage';
 

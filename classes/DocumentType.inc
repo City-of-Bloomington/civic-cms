@@ -9,6 +9,7 @@
 		private $id;
 		private $type;
 		private $template;
+		private $ordering;
 
 		private $document_list;
 
@@ -37,6 +38,7 @@
 			{
 				# This is where the code goes to generate a new, empty instance.
 				# Set any default values for properties that need it here
+				$this->ordering = 'title';
 			}
 		}
 
@@ -53,6 +55,7 @@
 			$fields = array();
 			$fields['type'] = $this->type ? $this->type : null;
 			$fields['template'] = $this->template ? $this->template : null;
+			$fields['ordering'] = $this->ordering ? $this->ordering : null;
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
@@ -103,9 +106,11 @@
 		public function getId() { return $this->id; }
 		public function getType() { return $this->type; }
 		public function getTemplate() { return $this->template; }
+		public function getOrdering() { return $this->ordering; }
 
 
 		public function setType($string) { $this->type = trim($string); }
 		public function setTemplate($text) { $this->template = $text; }
+		public function setOrdering($string) { $this->ordering = trim($string); }
 	}
 ?>

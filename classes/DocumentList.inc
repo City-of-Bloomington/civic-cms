@@ -6,21 +6,19 @@
  */
 	class DocumentList extends PDOResultIterator
 	{
-		public function __construct($fields=null,$sort=null,$limit=null,$groupBy=null)
+		public function __construct($fields=null)
 		{
 			$this->select = "select documents.id from documents";
-			if (is_array($fields)||$sort||$limit||$groupBy)
-			{
-				$this->find($fields,$sort,$limit,$groupBy);
-			}
+			if (is_array($fields)) { $this->find($fields); }
 		}
 
 
-		public function find($fields=null,$sort="id",$limit=null,$groupBy=null)
+		public function find($fields=null,$sort="title",$limit=null,$groupBy=null)
 		{
 			$this->sort = $sort;
 			$this->limit = $limit;
 			$this->groupBy = $groupBy;
+
 
 			$options = array();
 

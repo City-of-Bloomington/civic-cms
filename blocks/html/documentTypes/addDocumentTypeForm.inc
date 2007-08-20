@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
@@ -11,6 +11,8 @@
 	<table>
 	<tr><td><label for="documentType-type">Type</label></td>
 		<td><input name="documentType[type]" id="documentType-type" /></td></tr>
+	<tr><td><label for="documentType-ordering">Ordering</label></td>
+		<td><input name="documentType[ordering]" id="documentType-ordering" value="title" /></td></tr>
 	<tr><td colspan="2">
 		<label for="documentType-template">Template</label>
 		<textarea name="documentType[template]" id="documentType-template" rows="20" cols="60"></textarea>

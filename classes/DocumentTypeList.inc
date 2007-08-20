@@ -35,6 +35,7 @@
 			if (isset($fields['id'])) { $options[] = "id='$fields[id]'"; }
 			if (isset($fields['type'])) { $options[] = "type='$fields[type]'"; }
 			if (isset($fields['template'])) { $options[] = "template='$fields[template]'"; }
+			if (isset($fields['ordering'])) { $options[] = "ordering='$fields[ordering]'"; }
 
 
 			# Finding on fields from other tables required joining those tables.
