@@ -35,11 +35,13 @@
 			$section = count($sections) ? current($sections) : null;
 		}
 
+		$homepage = false;
 		foreach($sections as $s)
 		{
 			# Find out which Sections this Document is a homepage of
 			if ($s->getDocument_id() === $document->getId())
 			{
+				$homepage = true;
 				# Check for Featured Documents in this Section
 				$types = new DocumentTypeList();
 				$types->find();
@@ -52,9 +54,13 @@
 					}
 				}
 			}
-		}
 
-		$template->blocks[] = new Block('documents/siblings.inc',array('document'=>$document));
+			# Display the siblings only if this is the homepage of a section
+			if ($homepage)
+			{
+				$template->blocks[] = new Block('documents/siblings.inc',array('document'=>$document));
+			}
+		}
 	}
 	else { $_SESSION['errorMessages'][] = new Exception('documents/unknownDocument'); }
 
