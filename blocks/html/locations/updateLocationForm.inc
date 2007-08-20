@@ -84,14 +84,9 @@
 </fieldset>
 <fieldset><legend>Directions</legend>
 	<?php
-		include APPLICATION_HOME.'/html/editors/fckeditor/FCKeditor.php';
-		$FCKeditor = new FCKeditor("directions");
-		$FCKeditor->BasePath = BASE_URL.'/editors/fckeditor/';
-		$FCKeditor->ToolbarSet = 'Custom';
-
-		$FCKeditor->Value = $this->location->getDirections();
-
-		$FCKeditor->create();
+		$content = $this->location->getDirections();
+		$content_field_name = 'directions';
+		include APPLICATION_HOME.'/includes/editors/'.EDITOR.'/editor_init.inc';
 	?>
 </fieldset>
 <fieldset><legend>Submit</legend>

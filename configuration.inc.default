@@ -101,9 +101,10 @@ define('COPYRIGHT',"/**
 
 	/**
 	 * WYSIWYG Editor
-	 * Choose from: FCKeditor, wymeditor
+	 * Uncomment one of the following
 	 */
-	define('EDITOR','FCKeditor');
+	#define('EDITOR','FCKeditor');
+	define('EDITOR','tiny_mce');
 
 	/**
 	 * Image handling library

@@ -32,7 +32,9 @@
 		<?php
 			if (!$this->document->isLocked())
 			{
-				include APPLICATION_HOME.'/includes/editors/'.EDITOR.'.inc';
+				$content = $this->document->getContent($this->language->getCode());
+				$content_field_name = "content_{$this->language->getCode()}";
+				include APPLICATION_HOME.'/includes/editors/'.EDITOR.'/editor_init.inc';
 			}
 			else
 			{

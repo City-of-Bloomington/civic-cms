@@ -27,14 +27,11 @@
 		</td>
 	</tr>
 	<tr><td colspan="2">
-			<div><label>Description</label></div>
+			<div><label for="description">Description</label></div>
 			<?php
-				include APPLICATION_HOME.'/html/editors/fckeditor/FCKeditor.php';
-				$FCKeditor = new FCKeditor("description");
-				$FCKeditor->BasePath = BASE_URL.'/editors/fckeditor/';
-				$FCKeditor->ToolbarSet = 'Custom';
-
-				$FCKeditor->create();
+				$content = '';
+				$content_field_name = 'description';
+				include APPLICATION_HOME.'/includes/editors/'.EDITOR.'/editor_init.inc';
 			?>
 	</td></tr>
 	</table>

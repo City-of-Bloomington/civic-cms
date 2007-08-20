@@ -8,10 +8,14 @@
  */
 
 	$config = HTMLPurifier_Config::createDefault();
-	#$config->set('HTML', 'Doctype', 'XHTML 1.1');
+	$config->set('HTML', 'Doctype', 'XHTML 1.1');
+	$config->set('HTML','TidyLevel','heavy');
 	$config->set('Output','TidyFormat',true);
 	$config->set('Output','Newline',"\n");
 	$config->set('Cache','DefinitionImpl',null);
+	$config->set('URI','MakeAbsolute',true);
+	$config->set('URI','Host','localhost');
+	$config->set('URI','Base','/content_manager');
 
 
 	$allowedElements = array

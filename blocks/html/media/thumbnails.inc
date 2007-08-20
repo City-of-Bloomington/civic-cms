@@ -9,20 +9,15 @@
 ?>
 <h2>Choose an existing image</h2>
 <h3><?php echo $this->department; ?></h3>
-<script type="text/javascript">
-	function selectImage(url,width,height,alt)
-	{
-		window.opener.SetUrl( url, width, height, alt);
-		self.close();
-	}
-</script>
 <?php
+	include APPLICATION_HOME.'/includes/editors/'.EDITOR.'/filebrowser_init.inc';
 	foreach($this->imageList as $image)
 	{
+		$callback = getFilebrowserCallback($image);
 		$title = View::escape(addslashes($image->getTitle()));
 		echo "
 		<div class=\"thumbnail\">
-			<a href=\"{$image->getURL()}\" onclick=\"selectImage('{$image->getURL()}',{$image->getWidth()},{$image->getHeight()},'$title');return false;\">
+			<a href=\"{$image->getURL()}\" onclick=\"$callback\">
 			<img src=\"".BASE_URL."/media/thumbnail.php?media_id={$image->getId()}\" alt=\"$title\" />
 			{$image->getFilename()}</a>
 		</div>
