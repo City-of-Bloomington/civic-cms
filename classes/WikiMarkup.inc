@@ -6,6 +6,18 @@
  */
 class WikiMarkup
 {
+	/**
+	 * @param string $string
+	 * Formats a string to be safely used as a portion of a URL
+	 */
+	public static function wikify($string)
+	{
+		$string = trim($string);
+		$string = preg_replace('/[^A-Za-z0-9_\s]/','',$string);
+		$string = preg_replace('/\s+/','_',$string);
+		return strtolower($string);
+	}
+
 	public static function parse($string)
 	{
 		return preg_replace_callback('/\[[^]]+\]/',array('WikiMarkup','callback'),$string);
@@ -14,18 +26,18 @@ class WikiMarkup
 	public static function callback($matches)
 	{
 		# Strip off the brackets
-		$documentTitle = substr($matches[0],1,-1);
-		if (ereg("\|",$documentTitle)) { list($linkText,$documentTitle) = explode('|',$documentTitle); }
+		$link = substr($matches[0],1,-1);
+		if (ereg("\|",$link)) { list($linkText,$link) = explode('|',$link); }
 
 		# You should only be able to specify either an attachment or an anchor.
 		# Having both in a link makes no sense.
-		if (ereg("\^",$documentTitle)) { list($documentTitle,$attachmentFilename) = explode('^',$documentTitle); }
-		if (ereg("\#",$documentTitle)) { list($documentTitle,$anchor) = explode('#',$documentTitle); }
+		if (ereg("\^",$link)) { list($link,$attachmentFilename) = explode('^',$link); }
+		if (ereg("\#",$link)) { list($link,$anchor) = explode('#',$link); }
 
-		if ($documentTitle)
+		if ($link)
 		{
-			$documentTitle = html_entity_decode($documentTitle);
-			$list = new DocumentList(array('title_or_alias'=>$documentTitle));
+			$wikiTitle = WikiMarkup::wikify($link);
+			$list = new DocumentList(array('wikiTitle_or_alias'=>$wikiTitle));
 			if (count($list))
 			{
 				# Draw a link to the first document we find
@@ -39,10 +51,10 @@ class WikiMarkup
 				# We couldn't find a Document Title that matched
 				# Check if this is supposed to be a full URL
 				$pattern = '/(www\.|https?:\/\/)([\w\.]+)([\#\,\/\~\?\&\=\;\%\-\w+\.]+)/';
-				if (preg_match($pattern,$documentTitle))
+				if (preg_match($pattern,$link))
 				{
 					# If they didn't put in an http://, we need to add it to the url
-					$url = $documentTitle;
+					$url = $link;
 					if (!ereg('://',$url)) { $url = 'http://'.$url; }
 				}
 			}

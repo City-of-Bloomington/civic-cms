@@ -8,15 +8,15 @@
  	$url = explode('?',$url);
 
  	$title = $url[0];
-	$title = str_replace('_',' ',$title);
+	$wikiTitle = WikiMarkup::wikify($title);
 
-	$list = new DocumentList(array('title_or_alias'=>$title,'active'=>date('Y-m-d')));
+	$list = new DocumentList(array('wikiTitle_or_alias'=>$wikiTitle,'active'=>date('Y-m-d')));
 	switch (count($list))
 	{
 		case 0:
 			echo "
 			<h2>404 Not Found</h2>
-			<p>$title</p>
+			<p>$wikiTitle</p>
 			";
 		break;
 

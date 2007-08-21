@@ -31,6 +31,7 @@
 
 				if (isset($fields['id'])) { $options[] = "id='$fields[id]'"; }
 				if (isset($fields['title'])) { $options[] = "title='$fields[title]'"; }
+				if (isset($fields['wikiTitle'])) { $options[] = "wikiTitle='$fields[wikiTitle]'"; }
 				if (isset($fields['alias'])) { $options[] = "alias='$fields[alias]'"; }
 				if (isset($fields['feature_title'])) { $options[] = "feature_title='$fields[feature_title]'"; }
 				if (isset($fields['created'])) { $options[] = "created='$fields[created]'"; }
@@ -56,9 +57,9 @@
 				# Finding on fields from other tables required joining those tables.
 				# You can add fields from other tables to $options by adding the join SQL
 				# to $this->joins here
-				if (isset($fields['title_or_alias']))
+				if (isset($fields['wikiTitle_or_alias']))
 				{
-					$options[] = "(title='$fields[title_or_alias]' or alias='$fields[title_or_alias]')";
+					$options[] = "(wikiTitle='$fields[wikiTitle_or_alias]' or alias='$fields[wikiTitle_or_alias]')";
 				}
 
 				if (ereg('type',$this->sort))

@@ -8,6 +8,7 @@
 	{
 		private $id;
 		private $title;
+		private $wikiTitle;
 		private $alias;
 		private $feature_title;
 		private $created;
@@ -85,6 +86,8 @@
 			if (!count($this->getDocumentSections())) { throw new Exception('documents/missingSection'); }
 			#if (!$this->description) { throw new Exception('missingDescription'); }
 
+			if (!$this->wikiTitle) { $this->wikiTitle = WikiMarkup::wikify($this->title); }
+
 			# Make sure we've got something for content
 			$hasContent = false;
 			foreach($this->getContent() as $lang=>$content)
@@ -99,6 +102,7 @@
 
 			$fields = array();
 			$fields['title'] = $this->title;
+			$fields['wikiTitle'] = $this->wikiTitle;
 			$fields['alias'] = $this->alias ? $this->alias : null;
 			$fields['feature_title'] = $this->feature_title ? $this->feature_title : null;
 			$fields['created'] = $this->created;
@@ -668,8 +672,12 @@
 		/**
 		 * Generic Setters
 		 */
-		public function setTitle($string) { $this->title = trim($string); }
-		public function setAlias($string) { $this->alias = trim($string); }
+		public function setTitle($string)
+		{
+			$this->title = trim($string);
+			$this->wikiTitle = WikiMarkup::wikify($this->title);
+		}
+		public function setAlias($string) { $this->alias = WikiMarkup::wikify($string); }
 		public function setFeature_title($string) { $this->feature_title = trim($string); }
 		public function setModifiedBy($user) { $this->modifiedBy = $user->getId(); }
 		public function setPublishDate($date) { $this->publishDate = is_array($date) ? $this->dateArrayToString($date) : $date; }
