@@ -43,6 +43,11 @@
 			if (isset($fields['document_id'])) { $options[] = "document_id='$fields[document_id]'"; }
 			if (isset($fields['location_id'])) { $options[] = "location_id='$fields[location_id]'"; }
 
+			if (isset($fields['first_letter']))
+			{
+				$options[] = "upper(substr(name,1,1))='$fields[first_letter]'";
+			}
+
 
 			# Finding on fields from other tables required joining those tables.
 			# You can add fields from other tables to $options by adding the join SQL

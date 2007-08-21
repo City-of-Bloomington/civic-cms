@@ -58,6 +58,11 @@
 					$options[] = "(publishDate<='$fields[active]' and (retireDate is null or retireDate>'$fields[active]'))";
 				}
 
+				if (isset($fields['first_letter']))
+				{
+					$options[] = "upper(substr(title,1,1))='$fields[first_letter]'";
+				}
+
 
 				# Finding on fields from other tables required joining those tables.
 				# You can add fields from other tables to $options by adding the join SQL

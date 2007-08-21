@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
@@ -23,7 +23,8 @@
 
 			if ($id)
 			{
-				$sql = "select * from documentTypes where id=?";
+				if (is_numeric($id)) { $sql = 'select * from documentTypes where id=?'; }
+				else { $sql = 'select * from documentTypes where type=?'; }
 				try
 				{
 					$query = $PDO->prepare($sql);
