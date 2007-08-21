@@ -19,6 +19,11 @@
 			$this->limit = $limit;
 			$this->groupBy = $groupBy;
 
+			# Sorting on type needs to join the documentTypes table
+			if (preg_match('/type/',$this->sort))
+			{
+				$this->joins.= ' left join documentTypes t on documentType_id=t.id';
+			}
 
 			$options = array();
 
@@ -62,11 +67,6 @@
 					$options[] = "(wikiTitle='$fields[wikiTitle_or_alias]' or alias='$fields[wikiTitle_or_alias]')";
 				}
 
-				if (ereg('type',$this->sort))
-				{
-					# Sorting on type needs to join the documentTypes table
-					$this->joins.= ' left join documentTypes t on documentType_id=t.id';
-				}
 				if (isset($fields['section_id']))
 				{
 					$this->joins.= ' left join document_sections s on documents.id=s.document_id';
