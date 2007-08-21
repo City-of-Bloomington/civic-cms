@@ -667,7 +667,13 @@
 			else return null;
 		}
 
-		public function getURL() { return BASE_URL.'/'.urlencode(strtr($this->title,' ','_')); }
+		/**
+		 * Return a URL that can always navigate to this document
+		 */
+		public function getURL()
+		{
+			return BASE_URL.'/documents/viewDocument.php?document_id='.$this->id;
+		}
 
 		/**
 		 * Generic Setters
