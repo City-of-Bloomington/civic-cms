@@ -7,7 +7,7 @@
 	function getFilebrowserCallback($media)
 	{
 		$title = View::escape(addslashes($media->getTitle()));
-		return "selectImage('{$media->getURL()}',{$media->getWidth()},{$media->getHeight()},'$title');return false;"
+		return "selectImage('{$media->getURL()}',{$media->getWidth()},{$media->getHeight()},'$title');return false;";
 	}
 ?>
 <script type="text/javascript">
