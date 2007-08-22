@@ -8,10 +8,14 @@
 	$template = new Template();
 	if (isset($_GET['search']) && $_GET['search'])
 	{
-		$search = new Search();
-		$results = $search->find($_GET['search']);
+		try
+		{
+			$search = new Search();
+			$results = $search->find($_GET['search']);
 
-		$template->blocks[] = new Block('documents/searchResults.inc',array('results'=>$results));
+			$template->blocks[] = new Block('documents/searchResults.inc',array('results'=>$results));
+		}
+		catch (Exception $e) { exception_handler($e); }
 	}
 	$template->render();
 ?>

@@ -145,8 +145,16 @@
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 			if (false === $query->execute($values)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 
-			$search = new Search();
-			$search->updateDocument($this);
+			try
+			{
+				$search = new Search();
+				$search->updateDocument($this);
+			}
+			catch (Exception $e)
+			{
+				# Any problems with updating the search should not throw an error
+				exception_handler($e);
+			}
 		}
 
 		private function insert($values,$preparedFields)
@@ -161,8 +169,16 @@
 			$sql = "select created from documents where id=$this->id";
 			foreach($PDO->query($sql) as $row) { $this->created = $row['created']; }
 
-			$search = new Search();
-			$search->addDocument($this);
+			try
+			{
+				$search = new Search();
+				$search->addDocument($this);
+			}
+			catch (Exception $e)
+			{
+				# Any problems with updating the search should not throw an error
+				exception_handler($e);
+			}
 		}
 
 		public function delete()
