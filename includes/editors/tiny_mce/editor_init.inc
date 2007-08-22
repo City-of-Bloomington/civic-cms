@@ -102,4 +102,4 @@
 		return false;
     }
 </script>
-<textarea name="<?php echo $content_field_name; ?>" id="<?php echo $content_field_name; ?>" rows="15" cols="80"><?php echo $content ?></textarea>
+<textarea name="<?php echo $content_field_name; ?>" id="<?php echo $content_field_name; ?>" rows="40" cols="80"><?php echo $content ?></textarea>

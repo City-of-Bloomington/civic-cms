@@ -16,6 +16,9 @@
 		$FCKeditor->ToolbarSet = 'Custom';
 		$FCKeditor->Value = $content;
 
+		$FCKeditor->Width = '600';
+		$FCKeditor->Height = '600';
+
 		$FCKeditor->create();
 	}
 	else
