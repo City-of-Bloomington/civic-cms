@@ -54,12 +54,11 @@
 					}
 				}
 			}
-
-			# Display the siblings only if this is the homepage of a section
-			if ($homepage)
-			{
-				$template->blocks[] = new Block('documents/siblings.inc',array('document'=>$document));
-			}
+		}
+		# Display the siblings only if this is the homepage of a section
+		if ($homepage)
+		{
+			$template->blocks[] = new Block('documents/siblings.inc',array('document'=>$document));
 		}
 	}
 	else { $_SESSION['errorMessages'][] = new Exception('documents/unknownDocument'); }
