@@ -27,7 +27,8 @@
 
 			if ($id)
 			{
-				$sql = "select * from calendars where id=?";
+				if (is_numeric($id)) { $sql = 'select * from calendars where id=?'; }
+				else { $sql = 'select * from calendars where name=?'; }
 				try
 				{
 					$query = $PDO->prepare($sql);
