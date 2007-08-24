@@ -145,6 +145,7 @@ li.current>a { background-color:#cccccc; width:100%; }
 
 /* Page Navigation Stuff */
 .pageNavigation { }
+.pageNavigation li { display:inline; }
 .pageNavigation a { }
 .pageNavigation button { }
 

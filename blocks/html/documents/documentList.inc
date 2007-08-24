@@ -5,7 +5,11 @@
  * @author Cliff Inghamn <inghamn@bloomington.in.gov>
  * @param DocumentList $this->documentList
  * @param string $this->title
+ * @param GET page
  */
+	if (!isset($_GET['page'])) { $_GET['page'] = 0; }
+	$pages = $this->documentList->getPagination(50);
+	$iterator = new LimitIterator($this->documentList->getIterator(),$pages[$_GET['page']],$pages->getPageSize());
 ?>
 <div class="interfaceBox">
 	<div class="titleBar">
@@ -87,7 +91,7 @@
 	</thead>
 	<tbody>
 	<?php
-		foreach($this->documentList as $document)
+		foreach($iterator as $document)
 		{
 			$url = $document->permitsEditingBy($_SESSION['USER']) ?
 					new URL(BASE_URL."/documents/updateDocument.php?document_id={$document->getId()};lang=$_SESSION[LANGUAGE]") :
@@ -139,3 +143,6 @@
 	</tbody>
 	</table>
 </div>
+<?php
+	include FRAMEWORK.'/pageNavigation.inc';
+?>
