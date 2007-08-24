@@ -1,0 +1,39 @@
+#!/usr/local/php/bin/php
+<?php
+/**
+ * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+ * @author Cliff Ingham <inghamn@bloomington.in.gov>
+ * Shell script suitable for use in CRON
+ * Creates a new backup and cleans out older backups
+ */
+
+ 	/**
+ 	 *	This needs to point to where you've installed the content manager
+ 	 */
+	include '/var/www/sites/content_manager/configuration.inc';
+
+	$backup = new Backup();
+	try { $backup->save(); }
+	catch (Exception $e) { exception_handler($e); }
+
+
+	/**
+	 * Set how far back you want store backups
+	 */
+	$lastWeek = strtotime('-1 week');
+	$dir = new DirectoryIterator(APPLICATION_HOME.'/backups');
+	foreach($dir as $file)
+	{
+		if (!$file->isDot())
+		{
+			if (substr($file->getFilename(),-2)=='gz')
+			{
+				if ($file->getATime() < $lastWeek)
+				{
+					unlink($file->getPathname());
+				}
+			}
+		}
+	}
+?>
