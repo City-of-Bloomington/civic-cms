@@ -78,7 +78,16 @@
 		"-li[class|style]," +
 		"dd[class|style]," +
 		"dl[class|style]," +
-		"dt[class|style]"
+		"dt[class|style]" +
+		"form[action|class|enctype|id|method<get?post|onsubmit]," +
+		"fieldset,legend," +
+		"label[class|for|id]," +
+		"input[checked<checked|class|id|maxlength|name|size|type<button?checkbox?file?hidden?image?password?radio?reset?submit?text]," +
+		"select[multiple<multiple|name|onchange]," +
+		"option[value]," +
+		"optgroup," +
+		"textarea[class|cols|id|name|rows]," +
+		"button[accesskey|class|id|name|onclick|type|value],"
 	}
 	);
 
