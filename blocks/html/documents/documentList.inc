@@ -7,9 +7,13 @@
  * @param string $this->title
  * @param GET page
  */
-	if (!isset($_GET['page'])) { $_GET['page'] = 0; }
-	$pages = $this->documentList->getPagination(50);
-	$iterator = new LimitIterator($this->documentList->getIterator(),$pages[$_GET['page']],$pages->getPageSize());
+	if (count($this->documentList) > 50)
+	{
+		if (!isset($_GET['page'])) { $_GET['page'] = 0; }
+		$pages = $this->documentList->getPagination(50);
+		$documents = new LimitIterator($this->documentList->getIterator(),$pages[$_GET['page']],$pages->getPageSize());
+	}
+	else { $documents = $this->documentList; }
 ?>
 <div class="interfaceBox">
 	<div class="titleBar">
@@ -91,7 +95,7 @@
 	</thead>
 	<tbody>
 	<?php
-		foreach($iterator as $document)
+		foreach($documents as $document)
 		{
 			$url = $document->permitsEditingBy($_SESSION['USER']) ?
 					new URL(BASE_URL."/documents/updateDocument.php?document_id={$document->getId()};lang=$_SESSION[LANGUAGE]") :
@@ -144,5 +148,5 @@
 	</table>
 </div>
 <?php
-	include FRAMEWORK.'/pageNavigation.inc';
+	if (isset($pages)) { include FRAMEWORK.'/pageNavigation.inc'; }
 ?>
