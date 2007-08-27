@@ -1,28 +1,29 @@
 <?php
 /**
- * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Calendar $this->calendar
  * @param array $this->date
+ * Display 14 days of events starting on the given date
  */
-	$timestamp = mktime(0,0,0,$this->date['mon'],$this->date['mday'],$this->date['year']);
-	$lastSunday = strtotime('-1 Sunday',$timestamp);
-	$nextSunday = strtotime('Sunday',$timestamp);
+	$now = mktime(0,0,0,$this->date['mon'],$this->date['mday'],$this->date['year']);
+	$then = strtotime('+14 day',$now);
 
-	$date = getdate($timestamp);
-	$week = date('W',$timestamp);
+	$recurrences = $this->calendar->getEventRecurrenceArray($now,$then);
 ?>
 <div class="interfaceBox">
-	<div class="titleBar"><?php echo "{$this->date['year']} Week $week"; ?></div>
+	<div class="titleBar"><?php echo date('M j,Y',$now).' to '.date('M j,Y',$then); ?></div>
 	<table class="calendar">
 	<?php
-		$recurrences = $this->calendar->getEventRecurrenceArray($lastSunday,$nextSunday);
-		for($i=0; $i<=6; $i++)
+		for($i=0; $i<=13; $i++)
 		{
-			$date = getdate(strtotime("+$i day",$timestamp));
+			$timestamp = strtotime("+$i day",$now);
+			$date = getdate($timestamp);
+
+			$currentDateString = date('D, M j',$timestamp);
 			echo "
-			<tr><th>$date[weekday], $date[year]-$date[mon]-$date[mday]</th>
+			<tr><th>$currentDateString</th>
 				<td>
 			";
 

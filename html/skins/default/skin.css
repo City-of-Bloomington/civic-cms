@@ -39,7 +39,7 @@ table { border-collapse:collapse; border:1px solid black; }
 tr { vertical-align:top; }
 td { padding-left:.5em; padding-right:.5em; background-color:inherit; }
 th { text-align:left; background-color:#dddddd; padding-left:.5em; padding-right:.5em; vertical-align: top; font-weight:bold; }
-th a:link,th a:visited { color:white; background-color:inherit; }
+th a:link,th a:visited { color:#3366cc; background-color:inherit; }
 form table { border:none; }
 
 ul { margin-top:0em; }
@@ -157,7 +157,7 @@ table.calendar { width:100%; border:2px solid black; }
 table.calendar tr { }
 table.calendar th { padding:0; text-align:center; }
 table.calendar td { padding:0; border:1px solid black; }
-table.calendar .date { float:right; }
+table.calendar .date {  }
 table.calendar ul { list-style-type:none; margin-top:1em; padding:0; }
 table.calendar li { margin-left:0; }
 

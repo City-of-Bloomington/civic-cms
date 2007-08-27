@@ -13,8 +13,8 @@
 	$lastDayOfMonth = date('t',$timestamp);
 	$recurrences = $this->calendar->getEventRecurrenceArray();
 ?>
-<table class="calendar">
-<tr><th colspan="7">
+<div class="interfaceBox">
+	<div class="titleBar">
 	<?php
 		$back = getdate(strtotime('-1 month',$timestamp));
 		$next = getdate(strtotime('+1 month',$timestamp));
@@ -30,38 +30,24 @@
 		$url->parameters['mon'] = $next['mon'];
 		echo "<button type=\"button\" class=\"next\" onclick=\"document.location.href='{$url->getURL()}'\">Next</button>";
 	?>
-	</th>
-</tr>
-<tr><th>S</th><th>M</th><th>T</th><th>W</th><th>R</th><th>F</th><th>S</th></tr>
+	</div>
+<table class="calendar">
 <?php
-
-	$firstWeekDay = $calendarDate['wday'];
-	$currentWeekDay = $firstWeekDay;
-	$firstweek = true;
-	$currentDay = 1;
-
-
 	# Loop through all the days of the month
+	$currentDay = 1;
 	while($currentDay <= $lastDayOfMonth)
 	{
-		# Draw blank days for the first week
-		if ($firstweek)
-		{
-			echo "<tr>";
-			for($i=1; $i<=$firstWeekDay; $i++) { echo "<td></td>"; }
-			$firstweek = false;
-		}
-
-		# Start a new row each sunday
-		if ($currentWeekDay == 0) { echo "<tr>"; }
-
 		# Markup for a single day in the calendar
 		$url = new URL(BASE_URL.'/calendars');
 		$url->parameters = array('year'=>$year,'mon'=>$month,'mday'=>$currentDay);
 		if ($this->calendar->getId()) { $url->parameters['calendar_id'] = $this->calendar->getId(); }
 		$url->parameters['view'] = 'day';
 
-		echo "<td><span class=\"date\"><a href=\"{$url->getURL()}\">$currentDay</a></span>";
+		echo "
+		<tr><th class=\"date\"><a href=\"{$url->getURL()}\">$currentDay</a></th>
+			<td>
+		";
+
 		$day = str_pad($currentDay,2,'0',STR_PAD_LEFT);
 		if (isset($recurrences[$year][$month][$day]))
 		{
@@ -80,22 +66,12 @@
 			}
 			echo '</ul>';
 		}
-		echo "</td>\n";
+		echo "
+			</td>
+		</tr>
+		";
 
-
-		# Close off each row on Saturday
-		if ($currentWeekDay == 6) { echo "</tr>"; }
-
-
-
-		$currentWeekDay++;
-		$currentWeekDay = $currentWeekDay % 7;
 		$currentDay++;
 	}
-
-	# Finish out the table with blank days
-	for($i=$currentWeekDay; $i % 7 != 0; $i++) { echo "<td></td>"; }
-
 ?>
-</tr>
 </table>
