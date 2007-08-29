@@ -6,48 +6,55 @@
  * @param GET calendar_id
  */
 	$calendar = isset($_GET['calendar_id']) ? new Calendar($_GET['calendar_id']) : new Calendar();
-	$template = new Template();
+	$template = isset($_GET['format']) ? new Template($_GET['format'],$_GET['format']) : new Template();
 
-	# Figure out which display we're going to use
-	if (isset($_GET['view']))
+	if ($template->outputFormat==='html')
 	{
-		switch ($_GET['view'])
+		# Figure out which display we're going to use
+		if (isset($_GET['view']))
 		{
-			case 'month': $block = 'calendars/monthView.inc'; break;
-			case 'week': $block = 'calendars/weekView.inc'; break;
-			case 'day': $block = 'calendars/dayView.inc'; break;
-			default: $block = 'calendars/monthView.inc';
+			switch ($_GET['view'])
+			{
+				case 'month': $block = 'calendars/monthView.inc'; break;
+				case 'week': $block = 'calendars/weekView.inc'; break;
+				case 'day': $block = 'calendars/dayView.inc'; break;
+				default: $block = 'calendars/weekView.inc';
+			}
 		}
-	}
-	else { $block = 'calendars/monthView.inc'; }
+		else { $block = 'calendars/weekView.inc'; }
 
-	# Get the date that we're wanting to display
-	$now = getdate();
-	if (isset($_GET['year']) || isset($_GET['mon']) || isset($_GET['mday']))
-	{
-		$date['year'] = isset($_GET['year']) ? $_GET['year'] : $now['year'];
-		$date['mon'] = isset($_GET['mon']) ? $_GET['mon'] : $now['mon'];
-		$date['mday'] = isset($_GET['mday']) ? $_GET['mday'] : $now['mday'];
-	}
-	else { $date = $now; }
-
-	$url = new URL($_SERVER['REQUEST_URI']);
-	$template->blocks[] = new Block('calendars/viewButtons.inc',array('url'=>$url,'calendar'=>$calendar));
-	$template->blocks[] = new Block($block,array('calendar'=>$calendar,'date'=>$date));
-
-
-	# Only show the event buttons if they can actually add an event
-	$addable = false;
-	if (isset($_SESSION['USER']))
-	{
-		$list = new CalendarList();
-		$list->find();
-		foreach($list as $cal)
+		# Get the date that we're wanting to display
+		$now = getdate();
+		if (isset($_GET['year']) || isset($_GET['mon']) || isset($_GET['mday']))
 		{
-			if ($cal->permitsEditingBy($_SESSION['USER'])) { $addable = true; }
+			$date['year'] = isset($_GET['year']) ? $_GET['year'] : $now['year'];
+			$date['mon'] = isset($_GET['mon']) ? $_GET['mon'] : $now['mon'];
+			$date['mday'] = isset($_GET['mday']) ? $_GET['mday'] : $now['mday'];
 		}
-	}
+		else { $date = $now; }
 
-	if ($addable) { $template->blocks[] = new Block('calendars/eventButtons.inc',array('calendar'=>$calendar)); }
+		$url = new URL($_SERVER['REQUEST_URI']);
+		$template->blocks[] = new Block('calendars/viewButtons.inc',array('url'=>$url,'calendar'=>$calendar));
+		$template->blocks[] = new Block($block,array('calendar'=>$calendar,'date'=>$date));
+
+
+		# Only show the event buttons if they can actually add an event
+		$addable = false;
+		if (isset($_SESSION['USER']))
+		{
+			$list = new CalendarList();
+			$list->find();
+			foreach($list as $cal)
+			{
+				if ($cal->permitsEditingBy($_SESSION['USER'])) { $addable = true; }
+			}
+		}
+
+		if ($addable) { $template->blocks[] = new Block('calendars/eventButtons.inc',array('calendar'=>$calendar)); }
+	}
+	if ($template->outputFormat==='ical')
+	{
+		$template->blocks[] = new Block('calendars/ical.inc',array('calendar'=>$calendar));
+	}
 	$template->render();
 ?>
