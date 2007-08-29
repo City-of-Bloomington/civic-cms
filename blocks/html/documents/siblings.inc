@@ -35,24 +35,25 @@
 		{
 			$name = View::escape($section->getName());
 			echo "
-			<div class=\"interfaceBox\">
-				<div class=\"titleBar\">$name Documents</div>
+			<div class=\"interfaceBox siblings\">
+				<h3>Information in $name</h3>
 				<ul>
 			";
 			# List the first five documents
 			$count = 0;
 			foreach($documents as $document)
 			{
-				# When we've displayed five documents, start new list, but keep it hidden
-				if ($count==5)
-				{
-					echo "
-					</ul>
-					<button type=\"button\" class=\"more\" onclick=\"toggleDisplay('siblings_{$section->getId()}',this);\">More</button>
-					<ul id=\"siblings_{$section->getId()}\" style=\"display:none;\">";
-				}
 				if ($document->getId() != $this->document->getId())
 				{
+					# When we've displayed five documents, start new list, but keep it hidden
+					if ($count==5)
+					{
+						echo "
+						</ul>
+						<button type=\"button\" class=\"more\" onclick=\"toggleDisplay('siblings_{$section->getId()}',this);\">More</button>
+						<ul id=\"siblings_{$section->getId()}\" style=\"display:none;\">";
+					}
+
 					$count++; # Count how many documents we've displayed
 					$title = View::escape($document->getTitle());
 					echo "<li><a href=\"{$document->getURL()}\">$title</a></li>\n";

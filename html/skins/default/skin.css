@@ -182,6 +182,10 @@ ul.expandable li.bullet a { background: url('/skins/default/images/bullet.gif') 
 ul.expandable li.open ul { display: block; }
 ul.expandable li.closed ul { display: none; }
 
+div.featured { }
+div.siblings { }
+div.subsections li { display:inline; margin-right:1em; }
+
 
 /*  Custom buttons for forms */
 /* Rick doesn't want these custom images right now.

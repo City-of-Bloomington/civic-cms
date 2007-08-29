@@ -50,7 +50,12 @@
 					$documentList = new DocumentList(array('documentType_id'=>$type->getId(),'section_id'=>$s->getId(),'featured'=>1,'active'=>date('Y-m-d')));
 					if (count($documentList))
 					{
-						$template->blocks[] = new Block('sections/featuredDocuments.inc',array('documentType'=>$type,'documentList'=>$documentList));
+						$featuredDocuments = new Block('sections/featuredDocuments.inc');
+						$featuredDocuments->documentType = $type;
+						$featuredDocuments->documentList = $documentList;
+						$featuredDocuments->section = $s;
+
+						$template->blocks[] = $featuredDocuments;
 					}
 				}
 			}
