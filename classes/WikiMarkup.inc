@@ -13,8 +13,8 @@ class WikiMarkup
 	public static function wikify($string)
 	{
 		$string = html_entity_decode(trim($string));
-		$string = preg_replace('/[^A-Za-z0-9_\s]/','',$string);
-		$string = preg_replace('/\s+/','_',$string);
+		$string = preg_replace('/[^A-Za-z0-9_\-\s]/','',$string);
+		$string = preg_replace('/[\s\-_]+/','-',$string);
 		return strtolower($string);
 	}
 
