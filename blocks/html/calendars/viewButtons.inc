@@ -20,7 +20,7 @@
 	}
 ?>
 <div class="contextualMenu">
-	<form method="get" action="<?php $_SERVER['PHP_SELF']; ?>">
+	<form method="get" action="<?php echo BASE_URL; ?>/calendars">
 	<fieldset>
 		<?php
 			foreach($this->url->parameters as $field=>$value)
