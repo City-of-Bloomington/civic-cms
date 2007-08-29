@@ -37,7 +37,7 @@
 				catch (Exception $e) { throw $e; }
 
 				$result = $query->fetchAll();
-				if (count($result[0]))
+				if (count($result))
 				{
 					$user = $result[0];
 
