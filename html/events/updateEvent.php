@@ -47,6 +47,11 @@
 			$_SESSION['event']->$set($value);
 		}
 	}
+	# Description comes in as HTML from the WYWSIWYG editor
+	if (isset($_POST['description']))
+	{
+		$_SESSION['event']->setDescription($_POST['description']);
+	}
 
 	# Save the Event only when they ask for it
 	if (isset($_POST['action']) && $_POST['action']=='save')
@@ -65,7 +70,7 @@
 	# Figure out which tab to show
 	$tab = isset($_REQUEST['tab']) ? $_REQUEST['tab'] : 'info';
 	$template = new Template('popup');
-	$template->blocks[] = new Block('events/update/tabs.inc');
+	$template->blocks[] = new Block('events/update/tabs.inc',array('currentTab'=>$tab));
 	$form = new Block("events/update/$tab.inc",array('event'=>$_SESSION['event']));
 
 	# Handle any extra data the current tab needs

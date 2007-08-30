@@ -66,12 +66,6 @@
 			<input name="event[endTime]" id="event-endTime" size="7" maxlength="7" value="<?php echo date('g:ia',$end); ?>" />
 		</td>
 	</tr>
-
-	<tr><td colspan="2">
-			<div><label for="event-description">Description</label></div>
-			<textarea name="event[description]" id="event-description" rows="3" cols="60"><?php echo View::escape($this->event->getDescription()); ?></textarea>
-	</td></tr>
-
 	</table>
 </fieldset>
 
@@ -104,8 +98,8 @@
 						echo "<option value=\"\"> - $office_name</option>";
 						foreach($office as $person)
 						{
-							$person_name = View::escape($person_name);
-							echo "<option value=\"{$person->username}\"> - - {$person->name}</option>";
+							$person_name = View::escape($person->name);
+							echo "<option value=\"{$person->username}\"> - - $person_name</option>";
 						}
 					}
 				}
@@ -182,7 +176,7 @@
 </fieldset>
 
 <fieldset><legend>Submit</legend>
-		<input type="hidden" name="tab" id="tab" value="sections" />
+		<input type="hidden" name="tab" id="tab" value="description" />
 		<input type="hidden" name="action" id="action" value="next" />
 		<button type="submit" class="next">Next</button>
 		<button type="cancel" class="cancel" onclick="self.close();">Cancel</button>

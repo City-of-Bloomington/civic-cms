@@ -46,7 +46,7 @@
 			# Finding on fields from other tables required joining those tables.
 			# You can add fields from other tables to $options by adding the join SQL
 			# to $this->joins here
-			if (array_key_exists('locationGroup_id',$fields))
+			if (is_array($fields) && array_key_exists('locationGroup_id',$fields))
 			{
 				$this->joins.= ' left join locationGroup_locations on id=location_id';
 				$options[] = $fields['locationGroup_id'] ? "locationGroup_id='$fields[locationGroup_id]'" : "locationGroup_id is null";
