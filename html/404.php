@@ -14,8 +14,19 @@
 	switch (count($list))
 	{
 		case 0:
-			$_GET['search'] = str_replace('-',' ',$wikiTitle);
-			include APPLICATION_HOME.'/html/documents/search.php';
+			$string = str_replace('-',' ',$wikiTitle);
+			$template = new Template();
+			$template->blocks[] = new Block('404.inc');
+			try
+			{
+				$search = new Search();
+				$results = $search->find($string);
+
+				$template->blocks[] = new Block('documents/searchForm.inc',array('search'=>$string));
+				$template->blocks[] = new Block('documents/searchResults.inc',array('results'=>$results));
+			}
+			catch (Exception $e) { exception_handler($e); }
+			$template->render();
 		break;
 
 		case 1:

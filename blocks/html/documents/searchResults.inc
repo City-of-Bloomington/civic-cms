@@ -7,12 +7,19 @@
  */
 ?>
 <h2>Search Results</h2>
-<ul>
 <?php
-	foreach($this->results as $document)
+	if (count($this->results))
 	{
-		$title = View::escape($document->getTitle());
-		echo "<li><a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$document->getId()}\">$title</a></li>";
+		echo '<ul>';
+		foreach($this->results as $document)
+		{
+			$title = View::escape($document->getTitle());
+			echo "<li><a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$document->getId()}\">$title</a></li>";
+		}
+		echo '</ul>';
+	}
+	else
+	{
+		echo '<p>We were unable to find any documents that match your search terms.</p>';
 	}
 ?>
-</ul>
