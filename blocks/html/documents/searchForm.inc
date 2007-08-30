@@ -5,11 +5,10 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param string $this->search
  */
-	$search = View::escape($this->search);
 ?>
 <form method="get" action="<?php echo BASE_URL; ?>/documents/search.php">
 <fieldset><legend>Search</legend>
-	<input name="search" id="search" value="<?php echo $search; ?>" />
+	<input name="search" id="search" value="<?php echo $this->search; ?>" />
 	<button type="submit" class="search">Search</button>
 </fieldset>
 </form>
