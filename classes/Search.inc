@@ -7,7 +7,7 @@
  * will work, you must have run /scripts/install_search.php
  */
 	ini_set('include_path',ini_get('include_path').ZEND);
-	require_once('Zend/Search/Lucene.php');
+	require_once 'Zend/Search/Lucene.php';
 
 	class Search
 	{
@@ -52,10 +52,27 @@
 			$this->addDocument($document);
 		}
 
-		public function find($query)
+		public function find($string)
 		{
-			$results = array();
+			try
+			{
+				$userQuery = Zend_Search_Lucene_Search_QueryParser::parse($string);
+				$query = new Zend_Search_Lucene_Search_Query_Boolean();
+				$query->addSubquery($userQuery, true /* required */);
+			}
+			catch (Exception $e)
+			{
+				# The string they entered threw an exception when we tried to parse it
+				# The string is most likely invalid.
+				# Clean the string of anything that could be bad and try again
+				$query = strtolower($string);
+				$query = preg_replace('/[^a-z0-9\s]/','',$query);
+				$query = preg_replace('/\b(and)\b|\b(or)\b|\b(not)\b/',' ',$query);
+			}
+
 			$hits = $this->search->find($query);
+
+			$results = array();
 			foreach($hits as $hit)
 			{
 				$results[] = new Document($hit->document_id);
