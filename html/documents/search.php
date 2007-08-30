@@ -13,6 +13,8 @@
 			$search = new Search();
 			$results = $search->find($_GET['search']);
 
+
+			$template->blocks[] = new Block('documents/searchForm.inc',array('search'=>$_GET['search']));
 			$template->blocks[] = new Block('documents/searchResults.inc',array('results'=>$results));
 		}
 		catch (Exception $e) { exception_handler($e); }
