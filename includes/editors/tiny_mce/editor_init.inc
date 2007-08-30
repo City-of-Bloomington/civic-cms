@@ -39,7 +39,7 @@
 		theme_advanced_toolbar_align : "left",
 		plugins : 'table,paste',
 		theme_advanced_buttons1 : "bold,italic,underline,|,sub,sup,|,bullist,numlist,|,hr,removeformat,formatselect",
-		theme_advanced_buttons2 : "cut,copy,paste,|,pastetext,pasteword,selectall,|,undo,redo,|,image,|,cleanup,help",
+		theme_advanced_buttons2 : "cut,copy,paste,|,pastetext,pasteword,selectall,|,undo,redo,|,image,|,code,cleanup,help",
 		theme_advanced_buttons3 : "tablecontrols",
 
 		valid_elements : "" +
@@ -63,7 +63,7 @@
 		"-th[class|colspan|rowspan|width|height|align|valign|style|scope]," +
 		"caption[class|style]," +
 		"-div[id|class|style]," +
-		"-span[style|class]," +
+		//"-span[style|class]," +
 		"-pre," +
 		"address," +
 		"-h1," +
