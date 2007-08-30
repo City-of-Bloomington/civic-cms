@@ -52,7 +52,7 @@ class WikiMarkup
 		if (preg_match('/\|/',$link)) { list($linkText,$link) = explode('|',$link); }
 
 		# Links starting with slash get treated like relative links
-		if ($link[0]=='/')
+		if (substr($link,0,1)=='/')
 		{
 			$title = isset($linkText) ? $linkText : $link;
 			return "<a href=\"$link\">$title</a>";
