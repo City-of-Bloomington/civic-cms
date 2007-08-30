@@ -14,10 +14,8 @@
 	switch (count($list))
 	{
 		case 0:
-			echo "
-			<h2>404 Not Found</h2>
-			<p>$wikiTitle</p>
-			";
+			$_GET['search'] = str_replace('-',' ',$wikiTitle);
+			include APPLICATION_HOME.'/html/documents/search.php';
 		break;
 
 		case 1:
