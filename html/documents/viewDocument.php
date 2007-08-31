@@ -14,8 +14,12 @@
  */
 	$template = new Template();
 
-	if (isset($_GET['document_id'])) { $document = new Document($_GET['document_id']); }
-	if (isset($_POST['document_id'])) { $document = new Document($_POST['document_id']); }
+	try
+	{
+		if (isset($_GET['document_id'])) { $document = new Document($_GET['document_id']); }
+		if (isset($_POST['document_id'])) { $document = new Document($_POST['document_id']); }
+	}
+	catch (Exception $e) { $_SESSION['errorMessages'][] = $e; }
 
 	if (isset($document))
 	{
@@ -66,7 +70,6 @@
 			$template->blocks[] = new Block('documents/siblings.inc',array('document'=>$document));
 		}
 	}
-	else { $_SESSION['errorMessages'][] = new Exception('documents/unknownDocument'); }
 
 	$template->render();
 ?>
