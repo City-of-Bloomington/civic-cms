@@ -28,7 +28,7 @@
 		remove_trailing_nbsp : true,
 		relative_urls : false,
 		remove_script_host : true,
-		document_base_url : "<?php echo BASE_URL; ?>",
+		document_base_url : "/",
 
 		file_browser_callback : 'mediaBrowser',
 
