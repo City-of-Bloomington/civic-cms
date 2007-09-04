@@ -190,6 +190,20 @@
 			}
 		}
 
+		/**
+		 * Returns the number of documents associated with the facets
+		 * in this facet group
+		 */
+		public function hasDocuments($fields=null)
+		{
+			$count = 0;
+			foreach($this->getFacets() as $facet)
+			{
+				$count+= count($facet->getDocuments($fields));
+			}
+			return $count;
+		}
+
 
 		/**
 		 * Generic Getters
