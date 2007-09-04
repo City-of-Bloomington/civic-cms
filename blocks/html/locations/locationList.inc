@@ -3,31 +3,10 @@
  * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
- * @param LocationGroup $this->locationGroup
+ * @param LocationList $this->locationList
+ * @param string $this->title
  */
 ?>
-<h2>Locations</h2>
-<form method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-<fieldset><legend>Location Group</legend>
-	<select name="locationGroup_id" onchange="this.form.submit();">
-		<option value="null">Other</option>
-	<?php
-		$list = new LocationGroupList();
-		$list->find();
-		foreach($list as $group)
-		{
-			$name = View::escape($group->getName());
-
-			if (isset($this->locationGroup) && $this->locationGroup->getId()==$group->getId()) { $selected = 'selected="selected"'; }
-			else { $selected = ''; }
-
-			echo "<option value=\"{$group->getId()}\" $selected>$name</option>\n";
-		}
-	?>
-	</select>
-</fieldset>
-</form>
-
 <div class="interfaceBox">
 	<div class="titleBar">
 		<?php
@@ -35,24 +14,13 @@
 			{
 				echo "<button type=\"button\" class=\"addSmall\" onclick=\"document.location.href='".BASE_URL."/locations/addLocation.php';\">Add</button>";
 			}
-
-			if (isset($this->locationGroup))
-			{
-				$name = View::escape($this->locationGroup->getName());
-				$list = new LocationList(array('locationGroup_id'=>$this->locationGroup->getId()));
-			}
-			else
-			{
-				$name = 'Other';
-				$list = new LocationList(array('locationGroup_id'=>null));
-			}
-			echo $name;
+			echo View::escape($this->title);
 		?>
 	</div>
 	<ul><?php
 			$points = array();
 			$info = array();
-			foreach($list as $location)
+			foreach($this->locationList as $location)
 			{
 				$name = View::escape($location->getName());
 

@@ -38,10 +38,12 @@
 			if (isset($fields['address'])) { $options[] = "address='$fields[address]'"; }
 			if (isset($fields['description'])) { $options[] = "description='$fields[description]'"; }
 			if (isset($fields['directions'])) { $options[] = "directions='$fields[directions]'"; }
-			if (isset($fields['latitude'])) { $options[] = "latitude='$fields[latitude]'"; }
-			if (isset($fields['longitude'])) { $options[] = "longitude='$fields[longitude]'"; }
 			if (isset($fields['department_id'])) { $options[] = "department_id='$fields[department_id]'"; }
 
+			# Latitude and longitude are being used for calculating distance.  We can't use them
+			# for an exact search as well
+			#if (isset($fields['latitude'])) { $options[] = "latitude='$fields[latitude]'"; }
+			#if (isset($fields['longitude'])) { $options[] = "longitude='$fields[longitude]'"; }
 
 			# Finding on fields from other tables required joining those tables.
 			# You can add fields from other tables to $options by adding the join SQL
@@ -50,6 +52,22 @@
 			{
 				$this->joins.= ' left join locationGroup_locations on id=location_id';
 				$options[] = $fields['locationGroup_id'] ? "locationGroup_id='$fields[locationGroup_id]'" : "locationGroup_id is null";
+			}
+
+			if ($sort=='distance')
+			{
+				 # Ordering by distance requires giving a point to calculate distance from
+				 if (isset($fields['latitude']) && isset($fields['longitude']))
+				 {
+				 	# We're going to modify the SQL to select distance as well as the ID
+				 	# That way, we'll have distance as a field to order by
+				 	$this->select = "select distinct locations.id,
+				 					((latitude-'$fields[latitude]')*(latitude-'$fields[latitude]')*(36./25.)+
+									(longitude-'$fields[longitude]')*(longitude-'$fields[longitude]')) as distance from locations";
+					$options[] = '(latitude is not null and longitude is not null)';
+				 }
+				 # Without a point, we can't sort by distance
+				 else { $sort = 'name'; }
 			}
 
 			$this->populateList($options);

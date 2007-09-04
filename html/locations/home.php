@@ -6,6 +6,10 @@
  * @param GET locationGroup_id
  */
 	$template = isset($_GET['format']) ? new Template($_GET['format'],$_GET['format']) : new Template();
+	if (isset($_GET['locationGroup_id']) && is_numeric($_GET['locationGroup_id']))
+	{
+		$group = new LocationGroup($_GET['locationGroup_id']);
+	}
 
 	if ($template->outputFormat==='html')
 	{
@@ -19,14 +23,33 @@
 			$groupList->find();
 			$template->blocks[] = new Block('locations/locationGroupList.inc',array('locationGroupList'=>$groupList));
 		}
+
+		$groupSelectionForm = new Block('locations/locationGroupSelectionForm.inc');
+		if (isset($group)) { $groupSelectionForm->locationGroup = $group; }
+		$template->blocks[] = $groupSelectionForm;
 	}
 
 
 	$listBlock = new Block('locations/locationList.inc');
-	if (isset($_GET['locationGroup_id']) && is_numeric($_GET['locationGroup_id']))
+	if (isset($group))
 	{
-		$listBlock->locationGroup = new LocationGroup($_GET['locationGroup_id']);
+		$fields['locationGroup_id'] = $group->getId();
+		$listBlock->title = $group->getName();
 	}
+	else
+	{
+		$fields['locationGroup_id'] = null;
+		$listBlock->title = 'Other';
+	}
+
+	if (isset($_GET['sort']) && isset($_GET['latitude']) && isset($_GET['longitude']))
+	{
+		$sort = 'distance';
+		$fields['latitude'] = $_GET['latitude'];
+		$fields['longitude'] = $_GET['longitude'];
+	}
+	else { $sort = 'name'; }
+	$listBlock->locationList = new LocationList($fields,$sort);
 	$template->blocks[] = $listBlock;
 
 
