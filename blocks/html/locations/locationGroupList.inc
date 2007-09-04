@@ -8,7 +8,12 @@
 ?>
 <div class="interfaceBox">
 	<div class="titleBar">
-		<button type="button" class="addSmall" onclick="document.location.href='<?php echo BASE_URL; ?>/locations/addLocationGroup.php';">Add</button>
+		<?php
+			if (userHasRole(array('Administrator','Webmaster')))
+			{
+				echo "<button type=\"button\" class=\"addSmall\" onclick=\"document.location.href='".BASE_URL."/locations/addLocationGroup.php';\">Add</button>";
+			}
+		?>
 		Location Groups
 	</div>
 	<ul><?php
@@ -16,7 +21,7 @@
 			{
 				$name = View::escape($locationGroup->getName());
 
-				if ($locationGroup->permitsEditingBy($_SESSION['USER']))
+				if (isset($_SESSION['USER']) && $locationGroup->permitsEditingBy($_SESSION['USER']))
 				{
 					$button = "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/locations/updateLocationGroup.php?id={$locationGroup->getId()}';\">Edit</button>";
 				}

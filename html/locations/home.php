@@ -5,17 +5,20 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param GET locationGroup_id
  */
-	$template = new Template();
+	$template = isset($_GET['format']) ? new Template($_GET['format'],$_GET['format']) : new Template();
 
-	if (userHasRole(array('Administrator','Webmaster')))
+	if ($template->outputFormat==='html')
 	{
-		$typeList = new LocationTypeList();
-		$typeList->find();
-		$template->blocks[] = new Block('locations/locationTypeList.inc',array('locationTypeList'=>$typeList));
+		if (userHasRole(array('Administrator','Webmaster')))
+		{
+			$typeList = new LocationTypeList();
+			$typeList->find();
+			$template->blocks[] = new Block('locations/locationTypeList.inc',array('locationTypeList'=>$typeList));
 
-		$groupList = new LocationGroupList();
-		$groupList->find();
-		$template->blocks[] = new Block('locations/locationGroupList.inc',array('locationGroupList'=>$groupList));
+			$groupList = new LocationGroupList();
+			$groupList->find();
+			$template->blocks[] = new Block('locations/locationGroupList.inc',array('locationGroupList'=>$groupList));
+		}
 	}
 
 
@@ -25,6 +28,7 @@
 		$listBlock->locationGroup = new LocationGroup($_GET['locationGroup_id']);
 	}
 	$template->blocks[] = $listBlock;
+
 
 
 	$template->render();
