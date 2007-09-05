@@ -55,7 +55,14 @@
 				catch (Exception $e) { throw $e; }
 
 				$result = $query->fetchAll();
-				foreach($result[0] as $field=>$value) { if ($value) $this->$field = $value; }
+				if (!count($result)) { throw new Exception('media/404'); }
+				else
+				{
+					foreach($result[0] as $field=>$value)
+					{
+						if ($value) $this->$field = $value;
+					}
+				}
 			}
 			else
 			{

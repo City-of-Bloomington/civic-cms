@@ -7,7 +7,15 @@
  *
  * Script to serve all media
  */
-	$media = new Media($_GET['media_id']);
+ 	try { $media = new Media($_GET['media_id']); }
+ 	catch(Exception $e)
+ 	{
+		Header('HTTP/1.0 404 Not Found');
+		$_SESSION['errorMessages'][] = $e;
+		$template = new Template();
+		$template->render();
+		exit();
+ 	}
 	Header('Expires: 0');
 	Header('Pragma: cache');
 	Header('Cache-Control: private');
