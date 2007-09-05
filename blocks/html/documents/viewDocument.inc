@@ -17,7 +17,6 @@
 
 	# We want to render PHP code harmless in the markup, unless
 	# it's specifically enabled by some Webmaster
-	echo "<h3>Current Language: $_SESSION[LANGUAGE]</h3>";
 	if ($this->document->getContent($_SESSION['LANGUAGE']))
 	{
 		$lang = $_SESSION['LANGUAGE'];
