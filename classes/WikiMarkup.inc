@@ -68,7 +68,7 @@ class WikiMarkup
 			$title = isset($linkText) ? $linkText : $link;
 
 			# They should not be trying to do full URLS to bloomington.in.gov
-			if (preg_match('/bloomington.in.gov/',$link)) { return "<span style=\"background-color:red\">[$title]</span>"; }
+			if (preg_match('/http:\/\/bloomington|http:\/\/www\.bloomington/',$link)) { return "<span style=\"background-color:red\">[$title]</span>"; }
 			else { return "<a href=\"$link\">$title</a>"; }
 		}
 
