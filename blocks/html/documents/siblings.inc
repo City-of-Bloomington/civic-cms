@@ -31,7 +31,10 @@
 	foreach($this->document->getSections() as $section)
 	{
 		$documents = $section->getDocuments($sort);
-		if (count($documents))
+		# The curent document will always be included in this list,
+		# But we only want to show this box if there are other documents
+		# in this list
+		if (count($documents)>1)
 		{
 			$name = View::escape($section->getName());
 			echo "
