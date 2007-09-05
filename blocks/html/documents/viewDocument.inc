@@ -17,12 +17,33 @@
 
 	# We want to render PHP code harmless in the markup, unless
 	# it's specifically enabled by some Webmaster
-	if ($this->document->PHPIsEnabled())
+	echo "<h3>Current Language: $_SESSION[LANGUAGE]</h3>";
+	if ($this->document->getContent($_SESSION['LANGUAGE']))
 	{
-		include $this->document->getContentFilename($_SESSION['LANGUAGE']);
+		$lang = $_SESSION['LANGUAGE'];
 	}
 	else
 	{
-		echo WikiMarkup::parse($this->document->getContent($_SESSION['LANGUAGE']));
+		# Try and find a language we do have, English first
+		if ($this->document->getContent('en')) { $lang = 'en'; }
+		else
+		{
+			foreach($this->getContent() as $l=>$content)
+			{
+				if ($content)
+				{
+					$lang = $l;
+					break;
+				}
+			}
+		}
+	}
+	if ($this->document->PHPIsEnabled())
+	{
+		include $this->document->getContentFilename($lang);
+	}
+	else
+	{
+		echo WikiMarkup::parse($this->document->getContent($lang));
 	}
 ?>
