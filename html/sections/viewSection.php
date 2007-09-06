@@ -7,11 +7,15 @@
  *
  * Section Navigation through the site should be handled by this script.
  */
-	$section = new Section($_GET['section_id']);
+ 	try
+ 	{
+ 		$section = new Section($_GET['section_id']);
+		if ($section->getDocument_id()) { $_GET['document_id'] = $section->getDocument_id(); }
+		else { throw new Exception('sections/missingHomeDocument'); }
+ 	}
+ 	catch(Exception $e) { $_SESSION['errorMessages'][] = $e; }
 
 	# make sure we've got a section homepage
-	if ($section->getDocument_id()) { $_GET['document_id'] = $section->getDocument_id(); }
-	else { $_SESSION['errorMessages'][] = new Exception('sections/missingHomeDocument'); }
 
 	include APPLICATION_HOME.'/html/documents/viewDocument.php';
 ?>

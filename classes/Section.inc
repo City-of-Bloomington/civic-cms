@@ -52,7 +52,11 @@
 				catch (Exception $e) { throw $e; }
 
 				$result = $query->fetchAll();
-				foreach($result[0] as $field=>$value) { if ($value) $this->$field = $value; }
+				if (count($result))
+				{
+					foreach($result[0] as $field=>$value) { if ($value) $this->$field = $value; }
+				}
+				else { throw new Exception('sections/unknownSection'); }
 			}
 			else
 			{
