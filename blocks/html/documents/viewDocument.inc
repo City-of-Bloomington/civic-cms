@@ -27,7 +27,7 @@
 		if ($this->document->getContent('en')) { $lang = 'en'; }
 		else
 		{
-			foreach($this->getContent() as $l=>$content)
+			foreach($this->document->getContent() as $l=>$content)
 			{
 				if ($content)
 				{
