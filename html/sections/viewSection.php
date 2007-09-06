@@ -9,6 +9,9 @@
  */
 	$section = new Section($_GET['section_id']);
 
-	$_GET['document_id'] = $section->getDocument_id();
+	# make sure we've got a section homepage
+	if ($section->getDocument_id()) { $_GET['document_id'] = $section->getDocument_id(); }
+	else { $_SESSION['errorMessages'][] = new Exception('sections/missingHomeDocument'); }
+
 	include APPLICATION_HOME.'/html/documents/viewDocument.php';
 ?>
