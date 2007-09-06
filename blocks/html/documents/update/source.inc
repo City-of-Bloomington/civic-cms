@@ -5,6 +5,8 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Document $this->document
  * @param Language $this->language
+ * @param URL $this->return_url
+ * @param int $this->instance_id
  */
 ?>
 <h2>Document Source Code</h2>
@@ -15,6 +17,8 @@ There will be no stripping or escaping of characters, tags, code, or anything el
 	<fieldset><legend>Language</legend>
 		<input type="hidden" name="tab" id="tab" value="info" />
 		<input type="hidden" name="action" id="action" value="next" />
+		<input type="hidden" name="return_url" value="<?php echo $this->return_url; ?>" />
+		<input type="hidden" name="instance_id" value="<?php echo $this->instance_id; ?>" />
 
 		<label for="lang">Language</label>
 		<select name="lang" id="lang">

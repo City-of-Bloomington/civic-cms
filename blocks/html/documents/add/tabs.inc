@@ -6,6 +6,7 @@
 * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
 * @author Cliff Ingham <inghamn@bloomington.in.gov>
 * @param string $this->current_tab
+* @param URL $this->return_url
 */
 	$href = new URL(BASE_URL.'/documents/addDocument.php');
 
@@ -40,6 +41,6 @@
 <div>
 	<p>Move on to the next tab.  The document will not be saved to the database until you click the "Save" button.</p>
 	<button type="submit" class="next" onclick="FRAMEWORK.processTabbedForm('documentForm','<?php echo $this->next_tab; ?>','next');">Next</button>
-	<button type="cancel" class="cancel" onclick="self.close();">Cancel</button>
+	<button type="cancel" class="cancel" onclick="document.location.href='<?php echo $this->return_url; ?>';">Cancel</button>
 	<button type="button" class="save" onclick="FRAMEWORK.processTabbedForm('documentForm','<?php echo $this->current_tab; ?>','save');">Save</button>
 </div>

@@ -4,6 +4,8 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Document $this->document
+ * @param URL $this->return_url
+ * @param int $this->instance_id
  */
 ?>
 <div class="interfaceBox">
@@ -14,6 +16,8 @@
 	<fieldset><legend>Link</legend>
 		<input type="hidden" name="tab" id="tab" value="info" />
 		<input type="hidden" name="action" id="action" value="next" />
+		<input type="hidden" name="return_url" value="<?php echo $this->return_url; ?>" />
+		<input type="hidden" name="instance_id" value="<?php echo $this->instance_id; ?>" />
 
 		<table>
 		<tr><td><label for="documentLink-title" class="required">Title</label></td>

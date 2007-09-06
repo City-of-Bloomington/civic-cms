@@ -5,12 +5,16 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Document $this->document
  * @param SectionList $this->sectionList
+ * @param URL $this->return_url
+ * @param int $this->instance_id
  */
 ?>
 <form id="documentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<fieldset><legend class="required">Sections</legend>
 		<input type="hidden" name="tab" id="tab" value="facets" />
 		<input type="hidden" name="action" id="action" value="next" />
+		<input type="hidden" name="return_url" value="<?php echo $this->return_url; ?>" />
+		<input type="hidden" name="instance_id" value="<?php echo $this->instance_id; ?>" />
 	<table>
 	<tr><th>Section</th><th>Linked</th><th>Featured</th></tr>
 		<?php

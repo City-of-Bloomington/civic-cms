@@ -6,7 +6,8 @@
 ?>
 <form method="get" action="<?php echo BASE_URL; ?>/documents/addDocument.php">
 <fieldset>
-	<select name="documentType_id" onchange="this.form.target='_blank';this.form.submit();">
+	<input name="return_url" type="hidden" value="<?php echo $_SERVER['REQUEST_URI']; ?>" />
+	<select name="documentType_id" onchange="this.form.submit();">
 		<option value="">Add</option>
 		<?php
 			$list = new DocumentTypeList();

@@ -7,7 +7,11 @@
  */
 	if (isset($_SESSION['USER']) && $this->document->permitsEditingBy($_SESSION['USER']))
 	{
-		$editButton = "<button type=\"button\" class=\"editSmall\" onclick=\"window.open('".BASE_URL."/documents/updateDocument.php?document_id={$this->document->getId()}');\">Edit</button>";
+		$url = new URL(BASE_URL.'/documents/updateDocument.php');
+		$url->parameters['document_id'] = $this->document->getId();
+		$url->parameters['return_url'] = $_SERVER['REQUEST_URI'];
+		$editButton = "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='$url';\">Edit</button>";
+		#$editButton = "<a href=\"".BASE_URL."/documents/updateDocument.php?document_id={$this->document->getId()}\" class=\"editSmall\">Edit</a>";
 	}
 	else { $editButton = ""; }
 

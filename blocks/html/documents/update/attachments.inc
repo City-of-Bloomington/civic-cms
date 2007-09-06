@@ -4,6 +4,8 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Document $this->document
+ * @param URL $this->return_url
+ * @param int $this->instance_id
  */
 ?>
 <h2>Add an Attachment</h2>
@@ -11,6 +13,8 @@
 	<fieldset><legend>Browse</legend>
 		<input type="hidden" name="tab" id="tab" value="links" />
 		<input type="hidden" name="action" id="action" value="next" />
+		<input type="hidden" name="return_url" value="<?php echo $this->return_url; ?>" />
+		<input type="hidden" name="instance_id" value="<?php echo $this->instance_id; ?>" />
 
 
 		<p>Browse for an existing attachment.</p>

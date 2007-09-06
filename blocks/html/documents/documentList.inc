@@ -97,9 +97,15 @@
 	<?php
 		foreach($documents as $document)
 		{
-			$url = $document->permitsEditingBy($_SESSION['USER']) ?
-					new URL(BASE_URL."/documents/updateDocument.php?document_id={$document->getId()};lang=$_SESSION[LANGUAGE]") :
-					new URL($document->getURL());
+			if ($document->permitsEditingBy($_SESSION['USER']))
+			{
+				$url =  new URL(BASE_URL.'/documents/updateDocument.php');
+				$url->parameters['document_id'] = $document->getId();
+				$url->parameters['lang'] = $_SESSION['LANGUAGE'];
+				$url->parameters['return_url'] = $_SERVER['REQUEST_URI'];
+			}
+			else { $url = new URL($document->getURL()); }
+
 			$url->parameters['tab'] = 'info';
 
 			$modifiedBy = substr($document->getModifiedByUser()->getFirstname(),0,1).substr($document->getModifiedByUser()->getLastname(),0,1);
@@ -109,7 +115,7 @@
 
 			echo "
 			<tr><td style=\"width:100px; white-space:nowrap; overflow:hidden;\">
-					<a href=\"$url\" onclick=\"window.open('$url');return false;\" title=\"$title\">$partialTitle</a></td>
+					<a href=\"$url\" title=\"$title\">$partialTitle</a></td>
 			";
 			if ($document->permitsEditingBy($_SESSION['USER']))
 			{

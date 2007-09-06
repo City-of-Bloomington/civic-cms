@@ -5,6 +5,8 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Document $this->document
  * @param FacetGroupList $this->facetGroupList
+ * @param URL $this->return_url
+ * @param int $this->instance_id
  */
 ?>
 <form id="documentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
@@ -26,5 +28,7 @@
 	<div>
 		<input type="hidden" name="tab" id="tab" value="info" />
 		<input type="hidden" name="action" id="action" value="next" />
+		<input type="hidden" name="return_url" value="<?php echo $this->return_url; ?>" />
+		<input type="hidden" name="instance_id" value="<?php echo $this->instance_id; ?>" />
 	</div>
 </form>

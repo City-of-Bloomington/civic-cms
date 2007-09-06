@@ -5,12 +5,16 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Document $this->document
  * @param string $this->language
+ * @param URL $this->return_url
+ * @param int $this->instance_id
  */
 ?>
 <form id="documentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<fieldset><legend>Content</legend>
 		<input type="hidden" name="tab" id="tab" value="sections" />
 		<input type="hidden" name="action" id="action" value="next" />
+		<input type="hidden" name="return_url" value="<?php echo $this->return_url; ?>" />
+		<input type="hidden" name="instance_id" value="<?php echo $this->instance_id; ?>" />
 
 		<table>
 		<tr><td><label for="lang">Current Language</label></td>

@@ -19,6 +19,6 @@
 	</style>
 	<style type="text/css" media="print">@import url("<?php echo BASE_URL; ?>/skins/<?php echo $_SESSION['skin']; ?>/print.css");</style>
 	<script type="text/javascript" src="<?php echo BASE_URL; ?>/js/functions.js"></script>
-	<title><?php echo $this->title; ?></title>
+	<title><?php echo View::escape($this->title); ?></title>
 </head>
 <body>

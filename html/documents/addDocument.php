@@ -5,25 +5,44 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param GET documentType_id
  * @param GET section_id (Optionally include a section to pre-select)
+ * @param GET/POST return_url
+ * @param GET/POST instance_id
  */
 	# Make sure they're allowed to edit stuff in this section
 	verifyUser(array('Administrator','Webmaster','Content Creator','Publisher'));
-	if (isset($_GET['section_id']))
-	{
-		$section = new Section($_GET['section_id']);
-		if (!$section->permitsEditingBy($_SESSION['USER'])) { unset($section); }
-	}
 
 	# Set the current language we're working with
 	$language = isset($_REQUEST['lang']) ? new Language($_REQUEST['lang']) : new Language($_SESSION['LANGUAGE']);
 
-	# If they pass a documentType_id in the URL, start a new Add Document process
-	if (isset($_GET['documentType_id']))
+	# Keep track of where to send them back to
+	$return_url = isset($_REQUEST['return_url']) ? new URL($_REQUEST['return_url']) : new URL(BASE_URL.'/documents');
+
+
+	# Documents are stored in the SESSION while they are edited.  To be able
+	# to keep track of which document we're editing we'll create an instance_id
+	# The instance_id must be passed between all forms
+	if (isset($_REQUEST['instance_id'])) { $instance_id = $_REQUEST['instance_id']; }
+	else
 	{
-		$type = new DocumentType($_GET['documentType_id']);
-		$_SESSION['document'] = new Document();
-		if (isset($section)) { $_SESSION['document']->addSection($section); }
-		$_SESSION['document']->setDocumentType($type,$_SESSION['LANGUAGE']);
+		# Create a new instance
+		if (!isset($_SESSION['document'])) { $_SESSION['document'] = array(); }
+		$_SESSION['document'][] = new Document();
+		$keys = array_keys($_SESSION['document']);
+		$instance_id = end($keys);
+		$_SESSION['document'][$instance_id] = new Document();
+
+		if (isset($_GET['documentType_id']))
+		{
+			$type = new DocumentType($_GET['documentType_id']);
+			$_SESSION['document'][$instance_id]->setDocumentType($type,$_SESSION['LANGUAGE']);
+		}
+
+		if (isset($_GET['section_id']))
+		{
+			$section = new Section($_GET['section_id']);
+			if (!$section->permitsEditingBy($_SESSION['USER'])) { unset($section); }
+			else { $_SESSION['document'][$instance_id]->addSection($section); }
+		}
 	}
 
 
@@ -35,14 +54,14 @@
 		foreach($_POST['document'] as $field=>$value)
 		{
 			$set = "set".ucfirst($field);
-			$_SESSION['document']->$set($value);
+			$_SESSION['document'][$instance_id]->$set($value);
 		}
 	}
 
 	# Only Administrators and webmasters can change the Department
 	if (userHasRole(array('Administrator','Webmaster')))
 	{
-		if (isset($_POST['department_id'])) { $_SESSION['document']->setDepartment_id($_POST['department_id']); }
+		if (isset($_POST['department_id'])) { $_SESSION['document'][$instance_id]->setDepartment_id($_POST['department_id']); }
 	}
 
 	# Content has to be handled specially
@@ -53,28 +72,28 @@
 		$contentField = "content_{$l->getCode()}";
 		if (isset($_POST[$contentField]))
 		{
-			$_SESSION['document']->setContent($_POST[$contentField],$l->getCode());
+			$_SESSION['document'][$instance_id]->setContent($_POST[$contentField],$l->getCode());
 		}
 
 		$sourceField = "source_{$l->getCode()}";
 		if (isset($_POST[$sourceField]))
 		{
-			$_SESSION['document']->setSource($_POST[$sourceField],$l->getCode());
+			$_SESSION['document'][$instance_id]->setSource($_POST[$sourceField],$l->getCode());
 		}
 	}
 	# Handle document locking
 	if (isset($_POST['locked']))
 	{
 		# Make sure they're allowed to change the lock status
-		if (!$_SESSION['document']->isLocked() || userHasRole('Administrator') || $_SESSION['USER']->getId()==$_SESSION['document']->getLockedBy())
+		if (!$_SESSION['document'][$instance_id]->isLocked() || userHasRole('Administrator') || $_SESSION['USER']->getId()==$_SESSION['document'][$instance_id]->getLockedBy())
 		{
 			if ($_POST['locked']=='yes')
 			{
-				if (!$_SESSION['document']->isLocked()) { $_SESSION['document']->setLockedByUser($_SESSION['USER']); }
+				if (!$_SESSION['document'][$instance_id]->isLocked()) { $_SESSION['document'][$instance_id]->setLockedByUser($_SESSION['USER']); }
 			}
 			else
 			{
-				$_SESSION['document']->setLockedBy(null);
+				$_SESSION['document'][$instance_id]->setLockedBy(null);
 			}
 		}
 	}
@@ -90,7 +109,7 @@
 		# Make sure they're allowed to edit the raw source code
 		if (userHasRole(array('Administrator','Webmaster')))
 		{
-			$_SESSION['document']->setContent(file_get_contents($_FILES['source']['tmp_name']),$_POST['lang']);
+			$_SESSION['document'][$instance_id]->setContent(file_get_contents($_FILES['source']['tmp_name']),$_POST['lang']);
 		}
 	}
 	# Save the document only when they ask for it
@@ -98,10 +117,9 @@
 	{
 		try
 		{
-			$_SESSION['document']->save();
-			unset($_SESSION['document']);
-			$template = new Template('closePopup');
-			$template->render();
+			$_SESSION['document'][$instance_id]->save();
+			unset($_SESSION['document'][$instance_id]);
+			Header("Location: $return_url");
 			exit();
 		}
 		catch (Exception $e) { $_SESSION['errorMessages'][] = $e; }
@@ -118,9 +136,12 @@
 	# Figure out which tab we're supposed to show
 	$tab = isset($_REQUEST['tab']) ? $_REQUEST['tab'] : 'info';
 	$template = new Template('popup');
-	$template->blocks[] = new Block('documents/add/tabs.inc',array('current_tab'=>$tab));
+	$template->blocks[] = new Block('documents/add/tabs.inc',array('current_tab'=>$tab,'return_url'=>$return_url));
 
-	$form = new Block("documents/update/$tab.inc",array('document'=>$_SESSION['document']));
+	$form = new Block("documents/update/$tab.inc");
+	$form->document = $_SESSION['document'][$instance_id];
+	$form->return_url = $return_url;
+	$form->instance_id = $instance_id;
 	# Handle any extra data the current tab needs
 	switch ($tab)
 	{
@@ -136,7 +157,7 @@
 			# Make sure they're allowed to edit the raw source code
 			if ( !(userHasRole('Webmaster') || userHasRole('Administrator')) )
 			{
-				$form = new Block('documents/update/info.inc',array('document'=>$_SESSION['document']));
+				$form = new Block('documents/update/info.inc',array('document'=>$_SESSION['document'][$instance_id]));
 			}
 			$form->language = $language;
 		break;
