@@ -128,7 +128,7 @@ class WikiMarkup
 		else { $title = $link; }
 		if ($title)
 		{
-			$wikiTitle = WikiMarkup::wikify($link);
+			$wikiTitle = WikiMarkup::wikify($title);
 			$list = new DocumentList(array('wikiTitle_or_alias'=>$wikiTitle));
 			if (count($list))
 			{
