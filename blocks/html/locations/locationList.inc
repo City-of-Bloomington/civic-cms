@@ -23,12 +23,13 @@
 			foreach($this->locationList as $location)
 			{
 				$name = View::escape($location->getName());
+				$description = View::escape($location->getDescription());
 
 				# Make sure the location has Latitude and Longitude before trying to map it
 				if ($location->getLatitude() && $location->getLongitude())
 				{
 					$points[] = "new GLatLng({$location->getLatitude()},{$location->getLongitude()})";
-					$info[] = "\"$name\"";
+					$info[] = "\"<h3>$name</h3><p>$description</p>\"";
 
 					$i = count($points) - 1;
 					$mapLink = "<a href=\"#map\" onclick=\"popup($i);\">$name</a>";
