@@ -12,7 +12,7 @@
 		<?php
 			if (userHasRole(array('Administrator','Webmaster','Content Creator')))
 			{
-				echo "<button type=\"button\" class=\"addSmall\" onclick=\"document.location.href='".BASE_URL."/locations/addLocation.php';\">Add</button>";
+				echo "<button type=\"button\" class=\"addSmall\" onclick=\"document.location.href='".BASE_URL."/locations/updateLocation.php';\">Add</button>";
 			}
 			echo View::escape($this->title);
 		?>
@@ -39,7 +39,7 @@
 
 				if (isset($_SESSION['USER']) && $location->permitsEditingBy($_SESSION['USER']))
 				{
-					$button = "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/locations/updateLocation.php?id={$location->getId()}';\">Edit</button>";
+					$button = "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/locations/updateLocation.php?location_id={$location->getId()}';\">Edit</button>";
 				}
 				else { $button = ''; }
 

@@ -6,9 +6,9 @@
  */
 	verifyUser(array('Administrator','Webmaster','Content Creator'));
 
-	if (isset($_GET['id']))
+	if (isset($_REQUEST['location_id']))
 	{
-		$location = new Location($_GET['id']);
+		$location = new Location($_REQUEST['location_id']);
 
 		# Make sure they're allowed to edit this Location
 		if (!$location->permitsEditingBy($_SESSION['USER']))
@@ -18,10 +18,12 @@
 			exit();
 		}
 	}
-	if (isset($_POST['id']))
-	{
-		$location = new Location($_POST['id']);
+	# We're creating a new Location
+	else { $location = new Location(); }
 
+
+	if (isset($_POST['location']))
+	{
 		# Make sure they're allowed to edit this location
 		if (!$location->permitsEditingBy($_SESSION['USER']))
 		{

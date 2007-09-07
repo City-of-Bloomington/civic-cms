@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Location $this->location
@@ -9,7 +9,7 @@
 <h1>Update Location</h1>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 <fieldset><legend>Location Info</legend>
-	<input name="id" type="hidden" value="<?php echo $this->location->getId(); ?>" />
+	<input name="location_id" type="hidden" value="<?php echo $this->location->getId(); ?>" />
 	<table>
 
 	<tr><td><label for="location-name" class="required">Name</label></td>
