@@ -25,21 +25,24 @@
 			{
 				$sections = array();
 				foreach($template->document->getSections() as $section) { $sections[] = $section->getId(); }
-				$sections = implode(',',$sections);
-
-
-				$sql = "select event_id from event_sections s
-						left join events e on s.event_id=e.id
-						where section_id in ($sections)
-						and now()<=startDate and startDate<=(now() + interval 7 day)";
-				$query = $PDO->query($sql);
-
-				foreach($query->fetchAll() as $row)
+				if (count($sections))
 				{
-					$this->upcomingEvents[] = new Event($row['event_id']);
-				}
+					$sections = implode(',',$sections);
 
-				$this->renderIncludeFile($this);
+
+					$sql = "select event_id from event_sections s
+							left join events e on s.event_id=e.id
+							where section_id in ($sections)
+							and now()<=startDate and startDate<=(now() + interval 7 day)";
+					$query = $PDO->query($sql);
+
+					foreach($query->fetchAll() as $row)
+					{
+						$this->upcomingEvents[] = new Event($row['event_id']);
+					}
+
+					$this->renderIncludeFile($this);
+				}
 			}
 		}
 	}

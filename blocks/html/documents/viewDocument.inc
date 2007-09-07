@@ -41,6 +41,11 @@
 			}
 		}
 	}
+	# If we still couldn't find a language, then somehow, this document
+	# has no content.  Just display a blank page in English
+	if (!isset($lang)) { $lang = 'en'; }
+
+
 	if ($this->document->PHPIsEnabled())
 	{
 		include $this->document->getContentFilename($lang);
