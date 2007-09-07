@@ -145,4 +145,16 @@ define('COPYRIGHT',"/**
 	 * External Web Services
 	 */
 	define('DIRECTORY_WEBSERVICE','http://isotope.bloomington.in.gov/directory');
+
+	/**
+	 * Bad URL Definitions
+	 * Regular expressions defining what bad links would look like
+	 * URLs that match these regular expressions will be treated as bad
+	 * links by the WikiMarkup parser
+	 * Each of these must be a regular expression in Perl syntax
+	 */
+	 $BAD_LINK_EXPRESSIONS = array(
+		'/http:\/\/bloomington/',
+		'/http:\/\/www\.bloomington\./'
+	 );
 ?>

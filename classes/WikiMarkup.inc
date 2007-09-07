@@ -47,6 +47,8 @@ class WikiMarkup
 	 */
 	public static function callback($matches)
 	{
+		global $BAD_LINK_EXPRESSIONS;
+
 		# Strip off the brackets
 		$link = substr($matches[0],1,-1);
 		if (preg_match('/\|/',$link)) { list($linkText,$link) = explode('|',$link); }
@@ -68,8 +70,11 @@ class WikiMarkup
 			$title = isset($linkText) ? $linkText : $link;
 
 			# They should not be trying to do full URLS to bloomington.in.gov
-			if (preg_match('/http:\/\/bloomington|http:\/\/www\.bloomington/',$link)) { return "<span style=\"background-color:red\">[$title]</span>"; }
-			else { return "<a href=\"$link\">$title</a>"; }
+			foreach($BAD_LINK_EXPRESSIONS as $regex)
+			{
+				if (preg_match($regex,$link)) { return "<span style=\"background-color:red\">[$title]</span>"; }
+			}
+			return "<a href=\"$link\">$title</a>";
 		}
 
 		# Check for all the colon specified link types
