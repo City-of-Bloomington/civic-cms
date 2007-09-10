@@ -31,10 +31,11 @@
 		$phone = View::escape($this->event->getContact_phone());
 		$email = View::escape($this->event->getContact_email());
 
+		$description = WikiMarkup::parse($this->event->getDescription());
 		echo "
 		<p><strong>Location:</strong> $location</p>
 		<p><strong>Contact:</strong> $name. $phone, $email</p>
-		<div>{$this->event->getDescription()}</div>
+		<div>$description</div>
 		";
 	?>
 </div>

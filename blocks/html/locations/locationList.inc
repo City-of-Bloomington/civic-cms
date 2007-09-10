@@ -126,7 +126,7 @@
 	if (isset($this->locationGroup))
 	{
 		echo '<div id="locationGroup_description">';
-		echo $this->locationGroup->getDescription();
+		echo WikiMarkup::parse($this->locationGroup->getDescription());
 		echo '</div>';
 	}
 ?>
