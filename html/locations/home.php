@@ -5,11 +5,13 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param GET locationGroup_id
  */
-	$template = isset($_GET['format']) ? new Template($_GET['format'],$_GET['format']) : new Template();
-	if (isset($_GET['locationGroup_id']) && is_numeric($_GET['locationGroup_id']))
+	$format = isset($_GET['format']) ? strtolower($_GET['format']) : 'html';
+	switch($format)
 	{
-		$group = new LocationGroup($_GET['locationGroup_id']);
+		case 'html': $template = new Template('backend'); break;
+		default: $template = new Template($_GET['format'],$_GET['format']);
 	}
+
 
 	if ($template->outputFormat==='html')
 	{
@@ -27,26 +29,37 @@
 
 
 	$listBlock = new Block('locations/locationList.inc');
-	if (isset($group))
+	if (isset($_GET['locationGroup_id']) && is_numeric($_GET['locationGroup_id']))
 	{
-		$fields['locationGroup_id'] = $group->getId();
-		$listBlock->title = $group->getName();
-		$listBlock->locationGroup = $group;
+		if ($_GET['locationGroup_id']>0)
+		{
+			$group = new LocationGroup($_GET['locationGroup_id']);
+			$fields['locationGroup_id'] = $group->getId();
+			$listBlock->title = $group->getName();
+			$listBlock->locationGroup = $group;
+		}
+		else
+		{
+			$fields['locationGroup_id'] = null;
+			$listBlock->title = 'Other';
+		}
+
+
+		if (isset($_GET['sort']) && isset($_GET['latitude']) && isset($_GET['longitude']))
+		{
+			$sort = 'distance';
+			$fields['latitude'] = $_GET['latitude'];
+			$fields['longitude'] = $_GET['longitude'];
+		}
+		else { $sort = 'name'; }
+
+		$listBlock->locationList = new LocationList($fields,$sort);
 	}
 	else
 	{
-		$fields['locationGroup_id'] = null;
-		$listBlock->title = 'Other';
+		$listBlock->title = 'Locations';
 	}
 
-	if (isset($_GET['sort']) && isset($_GET['latitude']) && isset($_GET['longitude']))
-	{
-		$sort = 'distance';
-		$fields['latitude'] = $_GET['latitude'];
-		$fields['longitude'] = $_GET['longitude'];
-	}
-	else { $sort = 'name'; }
-	$listBlock->locationList = new LocationList($fields,$sort);
 	$template->blocks[] = $listBlock;
 
 

@@ -8,7 +8,31 @@
  * @param LocationGroup $this->locationGroup
  */
 ?>
-<div class="interfaceBox">
+<h2>Locations</h2>
+<form method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<fieldset>
+	<select name="locationGroup_id" onchange="this.form.submit();">
+		<option value="">Choose a group</option>
+	<?php
+		$list = new LocationGroupList();
+		$list->find();
+		foreach($list as $group)
+		{
+			$name = View::escape($group->getName());
+
+			if (isset($this->locationGroup) && $this->locationGroup->getId()==$group->getId()) { $selected = 'selected="selected"'; }
+			else { $selected = ''; }
+
+			echo "<option value=\"{$group->getId()}\" $selected>$name</option>\n";
+		}
+		$selected = $this->title=='Other' ? 'selected="selected"' : '';
+		echo "<option value=\"0\" $selected>Other</option>";
+	?>
+	</select>
+</fieldset>
+</form>
+<?php if(isset($this->locationList)) { ?>
+<div class="interfaceBox" id="location_list">
 	<div class="titleBar">
 		<?php
 			if (userHasRole(array('Administrator','Webmaster','Content Creator')))
@@ -17,35 +41,7 @@
 			}
 			echo View::escape($this->title);
 		?>
-		<form method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-		<fieldset>
-			<select name="locationGroup_id" onchange="this.form.submit();">
-				<option value="null">Other</option>
-			<?php
-				$list = new LocationGroupList();
-				$list->find();
-				foreach($list as $group)
-				{
-					$name = View::escape($group->getName());
-
-					if (isset($this->locationGroup) && $this->locationGroup->getId()==$group->getId()) { $selected = 'selected="selected"'; }
-					else { $selected = ''; }
-
-					echo "<option value=\"{$group->getId()}\" $selected>$name</option>\n";
-				}
-			?>
-			</select>
-		</fieldset>
-		</form>
 	</div>
-	<?php
-		if (isset($this->locationGroup))
-		{
-			echo '<div>';
-			echo $this->locationGroup->getDescription();
-			echo '</div>';
-		}
-	?>
 	<ul><?php
 			$points = array();
 			$info = array();
@@ -77,8 +73,8 @@
 		?>
 	</ul>
 </div>
-<h2><a name="map">Map</a></h2>
-<div id="map" style="width:500px; height:500px; border:1px solid black;">
+
+<div id="location_map">
 </div>
 <script src="http://maps.google.com/maps?file=api&amp;v=2.77&amp;key=ABQIAAAACqoQOZ2EAqg13jBR94AfexQNf7mhA6pY0zZO8gsdk0EdOTN8sxQDa2L0KB-dgEIEE-5Qas2VnQE6DQ" type="text/javascript"></script>
 <script type="text/javascript">
@@ -89,7 +85,7 @@
 		echo "var points = [$points];\n";
 		echo "var info = [$info];\n";
 	?>
-	var map = new GMap2(document.getElementById("map"));
+	var map = new GMap2(document.getElementById("location_map"));
 	function loadMap()
 	{
 		if (GBrowserIsCompatible())
@@ -124,3 +120,13 @@
 
 	setTimeout('loadMap()',500);
 </script>
+<?php
+	} # End of If checking for $this->locationList
+
+	if (isset($this->locationGroup))
+	{
+		echo '<div id="locationGroup_description">';
+		echo $this->locationGroup->getDescription();
+		echo '</div>';
+	}
+?>

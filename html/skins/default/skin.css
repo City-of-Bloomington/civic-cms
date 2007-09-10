@@ -230,6 +230,11 @@ button.down { width:16px; height:16px; padding-top:16px; background: url('/skins
 #warning h1 { color:inherit; background-color:red; font-size:14pt; }
 
 
+/* Locations page layout */
+#location_list { float:right; width:200px; margin-right:1em; }
+#location_map { width:250px; height:250px; border:2px solid black; margin-right:200px; }
+#locationGroup_description { margin-right:200px; }
+
 /* Various Styles for text */
 .copyright { text-align:center; font-size:10pt; }
 .comments { color:red; background-color:inherit; }
