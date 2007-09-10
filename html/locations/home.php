@@ -23,10 +23,6 @@
 			$groupList->find();
 			$template->blocks[] = new Block('locations/locationGroupList.inc',array('locationGroupList'=>$groupList));
 		}
-
-		$groupSelectionForm = new Block('locations/locationGroupSelectionForm.inc');
-		if (isset($group)) { $groupSelectionForm->locationGroup = $group; }
-		$template->blocks[] = $groupSelectionForm;
 	}
 
 
@@ -35,6 +31,7 @@
 	{
 		$fields['locationGroup_id'] = $group->getId();
 		$listBlock->title = $group->getName();
+		$listBlock->locationGroup = $group;
 	}
 	else
 	{

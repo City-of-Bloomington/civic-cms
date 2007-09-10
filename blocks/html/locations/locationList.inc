@@ -5,6 +5,7 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param LocationList $this->locationList
  * @param string $this->title
+ * @param LocationGroup $this->locationGroup
  */
 ?>
 <div class="interfaceBox">
@@ -16,7 +17,35 @@
 			}
 			echo View::escape($this->title);
 		?>
+		<form method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+		<fieldset>
+			<select name="locationGroup_id" onchange="this.form.submit();">
+				<option value="null">Other</option>
+			<?php
+				$list = new LocationGroupList();
+				$list->find();
+				foreach($list as $group)
+				{
+					$name = View::escape($group->getName());
+
+					if (isset($this->locationGroup) && $this->locationGroup->getId()==$group->getId()) { $selected = 'selected="selected"'; }
+					else { $selected = ''; }
+
+					echo "<option value=\"{$group->getId()}\" $selected>$name</option>\n";
+				}
+			?>
+			</select>
+		</fieldset>
+		</form>
 	</div>
+	<?php
+		if (isset($this->locationGroup))
+		{
+			echo '<div>';
+			echo $this->locationGroup->getDescription();
+			echo '</div>';
+		}
+	?>
 	<ul><?php
 			$points = array();
 			$info = array();

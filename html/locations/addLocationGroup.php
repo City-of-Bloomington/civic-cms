@@ -14,6 +14,7 @@
 			$set = 'set'.ucfirst($field);
 			$locationGroup->$set($value);
 		}
+		$locationGroup->setDescription($_POST['description']);
 
 		try
 		{

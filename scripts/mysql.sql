@@ -273,6 +273,7 @@ create table locationGroups (
 	id int unsigned not null primary key auto_increment,
 	name varchar(128) not null,
 	department_id int unsigned not null,
+	description text,
 	foreign key (department_id) references departments(id)
 ) engine=InnoDB;
 

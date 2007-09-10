@@ -27,7 +27,17 @@
 		</td>
 	</tr>
 	</table>
+</fieldset>
 
+<fieldset><legend>Description</legend>
+	<?php
+		$content = '';
+		$content_field_name = 'description';
+		include APPLICATION_HOME.'/includes/editors/'.EDITOR.'/editor_init.inc';
+	?>
+</fieldset>
+
+<fieldset><legend>Submit</legend>
 	<button type="submit" class="submit">Submit</button>
 	<button type="button" class="cancel" onclick="document.location.href='<?php echo BASE_URL; ?>/locations';">Cancel</button>
 </fieldset>

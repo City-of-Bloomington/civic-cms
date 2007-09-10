@@ -9,6 +9,7 @@
 		private $id;
 		private $name;
 		private $department_id;
+		private $description;
 
 		private $department;
 
@@ -55,6 +56,7 @@
 			$fields = array();
 			$fields['name'] = $this->name;
 			$fields['department_id'] = $this->department_id;
+			$fields['description'] = $this->description ? $this->description : null;
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
@@ -111,6 +113,7 @@
 		public function getId() { return $this->id; }
 		public function getName() { return $this->name; }
 		public function getDepartment_id() { return $this->department_id; }
+		public function getDescription() { return $this->description; }
 		public function getDepartment()
 		{
 			if ($this->department_id)
@@ -126,6 +129,7 @@
 		 */
 		public function setName($string) { $this->name = trim($string); }
 		public function setDepartment_id($int) { $this->department = new Department($int); $this->department_id = $int; }
+		public function setDescription($text) { $this->description = trim($text); }
 		public function setDepartment($department) { $this->department_id = $department->getId(); $this->department = $department; }
 	}
 ?>
