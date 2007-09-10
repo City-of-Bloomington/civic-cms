@@ -67,13 +67,19 @@
 						else { $this->ancestors = array(new Section(1)); }
 					}
 
-					$this->renderIncludeFile($this);
-
 					# Remember the ancestral line we're on
 					$this->ancestors[$section->getId()] = $section;
 					$_SESSION['vector'] = $this->ancestors;
 				}
 			}
+			# Just render the top level sections
+			else
+			{
+				$this->section = new Section(1);
+				$this->ancestors = array($this->section);
+			}
+
+			$this->renderIncludeFile($this);
 		}
 	}
 ?>
