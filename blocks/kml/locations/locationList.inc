@@ -5,22 +5,25 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param LocationGroup $this->locationList
  */
-	foreach($this->locationList as $location)
+	if (isset($this->locationList))
 	{
-		$name = View::escape($location->getName());
-		$address = View::escape($location->getAddress());
-		$description = View::escape($location->getDescription());
+		foreach($this->locationList as $location)
+		{
+			$name = View::escape($location->getName());
+			$address = View::escape($location->getAddress());
+			$description = View::escape($location->getDescription());
 
-		$type = View::escape($location->getLocationType()->getType());
+			$type = View::escape($location->getLocationType()->getType());
 
-		echo "
-		<Placemark>
-			<name>$name</name>
-			<description>$description</description>
-			<Point>
-				<coordinates>{$location->getLongitude()},{$location->getLatitude()}</coordinates>
-			</Point>
-		</Placemark>
-		";
+			echo "
+			<Placemark>
+				<name>$name</name>
+				<description>$description</description>
+				<Point>
+					<coordinates>{$location->getLongitude()},{$location->getLatitude()}</coordinates>
+				</Point>
+			</Placemark>
+			";
+		}
 	}
 ?>
