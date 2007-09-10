@@ -8,8 +8,6 @@
 * @param string $this->current_tab
 * @param URL $this->return_url
 */
-	$href = new URL(BASE_URL.'/documents/updateDocument.php');
-
 	$tabs = array('info','content','sections','facets','attachments','links');
 
 	foreach($tabs as $tab)
@@ -20,20 +18,18 @@
 
 		# Display each tab, in turn
 		$name = ucfirst($tab);
-		$href->parameters['tab'] = $tab;
 		$onclick = "FRAMEWORK.processTabbedForm('documentForm','$tab','next');return false;";
 		$class = $this->current_tab==$tab ? 'class="current"' : '';
-		echo "<li><a href=\"$href\" onclick=\"$onclick\" $class>$name</a></li>";
+		echo "<li><a onclick=\"$onclick\" $class>$name</a></li>";
 	}
 	if (!isset($this->next_tab)) { $this->next_tab = $tabs[0]; }
 
 	# Access to the Source tab is controlled seperately
 	if(userHasRole('Webmaster') || userHasRole('Administrator'))
 	{
-		$href->parameters['tab'] = 'source';
 		$class = $this->current_tab=='source' ? 'class="current"' : '';
 		$onclick = "FRAMEWORK.processTabbedForm('documentForm','source','next');return false;";
-		echo "<li><a href=\"$href\" onclick=\"$onclick\" $class>Source</a></li>";
+		echo "<li><a onclick=\"$onclick\" $class>Source</a></li>";
 	}
 ?>
 </ul>

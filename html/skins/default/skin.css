@@ -10,7 +10,7 @@ sub { vertical-align:sub; }
 sup { vertical-align:super; }
 code { font-family:monospace; }
 
-a { text-decoration:none; }
+a { text-decoration:none; cursor:pointer; }
 a:link { color:#3366cc; background-color:transparent; }
 a:active { color:red; background-color:transparent; }
 a:visited { color:#3366cc;  background-color:transparent; }
