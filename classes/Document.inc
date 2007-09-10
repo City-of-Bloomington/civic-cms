@@ -385,12 +385,13 @@
 		private function saveFacets()
 		{
 			global $PDO;
+			$facets = $this->getFacets();
 
 			$sql = "delete from document_facets where document_id={$this->id}";
 			if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 
 			$query = $PDO->prepare('insert document_facets values(?,?)');
-			foreach($this->facets as $facet_id=>$facet)
+			foreach($facets as $facet_id=>$facet)
 			{
 				$query->execute(array($this->id,$facet_id));
 			}
