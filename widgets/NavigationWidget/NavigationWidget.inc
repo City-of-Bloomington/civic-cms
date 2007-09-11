@@ -64,7 +64,6 @@
 					{
 						# If we don't have any ancestors, just show the top level navigation
 						if (count($ancestors)) { $this->ancestors = $ancestors[0]; }
-						else { $this->ancestors = array(new Section(1)); }
 					}
 
 					# Remember the ancestral line we're on
@@ -72,11 +71,12 @@
 					$_SESSION['vector'] = $this->ancestors;
 				}
 			}
-			# Just render the top level sections
-			else
+
+			# If all else fails, just render the top level sections
+			if (!isset($this->ancestors))
 			{
 				$this->section = new Section(1);
-				$this->ancestors = array($this->section);
+				$this->ancestors = array(1=>$this->section);
 			}
 
 			$this->renderIncludeFile($this);
