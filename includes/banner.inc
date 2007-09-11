@@ -24,7 +24,18 @@
 		</div>
 		</form>
 		<form method="get" action="<?php $_SERVER['PHP_SELF']; ?>">
-		<div><label for="skin">Skin</label>
+		<fieldset>
+			<?php
+				$url = new URL($_SERVER['REQUEST_URI']);
+				foreach($url->parameters as $field=>$value)
+				{
+					if ($field!='skin')
+					{
+						echo "<input name=\"$field\" type=\"hidden\" value=\"$value\" />";
+					}
+				}
+			?>
+			<label for="skin">Skin</label>
 			<select name="skin" id="skin" onchange="this.form.submit();">
 			<?php
 				$list = new DirectoryIterator(APPLICATION_HOME.'/html/skins');
@@ -32,7 +43,7 @@
 				{
 					if ($dir!='.' && $dir!='..')
 					{
-						if (is_file(APPLICATION_HOME."/html/skins/$dir/skin.css"))
+						if (is_file(APPLICATION_HOME."/html/skins/$dir/screen.css"))
 						{
 							$skin = basename($dir);
 							$selected = (isset($_SESSION['skin']) && $_SESSION['skin']===$skin) ? 'selected="selected"' : '';
@@ -51,7 +62,7 @@
 					echo "<input name=\"$key\" type=\"hidden\" value=\"$value\" />";
 				}
 			?>
-		</div>
+		</fieldset>
 		</form>
 	</div>
 </div>

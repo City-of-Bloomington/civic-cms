@@ -15,9 +15,11 @@
 	<meta http-equiv="Content-Script-Type" content="text/javascript" />
 	<link rel="SHORTCUT ICON" href="/favicon.ico" />
 	<style type="text/css" media="screen">
-		@import url("<?php echo BASE_URL; ?>/skins/<?php echo $_SESSION['skin']; ?>/skin.css");
+		@import url("<?php echo BASE_URL; ?>/skins/screen.php");
 	</style>
-	<style type="text/css" media="print">@import url("<?php echo BASE_URL; ?>/skins/<?php echo $_SESSION['skin']; ?>/print.css");</style>
+	<style type="text/css" media="print">
+		@import url("<?php echo BASE_URL; ?>/skins/print.php");
+	</style>
 	<script type="text/javascript" src="<?php echo BASE_URL; ?>/js/functions.js"></script>
 	<title><?php echo View::escape($this->title); ?></title>
 </head>

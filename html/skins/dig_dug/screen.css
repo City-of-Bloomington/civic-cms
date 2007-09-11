@@ -1,0 +1,175 @@
+@import "<?php echo BASE_URL; ?>/skins/reset.css";
+
+body { font-family:sans-serif; }
+
+ul ul { margin-left:2em; }
+ol ol { margin-left:2em; }
+.compact { margin:0; }
+
+a:link { color:#3366cc; background-color:transparent; }
+a:active { color:red; background-color:transparent; }
+a:visited { color:#3366cc;  background-color:transparent; }
+a:hover { color:#666666; background-color:transparent; }
+
+h1 { font-size:18pt; font-weight:bold; }
+h2 { font-size:14pt; font-weight:bold; }
+h3 { font-wize:12pt; font-weight:bold; }
+h4 { font-weight:bold; }
+h5 {  }
+h6 {  }
+
+form {  }
+fieldset { border:2px solid black; background-color:#faa500; margin-bottom:1em; }
+legend { border:2px solid black; color:white; background-color:#0000FF; padding:0.5em; font-weight:bold; }
+label { font-weight:bold; }
+input { font-size:9pt; }
+.required { color:red; background-color:inherit; }
+
+table { }
+tr { vertical-align:top; }
+td { padding-left:.5em; padding-right:.5em; background-color:inherit; }
+th { text-align:left; background-color:#dddddd; padding-left:.5em; padding-right:.5em; vertical-align: top; font-weight:bold; }
+th a:link,th a:visited { color:white; background-color:inherit; }
+
+
+#banner { height:70px; background:url('<?php echo BASE_URL; ?>/skins/dig_dug/images/blueCheckers.gif'); padding:15px; }
+#application_name { position:absolute; width:100px; height:102px; top:0; left:0; background:url('<?php echo BASE_URL; ?>/skins/dig_dug/images/newFygar.gif'); }
+#location_name { color:black; text-align:left; font-size:12pt; margin-left:100px; }
+#navigation { position:absolute; top:15px; right:15px; }
+#banner a { color:white; text-decoration:none; }
+
+.menuBar { width:100%; border-top:2px solid black; border-bottom:2px solid black; background-color:#faa500; margin-bottom:1em; }
+.menuBar li { display:inline; }
+.menuBar a { color:black; background-color:transparent; padding-right:1em; font-weight:bold; }
+	/* This lets us put small forms into the menubar without hurting the layout too bad */
+	.menuBar form { display:inline; height:1em; }
+	.menuBar form fieldset { border:0; display:inline; }
+	.menuBar form input { font-size:8pt; }
+	.menuBar form button { font-size:8pt; }
+
+#languages { float:right; }
+#languages li { display:inline; }
+
+.left { float:left; }
+.right { float:right; }
+
+.sidebar { width:155px; }
+.sidebar div { border:2px solid black; margin-bottom:1em; }
+.sidebar ul ul { margin-left:1em; }
+
+.titleBar { background-color:blue; color:white; font-weight:bold; border:2px solid black; padding:2px; }
+	/* This lets us put small forms into the menubar without hurting the layout too bad */
+	.titleBar form { display:inline; height:1em; }
+	.titleBar form fieldset { border:0; display:inline; }
+	.titleBar form input { font-size:8pt; }
+	.titleBar form button { font-size:8pt; }
+
+
+/*  mainContent allows for 3 columns,	*/
+/*	backendContent allows for 2 columns	*/
+#mainContent { margin-left:155px; margin-right:155px; padding:1em; }
+#backendContent { margin-left:170px; }
+
+#errorMessages { border:2px solid black; }
+#errorMessages h1 { color:red; }
+#warning { border:2px solid red; }
+#warning h1 { color:inherit; background-color:red; }
+
+/* For pages with tab-type system on them */
+.tabBar { font-weight: bold; }
+.tabBar ul { display:inline; }
+.tabBar li { border:2px solid black; display:inline; background-color:#16c20d; }
+.tabBar a { padding:0.5em; }
+
+.tabPage { }
+.tabPage > .interfaceBox { margin-left:1em; margin-right:1em; }
+
+
+
+.contextualMenu { background-color:#faa500; color:black; border:2px solid black; }
+.contextualMenu div { display:inline; }
+.contextualMenu span.title { background:inherit; color:white; font-weight:bold; }
+.contextualMenu ul,.contextualMenu li { display:inline; }
+	/* This lets us put small forms into the menubar without hurting the layout too bad */
+	.contextualMenu form { display:inline; height:1em; }
+	.contextualMenu form fieldset { border:0; display:inline; }
+	.contextualMenu form input { font-size:8pt; }
+	.contextualMenu form button { font-size:8pt; }
+
+/* Page Navigation Stuff */
+.pageNavigation { }
+
+/* Calendars */
+.calendar { width:100%; border:2px solid black; }
+.calendar tr { }
+.calendar th { text-align:center; }
+.calendar td { border:1px solid black; height:5em; }
+.calendar .date { float:right; }
+.calendar ul { margin-top:1em; }
+.calendar li {  }
+
+#footer { clear:both; }
+
+.thumbnail { width:100px; }
+
+/* Unordered lists can be made to be expandable/collapsible */
+/* Turn off list bullets */
+ul.expandable li { list-style: none; }
+ul.expandable, ul.expandable ul, ul.expandable li { margin: 0; padding: 0; }
+/* This controls the indent for each sublist */
+ul.expandable ul { padding-left: 20px; }
+/* Provide space for our own "bullet" inside the link */
+ul.expandable li a { padding-left: 20px; }
+/* Show "bullets" in the links, depending on the class of the
+LI that the link's in */
+ul.expandable li.open a { background: url('<?php echo BASE_URL; ?>/skins/default/images/expanded.gif') center left no-repeat; }
+ul.expandable li.closed a { background: url('<?php echo BASE_URL; ?>/skins/default/images/collapsed.gif') center left no-repeat; }
+ul.expandable li.bullet a { background: url('<?php echo BASE_URL; ?>/skins/default/images/bullet.gif') center left no-repeat; }
+/* Actually show and hide sublists */
+ul.expandable li.open ul { display: block; }
+ul.expandable li.closed ul { display: none; }
+
+
+/*  Custom buttons for forms */
+button.login { width:52px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/login.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.submit { width:70px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/submit.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.search { width:67px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/search.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.cancel { width:69px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/cancel.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.save { width:52px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/save.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.addLarge { width:52px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/addLarge.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.editLarge { width:52px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/editLarge.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.deleteLarge { width:63px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/deleteLarge.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.start { width:52px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/start.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.print { }
+
+button.addSmall { width:15px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/addSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.editSmall { width:15px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/editSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.deleteSmall { width:15px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/deleteSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.excel { width:16px; height:16px; padding-top:16px; background: url('<?php echo BASE_URL; ?>/skins/default/images/excel.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.printSmall { width:16px; height:16px; padding-top:16px; background: url('<?php echo BASE_URL; ?>/skins/default/images/printSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.up { width:16px; height:16px; padding-top:16px; background: url('<?php echo BASE_URL; ?>/skins/default/images/up.png') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.down { width:16px; height:16px; padding-top:16px; background: url('<?php echo BASE_URL; ?>/skins/default/images/down.png') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+
+
+/* Custom Icons for mime types */
+.jpg { height:16px; padding-left:18px; background: url('<?php echo BASE_URL; ?>/skins/default/images/icons/jpg.png') no-repeat; }
+.gif { height:16px; padding-left:18px; background: url('<?php echo BASE_URL; ?>/skins/default/images/icons/gif.png') no-repeat; }
+.tiff { height:16px; padding-left:18px; background: url('<?php echo BASE_URL; ?>/skins/default/images/icons/tiff.png') no-repeat; }
+.pdf { height:16px; padding-left:18px; background: url('<?php echo BASE_URL; ?>/skins/default/images/icons/pdf.png') no-repeat; }
+.doc { height:16px; padding-left:18px; background: url('<?php echo BASE_URL; ?>/skins/default/images/icons/doc.png') no-repeat; }
+.xls { height:16px; padding-left:18px; background: url('<?php echo BASE_URL; ?>/skins/default/images/icons/xls.png') no-repeat; }
+.rtf { height:16px; padding-left:18px; background: url('<?php echo BASE_URL; ?>/skins/default/images/icons/rtf.png') no-repeat; }
+.zip { height:16px; padding-left:18px; background: url('<?php echo BASE_URL; ?>/skins/default/images/icons/zip.png') no-repeat; }
+.gz { height:16px; padding-left:18px; background: url('<?php echo BASE_URL; ?>/skins/default/images/icons/gz.png') no-repeat; }
+.txt { height:16px; padding-left:18px; background: url('<?php echo BASE_URL; ?>/skins/default/images/icons/txt.png') no-repeat; }
+.thumbnail { width:100px; }
+
+
+/* Various Styles for text */
+.copyright { text-align:center; font-size:10pt; }
+.comments { color:red; background-color:inherit; }
+.money { text-align:right; }
+.void,.void td { text-decoration:line-through; }
+.total { border-top:1px solid black; text-align:right; }
+.total td { padding-bottom:1em; }
+.instructions { }

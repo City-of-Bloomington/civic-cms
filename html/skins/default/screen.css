@@ -1,4 +1,4 @@
-@import "/skins/reset.css";
+@import "<?php echo BASE_URL; ?>/skins/reset.css";
 /* Set the default styles for common HTML elements */
 body { color:black; background-color:white; margin:0px; font-family:sans-serif; font-size:10pt; }
 
@@ -52,7 +52,7 @@ li.current>a { background-color:#cccccc; width:100%; }
 .splashImage { float:right; }
 
 /* Top Banner stuff */
-#banner { height:62px; border-bottom:2px solid black; background:#3366cc url('/skins/default/images/citylogo-white.gif') no-repeat; padding-left:80px; }
+#banner { height:62px; border-bottom:2px solid black; background:#3366cc url('<?php echo BASE_URL; ?>/skins/default/images/citylogo-white.gif') no-repeat; padding-left:80px; }
 #application_name { color:white; text-align:left; padding-top:5px; }
 #location_name { color:white; text-align:left; font-size:12pt; }
 #navigation { position:absolute; top:0; right:0; }
@@ -176,9 +176,9 @@ ul.expandable li a { padding-left: 20px; }
 
 /* Show "bullets" in the links, depending on the class of the
    LI that the link's in */
-ul.expandable li.open a { background: url('/skins/default/images/expanded.gif') center left no-repeat; }
-ul.expandable li.closed a { background: url('/skins/default/images/collapsed.gif') center left no-repeat; }
-ul.expandable li.bullet a { background: url('/skins/default/images/bullet.gif') center left no-repeat; }
+ul.expandable li.open a { background: url('<?php echo BASE_URL; ?>/skins/default/images/expanded.gif') center left no-repeat; }
+ul.expandable li.closed a { background: url('<?php echo BASE_URL; ?>/skins/default/images/collapsed.gif') center left no-repeat; }
+ul.expandable li.bullet a { background: url('<?php echo BASE_URL; ?>/skins/default/images/bullet.gif') center left no-repeat; }
 
 /* Actually show and hide sublists */
 ul.expandable li.open ul { display: block; }
@@ -191,36 +191,36 @@ div.subsections li { display:inline; margin-right:1em; }
 
 /*  Custom buttons for forms */
 /* Rick doesn't want these custom images right now.
-button.login { width:52px; height:15px; padding-top:15px; background: url('/skins/default/images/login.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.submit { width:70px; height:15px; padding-top:15px; background: url('/skins/default/images/submit.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.search { width:67px; height:15px; padding-top:15px; background: url('/skins/default/images/search.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.cancel { width:69px; height:15px; padding-top:15px; background: url('/skins/default/images/cancel.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.save { width:52px; height:15px; padding-top:15px; background: url('/skins/default/images/save.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.addLarge { width:52px; height:15px; padding-top:15px; background: url('/skins/default/images/addLarge.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.editLarge { width:52px; height:15px; padding-top:15px; background: url('/skins/default/images/editLarge.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.deleteLarge { width:63px; height:15px; padding-top:15px; background: url('/skins/default/images/deleteLarge.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.start { width:52px; height:15px; padding-top:15px; background: url('/skins/default/images/start.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.login { width:52px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/login.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.submit { width:70px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/submit.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.search { width:67px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/search.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.cancel { width:69px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/cancel.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.save { width:52px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/save.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.addLarge { width:52px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/addLarge.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.editLarge { width:52px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/editLarge.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.deleteLarge { width:63px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/deleteLarge.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.start { width:52px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/start.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
 button.print { }
 */
-button.addSmall { width:15px; height:15px; padding-top:15px; background: url('/skins/default/images/addSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.editSmall { width:15px; height:15px; padding-top:15px; background: url('/skins/default/images/editSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.deleteSmall { width:15px; height:15px; padding-top:15px; background: url('/skins/default/images/deleteSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.excel { width:16px; height:16px; padding-top:16px; background: url('/skins/default/images/excel.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.printSmall { width:16px; height:16px; padding-top:16px; background: url('/skins/default/images/printSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.up { width:16px; height:16px; padding-top:16px; background: url('/skins/default/images/up.png') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.down { width:16px; height:16px; padding-top:16px; background: url('/skins/default/images/down.png') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.addSmall { width:15px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/addSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.editSmall { width:15px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/editSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.deleteSmall { width:15px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/deleteSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.excel { width:16px; height:16px; padding-top:16px; background: url('<?php echo BASE_URL; ?>/skins/default/images/excel.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.printSmall { width:16px; height:16px; padding-top:16px; background: url('<?php echo BASE_URL; ?>/skins/default/images/printSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.up { width:16px; height:16px; padding-top:16px; background: url('<?php echo BASE_URL; ?>/skins/default/images/up.png') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.down { width:16px; height:16px; padding-top:16px; background: url('<?php echo BASE_URL; ?>/skins/default/images/down.png') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
 
 /* Custom Icons for mime types */
-.jpg { height:16px; padding-left:18px; background: url('/skins/default/images/icons/jpg.png') no-repeat; }
-.gif { height:16px; padding-left:18px; background: url('/skins/default/images/icons/gif.png') no-repeat; }
-.tiff { height:16px; padding-left:18px; background: url('/skins/default/images/icons/tiff.png') no-repeat; }
-.pdf { height:16px; padding-left:18px; background: url('/skins/default/images/icons/pdf.png') no-repeat; }
-.doc { height:16px; padding-left:18px; background: url('/skins/default/images/icons/doc.png') no-repeat; }
-.xls { height:16px; padding-left:18px; background: url('/skins/default/images/icons/xls.png') no-repeat; }
-.rtf { height:16px; padding-left:18px; background: url('/skins/default/images/icons/rtf.png') no-repeat; }
-.zip { height:16px; padding-left:18px; background: url('/skins/default/images/icons/zip.png') no-repeat; }
-.gz { height:16px; padding-left:18px; background: url('/skins/default/images/icons/gz.png') no-repeat; }
-.txt { height:16px; padding-left:18px; background: url('/skins/default/images/icons/txt.png') no-repeat; }
+.jpg { height:16px; padding-left:18px; background: url('<?php echo BASE_URL; ?>/skins/default/images/icons/jpg.png') no-repeat; }
+.gif { height:16px; padding-left:18px; background: url('<?php echo BASE_URL; ?>/skins/default/images/icons/gif.png') no-repeat; }
+.tiff { height:16px; padding-left:18px; background: url('<?php echo BASE_URL; ?>/skins/default/images/icons/tiff.png') no-repeat; }
+.pdf { height:16px; padding-left:18px; background: url('<?php echo BASE_URL; ?>/skins/default/images/icons/pdf.png') no-repeat; }
+.doc { height:16px; padding-left:18px; background: url('<?php echo BASE_URL; ?>/skins/default/images/icons/doc.png') no-repeat; }
+.xls { height:16px; padding-left:18px; background: url('<?php echo BASE_URL; ?>/skins/default/images/icons/xls.png') no-repeat; }
+.rtf { height:16px; padding-left:18px; background: url('<?php echo BASE_URL; ?>/skins/default/images/icons/rtf.png') no-repeat; }
+.zip { height:16px; padding-left:18px; background: url('<?php echo BASE_URL; ?>/skins/default/images/icons/zip.png') no-repeat; }
+.gz { height:16px; padding-left:18px; background: url('<?php echo BASE_URL; ?>/skins/default/images/icons/gz.png') no-repeat; }
+.txt { height:16px; padding-left:18px; background: url('<?php echo BASE_URL; ?>/skins/default/images/icons/txt.png') no-repeat; }
 .thumbnail { width:100px; float:left; }
 
 /* Controls how error messages are displayed */

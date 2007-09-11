@@ -34,7 +34,7 @@ ul.compact { list-style-type:none; margin:0; padding:0; }
 .splashImage { float:right; }
 
 /* Top Banner stuff */
-#banner { height:62px; background:#3366cc url('/skins/default/images/citylogo-white.gif') no-repeat; padding-left:80px; }
+#banner { height:62px; background:#3366cc url('<?php echo BASE_URL; ?>/skins/default/images/citylogo-white.gif') no-repeat; padding-left:80px; }
 #application_name { color:white; text-align:left; padding-top:5px; }
 #location_name { color:white; text-align:left; font-size:12pt; }
 #navigation { float:right; }
@@ -88,22 +88,22 @@ table.calendar td { padding:0; }
 
 /*  Custom buttons for forms */
 /* Rick doesn't want these custom images right now.
-button.login { width:52px; height:15px; padding-top:15px; background: url('/skins/default/images/login.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.submit { width:70px; height:15px; padding-top:15px; background: url('/skins/default/images/submit.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.search { width:67px; height:15px; padding-top:15px; background: url('/skins/default/images/search.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.cancel { width:69px; height:15px; padding-top:15px; background: url('/skins/default/images/cancel.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.save { width:52px; height:15px; padding-top:15px; background: url('/skins/default/images/save.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.addLarge { width:52px; height:15px; padding-top:15px; background: url('/skins/default/images/addLarge.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.editLarge { width:52px; height:15px; padding-top:15px; background: url('/skins/default/images/editLarge.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.deleteLarge { width:63px; height:15px; padding-top:15px; background: url('/skins/default/images/deleteLarge.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.start { width:52px; height:15px; padding-top:15px; background: url('/skins/default/images/start.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.login { width:52px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/login.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.submit { width:70px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/submit.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.search { width:67px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/search.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.cancel { width:69px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/cancel.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.save { width:52px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/save.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.addLarge { width:52px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/addLarge.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.editLarge { width:52px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/editLarge.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.deleteLarge { width:63px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/deleteLarge.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.start { width:52px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/start.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
 button.print { }
 */
-button.addSmall { width:15px; height:15px; padding-top:15px; background: url('/skins/default/images/addSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.editSmall { width:15px; height:15px; padding-top:15px; background: url('/skins/default/images/editSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.deleteSmall { width:15px; height:15px; padding-top:15px; background: url('/skins/default/images/deleteSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.excel { width:16px; height:16px; padding-top:16px; background: url('/skins/default/images/excel.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
-button.printSmall { width:16px; height:16px; padding-top:16px; background: url('/skins/default/images/printSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.addSmall { width:15px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/addSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.editSmall { width:15px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/editSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.deleteSmall { width:15px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/deleteSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.excel { width:16px; height:16px; padding-top:16px; background: url('<?php echo BASE_URL; ?>/skins/default/images/excel.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.printSmall { width:16px; height:16px; padding-top:16px; background: url('<?php echo BASE_URL; ?>/skins/default/images/printSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
 
 
 /* Controls how error messages are displayed */
