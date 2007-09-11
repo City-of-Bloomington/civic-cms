@@ -54,7 +54,7 @@
 				if ($location->getLatitude() && $location->getLongitude())
 				{
 					$points[] = "new GLatLng({$location->getLatitude()},{$location->getLongitude()})";
-					$info[] = "\"<h3>$name</h3><p>$description</p>\"";
+					$info[] = '"<h3>'.addslashes($name).'</h3><p>'.addslashes($description).'</p>"';
 
 					$i = count($points) - 1;
 					$mapLink = "<a href=\"#map\" onclick=\"popup($i);\">$name</a>";

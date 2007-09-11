@@ -232,7 +232,7 @@ button.down { width:16px; height:16px; padding-top:16px; background: url('<?php 
 
 /* Locations page layout */
 #location_list { float:right; width:200px; margin-right:1em; }
-#location_map { width:250px; height:250px; border:2px solid black; margin-right:200px; }
+#location_map { width:360px; height:360px; border:2px solid black; margin-right:200px; }
 #locationGroup_description { margin-right:200px; }
 
 /* Various Styles for text */
