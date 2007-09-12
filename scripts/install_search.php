@@ -6,20 +6,23 @@
  * Creates a new set of index data for out search engine.
  * Loads all the current documents into the new index
  */
- 	# Create the new index
-	include '../configuration.inc';
+ 	# This must be a full path, in order to be able to run
+ 	# the index_search CRON script
+	include '/var/www/sites/content_manager/configuration.inc';
 
 	# The class file has the ini_set definition we need to do Zend stuff
 	require_once(APPLICATION_HOME.'/classes/Search.inc');
 
+ 	# Create the new index
 	Zend_Search_Lucene::create(APPLICATION_HOME.'/data/search_index');
 	echo APPLICATION_HOME."/data/search_index created\n";
 
-
+	# Zend Search Lucene uses a TON of memory.
+	# Make sure to allow PHP enough memory
 	ini_set('memory_limit','128M');
 	$memory_limit = ini_get('memory_limit');
 
-	# Load all the documents into the index
+	# Load all the documents into the new index
 	$search = new Search();
 	$documents = new DocumentList();
 	$documents->find();

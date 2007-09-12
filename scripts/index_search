@@ -1,0 +1,8 @@
+#!/bin/sh
+# Shell Script suitable for CRON
+#
+# Indexes the Search Engine for the Content Manager
+# Make sure that install_search.php uses a full path to
+# include the configuration file
+/usr/local/bin/php /var/www/sites/content_manager/scripts/install_search.php > /tmp/search_indexing.log
+chown -R apache:admin /var/www/sites/content_manager/data

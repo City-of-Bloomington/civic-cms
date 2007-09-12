@@ -145,16 +145,20 @@
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 			if (false === $query->execute($values)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 
-			try
-			{
-				$search = new Search();
-				$search->updateDocument($this);
-			}
-			catch (Exception $e)
-			{
-				# Any problems with updating the search should not throw an error
-				exception_handler($e);
-			}
+			# We are disabling live search indexing for now
+			# There's wierdness with the index getting corrupted, causing PHP
+			# to crash HARD.
+			# Something like : uninitialized string offset in DictionaryLoader
+			#try
+			#{
+			#	$search = new Search();
+			#	$search->updateDocument($this);
+			#}
+			#catch (Exception $e)
+			#{
+			#	# Any problems with updating the search should not throw an error
+			#	exception_handler($e);
+			#}
 		}
 
 		private function insert($values,$preparedFields)
@@ -169,16 +173,20 @@
 			$sql = "select created from documents where id=$this->id";
 			foreach($PDO->query($sql) as $row) { $this->created = $row['created']; }
 
-			try
-			{
-				$search = new Search();
-				$search->addDocument($this);
-			}
-			catch (Exception $e)
-			{
-				# Any problems with updating the search should not throw an error
-				exception_handler($e);
-			}
+			# We are disabling live search indexing for now
+			# There's wierdness with the index getting corrupted, causing PHP
+			# to crash HARD.
+			# Something like : uninitialized string offset in DictionaryLoader
+			#try
+			#{
+			#	$search = new Search();
+			#	$search->addDocument($this);
+			#}
+			#catch (Exception $e)
+			#{
+			#	# Any problems with updating the search should not throw an error
+			#	exception_handler($e);
+			#}
 		}
 
 		public function delete()
@@ -195,8 +203,12 @@
 					throw new Exception('documents/sectionHomepage');
 				}
 
-				$search = new Search();
-				$search->removeDocument($this);
+				# We are disabling live search indexing for now
+				# There's wierdness with the index getting corrupted, causing PHP
+				# to crash HARD.
+				# Something like : uninitialized string offset in DictionaryLoader
+				#$search = new Search();
+				#$search->removeDocument($this);
 
 				$this->deleteContent();
 
