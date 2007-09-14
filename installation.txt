@@ -194,11 +194,6 @@ Install Search Engine:
 	cd /path/to/application/scripts
 	php install_search.php
 
-Create Symbolic links to media directories in Data
-	cd /path/to/application/html/media
-	ln -s ../../data/media/attachment/
-	ln -s ../../data/media/image/
-
 Set Permissions:
 	The data directory is where the application stores all non-database
 	information.  You will need to make sure that the webserver has read/write
@@ -207,3 +202,30 @@ Set Permissions:
 	cd /path/to/application
 	chown -R apache data
 	chmod -R u+rw data
+
+
+---------------------------------------------------------------------
+CRON scripts
+---------------------------------------------------------------------
+	These shell scripts must be edited before you can use them.
+They will need to have correct full paths.
+
+Backups
+	Edit /scripts/backup
+		Set the path to PHP
+		Set the path to your configuration.inc
+	You can then copy the /scripts/backup to your /etc/cron.daily
+		Make sure you chmod it to be executable
+
+Search Engine Indexing
+	Edit /scripts/install_search.php
+		This is the PHP script that the cron script will call.
+		Set the path to your configuration.inc
+
+	Edit /scripts/index_search
+		Set the path to PHP
+		Set the path to your installation of Content Manager
+		Set user that Apache runs as
+
+	You can then copy /scripts/index_search to your /etc/cron.dail
+		Make sure you chmod it to be executable

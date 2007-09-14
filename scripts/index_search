@@ -4,5 +4,9 @@
 # Indexes the Search Engine for the Content Manager
 # Make sure that install_search.php uses a full path to
 # include the configuration file
-/usr/local/bin/php /var/www/sites/content_manager/scripts/install_search.php > /tmp/search_indexing.log
-chown -R apache:admin /var/www/sites/content_manager/data
+PHP=/usr/local/bin/php
+CONTENT_MANAGER=/var/www/sites/content_manager
+APACHE_USER=apache
+
+$PHP $CONTENT_MANAGER/scripts/install_search.php > /tmp/search_indexing.log
+chown -R $APACHE_USER $CONTENT_MANAGER/data
