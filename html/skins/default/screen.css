@@ -16,10 +16,7 @@ a:active { color:red; background-color:transparent; }
 a:visited { color:#3366cc;  background-color:transparent; }
 a:hover { color:#666666; background-color:transparent; }
 
-img { border:4px solid red; margin:1em; }
-img[src^="/media/media.php"] { border:none; }
-img[src^="<?php echo BASE_URL; ?>/documents/icon.php"] { border:none; }
-img[src^="<?php echo BASE_URL; ?>/skins"] { border:none; }
+img { border:0; margin:1em; }
 .thumnbnail { width:100px; }
 
 h1 { text-align:left; margin:0; font-size:16pt; font-weight:bold; }
@@ -247,3 +244,10 @@ button.rss { width:28px; height:28px; padding-top:28px; background:url('<?php ec
 .total { border-top:1px solid black; text-align:right; }
 .total td { padding-bottom:1em; }
 .instructions { }
+
+/* Diagnostics Styling - Styles that enhance bad content, so we know to fix it */
+img { border:4px solid red; }
+img[src^="/media/media.php"] { border:none; }
+img[src^="<?php echo BASE_URL; ?>/media/thumbnail.php"] { border:none; }
+img[src^="<?php echo BASE_URL; ?>/documents/icon.php"] { border:none; }
+img[src^="<?php echo BASE_URL; ?>/skins"] { border:none; }
