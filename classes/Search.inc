@@ -75,7 +75,11 @@
 			$results = array();
 			foreach($hits as $hit)
 			{
-				$results[] = new Document($hit->document_id);
+				try { $results[] = new Document($hit->document_id); }
+				catch(Exception $e)
+				{
+					# If there's a failure with the Document, just don't add anything to the results
+				}
 			}
 			return $results;
 		}
