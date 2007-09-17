@@ -12,12 +12,10 @@
 ?>
 <div class="interfaceBox featured">
 	<h3><?php
-			echo "
-			$type in $sectionName
-			<a href=\"".BASE_URL."/sections/viewSection.php?section_id={$this->section->getId()};featured={$this->documentType->getId()};format=rss\">
-				<img src=\"".BASE_URL."/skins/default/images/feed-icon-14x14.png\" alt=\"RSS\" />
-			</a>
-			";
+			echo "$type in $sectionName";
+			#<a href=\"".BASE_URL."/sections/viewSection.php?section_id={$this->section->getId()};featured={$this->documentType->getId()};format=rss\" class=\"rss\">
+			#	<img src=\"".BASE_URL."/skins/default/images/feed-icon-14x14.png\" alt=\"RSS\" />
+			#</a>
 		?>
 	</h3>
 	<table>

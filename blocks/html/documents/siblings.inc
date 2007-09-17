@@ -39,13 +39,12 @@
 			$name = View::escape($section->getName());
 			echo "
 			<div class=\"interfaceBox siblings\">
-				<h3>Information in $name
-					<a href=\"".BASE_URL."/sections/viewSection.php?section_id={$section->getId()};format=rss\">
-						<img src=\"".BASE_URL."/skins/default/images/feed-icon-14x14.png\" alt=\"RSS\" />
-					</a>
-				</h3>
+				<h3>Information in $name</h3>
 				<ul>
 			";
+					#<a href=\"".BASE_URL."/sections/viewSection.php?section_id={$section->getId()};format=rss\" class=\"rss\">
+					#	<img src=\"".BASE_URL."/skins/default/images/feed-icon-14x14.png\" alt=\"RSS\" />
+					#</a>
 			# List the first five documents
 			$count = 0;
 			foreach($documents as $document)
