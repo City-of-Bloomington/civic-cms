@@ -7,6 +7,7 @@
  *
  * Section Navigation through the site should be handled by this script.
  */
+	# make sure we've got a section homepage
  	try
  	{
  		$section = new Section($_GET['section_id']);
@@ -15,7 +16,30 @@
  	}
  	catch(Exception $e) { $_SESSION['errorMessages'][] = $e; }
 
-	# make sure we've got a section homepage
+	$format = isset($_GET['format']) ? strtolower($_GET['format']) : 'html';
+	if ($format == 'rss')
+	{
+		$template = new Template($format,$format);
+		$block = new Block('sections/documentList.inc');
+		$block->url = new URL(BASE_URL.'/sections/viewSection.php?section_id='.$section->getId());
 
-	include APPLICATION_HOME.'/html/documents/viewDocument.php';
+
+		if (isset($_GET['featured']))
+		{
+			$type = new DocumentType($_GET['featured']);
+
+			$block->documentList = new DocumentList(array('documentType_id'=>$type->getId(),'section_id'=>$section->getId(),'featured'=>1,'active'=>date('Y-m-d')));
+			$block->title = Inflector::pluralize($type)." in {$section->getName()}";
+		}
+		else
+		{
+			$block->documentList = $section->getDocuments('publishDate desc');
+			$block->title = $section->getName();
+		}
+
+
+		$template->blocks[] = $block;
+		$template->render();
+	}
+	else { include APPLICATION_HOME.'/html/documents/viewDocument.php'; }
 ?>

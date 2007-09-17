@@ -188,28 +188,29 @@ div.subsections li { display:inline; margin-right:1em; }
 
 
 /*  Custom buttons for forms */
-button { border:0; cursor:pointer; overflow:hidden; vertical-align:middle; }
+button { cursor:pointer; overflow:hidden; vertical-align:middle; }
 /* Rick doesn't want these custom images right now.
-button.login { width:52px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/login.gif') no-repeat; }
-button.submit { width:70px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/submit.gif') no-repeat; }
-button.search { width:67px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/search.gif') no-repeat; }
-button.cancel { width:69px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/cancel.gif') no-repeat; }
-button.save { width:52px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/save.gif') no-repeat; }
-button.addLarge { width:52px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/addLarge.gif') no-repeat; }
-button.editLarge { width:52px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/editLarge.gif') no-repeat; }
-button.deleteLarge { width:63px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/deleteLarge.gif') no-repeat; }
-button.start { width:52px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/start.gif') no-repeat; }
+button.login { width:52px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/login.gif') no-repeat; border:0; }
+button.submit { width:70px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/submit.gif') no-repeat; border:0; }
+button.search { width:67px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/search.gif') no-repeat; border:0; }
+button.cancel { width:69px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/cancel.gif') no-repeat; border:0; }
+button.save { width:52px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/save.gif') no-repeat; border:0; }
+button.addLarge { width:52px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/addLarge.gif') no-repeat; border:0; }
+button.editLarge { width:52px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/editLarge.gif') no-repeat; border:0; }
+button.deleteLarge { width:63px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/deleteLarge.gif') no-repeat; border:0; }
+button.start { width:52px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/start.gif') no-repeat; border:0; }
 button.print { }
 */
-button.addSmall { width:15px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/addSmall.gif') no-repeat; }
-button.editSmall { width:15px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/editSmall.gif') no-repeat; }
-button.deleteSmall { width:15px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/deleteSmall.gif') no-repeat; }
-button.excel { width:16px; height:16px; padding-top:16px; background: url('<?php echo BASE_URL; ?>/skins/default/images/excel.gif') no-repeat; cursor:pointer; }
-button.printSmall { width:16px; height:16px; padding-top:16px; background: url('<?php echo BASE_URL; ?>/skins/default/images/printSmall.gif') no-repeat; }
-button.up { width:16px; height:16px; padding-top:16px; background: url('<?php echo BASE_URL; ?>/skins/default/images/up.png') no-repeat; cursor:pointer; }
-button.down { width:16px; height:16px; padding-top:16px; background: url('<?php echo BASE_URL; ?>/skins/default/images/down.png') no-repeat; }
-button.rssSmall { width:14px; height:14px; padding-top:14px; background:url('<?php echo BASE_URL; ?>/skins/default/images/feed-icon-14x14.png') no-repeat; }
-button.rss { width:28px; height:28px; padding-top:28px; background:url('<?php echo BASE_URL; ?>/skins/default/images/feed-icon-28x28.png') no-repeat; }
+button.addSmall { width:15px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/addSmall.gif') no-repeat; border:0; }
+button.editSmall { width:15px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/editSmall.gif') no-repeat; border:0; }
+button.deleteSmall { width:15px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/deleteSmall.gif') no-repeat; border:0; }
+button.excel { width:16px; height:16px; padding-top:16px; background: url('<?php echo BASE_URL; ?>/skins/default/images/excel.gif') no-repeat; cursor:pointer; border:0; }
+button.printSmall { width:16px; height:16px; padding-top:16px; background: url('<?php echo BASE_URL; ?>/skins/default/images/printSmall.gif') no-repeat; border:0; }
+button.up { width:16px; height:16px; padding-top:16px; background: url('<?php echo BASE_URL; ?>/skins/default/images/up.png') no-repeat; cursor:pointer; border:0; }
+button.down { width:16px; height:16px; padding-top:16px; background: url('<?php echo BASE_URL; ?>/skins/default/images/down.png') no-repeat; border:0; }
+button.rssSmall { width:14px; height:14px; padding-top:14px; background:url('<?php echo BASE_URL; ?>/skins/default/images/feed-icon-14x14.png') no-repeat; border:0; }
+button.rss { width:28px; height:28px; padding-top:28px; background:url('<?php echo BASE_URL; ?>/skins/default/images/feed-icon-28x28.png') no-repeat; border:0; }
+a.rss img { margin:0; }
 
 /* Custom Icons for mime types */
 .jpg { height:16px; padding-left:18px; background: url('<?php echo BASE_URL; ?>/skins/default/images/icons/jpg.png') no-repeat; }

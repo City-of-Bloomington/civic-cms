@@ -96,11 +96,12 @@
 			$this->id = $PDO->lastInsertID();
 		}
 
-		public function getDocuments()
+		public function getDocuments($sort=null)
 		{
 			if (!$this->document_list)
 			{
-				$this->document_list = new DocumentList(array('documentType_id'=>$this->id));
+				$this->document_list = new DocumentList();
+				$this->document_list->find(array('documentType_id'=>$this->id),$sort);
 			}
 			return $this->document_list;
 		}

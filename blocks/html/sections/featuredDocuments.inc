@@ -5,22 +5,30 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Section $this->section
  * @param DocumentList $this->documentList
- * @param DocumentType $this->documentType (optional)
+ * @param DocumentType $this->documentType
  */
-	$type = isset($this->documentType) ? $this->documentType->getType() : 'Document';
-	$type = Inflector::pluralize($type);
+	$type = Inflector::pluralize($this->documentType->getType());
 	$sectionName = View::escape($this->section->getName());
 ?>
 <div class="interfaceBox featured">
-	<h3><?php echo "$type in $sectionName"; ?></h3>
+	<h3><?php
+			echo "
+			$type in $sectionName
+			<a href=\"".BASE_URL."/sections/viewSection.php?section_id={$this->section->getId()};featured={$this->documentType->getId()};format=rss\">
+				<img src=\"".BASE_URL."/skins/default/images/feed-icon-14x14.png\" alt=\"RSS\" />
+			</a>
+			";
+		?>
+	</h3>
 	<table>
 	<?php
 		foreach($this->documentList as $document)
 		{
 			$title = $document->getFeature_title() ? View::escape($document->getFeature_title()) : View::escape($document->getTitle());
+			$alt = htmlspecialchars($title,ENT_QUOTES);
 			$description = View::escape($document->getDescription());
 			echo "
-			<tr><th><img src=\"".BASE_URL."/documents/icon.php?document_id={$document->getId()}\" alt=\"$title\" /></th>
+			<tr><th><img src=\"".BASE_URL."/documents/icon.php?document_id={$document->getId()}\" alt=\"$alt\" /></th>
 				<td><h4><a href=\"{$document->getURL()}\">$title</a></h4>
 					$description
 				</td>

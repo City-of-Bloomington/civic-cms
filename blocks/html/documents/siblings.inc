@@ -39,7 +39,11 @@
 			$name = View::escape($section->getName());
 			echo "
 			<div class=\"interfaceBox siblings\">
-				<h3>Information in $name</h3>
+				<h3>Information in $name
+					<a href=\"".BASE_URL."/sections/viewSection.php?section_id={$section->getId()};format=rss\">
+						<img src=\"".BASE_URL."/skins/default/images/feed-icon-14x14.png\" alt=\"RSS\" />
+					</a>
+				</h3>
 				<ul>
 			";
 			# List the first five documents

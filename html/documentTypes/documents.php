@@ -10,21 +10,22 @@
  */
 	$type = new DocumentType($_GET['documentType_id']);
 
-	$documentList = new Block('documentTypes/documents.inc',array('documentType'=>$type));
+	$template = (isset($_GET['format'])) ? new Template($_GET['format'],$_GET['format']) : new Template();
+
+	$block = new Block('documentTypes/documents.inc',array('documentType'=>$type));
 	if (isset($_GET['facetGroup_id']))
 	{
 		if (is_numeric($_GET['facetGroup_id']) && $_GET['facetGroup_id']>0)
 		{
-			$documentList->facetGroup = new FacetGroup($_GET['facetGroup_id']);
+			$block->facetGroup = new FacetGroup($_GET['facetGroup_id']);
 		}
 	}
 	else
 	{
 		# Load the default Facet Group
-		if ($type->getDefaultFacetGroup_id()) { $documentList->facetGroup = $type->getDefaultFacetGroup(); }
+		if ($type->getDefaultFacetGroup_id()) { $block->facetGroup = $type->getDefaultFacetGroup(); }
 	}
 
-	$template = new Template();
-	$template->blocks[] = $documentList;
+	$template->blocks[] = $block;
 	$template->render();
 ?>

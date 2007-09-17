@@ -11,7 +11,11 @@
 	$href->parameters['documentType_id'] = $this->documentType->getId();
 	$href->parameters['facetGroup_id'] = 'none';
 	echo "
-	<h2><a href=\"$href\">$type</a></h2>
+	<h2><a href=\"$href\">$type</a>
+		<a href=\"$href;format=rss\" class=\"rss\">
+			<img src=\"".BASE_URL."/skins/default/images/feed-icon-14x14.png\" alt=\"RSS $type feed\" />
+		</a>
+	</h2>
 	<div class=\"tabBar\">
 	<ul>
 	";
