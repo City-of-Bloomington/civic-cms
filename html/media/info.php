@@ -3,8 +3,12 @@
  * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
+ * @param GET media_id
  */
+	verifyUser();
+	$media = new Media($_GET['media_id']);
+
+	$template = new Template('backend');
+	$template->blocks[] = new Block('media/info.inc',array('media'=>$media));
+	$template->render();
 ?>
-<p>That file has already been uploaded.</p>
-<p>Someone has previously uploaded that file; it is already on the server.  To find it,
-you should <strong>Browse for an existing file</strong>.</p>

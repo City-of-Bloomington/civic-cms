@@ -353,9 +353,9 @@ create table media (
 	md5 varchar(32) not null unique,
 	department_id int unsigned not null,
 	uploaded timestamp not null default CURRENT_TIMESTAMP,
-	uploadedBy int unsigned not null,
+	user_id int unsigned not null,
 	foreign key (department_id) references departments(id),
-	foreign key (uploadedBy) references users(id)
+	foreign key (user_id) references users(id)
 ) engine=InnoDB;
 
 create table media_documents (

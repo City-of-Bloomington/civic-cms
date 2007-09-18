@@ -16,14 +16,15 @@
 		protected $md5;
 		private $department_id;
 		private $uploaded;
-		private $uploadedBy;
+		private $user_id;
 
 
 		private $department;
+		private $user;
 
 		private $documents = array();
 
-		protected $extensions = array(	'jpg'=>array('mime_type'=>'image/jpeg','media_type'=>'image'),
+		public static $extensions = array(	'jpg'=>array('mime_type'=>'image/jpeg','media_type'=>'image'),
 										'gif'=>array('mime_type'=>'image/gif','media_type'=>'image'),
 										'png'=>array('mime_type'=>'image/png','media_type'=>'image'),
 										'tiff'=>array('mime_type'=>'image/tiff','media_type'=>'image'),
@@ -35,6 +36,8 @@
 										'zip'=>array('mime_type'=>'application/zip','media_type'=>'attachment'),
 										'txt'=>array('mime_type'=>'text/plain','media_type'=>'attachment')
 									);
+
+		public static function getExtensions() { return self::$extensions; }
 
 		/**
 		 * This will load all fields in the table as properties of this class.
@@ -69,7 +72,7 @@
 				# This is where the code goes to generate a new, empty instance.
 				# Set any default values for properties that need it here
 				$this->department_id = $_SESSION['USER']->getDepartment_id();
-				$this->uploadedBy = $_SESSION['USER']->getId();
+				$this->user_id = $_SESSION['USER']->getId();
 			}
 		}
 
@@ -93,9 +96,9 @@
 			$fields['title'] = $this->title;
 			$fields['description'] = $this->description ? $this->description : null;
 			$fields['md5'] = $this->md5 ? $this->md5 : null;
-			$fields['department_id'] = $this->department_id ? $this->department_id : null;
+			$fields['department_id'] = $_SESSION['USER']->getDepartment_id();
 			$fields['uploaded'] = $this->uploaded ? $this->uploaded : null;
-			$fields['uploadedBy'] = $this->uploadedBy ? $this->uploadedBy : null;
+			$fields['user_id'] = $_SESSION['USER']->getId();
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
@@ -163,9 +166,9 @@
 			preg_match("/[^.]+$/",$filename,$matches);
 			$extension = strtolower($matches[0]);
 
-			if (array_key_exists(strtolower($extension),$this->extensions))
+			if (array_key_exists(strtolower($extension),Media::$extensions))
 			{
-				$this->mime_type = $this->extensions[$extension]['mime_type'];
+				$this->mime_type = Media::$extensions[$extension]['mime_type'];
 
 				# We must have a media type set so before we can getDirectory()
 				# To avoid overriding, uncomment the if()
@@ -175,7 +178,7 @@
 					# If the user goes to upload an attachment, and it's a .jpg file
 					# this will change the media_type to image, and treat it as an image,
 					# not as an attachment
-					$this->media_type = $this->extensions[$extension]['media_type'];
+					$this->media_type = Media::$extensions[$extension]['media_type'];
 				#}
 			}
 			else { throw new Exception('unknownFileType'); }
@@ -183,8 +186,26 @@
 			# Make sure the file's not already in the system
 			$this->md5 = md5_file($tempFile);
 			$list = new MediaList(array('md5'=>$this->md5));
-			if (count($list)) { throw new Exception('media/fileAlreadyExists'); }
+			if (count($list))
+			{
+				# If we're updating a file, we expect to get one
+				# hit back - but it needs to have the current media_id
+				# Otherwise, then the file is already in the system
+				if ($list[0]->getId() != $this->id)
+				{
+					throw new Exception('media/fileAlreadyExists');
+				}
+			}
 
+
+			# Clean out any previous version of the file
+			if ($this->id)
+			{
+				foreach(glob($this->getDirectory().'/'.$this->id) as $file)
+				{
+					unlink($this->getDirectory().'/'.$file);
+				}
+			}
 
 			# Move the file where it's supposed to go
 			if (!is_dir($this->getDirectory())) { mkdir($this->getDirectory(),0777,true); }
@@ -197,6 +218,7 @@
 				echo "Upload failed\n";
 				exit();
 			}
+			else { $this->uploaded = date('Y-m-d'); }
 		}
 
 		/**
@@ -205,7 +227,6 @@
 		public function getDirectory()
 		{
 			$department = $this->createValidFilename($this->getDepartment()->getName());
-			#return APPLICATION_HOME."/data/media/{$this->media_type}/$department";
 			return APPLICATION_HOME."/data/media/{$this->mime_type}";
 		}
 		public function getInternalFilename()
@@ -275,6 +296,13 @@
 			return $string;
 		}
 
+   		public function permitsEditingBy($user)
+   		{
+   			if ($user->hasRole(array('Webmaster','Administrator','Publisher'))) { return true; }
+   			if ($user->hasRole('Content Creator') && $this->department_id == $user->getDepartment_id()) { return true; }
+			return false;
+   		}
+
 
 		/**
 		 * Generic Getters
@@ -293,7 +321,12 @@
 			if ($format && $this->uploaded!=0) return strftime($format,strtotime($this->uploaded));
 			else return $this->uploaded;
 		}
-		public function getUploadedBy() { return $this->uploadedBy; }
+		public function getUser_id() { return $this->user_id; }
+		public function getUser()
+		{
+			if (!$this->user) { $this->user = new User($this->user_id); }
+			return $this->user;
+		}
 
 		public function getDepartment()
 		{
@@ -312,7 +345,8 @@
 		public function setDescription($string) { $this->description = trim($string); }
 		public function setDepartment_id($int) { $this->department = new Department($int); $this->department_id = $int; }
 		public function setUploaded($timestamp) { $this->uploaded = is_array($timestamp) ? $this->dateArrayToString($timestamp) : $timestamp; }
-		public function setUploadedBy($int) { $this->uploadedBy = ereg_replace("[^0-9]","",$int); }
+		public function setUploadedBy($int) { $this->user = new User($int); $this->user_id = $this->user->getId(); }
+		public function setUser($user) { $this->user_id = $user->getId(); $this->user = $user; }
 
 		public function setDepartment($department) { $this->department_id = $department->getId(); $this->department = $department; }
 	}

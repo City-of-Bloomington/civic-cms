@@ -5,8 +5,11 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 	$links = array();
+
+	# All users get access to these things
 	$links['Calendars'] = "<li><a href=\"".BASE_URL."/calendars\">Calendars</a></li>";
 	$links['Locations'] = "<li><a href=\"".BASE_URL."/locations\">Locations</a></li>";
+	$links['Attachments'] = "<li><a href=\"".BASE_URL."/media\">Media</a></li>";
 
 	if ( userHasRole('Content Creator') || userHasRole('Publisher') )
 	{
@@ -25,7 +28,6 @@
 		$links['Sections'] = "<li><a href=\"".BASE_URL."/sections\">Sections</a></li>";
 		$links['Facets'] = "<li><a href=\"".BASE_URL."/facets\">Facets</a></li>";
 		$links['DocumentTypes'] = "<li><a href=\"".BASE_URL."/documentTypes\">Document Types</a></li>";
-		$links['Attachments'] = "<li><a href=\"".BASE_URL."/media/attachments.php\">Attachments</a></li>";
 		$links['Widgets'] = "<li><a href=\"".BASE_URL."/widgets\">Widgets</a></li>";
 	}
 

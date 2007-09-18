@@ -40,7 +40,7 @@
 			if (isset($fields['md5'])) { $options[] = "md5='$fields[md5]'"; }
 			if (isset($fields['department_id'])) { $options[] = "department_id='$fields[department_id]'"; }
 			if (isset($fields['uploaded'])) { $options[] = "uploaded='$fields[uploaded]'"; }
-			if (isset($fields['uploadedBy'])) { $options[] = "uploadedBy='$fields[uploadedBy]'"; }
+			if (isset($fields['user_id'])) { $options[] = "user_id='$fields[user_id]'"; }
 
 			if (isset($fields['filename']))
 			{

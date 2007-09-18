@@ -17,16 +17,16 @@
 		<input type="hidden" name="instance_id" value="<?php echo $this->instance_id; ?>" />
 
 
-		<p>Browse for an existing attachment.</p>
+		<p>Browse for an existing file.</p>
 		<button type="button" class="browse" onclick="window.open('<?php echo BASE_URL; ?>/documents/mediaSelector.php');">Browse</button>
 		<input type="hidden" name="attachment[media_id]" id="attachment-media_id" />
 	</fieldset>
-	<fieldset><legend>Upload a new Attachment</legend>
+	<fieldset><legend>Upload a new file</legend>
 		<table>
 		<tr><td><label for="attachment-title" class="required">Title</label></td>
 			<td><input name="attachment[title]" id="attachment-title" /></td></tr>
 		<tr><td><label for="attachment-description" class="required">Description</label></td>
-			<td><input name="attachment[description]" id="attachment-description" /></td></tr>
+			<td><textarea name="attachment[description]" id="attachment-description" rows="3" cols="60"></textarea></td></tr>
 		</table>
 		<input name="max_file_size" type="hidden" value="<?php echo 1000000 * (int)ini_get('upload_max_filesize'); ?>" />
 		<input name="attachment" type="file" />

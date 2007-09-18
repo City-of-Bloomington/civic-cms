@@ -5,10 +5,14 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param GET media_id
  */
-	verifyUser(array('Administrator','Webmaster'));
+	verifyUser();
 
 	$media = new Media($_GET['media_id']);
-	$media->delete();
+	if ($media->permitsEditingBy($_SESSION['USER']))
+	{
+		$media->delete();
+	}
+	else { $_SESSION['errorMessages'][] = new Exception('noAccessAllowed'); }
 
-	Header('Location: attachments.php');
+	Header('Location: '.BASE_URL.'/media');
 ?>

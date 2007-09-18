@@ -7,42 +7,88 @@
  * @param Department $this->department ( optional )
  */
 	$title = isset($this->department) ? View::escape($this->department->getName()) : '';
+	$url = new URL($_SERVER['REQUEST_URI']);
 ?>
+<form id="filter" method="get" action="<?php echo BASE_URL; ?>/media">
 <div class="interfaceBox">
 	<div class="titleBar"><?php echo $title; ?> Media</div>
-	<table>
-	<tr><th></th>
 	<?php
-		$url = new URL($_SERVER['REQUEST_URI']);
-		$url->parameters['sort'] = 'filename'; echo "<th><a href=\"{$url->getURL()}\">Filename</a></th>";
-		$url->parameters['sort'] = 'title'; echo "<th><a href=\"{$url->getURL()}\">Title</a></th>";
-		$url->parameters['sort'] = 'department_id'; echo "<th><a href=\"{$url->getURL()}\">Department</a></th>";
-		$url->parameters['sort'] = 'uploaded desc'; echo "<th><a href=\"{$url->getURL()}\">Uploaded</a></th>";
+		echo "
+		<input name=\"mime_type\" id=\"mime_type\" type=\"hidden\" value=\"{$url->mime_type}\" />
+		<input name=\"department_id\" id=\"department_id\" type=\"hidden\" value=\"{$url->department_id}\" />
+		<input name=\"page\" id=\"page\" type=\"hidden\" value=\"{$url->page}\" />
+		<input name=\"sort\" id=\"sort\" type=\"hidden\" value=\"{$url->sort}\" />
+		";
+	?>
+	<table>
+	<tr><th><select onchange="document.getElementById('mime_type').value=this.options[this.selectedIndex].value;this.form.submit();">
+				<option></option>
+				<?php
+					foreach(Media::getExtensions() as $ext=>$info)
+					{
+						$selected = (isset($url->mime_type) && $url->mime_type===$info['mime_type']) ? 'selected="selected"' : '';
+						echo "<option value=\"$info[mime_type]\" $selected>$ext</option>";
+					}
+				?>
+			</select>
+		</th>
+		<th></th>
+		<th><select onchange="document.getElementById('department_id').value=this.options[this.selectedIndex].value;this.form.submit();">
+			<option></option>
+			<?php
+				$list = new DepartmentList();
+				$list->find();
+				foreach($list as $department)
+				{
+					$selected = (isset($url->department_id) && $url->department_id===$department->getId()) ? 'selected="selected"' : '';
+					echo "<option value=\"{$department->getId()}\" $selected>$department</option>";
+				}
+			?>
+			</select>
+		</th>
+	</tr>
+	<tr>
+	<?php
+		# Objects are always passed by reference.  So we must explicitly clone
+		# the data, if we don't want to mess up the original version
+		$tempURL = new URL($url->getURL());
+
+		$tempURL->sort = $url->sort==='filename' ? 'filename+desc' : 'filename';
+		echo "<th><a href=\"$tempURL\">Filename</a></th>";
+
+		$tempURL->sort = $url->sort==='title' ? 'title+desc' : 'title';
+		echo "<th><a href=\"$tempURL\">Title</a></th>";
+
+		$tempURL->sort = 'department_id';
+		echo "<th><a href=\"$tempURL\">Department</a></th>";
 	?>
 	</tr>
 	<?php
-		foreach($this->mediaList as $media)
+		if (count($this->mediaList) > 50)
 		{
-			$url = new URL($_SERVER['REQUEST_URI']);
-			$url->parameters['department_id'] = $media->getDepartment_id();
-
+			$_GET['page'] = (isset($_GET['page']) && $_GET['page']) ? $_GET['page'] : 0;
+			$pages = $this->mediaList->getPagination(50);
+			$mediaList = new LimitIterator($this->mediaList->getIterator(),$pages[$_GET['page']],$pages->getPageSize());
+		}
+		else { $mediaList = $this->mediaList; }
+		foreach($mediaList as $media)
+		{
 			$title = View::escape($media->getTitle());
 			$department = View::escape($media->getDepartment()->getName());
 
-			if (userHasRole(array('Administrator','Webmaster')))
-			{
-				$deleteButton = "<button type=\"button\" class=\"deleteSmall\" onclick=\"FRAMEWORK.deleteConfirmation('".BASE_URL."/media/deleteMedia.php?media_id={$media->getId()}');\">Delete</button>";
-			}
-			else { $deleteButton = ''; }
+			$filename = substr($media->getFilename(),0,25);
+
 			echo "
-			<tr><td>$deleteButton</td>
-				<td><a href=\"{$media->getURL()}\" class=\"{$media->getExtension()}\">{$media->getFilename()}</a></td>
+			<tr><td><a href=\"".BASE_URL."/media/info.php?media_id={$media->getId()}\" class=\"{$media->getExtension()}\">$filename</a></td>
 				<td>$title</td>
-				<td><a href=\"{$url->getURL()}\">$department</a></td>
-				<td>{$media->getUploaded('%D')}</td>
+				<td>$department</td>
 			</tr>
 			";
 		}
 	?>
 	</table>
 </div>
+</form>
+<?php
+	if (isset($pages)) { include FRAMEWORK.'/pageNavigation.inc'; }
+?>

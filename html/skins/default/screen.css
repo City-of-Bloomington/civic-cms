@@ -249,6 +249,7 @@ a.rss img { margin:0; }
 /* Diagnostics Styling - Styles that enhance bad content, so we know to fix it */
 img { border:4px solid red; }
 img[src^="/media/media.php"] { border:none; }
+img[src^="<?php echo BASE_URL; ?>/media/media.php"] { border:none; }
 img[src^="<?php echo BASE_URL; ?>/media/thumbnail.php"] { border:none; }
 img[src^="<?php echo BASE_URL; ?>/documents/icon.php"] { border:none; }
 img[src^="<?php echo BASE_URL; ?>/skins"] { border:none; }
