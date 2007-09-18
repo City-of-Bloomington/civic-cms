@@ -34,7 +34,7 @@
 
 		theme : "advanced",
 		content_css : "<?php echo BASE_URL; ?>/skins/<?php echo $_SESSION['skin']; ?>/skin.css",
-		theme_advanced_blockformats : "p,h1,h2,h3,h4,h5,h6,div,blockquote,dt,dd,code,pre",
+		theme_advanced_blockformats : "p,h2,h3,h4,h5,h6,div,blockquote,dt,dd,code,pre",
 		theme_advanced_toolbar_location : "top",
 		theme_advanced_toolbar_align : "left",
 		plugins : 'table,paste',
@@ -66,7 +66,6 @@
 		//"-span[style|class]," +
 		"-pre," +
 		"address," +
-		"-h1," +
 		"-h2," +
 		"-h3," +
 		"-h4," +
