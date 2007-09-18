@@ -303,6 +303,10 @@
 			return false;
    		}
 
+		public function getFilesize()
+		{
+			return filesize($this->getDirectory().'/'.$this->getInternalFilename());
+		}
 
 		/**
 		 * Generic Getters

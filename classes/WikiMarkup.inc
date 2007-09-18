@@ -89,7 +89,9 @@ class WikiMarkup
 					{
 						$media = $list[0];
 						if (!isset($linkText)) { $linkText = View::escape($media->getTitle()); }
-						return "<a href=\"{$media->getURL()}\" class=\"{$media->getExtension()}\">$linkText</a>";
+						$type = strtoupper($media->getExtension());
+						$size = self::size_readable($media->getFilesize());
+						return "<a href=\"{$media->getURL()}\" class=\"{$media->getExtension()}\">$linkText ($type $size)</a>";
 					}
 				break;
 
@@ -150,6 +152,20 @@ class WikiMarkup
 			return "<a href=\"$url\">$linkText</a>";
 		}
 		else { return "<span style=\"background-color:red\">$matches[0]</span>"; }
+	}
+
+	public static function size_readable ($size, $retstring='%01.2f %s')
+	{
+        // adapted from code at http://aidanlister.com/repos/v/function.size_readable.php
+        $sizes = array('B', 'K', 'MB', 'GB');
+        $lastsizestring = end($sizes);
+        foreach ($sizes as $sizestring)
+        {
+                if ($size < 1024) { break; }
+                if ($sizestring != $lastsizestring) { $size /= 1024; }
+        }
+        if ($sizestring == $sizes[0]) { $retstring = '%01d %s'; } // Bytes aren't normally fractional
+        return sprintf($retstring, $size, $sizestring);
 	}
 }
 ?>
