@@ -64,10 +64,10 @@
 				$options[] = "c.calendar_id='$fields[calendar_id]'";
 			}
 
-			if (isset($fields['facetGroup_id']))
+			if (isset($fields['tagGroup_id']))
 			{
-				$this->joins.= ' left join facetGroup_departments f on f.department_id=departments.id';
-				$options[] = "f.facetGroup_id='$fields[facetGroup_id]'";
+				$this->joins.= ' left join tagGroup_departments f on f.department_id=departments.id';
+				$options[] = "f.tagGroup_id='$fields[tagGroup_id]'";
 			}
 
 			$this->populateList($options);

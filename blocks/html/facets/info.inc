@@ -8,8 +8,8 @@
 <h2><?php
 		if (userHasRole(array('Administrator','Webmaster')))
 		{
-			echo "<button type=\"button\" class=\"addSmall\" onclick=\"document.location.href='".BASE_URL."/facets/addFacet.php';\">Add</button>";
+			echo "<button type=\"button\" class=\"addSmall\" onclick=\"document.location.href='".BASE_URL."/tags/addTag.php';\">Add</button>";
 		}
 	?>
-	Facets
+	Tags
 </h2>

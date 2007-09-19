@@ -5,18 +5,18 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 	$template = new Template();
-	$template->blocks[] = new Block('facets/info.inc');
+	$template->blocks[] = new Block('tags/info.inc');
 
-	$groups = new FacetGroupList();
+	$groups = new TagGroupList();
 	$groups->find();
 	foreach($groups as $group)
 	{
-		$template->blocks[] = new Block('facets/facetList.inc',array('facetList'=>$group->getFacets(),'title'=>$group->getName(),'facetGroup'=>$group));
+		$template->blocks[] = new Block('tags/tagList.inc',array('tagList'=>$group->getTags(),'title'=>$group->getName(),'tagGroup'=>$group));
 	}
 
 	if (userHasRole(array('Administrator','Webmaster')))
 	{
-		$template->blocks[] = new Block('facets/facetGroupList.inc',array('facetGroupList'=>$groups));
+		$template->blocks[] = new Block('tags/tagGroupList.inc',array('tagGroupList'=>$groups));
 	}
 
 	$template->render();

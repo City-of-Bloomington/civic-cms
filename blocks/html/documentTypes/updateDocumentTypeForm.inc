@@ -30,21 +30,21 @@
 				For instance in the 'Information in $section' box.</p>
 		</td>
 	</tr>
-	<tr><td><label for="documentType-defaultFacetGroup_id">Default Facet Group</label></td>
-		<td><select name="documentType[defaultFacetGroup_id]"><option></option>
+	<tr><td><label for="documentType-defaultTagGroup_id">Default Tag Group</label></td>
+		<td><select name="documentType[defaultTagGroup_id]"><option></option>
 			<?php
-				$list = new FacetGroupList();
+				$list = new TagGroupList();
 				$list->find();
 				foreach($list as $group)
 				{
 					$name = View::escape($group->getName());
-					$selected = ($group->getId() == $this->documentType->getDefaultFacetGroup_id()) ? 'selected="selected"' : '';
+					$selected = ($group->getId() == $this->documentType->getDefaultTagGroup_id()) ? 'selected="selected"' : '';
 					echo "<option value=\"{$group->getId()}\" $selected>$name</option>";
 				}
 			?>
 			</select>
 		</td>
-		<td><p>Choose the Facet Group you want to be selected by default when the list of all documents of this type is displayed.</p></td>
+		<td><p>Choose the Tag Group you want to be selected by default when the list of all documents of this type is displayed.</p></td>
 	</tr>
 	</table>
 </fieldset>

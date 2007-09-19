@@ -60,8 +60,8 @@ create table documentTypes (
 	type varchar(128) not null,
 	template text not null,
 	ordering varchar(50) not null default 'title',
-	defaultFacetGroup_id int unsigned,
-	foreign key (defaultFacetGroup_id) references facetGroups(id)
+	defaultTagGroup_id int unsigned,
+	foreign key (defaultTagGroup_id) references tagGroups(id)
 ) engine=InnoDB;
 insert documentTypes set type='Webpage';
 
@@ -155,42 +155,42 @@ create table document_sections (
 
 
 ---------------------------------------------------------------------
--- Facet tables
+-- Tag tables
 ---------------------------------------------------------------------
-create table facetGroups (
+create table tagGroups (
 	id int unsigned not null primary key auto_increment,
 	name varchar(128) not null
 ) engine=InnoDB;
 
-create table facets (
+create table tags (
   id int unsigned not null primary key auto_increment,
   name varchar(50) not null unique,
-  facetGroup_id int unsigned not null,
+  tagGroup_id int unsigned not null,
   description text,
-  foreign key (facetGroup_id) references facetGroups(id)
+  foreign key (tagGroup_id) references tagGroups(id)
 ) engine=InnoDB;
 
-create table document_facets (
+create table document_tags (
   document_id int unsigned not null,
-  facet_id int unsigned not null,
-  primary key (document_id,facet_id),
+  tag_id int unsigned not null,
+  primary key (document_id,tag_id),
   foreign key (document_id) references documents (id) on delete cascade,
-  foreign key (facet_id) references facets (id) on delete cascade
+  foreign key (tag_id) references tags (id) on delete cascade
 ) engine=InnoDB;
 
-create table facetGroups_related (
-	facetGroup_id int unsigned not null,
+create table tagGroups_related (
+	tagGroup_id int unsigned not null,
 	relatedGroup_id int unsigned not null,
-	primary key (facetGroup_id,relatedGroup_id),
-	foreign key (facetGroup_id) references facetGroups(id),
-	foreign key (relatedGroup_id) references facetGroups(id)
+	primary key (tagGroup_id,relatedGroup_id),
+	foreign key (tagGroup_id) references tagGroups(id),
+	foreign key (relatedGroup_id) references tagGroups(id)
 ) engine=InnoDB;
 
-create table facetGroup_departments (
-	facetGroup_id int unsigned not null,
+create table tagGroup_departments (
+	tagGroup_id int unsigned not null,
 	department_id int unsigned not null,
-	primary key (facetGroup_id,department_id),
-	foreign key (facetGroup_id) references facetGroups(id),
+	primary key (tagGroup_id,department_id),
+	foreign key (tagGroup_id) references tagGroups(id),
 	foreign key (department_id) references departments(id)
 ) engine=InnoDB;
 

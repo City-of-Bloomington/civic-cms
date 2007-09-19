@@ -4,23 +4,23 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Document $this->document
- * @param FacetGroupList $this->facetGroupList
+ * @param TagGroupList $this->tagGroupList
  * @param URL $this->return_url
  * @param int $this->instance_id
  */
 ?>
 <form id="documentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 	<?php
-		foreach($this->facetGroupList as $group)
+		foreach($this->tagGroupList as $group)
 		{
 			$name = View::escape($group->getName());
 			echo "<fieldset><legend>$name</legend>";
 
-			foreach($group->getFacets() as $facet)
+			foreach($group->getTags() as $tag)
 			{
-				$facetName = View::escape($facet->getName());
-				if ($this->document->hasFacet($facet)) { $checked = "checked=\"checked\""; } else { $checked = ""; }
-				echo "<label><input type=\"checkbox\" name=\"document[facets][{$facet->getId()}]\" value=\"{$facet->getId()}\" $checked />$facetName</label>";
+				$tagName = View::escape($tag->getName());
+				if ($this->document->hasTag($tag)) { $checked = "checked=\"checked\""; } else { $checked = ""; }
+				echo "<label><input type=\"checkbox\" name=\"document[tags][{$tag->getId()}]\" value=\"{$tag->getId()}\" $checked />$tagName</label>";
 			}
 			echo "</fieldset>";
 		}

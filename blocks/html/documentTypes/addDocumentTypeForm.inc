@@ -27,10 +27,10 @@
 				For instance in the 'Information in $section' box.</p>
 		</td>
 	</tr>
-	<tr><td><label for="documentType-defaultFacetGroup_id">Default Facet Group</label></td>
-		<td><select name="documentType[defaultFacetGroup_id]"><option></option>
+	<tr><td><label for="documentType-defaultTagGroup_id">Default Tag Group</label></td>
+		<td><select name="documentType[defaultTagGroup_id]"><option></option>
 			<?php
-				$list = new FacetGroupList();
+				$list = new TagGroupList();
 				$list->find();
 				foreach($list as $group)
 				{
@@ -40,7 +40,7 @@
 			?>
 			</select>
 		</td>
-		<td><p>Choose the Facet Group you want to be selected by default when the list of all documents of this type is displayed.</p></td>
+		<td><p>Choose the Tag Group you want to be selected by default when the list of all documents of this type is displayed.</p></td>
 	</tr>
 	</table>
 </fieldset>

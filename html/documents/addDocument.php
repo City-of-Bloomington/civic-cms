@@ -162,14 +162,14 @@
 			$form->language = $language;
 		break;
 
-		case 'facets':
-			$groups = new FacetGroupList();
+		case 'tags':
+			$groups = new TagGroupList();
 			if ( !(userHasRole(array('Administrator','Webmaster'))) )
 			{
 				$groups->find(array('department_id'=>$_SESSION['USER']->getDepartment_id()));
 			}
 			else  { $groups->find(); }
-			$form->facetGroupList = $groups;
+			$form->tagGroupList = $groups;
 		break;
 
 		default:

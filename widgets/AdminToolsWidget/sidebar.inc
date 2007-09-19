@@ -26,7 +26,7 @@
 	{
 		$links['Documents'] = "<li><a href=\"".BASE_URL."/documents\">Documents</a></li>";
 		$links['Sections'] = "<li><a href=\"".BASE_URL."/sections\">Sections</a></li>";
-		$links['Facets'] = "<li><a href=\"".BASE_URL."/facets\">Facets</a></li>";
+		$links['Tags'] = "<li><a href=\"".BASE_URL."/tags\">Tags</a></li>";
 		$links['DocumentTypes'] = "<li><a href=\"".BASE_URL."/documentTypes\">Document Types</a></li>";
 		$links['Widgets'] = "<li><a href=\"".BASE_URL."/widgets\">Widgets</a></li>";
 	}

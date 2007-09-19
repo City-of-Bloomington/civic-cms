@@ -6,18 +6,18 @@
  */
 	verifyUser(array('Administrator','Webmaster'));
 
-	if (isset($_POST['facetGroup']))
+	if (isset($_POST['tagGroup']))
 	{
-		$facetGroup = new FacetGroup();
-		foreach($_POST['facetGroup'] as $field=>$value)
+		$tagGroup = new TagGroup();
+		foreach($_POST['tagGroup'] as $field=>$value)
 		{
 			$set = 'set'.ucfirst($field);
-			$facetGroup->$set($value);
+			$tagGroup->$set($value);
 		}
 
 		try
 		{
-			$facetGroup->save();
+			$tagGroup->save();
 			Header('Location: home.php');
 			exit();
 		}
@@ -25,6 +25,6 @@
 	}
 
 	$template = new Template();
-	$template->blocks[] = new Block('facets/addFacetGroupForm.inc');
+	$template->blocks[] = new Block('tags/addTagGroupForm.inc');
 	$template->render();
 ?>

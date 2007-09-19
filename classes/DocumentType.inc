@@ -10,10 +10,10 @@
 		private $type;
 		private $template;
 		private $ordering;
-		private $defaultFacetGroup_id;
+		private $defaultTagGroup_id;
 
 		private $document_list;
-		private $defaultFacetGroup;
+		private $defaultTagGroup;
 
 		/**
 		 * This will load all fields in the table as properties of this class.
@@ -59,7 +59,7 @@
 			$fields['type'] = $this->type ? $this->type : null;
 			$fields['template'] = $this->template ? $this->template : null;
 			$fields['ordering'] = $this->ordering ? $this->ordering : null;
-			$fields['defaultFacetGroup_id'] = $this->defaultFacetGroup_id ? $this->defaultFacetGroup_id : null;
+			$fields['defaultTagGroup_id'] = $this->defaultTagGroup_id ? $this->defaultTagGroup_id : null;
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
@@ -112,21 +112,21 @@
 		public function getType() { return $this->type; }
 		public function getTemplate() { return $this->template; }
 		public function getOrdering() { return $this->ordering; }
-		public function getDefaultFacetGroup_id() { return $this->defaultFacetGroup_id; }
-		public function getDefaultFacetGroup()
+		public function getDefaultTagGroup_id() { return $this->defaultTagGroup_id; }
+		public function getDefaultTagGroup()
 		{
-			if (!$this->defaultFacetGroup)
+			if (!$this->defaultTagGroup)
 			{
-				if ($this->defaultFacetGroup_id) { $this->defaultFacetGroup = new FacetGroup($this->defaultFacetGroup_id); }
+				if ($this->defaultTagGroup_id) { $this->defaultTagGroup = new TagGroup($this->defaultTagGroup_id); }
 			}
-			return $this->defaultFacetGroup;
+			return $this->defaultTagGroup;
 		}
 
 
 		public function setType($string) { $this->type = trim($string); }
 		public function setTemplate($text) { $this->template = $text; }
 		public function setOrdering($string) { $this->ordering = trim($string); }
-		public function setDefaultFacetGroup_id($int) { $this->defaultFacetGroup = new FacetGroup($int); $this->defaultFacetGroup_id = $int; }
-		public function setDefaultFacetGroup($facetGroup) { $this->defaultFacetGroup_id = $facetGroup->getId(); $this->defaultFacetGroup = $facetGroup; }
+		public function setDefaultTagGroup_id($int) { $this->defaultTagGroup = new TagGroup($int); $this->defaultTagGroup_id = $int; }
+		public function setDefaultTagGroup($tagGroup) { $this->defaultTagGroup_id = $tagGroup->getId(); $this->defaultTagGroup = $tagGroup; }
 	}
 ?>

@@ -3,26 +3,26 @@
  * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
- * @param Facet $this->facet
+ * @param Tag $this->tag
  */
 ?>
-<h2>Update Facet</h2>
+<h2>Update Tag</h2>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-<fieldset><legend>Facet Info</legend>
-	<input name="facet_id" type="hidden" value="<?php echo $this->facet->getId(); ?>" />
+<fieldset><legend>Tag Info</legend>
+	<input name="tag_id" type="hidden" value="<?php echo $this->tag->getId(); ?>" />
 
 	<table>
-	<tr><td><label for="facet-name" class="required">Name</label></td>
-		<td><input name="facet[name]" id="facet-name" value="<?php echo View::escape($this->facet->getName()); ?>" /></td></tr>
-	<tr><td><label for="facet-facetGroup_id" class="required">Group</label></td>
-		<td><select name="facet[facetGroup_id]" id="facet-facetGroup_id">
+	<tr><td><label for="tag-name" class="required">Name</label></td>
+		<td><input name="tag[name]" id="tag-name" value="<?php echo View::escape($this->tag->getName()); ?>" /></td></tr>
+	<tr><td><label for="tag-tagGroup_id" class="required">Group</label></td>
+		<td><select name="tag[tagGroup_id]" id="tag-tagGroup_id">
 			<?php
-				$list = new FacetGroupList();
+				$list = new TagGroupList();
 				$list->find();
 				foreach($list as $group)
 				{
 					$name = View::escape($group->getName());
-					$selected = $this->facet->getFacetGroup_id()==$group->getId() ? 'selected="selected"' : '';
+					$selected = $this->tag->getTagGroup_id()==$group->getId() ? 'selected="selected"' : '';
 					echo "<option value=\"{$group->getId()}\" $selected>$name</option>";
 				}
 			?>
@@ -32,7 +32,7 @@
 	<tr><td colspan="2">
 			<div><label for="description">Description</label></div>
 			<?php
-				$content = $this->facet->getDescription();
+				$content = $this->tag->getDescription();
 				$content_field_name = 'description';
 				include APPLICATION_HOME.'/includes/editors/'.EDITOR.'/editor_init.inc';
 			?>
@@ -40,6 +40,6 @@
 	</table>
 
 	<button type="submit" class="submit">Submit</button>
-	<button type="button" class="cancel" onclick="document.location.href='<?php echo BASE_URL; ?>/facets';">Cancel</button>
+	<button type="button" class="cancel" onclick="document.location.href='<?php echo BASE_URL; ?>/tags';">Cancel</button>
 </fieldset>
 </form>

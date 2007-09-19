@@ -4,11 +4,11 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
-	class FacetList extends PDOResultIterator
+	class TagList extends PDOResultIterator
 	{
 		public function __construct($fields=null)
 		{
-			$this->select = 'select facets.id as id from facets';
+			$this->select = 'select tags.id as id from tags';
 			if (is_array($fields)) $this->find($fields);
 		}
 
@@ -30,7 +30,7 @@
 			$options = array();
 			if (isset($fields['id'])) { $options[] = "id='$fields[id]'"; }
 			if (isset($fields['name'])) { $options[] = "name='$fields[name]'"; }
-			if (isset($fields['facetGroup_id'])) { $options[] = "facetGroup_id='$fields[facetGroup_id]'"; }
+			if (isset($fields['tagGroup_id'])) { $options[] = "tagGroup_id='$fields[tagGroup_id]'"; }
 			if (isset($fields['description'])) { $options[] = "description='$fields[description]'"; }
 
 
@@ -39,26 +39,26 @@
 			# to $this->joins here
 
 			/**
-			 * Passing in facet_id should trigger the SQL for relatedFacets
+			 * Passing in tag_id should trigger the SQL for relatedTags
 			 */
-			if (isset($fields['facet_id']))
+			if (isset($fields['tag_id']))
 			{
-				$this->select = 'select distinct(g.facet_id) as id from facets f';
-				$this->joins.= ' left join document_facets d on f.id=facet_id';
-				$this->joins.= ' left join document_facets g on d.document_id=g.document_id';
-				$options[] = "f.id='$fields[facet_id]'";
-				$options[] = "g.facet_id!='$fields[facet_id]'";
+				$this->select = 'select distinct(g.tag_id) as id from tags f';
+				$this->joins.= ' left join document_tags d on f.id=tag_id';
+				$this->joins.= ' left join document_tags g on d.document_id=g.document_id';
+				$options[] = "f.id='$fields[tag_id]'";
+				$options[] = "g.tag_id!='$fields[tag_id]'";
 			}
 
 			if (isset($fields['document_id']))
 			{
-				$this->joins.= ' left join document_facets on id=facet_id';
+				$this->joins.= ' left join document_tags on id=tag_id';
 				$options[] = "document_id='$fields[document_id]'";
 			}
 
 			$this->populateList($options);
 		}
 
-		protected function loadResult($key) { return new Facet($this->list[$key]); }
+		protected function loadResult($key) { return new Tag($this->list[$key]); }
 	}
 ?>

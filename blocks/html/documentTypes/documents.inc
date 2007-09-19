@@ -4,12 +4,12 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param DocumentType $this->documentType
- * @param FacetGroup $this->facetGroup
+ * @param TagGroup $this->tagGroup
  */
 	$type = View::escape($this->documentType->getType());
 	$href = new URL($_SERVER['PHP_SELF']);
 	$href->parameters['documentType_id'] = $this->documentType->getId();
-	$href->parameters['facetGroup_id'] = 'none';
+	$href->parameters['tagGroup_id'] = 'none';
 	echo "
 	<h2><a href=\"$href\">$type</a>
 		<a href=\"$href;format=rss\" class=\"rss\">
@@ -20,15 +20,15 @@
 	<ul>
 	";
 
-	$groups = new FacetGroupList();
+	$groups = new TagGroupList();
 	$groups->find();
 	foreach($groups as $group)
 	{
 		if ($group->hasDocuments(array('documentType_id'=>$this->documentType->getId())))
 		{
-			$href->parameters['facetGroup_id'] = $group->getId();
+			$href->parameters['tagGroup_id'] = $group->getId();
 			$name = View::escape($group->getName());
-			$class = (isset($this->facetGroup) && $group->getId()==$this->facetGroup->getId()) ? 'class="current"' : '';
+			$class = (isset($this->tagGroup) && $group->getId()==$this->tagGroup->getId()) ? 'class="current"' : '';
 			echo "<li><a href=\"$href\" $class>$name</a></li>";
 		}
 	}
@@ -42,15 +42,15 @@
 
 
 
-	# List all the documents, grouped by Facet - inside the current FacetGroup
-	if (isset($this->facetGroup))
+	# List all the documents, grouped by Tag - inside the current TagGroup
+	if (isset($this->tagGroup))
 	{
-		foreach($this->facetGroup->getFacets() as $facet)
+		foreach($this->tagGroup->getTags() as $tag)
 		{
-			$documents = $facet->getDocuments(array('documentType_id'=>$this->documentType->getId()));
+			$documents = $tag->getDocuments(array('documentType_id'=>$this->documentType->getId()));
 			if (count($documents))
 			{
-				$name = View::escape($facet->getName());
+				$name = View::escape($tag->getName());
 				echo "
 				<div class=\"interfaceBox\">
 					<div class=\"titleBar\">$name</div>
