@@ -19,6 +19,9 @@
 			$this->search->setMaxBufferedDocs(ZEND_SEARCH_MAX_BUFFERED_DOCS);
 			$this->search->setMaxMergeDocs(ZEND_SEARCH_MAX_MERGE_DOCS);
 			$this->search->setMergeFactor(ZEND_SEARCH_MERGE_FACTOR);
+
+			# This analyzer is case-sensitive, but it's the only one that can handle UTF8 characters
+			# We'll need to remember to lowercase search queries before doing the search
 			Zend_Search_Lucene_Analysis_Analyzer::setDefault(new Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8());
 		}
 
@@ -55,6 +58,7 @@
 
 		public function find($string)
 		{
+			$string = strtolower($string);
 			try
 			{
 				$userQuery = Zend_Search_Lucene_Search_QueryParser::parse($string);
