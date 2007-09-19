@@ -22,13 +22,13 @@
 
 		$url->parameters['year'] = $back['year'];
 		$url->parameters['mon'] = $back['mon'];
-		echo "<button type=\"button\" class=\"back\" onclick=\"document.location.href='{$url->getURL()}'\">Back</button>";
+		echo "<button type=\"button\" class=\"back\" onclick=\"document.location.href='{$url->getURL()}'\">Previous Month</button>";
 
 		echo "{$this->calendar->getName()} $calendarDate[month] $year";
 
 		$url->parameters['year'] = $next['year'];
 		$url->parameters['mon'] = $next['mon'];
-		echo "<button type=\"button\" class=\"next\" onclick=\"document.location.href='{$url->getURL()}'\">Next</button>";
+		echo "<button type=\"button\" class=\"next\" onclick=\"document.location.href='{$url->getURL()}'\">Next Month</button>";
 	?>
 	</div>
 <table class="calendar">

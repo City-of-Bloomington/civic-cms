@@ -18,14 +18,14 @@
 			$url->parameters['mon'] = $back['mon'];
 			$url->parameters['mday'] = $back['mday'];
 			$url->parameters['year'] = $back['year'];
-			echo "<button type=\"button\" class=\"back\" onclick=\"document.location.href='{$url->getURL()}';\">Back</button>";
+			echo "<button type=\"button\" class=\"back\" onclick=\"document.location.href='{$url->getURL()}';\">Previous Day</button>";
 
 			echo date('D, M j, Y',$timestamp);
 
 			$url->parameters['mon'] = $next['mon'];
 			$url->parameters['mday'] = $next['mday'];
 			$url->parameters['year'] = $next['year'];
-			echo "<button type=\"button\" class=\"next\" onclick=\"document.location.href='{$url->getURL()}';\">Next</button>";
+			echo "<button type=\"button\" class=\"next\" onclick=\"document.location.href='{$url->getURL()}';\">Next Day</button>";
 		?>
 	</div>
 	<table>
