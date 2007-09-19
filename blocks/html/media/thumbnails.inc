@@ -14,7 +14,7 @@
 	foreach($this->imageList as $image)
 	{
 		$callback = getFilebrowserCallback($image);
-		$title = View::escape(addslashes($image->getTitle()));
+		$title = htmlspecialchars($image->getTitle(),ENT_QUOTES);
 		echo "
 		<div class=\"thumbnail\">
 			<a href=\"{$image->getURL()}\" onclick=\"$callback\">

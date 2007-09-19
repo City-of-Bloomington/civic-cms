@@ -6,7 +6,7 @@
  */
 	function getFilebrowserCallback($media)
 	{
-		$title = View::escape(addslashes($media->getTitle()));
+		$title = htmlspecialchars($media->getTitle(),ENT_QUOTES);
 		return "selectImage('{$media->getURL()}','$title');return false;";
 	}
 ?>

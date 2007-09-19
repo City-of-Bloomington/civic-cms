@@ -17,8 +17,9 @@
 			$url = new URL($_SERVER['PHP_SELF']);
 			foreach($departments as $department)
 			{
+				$name = View::escape($department->getName());
 				$url->parameters['department_id'] = $department->getId();
-				echo "<li><a href=\"{$url->getURL()}\">$department</a></li>";
+				echo "<li><a href=\"{$url->getURL()}\">$name</a></li>";
 			}
 		?>
 		</ul>
