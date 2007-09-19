@@ -10,11 +10,19 @@
 	if (defined('DIRECTORY_WEBSERVICE'))
 	{
 		$office = new SimpleXMLElement(DIRECTORY_WEBSERVICE."/viewLocation.php?category={$this->category};department={$this->department};location={$this->location};format=xml",null,true);
-		echo "<table>";
+		echo "
+		<table>
+		<tr><th>Name</th>
+			<th>Title</th>
+			<th>Phone</th>
+			<th>Email</th>
+		</tr>
+		";
 		foreach ($office->person as $person)
 		{
 			echo "
-			<tr><td>{$person->name}, {$person->title}</td>
+			<tr><td>{$person->name}</td>
+				<td>{$person->title}</td>
 				<td>{$person->phone}</td>
 				<td><a href=\"mailto:{$person->email}\">{$person->email}</td>
 			</tr>

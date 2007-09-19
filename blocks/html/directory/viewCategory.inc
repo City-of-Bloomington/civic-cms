@@ -13,34 +13,40 @@
 		$url = new URL(BASE_URL.'/directory/viewDepartment.php');
 		$url->parameters['category'] = $category['name'];
 
-		echo "<ul>";
 		$name = View::escape($category['name']);
 		foreach($category->department as $department)
 		{
 			$url->parameters['department'] = $department['name'];
 
 			$name = View::escape($department['name']);
-			echo "<li><a href=\"$url\">$name</a><ul>";
+			echo "<h1><a href=\"$url\">$name</a></h1>";
 
 			foreach($department->office as $office)
 			{
 				$url->parameters['location'] = urlencode($office['name']);
 				$name = View::escape($office['name']);
-				echo "<li><a href=\"$url\">$name</a><table>";
+				echo "
+				<h2><a href=\"$url\">$name</a></h2>
+					<table>
+					<tr><th>Name</th>
+						<th>Title</th>
+						<th>Phone</th>
+						<th>Email</th>
+					</tr>
+				";
 				foreach ($office->person as $person)
 				{
 					echo "
-					<tr><td>{$person->name}, {$person->title}</td>
+					<tr><td>{$person->name}</td>
+						<td>{$person->title}</td>
 						<td>{$person->phone}</td>
 						<td><a href=\"mailto:{$person->email}\">{$person->email}</td>
 					</tr>
 					";
 				}
-				echo "</table></li>";
+				echo "</table>";
 			}
-			echo "</ul></li>";
 		}
-		echo "</ul>";
 	}
 	else
 	{
