@@ -45,7 +45,7 @@
 		}
 
 		# Directions will come in from the WYSIWYG editor
-		if (isset($_POST['directions'])) { $location->setDirections($_POST['directions']); }
+		if (isset($_POST['content'])) { $location->setContent($_POST['content']); }
 
 		try
 		{

@@ -37,7 +37,7 @@
 			if (isset($fields['locationType_id'])) { $options[] = "locationType_id='$fields[locationType_id]'"; }
 			if (isset($fields['address'])) { $options[] = "address='$fields[address]'"; }
 			if (isset($fields['description'])) { $options[] = "description='$fields[description]'"; }
-			if (isset($fields['directions'])) { $options[] = "directions='$fields[directions]'"; }
+			if (isset($fields['content'])) { $options[] = "content='$fields[content]'"; }
 			if (isset($fields['department_id'])) { $options[] = "department_id='$fields[department_id]'"; }
 
 			# Latitude and longitude are being used for calculating distance.  We can't use them

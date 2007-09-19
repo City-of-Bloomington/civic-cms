@@ -82,10 +82,10 @@
 		}
 	?>
 </fieldset>
-<fieldset><legend>Directions</legend>
+<fieldset><legend>Web Content</legend>
 	<?php
-		$content = $this->location->getDirections();
-		$content_field_name = 'directions';
+		$content = $this->location->getContent();
+		$content_field_name = 'content';
 		include APPLICATION_HOME.'/includes/editors/'.EDITOR.'/editor_init.inc';
 	?>
 </fieldset>

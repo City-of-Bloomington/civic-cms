@@ -11,7 +11,7 @@
 		private $locationType_id;
 		private $address;
 		private $description;
-		private $directions;
+		private $content;
 		private $latitude;
 		private $longitude;
 		private $department_id;
@@ -69,7 +69,7 @@
 			$fields['locationType_id'] = $this->locationType_id ? $this->locationType_id : 1;
 			$fields['address'] = $this->address ? $this->address : null;
 			$fields['description'] = $this->description ? $this->description : null;
-			$fields['directions'] = $this->directions ? $this->directions : null;
+			$fields['content'] = $this->content ? $this->content : null;
 			$fields['latitude'] = $this->latitude ? $this->latitude : null;
 			$fields['longitude'] = $this->longitude ? $this->longitude : null;
 			$fields['department_id'] = $this->department_id;
@@ -168,7 +168,7 @@
 		public function getLocationType_id() { return $this->locationType_id; }
 		public function getAddress() { return $this->address; }
 		public function getDescription() { return $this->description; }
-		public function getDirections() { return $this->directions; }
+		public function getContent() { return $this->content; }
 		public function getLatitude() { return $this->latitude; }
 		public function getLongitude() { return $this->longitude; }
 		public function getDepartment_id() { return $this->department_id; }
@@ -198,7 +198,7 @@
 		public function setLocationType_id($int) { $this->locationType = new LocationType($int); $this->locationType_id = $int; }
 		public function setAddress($string) { $this->address = trim($string); }
 		public function setDescription($string) { $this->description = trim($string); }
-		public function setDirections($text) { $this->directions = $text; }
+		public function setContent($text) { $this->content = $text; }
 		public function setLatitude($float) { $this->latitude = ereg_replace("[^0-9.\-]","",$float); }
 		public function setLongitude($float) { $this->longitude = ereg_replace("[^0-9.\-]","",$float); }
 		public function setDepartment_id($int) { $this->department = new Department($int); $this->department_id = $int; }
