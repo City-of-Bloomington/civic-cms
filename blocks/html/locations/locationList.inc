@@ -57,18 +57,23 @@
 					$info[] = '"<h3>'.addslashes($name).'</h3><p>'.addslashes($description).'</p>"';
 
 					$i = count($points) - 1;
-					$mapLink = "<a href=\"#map\" onclick=\"popup($i);\">$name</a>";
+					$mapButton = "<button type=\"button\" onclick=\"popup($i);\">Map It</button>";
 				}
-				else { $mapLink = $name; }
+				else { $mapButton = ''; }
 
 
 				if (isset($_SESSION['USER']) && $location->permitsEditingBy($_SESSION['USER']))
 				{
-					$button = "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/locations/updateLocation.php?location_id={$location->getId()}';\">Edit</button>";
+					$editButton = "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/locations/updateLocation.php?location_id={$location->getId()}';\">Edit</button>";
 				}
-				else { $button = ''; }
+				else { $editButton = ''; }
 
-				echo "<li>$button $mapLink</li>\n";
+				echo "
+				<li>$editButton
+					<a href=\"".BASE_URL."/locations/viewLocation.php?location_id={$location->getId()}\">$name</a>
+					$mapButton
+				</li>
+				";
 			}
 		?>
 	</ul>
