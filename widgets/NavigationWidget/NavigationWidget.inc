@@ -79,7 +79,7 @@
 				$this->ancestors = array(1=>$this->section);
 			}
 
-			$this->renderIncludeFile($this);
+			if ($this->section->getId() != 1) { $this->renderIncludeFile($this); }
 		}
 	}
 ?>

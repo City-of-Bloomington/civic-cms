@@ -12,7 +12,7 @@
  * Documents that include forms are expected to have the PHP code
  * inside themselves to process their own POST
  */
-	$template = new Template();
+	$template = (isset($section) && $section->getId()==1) ? new Template('blank') : new Template();
 
 	try
 	{

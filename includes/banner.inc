@@ -13,16 +13,8 @@
 			if (isset($_SESSION['USER'])) { echo "<a href=\"".BASE_URL."/login/logout.php\">Logout</a>"; }
 			else { echo "<a href=\"".BASE_URL."/login\">Login</a>"; }
 		?>
-		<a href="<?php echo BASE_URL; ?>/documents/az_index.php">A-Z Index</a>
 		<a href="<?php echo BASE_URL; ?>/directory">City Contacts</a>
 		<a href="job_postings">Job Postings</a>
-		<form method="get" action="<?php echo BASE_URL; ?>/documents/search.php">
-		<div>
-		<label for="search">SEARCH</label>
-			<input name="search" id="search" />
-			<button type="submit" class="search">search</button>
-		</div>
-		</form>
 		<form method="get" action="<?php $_SERVER['PHP_SELF']; ?>">
 		<fieldset>
 			<?php

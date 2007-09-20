@@ -109,7 +109,7 @@
 		# Make sure they're allowed to edit the raw source code
 		if (userHasRole(array('Administrator','Webmaster')))
 		{
-			$_SESSION['document'][$instance_id]->setContent(file_get_contents($_FILES['source']['tmp_name']),$_POST['lang']);
+			$_SESSION['document'][$instance_id]->setSource(file_get_contents($_FILES['source']['tmp_name']),$_POST['lang']);
 		}
 	}
 	# Save the document only when they ask for it

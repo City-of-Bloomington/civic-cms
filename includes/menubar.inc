@@ -21,3 +21,20 @@
 ?>
 </ul>
 </div>
+<div class="menuBar">
+<ul><li><a href="<?php echo BASE_URL; ?>/calendars">Calendars</a></li>
+	<li><a href="<?php echo BASE_URL; ?>/documentTypes/documents.php?documentType_id=5">News</a></li>
+	<li><a href="<?php echo BASE_URL; ?>/locations">Locations</a></li>
+	<li><a href="<?php echo BASE_URL; ?>/community_profile">Community Profile</a></li>
+	<li><a href="<?php echo BASE_URL; ?>/documents/az_index.php">A-Z Index</a></li>
+	<li><a href="<?php echo BASE_URL; ?>/facets">Facets</a></li>
+	<li><form method="get" action="<?php echo BASE_URL; ?>/documents/search.php">
+		<fieldset>
+			<label for="search">SEARCH</label>
+			<input name="search" id="search" />
+			<button type="submit" class="search">search</button>
+		</fieldset>
+		</form>
+	</li>
+</ul>
+</div>
