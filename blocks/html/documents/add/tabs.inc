@@ -8,7 +8,7 @@
 * @param string $this->current_tab
 * @param URL $this->return_url
 */
-	$tabs = array('info','content','sections','tags');
+	$tabs = array('info','content','sections','facets');
 
 	foreach($tabs as $tab)
 	{

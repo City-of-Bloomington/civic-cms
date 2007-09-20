@@ -3,11 +3,11 @@
  * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
- * @param Tag $this->tag
+ * @param Facet $this->facet
  */
 ?>
-<h2><?php echo View::escape($this->tag->getName()); ?></h2>
-<div><?php echo WikiMarkup::parse($this->tag->getDescription()); ?></div>
+<h2><?php echo View::escape($this->facet->getName()); ?></h2>
+<div><?php echo WikiMarkup::parse($this->facet->getDescription()); ?></div>
 <script type="text/javascript">
 	function toggleSiblings(button)
 	{
@@ -31,7 +31,7 @@
 <button type="button" class="more" onclick="toggleSiblings(this);">More</button>
 <div id="siblings" style="display:none;">
 <ul><?php
-		foreach($this->tag->getDocuments() as $document)
+		foreach($this->facet->getDocuments() as $document)
 		{
 			$title = View::escape($document->getTitle());
 			echo "

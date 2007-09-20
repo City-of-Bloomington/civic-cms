@@ -11,7 +11,7 @@
 			$this->className = 'GuidesWidget';
 			$this->displayName = 'Guides';
 			$this->includeFile = 'sidebar.inc';
-			$this->description = 'Displays links to the Guides Tags';
+			$this->description = 'Displays links to the Guides Facets';
 		}
 
 		public function render($template)

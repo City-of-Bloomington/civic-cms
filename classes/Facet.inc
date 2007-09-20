@@ -4,14 +4,14 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
-	class Tag extends ActiveRecord
+	class Facet extends ActiveRecord
 	{
 		private $id;
 		private $name;
-		private $tagGroup_id;
+		private $facetGroup_id;
 		private $description;
 
-		private $tagGroup;
+		private $facetGroup;
 		private $documents;
 
 		/**
@@ -24,7 +24,7 @@
 
 			if ($id)
 			{
-				$sql = "select * from tags where id=?";
+				$sql = "select * from facets where id=?";
 				try
 				{
 					$query = $PDO->prepare($sql);
@@ -52,11 +52,11 @@
 		{
 			# Check for required fields here.  Throw an exception if anything is missing.
 			if (!$this->name) { throw new Exception('missingName'); }
-			if (!$this->tagGroup_id) { throw new Exception('tags/missingGroup'); }
+			if (!$this->facetGroup_id) { throw new Exception('facets/missingGroup'); }
 
 			$fields = array();
 			$fields['name'] = $this->name;
-			$fields['tagGroup_id'] = $this->tagGroup_id;
+			$fields['facetGroup_id'] = $this->facetGroup_id;
 			$fields['description'] = $this->description ? $this->description : null;
 
 			# Split the fields up into a preparedFields array and a values array.
@@ -79,7 +79,7 @@
 		{
 			global $PDO;
 
-			$sql = "update tags set $preparedFields where id={$this->id}";
+			$sql = "update facets set $preparedFields where id={$this->id}";
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 			if (false === $query->execute($values)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 		}
@@ -88,7 +88,7 @@
 		{
 			global $PDO;
 
-			$sql = "insert tags set $preparedFields";
+			$sql = "insert facets set $preparedFields";
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 			if (false === $query->execute($values)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 			$this->id = $PDO->lastInsertID();
@@ -101,10 +101,10 @@
 			global $PDO;
 			if ($this->id)
 			{
-				$sql = "delete from document_tags where tag_id={$this->id}";
+				$sql = "delete from document_facets where facet_id={$this->id}";
 				if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 
-				$sql = "delete from tags where id={$this->id}";
+				$sql = "delete from facets where id={$this->id}";
 				if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 			}
 		}
@@ -112,28 +112,28 @@
 
 
 		/**
-		 * Tags are related to each other if they both have the same documents
+		 * Facets are related to each other if they both have the same documents
 		 */
-		public function getRelatedTags()
+		public function getRelatedFacets()
 		{
-			return new TagList(array('tag_id'=>$this->id));
+			return new FacetList(array('facet_id'=>$this->id));
 		}
 
 		public function getRelatedGroups()
 		{
-			return $this->getTagGroup()->getRelatedGroups();
+			return $this->getFacetGroup()->getRelatedGroups();
 		}
 
 		public function getId() { return $this->id; }
 		public function getName() { return $this->name; }
-		public function getTagGroup_id() { return $this->tagGroup_id; }
+		public function getFacetGroup_id() { return $this->facetGroup_id; }
 		public function getDescription() { return $this->description; }
-		public function getTagGroup()
+		public function getFacetGroup()
 		{
-			if ($this->tagGroup_id)
+			if ($this->facetGroup_id)
 			{
-				if (!$this->tagGroup) { $this->tagGroup = new TagGroup($this->tagGroup_id); }
-				return $this->tagGroup;
+				if (!$this->facetGroup) { $this->facetGroup = new FacetGroup($this->facetGroup_id); }
+				return $this->facetGroup;
 			}
 			else return null;
 		}
@@ -145,7 +145,7 @@
 		public function getDocuments($fields=null)
 		{
 			if (!is_array($fields)) { $fields = array(); }
-			$fields['tag_id'] = $this->id;
+			$fields['facet_id'] = $this->id;
 			$fields['active'] = date('Y-m-d');
 
 			if (!$this->documents) { $this->documents = new DocumentList($fields); }
@@ -153,8 +153,8 @@
 		}
 
 		public function setName($string) { $this->name = trim($string); }
-		public function setTagGroup_id($int) { $this->tagGroup = new TagGroup($int); $this->tagGroup_id = $int; }
+		public function setFacetGroup_id($int) { $this->facetGroup = new FacetGroup($int); $this->facetGroup_id = $int; }
 		public function setDescription($string) { $this->description = trim($string); }
-		public function setTagGroup($tagGroup) { $this->tagGroup_id = $tagGroup->getId(); $this->tagGroup = $tagGroup; }
+		public function setFacetGroup($facetGroup) { $this->facetGroup_id = $facetGroup->getId(); $this->facetGroup = $facetGroup; }
 	}
 ?>

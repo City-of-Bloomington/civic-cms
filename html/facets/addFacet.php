@@ -6,19 +6,19 @@
  */
 	verifyUser('Webmaster');
 
-	if (isset($_POST['tag']))
+	if (isset($_POST['facet']))
 	{
-		$tag = new Tag();
-		foreach($_POST['tag'] as $field=>$value)
+		$facet = new Facet();
+		foreach($_POST['facet'] as $field=>$value)
 		{
 			$set = 'set'.ucfirst($field);
-			$tag->$set($value);
+			$facet->$set($value);
 		}
-		$tag->setDescription($_POST['description']);
+		$facet->setDescription($_POST['description']);
 
 		try
 		{
-			$tag->save();
+			$facet->save();
 			Header("Location: home.php");
 			exit();
 		}
@@ -26,6 +26,6 @@
 	}
 
 	$template = new Template();
-	$template->blocks[] = new Block('tags/addTagForm.inc');
+	$template->blocks[] = new Block('facets/addFacetForm.inc');
 	$template->render();
 ?>

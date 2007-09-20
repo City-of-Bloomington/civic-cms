@@ -80,39 +80,39 @@
 					if (isset($fields['featured'])) { $options[] = "featured='$fields[featured]'"; }
 				}
 
-				if (array_key_exists('tag_id',$fields))
+				if (array_key_exists('facet_id',$fields))
 				{
-					if (is_array($fields['tag_id']))
+					if (is_array($fields['facet_id']))
 					{
-						$tag_array = array();
-						foreach($fields['tag_id'] as $i=>$tag_id)
+						$facet_array = array();
+						foreach($fields['facet_id'] as $i=>$facet_id)
 						{
-							# Build a subquery containing all the tags
+							# Build a subquery containing all the facets
 							$count = $i+1;
 							$table = "t$count";
 
-							$tag = "$table.tag_id=$tag_id";
-							$tag_array[] = $tag;
+							$facet = "$table.facet_id=$facet_id";
+							$facet_array[] = $facet;
 
 							if ($i==0)
 							{
 								# Start the subquery
-								$subquery = "select $table.document_id from document_tags $table";
+								$subquery = "select $table.document_id from document_facets $table";
 							}
 							else
 							{
 								# Keep joining on itself
-								$subquery.= " left join document_tags $table on t1.document_id=$table.document_id";
+								$subquery.= " left join document_facets $table on t1.document_id=$table.document_id";
 							}
 						}
-						$tags = implode(' and ',$tag_array);
-						$subquery.= " where $tags";
+						$facets = implode(' and ',$facet_array);
+						$subquery.= " where $facets";
 						$options[] = "id in ($subquery)";
 					}
 					else
 					{
-						$this->joins.= ' left join document_tags f on documents.id=f.document_id';
-						$options[] = $fields['tag_id'] ? "tag_id='$fields[tag_id]'" : 'tag_id is null';
+						$this->joins.= ' left join document_facets f on documents.id=f.document_id';
+						$options[] = $fields['facet_id'] ? "facet_id='$fields[facet_id]'" : 'facet_id is null';
 					}
 				}
 

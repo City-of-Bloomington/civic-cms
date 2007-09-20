@@ -5,17 +5,17 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 ?>
-<h2>Add Tag</h2>
+<h2>Add Facet</h2>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-<fieldset><legend>Tag Info</legend>
+<fieldset><legend>Facet Info</legend>
 
 	<table>
-	<tr><td><label for="tag-name" class="required">Name</label></td>
-		<td><input name="tag[name]" id="tag-name" /></td></tr>
-	<tr><td><label for="tag-tagGroup_id" class="required">Group</label></td>
-		<td><select name="tag[tagGroup_id]" id="tag-tagGroup_id">
+	<tr><td><label for="facet-name" class="required">Name</label></td>
+		<td><input name="facet[name]" id="facet-name" /></td></tr>
+	<tr><td><label for="facet-facetGroup_id" class="required">Group</label></td>
+		<td><select name="facet[facetGroup_id]" id="facet-facetGroup_id">
 			<?php
-				$list = new TagGroupList();
+				$list = new FacetGroupList();
 				$list->find();
 				foreach($list as $group)
 				{
@@ -37,6 +37,6 @@
 	</table>
 
 	<button type="submit" class="submit">Submit</button>
-	<button type="button" class="cancel" onclick="document.location.href='<?php echo BASE_URL; ?>/tags';">Cancel</button>
+	<button type="button" class="cancel" onclick="document.location.href='<?php echo BASE_URL; ?>/facets';">Cancel</button>
 </fieldset>
 </form>

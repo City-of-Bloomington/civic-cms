@@ -3,24 +3,24 @@
  * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
- * @param GET tag_id
+ * @param GET facet_id
  */
 	verifyUser('Webmaster');
 
-	if (isset($_GET['tag_id'])) { $tag = new Tag($_GET['tag_id']); }
-	if (isset($_POST['tag_id']))
+	if (isset($_GET['facet_id'])) { $facet = new Facet($_GET['facet_id']); }
+	if (isset($_POST['facet_id']))
 	{
-		$tag = new Tag($_POST['tag_id']);
-		foreach($_POST['tag'] as $field=>$value)
+		$facet = new Facet($_POST['facet_id']);
+		foreach($_POST['facet'] as $field=>$value)
 		{
 			$set = 'set'.ucfirst($field);
-			$tag->$set($value);
+			$facet->$set($value);
 		}
-		$tag->setDescription($_POST['description']);
+		$facet->setDescription($_POST['description']);
 
 		try
 		{
-			$tag->save();
+			$facet->save();
 			Header("Location: home.php");
 			exit();
 		}
@@ -28,6 +28,6 @@
 	}
 
 	$template = new Template();
-	$template->blocks[] = new Block('tags/updateTagForm.inc',array('tag'=>$tag));
+	$template->blocks[] = new Block('facets/updateFacetForm.inc',array('facet'=>$facet));
 	$template->render();
 ?>

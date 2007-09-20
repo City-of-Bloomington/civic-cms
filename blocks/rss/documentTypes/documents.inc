@@ -4,12 +4,12 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param DocumentType $this->documentType
- * @param TagGroup $this->tagGroup
+ * @param FacetGroup $this->facetGroup
  */
 	$type = View::escape($this->documentType->getType());
 	$href = new URL(BASE_URL.'/documentTypes/documents.php');
 	$href->parameters['documentType_id'] = $this->documentType->getId();
-	$href->parameters['tagGroup_id'] = 'none';
+	$href->parameters['facetGroup_id'] = 'none';
 ?>
 <channel>
 	<title><?php echo $type; ?></title>

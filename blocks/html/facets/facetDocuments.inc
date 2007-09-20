@@ -3,26 +3,26 @@
  * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
- * @param Tag $this->tag
+ * @param Facet $this->facet
  */
-	$name = View::escape($this->tag->getName());
-	$description = WikiMarkup::parse($this->tag->getDescription());
+	$name = View::escape($this->facet->getName());
+	$description = WikiMarkup::parse($this->facet->getDescription());
 	echo "
 	<h2>$name</h2>
 	<div>$description</div>
 	";
 
 	$displayedDocuments = array();
-	foreach($this->tag->getRelatedGroups() as $group)
+	foreach($this->facet->getRelatedGroups() as $group)
 	{
-		foreach($group->getTags() as $tag)
+		foreach($group->getFacets() as $facet)
 		{
-			if ($tag->getId() != $this->tag->getId())
+			if ($facet->getId() != $this->facet->getId())
 			{
-				$list = new DocumentList(array('tag_id'=>array($this->tag->getId(),$tag->getId()),'active'=>date('Y-m-d')));
+				$list = new DocumentList(array('facet_id'=>array($this->facet->getId(),$facet->getId()),'active'=>date('Y-m-d')));
 				if (count($list))
 				{
-					$name = View::escape($tag->getName());
+					$name = View::escape($facet->getName());
 					echo "
 					<div class=\"interfaceBox\">
 						<div class=\"titleBar\">$name</div>
@@ -65,7 +65,7 @@
 	}
 </script>
 <?php
-	$documents = $this->tag->getDocuments();
+	$documents = $this->facet->getDocuments();
 	# Don't bother showing anything if all these documents have already been listed above
 	if (count($documents)>count($displayedDocuments))
 	{

@@ -11,7 +11,7 @@
 			$this->className = 'WhatsRelatedWidget';
 			$this->displayName = 'Whats Related';
 			$this->includeFile = 'sidebar.inc';
-			$this->description = "Lists other documents in the site that match a document's tags";
+			$this->description = "Lists other documents in the site that match a document's facets";
 		}
 
 		public function render($template)

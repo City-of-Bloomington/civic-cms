@@ -4,11 +4,11 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
-	class TagGroupList extends PDOResultIterator
+	class FacetGroupList extends PDOResultIterator
 	{
 		public function __construct($fields=null)
 		{
-			$this->select = 'select tagGroups.id as id from tagGroups';
+			$this->select = 'select facetGroups.id as id from facetGroups';
 			if (is_array($fields)) $this->find($fields);
 		}
 
@@ -35,21 +35,21 @@
 			# Finding on fields from other tables required joining those tables.
 			# You can add fields from other tables to $options by adding the join SQL
 			# to $this->joins here
-			if (isset($fields['tag_id']))
+			if (isset($fields['facet_id']))
 			{
-				$this->joins.= ' left join tagGroup_tags f on id=f.tagGroup_id';
-				$options[] = "f.tag_id='$fields[tag_id]'";
+				$this->joins.= ' left join facetGroup_facets f on id=f.facetGroup_id';
+				$options[] = "f.facet_id='$fields[facet_id]'";
 			}
 
 			if (isset($fields['department_id']))
 			{
-				$this->joins.= ' left join tagGroup_departments d on id=d.tagGroup_id';
+				$this->joins.= ' left join facetGroup_departments d on id=d.facetGroup_id';
 				$options[] = "d.department_id='$fields[department_id]'";
 			}
 
 			$this->populateList($options);
 		}
 
-		protected function loadResult($key) { return new TagGroup($this->list[$key]); }
+		protected function loadResult($key) { return new FacetGroup($this->list[$key]); }
 	}
 ?>

@@ -29,7 +29,7 @@
 		private $documentType;
 		private $lockedByUser;
 
-		private $tags = array();
+		private $facets = array();
 		private $related = array();
 
 		private $sections = array();
@@ -134,7 +134,7 @@
 
 			$this->saveSections();
 			$this->saveContent();
-			$this->saveTags();
+			$this->saveFacets();
 		}
 
 		private function update($values,$preparedFields)
@@ -224,7 +224,7 @@
 				$query = $PDO->prepare("delete from document_sections where document_id={$this->id}");
 				$query->execute();
 
-				$query = $PDO->prepare("delete from document_tags where document_id={$this->id}");
+				$query = $PDO->prepare("delete from document_facets where document_id={$this->id}");
 				$query->execute();
 
 				$query = $PDO->prepare("delete from media_documents where document_id={$this->id}");
@@ -380,47 +380,47 @@
 		}
 
 		/**
-		 * Tag functions
+		 * Facet functions
 		 */
-		public function getTags()
+		public function getFacets()
 		{
 			if ($this->id)
 			{
-				if (!count($this->tags))
+				if (!count($this->facets))
 				{
-					$list = new TagList(array('document_id'=>$this->id));
-					foreach($list as $tag) { $this->tags[$tag->getId()] = $tag; }
+					$list = new FacetList(array('document_id'=>$this->id));
+					foreach($list as $facet) { $this->facets[$facet->getId()] = $facet; }
 				}
 			}
-			return $this->tags;
+			return $this->facets;
 		}
-		private function saveTags()
+		private function saveFacets()
 		{
 			global $PDO;
-			$tags = $this->getTags();
+			$facets = $this->getFacets();
 
-			$sql = "delete from document_tags where document_id={$this->id}";
+			$sql = "delete from document_facets where document_id={$this->id}";
 			if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 
-			$query = $PDO->prepare('insert document_tags values(?,?)');
-			foreach($tags as $tag_id=>$tag)
+			$query = $PDO->prepare('insert document_facets values(?,?)');
+			foreach($facets as $facet_id=>$facet)
 			{
-				$query->execute(array($this->id,$tag_id));
+				$query->execute(array($this->id,$facet_id));
 			}
 		}
-		public function setTags(array $tag_ids)
+		public function setFacets(array $facet_ids)
 		{
-			$this->tags = array();
-			foreach($tag_ids as $tag_id) { $this->tags[$tag_id] = new Tag($tag_id); }
+			$this->facets = array();
+			foreach($facet_ids as $facet_id) { $this->facets[$facet_id] = new Facet($facet_id); }
 		}
-		public function hasTag($tag) { return array_key_exists($tag->getId(),$this->getTags()); }
+		public function hasFacet($facet) { return array_key_exists($facet->getId(),$this->getFacets()); }
 		public function getRelatedDocuments()
 		{
 			global $PDO;
 			if (!count($this->related))
 			{
 				$sql = "select distinct b.document_id,count(*) as relevance
-						from document_tags d left join document_tags b using (tag_id)
+						from document_facets d left join document_facets b using (facet_id)
 						where d.document_id={$this->id} and b.document_id!={$this->id}
 						group by b.document_id order by relevance";
 				foreach($PDO->query($sql) as $row) { $this->related[$row['document_id']] = new Document($row['document_id']); }

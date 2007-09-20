@@ -4,12 +4,12 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
-	class TagGroup extends ActiveRecord
+	class FacetGroup extends ActiveRecord
 	{
 		private $id;
 		private $name;
 
-		private $tags = array();
+		private $facets = array();
 		private $related_groups = array();
 		private $departments = array();
 
@@ -23,8 +23,8 @@
 
 			if ($id)
 			{
-				if (is_numeric($id)) { $sql = 'select * from tagGroups where id=?'; }
-				else { $sql = 'select * from tagGroups where name=?'; }
+				if (is_numeric($id)) { $sql = 'select * from facetGroups where id=?'; }
+				else { $sql = 'select * from facetGroups where name=?'; }
 				try
 				{
 					$query = $PDO->prepare($sql);
@@ -79,7 +79,7 @@
 		{
 			global $PDO;
 
-			$sql = "update tagGroups set $preparedFields where id={$this->id}";
+			$sql = "update facetGroups set $preparedFields where id={$this->id}";
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 			if (false === $query->execute($values)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 		}
@@ -88,7 +88,7 @@
 		{
 			global $PDO;
 
-			$sql = "insert tagGroups set $preparedFields";
+			$sql = "insert facetGroups set $preparedFields";
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 			if (false === $query->execute($values)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 			$this->id = $PDO->lastInsertID();
@@ -102,12 +102,12 @@
 			{
 				if (!count($this->related_groups))
 				{
-					$sql = "select relatedGroup_id from tagGroups_related where tagGroup_id={$this->id}";
+					$sql = "select relatedGroup_id from facetGroups_related where facetGroup_id={$this->id}";
 					$query = $PDO->query($sql);
 					$result = $query->fetchAll();
 					foreach($result as $row)
 					{
-						$this->related_groups[$row['relatedGroup_id']] = new TagGroup($row['relatedGroup_id']);
+						$this->related_groups[$row['relatedGroup_id']] = new FacetGroup($row['relatedGroup_id']);
 					}
 				}
 			}
@@ -119,7 +119,7 @@
 			$this->related_groups = array();
 			foreach($group_ids as $id)
 			{
-				$group = new TagGroup($id);
+				$group = new FacetGroup($id);
 				$this->related_groups[$id] = $group;
 			}
 		}
@@ -129,10 +129,10 @@
 			global $PDO;
 			if ($this->id)
 			{
-				$sql = "delete from tagGroups_related where tagGroup_id={$this->id}";
+				$sql = "delete from facetGroups_related where facetGroup_id={$this->id}";
 				if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 
-				$query = $PDO->prepare('insert tagGroups_related values(?,?)');
+				$query = $PDO->prepare('insert facetGroups_related values(?,?)');
 				foreach($this->getRelatedGroups() as $group)
 				{
 					$query->execute(array($this->id,$group->getId()));
@@ -142,16 +142,16 @@
 
 		public function __toString() { return $this->name; }
 
-		public function getTags()
+		public function getFacets()
 		{
-			if (!count($this->tags))
+			if (!count($this->facets))
 			{
-				$list = new TagList(array('tagGroup_id'=>$this->id));
-				foreach($list as $tag) { $this->tags[$tag->getId()] = $tag; }
+				$list = new FacetList(array('facetGroup_id'=>$this->id));
+				foreach($list as $facet) { $this->facets[$facet->getId()] = $facet; }
 			}
-			return $this->tags;
+			return $this->facets;
 		}
-		public function hasTag($tag) { return in_array($tag->getId(),array_keys($this->getTags())); }
+		public function hasFacet($facet) { return in_array($facet->getId(),array_keys($this->getFacets())); }
 
 
 		public function getDepartments()
@@ -160,7 +160,7 @@
 			{
 				if (!count($this->departments))
 				{
-					$list = new DepartmentList(array('tagGroup_id'=>$this->id));
+					$list = new DepartmentList(array('facetGroup_id'=>$this->id));
 					foreach($list as $department) { $this->departments[$department->getId()] = $department; }
 				}
 			}
@@ -180,10 +180,10 @@
 		{
 			global $PDO;
 
-			$sql = "delete from tagGroup_departments where tagGroup_id={$this->id}";
+			$sql = "delete from facetGroup_departments where facetGroup_id={$this->id}";
 			if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 
-			$query = $PDO->prepare('insert tagGroup_departments values(?,?)');
+			$query = $PDO->prepare('insert facetGroup_departments values(?,?)');
 			foreach($this->getDepartments() as $department)
 			{
 				$query->execute(array($this->id,$department->getId()));
@@ -191,15 +191,15 @@
 		}
 
 		/**
-		 * Returns the number of documents associated with the tags
-		 * in this tag group
+		 * Returns the number of documents associated with the facets
+		 * in this facet group
 		 */
 		public function hasDocuments($fields=null)
 		{
 			$count = 0;
-			foreach($this->getTags() as $tag)
+			foreach($this->getFacets() as $facet)
 			{
-				$count+= count($tag->getDocuments($fields));
+				$count+= count($facet->getDocuments($fields));
 			}
 			return $count;
 		}

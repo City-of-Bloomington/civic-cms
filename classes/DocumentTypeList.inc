@@ -36,7 +36,7 @@
 			if (isset($fields['type'])) { $options[] = "type='$fields[type]'"; }
 			if (isset($fields['template'])) { $options[] = "template='$fields[template]'"; }
 			if (isset($fields['ordering'])) { $options[] = "ordering='$fields[ordering]'"; }
-			if (isset($fields['defaultTagGroup_id'])) { $options[] = "defaultTagGroup_id='$fields[defaultTagGroup_id]'"; }
+			if (isset($fields['defaultFacetGroup_id'])) { $options[] = "defaultFacetGroup_id='$fields[defaultFacetGroup_id]'"; }
 
 
 			# Finding on fields from other tables required joining those tables.
