@@ -5,17 +5,21 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Section $this->section
  */
-?>
-<div class="interfaceBox">
-	<div class="titleBar">Sub Sections</div>
-	<ul><?php
-			foreach($this->section->getChildren() as $section)
-			{
-				$name = View::escape($section->getName());
-				echo "
-				<li><a href=\"{$this->section->getDocument()->getURL()}\">$name</a></li>
-				";
-			}
-		?>
-	</ul>
-</div>
+	if (count($this->section->getChildren()))
+	{
+		$name = View::escape($this->section->getName());
+		echo "
+		<div class=\"interfaceBox subsections\">
+			<h3>Sections in $name</h3>
+			<ul>
+		";
+		foreach($this->section->getChildren() as $child)
+		{
+			$name = View::escape($child->getName());
+			echo "<li><a href=\"".BASE_URL."/sections/viewSection.php?section_id={$child->getId()}\">$name</a></li>";
+		}
+		echo "
+			</ul>
+		</div>
+		";
+	}

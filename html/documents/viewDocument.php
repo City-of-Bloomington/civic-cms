@@ -27,7 +27,6 @@
 		$template->title = $document->getTitle();
 
 		$template->blocks[] = new Block('documents/viewDocument.inc',array('document'=>$document));
-		$template->blocks[] = new Block('documents/subsections.inc',array('document'=>$document));
 
 
 		# If we don't have a specific section we're in yet,
@@ -40,13 +39,13 @@
 			$section = count($sections) ? current($sections) : null;
 		}
 
-		$homepage = false;
 		foreach($sections as $s)
 		{
 			# Find out which Sections this Document is a homepage of
 			if ($s->getDocument_id() === $document->getId())
 			{
-				$homepage = true;
+				$template->blocks[] = new Block('sections/subsections.inc',array('section'=>$s));
+
 				# Check for Featured Documents in this Section
 				$types = new DocumentTypeList();
 				$types->find();
@@ -63,12 +62,9 @@
 						$template->blocks[] = $featuredDocuments;
 					}
 				}
+
+				$template->blocks[] = new Block('sections/documents.inc',array('section'=>$s,'document'=>$document));
 			}
-		}
-		# Display the siblings only if this is the homepage of a section
-		if ($homepage)
-		{
-			$template->blocks[] = new Block('documents/siblings.inc',array('document'=>$document));
 		}
 	}
 
