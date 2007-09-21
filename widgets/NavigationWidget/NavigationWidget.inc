@@ -79,7 +79,11 @@
 				$this->ancestors = array(1=>$this->section);
 			}
 
-			if ($this->section->getId() != 1) { $this->renderIncludeFile($this); }
+			# Check and don't show the navigation box on the homepage
+			#if ($this->section->getId() != 1)
+			#{
+				$this->renderIncludeFile($this);
+			#}
 		}
 	}
 ?>

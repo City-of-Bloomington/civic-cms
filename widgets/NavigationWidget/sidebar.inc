@@ -41,18 +41,35 @@
 					$list.= "<li><a href=\"".BASE_URL."/sections/viewSection.php?section_id={$child->getId()}\">$name</a></li>\n";
 				}
 			}
-			$name = View::escape($ancestor->getName());
-			$temp.= "<li class=\"current\"><a href=\"".BASE_URL."/sections/viewSection.php?section_id={$ancestor->getId()}\">$name</a><ul>$list</ul></li>\n";
+			if ($ancestor->getId() != 1)
+			{
+				$name = View::escape($ancestor->getName());
+				$temp.= "<li class=\"current\"><a href=\"".BASE_URL."/sections/viewSection.php?section_id={$ancestor->getId()}\">$name</a><ul>$list</ul></li>\n";
+			}
+			else
+			{
+				$temp.="<ul>$list</ul>\n";
+			}
 		}
 		else
 		{
 			# This is a non-expanded ancestor
-			$name = View::escape($ancestor->getName());
-			$temp = "<li><a href=\"".BASE_URL."/sections/viewSection.php?section_id={$ancestor->getId()}\">$name</a></li>$temp\n";
+			if ($ancestor->getId() != 1)
+			{
+				$name = View::escape($ancestor->getName());
+				$temp = "<li><a href=\"".BASE_URL."/sections/viewSection.php?section_id={$ancestor->getId()}\">$name</a></li>$temp\n";
+			}
 		}
 	}
-
-	$temp = "<div><ul>$temp</ul></div>";
-
-	echo $temp;
 ?>
+<div>
+	<div class="titleBar">
+		<form method="get" action="<?php echo BASE_URL; ?>/documents/search.php">
+		<fieldset>
+			<input name="search" id="search" size="7" />
+			<button type="submit" class="search">Search</button>
+		</fieldset>
+		</form>
+	</div>
+	<ul><?php echo $temp; ?></ul>
+</div>
