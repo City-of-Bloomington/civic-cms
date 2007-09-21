@@ -1,33 +1,33 @@
+<div id="breadcrumbs">
 <?php
 /**
  * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Document $this->document
+ * @param array $_SESSION[vector] - The Navigation widget must initialize this
  */
-	$trails = array();
-	foreach($this->document->getSections() as $section)
+	echo '<ul>';
+	foreach($_SESSION['vector'] as $section)
 	{
-		$ancestors = $section->getAncestors();
-		foreach($ancestors as $i=>$trail) { $ancestors[$i] = array_merge($ancestors[$i],array($section)); }
-		$trails = array_merge($trails,$ancestors);
+		$name = View::escape($section->getName());
+		echo "<li><a href=\"{$section->getURL()}\">$name</a></li>";
 	}
+	echo '</ul>';
+	$currentSection = $section;
 
-
-	if (isset($trails))
+	if (count($this->document->getSections()) > 1)
 	{
-		echo "<div id=\"breadcrumbs\">";
-		foreach($trails as $trail)
+		echo '<ul><li>Related Sections</li>';
+		foreach($this->document->getSections() as $section)
 		{
-			echo "<ul>";
-			foreach($trail as $section)
+			if ($section->getId() != $currentSection->getId())
 			{
 				$name = View::escape($section->getName());
-				echo "<li><a href=\"{$section->getDocument()->getURL()}\">$name</a></li>";
-				$currentSection = $section;
+				echo "<li><a href=\"{$section->getURL()}\">$name</a></li>";
 			}
-			echo "</ul>";
 		}
-		echo "</div>";
+		echo '</ul>';
 	}
 ?>
+</div>

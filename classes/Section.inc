@@ -379,7 +379,7 @@
 			return false;
    		}
 
-
+		public function getURL() { return BASE_URL.'/sections/viewSection.php?section_id='.$this->id; }
 		public function __toString() { return $this->name; }
 
 		/**
