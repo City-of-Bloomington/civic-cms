@@ -53,12 +53,12 @@ li.current>a { background-color:#cccccc; width:100%; }
 #banner { height:62px; border-bottom:2px solid black; background:#3366cc url('<?php echo BASE_URL; ?>/skins/default/images/citylogo-white.gif') no-repeat; padding-left:80px; }
 #application_name { color:white; text-align:left; padding-top:5px; }
 #location_name { color:white; text-align:left; font-size:12pt; }
-#navigation { position:absolute; top:0; right:0; }
+#navigation { float:right; }
 #banner a { color:white; text-decoration:none; }
 
 /* Used to create a menu bar across any div */
-.menuBar { width:100%; border-bottom:2px solid black; background-color:#FFFFFF; margin-bottom:1em; font-size:12px; }
-.menuBar ul { width:100%; height:24px; list-style-type:none; margin:0; padding:0; }
+.menuBar { width:100%; border-bottom:2px solid black; background-color:#FFFFFF; font-size:12px; }
+.menuBar ul { width:100%; height:1em; list-style-type:none; margin:0; padding:0; }
 .menuBar li { float:left; margin-left:1.5em; list-style-type:none; }
 .menuBar a { font-weight:bold; }
 	/* This lets us put small forms into the menubar without hurting the layout too bad */
@@ -83,7 +83,7 @@ li.current>a { background-color:#cccccc; width:100%; }
 
 
 /* These are for the boxes on the sides of the page */
-.sidebar { width:155px; font-size:12px; }
+.sidebar { width:155px; font-size:12px; margin-top:1em; }
 .sidebar div { margin-bottom:2em; border:2px solid black; }
 .sidebar .titleBar { background-color:#3366cc; height:20px; color:white; font-family: serif; font-size:12pt; margin:0; border-top:0; border-right:0; border-left:0; border-bottom:2px solid black; text-align:center; }
 .sidebar a:hover { color:#666666; background-color:transparent;}
@@ -117,8 +117,8 @@ li.current>a { background-color:#cccccc; width:100%; }
 
 /*  mainContent allows for 3 columns,	*/
 /*	backendContent allows for 2 columns	*/
-#mainContent { background-color:inherit; margin-left:170px; margin-right:170px; }
-#backendContent { background-color:inherit; margin-left:170px; }
+#mainContent { background-color:inherit; margin-left:170px; margin-right:170px; margin-top:1em; }
+#backendContent { background-color:inherit; margin-left:170px; margin-top:1em; }
 
 .contextualMenu { background-color:#fba500; color:black; border:2px solid black; margin-bottom:1em; margin-top:1em; }
 .contextualMenu div { display:inline; }

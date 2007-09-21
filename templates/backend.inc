@@ -8,6 +8,7 @@
 	if (!isset($this->title)) { $this->title = "Content Manager - City of Bloomington"; }
 	include APPLICATION_HOME.'/includes/xhtmlTransitionalHeader.inc';
 	include APPLICATION_HOME.'/includes/banner.inc';
+	include APPLICATION_HOME.'/includes/menubar.inc';
 	include APPLICATION_HOME.'/includes/leftSidebar.inc';
 ?>
 <div id="backendContent">

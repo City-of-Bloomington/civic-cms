@@ -124,6 +124,9 @@
 			return $this->getFacetGroup()->getRelatedGroups();
 		}
 
+
+		public function getURL() { return BASE_URL.'/facets/viewFacet.php?facet_id='.$this->id; }
+
 		public function getId() { return $this->id; }
 		public function getName() { return $this->name; }
 		public function getFacetGroup_id() { return $this->facetGroup_id; }
