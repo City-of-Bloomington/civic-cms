@@ -23,7 +23,7 @@
 			foreach($trail as $section)
 			{
 				$name = View::escape($section->getName());
-				echo "<li><a href=\"{$section->getDocument()->getURL()}\"$name</a></li>";
+				echo "<li><a href=\"{$section->getDocument()->getURL()}\">$name</a></li>";
 				$currentSection = $section;
 			}
 			echo "</ul>";
