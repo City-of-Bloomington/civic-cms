@@ -21,16 +21,3 @@
 ?>
 </ul>
 </div>
-
-<div class="menuBar">
-<ul><li>Take Action</li>
-	<?php
-		$actions = new FacetGroup('Act Up');
-		foreach($actions->getFacets() as $facet)
-		{
-			$name = View::escape($facet->getName());
-			echo "<li><a href=\"{$facet->getURL()}\">$name</a></li>";
-		}
-	?>
-</ul>
-</div>

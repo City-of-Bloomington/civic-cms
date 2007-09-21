@@ -21,10 +21,6 @@
 	<div id="application_name"></div>
 	<div id="location_name"><a href="<?php echo BASE_URL; ?>/">City of Bloomington, Indiana</a></div>
 	<div id="navigation">
-		<?php
-			if (isset($_SESSION['USER'])) { echo "<a href=\"".BASE_URL."/login/logout.php\">Logout</a>"; }
-			else { echo "<a href=\"".BASE_URL."/login\">Login</a>"; }
-		?>
 		<form method="get" action="<?php $_SERVER['PHP_SELF']; ?>">
 		<fieldset>
 			<?php
@@ -66,5 +62,14 @@
 			?>
 		</fieldset>
 		</form>
+		Take Action
+		<?php
+			$actions = new FacetGroup('Act Up');
+			foreach($actions->getFacets() as $facet)
+			{
+				$name = View::escape($facet->getName());
+				echo "<a href=\"{$facet->getURL()}\">$name</a> ";
+			}
+		?>
 	</div>
 </div>
