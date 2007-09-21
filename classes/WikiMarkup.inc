@@ -95,14 +95,47 @@ class WikiMarkup
 					}
 				break;
 
+				case 'locationGroup':
+					$list = new LocationGroupList(array('name'=>$link));
+					if (count($list))
+					{
+						$locationGroup = $list[0];
+						$linkText = isset($linkText) ? $linkText : View::escape($locationGroup->getName());
+						$url = BASE_URL.'/locations/?locationGroup_id='.$locationGroup->getId();
+						return "<a href=\"$url\">$linkText</a>";
+					}
+				break;
+
 				case 'location':
+					$list = new LocationList(array('name'=>$link));
+					if (count($list))
+					{
+						$location = $list[0];
+						$linkText = isset($linkText) ? $linkText : View::escape($location->getName());
+						$url = BASE_URL.'/locations/viewLocation.php?location_id='.$location->getId();
+						return "<a href=\"$url\">$linkText</a>";
+					}
 				break;
 
 				case 'calendar':
-					$calendar = new Calendar($link);
-					if ($calendar->getId())
+					$list = new CalendarList(array('name'=>$link));
+					if (count($list))
 					{
+						$calendar = $list[0];
+						$linkText = isset($linkText) ? $linkText : View::escape($calendar->getName());
 						$url = BASE_URL.'/calendars/home.php?calendar_id='.$calendar->getId();
+						return "<a href=\"$url\">$linkText</a>";
+					}
+				break;
+
+				case 'facet':
+					$list = new FacetList(array('name'=>$link));
+					if (count($list))
+					{
+						$facet = $list[0];
+						$linkText = isset($linkText) ? $linkText : View::escape($facet->getName());
+						$url = BASE_URL.'/facets/viewFacet.php?facet_id='.$facet->getId();
+						return "<a href=\"$url\">$linkText</a>";
 					}
 				break;
 
@@ -118,14 +151,11 @@ class WikiMarkup
 				break;
 
 				case 'mailto':
+					$linkText = isset($linkText) ? $linkText : $link;
 					$url = "mailto:$link";
+					return "<a href=\"$url\">$linkText</a>";
 				break;
 
-			}
-			if (isset($url))
-			{
-				$title = isset($linkText) ? $linkText : $url;
-				return "<a href=\"$url\">$title</a>";
 			}
 		}
 
