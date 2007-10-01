@@ -24,8 +24,6 @@
 		if ($this->event->isAllDayEvent()) { echo "<p>$start</p>"; }
 		else { echo "<p>$start - $end</p>"; }
 
-		if ($this->event->getRRule()) { echo "<p>{$this->event->getRRule()}</p>"; }
-
 		$location = View::escape($this->event->getLocation()->getName());
 		$name = View::escape($this->event->getContact_name());
 		$phone = View::escape($this->event->getContact_phone());
