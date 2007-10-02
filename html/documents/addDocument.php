@@ -113,14 +113,17 @@
 		}
 	}
 	# Save the document only when they ask for it
-	if (isset($_POST['action']) && $_POST['action']=='save')
+	if (isset($_POST['action']) && ($_POST['action']=='save'||$_POST['action']=='saveAndContinue') )
 	{
 		try
 		{
 			$_SESSION['document'][$instance_id]->save();
-			unset($_SESSION['document'][$instance_id]);
-			Header("Location: $return_url");
-			exit();
+			if ($_POST['continue'] != 'true')
+			{
+				unset($_SESSION['document'][$instance_id]);
+				Header("Location: $return_url");
+				exit();
+			}
 		}
 		catch (Exception $e) { $_SESSION['errorMessages'][] = $e; }
 	}

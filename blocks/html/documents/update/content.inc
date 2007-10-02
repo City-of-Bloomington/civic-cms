@@ -15,6 +15,7 @@
 		<input type="hidden" name="action" id="action" value="next" />
 		<input type="hidden" name="return_url" value="<?php echo $this->return_url; ?>" />
 		<input type="hidden" name="instance_id" value="<?php echo $this->instance_id; ?>" />
+		<input type="hidden" name="continue" id="continue" value="true" />
 
 		<table>
 		<tr><td><label for="lang">Current Language</label></td>

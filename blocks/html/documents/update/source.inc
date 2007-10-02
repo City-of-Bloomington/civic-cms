@@ -19,6 +19,7 @@ There will be no stripping or escaping of characters, tags, code, or anything el
 		<input type="hidden" name="action" id="action" value="next" />
 		<input type="hidden" name="return_url" value="<?php echo $this->return_url; ?>" />
 		<input type="hidden" name="instance_id" value="<?php echo $this->instance_id; ?>" />
+		<input type="hidden" name="continue" id="continue" value="true" />
 
 		<label for="lang">Language</label>
 		<select name="lang" id="lang">

@@ -22,6 +22,7 @@ FRAMEWORK.deleteConfirmation = function (url)
  */
 FRAMEWORK.processTabbedForm = function (form,tab,action)
 {
+	if (action === 'save') { document.getElementById('continue').value = 'false'; }
 	document.getElementById('tab').value = tab;
 	document.getElementById('action').value = action;
 	document.getElementById(form).submit();

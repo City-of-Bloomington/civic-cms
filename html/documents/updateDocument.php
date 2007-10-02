@@ -188,14 +188,17 @@
 	}
 
 	# Save the document only when they ask for it
-	if (isset($_POST['action']) && $_POST['action']=='save')
+	if (isset($_POST['action']) && ($_POST['action']=='save'||$_POST['action']=='saveAndContinue') )
 	{
 		try
 		{
 			$_SESSION['document'][$instance_id]->save();
-			unset($_SESSION['document'][$instance_id]);
-			Header("Location: $return_url");
-			exit();
+			if ($_POST['continue'] != 'true')
+			{
+				unset($_SESSION['document'][$instance_id]);
+				Header("Location: $return_url");
+				exit();
+			}
 		}
 		catch (Exception $e) { $_SESSION['errorMessages'][] = $e; }
 	}
@@ -206,7 +209,12 @@
 	$tab = isset($_REQUEST['tab']) ? $_REQUEST['tab'] : 'info';
 	$template = new Template('popup');
 	$template->title = $_SESSION['document'][$instance_id]->getTitle();
-	$template->blocks[] = new Block('documents/update/tabs.inc',array('current_tab'=>$tab,'return_url'=>$return_url));
+
+	$tabs = new Block('documents/update/tabs.inc');
+	$tabs->current_tab = $tab;
+	$tabs->return_url = $return_url;
+	$tabs->document = $_SESSION['document'][$instance_id];
+	$template->blocks[] = $tabs;
 
 	$form = new Block("documents/update/$tab.inc");
 	$form->document = $_SESSION['document'][$instance_id];
@@ -250,4 +258,3 @@
 
 	$template->blocks[] = $form;
 	$template->render();
-?>
