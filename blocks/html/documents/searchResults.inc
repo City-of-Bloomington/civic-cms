@@ -10,16 +10,33 @@
 <?php
 	if (count($this->results))
 	{
-		echo '<ul>';
-		foreach($this->results as $document)
+		# If we've got a lot of results, split them up into seperate pages
+		if (count($this->results) > 10)
+		{
+			$this->results = new ArrayObject($this->results);
+			if (!isset($_GET['page'])) { $_GET['page'] = 0; }
+			$pages = new Paginator($this->results,10);
+			$results = new LimitIterator($this->results->getIterator(),$pages[$_GET['page']],$pages->getPageSize());
+		}
+		else { $results = $this->results; }
+
+		# Show the results
+		echo '<div id="searchResults">';
+		foreach($results as $document)
 		{
 			$title = View::escape($document->getTitle());
-			echo "<li><a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$document->getId()}\">$title</a></li>";
+			$description = View::escape($document->getDescription());
+			echo "
+			<h2><a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$document->getId()}\">$title</a></h2>
+			<p>$description</p>
+			";
 		}
-		echo '</ul>';
+		echo '</div>';
 	}
 	else
 	{
 		echo '<p>We were unable to find any documents that match your search terms.</p>';
 	}
+
+	if (isset($pages)) { include FRAMEWORK.'/pageNavigation.inc'; }
 ?>
