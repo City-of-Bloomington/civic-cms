@@ -4,16 +4,16 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
-	class GuidesWidget extends Widget
+	class FacetGroupWidget extends Widget
 	{
 		protected $facetGroup;
 
 		public function __construct()
 		{
-			$this->className = 'GuidesWidget';
-			$this->displayName = 'Guides';
+			$this->className = 'FacetGroupWidget';
+			$this->displayName = 'Facet Group Links';
 			$this->includeFile = 'sidebar.inc';
-			$this->description = 'Displays links to the Guides Facets';
+			$this->description = 'Displays links to the facets in the chosen group';
 		}
 
 		public function setData($string)
