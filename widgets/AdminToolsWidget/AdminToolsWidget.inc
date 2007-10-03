@@ -14,6 +14,9 @@
 			$this->description = 'Shows links to all the stuff a user can do';
 		}
 
+		public function setData($string) { }
+		public function serializePost(array $post) { }
+
 		public function render($template)
 		{
 			if (isset($_SESSION['USER']))

@@ -33,7 +33,16 @@
 			whenever this widget is displayed
 	</td></tr>
 	</table>
-
+</fieldset>
+<?php
+	# If the Widget uses any extra data parameters, include those fields as well
+	$className = $this->widget->getWidget()->getClassname();
+	if (is_file(APPLICATION_HOME."/widgets/$className/dataFields.inc"))
+	{
+		include APPLICATION_HOME."/widgets/$className/dataFields.inc";
+	}
+?>
+<fieldset><legend>Submit</lgend>
 	<button type="submit" class="submit">Submit</button>
 	<button type="button" class="cancel" onclick="self.close();">Cancel</button>
 </fieldset>

@@ -40,7 +40,7 @@
 				$name = View::escape($widget->getName());
 				$description = View::escape($widget->getDescription());
 				echo "
-				<tr><td><button type=\"button\" class=\"addSmall\" onclick=\"window.open('".BASE_URL."/sections/addWidget.php?section_id={$this->section->getId()};widget_id={$widget->getId()}');\">Add</button></td>
+				<tr><td><button type=\"button\" class=\"addSmall\" onclick=\"document.location.href='".BASE_URL."/sections/addWidget.php?section_id={$this->section->getId()};widget_id={$widget->getId()}';\">Add</button></td>
 					<td>$name</td>
 					<td>$description</td></tr>
 				";

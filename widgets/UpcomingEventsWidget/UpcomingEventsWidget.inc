@@ -17,6 +17,9 @@
 			$this->description = 'Lists events happening in the next week for the current section';
 		}
 
+		public function setData($string) { }
+		public function serializePost(array $post) { }
+
 		public function render($template)
 		{
 			global $PDO;

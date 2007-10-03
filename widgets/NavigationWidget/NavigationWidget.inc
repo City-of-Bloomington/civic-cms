@@ -18,6 +18,9 @@
 			$this->description = 'Displays a two-level, collapsing navigation for Sections';
 		}
 
+		public function setData($string) { }
+		public function serializePost(array $post) { }
+
 		public function render($template)
 		{
 			global $section;

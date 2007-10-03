@@ -16,6 +16,9 @@
 			$this->description = 'Shows other sections the current section is a child of';
 		}
 
+		public function setData($string) { }
+		public function serializePost(array $post) { }
+
 		public function render($template)
 		{
 			global $section;

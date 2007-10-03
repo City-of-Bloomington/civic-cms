@@ -35,6 +35,7 @@
 			if (isset($fields['widget_id'])) { $options[] = "widget_id='$fields[widget_id]'"; }
 			if (isset($fields['panel_id'])) { $options[] = "panel_id='$fields[panel_id]'"; }
 			if (isset($fields['layout_order'])) { $options[] = "layout_order='$fields[layout_order]'"; }
+			if (isset($fields['data'])) { $options[] = "data='$fields[data]'"; }
 
 			if (isset($fields['section_id_array']))
 			{

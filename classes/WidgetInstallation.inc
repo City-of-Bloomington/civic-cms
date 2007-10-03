@@ -10,8 +10,10 @@
 		private $class;
 		private $global_panel_id;
 		private $global_layout_order;
+		private $global_data;
 		private $default_panel_id;
 		private $default_layout_order;
+		private $default_data;
 
 		private $global_panel;
 		private $default_panel;
@@ -68,8 +70,10 @@
 			$fields['class'] = $this->class ? $this->class : null;
 			$fields['global_panel_id'] = $this->global_panel_id ? $this->global_panel_id : null;
 			$fields['global_layout_order'] = $this->global_layout_order ? $this->global_layout_order : null;
+			$fields['global_data'] = $this->global_data ? $this->global_data : null;
 			$fields['default_panel_id'] = $this->default_panel_id ? $this->default_panel_id : null;
 			$fields['default_layout_order'] = $this->default_layout_order ? $this->default_layout_order : null;
+			$fields['default_data'] = $this->default_data ? $this->default_data : null;
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
@@ -137,7 +141,11 @@
 		 */
 		public function getWidget()
 		{
-			if (!$this->widget) { $this->widget = Widget::load($this->class); }
+			if (!$this->widget)
+			{
+				$this->widget = Widget::load($this->class);
+				if ($this->isGlobal() && $this->global_data) { $this->widget->setData($this->global_data); }
+			}
 			return $this->widget;
 		}
 		public function getStatus() { return $this->id ? 'installed' : 'uninstalled'; }
@@ -158,8 +166,10 @@
 		public function getClass() { return $this->class; }
 		public function getGlobal_panel_id() { return $this->global_panel_id; }
 		public function getGlobal_layout_order() { return $this->global_layout_order; }
+		public function getGlobal_data() { return $this->global_data; }
 		public function getDefault_panel_id() { return $this->default_panel_id; }
 		public function getDefault_layout_order() { return $this->default_layout_order; }
+		public function getDefault_data() { return $this->default_data; }
 
 		public function getGlobal_panel()
 		{
@@ -187,8 +197,10 @@
 		public function setClass($string) { $this->class = trim($string); }
 		public function setGlobal_panel_id($int) { $this->global_panel = new Panel($int); $this->global_panel_id = $int; }
 		public function setGlobal_layout_order($int) { $this->global_layout_order = ereg_replace("[^0-9]","",$int); }
+		public function setGlobal_data($string) { $this->global_data = trim($string); }
 		public function setDefault_panel_id($int) { $this->default_panel = new Panel($int); $this->default_panel_id = $int; }
 		public function setDefault_layout_order($int) { $this->default_layout_order = ereg_replace("[^0-9]","",$int); }
+		public function setDefault_data($string) { $this->default_data = trim($string); }
 
 		public function setGlobal_panel($panel) { $this->global_panel_id = $panel->getId(); $this->global_panel = $panel; }
 		public function setDefault_panel($panel) { $this->default_panel_id = $panel->getId(); $this->default_panel = $panel; }

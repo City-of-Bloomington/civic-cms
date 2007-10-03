@@ -18,6 +18,7 @@
 			$set = 'set'.ucfirst($field);
 			$widget->$set($value);
 		}
+		$widget->setGlobal_data($widget->getWidget()->serializePost($_POST));
 
 		try
 		{

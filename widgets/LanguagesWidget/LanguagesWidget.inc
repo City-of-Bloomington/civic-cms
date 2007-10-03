@@ -16,6 +16,9 @@
 			$this->description = 'Displays the list of available translations for a document';
 		}
 
+		public function setData($string) { }
+		public function serializePost(array $post) { }
+
 		public function render($template)
 		{
 			if (isset($template->document))

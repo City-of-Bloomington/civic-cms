@@ -14,7 +14,16 @@
 		private $status;
 		private $installation;
 
+		public $editDataLink = '';
 
+		/**
+		 * Widgets must declare this function.  It's up to the individual
+		 * widget what format to serialize their data in, though.
+		 * They could use XML, JSON, serialize(), whatever
+		 * @param string $serializedData
+		 */
+		abstract public function setData($serializedData);
+		abstract public function serializePost(array $post);
 
 		public static function load($classname)
 		{

@@ -11,6 +11,7 @@
 		private $widget_id;
 		private $panel_id;
 		private $layout_order;
+		private $data;
 
 
 		private $section;
@@ -63,6 +64,7 @@
 			$fields['widget_id'] = $this->widget_id ? $this->widget_id : null;
 			$fields['panel_id'] = $this->panel_id ? $this->panel_id : null;
 			$fields['layout_order'] = $this->layout_order ? $this->layout_order : null;
+			$fields['data'] = $this->data ? $this->data : null;
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
@@ -122,6 +124,7 @@
 		public function getPanel_id() { return $this->panel_id; }
 		public function getLayout_order() { return $this->layout_order; }
 		public function getName() { return $this->getWidget()->getName(); }
+		public function getData() { return $this->data; }
 
 		public function getSection()
 		{
@@ -138,6 +141,7 @@
 			if ($this->widget_id)
 			{
 				if (!$this->widget) { $this->widget = new WidgetInstallation($this->widget_id); }
+				if ($this->data) { $this->widget->getWidget()->setData($this->data); }
 				return $this->widget;
 			}
 			else return null;
@@ -160,6 +164,7 @@
 		public function setWidget_id($int) { $this->widget = new WidgetInstallation($int); $this->widget_id = $int; }
 		public function setPanel_id($int) { $this->panel = new Panel($int); $this->panel_id = $int; }
 		public function setLayout_order($int) { $this->layout_order = ereg_replace("[^0-9]","",$int); }
+		public function setData($string) { $this->data = trim($string); }
 
 		public function setSection($section) { $this->section_id = $section->getId(); $this->section = $section; }
 		public function setWidget($widget) { $this->widget_id = $widget->getId(); $this->widget = $widget; }

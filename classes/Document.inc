@@ -559,26 +559,15 @@
    		{
    			global $PDO;
 
-			if (!count($this->widgets))
+			# If a document doesn't have any Sections, we've got bigger problems.
+			# But we know that you can't find any widgets, so don't try to look them up
+			if (count($this->getSections()))
 			{
-				# If a document doesn't have any Sections, we've got bigger problems.
-				# But we know that you can't find any widgets, so don't try to look them up
-				if (count($this->getSections()))
-				{
-					$sectionIds = array_keys($this->getSections());
-					foreach($this->getSections() as $section)
-					{
-						foreach($section->getAncestors() as $vector)
-						{
-							foreach($vector as $ancestor) { if (!in_array($ancestor->getId(),$sectionIds)) { $sectionIds[] = $ancestor->getId(); } }
-						}
-					}
+				$sectionIds = array_keys($this->getSections());
 
-
-					if (is_array($search)) { $search['section_id_array'] = $sectionIds; }
-					else { $search = array('section_id_array'=>$sectionIds); }
-					$this->widgets = new SectionWidgetList($search);
-				}
+				if (is_array($search)) { $search['section_id_array'] = $sectionIds; }
+				else { $search = array('section_id_array'=>$sectionIds); }
+				$this->widgets = new SectionWidgetList($search);
 			}
 			return $this->widgets;
    		}

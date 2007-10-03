@@ -14,6 +14,9 @@
 			$this->description = "Lists other documents in the site that match a document's facets";
 		}
 
+		public function setData($string) { }
+		public function serializePost(array $post) { }
+
 		public function render($template)
 		{
 			if (count($template->document->getRelatedDocuments()))

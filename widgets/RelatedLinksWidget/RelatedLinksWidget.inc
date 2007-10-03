@@ -17,6 +17,9 @@
 			$this->description = 'Shows links from all the documents in the current section';
 		}
 
+		public function setData($string) { }
+		public function serializePost(array $post) { }
+
 		public function render($template)
 		{
 			global $section;

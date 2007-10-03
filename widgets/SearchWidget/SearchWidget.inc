@@ -14,6 +14,9 @@
 			$this->description = 'Displays a search box';
 		}
 
+		public function setData($string) { }
+		public function serializePost(array $post) { }
+
 		public function render($template)
 		{
 			$this->renderIncludeFile($this);

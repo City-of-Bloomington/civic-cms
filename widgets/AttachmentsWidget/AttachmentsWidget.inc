@@ -16,6 +16,9 @@
 			$this->description = 'Lists all attachments for the current document';
 		}
 
+		public function setData($string) { }
+		public function serializePost(array $post) { }
+
 		public function render($template)
 		{
 			if (isset($template->document))

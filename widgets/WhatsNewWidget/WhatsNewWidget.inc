@@ -17,6 +17,9 @@
 			$this->description = 'Lists all documents in the current section or any sub-section published in the last 4 months';
 		}
 
+		public function setData($string) { }
+		public function serializePost(array $post) { }
+
 		public function render($template)
 		{
 			global $PDO;

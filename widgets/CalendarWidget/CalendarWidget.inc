@@ -14,6 +14,9 @@
 			$this->description = 'Shows a small calendar with event dates highlighted';
 		}
 
+		public function setData($string) { }
+		public function serializePost(array $post) { }
+
 		public function render($template)
 		{
 			$this->renderIncludeFile($this);

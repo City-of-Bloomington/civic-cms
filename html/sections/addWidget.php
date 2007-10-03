@@ -22,12 +22,12 @@
 			$set = 'set'.ucfirst($field);
 			$sectionWidget->$set($value);
 		}
+		$sectionWidget->setData($sectionWidget->getWidget()->getWidget()->serializePost($_POST));
 
 		try
 		{
 			$sectionWidget->save();
-			$template = new Template('closePopup');
-			$template->render();
+			Header('Location: updateWidgets.php?section_id='.$sectionWidget->getSection_id());
 			exit();
 		}
 		catch (Exception $e)

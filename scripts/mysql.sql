@@ -210,8 +210,10 @@ create table widgets (
 	class varchar(128) not null unique,
 	global_panel_id int unsigned,
 	global_layout_order tinyint(2) unsigned,
+	global_data text,
 	default_panel_id int unsigned,
 	default_layout_order tinyint(2) unsigned,
+	default_data text,
 	foreign key (global_panel_id) references panels(id),
 	foreign key (default_panel_id) references panels(id)
 ) engine=InnoDB;
@@ -222,6 +224,7 @@ create table section_widgets (
 	widget_id int unsigned not null,
 	panel_id int unsigned not null default 1,
 	layout_order tinyint(2) unsigned,
+	data text,
 	foreign key (section_id) references sections(id),
 	foreign key (widget_id) references widgets(id),
 	foreign key (panel_id) references panels(id)

@@ -16,6 +16,9 @@
 			$this->description = 'Displays contact information for the Department that owns the current document.';
 		}
 
+		public function setData($string) { }
+		public function serializePost(array $post) { }
+
 		public function render($template)
 		{
 			if (isset($template->document))

@@ -31,6 +31,14 @@
 	</tr>
 	</table>
 </fieldset>
+<?php
+	# If the Widget uses any extra data parameters, include those fields as well
+	$className = $this->widget->getWidget()->getClassname();
+	if (is_file(APPLICATION_HOME."/widgets/$className/dataFields.inc"))
+	{
+		include APPLICATION_HOME."/widgets/$className/dataFields.inc";
+	}
+?>
 
 <fieldset><legend>Default Widget</legend>
 	<p>Set this information if you want the widget to be used by default for all newly created Sections</p>

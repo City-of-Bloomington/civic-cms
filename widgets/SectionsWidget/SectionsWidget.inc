@@ -16,6 +16,9 @@
 			$this->description = 'Lists the sub-sections for the current section';
 		}
 
+		public function setData($string) { }
+		public function serializePost(array $post) { }
+
 		public function render($template)
 		{
 			if (isset($template->document))

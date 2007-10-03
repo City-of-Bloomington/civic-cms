@@ -34,9 +34,11 @@
 			if (isset($fields['isGlobal'])) { $options[] = "isGlobal='$fields[isGlobal]'"; }
 			if (isset($fields['global_panel_id'])) { $options[] = "global_panel_id='$fields[global_panel_id]'"; }
 			if (isset($fields['global_layout_order'])) { $options[] = "global_layout_order='$fields[global_layout_order]'"; }
+			if (isset($fields['global_data'])) { $options[] = "global_data='$fields[global_data]'"; }
 			if (isset($fields['isDefault'])) { $options[] = "isDefault='$fields[isDefault]'"; }
 			if (isset($fields['default_panel_id'])) { $options[] = "default_panel_id='$fields[default_panel_id]'"; }
 			if (isset($fields['default_layout_order'])) { $options[] = "default_layout_order='$fields[default_layout_order]'"; }
+			if (isset($fields['default_data'])) { $options[] = "default_data='$fields[default_data]'"; }
 
 
 			# Finding on fields from other tables required joining those tables.
