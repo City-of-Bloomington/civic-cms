@@ -35,8 +35,8 @@
 		$list->find();
 		foreach($list as $widget)
 		{
-			if (!$this->section->hasWidget($widget))
-			{
+			#if (!$this->section->hasWidget($widget))
+			#{
 				$name = View::escape($widget->getName());
 				$description = View::escape($widget->getDescription());
 				echo "
@@ -44,7 +44,7 @@
 					<td>$name</td>
 					<td>$description</td></tr>
 				";
-			}
+			#}
 		}
 	?>
 	</table>
