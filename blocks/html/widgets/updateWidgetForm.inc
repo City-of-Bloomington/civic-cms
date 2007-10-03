@@ -34,6 +34,7 @@
 <?php
 	# If the Widget uses any extra data parameters, include those fields as well
 	$className = $this->widget->getWidget()->getClassname();
+	$data = $this->widget->getGlobal_data();
 	if (is_file(APPLICATION_HOME."/widgets/$className/dataFields.inc"))
 	{
 		include APPLICATION_HOME."/widgets/$className/dataFields.inc";

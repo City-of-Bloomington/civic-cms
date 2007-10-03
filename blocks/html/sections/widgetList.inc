@@ -17,7 +17,8 @@
 		{
 			$name = View::escape($widget->getName());
 			echo "
-			<tr><td><button type=\"button\" class=\"deleteSmall\" onclick=\"document.location.href='".BASE_URL."/sections/removeWidget.php?sectionWidget_id={$widget->getId()}';\">delete</button></td>
+			<tr><td><button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/sections/updateWidget.php?sectionWidget_id={$widget->getId()}';\">Edit</button>
+					<button type=\"button\" class=\"deleteSmall\" onclick=\"document.location.href='".BASE_URL."/sections/removeWidget.php?sectionWidget_id={$widget->getId()}';\">delete</button></td>
 				<td>$name</td>
 				<td>{$widget->getPanel()}</td>
 				<td>{$widget->getLayout_order()}</td></tr>
