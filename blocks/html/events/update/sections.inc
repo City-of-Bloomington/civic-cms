@@ -30,6 +30,7 @@
 <fieldset><legend>Submit</legend>
 		<input type="hidden" name="tab" id="tab" value="info" />
 		<input type="hidden" name="action" id="action" value="next" />
+		<input type="hidden" name="continue" id="continue" value="true" />
 		<button type="submit" class="next">Next</button>
 		<button type="cancel" class="cancel" onclick="self.close();">Cancel</button>
 		<button type="button" class="save" onclick="FRAMEWORK.processTabbedForm('eventForm','info','save');">Save</button>
