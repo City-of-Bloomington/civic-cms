@@ -1,10 +1,11 @@
 <?php
 /**
- * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  */
 	class Language extends ActiveRecord
 	{
+		private $id;
 		private $code;
 		private $english;
 		private $native;
@@ -15,16 +16,17 @@
 		 * This will load all fields in the table as properties of this class.
 		 * You may want to replace this with, or add your own extra, custom loading
 		 */
-		public function __construct($code=null)
+		public function __construct($id=null)
 		{
-			if ($code)
+			if ($id)
 			{
 				$PDO = Database::getConnection();
-				$sql = "select * from languages where code=?";
+				if (is_numeric($id)) { $sql = 'select * from languages where id=?'; }
+				else { $sql = 'select * from languages where code=?'; }
 				try
 				{
 					$query = $PDO->prepare($sql);
-					$query->execute(array($code));
+					$query->execute(array($id));
 				}
 				catch (Exception $e) { throw $e; }
 
@@ -49,6 +51,7 @@
 			# Check for required fields here.  Throw an exception if anything is missing.
 
 			$fields = array();
+			$fields['code'] = $this->code ? $this->code : null;
 			$fields['english'] = $this->english ? $this->english : null;
 			$fields['native'] = $this->native ? $this->native : null;
 
@@ -64,7 +67,7 @@
 			$preparedFields = implode(",",$preparedFields);
 
 
-			if ($this->code) { $this->update($values,$preparedFields); }
+			if ($this->id) { $this->update($values,$preparedFields); }
 			else { $this->insert($values,$preparedFields); }
 		}
 
@@ -87,13 +90,21 @@
 			$this->id = $PDO->lastInsertID();
 		}
 
-
+		/**
+		 * Generic Getters
+		 */
+		public function getId() { return $this->id; }
 		public function getCode() { return $this->code; }
 		public function getEnglish() { return $this->english; }
 		public function getNative() { return $this->native; }
 
-
+		/**
+		 * Generic Setters
+		 */
+		public function setCode($char) { $this->code = $char; }
 		public function setEnglish($string) { $this->english = trim($string); }
 		public function setNative($string) { $this->native = trim($string); }
+
+
 	}
 ?>

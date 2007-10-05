@@ -234,19 +234,20 @@ create table section_widgets (
 -- Languages
 ---------------------------------------------------------------------
 create table languages (
-	code char(2) not null primary key,
+	id int unsigned not null primary key auto_increment,
+	code char(2) not null,
 	english varchar(128) not null,
-	native varchar(128) not null
+	native varchar(128) not null,
+	unique (code)
 ) engine=InnoDB CHARACTER SET utf8;
-insert languages values
-('en','English','English'),
-('fr','French','Français'),
-('es','Spanish','Español'),
-('de','German','Deutsch'),
-('it','Italian','Italiano'),
-('ko','Korean','한국어'),
-('ja','Japanese','日本語'),
-('zh','Chinese','中文');
+insert languages (code,english,native) values ('en','English','English');
+insert languages (code,english,native) values ('fr','French','Français');
+insert languages (code,english,native) values ('es','Spanish','Español');
+insert languages (code,english,native) values ('de','German','Deutsch');
+insert languages (code,english,native) values ('it','Italian','Italiano');
+insert languages (code,english,native) values ('ko','Korean','한국어');
+insert languages (code,english,native) values ('ja','Japanese','日本語');
+insert languages (code,english,native) values ('zh','Chinese','中文');
 
 ---------------------------------------------------------------------
 -- Events
