@@ -34,8 +34,8 @@ class LanguageTest extends PHPUnit_Framework_TestCase {
      */
     protected function setUp() {
     	$PDO = Database::getConnection();
-    	$query = $PDO->prepare('insert languages values(?,?,?)');
-    	$query->execute(array('te','Test','Test Native'));
+    	$query = $PDO->prepare('insert languages (id,code,english,native) values(?,?,?,?)');
+    	$query->execute(array(100,'te','Test','Test Native'));
     }
 
     /**
@@ -58,12 +58,22 @@ class LanguageTest extends PHPUnit_Framework_TestCase {
     	$this->assertTrue($lang instanceof Language, "expected Language object");
     }
 
-    /**
-     * Test loading an existing language from the database
-     */
-    public function testLoadExistingLanguage() {
+	/**
+	 * Test loading an existing language from the database by id
+	 */
+    public function testLoadById()
+    {
 		$PDO = Database::getConnection();
-		$this->assertTrue($PDO instanceof PDO,"Database Object Not Present");
+
+		$lang = new Language(100);
+		$this->assertTrue($lang->getEnglish()=='Test','Could not load the test Language object');
+    }
+
+    /**
+     * Test loading an existing language from the database by code
+     */
+    public function testLoadByCode() {
+		$PDO = Database::getConnection();
 
     	$lang = new Language('te');
     	$this->assertTrue($lang->getEnglish()=='Test',"Couldn't load the Test Language object");
@@ -100,58 +110,11 @@ class LanguageTest extends PHPUnit_Framework_TestCase {
     	$this->assertEquals($result[0]['code'],'ne','New Language did not get created');
     	$this->assertEquals($result[0]['english'],'New','New Language did not get created');
     	$this->assertEquals($result[0]['native'],'Native','New Language did not get created');
-    }
 
-    /**
-     * @todo Implement testGetCode().
-     */
-    public function testGetCode() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @todo Implement testGetEnglish().
-     */
-    public function testGetEnglish() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @todo Implement testGetNative().
-     */
-    public function testGetNative() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @todo Implement testSetEnglish().
-     */
-    public function testSetEnglish() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @todo Implement testSetNative().
-     */
-    public function testSetNative() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+    	$PDO->exec("delete from languages where code='ne'");
     }
 }
+
 
 // Call LanguageTest::main() if this source file is executed directly.
 if (PHPUnit_MAIN_METHOD == 'LanguageTest::main') {

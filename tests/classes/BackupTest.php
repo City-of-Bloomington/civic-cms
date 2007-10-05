@@ -48,51 +48,18 @@ class BackupTest extends PHPUnit_Framework_TestCase {
      * @todo Implement testSave().
      */
     public function testSave() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+    	$backup = new Backup();
+    	try
+    	{
+			$backup->save();
+    	}
+    	catch(Exception $e) { $this->fail('Backup threw exception'); }
+
+    	# There should now be a tarball in /backups
+    	$filename = date('Y-m-d').'.tar.gz';
+    	$this->assertTrue(file_exists(APPLICATION_HOME."/backups/$filename"),'Backup did not create a file');
     }
 
-    /**
-     * @todo Implement test__toString().
-     */
-    public function test__toString() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @todo Implement testGetFilename().
-     */
-    public function testGetFilename() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @todo Implement testGetFilesize().
-     */
-    public function testGetFilesize() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @todo Implement testGetPath().
-     */
-    public function testGetPath() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
 }
 
 // Call BackupTest::main() if this source file is executed directly.
