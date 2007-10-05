@@ -4,7 +4,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
-	abstract class Widget
+	abstract class Widget extends Database
 	{
 		protected $className;
 		protected $displayName;
@@ -27,8 +27,6 @@
 
 		public static function load($classname)
 		{
-			global $PDO;
-
 			if (is_file(APPLICATION_HOME."/widgets/$classname/$classname.inc"))
 			{
 				require_once APPLICATION_HOME."/widgets/$classname/$classname.inc";
@@ -58,10 +56,9 @@
 
 		public function getStatus()
 		{
-			global $PDO;
-
 			if (!$this->status)
 			{
+				$PDO = Database::getConnection();
 				$query = $PDO->prepare('select count(*) as count from widgets where class=?');
 				$query->execute(array($this->className));
 				$result = $query->fetchAll();

@@ -28,7 +28,7 @@
 		 */
 		public function __construct($id)
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			if (is_numeric($id)) { $sql = 'select * from widgets where id=?'; }
 			else { $sql = 'select * from widgets where class=?'; }
@@ -93,7 +93,7 @@
 
 		private function update($values,$preparedFields)
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			$sql = "update widgets set $preparedFields where id={$this->id}";
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
@@ -102,7 +102,7 @@
 
 		private function insert($values,$preparedFields)
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			$sql = "insert widgets set $preparedFields";
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
@@ -112,7 +112,7 @@
 
 		public function delete()
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			if ($this->id)
 			{

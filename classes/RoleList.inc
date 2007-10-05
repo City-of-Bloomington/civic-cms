@@ -12,7 +12,7 @@
 
 		public function find($fields=null,$sort='role',$limit=null,$groupBy=null)
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			if (is_array($fields))
 			{

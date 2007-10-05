@@ -19,7 +19,7 @@
 		 */
 		public function __construct($id=null)
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			if ($id)
 			{
@@ -76,7 +76,7 @@
 
 		private function update($values,$preparedFields)
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			$sql = "update locationGroups set $preparedFields where id={$this->id}";
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
@@ -85,7 +85,7 @@
 
 		private function insert($values,$preparedFields)
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			$sql = "insert locationGroups set $preparedFields";
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }

@@ -1,5 +1,6 @@
 <?php
 include("../configuration.inc");
+$PDO = Database::getConnection();
 
 $tables = array();
 foreach($PDO->query("show tables") as $row) { list($tables[]) = $row; }
@@ -28,10 +29,9 @@ foreach($tables as $tableName)
 	# Constructor
 	#--------------------------------------------------------------------------
 	$constructor = "
-		public function __construct(\$fields=null,\$sort='id')
+		public function __construct(\$fields=null)
 		{
 			\$this->select = 'select $tableName.$key[Column_name] as id from $tableName';
-			\$this->sort = \$sort;
 			if (is_array(\$fields)) \$this->find(\$fields);
 		}
 	";
@@ -46,14 +46,6 @@ foreach($tables as $tableName)
 			\$this->sort = \$sort;
 			\$this->limit = \$limit;
 			\$this->groupBy = \$groupBy;
-
-			if (is_array(\$fields))
-			{
-				foreach(\$fields as \$key=>\$value)
-				{
-					if (!is_array(\$value) && !is_object(\$value)) { \$fields[\$key] = addslashes(\$value); }
-				}
-			}
 
 			\$options = array();
 ";

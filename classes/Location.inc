@@ -26,10 +26,9 @@
 		 */
 		public function __construct($id=null)
 		{
-			global $PDO;
-
 			if ($id)
 			{
+				$PDO = Database::getConnection();
 				$sql = "select * from locations where id=?";
 				try
 				{
@@ -94,7 +93,7 @@
 
 		private function update($values,$preparedFields)
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			$sql = "update locations set $preparedFields where id={$this->id}";
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
@@ -103,7 +102,7 @@
 
 		private function insert($values,$preparedFields)
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			$sql = "insert locations set $preparedFields";
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
@@ -138,7 +137,7 @@
 		}
 		private function saveLocationGroups()
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			$sql = "delete from locationGroup_locations where location_id={$this->id}";
 			if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }

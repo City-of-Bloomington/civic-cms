@@ -1,5 +1,6 @@
 <?php
 include '../configuration.inc';
+$PDO = Database::getConnection();
 
 $tables = array();
 foreach($PDO->query("show tables") as $row) { list($tables[]) = $row; }

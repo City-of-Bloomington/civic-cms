@@ -31,10 +31,9 @@
 		 */
 		public function __construct($id=null)
 		{
-			global $PDO;
-
 			if ($id)
 			{
+				$PDO = Database::getConnection();
 				$sql = 'select * from section_parents where id=?';
 				try
 				{
@@ -56,14 +55,13 @@
 
 		public function save()
 		{
-			global $PDO;
-
 			# Check for required fields here.  Throw an exception if anything is missing.
 			if (!$this->section_id || !$this->parent_id) { throw new Exception('missingRequiredFields'); }
 
 			# If we don't have a placement yet, calculate one
 			if (!$this->placement)
 			{
+				$PDO = Database::getConnection();
 				$query = $PDO->prepare('select ifnull(max(placement)+1,1) as placement from section_parents where parent_id=?');
 				$query->execute(array($this->parent_id));
 				$result = $query->fetchAll();
@@ -76,7 +74,7 @@
 
 		private function update()
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			$sql = "update section_parents set placement=? where id={$this->id}";
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
@@ -85,7 +83,7 @@
 
 		private function insert()
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			$sql = 'insert section_parents set section_id=?,parent_id=?,placement=?';
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
@@ -96,7 +94,7 @@
 		}
 		public function delete()
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			$sql = "delete from section_parents where id={$this->id}";
 			if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
@@ -106,11 +104,10 @@
 
 		public function moveUp()
 		{
-			global $PDO;
 			# To move a Node up, we need to swap it's placement with the Node above
-
 			if ($this->placement != 1)
 			{
+				$PDO = Database::getConnection();
 				# Find the node above this one
 				$query = $PDO->prepare('select id from section_parents where parent_id=? and placement<? order by placement desc limit 1');
 				$query->execute(array($this->parent_id,$this->placement));
@@ -129,11 +126,10 @@
 
 		public function moveDown()
 		{
-			global $PDO;
-			# To move a Node up, we need to swap it's placement with the Node above
-
+			# To move a Node down, we need to swap it's placement with the Node below
 			if ($this->placement != 1)
 			{
+				$PDO = Database::getConnection();
 				# Find the node above this one
 				$query = $PDO->prepare('select id from section_parents where parent_id=? and placement>? order by placement limit 1');
 				$query->execute(array($this->parent_id,$this->placement));
@@ -158,7 +154,7 @@
 		 */
 		private function updateSectionIndex()
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 			# Update the index
 			$sql = "delete from sectionIndex";
 			if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
@@ -167,7 +163,7 @@
 		}
 		private function createPrePostOrder($section_id,$pre)
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			$post = $pre + 1;
 

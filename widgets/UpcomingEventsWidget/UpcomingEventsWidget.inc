@@ -22,7 +22,6 @@
 
 		public function render($template)
 		{
-			global $PDO;
 
 			if (isset($template->document))
 			{
@@ -33,6 +32,7 @@
 					$sections = implode(',',$sections);
 
 
+					$PDO = Database::getConnection();
 					$sql = "select event_id from event_sections s
 							left join events e on s.event_id=e.id
 							where section_id in ($sections)

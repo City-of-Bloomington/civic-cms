@@ -17,14 +17,12 @@
 
 		public function save()
 		{
-			global $DB_NAME,$DB_USER,$DB_PASS;
-
 			$backup  = "{$this->path}/{$this->filename}";
 
 			# Delete any old backup with this name.  We want to create a fresh copy
 			if (file_exists($backup)) { unlink($backup); }
 
-			exec(MYSQL_PATH."/bin/mysqldump -u $DB_USER -p$DB_PASS --opt $DB_NAME > ".APPLICATION_HOME.'/data/database.sql');
+			exec(MYSQL_PATH.'/bin/mysqldump -u '.DB_USER.' -p'.DB_PASS.' --opt '.DB_NAME.' > '.APPLICATION_HOME.'/data/database.sql');
 			exec('tar cz -C '.APPLICATION_HOME." -f $backup data");
 
 			if (!file_exists($backup)) { throw new Exception('backups/createFailed'); }

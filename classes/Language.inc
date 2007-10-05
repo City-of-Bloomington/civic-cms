@@ -17,10 +17,9 @@
 		 */
 		public function __construct($code=null)
 		{
-			global $PDO;
-
 			if ($code)
 			{
+				$PDO = Database::getConnection();
 				$sql = "select * from languages where code=?";
 				try
 				{
@@ -71,7 +70,7 @@
 
 		private function update($values,$preparedFields)
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			$sql = "update languages set $preparedFields where id={$this->id}";
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
@@ -80,7 +79,7 @@
 
 		private function insert($values,$preparedFields)
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			$sql = "insert languages set $preparedFields";
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }

@@ -1,5 +1,6 @@
 <?php
 include("../configuration.inc");
+$PDO = Database::getConnection();
 
 $tables = array();
 foreach($PDO->query("show tables") as $row) { list($tables[]) = $row; }
@@ -34,10 +35,9 @@ foreach($tables as $tableName)
 		 */
 		public function __construct(\$$key[Column_name]=null)
 		{
-			global \$PDO;
-
 			if (\$$key[Column_name])
 			{
+				\$PDO = Database::getConnection();
 				\$sql = 'select * from $tableName where $key[Column_name]=?';
 				try
 				{
@@ -215,7 +215,7 @@ $contents.= "
 
 		private function update(\$values,\$preparedFields)
 		{
-			global \$PDO;
+			\$PDO = Database::getConnection();
 
 			\$sql = \"update $tableName set \$preparedFields where $key[Column_name]={\$this->$key[Column_name]}\";
 			if (false === \$query = \$PDO->prepare(\$sql)) { \$e = \$PDO->errorInfo(); throw new Exception(\$sql.\$e[2]); }
@@ -224,7 +224,7 @@ $contents.= "
 
 		private function insert(\$values,\$preparedFields)
 		{
-			global \$PDO;
+			\$PDO = Database::getConnection();
 
 			\$sql = \"insert $tableName set \$preparedFields\";
 			if (false === \$query = \$PDO->prepare(\$sql)) { \$e = \$PDO->errorInfo(); throw new Exception(\$sql.\$e[2]); }

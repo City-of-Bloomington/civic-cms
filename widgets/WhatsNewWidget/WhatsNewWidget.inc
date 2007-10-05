@@ -22,7 +22,6 @@
 
 		public function render($template)
 		{
-			global $PDO;
 
 			if (isset($template->document))
 			{
@@ -36,6 +35,7 @@
 					}
 				}
 
+				$PDO = Database::getConnection();
 				$documentIds = array();
 				$sections= implode(',',$this->sectionIds);
 				$sql = "select d.id from document_sections s left join documents d on s.document_id=d.id

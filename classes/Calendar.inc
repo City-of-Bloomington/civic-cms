@@ -23,10 +23,9 @@
 		 */
 		public function __construct($id=null)
 		{
-			global $PDO;
-
 			if ($id)
 			{
+				$PDO = Database::getConnection();
 				if (is_numeric($id)) { $sql = 'select * from calendars where id=?'; }
 				else { $sql = 'select * from calendars where name=?'; }
 				try
@@ -83,7 +82,7 @@
 
 		private function update($values,$preparedFields)
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			$sql = "update calendars set $preparedFields where id={$this->id}";
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
@@ -92,7 +91,7 @@
 
 		private function insert($values,$preparedFields)
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			$sql = "insert calendars set $preparedFields";
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
@@ -137,7 +136,7 @@
 		}
 		private function saveDepartments()
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			# Clear out any deleted departments
 			if (count($this->deletedDepartments))

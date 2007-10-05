@@ -21,10 +21,9 @@
 		 */
 		public function __construct($id=null)
 		{
-			global $PDO;
-
 			if ($id)
 			{
+				$PDO = Database::getConnection();
 				$sql = 'select * from documentLinks where id=?';
 				try
 				{
@@ -80,7 +79,7 @@
 
 		private function update($values,$preparedFields)
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			$sql = "update documentLinks set $preparedFields where id={$this->id}";
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
@@ -89,7 +88,7 @@
 
 		private function insert($values,$preparedFields)
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			$sql = "insert documentLinks set $preparedFields,created=now()";
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
@@ -99,10 +98,9 @@
 
 		public function delete()
 		{
-			global $PDO;
-
 			if ($this->id)
 			{
+				$PDO = Database::getConnection();
 				$sql = "delete from documentLinks where id={$this->id}";
 				if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 			}

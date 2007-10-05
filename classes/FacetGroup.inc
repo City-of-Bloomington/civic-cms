@@ -19,10 +19,9 @@
 		 */
 		public function __construct($id=null)
 		{
-			global $PDO;
-
 			if ($id)
 			{
+				$PDO = Database::getConnection();
 				if (is_numeric($id)) { $sql = 'select * from facetGroups where id=?'; }
 				else { $sql = 'select * from facetGroups where name=?'; }
 				try
@@ -77,7 +76,7 @@
 
 		private function update($values,$preparedFields)
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			$sql = "update facetGroups set $preparedFields where id={$this->id}";
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
@@ -86,7 +85,7 @@
 
 		private function insert($values,$preparedFields)
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			$sql = "insert facetGroups set $preparedFields";
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
@@ -96,7 +95,7 @@
 
 		public function getRelatedGroups()
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			if ($this->id)
 			{
@@ -126,9 +125,9 @@
 
 		private function saveRelatedGroups()
 		{
-			global $PDO;
 			if ($this->id)
 			{
+				$PDO = Database::getConnection();
 				$sql = "delete from facetGroups_related where facetGroup_id={$this->id}";
 				if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
 
@@ -178,7 +177,7 @@
 		public function hasDepartment($department) { return in_array($department->getId(),array_keys($this->getDepartments())); }
 		private function saveDepartments()
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			$sql = "delete from facetGroup_departments where facetGroup_id={$this->id}";
 			if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }

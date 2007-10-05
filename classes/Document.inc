@@ -44,10 +44,9 @@
 		 */
 		public function __construct($id=null)
 		{
-			global $PDO;
-
 			if ($id)
 			{
+				$PDO = Database::getConnection();
 				if (is_numeric($id)) { $sql = "select * from documents where id=?"; }
 				else { $sql = "select * from documents where title=?"; }
 				try
@@ -139,7 +138,7 @@
 
 		private function update($values,$preparedFields)
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			$sql = "update documents set $preparedFields where id={$this->id}";
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
@@ -163,7 +162,7 @@
 
 		private function insert($values,$preparedFields)
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			$sql = "insert documents set $preparedFields";
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
@@ -191,9 +190,9 @@
 
 		public function delete()
 		{
-			global $PDO;
 			if ($this->id)
 			{
+				$PDO = Database::getConnection();
 				# Documents that are the home page for a section should not be deleted
 				$query = $PDO->prepare('select id from sections where document_id=?');
 				$query->execute(array($this->id));
@@ -396,7 +395,7 @@
 		}
 		private function saveFacets()
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 			$facets = $this->getFacets();
 
 			$sql = "delete from document_facets where document_id={$this->id}";
@@ -416,9 +415,9 @@
 		public function hasFacet($facet) { return array_key_exists($facet->getId(),$this->getFacets()); }
 		public function getRelatedDocuments()
 		{
-			global $PDO;
 			if (!count($this->related))
 			{
+				$PDO = Database::getConnection();
 				$sql = "select distinct b.document_id,count(*) as relevance
 						from document_facets d left join document_facets b using (facet_id)
 						where d.document_id={$this->id} and b.document_id!={$this->id}
@@ -443,12 +442,11 @@
 		}
 		public function getDocumentSections()
 		{
-			global $PDO;
-
 			if ($this->id)
 			{
 				if (!count($this->document_sections))
 				{
+					$PDO = Database::getConnection();
 					$query = $PDO->prepare('select * from document_sections where document_id=?');
 					$query->execute(array($this->id));
 					$result = $query->fetchAll();
@@ -473,10 +471,9 @@
 		}
 		private function saveSections()
 		{
-			global $PDO;
-
 			if ($this->id)
 			{
+				$PDO = Database::getConnection();
 				$query = $PDO->prepare('delete from document_sections where document_id=?');
 				$query->execute(array($this->id));
 
@@ -523,21 +520,21 @@
 		 */
 		public function addWatch($user)
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			$query = $PDO->prepare("insert document_watches values(?,?)");
 			$query->execute(array($this->id,$user->getId()));
 		}
 		public function removeWatch($user)
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			$query = $PDO->prepare("delete from document_watches where document_id=? and user_id=?");
 			$query->execute(array($this->id,$user->getId()));
 		}
 		public function getWatches()
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			$watches = array();
 			foreach($PDO->query("select * from document_watches where document_id={$this->id}") as $row)
@@ -557,8 +554,6 @@
 
 		public function getWidgets($search=null)
    		{
-   			global $PDO;
-
 			# If a document doesn't have any Sections, we've got bigger problems.
 			# But we know that you can't find any widgets, so don't try to look them up
 			if (count($this->getSections()))
@@ -594,10 +589,9 @@
    		}
    		public function attach($media)
    		{
-   			global $PDO;
-
    			if (!in_array($media->getId(),array_keys($this->getAttachments())))
    			{
+				$PDO = Database::getConnection();
 				$query = $PDO->prepare('insert media_documents values(?,?)');
 				$query->execute(array($media->getId(),$this->id));
 
@@ -607,12 +601,11 @@
    		public function addAttachment($media) { $this->attach($media); }
    		public function removeAttachment($media)
    		{
-   			global $PDO;
-
 			if (is_int($media)) { $media = new Media($media); }
 
 			if (in_array($media->getId(),array_keys($this->getAttachments())))
 			{
+				$PDO = Database::getConnection();
 				$query = $PDO->prepare('delete from media_documents where media_id=? and document_id=?');
 				$query->execute(array($media->getId(),$this->id));
 

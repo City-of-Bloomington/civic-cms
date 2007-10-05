@@ -15,7 +15,7 @@
 
 		public function __construct($event,$original_start)
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			$this->event_id = $event->getId();
 			$this->event = $event;
@@ -38,10 +38,9 @@
 
 		public function save()
 		{
-			global $PDO;
-
 			if ($this->isException())
 			{
+				$PDO = Database::getConnection();
 				$sql = "insert event_exceptions values($this->event_id,'$this->original_start','$this->start','$this->end')
 						on duplicate key update start='$this->start',end='$this->end'";
 				$query = $PDO->prepare($sql);

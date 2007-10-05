@@ -39,10 +39,9 @@
 		 */
 		public function __construct($id=null)
 		{
-			global $PDO;
-
 			if ($id)
 			{
+				$PDO = Database::getConnection();
 				$sql = "select * from sections where id=?";
 				try
 				{
@@ -114,7 +113,7 @@
 			# Make sure we still have a document assigned
 			if (!$this->document_id) { throw new Exception('missingHomeDocument'); }
 
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			$sql = "update sections set $preparedFields where id={$this->id}";
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
@@ -123,7 +122,7 @@
 
 		private function insert($values,$preparedFields)
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			# Have to do an Insert first, so we can have a section_id to assign to the Document
 			$sql = "insert sections set $preparedFields";
@@ -151,7 +150,7 @@
 
 		public function delete()
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			$sql = "update sections set document_id=null where id={$this->id}";
 			if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
@@ -235,9 +234,9 @@
    		 */
    		public function getAncestors()
    		{
-   			global $PDO;
    			if (!count($this->ancestors))
    			{
+				$PDO = Database::getConnection();
    				# Since a section can be in multiple places in the tree
    				# We have to do the SQL query for each place this section is in the tree
    				$this->ancestors = array();
@@ -274,10 +273,9 @@
 		 */
 		public function getDescendants()
    		{
-   			global $PDO;
-
    			if (!count($this->descendants))
    			{
+				$PDO = Database::getConnection();
    				$sql = "select distinct s.section_id from sectionIndex s
 						left join sectionIndex p on p.preOrder<s.preOrder and s.preOrder<p.postOrder
 						where p.section_id={$this->id} order by s.preOrder";
@@ -307,7 +305,8 @@
    		}
    		private function saveDepartments()
    		{
-   			global $PDO;
+			$PDO = Database::getConnection();
+
 			# Clear out all the old departments
 			if (count($this->deletedDepartmentIds))
 			{

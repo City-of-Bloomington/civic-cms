@@ -38,10 +38,9 @@
 		 */
 		public function __construct($id=null)
 		{
-			global $PDO;
-
 			if ($id)
 			{
+				$PDO = Database::getConnection();
 				$sql = 'select * from events where id=?';
 				try
 				{
@@ -116,7 +115,7 @@
 
 		private function update($values,$preparedFields)
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			$sql = "update events set $preparedFields where id={$this->id}";
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
@@ -125,7 +124,7 @@
 
 		private function insert($values,$preparedFields)
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			$sql = "insert events set $preparedFields";
 			echo "$sql\n";
@@ -146,10 +145,9 @@
 		 */
 		public function getSections()
 		{
-			global $PDO;
-
 			if (!count($this->sections) && $this->id)
 			{
+				$PDO = Database::getConnection();
 				$sql = "select section_id from event_sections where event_id={$this->id}";
 				$query = $PDO->query($sql);
 				foreach($query->fetchAll() as $row)
@@ -182,7 +180,7 @@
 		}
 		private function saveSections()
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			# Clear out any deleted sections
 			if (count($this->deletedSections))

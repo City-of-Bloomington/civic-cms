@@ -22,10 +22,10 @@
 
 		public function __construct($id = null)
 		{
-			global $PDO;
-
 			if ($id)
 			{
+				$PDO = Database::getConnection();
+
 				# Load an existing user
 				if (is_numeric($id)) { $sql = "select * from users where id=?"; }
 				else { $sql = "select * from users where username=?"; }
@@ -100,8 +100,7 @@
 
 		public function delete()
 		{
-			global $PDO;
-
+			$PDO = Database::getConnection();
 			$PDO->beginTransaction();
 
 			$sql = "delete from user_roles where user_id={$this->id}";
@@ -115,7 +114,7 @@
 
 		private function update($values,$preparedFields)
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			$sql = "update users set $preparedFields where id={$this->id}";
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
@@ -124,7 +123,7 @@
 
 		private function insert($values,$preparedFields)
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			$sql = "insert users set $preparedFields";
 			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
@@ -135,7 +134,7 @@
 
 		private function updateRoles()
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			$roles = $this->getRoles();
 
@@ -151,7 +150,7 @@
 
 		protected function saveLocalPassword()
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			$sql = "update users set password=md5('{$this->password}') where id={$this->id}";
 			if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
@@ -159,7 +158,7 @@
 
 		protected function authenticateDatabase($password)
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			$sql = "select id from users where username='{$this->username}' and password=md5('$password')";
 			$result = $PDO->query($sql);
@@ -184,7 +183,7 @@
 		 */
 		public function hasWatch($document)
 		{
-			global $PDO;
+			$PDO = Database::getConnection();
 
 			$query = $PDO->prepare("select count(*) as watches from document_watches where document_id=? and user_id=?");
 			$query->execute(array($document->getId(),$_SESSION['USER']->getId()));
@@ -213,10 +212,10 @@
 		}
 		public function getRoles()
 		{
-			global $PDO;
-
 			if (!$this->roles)
 			{
+				$PDO = Database::getConnection();
+
 				$this->roles = array();
 				$sql = "select role_id,role from user_roles left join roles on role_id=id where user_id={$this->id}";
 				if ($result = $PDO->query($sql))
