@@ -29,6 +29,8 @@
 			<img src="<?php echo BASE_URL; ?>/media/media.php?media_id=1601" alt="Valid XHTML 1.0 Strict" height="31" width="88" /></a>
 		<a href="http://jigsaw.w3.org/css-validator">
 			<img src="<?php echo BASE_URL; ?>/media/media.php?media_id=1605" alt="Valid CSS" height="31" width="88" /></a>
+		<a href="http://www.w3.org/WAI/WCAG1A-Conformance" title="Explanation of Level A Conformance">
+			<img src="<?php echo BASE_URL; ?>/media/media.php?media_id=1736" alt="Level A conformance icon, W3C-WAI Web Content Accessibility Guidelines 1.0" height="32" width="88" /></a>
 	</div>
 	<?php include FRAMEWORK.'/footer.inc'; ?>
 </div>
