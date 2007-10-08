@@ -42,6 +42,7 @@ class EventTest extends PHPUnit_Framework_TestCase {
      * @access protected
      */
     protected function tearDown() {
+
     }
 
     /**
@@ -235,13 +236,16 @@ class EventTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @todo Implement testGetCalendar_id().
+     * Test that a saved event has a calendar_id
      */
     public function testGetCalendar_id() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+    	# Test an existing event
+    	$event = new Event(1);
+    	$this->assertTrue($event->getCalendar_id()==1,'Did not receive the correct calendar_id');
+
+		# A new Event should return empty or null for the calendar_id
+		$event = new Event();
+		$this->assertTrue(!$event->getCalendar_id());
     }
 
     /**
@@ -295,13 +299,18 @@ class EventTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @todo Implement testGetCalendar().
+     * This should return a Calendar object if the event
+     * has a calendar_id
      */
     public function testGetCalendar() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+    	# Test existing event
+    	$event = new Event(1);
+    	$this->assertTrue($event->getCalendar() instanceof Calendar,'Did not return a Calendar');
+    	$this->assertTrue($event->getCalendar()->getId()==1,'Returned calendar was not valid');
+
+		# This should return null or empty
+    	$event = new Event();
+    	$this->assertTrue(!$event->getCalendar(),'Returned a calendar when there was not a valid calendar');
     }
 
     /**

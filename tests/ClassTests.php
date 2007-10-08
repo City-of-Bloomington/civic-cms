@@ -130,16 +130,6 @@ class ClassTests
 
 		return $suite;
 	}
-
-	protected function setUp()
-	{
-
-	}
-
-	protected function tearDown()
-	{
-
-	}
 }
 
 if (PHPUnit_MAIN_METHOD == 'ClassTests::main') {

@@ -18,6 +18,7 @@ require_once 'PHPUnit/Framework.php';
 include_once './configuration.inc';
 
 # Load all the test suites
+require_once './AllTestsSuite.php';
 require_once './ClassTests.php';
 
 class AllTests
@@ -29,23 +30,12 @@ class AllTests
 
 	public static function suite()
 	{
-		$suite = new PHPUnit_Framework_TestSuite('PHPUnit');
-
+		$suite = new AllTestsSuite();
 		$suite->addTest(ClassTests::suite());
 		// ...
 
 		return $suite;
 	}
-
-    protected function setUp()
-    {
-
-    }
-
-    protected function tearDown()
-    {
-
-    }
 }
 if (PHPUnit_MAIN_METHOD == 'AllTests::main') {
     AllTests::main();
