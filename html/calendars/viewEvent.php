@@ -14,6 +14,7 @@
 	$calendar = $event->getCalendar();
 
 	$template = new Template();
+	$template->blocks[] = new Block('calendars/breadcrumbs.inc',array('event'=>$event));
 	$template->blocks[] = new Block('calendars/viewButtons.inc',array('url'=>$url,'calendar'=>$calendar));
 	$template->blocks[] = new Block('events/viewEvent.inc',array('event'=>$event));
 	$template->render();

@@ -8,6 +8,7 @@
 	$facet = new Facet($_GET['facet_id']);
 
 	$template = new Template();
+	$template->blocks[] = new Block('facets/breadcrumbs.inc',array('facet'=>$facet));
 	$template->blocks[] = new Block('facets/facetDocuments.inc',array('facet'=>$facet));
 
 	$template->render();

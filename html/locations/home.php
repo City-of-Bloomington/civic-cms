@@ -12,22 +12,6 @@
 		default: $template = new Template($_GET['format'],$_GET['format']);
 	}
 
-
-	if ($template->outputFormat==='html')
-	{
-		if (userHasRole(array('Administrator','Webmaster')))
-		{
-			$typeList = new LocationTypeList();
-			$typeList->find();
-			$template->blocks[] = new Block('locations/locationTypeList.inc',array('locationTypeList'=>$typeList));
-
-			$groupList = new LocationGroupList();
-			$groupList->find();
-			$template->blocks[] = new Block('locations/locationGroupList.inc',array('locationGroupList'=>$groupList));
-		}
-	}
-
-
 	$listBlock = new Block('locations/locationList.inc');
 	if (isset($_GET['locationGroup_id']) && is_numeric($_GET['locationGroup_id']))
 	{
@@ -59,6 +43,29 @@
 	{
 		$listBlock->title = 'Locations';
 	}
+
+	# If we have a locationGroup, include it in the breadcrumbs
+	$breadcrumbs = new Block('locations/breadcrumbs.inc');
+	if (isset($group)) { $breadcrumbs->locationGroup = $group; }
+	$template->blocks[] = $breadcrumbs;
+
+	if ($template->outputFormat==='html')
+	{
+		if (userHasRole(array('Administrator','Webmaster')))
+		{
+			$typeList = new LocationTypeList();
+			$typeList->find();
+			$template->blocks[] = new Block('locations/locationTypeList.inc',array('locationTypeList'=>$typeList));
+
+			$groupList = new LocationGroupList();
+			$groupList->find();
+			$template->blocks[] = new Block('locations/locationGroupList.inc',array('locationGroupList'=>$groupList));
+		}
+	}
+
+
+
+
 
 	$template->blocks[] = $listBlock;
 

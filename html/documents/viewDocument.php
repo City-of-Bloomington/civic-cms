@@ -26,7 +26,7 @@
 		$template->document = $document;
 		$template->title = $document->getTitle();
 
-		$template->blocks[] = new Block('breadcrumbs.inc',array('document'=>$document));
+		$template->blocks[] = new Block('documents/breadcrumbs.inc',array('document'=>$document));
 		$template->blocks[] = new Block('documents/viewDocument.inc',array('document'=>$document));
 
 

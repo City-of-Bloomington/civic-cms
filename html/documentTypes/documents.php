@@ -26,6 +26,8 @@
 		if ($type->getDefaultFacetGroup_id()) { $block->facetGroup = $type->getDefaultFacetGroup(); }
 	}
 
+
+	$template->blocks[] = new Block('documentTypes/breadcrumbs.inc',array('documentType'=>$type));
 	$template->blocks[] = $block;
 	$template->render();
 ?>

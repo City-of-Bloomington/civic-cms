@@ -8,6 +8,7 @@
 	$list->find();
 
 	$template = new Template();
+	$template->blocks[] = new Block('documentTypes/breadcrumbs.inc');
 	$template->blocks[] = new Block('documentTypes/documentTypeList.inc',array('documentTypeList'=>$list));
 	$template->render();
 ?>

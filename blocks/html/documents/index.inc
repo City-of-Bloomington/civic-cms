@@ -6,6 +6,11 @@
  * @param char $this->letter
  */
 ?>
+<div id="breadcrumbs">
+<ul><li><a href="<?php echo BASE_URL; ?>">Home</a></li>
+	<li><a href="<?php echo BASE_URL; ?>/documents/az_index.php">A-Z Index</a></li>
+</ul>
+</div>
 <div class="tabBar">
 <ul>
 <?php
