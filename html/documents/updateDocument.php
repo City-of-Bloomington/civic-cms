@@ -123,6 +123,23 @@
 		}
 	}
 
+	# Sections are going to be added and removed one at a time
+	if (isset($_POST['section']))
+	{
+		if (isset($_POST['section']['add']) && $_POST['section']['add'])
+		{
+			try { $_SESSION['document'][$instance_id]->addSection($_POST['section']['add']); }
+			catch (Exception $e) { $_SESSION['errorMessages'][] = $e; }
+		}
+
+		if (isset($_POST['section']['remove']))
+		{
+			try { $_SESSION['document'][$instance_id]->removeSection($_POST['section']['remove']); }
+			catch (Exception $e) { $_SESSION['errorMessages'][] = $e; }
+		}
+	}
+
+
 	# Attachments need to be saved right away
 	# CONTENT_LENGTH will be set if there's a POST.  If it's too big, most
 	# likely they were trying to upload an attachment.
@@ -228,7 +245,6 @@
 		break;
 
 		case 'sections':
-			$form->sectionList = new SectionList(array('postable_by'=>$_SESSION['USER']));
 		break;
 
 		case 'attachments':

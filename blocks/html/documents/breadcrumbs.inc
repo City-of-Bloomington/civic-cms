@@ -1,4 +1,4 @@
-<div id="breadcrumbs">
+<div class="breadcrumbs">
 <?php
 /**
  * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.

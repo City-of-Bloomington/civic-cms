@@ -1,5 +1,6 @@
 <?php
 include("../configuration.inc");
+
 $PDO = Database::getConnection();
 
 $tables = array();
@@ -35,16 +36,13 @@ foreach($tables as $tableName)
 		 */
 		public function __construct(\$$key[Column_name]=null)
 		{
+			\$PDO = Database::getConnection();
+
 			if (\$$key[Column_name])
 			{
-				\$PDO = Database::getConnection();
 				\$sql = 'select * from $tableName where $key[Column_name]=?';
-				try
-				{
-					\$query = \$PDO->prepare(\$sql);
-					\$query->execute(array(\$$key[Column_name]));
-				}
-				catch (Exception \$e) { throw \$e; }
+				\$query = \$PDO->prepare(\$sql);
+				\$query->execute(array(\$$key[Column_name]));
 
 				\$result = \$query->fetchAll();
 				foreach(\$result[0] as \$field=>\$value) { if (\$value) \$this->\$field = \$value; }
@@ -218,8 +216,8 @@ $contents.= "
 			\$PDO = Database::getConnection();
 
 			\$sql = \"update $tableName set \$preparedFields where $key[Column_name]={\$this->$key[Column_name]}\";
-			if (false === \$query = \$PDO->prepare(\$sql)) { \$e = \$PDO->errorInfo(); throw new Exception(\$sql.\$e[2]); }
-			if (false === \$query->execute(\$values)) { \$e = \$PDO->errorInfo(); throw new Exception(\$sql.\$e[2]); }
+			\$query = \$PDO->prepare(\$sql);
+			\$query->execute(\$values);
 		}
 
 		private function insert(\$values,\$preparedFields)
@@ -227,8 +225,9 @@ $contents.= "
 			\$PDO = Database::getConnection();
 
 			\$sql = \"insert $tableName set \$preparedFields\";
-			if (false === \$query = \$PDO->prepare(\$sql)) { \$e = \$PDO->errorInfo(); throw new Exception(\$sql.\$e[2]); }
-			if (false === \$query->execute(\$values)) { \$e = \$PDO->errorInfo(); throw new Exception(\$sql.\$e[2]); }
+			\$query = \$PDO->prepare(\$sql);
+			\$query->execute(\$values);
+
 			\$this->$key[Column_name] = \$PDO->lastInsertID();
 		}
 
@@ -241,7 +240,7 @@ $getters
 		 */
 $setters
 	}
-?>";
+";
 	$dir = APPLICATION_HOME.'/scripts/stubs/classes';
 	if (!is_dir($dir)) { mkdir($dir,0770,true); }
 	file_put_contents("$dir/$className.inc",$contents);

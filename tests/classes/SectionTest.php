@@ -33,6 +33,9 @@ class SectionTest extends PHPUnit_Framework_TestCase {
      * @access protected
      */
     protected function setUp() {
+    	$_SESSION['USER'] = new User(1);
+
+
     }
 
     /**
@@ -45,13 +48,29 @@ class SectionTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @todo Implement testSave().
+     * Test that section changes get written back to the database
      */
     public function testSave() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+    	# Test update
+    	$section = new Section(1);
+    	$section->setNickname('changed');
+    	try { $section->save(); }
+    	catch(Exception $e) { $this->fail('Section saving threw exception'.$e->getMessage()); }
+
+		$changed = new Section(1);
+		$this->assertTrue($changed->getNickname()=='changed','Section was not saved to the database');
+
+
+		# Test insert
+		$section = new Section();
+		$section->setName('Test Section');
+		$section->setDepartments(array(1));
+		try { $section->save(); }
+		catch(Exception $e) { $this->fail('Section insert threw exception '.$e->getMessage()); }
+		$this->assertTrue($section->getId()!='','New section did not get an ID from the database'.$section->getId());
+		$this->assertNotNull($section->getId(),'New Section did not get an ID from the database');
+
+		$section->delete();
     }
 
     /**
@@ -62,6 +81,22 @@ class SectionTest extends PHPUnit_Framework_TestCase {
         $this->markTestIncomplete(
           'This test has not been implemented yet.'
         );
+        /*
+    	# Try and delete the New Section we just created
+    	$PDO = Database::getConnection();
+    	$query = $PDO->prepare('select id from sections where name=?');
+    	$query->execute(array('New Section'));
+    	$result = $query->fetchAll();
+    	$id = $result[0]['id'];
+
+    	$section = new Section($id);
+    	$section->delete();
+
+    	$query = $PDO->prepare('select id from sections where name=?');
+    	$query->execute(array('New Section'));
+    	$result = $query->fetchAll();
+    	$this->assertTrue(count($result)==0,'Section was not deleted');
+    	*/
     }
 
     /**
@@ -175,6 +210,19 @@ class SectionTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
+     * Test that we can determine whehter a section has a particular document,
+     * using either a Document object or a document_id
+     */
+    public function testHasDocument()
+    {
+		$section = new Section(1);
+		$document = $section->getDocument();
+
+		$this->assertTrue($section->hasDocument($document)==1,'Could not determine based on Document object');
+		$this->assertTrue($section->hasDocument($document->getId())==1,'Could not determine based on document_id');
+    }
+
+    /**
      * @todo Implement testGetDocuments().
      */
     public function testGetDocuments() {
@@ -218,10 +266,18 @@ class SectionTest extends PHPUnit_Framework_TestCase {
      * @todo Implement testPermitsPostingBy().
      */
     public function testPermitsPostingBy() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+		# Find a limited user
+		#$list = new UserList(array('role'=>'Content Creator'));
+		#$user = $list[0];
+		$user = new User(8);
+
+		# Find a section for their department
+		#$list = new SectionList(array('department_id'=>$user->getDepartment_id()));
+		#$section = $list[0];
+		$section = new Section(121);
+
+		# The user should be able to post to that department
+		$this->assertTrue($section->permitsPostingBy($user),'User could not post to their section');
     }
 
     /**
@@ -295,13 +351,11 @@ class SectionTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @todo Implement testGetDocument().
+     * Test whether we can get a document object for the home document
      */
     public function testGetDocument() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+    	$section = new Section(1);
+    	$this->assertTrue($section->getDocument() instanceof Document,'Could not get the home document object');
     }
 
     /**

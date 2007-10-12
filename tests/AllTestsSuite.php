@@ -13,6 +13,7 @@ class AllTestsSuite extends PHPUnit_Framework_TestSuite
 
     protected function setUp()
     {
+    	/*
 		$PDO = Database::getConnection();
 		$PDO->exec('drop database test');
 		$PDO->exec('create database test');
@@ -41,11 +42,15 @@ class AllTestsSuite extends PHPUnit_Framework_TestSuite
 		$query = $PDO->prepare('insert sections (id,name,nickname,document_id) values(?,?,?,?)');
 		$query->execute(array(1,'Home',1,1));
 
+		$query = $PDO->prepare('insert section_departments values(?,?)');
+		$query->execute(array(1,1));
+
     	$query = $PDO->prepare('insert calendars values(?,?,?,?)');
     	$query->execute(array(1,'Test','Test Calendar',1));
 
     	$query = $PDO->prepare('insert events (id,startDate,startTime,endDate,endTime,summary,calendar_id,user_id) values(?,?,?,?,?,?,?,?)');
     	$query->execute(array(1,'2006-06-13','16:15:00','2006-12-31','18:00:00','Test',1,1));
+    	*/
     }
 
     protected function tearDown()

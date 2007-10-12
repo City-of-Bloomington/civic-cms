@@ -72,7 +72,7 @@
 
 			if (isset($fields['document_id']))
 			{
-				$this->joins.= " left join document_sections d on s.id=d.section_id";
+				$this->joins.= " left join sectionDocuments d on s.id=d.section_id";
 				$options[] = "d.document_id='$fields[document_id]'";
 			}
 

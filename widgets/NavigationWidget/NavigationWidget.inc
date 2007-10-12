@@ -71,7 +71,6 @@
 
 					# Remember the ancestral line we're on
 					$this->ancestors[$section->getId()] = $section;
-					$_SESSION['vector'] = $this->ancestors;
 				}
 			}
 
@@ -82,11 +81,7 @@
 				$this->ancestors = array(1=>$this->section);
 			}
 
-			# Check and don't show the navigation box on the homepage
-			#if ($this->section->getId() != 1)
-			#{
-				$this->renderIncludeFile($this);
-			#}
+			$_SESSION['vector'] = $this->ancestors;
+			$this->renderIncludeFile($this);
 		}
 	}
-?>

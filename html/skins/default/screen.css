@@ -101,14 +101,14 @@ li.current>a { background-color:#cccccc; width:100%; }
 
 
 /* Breadcrumb class for navigational items */
-#breadcrumbs ul { margin:0; }
-#breadcrumbs li { display:inline; list-style-type:none; margin:0; padding:0; }
-#breadcrumbs li:after { content:' >> '; }
+.breadcrumbs ul { margin:0; }
+.breadcrumbs li { display:inline; list-style-type:none; margin:0; padding:0; }
+.breadcrumbs li:after { content:' >> '; }
 	/* This lets us put small forms into the menubar without hurting the layout too bad */
-	#breadcrumbs form { margin:0; padding:0; display:inline; height:1em; }
-	#breadcrumbs form fieldset { margin:0; padding:0; border:0; display:inline; }
-	#breadcrumbs form input { font-size:8pt; font-weight:normal; }
-	#breadcrumbs form button { font-size:8pt; }
+	.breadcrumbs form { margin:0; padding:0; display:inline; height:1em; }
+	.breadcrumbs form fieldset { margin:0; padding:0; border:0; display:inline; }
+	.breadcrumbs form input { font-size:8pt; font-weight:normal; }
+	.breadcrumbs form button { font-size:8pt; }
 
 /* The language bar */
 #languages ul { margin:0; float:right; margin-bottom:1em; }

@@ -54,6 +54,8 @@ require_once 'classes/PanelTest.php';
 require_once 'classes/RoleListTest.php';
 require_once 'classes/RoleTest.php';
 require_once 'classes/SearchTest.php';
+require_once 'classes/SectionDocumentTest.php';
+require_once 'classes/SectionDocumentListTest.php';
 require_once 'classes/SectionListTest.php';
 require_once 'classes/SectionNodeListTest.php';
 require_once 'classes/SectionNodeTest.php';
@@ -114,6 +116,8 @@ class ClassTests
 		$suite->addTestSuite('RoleListTest');
 		$suite->addTestSuite('RoleTest');
 		$suite->addTestSuite('SearchTest');
+		$suite->addTestSuite('SectionDocumentListTest');
+		$suite->addTestSuite('SectionDocumentTest');
 		$suite->addTestSuite('SectionListTest');
 		$suite->addTestSuite('SectionNodeListTest');
 		$suite->addTestSuite('SectionNodeTest');

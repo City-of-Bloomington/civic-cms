@@ -33,7 +33,6 @@
 		private $related = array();
 
 		private $sections = array();
-		private $document_sections = array();
 
 		private $widgets = array();
 		private $attachments = array();
@@ -46,15 +45,12 @@
 		{
 			if ($id)
 			{
-				$PDO = Database::getConnection();
 				if (is_numeric($id)) { $sql = "select * from documents where id=?"; }
 				else { $sql = "select * from documents where title=?"; }
-				try
-				{
-					$query = $PDO->prepare($sql);
-					$query->execute(array($id));
-				}
-				catch (Exception $e) { throw $e; }
+
+				$PDO = Database::getConnection();
+				$query = $PDO->prepare($sql);
+				$query->execute(array($id));
 
 				$result = $query->fetchAll();
 				if (!count($result)) { throw new Exception('documents/unknownDocument'); }
@@ -64,7 +60,7 @@
 			{
 				# This is where the code goes to generate a new, empty instance.
 				# Set any default values for properties that need it here
-				$this->created = date("Y-m-d H:i:s");
+				$this->created = date('Y-m-d H:i:s');
 				$this->createdBy = $_SESSION['USER']->getId();
 				$this->publishDate = $this->created;
 				$this->setDepartment_id($_SESSION['USER']->getDepartment_id());
@@ -82,9 +78,6 @@
 			# Check for required fields here.  Throw an exception if anything is missing.
 			if (!$this->department_id) { throw new Exception('missingRequiredFields'); }
 			if (!$this->title) { throw new Exception('documents/missingTitle'); }
-			if (!count($this->getDocumentSections())) { throw new Exception('documents/missingSection'); }
-			#if (!$this->description) { throw new Exception('missingDescription'); }
-
 			if (!$this->wikiTitle) { $this->wikiTitle = WikiMarkup::wikify($this->title); }
 
 			# Make sure we've got something for content
@@ -104,7 +97,7 @@
 			$fields['wikiTitle'] = $this->wikiTitle;
 			$fields['alias'] = $this->alias ? $this->alias : null;
 			$fields['feature_title'] = $this->feature_title ? $this->feature_title : null;
-			$fields['created'] = $this->created;
+			$fields['created'] = $this->created ? $this->created : date('Y-m-d H:i:s');
 			$fields['modified'] = null;
 			$fields['createdBy'] = $this->createdBy;
 			$fields['modifiedBy'] = $_SESSION['USER']->getId();
@@ -131,7 +124,6 @@
 			if ($this->id) { $this->update($values,$preparedFields); }
 			else { $this->insert($values,$preparedFields); }
 
-			$this->saveSections();
 			$this->saveContent();
 			$this->saveFacets();
 		}
@@ -141,23 +133,8 @@
 			$PDO = Database::getConnection();
 
 			$sql = "update documents set $preparedFields where id={$this->id}";
-			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
-			if (false === $query->execute($values)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
-
-			# We are disabling live search indexing for now
-			# There's wierdness with the index getting corrupted, causing PHP
-			# to crash HARD.
-			# Something like : uninitialized string offset in DictionaryLoader
-			#try
-			#{
-			#	$search = new Search();
-			#	$search->updateDocument($this);
-			#}
-			#catch (Exception $e)
-			#{
-			#	# Any problems with updating the search should not throw an error
-			#	exception_handler($e);
-			#}
+			$query = $PDO->prepare($sql);
+			$query->execute($values);
 		}
 
 		private function insert($values,$preparedFields)
@@ -165,27 +142,9 @@
 			$PDO = Database::getConnection();
 
 			$sql = "insert documents set $preparedFields";
-			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
-			if (false === $query->execute($values)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
+			$query = $PDO->prepare($sql);
+			$query->execute($values);
 			$this->id = $PDO->lastInsertID();
-
-			$sql = "select created from documents where id=$this->id";
-			foreach($PDO->query($sql) as $row) { $this->created = $row['created']; }
-
-			# We are disabling live search indexing for now
-			# There's wierdness with the index getting corrupted, causing PHP
-			# to crash HARD.
-			# Something like : uninitialized string offset in DictionaryLoader
-			#try
-			#{
-			#	$search = new Search();
-			#	$search->addDocument($this);
-			#}
-			#catch (Exception $e)
-			#{
-			#	# Any problems with updating the search should not throw an error
-			#	exception_handler($e);
-			#}
 		}
 
 		public function delete()
@@ -193,21 +152,13 @@
 			if ($this->id)
 			{
 				$PDO = Database::getConnection();
+
 				# Documents that are the home page for a section should not be deleted
-				$query = $PDO->prepare('select id from sections where document_id=?');
-				$query->execute(array($this->id));
-				$result = $query->fetchAll();
-				if (count($result))
+				$sections = new SectionList(array('document_id'=>$this->id));
+				if (count($sections))
 				{
 					throw new Exception('documents/sectionHomepage');
 				}
-
-				# We are disabling live search indexing for now
-				# There's wierdness with the index getting corrupted, causing PHP
-				# to crash HARD.
-				# Something like : uninitialized string offset in DictionaryLoader
-				#$search = new Search();
-				#$search->removeDocument($this);
 
 				$this->deleteContent();
 
@@ -220,7 +171,7 @@
 				$query = $PDO->prepare("update sections set document_id=null where document_id={$this->id}");
 				$query->execute();
 
-				$query = $PDO->prepare("delete from document_sections where document_id={$this->id}");
+				$query = $PDO->prepare("delete from sectionDocuments where document_id={$this->id}");
 				$query->execute();
 
 				$query = $PDO->prepare("delete from document_facets where document_id={$this->id}");
@@ -430,79 +381,57 @@
 		/**
 		 * Section functions
 		 */
+		public function getSectionDocuments()
+		{
+			if ($this->id)
+			{
+				return new SectionDocumentList(array('document_id'=>$this->id));
+			}
+			return array();
+		}
 		public function getSections()
 		{
-			# A Document cannot have sections until it has an ID
-			if (!count($this->sections) && $this->id)
+			if (!count($this->sections))
 			{
-				$list = new SectionList(array('document_id'=>$this->id));
-				foreach($list as $section) { $this->sections[$section->getId()] = $section; }
+				foreach($this->getSectionDocuments() as $sectionDocument)
+				{
+					$this->sections[$sectionDocument->getSection_id()] = $sectionDocument->getSection();
+				}
 			}
 			return $this->sections;
 		}
-		public function getDocumentSections()
+		public function addSection($section)
 		{
-			if ($this->id)
+			$section_id = ($section instanceof Section) ? $section->getId() : $section;
+			$list = new SectionDocumentList(array('document_id'=>$this->id,'section_id'=>$section_id));
+			if (!count($list))
 			{
-				if (!count($this->document_sections))
-				{
-					$PDO = Database::getConnection();
-					$query = $PDO->prepare('select * from document_sections where document_id=?');
-					$query->execute(array($this->id));
-					$result = $query->fetchAll();
-					foreach($result as $row)
-					{
-						$this->document_sections[$row['section_id']] = array('id'=>$row['section_id'],'featured'=>$row['featured']);
-					}
-				}
-			}
-			return $this->document_sections;
-
-		}
-		/**
-		 * Set the array of sections linked to this document
-		 * $sections must be an array in the form of:
-		 * $sections[$section_id]['id'] = $section_id;
-		 * $sections[$section_id]['featured'] = 0|1 <<optional>>
-		 */
-		public function setSections(array $sections)
-		{
-			$this->document_sections = $sections;
-		}
-		private function saveSections()
-		{
-			if ($this->id)
-			{
-				$PDO = Database::getConnection();
-				$query = $PDO->prepare('delete from document_sections where document_id=?');
-				$query->execute(array($this->id));
-
-				$query = $PDO->prepare('insert document_sections values(?,?,?)');
-				foreach($this->document_sections as $section_id=>$section)
-				{
-					$featured = isset($section['featured']) ? $section['featured'] : 0;
-					$query->execute(array($this->id,$section_id,$featured));
-				}
+				$sectionDocument = new SectionDocument();
+				$sectionDocument->setDocument_id($this->id);
+				$sectionDocument->setSection_id($section_id);
+				$sectionDocument->save();
 			}
 		}
-		public function addSection($section,$featured=0)
+		public function removeSection($sectionDocument_id)
 		{
-			$this->document_sections[$section->getId()] = array('id'=>$section->getId(),'featured'=>$featured);
-			$this->sections[$section->getId()] = $section;
+			$sectionDocument = new SectionDocument($sectionDocument_id);
+			$sectionDocument->delete();
 		}
-		public function hasSection($section) { return array_key_exists($section->getId(),$this->getSections()); }
+		public function hasSection($section)
+		{
+			if(in_array($section->getId(),array_keys($this->getSections()))) { return true; }
+			return false;
+		}
 
 		public function isFeaturedIn($section)
 		{
-			if (array_key_exists($section->getId(),$this->getDocumentSections()))
+			foreach($this->getSectionDocuments() as $sectionDocument)
 			{
-				if (isset($this->document_sections[$section->getId()]['featured']))
+				if ($sectionDocument->getSection_id()==$section->getId())
 				{
-					return $this->document_sections[$section->getId()]['featured'];
+					return $sectionDocument->getFeatured();
 				}
-				return 0;
 			}
-			return 0;
 		}
 
 		public function isHomepage()

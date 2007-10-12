@@ -4,11 +4,9 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param GET documentType_id
- * @param GET section_id (Optionally include a section to pre-select)
  * @param GET/POST return_url
  * @param GET/POST instance_id
  */
-	# Make sure they're allowed to edit stuff in this section
 	verifyUser(array('Administrator','Webmaster','Content Creator','Publisher'));
 
 	# Set the current language we're working with
@@ -37,12 +35,6 @@
 			$_SESSION['document'][$instance_id]->setDocumentType($type,$_SESSION['LANGUAGE']);
 		}
 
-		if (isset($_GET['section_id']))
-		{
-			$section = new Section($_GET['section_id']);
-			if (!$section->permitsEditingBy($_SESSION['USER'])) { unset($section); }
-			else { $_SESSION['document'][$instance_id]->addSection($section); }
-		}
 	}
 
 
@@ -153,7 +145,6 @@
 		break;
 
 		case 'sections':
-			$form->sectionList = new SectionList(array('postable_by'=>$_SESSION['USER']));
 		break;
 
 		case 'source':

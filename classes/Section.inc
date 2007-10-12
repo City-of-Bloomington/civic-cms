@@ -19,14 +19,13 @@
 		private $parents = array();
 		private $children = array();
 		private $ancestors = array();
-		private $descendants = array();
 
 		private $departments = array();
 		private $newDepartmentIds = array();
 		private $deletedDepartmentIds = array();
 
+		private $documents = array();
 
-		private $documents;
 
 		private $widgets = array();
 		private $newWidgets = array();
@@ -126,8 +125,8 @@
 
 			# Have to do an Insert first, so we can have a section_id to assign to the Document
 			$sql = "insert sections set $preparedFields";
-			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
-			if (false === $query->execute($values)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
+			$query = $PDO->prepare($sql);
+			$query->execute($values);
 			$this->id = $PDO->lastInsertID();
 
 			# New Sections need a default document created for them
@@ -138,12 +137,16 @@
 				$document->setTitle($this->name);
 				$document->setContent("<h2>{$this->name}</h2>",$_SESSION['LANGUAGE']);
 				$document->setDocumentType_id(1,$_SESSION['LANGUAGE']);
-				$document->addSection($this);
 				$document->save();
 				$this->setDocument($document);
+
 			}
 
-			# Now we just need to update the document_id field
+			# Now we link the document to the section
+			$sectionDocument = new SectionDocument();
+			$sectionDocument->setSection_id($this->id);
+			$sectionDocument->setDocument_id($document->getId());
+
 			$query = $PDO->prepare('update sections set document_id=? where id=?');
 			$query->execute(array($this->getDocument_id(),$this->getId()));
 		}
@@ -158,7 +161,7 @@
 
 			$PDO->beginTransaction();
 
-				$sql = "delete from document_sections where section_id={$this->id}";
+				$sql = "delete from sectionDocuments where section_id={$this->id}";
 				if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); $PDO->rollBack(); throw new Exception($sql.$e[2]); }
 
 				$sql = "delete from section_parents where section_id={$this->id} or parent_id={$this->id}";
@@ -273,17 +276,17 @@
 		 */
 		public function getDescendants()
    		{
-   			if (!count($this->descendants))
-   			{
-				$PDO = Database::getConnection();
-   				$sql = "select distinct s.section_id from sectionIndex s
-						left join sectionIndex p on p.preOrder<s.preOrder and s.preOrder<p.postOrder
-						where p.section_id={$this->id} order by s.preOrder";
-				$query = $PDO->query($sql);
-				$result = $query->fetchAll();
-				foreach($result as $row) { $this->descendants[$row['section_id']] = new Section($row['section_id']); }
-   			}
-   			return $this->descendants;
+			$PDO = Database::getConnection();
+			$sql = "select distinct s.section_id from sectionIndex s
+					left join sectionIndex p on p.preOrder<s.preOrder and s.preOrder<p.postOrder
+					where p.section_id={$this->id} order by s.preOrder";
+			$query = $PDO->query($sql);
+			$result = $query->fetchAll();
+
+			$descendants = array();
+			foreach($result as $row) { $descendants[$row['section_id']] = new Section($row['section_id']); }
+
+   			return $descendants;
    		}
 
 
@@ -337,6 +340,27 @@
 		}
 		public function hasDepartment($department) { return array_key_exists($department->getId(),$this->getDepartments()); }
 
+		/**
+		 * Document Fuctions
+		 */
+		public function getSectionDocuments($sort='title')
+		{
+			$list = new SectionDocumentList();
+			$list->find(array('section_id'=>$this->id),$sort);
+			return $list;
+		}
+
+		public function addDocument($document)
+		{
+			$list = new SectionDocumentList(array('section_id'=>$this->id,'document_id'=>$document->getId()));
+			if (!count($list))
+			{
+				$sectionDocument = new SectionDocument();
+				$sectionDocument->setSection_id($this->id);
+				$sectionDocument->setDocument_id($document->getId());
+				$sectionDocument->save();
+			}
+		}
    		public function getDocuments($sort='title')
    		{
 			if (!count($this->documents))
@@ -346,6 +370,12 @@
 			}
 			return $this->documents;
    		}
+		public function hasDocument($document)
+		{
+			if (!$document instanceof Document) { $document = new Document($document); }
+			$list = new SectionDocumentList(array('section_id'=>$this->id,'document_id'=>$document->getId()));
+			return count($list);
+		}
    		public function getDocumentLinks() { return new DocumentLinkList(array('section_id'=>$this->id)); }
 
 
@@ -369,7 +399,10 @@
 		public function permitsPostingBy($user)
 		{
 			if ($user->hasRole(array('Administrator','Webmaster','Publisher'))) { return true; }
-			if ($user->hasRole('Content Creator') && $user->getDepartment_id()==$this->department_id) { return true; }
+			if ($user->hasRole('Content Creator'))
+			{
+				if (in_array($user->getDepartment_id(),array_keys($this->getDepartments()))) { return true; }
+			}
 			return false;
 		}
    		public function permitsEditingBy($user)

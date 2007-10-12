@@ -38,7 +38,7 @@
 				$PDO = Database::getConnection();
 				$documentIds = array();
 				$sections= implode(',',$this->sectionIds);
-				$sql = "select d.id from document_sections s left join documents d on s.document_id=d.id
+				$sql = "select d.id from sectionDocuments s left join documents d on s.document_id=d.id
 						where s.section_id in ($sections)
 						and d.publishDate > date_sub(CURRENT_DATE,interval 4 month)";
 				foreach($PDO->query($sql) as $row) { $documentIds[] = $row['id']; }

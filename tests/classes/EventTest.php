@@ -33,6 +33,7 @@ class EventTest extends PHPUnit_Framework_TestCase {
      * @access protected
      */
     protected function setUp() {
+
     }
 
     /**
@@ -241,7 +242,7 @@ class EventTest extends PHPUnit_Framework_TestCase {
     public function testGetCalendar_id() {
     	# Test an existing event
     	$event = new Event(1);
-    	$this->assertTrue($event->getCalendar_id()==1,'Did not receive the correct calendar_id');
+    	$this->assertNotNull($event->getCalendar_id(),'Did not reveive a calendar_id');
 
 		# A new Event should return empty or null for the calendar_id
 		$event = new Event();
@@ -306,7 +307,6 @@ class EventTest extends PHPUnit_Framework_TestCase {
     	# Test existing event
     	$event = new Event(1);
     	$this->assertTrue($event->getCalendar() instanceof Calendar,'Did not return a Calendar');
-    	$this->assertTrue($event->getCalendar()->getId()==1,'Returned calendar was not valid');
 
 		# This should return null or empty
     	$event = new Event();

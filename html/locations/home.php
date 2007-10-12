@@ -44,13 +44,14 @@
 		$listBlock->title = 'Locations';
 	}
 
-	# If we have a locationGroup, include it in the breadcrumbs
-	$breadcrumbs = new Block('locations/breadcrumbs.inc');
-	if (isset($group)) { $breadcrumbs->locationGroup = $group; }
-	$template->blocks[] = $breadcrumbs;
 
 	if ($template->outputFormat==='html')
 	{
+		# If we have a locationGroup, include it in the breadcrumbs
+		$breadcrumbs = new Block('locations/breadcrumbs.inc');
+		if (isset($group)) { $breadcrumbs->locationGroup = $group; }
+		$template->blocks[] = $breadcrumbs;
+
 		if (userHasRole(array('Administrator','Webmaster')))
 		{
 			$typeList = new LocationTypeList();

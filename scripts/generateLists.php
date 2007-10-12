@@ -1,5 +1,6 @@
 <?php
 include("../configuration.inc");
+
 $PDO = Database::getConnection();
 
 $tables = array();
@@ -29,9 +30,10 @@ foreach($tables as $tableName)
 	# Constructor
 	#--------------------------------------------------------------------------
 	$constructor = "
-		public function __construct(\$fields=null)
+		public function __construct(\$fields=null,\$sort='id')
 		{
 			\$this->select = 'select $tableName.$key[Column_name] as id from $tableName';
+			\$this->sort = \$sort;
 			if (is_array(\$fields)) \$this->find(\$fields);
 		}
 	";
@@ -41,11 +43,9 @@ foreach($tables as $tableName)
 	# Find
 	#--------------------------------------------------------------------------
 	$findFunction = "
-		public function find(\$fields=null,\$sort='id',\$limit=null,\$groupBy=null)
+		public function find(\$fields=null,\$sort='id')
 		{
 			\$this->sort = \$sort;
-			\$this->limit = \$limit;
-			\$this->groupBy = \$groupBy;
 
 			\$options = array();
 ";
@@ -75,7 +75,7 @@ $findFunction
 
 		protected function loadResult(\$key) { return new $className(\$this->list[\$key]); }
 	}
-?>";
+";
 	$dir = APPLICATION_HOME.'/scripts/stubs/classes';
 	if (!is_dir($dir)) { mkdir($dir,0770,true); }
 	file_put_contents("$dir/{$className}List.inc",$contents);

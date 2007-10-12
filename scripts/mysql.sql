@@ -144,13 +144,14 @@ create table sectionIndex (
   foreign key (section_id) references sections (id)
 ) engine=InnoDB;
 
-create table document_sections (
-  document_id int unsigned not null,
-  section_id int unsigned not null,
-  featured tinyint(1) unsigned not null default 0,
-  unique (document_id,section_id),
-  foreign key (document_id) references documents (id) on delete cascade,
-  foreign key (section_id) references sections (id)
+create table sectionDocuments (
+	id int unsigned not null primary key auto_increment,
+	section_id int unsigned not null,
+	document_id int unsigned not null,
+	featured tinyint(1) unsigned not null default 0,
+	unique(section_id,document_id),
+	foreign key (section_id) references sections (id) on delete cascade,
+	foreign key (document_id) references documents (id) on delete cascade
 ) engine=InnoDB;
 
 

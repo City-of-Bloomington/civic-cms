@@ -30,7 +30,6 @@
 			<th></th>
 			<th></th>
 			<th></th>
-			<th></th>
 			<th><?php
 					echo "
 					<select name=\"by\" onchange=\"document.location.href='{$url->script}?filter=modifiedBy-'+this.options[this.selectedIndex].value;\">
@@ -70,8 +69,6 @@
 			$temp = $url;
 			$temp->parameters['sort'] = $temp->parameters['sort']=='title' ? 'title desc' : 'title';
 			echo "<th><a href=\"$temp\">Title</a></th>\n";
-
-			echo "<th></th>\n";
 
 			$temp = $url;
 			$temp->parameters['sort'] = $temp->parameters['sort']=='created desc' ? 'created' : 'created desc';
@@ -116,38 +113,48 @@
 			echo "
 			<tr><td style=\"width:100px; white-space:nowrap; overflow:hidden;\">
 					<a href=\"$url\" title=\"$title\">$partialTitle</a></td>
-			";
-			if ($document->permitsEditingBy($_SESSION['USER']))
-			{
-				# Show all the editing buttons
-				#$url->parameters['tab'] = 'attachments';
-				# <a href=\"$url\" onclick=\"window.open('$url');return false;\">Attachments</a>
-				$retireButton = !$document->getRetireDate() ? "<a href=\"".BASE_URL."/documents/retireDocument.php?document_id={$document->getId()}\">Retire</a>" : "";
-				$watch = $_SESSION['USER']->hasWatch($document) ? "<a href=\"".BASE_URL."/documents/removeWatch.php?document_id={$document->getId()}\">Unwatch</a>" : "<a href=\"".BASE_URL."/documents/addWatch.php?document_id={$document->getId()}\">Watch</a>";
-
-				# Documents that are homepages should not be deleted.
-				# At least until we can work out a way to choose new homepages for sections
-				$deleteButton = $document->isHomepage() ? '' : "<a href=\"".BASE_URL."/documents/deleteDocument.php?document_id={$document->getId()}\" onclick=\"FRAMEWORK.deleteConfirmation('".BASE_URL."/documents/deleteDocument.php?document_id={$document->getId()}');return false;\">Delete</a>";
-
-				echo "
-				<td><a href=\"{$document->getURL()}\" onclick=\"window.open('{$document->getURL()}');return false;\">View</a>
-					$deleteButton
-					$retireButton
-					$watch
-				</td>
-				";
-			}
-			else { echo "<td></td>"; }
-			echo "
 				<td>{$document->getCreated('%D')}</td>
 				<td>{$document->getPublishDate('%D')}</td>
 				<td>{$document->getModified('%D')}</td>
 				<td>$modifiedBy</td>
 				<td>{$document->getRetireDate('%D')}</td>
 				<td>{$document->getDocumentType()}</td>
+			</tr>
 			";
 
-			echo "</tr>";
+
+
+			if ($document->permitsEditingBy($_SESSION['USER']))
+			{
+				# Show all the editing buttons
+				#$url->parameters['tab'] = 'attachments';
+				# <a href=\"$url\" onclick=\"window.open('$url');return false;\">Attachments</a>
+				$retireButton = !$document->getRetireDate() ? "<button type=\"button\" class=\"retire\" onclick=\"document.location.href='".BASE_URL."/documents/retireDocument.php?document_id={$document->getId()}';\">Retire</button>" : "";
+
+				if($_SESSION['USER']->hasWatch($document))
+				{
+					$watch = "<button type=\"button\" class=\"unwatch\" onclick=\"document.location.href='".BASE_URL."/documents/removeWatch.php?document_id={$document->getId()}';\">Unwatch</button>";
+				}
+				else
+				{
+					$watch = "<button type=\"button\" class=\"watch\" onclick=\"document.location.href='".BASE_URL."/documents/addWatch.php?document_id={$document->getId()}';\">Watch</button>";
+				}
+
+				# Documents that are homepages should not be deleted.
+				# At least until we can work out a way to choose new homepages for sections
+				$deleteButton = $document->isHomepage() ? '' : "<button type=\"button\" class=\"delete\" onclick=\"FRAMEWORK.deleteConfirmation('".BASE_URL."/documents/deleteDocument.php?document_id={$document->getId()}');\">Delete</button>";
+
+				echo "
+				<tr><td colspan=\"7\">
+						<button type=\"button\" class=\"edit\" onclick=\"document.location.href='".BASE_URL."/documents/updateDocument.php?document_id={$document->getId()}';\">Edit</button>
+						$deleteButton
+						$retireButton
+						$watch
+					</td>
+				</tr>
+				";
+			}
+
 		}
 	?>
 	</tbody>

@@ -74,7 +74,7 @@
 
 				if (isset($fields['section_id']))
 				{
-					$this->joins.= ' left join document_sections s on documents.id=s.document_id';
+					$this->joins.= ' left join sectionDocuments s on documents.id=s.document_id';
 					$options[] = "section_id='$fields[section_id]'";
 
 					if (isset($fields['featured'])) { $options[] = "featured='$fields[featured]'"; }
