@@ -114,9 +114,9 @@ create table sections (
   id int unsigned not null primary key auto_increment,
   name varchar(128) not null unique,
   nickname varchar(50),
-  document_id int unsigned,
+  sectionDocument_id int unsigned,
   placement tinyint(2) unsigned,
-  foreign key (document_id) references documents(id)
+  foreign key (sectionDocument_id) references sectionDocuments(id)
 ) engine=InnoDB;
 
 create table section_departments (

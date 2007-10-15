@@ -9,7 +9,7 @@
 		private $id;
 		private $name;
 		private $nickname;
-		private $document_id;
+		private $sectionDocument_id;
 
 		private $document;
 
@@ -76,16 +76,16 @@
 			if (!count($this->getDepartments())) { throw new Exception('sections/missingDepartment'); }
 
 			# If this is not a New Section, you must have a document_id
-			if ($this->id && !$this->document_id) { throw new Exception('sections/missingHomeDocument'); }
+			if ($this->id && !$this->sectionDocument_id) { throw new Exception('sections/missingHomeDocument'); }
 
 
 			$fields = array();
 			$fields['name'] = $this->name ? $this->name : null;
 			$fields['nickname'] = $this->nickname ? $this->nickname : null;
 
-			# If document_id is null here, it means this is a new Section
+			# If sectionDocument_id is null here, it means this is a new Section
 			# The new home document should be created during the Insert()
-			$fields['document_id'] = $this->document_id ? $this->document_id : null;
+			$fields['sectionDocument_id'] = $this->sectionDocument_id ? $this->sectionDocument_id : null;
 
 			#$fields['placement'] = $this->placement ? $this->placement : null;
 
@@ -110,7 +110,7 @@
 		private function update($values,$preparedFields)
 		{
 			# Make sure we still have a document assigned
-			if (!$this->document_id) { throw new Exception('missingHomeDocument'); }
+			if (!$this->sectionDocument_id) { throw new Exception('missingHomeDocument'); }
 
 			$PDO = Database::getConnection();
 
@@ -130,7 +130,7 @@
 			$this->id = $PDO->lastInsertID();
 
 			# New Sections need a default document created for them
-			if (!$this->document_id)
+			if (!$this->sectionDocument_id)
 			{
 				$document = new Document();
 				$document->setDepartment($_SESSION['USER']->getDepartment());
@@ -138,14 +138,13 @@
 				$document->setContent("<h2>{$this->name}</h2>",$_SESSION['LANGUAGE']);
 				$document->setDocumentType_id(1,$_SESSION['LANGUAGE']);
 				$document->save();
-				$this->setDocument($document);
 
+				# Now we link the document to the section
+				$sectionDocument = new SectionDocument();
+				$sectionDocument->setSection_id($this->id);
+				$sectionDocument->setDocument_id($document->getId());
 			}
 
-			# Now we link the document to the section
-			$sectionDocument = new SectionDocument();
-			$sectionDocument->setSection_id($this->id);
-			$sectionDocument->setDocument_id($document->getId());
 
 			$query = $PDO->prepare('update sections set document_id=? where id=?');
 			$query->execute(array($this->getDocument_id(),$this->getId()));
