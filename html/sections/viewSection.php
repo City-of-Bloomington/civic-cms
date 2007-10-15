@@ -11,7 +11,10 @@
  	try
  	{
  		$section = new Section($_GET['section_id']);
-		if ($section->getDocument_id()) { $_GET['document_id'] = $section->getDocument_id(); }
+		if ($section->getSectionDocument_id())
+		{
+			$_GET['document_id'] = $section->getDocument()->getId();
+		}
 		else { throw new Exception('sections/missingHomeDocument'); }
  	}
  	catch(Exception $e) { $_SESSION['errorMessages'][] = $e; }

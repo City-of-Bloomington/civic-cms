@@ -70,6 +70,8 @@ class SectionTest extends PHPUnit_Framework_TestCase {
 		$this->assertTrue($section->getId()!='','New section did not get an ID from the database'.$section->getId());
 		$this->assertNotNull($section->getId(),'New Section did not get an ID from the database');
 
+		$this->assertNotNull($section->getSectionDocument_id(),'New section did not create a home document'.$section->getSectionDocument_id());
+
 		$section->delete();
     }
 

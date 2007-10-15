@@ -168,9 +168,6 @@
 				$query = $PDO->prepare("delete from document_watches where document_id={$this->id}");
 				$query->execute();
 
-				$query = $PDO->prepare("update sections set document_id=null where document_id={$this->id}");
-				$query->execute();
-
 				$query = $PDO->prepare("delete from sectionDocuments where document_id={$this->id}");
 				$query->execute();
 

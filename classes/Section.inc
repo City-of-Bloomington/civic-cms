@@ -11,7 +11,7 @@
 		private $nickname;
 		private $sectionDocument_id;
 
-		private $document;
+		private $sectionDocument;
 
 		private $childNodes;
 		private $parentNodes;
@@ -75,7 +75,7 @@
 			if (!$this->name) { throw new Exception('sections/missingName'); }
 			if (!count($this->getDepartments())) { throw new Exception('sections/missingDepartment'); }
 
-			# If this is not a New Section, you must have a document_id
+			# If this is not a New Section, you must have a sectionDocument_id
 			if ($this->id && !$this->sectionDocument_id) { throw new Exception('sections/missingHomeDocument'); }
 
 
@@ -143,20 +143,20 @@
 				$sectionDocument = new SectionDocument();
 				$sectionDocument->setSection_id($this->id);
 				$sectionDocument->setDocument_id($document->getId());
+				$sectionDocument->save();
+				$sectionDocument_id = $sectionDocument->getId();
 			}
 
-
-			$query = $PDO->prepare('update sections set document_id=? where id=?');
-			$query->execute(array($this->getDocument_id(),$this->getId()));
+			$query = $PDO->prepare('update sections set sectionDocument_id=? where id=?');
+			$query->execute(array($sectionDocument_id,$this->id));
 		}
 
 		public function delete()
 		{
 			$PDO = Database::getConnection();
 
-			$sql = "update sections set document_id=null where id={$this->id}";
-			if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
-			if ($this->getDocument()) { $this->getDocument()->delete(); }
+			$query = $PDO->prepare('update sections set sectionDocument_id=null where id=?');
+			$query->execute(array($this->id));
 
 			$PDO->beginTransaction();
 
@@ -419,23 +419,24 @@
 		public function getId() { return $this->id; }
 		public function getName() { return $this->name; }
 		public function getNickname() { return $this->nickname; }
-		public function getDocument_id() { return $this->document_id; }
-		public function getDocument()
+		public function getSectionDocument_id() { return $this->sectionDocument_id; }
+		public function getSectionDocument()
 		{
-			if ($this->document_id)
+			if ($this->sectionDocument_id && !$this->sectionDocument)
 			{
-				if (!$this->document) { $this->document = new Document($this->document_id); }
-				return $this->document;
+				$this->sectionDocument = new SectionDocument($this->sectionDocument_id);
 			}
-			else return null;
+			return $this->sectionDocument;
 		}
+		public function getDocument() { return $this->getSectionDocument()->getDocument(); }
+		public function getDocument_id() { return $this->getDocument()->getId(); }
 
 		/**
 		 * Generic Setters
 		 */
 		public function setName($string) { $this->name = trim($string); }
 		public function setNickname($string) { $this->nickname = trim($string); }
-		public function setDocument_id($int) { $this->document = new Document($int); $this->document_id = $int; }
-		public function setDocument($document) { $this->document_id = $document->getId(); $this->document = $document; }
+		public function setSectionDocument_id($int) { $this->sectionDocument = new SectionDocument($int); $this->sectionDocument_id = $int; }
+		public function setSectionDocument($sectionDocument) { $this->sectionDocument_id = $sectionDocument->getId(); $this->sectionDocument = $sectionDocument; }
 	}
 ?>
