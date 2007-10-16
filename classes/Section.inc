@@ -360,6 +360,26 @@
 				$sectionDocument->save();
 			}
 		}
+		public function setDocument_id($int)
+		{
+			$document = new Document($int);
+
+			# See if this document is already attached to this section
+			$list = new SectionDocumentList(array('section_id'=>$this->id,'document_id'=>$document->getId()));
+			if (count($list))
+			{
+				$sectionDocument = $list[0];
+			}
+			else
+			{
+				# Create a new SectionDocument for this
+				$sectionDocument = new SectionDocument();
+				$sectionDocument->setSection_id($this->id);
+				$sectionDocument->setDocument_id($document->getId());
+				$sectionDocument->save();
+			}
+			$this->setSectionDocument($sectionDocument);
+		}
    		public function getDocuments($sort='title')
    		{
 			if (!count($this->documents))
@@ -439,4 +459,3 @@
 		public function setSectionDocument_id($int) { $this->sectionDocument = new SectionDocument($int); $this->sectionDocument_id = $int; }
 		public function setSectionDocument($sectionDocument) { $this->sectionDocument_id = $sectionDocument->getId(); $this->sectionDocument = $sectionDocument; }
 	}
-?>
