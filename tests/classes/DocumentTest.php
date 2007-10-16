@@ -55,14 +55,36 @@ class DocumentTest extends PHPUnit_Framework_TestCase {
         );
     }
 
+	/**
+	 * Test inserting a new Document
+	 */
+	public function testInsert() {
+		$document = new Document();
+		$document->setTitle('Test Document');
+		$document->setContent('This is a test','en');
+		$document->setDocumentType_id(1);
+		$document->save();
+
+		$this->assertTrue($document->getId()>0,'Document was not inserted');
+
+		$document->delete();
+	}
+
     /**
      * @todo Implement testDelete().
      */
     public function testDelete() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+		$document = new Document();
+		$document->setTitle('Test Document');
+		$document->setContent('This is a test','en');
+		$document->setDocumentType_id(1);
+		$document->save();
+		$id = $document->getId();
+
+		$document->delete();
+
+		$list = new DocumentList(array('id'=>$id));
+		$this->assertTrue(count($list)==0,'Document was not deleted');
     }
 
     /**
