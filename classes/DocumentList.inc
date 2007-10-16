@@ -80,6 +80,28 @@
 					if (isset($fields['featured'])) { $options[] = "featured='$fields[featured]'"; }
 				}
 
+				if (isset($fields['lang']))
+				{
+					$PDO = Database::getConnection();
+					$query = $PDO->prepare('create temporary table language_ids (id int unsigned not null primary key)');
+					$query->execute();
+
+					# This is just in case we have a previous temp table hanging around.
+					$query = $PDO->prepare('delete from language_ids');
+					$query->execute();
+
+					$query = $PDO->prepare('insert language_ids set id=?');
+
+					$glob = glob(APPLICATION_HOME.'/data/documents/*/*/*/*.'.$fields['lang']);
+					foreach($glob as $file)
+					{
+						$id = basename($file,'.'.$fields['lang']);
+						$query->execute(array($id));
+					}
+
+					$this->joins = ' right join language_ids l on documents.id=l.id';
+				}
+
 				if (array_key_exists('facet_id',$fields))
 				{
 					if (is_array($fields['facet_id']))

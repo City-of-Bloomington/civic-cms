@@ -140,7 +140,7 @@ Alias /application_name "/path/to/application_name/html"
     Allow from all
 
 	RewriteEngine On
-	RewriteRule !^($|404.php|home.php|tree.js|backups|calendars|departments|documents|documentTypes|editors|events|facets|locations|login|media|sections|skins|users|widgets) /content_manager/404.php
+	RewriteRule !^($|404.php|home.php|tree.js|backups|calendars|departments|documents|documentTypes|editors|events|facets|languages|locations|login|media|sections|skins|users|widgets) /content_manager/404.php
 
 	php_value auto_prepend_file /path/to/application_name/configuration.inc
 	php_value post_max_size 100M
