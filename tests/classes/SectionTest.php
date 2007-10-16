@@ -67,10 +67,9 @@ class SectionTest extends PHPUnit_Framework_TestCase {
 		$section->setDepartments(array(1));
 		try { $section->save(); }
 		catch(Exception $e) { $this->fail('Section insert threw exception '.$e->getMessage()); }
-		$this->assertTrue($section->getId()!='','New section did not get an ID from the database'.$section->getId());
-		$this->assertNotNull($section->getId(),'New Section did not get an ID from the database');
 
-		$this->assertNotNull($section->getSectionDocument_id(),'New section did not create a home document'.$section->getSectionDocument_id());
+		$this->assertTrue($section->getId()>0,'New Section was not inserted');
+		$this->assertTrue($section->getSectionDocument_id()>0,'New Section did not create a home document');
 
 		$section->delete();
     }
