@@ -144,11 +144,11 @@
 				$sectionDocument->setSection_id($this->id);
 				$sectionDocument->setDocument_id($document->getId());
 				$sectionDocument->save();
-				$sectionDocument_id = $sectionDocument->getId();
+				$this->sectionDocument_id = $sectionDocument->getId();
 			}
 
 			$query = $PDO->prepare('update sections set sectionDocument_id=? where id=?');
-			$query->execute(array($sectionDocument_id,$this->id));
+			$query->execute(array($this->sectionDocument_id,$this->id));
 		}
 
 		public function delete()
