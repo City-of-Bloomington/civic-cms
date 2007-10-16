@@ -154,8 +154,7 @@
 				$PDO = Database::getConnection();
 
 				# Documents that are the home page for a section should not be deleted
-				$sections = new SectionList(array('document_id'=>$this->id));
-				if (count($sections))
+				if ($this->isHomepage())
 				{
 					throw new Exception('documents/sectionHomepage');
 				}
