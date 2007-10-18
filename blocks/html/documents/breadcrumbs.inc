@@ -16,9 +16,15 @@
 	echo '</ul>';
 	$currentSection = $section;
 
+?>
+</div>
+<?php
 	if (count($this->document->getSections()) > 1)
 	{
-		echo '<ul><li>Related Sections</li>';
+		echo "
+		<div class=\"related-sections\">
+		<ul><li>Related Sections</li>
+		";
 		foreach($this->document->getSections() as $section)
 		{
 			if ($section->getId() != $currentSection->getId())
@@ -27,7 +33,9 @@
 				echo "<li><a href=\"{$section->getURL()}\">$name</a></li>";
 			}
 		}
-		echo '</ul>';
+		echo "
+		</ul>
+		</div>
+		";
 	}
 ?>
-</div>
