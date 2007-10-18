@@ -93,6 +93,20 @@
 			$this->id = $PDO->lastInsertID();
 		}
 
+		public function delete()
+		{
+			if ($this->id)
+			{
+				$PDO = Database::getConnection();
+
+				$query = $PDO->prepare('delete from locationGroup_locations where locationGroup_id=?');
+				$query->execute(array($this->id));
+
+				$query = $PDO->prepare('delete from locationGroups where id=?');
+				$query->execute(array($this->id));
+			}
+		}
+
 		public function permitsEditingBy($user)
 		{
 			if ($user->hasRole(array('Administrator','Webmaster','Publisher'))) { return true; }

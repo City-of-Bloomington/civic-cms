@@ -33,6 +33,7 @@ class LocationGroupTest extends PHPUnit_Framework_TestCase {
      * @access protected
      */
     protected function setUp() {
+		$_SESSION['USER'] = new User(1);
     }
 
     /**
@@ -44,15 +45,39 @@ class LocationGroupTest extends PHPUnit_Framework_TestCase {
     protected function tearDown() {
     }
 
-    /**
-     * @todo Implement testSave().
-     */
+	/**
+	 * Test saving LocationGroups to the database
+	 */
     public function testSave() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
+		$locationGroup = new LocationGroup();
+		$locationGroup->setName('Test Group');
+		$locationGroup->save();
+
+		$id = $locationGroup->getId();
+		$this->assertTrue($id>0,'Location Group was not inserted');
+		unset($locationGroup);
+
+		$locationGroup = new LocationGroup($id);
+		$locationGroup->setDescription('This was a changed description');
+		$locationGroup->save();
+
+		$this->assertTrue($locationGroup->getDescription()=='This was a changed description','Location Group was not updated correctly');
+
+		$locationGroup->delete();
+	}
+
+	public function testDelete() {
+		$locationGroup = new LocationGroup();
+		$locationGroup->setName('Test Group');
+		$locationGroup->save();
+		$id = $locationGroup->getId();
+
+		$locationGroup->delete();
+
+		$list = new LocationGroupList(array('id'=>$id));
+		$this->assertTrue(count($list)==0,'Location group was not deleted');
+	}
+
 
     /**
      * @todo Implement testPermitsEditingBy().

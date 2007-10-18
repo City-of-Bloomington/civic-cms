@@ -23,11 +23,14 @@
 
 				if (isset($_SESSION['USER']) && $locationGroup->permitsEditingBy($_SESSION['USER']))
 				{
-					$button = "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/locations/updateLocationGroup.php?id={$locationGroup->getId()}';\">Edit</button>";
+					$buttons = "
+					<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/locations/updateLocationGroup.php?id={$locationGroup->getId()}';\">Edit</button>
+					<button type=\"button\" class=\"deleteSmall\" onclick=\"FRAMEWORK.deleteConfirmation('".BASE_URL."/locations/deleteLocationGroup.php?locationGroup_id={$locationGroup->getId()}');\">Delete</button>
+					";
 				}
-				else { $button = ''; }
+				else { $buttons = ''; }
 
-				echo "<li>$button $name</li>\n";
+				echo "<li>$buttons $name</li>\n";
 			}
 		?>
 	</ul>
