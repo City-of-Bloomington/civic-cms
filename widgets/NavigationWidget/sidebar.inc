@@ -41,24 +41,28 @@
 					$list.= "<li><a href=\"".BASE_URL."/sections/viewSection.php?section_id={$child->getId()}\">$name</a></li>\n";
 				}
 			}
-			if ($ancestor->getId() != 1)
-			{
+			# Commented out the check for the home section.  For now, we want the home
+			# section displayed in the navigation
+			#if ($ancestor->getId() != 1)
+			#{
 				$name = View::escape($ancestor->getName());
 				$temp.= "<li class=\"current\"><a href=\"".BASE_URL."/sections/viewSection.php?section_id={$ancestor->getId()}\">$name</a><ul>$list</ul></li>\n";
-			}
-			else
-			{
-				$temp.="<ul>$list</ul>\n";
-			}
+			#}
+			#else
+			#{
+			#	$temp.="<ul>$list</ul>\n";
+			#}
 		}
 		else
 		{
 			# This is a non-expanded ancestor
-			if ($ancestor->getId() != 1)
-			{
+			# Commented out the check for the home section.  For now, we want the home
+			# section displayed in the navigation
+			#if ($ancestor->getId() != 1)
+			#{
 				$name = View::escape($ancestor->getName());
 				$temp = "<li><a href=\"".BASE_URL."/sections/viewSection.php?section_id={$ancestor->getId()}\">$name</a></li>$temp\n";
-			}
+			#}
 		}
 	}
 ?>
