@@ -103,11 +103,11 @@ li.current>a { background-color:#cccccc; width:100%; }
 /* Breadcrumb class for navigational items */
 .breadcrumbs ul { margin:0; }
 .breadcrumbs li { display:inline; list-style-type:none; margin:0; padding:0; }
-.breadcrumbs li:after { content:' >> '; }
+.breadcrumbs li:after { content:' > '; }
 
 .related-sections ul { margin:0; }
 .related-sections li { display:inline; list-style-type:none; margin:0; padding:0; }
-.related-sections li:after { content:' >> '; }
+.related-sections li:after { content:' > '; }
 
 /* The language bar */
 #languages ul { margin:0; float:right; margin-bottom:1em; }
@@ -140,6 +140,10 @@ li.current>a { background-color:#cccccc; width:100%; }
 .tabPage { }
 .tabPage > .interfaceBox { margin-left:1em; margin-right:1em; }
 
+/* Styles for the search results page */
+.searchResult h2 { }
+.searchResult p { }
+.searchResult span { }
 
 /* Page Navigation Stuff */
 .pageNavigation { }

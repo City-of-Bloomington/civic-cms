@@ -547,6 +547,7 @@
 		 */
 		public function getId() { return $this->id; }
 		public function getTitle() { return $this->title; }
+		public function getWikiTitle() { return $this->wikiTitle; }
 		public function getAlias() { return $this->alias; }
 		public function getFeature_title() { return $this->feature_title; }
 		public function getCreated($format=null)

@@ -21,17 +21,31 @@
 		else { $results = $this->results; }
 
 		# Show the results
-		echo '<div id="searchResults">';
 		foreach($results as $document)
 		{
 			$title = View::escape($document->getTitle());
-			$description = View::escape($document->getDescription());
+
+			if ($document->getDescription()) { $description = View::escape($document->getDescription()); }
+			else { $description = substr(strip_tags($document->getContent('en')),0,160).'...'; }
+
+			$size_in_bytes = strlen($document->getContent('en'));
+			if ($size_in_bytes>1000)
+			{
+				$size = round($size_in_bytes/1024);
+				$size.='k';
+			}
+			else { $size = $size_in_bytes.'bytes'; }
+
+
 			echo "
-			<h2><a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$document->getId()}\">$title</a></h2>
-			<p>$description</p>
+			<div id=\"searchResult\">
+				<h2><a href=\"{$document->getURL()}\">$title</a></h2>
+				<p>$description</p>
+				<span><a href=\"{$document->getURL()}\">".BASE_URL."/{$document->getWikiTitle()}</a> - $size
+					- last updated {$document->getModified('%D')}</span>
+			</div>
 			";
 		}
-		echo '</div>';
 	}
 	else
 	{
