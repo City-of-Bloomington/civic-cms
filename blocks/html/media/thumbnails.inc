@@ -5,12 +5,28 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param ImageList $this->imageList
  * @param Department $this->department
+ * @param Image $this->image (optional) The chosen or Uploaded Image
  */
-?>
-<h2>Choose an existing image</h2>
-<h3><?php echo $this->department; ?></h3>
-<?php
-	include APPLICATION_HOME.'/includes/editors/'.EDITOR.'/filebrowser_init.inc';
+include APPLICATION_HOME.'/includes/editors/'.EDITOR.'/filebrowser_init.inc';
+if (isset($this->image))
+{
+	# If they've uploaded or chosen an image, fire off the
+	# javascript necessary to get the WYSIWYG editor to take the image
+	$title = View::escape($this->image->getTitle());
+	echo "
+	<script type=\"text/javascript\">
+		selectImage('{$this->image->getURL()}','$title');
+	</script>
+	";
+}
+else
+{
+	$department = View::escape($this->department->getName());
+	echo "
+	<h2>Choose an existing image</h2>
+	<h3>$department</h3>
+	";
+
 	foreach($this->imageList as $image)
 	{
 		$callback = getFilebrowserCallback($image);
@@ -23,4 +39,5 @@
 		</div>
 		";
 	}
+}
 ?>

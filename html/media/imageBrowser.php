@@ -19,18 +19,31 @@
 			$image->setFile($_FILES['image']);
 			$image->save();
 		}
-		catch(Exception $e) { $_SESSION['errorMessages'][] = $e; }
+		catch(Exception $e)
+		{
+			if ($e->getMessage()=='media/fileAlreadyExists')
+			{
+				try
+				{
+					$md5 = $image->getMd5();
+					$image = new Media($md5);
+				}
+				catch(Exception $e) { $_SESSION['errorMessages'][] = $e; }
+			}
+			else { $_SESSION['errorMessages'][] = $e; }
+		}
 	}
-
-	$template = new Template('mediaBrowser');
-
-	$template->blocks[] = new Block('media/addImageForm.inc');
 
 	$images = new ImageList(array('department_id'=>$department_id));
 	$department = new Department($department_id);
-	$template->blocks[] = new Block('media/thumbnails.inc',array('imageList'=>$images,'department'=>$department));
 
+	$thumbnails = new Block('media/thumbnails.inc');
+	$thumbnails->imageList = $images;
+	$thumbnails->department = $department;
+	if (isset($image)) { $thumbnails->image = $image; }
 
-
+	$template = new Template('mediaBrowser');
+	$template->blocks[] = new Block('media/addImageForm.inc');
+	$template->blocks[] = $thumbnails;
 	$template->render();
 ?>

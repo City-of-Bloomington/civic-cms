@@ -44,6 +44,30 @@ class MediaTest extends PHPUnit_Framework_TestCase {
     protected function tearDown() {
     }
 
+	/**
+	 * Tests calling the constructor using an ID
+	 */
+	public function testConstructById() {
+		$media = new Media(1);
+		$this->assertTrue($media->getFilename()!='','Could not load Media by ID');
+	}
+
+	/**
+	 * Tests calling the constructor using an MD5 hash
+	 */
+	public function testConstructByMD5() {
+		$media = new Media('d44aa9df62b8cc743b3acee0b5413b21');
+		$this->assertTrue($media->getId()>0,'Could not load Media by MD5 hash');
+	}
+
+	/**
+	 * Tests calling the constructor using a filename
+	 */
+	public function testConstructByFilename() {
+		$media = new Media('apartmentrow.pdf');
+		$this->assertTrue($media->getId()>0,'Could not load Media by filename');
+	}
+
     /**
      * @todo Implement testGetExtensions().
      */
