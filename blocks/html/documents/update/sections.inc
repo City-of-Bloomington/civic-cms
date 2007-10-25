@@ -29,8 +29,10 @@
 					$previousIds[] = $section->getId();
 					$name = View::escape($section->getName());
 
+					$deleteButton = $sectionDocument->isHomepage() ? '(Homepage)' : "<button type=\"button\" class=\"deleteSmall\" onclick=\"removeSection({$sectionDocument->getId()});\">Delete</button>";
+
 					echo "
-					<li><button type=\"button\" class=\"deleteSmall\" onclick=\"removeSection({$sectionDocument->getId()});\">Delete</button>
+					<li>$deleteButton
 						<a href=\"{$section->getURL()}\">$name</a>
 					";
 					if ($sectionDocument->isFeatured())

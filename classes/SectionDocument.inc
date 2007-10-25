@@ -97,10 +97,19 @@
 		{
 			if($this->id)
 			{
-				$PDO = Database::getConnection();
-				$query = $PDO->prepare('delete from sectionDocuments where id=?');
-				$query->execute(array($this->id));
+				if (!$this->isHomepage())
+				{
+					$PDO = Database::getConnection();
+					$query = $PDO->prepare('delete from sectionDocuments where id=?');
+					$query->execute(array($this->id));
+				}
+				else { throw new Exception('documents/sectionHomepage'); }
 			}
+		}
+
+		public function isHomepage()
+		{
+			return $this->getSection()->getSectionDocument_id()==$this->id;
 		}
 
 
