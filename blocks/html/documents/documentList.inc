@@ -112,7 +112,7 @@
 
 			echo "
 			<tr><td style=\"width:100px; white-space:nowrap; overflow:hidden;\">
-					<a href=\"$url\" title=\"$title\">$partialTitle</a></td>
+					<a href=\"{$document->getURL()}\" title=\"$title\">$partialTitle</a></td>
 				<td>{$document->getCreated('%D')}</td>
 				<td>{$document->getPublishDate('%D')}</td>
 				<td>{$document->getModified('%D')}</td>
@@ -147,6 +147,7 @@
 				echo "
 				<tr><td colspan=\"7\">
 						<button type=\"button\" class=\"edit\" onclick=\"document.location.href='".BASE_URL."/documents/updateDocument.php?document_id={$document->getId()}';\">Edit</button>
+						<button type=\"button\" class=\"view\" onclick=\"document.location.href='{$document->getURL()}';\">View</button>
 						$deleteButton
 						$retireButton
 						$watch
