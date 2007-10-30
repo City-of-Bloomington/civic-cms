@@ -9,7 +9,7 @@
 	$links = $this->section->getDocumentLinks();
 	if (count($links))
 	{
-		echo '<div><div class="titleBar">Related Links</div><ul>';
+		echo '<div class="widget"><h1>Related Links</h1><ul>';
 		foreach($links as $link)
 		{
 			echo "<li><a href=\"{$link->getHref()}\">{$link->getTitle()}</a></li>";

@@ -18,6 +18,11 @@
 		include FRAMEWORK.'/errorMessages.inc';
 
 		$this->includeBlocks();
+
+		$panel = new Panel('mainContent');
+		$widgets = isset($this->document) ? $panel->getWidgets($this->document) : $panel->getWidgets();
+
+		foreach($widgets as $widget) { $widget->render($this); }
 	?>
 </div>
 <?php

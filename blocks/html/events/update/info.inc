@@ -4,19 +4,15 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Event $this->event
+ * @param URL $this->return_url
+ * @param int $this->instance_id
  */
-	$rrule = $this->event->getRRuleArray();
-	$freq = isset($rrule['FREQ']) ? $rrule['FREQ'] : '';
-	$interval = isset($rrule['INTERVAL']) ? $rrule['INTERVAL'] : 1;
-	$byday = isset($rrule['BYDAY']) ? $rrule['BYDAY'] : array();
-	$weekdaynum = isset($byday[0]) ? substr($byday[0],0,-2) : '';
-	$bymonthday = isset($rrule['BYMONTHDAY']) ? $rrule['BYMONTHDAY'] : '';
 ?>
 <form id="eventForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 <fieldset><legend>Event Info</legend>
 	<table>
-	<tr><td><label for="event-summary" class="required">Title</label></td>
-		<td><input name="event[summary]" id="event-summary" value="<?php echo $this->event->getSummary(); ?>" /></td></tr>
+	<tr><td><label for="event-title" class="required">Title</label></td>
+		<td><input name="event[title]" id="event-title" value="<?php echo $this->event->getTitle(); ?>" /></td></tr>
 
 	<tr><td><label for="event-location_id">Location</label></td>
 		<td><select name="event[location_id]" id="event-location_id">
@@ -51,19 +47,19 @@
 		</td>
 	</tr>
 
-	<?php $start = $this->event->getStartDate() ? strtotime("{$this->event->getStartDate()} {$this->event->getStartTime()}") : time(); ?>
-	<tr><td><label for="event-startDate" class="required">Start time</label></td>
-		<td><input name="event[startDate]" id="event-startDate" size="10" maxlength="10" value="<?php echo date('n/j/Y',$start); ?>" />
-			<input name="event[startTime]" id="event-startTime" size="7" maxlength="7" value="<?php echo date('g:ia',$start); ?>" />
+	<?php $start = $this->event->getStart() ? $this->event->getStart() : time(); ?>
+	<tr><td><label for="startDate" class="required">Start time</label></td>
+		<td><input name="startDate" id="startDate" size="10" maxlength="10" value="<?php echo date('n/j/Y',$start); ?>" />
+			<input name="startTime" id="startTime" size="7" maxlength="7" value="<?php echo date('g:ia',$start); ?>" />
 			<?php $checked = $this->event->isAllDayEvent() ? 'checked="checked"' : ''; ?>
 			<input name="allDayEvent" id="allDayEvent" type="checkbox" value="1" <?php echo $checked; ?> onclick="toggleTimes();" />
 			<label for="allDayEvent">All Day Event</label>
 		</td>
 	</tr>
-	<?php $end = $this->event->getEndDate() ? strtotime("{$this->event->getEndDate()} {$this->event->getEndTime()}") : strtotime('+1 hour',$start); ?>
-	<tr><td><label for="event-endDate">End time</label></td>
-		<td><input name="event[endDate]" id="event-endDate" size="10" maxlength="10" value="<?php echo date('n/j/Y',$end); ?>" />
-			<input name="event[endTime]" id="event-endTime" size="7" maxlength="7" value="<?php echo date('g:ia',$end); ?>" />
+	<?php $end = $this->event->getEnd() ? $this->event->getEnd() : strtotime('+1 hour',$start); ?>
+	<tr><td><label for="endDate">End time</label></td>
+		<td><input name="endDate" id="endDate" size="10" maxlength="10" value="<?php echo date('n/j/Y',$end); ?>" />
+			<input name="endTime" id="endTime" size="7" maxlength="7" value="<?php echo date('g:ia',$end); ?>" />
 		</td>
 	</tr>
 	</table>
@@ -115,39 +111,46 @@
 		<td><input name="event[contact_email]" id="event-contact_email" size="30" value="<?php echo View::escape($this->event->getContact_email()); ?>" /></td></tr>
 	</table>
 </fieldset>
+<?php
+	$freq = $this->event->getRrule_freq();
+	$interval = $this->event->getRrule_interval();
+	$byday = $this->event->getRrule_byday() ? explode(',',$this->event->getRrule_byday()) : array();
+	$weekdaynum = isset($byday[0]) ? substr($byday[0],0,-2) : '';
+	$bymonthday = isset($rrule['BYMONTHDAY']) ? $rrule['BYMONTHDAY'] : '';
 
+?>
 <fieldset><legend>Recurrence</legend>
-	<label><input name="event[RRule][FREQ]" type="radio" value="" onclick="activate('none');" <?php if($freq=='') echo 'checked="checked"'; ?> />None</label>
-	<label><input name="event[RRule][FREQ]" type="radio" value="DAILY" onclick="activate('daily');" <?php if($freq=='DAILY') echo 'checked="checked"'; ?> />Daily</label>
-	<label><input name="event[RRule][FREQ]" type="radio" value="WEEKLY" onclick="activate('weekly');" <?php if($freq=='WEEKLY') echo 'checked="checked"'; ?> />Weekly</label>
-	<label><input name="event[RRule][FREQ]" type="radio" value="MONTHLY" onclick="activate('monthly');" <?php if($freq=='MONTHLY') echo 'checked="checked"'; ?> />Monthly</label>
+	<label><input name="freq" type="radio" value="" onclick="activate('none');" <?php if($freq=='') echo 'checked="checked"'; ?> />None</label>
+	<label><input name="freq" type="radio" value="DAILY" onclick="activate('daily');" <?php if($freq=='DAILY') echo 'checked="checked"'; ?> />Daily</label>
+	<label><input name="freq" type="radio" value="WEEKLY" onclick="activate('weekly');" <?php if($freq=='WEEKLY') echo 'checked="checked"'; ?> />Weekly</label>
+	<label><input name="freq" type="radio" value="MONTHLY" onclick="activate('monthly');" <?php if($freq=='MONTHLY') echo 'checked="checked"'; ?> />Monthly</label>
 </fieldset>
 
 <fieldset id="daily" <?php if($freq!='DAILY') echo 'style="display:none;"'; ?>>
-	<label>Every <input name="event[RRule][DAILY][INTERVAL]" size="1" value="<?php echo $interval; ?>" /> days</label>
+	<label>Every <input name="daily_interval" size="1" value="<?php echo $interval; ?>" /> days</label>
 </fieldset>
 
 <fieldset id="weekly" <?php if($freq!='WEEKLY') echo 'style="display:none;"'; ?>>
-	<div><label>Every <input name="event[RRule][WEEKLY][INTERVAL]" size="1" value="<?php echo $interval; ?>" /> weeks</label></div>
+	<div><label>Every <input name="weekly_interval" size="1" value="<?php echo $interval; ?>" /> weeks</label></div>
 	<div>
-		<label><input name="event[RRule][WEEKLY][BYDAY][SU]" type="checkbox" <?php if(in_array('SU',$byday)) echo 'checked="checked"'; ?> />Sunday</label>
-		<label><input name="event[RRule][WEEKLY][BYDAY][MO]" type="checkbox" <?php if(in_array('MO',$byday)) echo 'checked="checked"'; ?> />Monday</label>
-		<label><input name="event[RRule][WEEKLY][BYDAY][TU]" type="checkbox" <?php if(in_array('TU',$byday)) echo 'checked="checked"'; ?> />Tuesday</label>
-		<label><input name="event[RRule][WEEKLY][BYDAY][WE]" type="checkbox" <?php if(in_array('WE',$byday)) echo 'checked="checked"'; ?> />Wednesday</label>
-		<label><input name="event[RRule][WEEKLY][BYDAY][TH]" type="checkbox" <?php if(in_array('TH',$byday)) echo 'checked="checked"'; ?> />Thursday</label>
-		<label><input name="event[RRule][WEEKLY][BYDAY][FR]" type="checkbox" <?php if(in_array('FR',$byday)) echo 'checked="checked"'; ?> />Friday</label>
-		<label><input name="event[RRule][WEEKLY][BYDAY][SA]" type="checkbox" <?php if(in_array('SA',$byday)) echo 'checked="checked"'; ?> />Saturday</label>
+		<label><input name="weekly[BYDAY][SU]" type="checkbox" <?php if(in_array('SU',$byday)) echo 'checked="checked"'; ?> />Sunday</label>
+		<label><input name="weekly[BYDAY][MO]" type="checkbox" <?php if(in_array('MO',$byday)) echo 'checked="checked"'; ?> />Monday</label>
+		<label><input name="weekly[BYDAY][TU]" type="checkbox" <?php if(in_array('TU',$byday)) echo 'checked="checked"'; ?> />Tuesday</label>
+		<label><input name="weekly[BYDAY][WE]" type="checkbox" <?php if(in_array('WE',$byday)) echo 'checked="checked"'; ?> />Wednesday</label>
+		<label><input name="weekly[BYDAY][TH]" type="checkbox" <?php if(in_array('TH',$byday)) echo 'checked="checked"'; ?> />Thursday</label>
+		<label><input name="weekly[BYDAY][FR]" type="checkbox" <?php if(in_array('FR',$byday)) echo 'checked="checked"'; ?> />Friday</label>
+		<label><input name="weekly[BYDAY][SA]" type="checkbox" <?php if(in_array('SA',$byday)) echo 'checked="checked"'; ?> />Saturday</label>
 	</div>
 </fieldset>
 
 <fieldset id="monthly" <?php if($freq!='MONTHLY') echo 'style="display:none;"'; ?>>
-	<div><input name="event[RRule][MONTHLY][type]" type="radio" value="BYMONTHDAY" <?php if($bymonthday || !$byday) echo 'checked="checked"'; ?> />
-			<label>Day <input name="event[RRule][MONTHLY][BYMONTHDAY][DAYNUM]" size="2" value="<?php if($bymonthday) echo $bymonthday; else echo 30; ?>" /></label>
-			<label>of every <input name="event[RRule][MONTHLY][BYMONTHDAY][INTERVAL]" size="1" value="<?php echo $interval; ?>" /> month</label>
+	<div><input name="monthly_type" type="radio" value="BYMONTHDAY" <?php if($bymonthday || !$byday) echo 'checked="checked"'; ?> />
+			<label>Day <input name="bymonthday" size="2" value="<?php if($bymonthday) echo $bymonthday; else echo 30; ?>" /></label>
+			<label>of every <input name="bymonthday_interval" size="1" value="<?php echo $interval; ?>" /> month</label>
 	</div>
-	<div><input name="event[RRule][MONTHLY][type]" type="radio" value="BYDAY" <?php if($byday) echo 'checked="checked"'; ?> />
+	<div><input name="monthly_type" type="radio" value="BYDAY" <?php if($byday) echo 'checked="checked"'; ?> />
 			<label>The
-				<select name="event[RRule][MONTHLY][BYDAY][weekdaynum]">
+				<select name="offset">
 					<option value="1" <?php if($weekdaynum==1) echo 'selected="selected"'; ?>>First</option>
 					<option value="2" <?php if($weekdaynum==2) echo 'selected="selected"'; ?>>Second</option>
 					<option value="3" <?php if($weekdaynum==3) echo 'selected="selected"'; ?>>Third</option>
@@ -157,7 +160,7 @@
 				</select>
 			</label>
 			<label>
-				<select name="event[RRule][MONTHLY][BYDAY][weekday]">
+				<select name="monthly_byday">
 					<?php
 						$weekday = isset($byday[0]) ? substr($byday[0],-2) : '';
 					?>
@@ -171,7 +174,25 @@
 				</select>
 				of every
 			</label>
-			<label><input name="event[RRule][MONTHLY][BYDAY][INTERVAL]" size="1" value="<?php echo $interval; ?>" /> month</label>
+			<label><input name="monthly_interval" size="1" value="<?php echo $interval; ?>" /> month</label>
+	</div>
+</fieldset>
+
+<fieldset id="until_fields" <?php if (!$freq) echo 'style="display:none;"'; ?>>
+	<?php
+		if ($this->event->getRrule_count()) { $rrule_end_type = 'count'; }
+		elseif($this->event->getRrule_until()) { $rrule_end_type = 'until'; }
+		else { $rrule_end_type = 'none'; }
+
+		$count = $this->event->getRrule_count() ? $this->event->getRrule_count : 10;
+		$until = $this->event->getRrule_until() ? $this->event->getRrule_until : strtotime('+2 weeks');
+	?>
+	<div><label><input type="radio" name="rrule_end_type" value="none" <?php if($rrule_end_type=='none') echo 'checked="checked"'; ?> />No end date</label></div>
+	<div><label><input type="radio" name="rrule_end_type" value="count" <?php if($rrule_end_type=='count') echo 'checked="checked"'; ?> />End after</label>
+		<label><input name="count" value="<?php echo $count; ?>" />occurances</label>
+	</div>
+	<div><label><input type="radio" name="rrule_end_type" value="until" <?php if($rrule_end_type=='until') echo 'checked="checked"'; ?> />End by</label>
+		<input name="until" value="<?php echo date('n/j/Y',$until); ?>" />
 	</div>
 </fieldset>
 
@@ -179,14 +200,16 @@
 		<input type="hidden" name="tab" id="tab" value="description" />
 		<input type="hidden" name="action" id="action" value="next" />
 		<input type="hidden" name="continue" id="continue" value="true" />
+		<input type="hidden" name="return_url" id="return_url" value="<?php echo $this->return_url; ?>" />
+		<input type="hidden" name="instance_id" id="instance_id" value="<?php echo $this->instance_id; ?>" />
 		<button type="submit" class="next">Next</button>
-		<button type="cancel" class="cancel" onclick="self.close();">Cancel</button>
+		<button type="button" class="cancel" onclick="document.location.href='<?php echo $this->return_url; ?>';">Cancel</button>
 		<button type="button" class="save" onclick="FRAMEWORK.processTabbedForm('eventForm','info','save');">Save</button>
 </fieldset>
 </form>
 <script type="text/javascript">
-	var startTime = document.getElementById("event-startTime");
-	var endTime = document.getElementById("event-endTime");
+	var startTime = document.getElementById("startTime");
+	var endTime = document.getElementById("endTime");
 	var LDAPSelect = document.getElementById('ldap_username');
 
 	<?php
@@ -248,7 +271,12 @@
 		document.getElementById("daily").style.display = "none";
 		document.getElementById("weekly").style.display = "none";
 		document.getElementById("monthly").style.display = "none";
-		if (field != 'none') document.getElementById(field).style.display = "block";
+		if (field != 'none')
+		{
+			document.getElementById(field).style.display = "block";
+			document.getElementById('until_fields').style.display = "block";
+		}
+		else { document.getElementById('until_fields').style.display = "none"; }
 	}
 
 	var people = {};
@@ -256,10 +284,10 @@
 		$people = array();
 		foreach($ldap->xpath('//person') as $person)
 		{
-			$name = View::escape($person->name);
-			$title = View::escape($person->title);
-			$phone = View::escape($person->phone);
-			$email = View::escape($person->email);
+			$name = htmlspecialchars($person->name,ENT_QUOTES);
+			$title = htmlspecialchars($person->title,ENT_QUOTES);
+			$phone = htmlspecialchars($person->phone,ENT_QUOTES);
+			$email = htmlspecialchars($person->email,ENT_QUOTES);
 			echo "people.{$person->username} = {'name':'$name','title':'$title','phone':'$phone','email':'$email'}\n\t";
 		}
 	?>

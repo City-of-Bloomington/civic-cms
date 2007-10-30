@@ -8,8 +8,8 @@
 	if (isset($this->document) && count($this->document->getAttachments()))
 	{
 		echo "
-		<div>
-			<div class=\"titleBar\">Attachments</div>
+		<div class=\"widget\">
+			<h1>Attachments</h1>
 			<ul>
 		";
 		foreach($this->document->getAttachments() as $attachment)

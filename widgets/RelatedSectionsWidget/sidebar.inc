@@ -6,15 +6,16 @@
  * @param SectionList $this->sectionList
  */
 ?>
-<div><div class="titleBar">Related Sections</div>
-<ul>
-<?php
-	foreach($this->sectionList as $section)
-	{
-		echo "
-		<li><a href=\"".BASE_URL."/sections/viewSection.php?section_id={$section->getId()}\">$section</a></li>
-		";
-	}
-?>
-</ul>
+<div class="widget">
+	<h1>Related Sections</h1>
+	<ul>
+	<?php
+		foreach($this->sectionList as $section)
+		{
+			echo "
+			<li><a href=\"".BASE_URL."/sections/viewSection.php?section_id={$section->getId()}\">$section</a></li>
+			";
+		}
+	?>
+	</ul>
 </div>

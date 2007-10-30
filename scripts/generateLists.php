@@ -30,10 +30,9 @@ foreach($tables as $tableName)
 	# Constructor
 	#--------------------------------------------------------------------------
 	$constructor = "
-		public function __construct(\$fields=null,\$sort='id')
+		public function __construct(\$fields=null)
 		{
 			\$this->select = 'select $tableName.$key[Column_name] as id from $tableName';
-			\$this->sort = \$sort;
 			if (is_array(\$fields)) \$this->find(\$fields);
 		}
 	";
@@ -43,9 +42,11 @@ foreach($tables as $tableName)
 	# Find
 	#--------------------------------------------------------------------------
 	$findFunction = "
-		public function find(\$fields=null,\$sort='id')
+		public function find(\$fields=null,$sort='id',$limit=null,$groupBy=null)
 		{
 			\$this->sort = \$sort;
+			\$this->limit = \$limit;
+			\$this->groupBy = \$groupBy;
 
 			\$options = array();
 ";

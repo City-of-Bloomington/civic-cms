@@ -19,7 +19,6 @@
 		for($i=0; $i<=13; $i++)
 		{
 			$timestamp = strtotime("+$i day",$now);
-			$date = getdate($timestamp);
 
 			$currentDateString = date('D, M j',$timestamp);
 			echo "
@@ -27,19 +26,20 @@
 				<td>
 			";
 
+			$date = getdate($timestamp);
 			$year = $date['year'];
-			$month = str_pad($date['mon'],2,'0',STR_PAD_LEFT);
-			$day = str_pad($date['mday'],2,'0',STR_PAD_LEFT);
+			$month = $date['mon'];
+			$day = $date['mday'];
 			if (isset($recurrences[$year][$month][$day]))
 			{
 				echo '<ul>';
 				foreach($recurrences[$year][$month][$day] as $recurrence)
 				{
-					$time = $recurrence->getEvent()->isAllDayEvent() ? '' : date('g:i A',strtotime($recurrence->getStart()));
-					$summary = View::escape($recurrence->getEvent()->getSummary());
+					$time = $recurrence->getEvent()->isAllDayEvent() ? '' : $recurrence->getStart('g:i A');
+					$title = View::escape($recurrence->getEvent()->getTitle());
 					echo "
 					<li><a href=\"".BASE_URL."/calendars/viewEvent.php?event_id={$recurrence->getEvent_id()}\">
-						$time $summary</a></li>
+						$time $title</a></li>
 					";
 				}
 				echo '</ul>';

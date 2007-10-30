@@ -6,6 +6,7 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 
 require_once 'PHPUnit/Framework.php';
 
+if (!defined('APPLICATION_HOME')) { include dirname(__FILE__).'/../configuration.inc'; }
 require_once APPLICATION_HOME.'/classes/EventRecurrence.inc';
 
 /**
@@ -44,125 +45,34 @@ class EventRecurrenceTest extends PHPUnit_Framework_TestCase {
     protected function tearDown() {
     }
 
-    /**
-     * @todo Implement testSave().
-     */
-    public function testSave() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
 
     /**
      * @todo Implement testIsEvent().
      */
     public function testIsEvent() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+    	$event = new Event(1);
+    	$recur = new EventRecurrence($event,$event->getStart());
+    	$recur->setStart($event->getStart());
+    	$this->assertEquals($recur->getType(),'Event');
     }
 
     /**
      * @todo Implement testIsRecurrence().
      */
     public function testIsRecurrence() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+    	$event = new Event(1);
+    	$recur = new EventRecurrence($event,$event->getStart());
+    	$recur->setStart(time());
+    	$this->assertEquals($recur->getType(),'Recurrence');
     }
 
-    /**
-     * @todo Implement testIsException().
-     */
-    public function testIsException() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @todo Implement testGetEvent_id().
-     */
     public function testGetEvent_id() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+    	$event = new Event(1);
+    	$recur = new EventRecurrence($event,$event->getStart());
+    	$this->assertEquals($recur->getEvent_id(),1,"Recurrence Event Id:{$recur->getEvent_id()} does not equal 1");
     }
 
-    /**
-     * @todo Implement testGetOriginal_start().
-     */
-    public function testGetOriginal_start() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
 
-    /**
-     * @todo Implement testGetStart().
-     */
-    public function testGetStart() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @todo Implement testGetEnd().
-     */
-    public function testGetEnd() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @todo Implement testGetEvent().
-     */
-    public function testGetEvent() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @todo Implement testGetType().
-     */
-    public function testGetType() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @todo Implement testSetStart().
-     */
-    public function testSetStart() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @todo Implement testSetEnd().
-     */
-    public function testSetEnd() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
-    }
 }
 
 // Call EventRecurrenceTest::main() if this source file is executed directly.

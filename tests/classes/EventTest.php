@@ -4,8 +4,10 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
     define('PHPUnit_MAIN_METHOD', 'EventTest::main');
 }
 
+
 require_once 'PHPUnit/Framework.php';
 
+if (!defined('APPLICATION_HOME')) { include dirname(__FILE__).'/../configuration.inc'; }
 require_once APPLICATION_HOME.'/classes/Event.inc';
 
 /**
@@ -33,6 +35,7 @@ class EventTest extends PHPUnit_Framework_TestCase {
      * @access protected
      */
     protected function setUp() {
+		$_SESSION['USER'] = new User(1);
 
     }
 
@@ -120,20 +123,54 @@ class EventTest extends PHPUnit_Framework_TestCase {
      * @todo Implement testGetRecurrences().
      */
     public function testGetRecurrences() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+		$event = new Event();
+		$event->setStart('2007-10-03 03:00:00');
+		$event->setEnd('2007-10-03 04:00:00');
+		$event->setRrule_freq('DAILY');
+		$event->setRrule_until('2007-10-15 03:00:00');
+
+		$start_range_time = strtotime('2007-10-01');
+		$end_range_time = strtotime('2007-10-30');
+
+		$recurrences = $event->getRecurrences($start_range_time,$end_range_time);
+		$this->assertEquals(count($recurrences),13);
+
+		foreach($recurrences as $recur)
+		{
+			$this->assertTrue($recur instanceof EventRecurrence,'Returned an invalid recurrence');
+			$this->assertNotNull($recur->getStart());
+			$this->assertNotEquals($recur->getStart(),'');
+		}
+    }
+
+    public function testOpenEndedrecurrenc() {
+    	$event = new Event();
+    	$event->setStart('2007-10-09 06:00:00');
+    	$event->setEnd('2007-10-09 07:00:00');
+		$event->setRrule_freq('MONTHLY');
+		$event->setRrule_byday('2TU');
+		$dates = $event->getRecurrences();
+		$this->assertTrue(count($dates)>10);
+    }
+
+	/**
+	 * Non-recurring events should still return one occurence - themselves.
+	 */
+    public function testEventNoRecurrences() {
+    	$event = new Event();
+    	$event->setStart('2007-10-29 06:00:00');
+    	$event->setEnd('2007-10-29 07:00:00');
+    	$dates = $event->getRecurrences();
+    	$this->assertEquals(count($dates),1);
+    	$this->assertEquals($dates[0]->getStart(),$event->getStart());
     }
 
     /**
      * @todo Implement testGetId().
      */
     public function testGetId() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+    	$event = new Event(1);
+    	$this->assertEquals($event->getId(),1);
     }
 
     /**
@@ -481,6 +518,15 @@ class EventTest extends PHPUnit_Framework_TestCase {
         $this->markTestIncomplete(
           'This test has not been implemented yet.'
         );
+    }
+
+    public function testSetRrule_untilValidation() {
+    	$event = new Event();
+    	$start = strtotime('2007-10-29 03:00:00');
+    	$end = strtotime('2007-10-31 04:00:00');
+    	$event->setRrule_until('2007-10-30');
+
+    	$this->assertTrue($event->getRrule_until() >= $event->getEnd());
     }
 }
 

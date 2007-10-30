@@ -6,25 +6,28 @@
  * @param object $this->calendar The calendar holding all the events we want to display
  * @param array $this->date A date so we know which year/month to display
  */
-	$timestamp = mktime(0,0,0,$this->date['mon'],1,$this->date['year']);
-	$calendarDate = getdate($timestamp);
-	$year = $calendarDate['year'];
-	$month = str_pad($calendarDate['mon'],2,'0',STR_PAD_LEFT);
-	$lastDayOfMonth = date('t',$timestamp);
-	$recurrences = $this->calendar->getEventRecurrenceArray();
+	$start = mktime(0,0,0,$this->date['mon'],1,$this->date['year']);
+	$end = strtotime('+1 month',$start);
+
+	$recurrences = $this->calendar->getEventRecurrenceArray($start,$end);
+
+	$date = getdate($start);
+	$year = $date['year'];
+	$month = $date['mon'];
 ?>
 <div class="interfaceBox">
 	<div class="titleBar">
 	<?php
-		$back = getdate(strtotime('-1 month',$timestamp));
-		$next = getdate(strtotime('+1 month',$timestamp));
+		$back = getdate(strtotime('-1 month',$start));
+		$next = getdate($end);
 		$url = new URL($_SERVER['REQUEST_URI']);
 
 		$url->parameters['year'] = $back['year'];
 		$url->parameters['mon'] = $back['mon'];
 		echo "<button type=\"button\" class=\"back\" onclick=\"document.location.href='{$url->getURL()}'\">Previous Month</button>";
 
-		echo "{$this->calendar->getName()} $calendarDate[month] $year";
+		$monthName = date('F',$start);
+		echo "{$this->calendar->getName()} $monthName $year";
 
 		$url->parameters['year'] = $next['year'];
 		$url->parameters['mon'] = $next['mon'];
@@ -34,32 +37,30 @@
 <table class="calendar">
 <?php
 	# Loop through all the days of the month
-	$currentDay = 1;
-	while($currentDay <= $lastDayOfMonth)
+	$day = 1;
+	$lastDayOfMonth = date('j',strtotime('-1 day',$end));
+	while($day <= $lastDayOfMonth)
 	{
 		# Markup for a single day in the calendar
 		$url = new URL(BASE_URL.'/calendars');
-		$url->parameters = array('year'=>$year,'mon'=>$month,'mday'=>$currentDay);
+		$url->parameters = array('year'=>$year,'mon'=>$month,'mday'=>$day);
 		if ($this->calendar->getId()) { $url->parameters['calendar_id'] = $this->calendar->getId(); }
 		$url->parameters['view'] = 'day';
 
 		echo "
-		<tr><th class=\"date\"><a href=\"{$url->getURL()}\">$currentDay</a></th>
+		<tr><th class=\"date\"><a href=\"{$url->getURL()}\">$day</a></th>
 			<td>
 		";
-
-		$day = str_pad($currentDay,2,'0',STR_PAD_LEFT);
 		if (isset($recurrences[$year][$month][$day]))
 		{
 			echo '<ul>';
 			foreach($recurrences[$year][$month][$day] as $recurrence)
 			{
-				$time = $recurrence->getEvent()->isAllDayEvent() ? '' : date('g:i A',strtotime($recurrence->getStart()));
-				$summary = View::escape($recurrence->getEvent()->getSummary());
+				$time = $recurrence->getEvent()->isAllDayEvent() ? '' : $recurrence->getStart('g:i A');
+				$title = View::escape($recurrence->getEvent()->getTitle());
 				echo "
 				<li><a href=\"".BASE_URL."/calendars/viewEvent.php?event_id={$recurrence->getEvent_id()}\">
-					$time
-					$summary
+					$time $title
 					</a>
 				</li>
 				";
@@ -71,7 +72,7 @@
 		</tr>
 		";
 
-		$currentDay++;
+		$day++;
 	}
 ?>
 </table>

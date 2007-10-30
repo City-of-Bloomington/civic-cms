@@ -164,30 +164,21 @@
 		 * Returns all the events in between rangeStart and rangeEnd, if given
 		 * Or just on rangeStart.  $rangeStart and $rangeEnd must be given
 		 * in the same format.
-		 * @param timestamp|date $rangeStart
-		 * @param timestamp|date $rangeEnd
+		 * @param timestamp $rangeStart
+		 * @param timestamp $rangeEnd
 		 */
 		public function getEvents($rangeStart=null,$rangeEnd=null)
 		{
+			$search = array();
 			if ($this->id) { $search['calendar_id'] = $this->id; }
 			if (isset($rangeStart))
 			{
-				if (is_int($rangeStart))
-				{
-					# $rangeStart is a timestamp
-					$search['rangeStart'] = date('Y-m-d',$rangeStart);
-					if (isset($rangeEnd)) { $search['rangeEnd'] = date('Y-m-d',$rangeEnd); }
-				}
-				else
-				{
-					# rangeStart is a date string
-					$search['rangeStart'] = $rangeStart;
-					if (isset($rangeEnd)) { $search['rangeEnd'] = $rangeEnd; }
-				}
+				$search['rangeStart'] = $rangeStart;
+				if (isset($rangeEnd)) { $search['rangeEnd'] = $rangeEnd; }
 			}
 
 			$eventList = new EventList();
-			if (isset($search)) { $eventList->find($search); }
+			if (count($search)) { $eventList->find($search); }
 			else { $eventList->find(); }
 
 			return $eventList;
@@ -198,8 +189,8 @@
 		 * Events will be between rangeStart and rangeEnd, if given
 		 * or just on rangeStart.  $rangeStart and $rangeEnd must be given
 		 * in the same format.
-		 * @param timestamp|date $rangeStart
-		 * @param timestamp|date $rangeEnd
+		 * @param timestamp $rangeStart
+		 * @param timestamp $rangeEnd
 		 */
 		public function getEventRecurrenceArray($rangeStart=null,$rangeEnd=null)
 		{
@@ -208,7 +199,7 @@
 			{
 				foreach($event->getRecurrences($rangeStart,$rangeEnd) as $recurrence)
 				{
-					$r = $this->dateStringToArray($recurrence->getStart());
+					$r = getdate($recurrence->getStart());
 					$recurrenceArray[$r['year']][$r['mon']][$r['mday']][] = $recurrence;
 				}
 			}

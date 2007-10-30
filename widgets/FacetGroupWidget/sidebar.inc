@@ -6,13 +6,15 @@
  * @param FacetGroup $this->facetGroup
  */
 ?>
-<div><div class="titleBar"><?php echo View::escape($this->facetGroup->getName()); ?></div>
-<ul><?php
+<div class="widget">
+	<h1><?php echo View::escape($this->facetGroup->getName()); ?></h1>
+	<ul>
+	<?php
 		foreach($this->facetGroup->getFacets() as $facet)
 		{
 			$name = View::escape($facet->getName());
 			echo "<li><a href=\"".BASE_URL."/facets/viewFacet.php?facet_id={$facet->getId()}\">$name</a></li>\n";
 		}
 	?>
-</ul>
+	</ul>
 </div>

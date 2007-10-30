@@ -7,7 +7,7 @@
  */
 	$event = new Event($_GET['event_id']);
 
-	$date = $event->dateStringToArray($event->getStartDate());
+	$date = getdate($event->getStart());
 	$url = new URL(BASE_URL."/calendars");
 	$url->parameters = array('year'=>$date['year'],'mon'=>$date['mon'],'mday'=>$date['mday']);
 

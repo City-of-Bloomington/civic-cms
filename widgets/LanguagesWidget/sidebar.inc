@@ -6,15 +6,16 @@
  * @param array $this->languages
  */
 ?>
-<div><div class="titleBar">Languages</div>
-<ul>
-<?php
-	$page = new URL($_SERVER['REQUEST_URI']);
-	foreach($this->languages as $language)
-	{
-		$page->parameters['lang'] = $language->getCode();
-		echo "<li><a href=\"{$page->getURL()}\">{$language->getNative()}</a></li>";
-	}
-?>
-</ul>
+<div class="widget">
+	<h1>Languages</h1>
+	<ul>
+	<?php
+		$page = new URL($_SERVER['REQUEST_URI']);
+		foreach($this->languages as $language)
+		{
+			$page->parameters['lang'] = $language->getCode();
+			echo "<li><a href=\"{$page->getURL()}\">{$language->getNative()}</a></li>";
+		}
+	?>
+	</ul>
 </div>

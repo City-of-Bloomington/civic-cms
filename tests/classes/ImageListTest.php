@@ -6,6 +6,7 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 
 require_once 'PHPUnit/Framework.php';
 
+if (!defined('APPLICATION_HOME')) { include dirname(__FILE__).'/../configuration.inc'; }
 require_once APPLICATION_HOME.'/classes/ImageList.inc';
 
 /**

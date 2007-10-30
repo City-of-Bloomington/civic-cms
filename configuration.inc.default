@@ -57,7 +57,7 @@ define('COPYRIGHT',"/**
 	 * print out a nice error message, encouraging users to report any problems
 	 * See: FRAMEWORK/ITSFunctions.inc
 	 */
-	define('ADMINISTRATOR_NAME','Mr. Site Admin');
+	define('ADMINISTRATOR_NAME','Site Admin');
 	define('ADMINISTRATOR_EMAIL','admin@servername.com');
 
 
@@ -108,7 +108,7 @@ define('COPYRIGHT',"/**
 	/**
 	 * Import global functions that we use for many applications we write
 	 */
-	include(FRAMEWORK.'/ITSFunctions.inc');
+	include FRAMEWORK.'/ITSFunctions.inc';
 
 	/**
 	 * Session Startup

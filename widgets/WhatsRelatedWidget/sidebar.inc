@@ -6,14 +6,15 @@
  * @param Document $this->document
  */
 ?>
-<div><div class="titleBar">What's Related</div>
-<ul>
-<?php
-	foreach($this->document->getRelatedDocuments() as $document)
-	{
-		$title = View::escape($document->getTitle();
-		echo "<li><a href=\"{$document->getURL()}\">$title</a></li>";
-	}
-?>
-</ul>
+<div class="widget">
+	<h1>What's Related</h1>
+	<ul>
+	<?php
+		foreach($this->document->getRelatedDocuments() as $document)
+		{
+			$title = View::escape($document->getTitle());
+			echo "<li><a href=\"{$document->getURL()}\">$title</a></li>";
+		}
+	?>
+	</ul>
 </div>

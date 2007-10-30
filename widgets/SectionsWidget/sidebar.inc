@@ -17,8 +17,9 @@
 
 	function renderNavigation($section)
 	{
+		$name = View::escape($section->getName());
 		echo "
-		<div><div class=\"titleBar\">$section</div>
+		<div class=\"widget\"><h1>$name</h1>
 		<ul>
 		";
 		foreach($section->getChildren() as $child)

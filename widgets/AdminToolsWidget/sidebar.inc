@@ -32,7 +32,7 @@
 	}
 
 ?>
-<div><div class="titleBar">Admin</div>
+<div class="widget"><h1>Admin</h1>
 <ul>
 <?php
 	foreach($links as $name=>$listItem)

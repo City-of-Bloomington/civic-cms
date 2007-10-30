@@ -1,4 +1,5 @@
-<div><div class="titleBar">Search</div>
+<div class="widget">
+	<h1>Search</h1>
 	<form method="get" action="<?php echo BASE_URL; ?>/documents/search.php">
 	<fieldset><legend>Search</legend>
 		<input name="search" />

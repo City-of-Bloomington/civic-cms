@@ -9,12 +9,12 @@
 	{
 		echo "
 		<div class=\"widget\">
-			<div class=\"titleBar\">Whats New</div>
+			<h1>Whats New</h1>
 			<ul>
 		";
 		foreach($this->documents as $document)
 		{
-			$title = View::escape($document->getTitle();
+			$title = View::escape($document->getTitle());
 			echo "<li><a href=\"{$document->getURL()}\">$title</a></li>";
 		}
 		echo "</ul></div>";

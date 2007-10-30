@@ -7,16 +7,16 @@
 	$calendar = new Calendar();
 	$date = getdate();
 
-	$timestamp = mktime(0,0,0,$date['mon'],1,$date['year']);
-	$endRange = strtotime('+1 month',$timestamp);
-	$recurrences = $calendar->getEventRecurrenceArray($timestamp,$endRange);
+	$rangeStart = mktime(0,0,0,$date['mon'],1,$date['year']);
+	$rangeEnd = strtotime('+1 month',$rangeStart);
+	$recurrences = $calendar->getEventRecurrenceArray($rangeStart,$rangeEnd);
 
-	$calendarDate = getdate($timestamp);
+	$calendarDate = getdate($rangeStart);
 	$year = $calendarDate['year'];
-	$month = str_pad($calendarDate['mon'],2,'0',STR_PAD_LEFT);
-	$lastDayOfMonth = date('t',$timestamp);
+	$month = $calendarDate['mon'];
+	$lastDayOfMonth = date('t',$rangeStart);
 ?>
-<div>
+<div class="widget">
 <table class="calendar">
 <tr><th colspan="7"><?php echo $calendarDate['month']; ?></th></tr>
 <tr><th>S</th><th>M</th><th>T</th><th>W</th><th>R</th><th>F</th><th>S</th></tr>
@@ -46,7 +46,7 @@
 		if ($calendar->getId()) { $url->parameters['calendar_id'] = $calendar->getId(); }
 		$url->parameters['view'] = 'day';
 
-		$day = str_pad($currentDay,2,'0',STR_PAD_LEFT);
+		$day = $currentDay;
 		if (isset($recurrences[$year][$month][$day])) { echo "<td class=\"event\"><a href=\"{$url->getURL()}\">$currentDay</a>"; }
 		else { echo "<td>$currentDay"; }
 		echo "</td>";

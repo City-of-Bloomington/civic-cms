@@ -6,7 +6,8 @@
  * @param Department $this->department
  */
 ?>
-<div><div class="titleBar">Directory</div>
+<div class="widget">
+	<h1>Directory</h1>
 <table>
 <?php
 	$name = View::escape($this->department->getName());

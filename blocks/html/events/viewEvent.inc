@@ -11,15 +11,15 @@
 	<?php
 		if (isset($_SESSION['USER']) && $this->event->permitsEditingBy($_SESSION['USER']))
 		{
-			echo "<button type=\"button\" class=\"editSmall\" onclick=\"window.open('".BASE_URL."/events/updateEvent.php?event_id={$this->event->getId()}');\">Edit</button>";
+			echo "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/events/updateEvent.php?event_id={$this->event->getId()};return_url={$this->event->getURL()}';\">Edit</button>";
 		}
-		echo View::escape($this->event->getSummary());
+		echo View::escape($this->event->getTitle());
 	?>
 	</div>
 	<?php
 		$format = $this->event->isAllDayEvent() ? 'M j' : 'M j g:i A';
-		$start = date($format,strtotime("{$this->event->getStartDate()} {$this->event->getStartTime()}"));
-		$end = date($format,strtotime("{$this->event->getEndDate()} {$this->event->getEndTime()}"));
+		$start = $this->event->getStart($format);
+		$end = $this->event->getEnd($format);
 
 		if ($this->event->isAllDayEvent()) { echo "<p>$start</p>"; }
 		else { echo "<p>$start - $end</p>"; }
@@ -34,6 +34,7 @@
 		<p><strong>Location:</strong> $location</p>
 		<p><strong>Contact:</strong> $name. $phone, $email</p>
 		<div>$description</div>
+		<div>{$this->event->getRRule()}</div>
 		";
 	?>
 </div>

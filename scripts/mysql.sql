@@ -205,6 +205,7 @@ create table panels (
 ) engine=InnoDB;
 insert panels set div_id='leftSidebar';
 insert panels set div_id='rightSidebar';
+insert panels set div_id='mainContent';
 
 create table widgets (
 	id int unsigned not null primary key auto_increment,
@@ -308,14 +309,20 @@ create table calendar_departments (
 
 create table events (
 	id int unsigned not null primary key auto_increment,
-	startDate date not null,
-	startTime time,
-	endDate date,
-	endTime time,
-	allDayEvent tinyint(1) unsigned,
-	rrule varchar(128),
-	summary varchar(128) not null,
+	start datetime not null,
+	end datetime,
+	created datetime not null,
+	modified datetime not null,
+	title varchar(128) not null,
 	description text,
+	allDayEvent tinyint(1) unsigned,
+	rrule_freq enum('DAILY','WEEKLY','MONTHLY'),
+	rrule_until datetime,
+	rrule_count tinyint unsigned,
+	rrule_interval tinyint unsigned,
+	rrule_byday varchar(128),
+	rrule_bymonthday varchar(128),
+	rrule_bysetpos tinyint,
 	calendar_id int unsigned not null,
 	location_id int unsigned,
 	user_id int unsigned not null,
@@ -329,7 +336,7 @@ create table events (
 
 create table event_exceptions (
 	event_id int unsigned not null,
-	original_start date not null,
+	original_start datetime not null,
 	start datetime not null,
 	end datetime not null,
 	primary key (event_id,original_start),
