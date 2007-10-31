@@ -146,8 +146,8 @@ class WikiMarkup
 				break;
 
 				case 'anchor':
-					if (isset($linkText)) { return "<a name=\"$link\">$linkText</a>"; }
-					else { return "<a name=\"$link\" />"; }
+					if (isset($linkText)) { return "<a id=\"$link\">$linkText</a>"; }
+					else { return "<a id=\"$link\" />"; }
 				break;
 
 				case 'mailto':

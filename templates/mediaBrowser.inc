@@ -6,7 +6,7 @@
  * @param string $this->title
  */
 	if (!isset($this->title)) { $this->title = "Media Browser"; }
-	include APPLICATION_HOME.'/includes/xhtmlTransitionalHeader.inc';
+	include APPLICATION_HOME.'/includes/xhtmlStrictHeader.inc';
 ?>
 <div class="left sidebar">
 	<div><div class="titleBar">Departments</div>

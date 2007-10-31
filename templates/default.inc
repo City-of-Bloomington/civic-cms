@@ -6,7 +6,7 @@
  * @param string $this->title
  */
 	if (!isset($this->title)) { $this->title = "City of Bloomington"; }
-	include APPLICATION_HOME.'/includes/xhtmlTransitionalHeader.inc';
+	include APPLICATION_HOME.'/includes/xhtmlStrictHeader.inc';
 	include APPLICATION_HOME.'/includes/banner.inc';
 	include APPLICATION_HOME.'/includes/menubar.inc';
 	include APPLICATION_HOME.'/includes/languages.inc';

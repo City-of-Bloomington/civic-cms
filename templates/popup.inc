@@ -6,7 +6,7 @@
  * @param string $this->title
  */
 	if (!isset($this->title)) { $this->title = "Content Manager - City of Bloomington"; }
-	include APPLICATION_HOME.'/includes/xhtmlTransitionalHeader.inc';
+	include APPLICATION_HOME.'/includes/xhtmlStrictHeader.inc';
 	include FRAMEWORK.'/errorMessages.inc';
 
 	$this->includeBlocks();
