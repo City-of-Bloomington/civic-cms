@@ -143,6 +143,22 @@
 			$this->id = $PDO->lastInsertID();
 		}
 
+		public function delete()
+		{
+			if ($this->id)
+			{
+				$PDO = Database::getConnection();
+				$query = $PDO->prepare('delete from event_exceptions where event_id=?');
+				$query->execute(array($this->id));
+
+				$query = $PDO->prepare('delete from event_sections where event_id=?');
+				$query->execute(array($this->id));
+
+				$query = $PDO->prepare('delete from events where id=?');
+				$query->execute(array($this->id));
+			}
+		}
+
 		public function permitsEditingBy($user)
 		{
 			if (isset($this->calendar_id)) { return $this->getCalendar()->permitsEditingBy($user); }
