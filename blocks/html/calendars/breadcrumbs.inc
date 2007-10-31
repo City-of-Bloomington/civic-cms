@@ -8,8 +8,9 @@
  * Either an event or a calendar must be passed
  */
 ?>
-<div id="breadcrumbs">
+<div class="breadcrumbs">
 <ul><li><a href="<?php echo BASE_URL; ?>">Home</a></li>
+	<li><a href="<?php echo BASE_URL; ?>/calendars">Calendars</a></li>
 	<?php
 		if (isset($this->event)) { $calendar = $this->event->getCalendar(); }
 		else { $calendar = $this->calendar; }
