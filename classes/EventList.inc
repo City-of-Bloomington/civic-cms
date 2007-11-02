@@ -50,12 +50,12 @@
 				if (isset($fields['rangeEnd']))
 				{
 					# Find all the events that could possibly have recurrences inside the range
-					$options[] = "((e.start between from_unixtime($fields[rangeStart]) and from_unixtime($fields[rangeEnd]) ||
+					$options[] = "(((e.start between from_unixtime($fields[rangeStart]) and from_unixtime($fields[rangeEnd]) ||
 								((e.rrule_until is null && e.end between from_unixtime($fields[rangeStart]) and from_unixtime($fields[rangeEnd])) ||
 								(e.rrule_until between from_unixtime($fields[rangeStart]) and from_unixtime($fields[rangeEnd])))) ||
 								((e.rrule_until is null && from_unixtime($fields[rangeStart]) between e.start and e.end) ||
 								(from_unixtime($fields[rangeStart]) between e.start and e.rrule_until)))
-								|| (rrule_freq is not null and rrule_until is null and start < from_unixtime($fields[rangeEnd]))";
+								|| (rrule_freq is not null and rrule_until is null and start < from_unixtime($fields[rangeEnd])))";
 				}
 				else
 				{
