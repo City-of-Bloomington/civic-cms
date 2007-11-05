@@ -7,23 +7,37 @@
  *
  * Script to serve all media
  */
- 	try { $media = new Media($_GET['media_id']); }
- 	catch(Exception $e)
+ 	if ($_GET['media_id'])
  	{
-		Header('HTTP/1.0 404 Not Found');
-		$_SESSION['errorMessages'][] = $e;
-		$template = new Template();
-		$template->render();
-		exit();
- 	}
+		try
+		{
+			$media = new Media($_GET['media_id']);
+
+			$mime = $media->getMime_type();
+			$disposition = $media->getMedia_type()=='attachment' ? 'attachment' : 'inline';
+			$filename = $media->getFilename();
+			$path = $media->getDirectory();
+			$internalFilename = $media->getInternalFilename();
+		}
+		catch(Exception $e)
+		{
+			$_SESSION['errorMessages'][] = new Exception('media/404.inc');
+		}
+
+		readfile($media->getDirectory().'/'.$media->getInternalFilename());
+	}
+
+	if (!isset($media))
+	{
+		$mime = 'image/png';
+		$disposition = 'inline';
+		$filename = 'missing.png';
+		$path = APPLICATION_HOME.'/html/media';
+		$internalFilename = $filename;
+	}
 	Header('Expires: 0');
 	Header('Pragma: cache');
 	Header('Cache-Control: private');
-	Header('Content-type: '.$media->getMime_type());
-
-	$disposition = $media->getMedia_type()=='attachment' ? 'attachment' : 'inline';
-	Header("Content-Disposition: $disposition; filename=".$media->getFilename());
-
-
-	readfile($media->getDirectory().'/'.$media->getInternalFilename());
-?>
+	Header("Content-type: $mime");
+	Header("Content-Disposition: $disposition; filename=$filename");
+	readfile("$path/$internalFilename");
