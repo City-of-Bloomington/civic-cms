@@ -23,8 +23,6 @@
 		{
 			$_SESSION['errorMessages'][] = new Exception('media/404.inc');
 		}
-
-		readfile($media->getDirectory().'/'.$media->getInternalFilename());
 	}
 
 	if (!isset($media))
