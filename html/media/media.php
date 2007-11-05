@@ -19,10 +19,7 @@
 			$path = $media->getDirectory();
 			$internalFilename = $media->getInternalFilename();
 		}
-		catch(Exception $e)
-		{
-			$_SESSION['errorMessages'][] = new Exception('media/404.inc');
-		}
+		catch(Exception $e) { }
 	}
 
 	if (!isset($media))
