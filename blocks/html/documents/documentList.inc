@@ -21,7 +21,7 @@
 			echo $this->title;
 			include APPLICATION_HOME.'/blocks/html/documents/addDocumentToolbar.inc';
 
-			$url = new URL($_SERVER['REQUEST_URI']);
+			$url = new URL("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
 		?>
 	</div>
 	<table>
