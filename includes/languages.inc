@@ -10,7 +10,7 @@
 		$languages = $this->document->getLanguages();
 
 		echo "<div id=\"languages\"><ul>";
-			$page = new URL($_SERVER['REQUEST_URI']);
+			$page = new URL("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
 			foreach($languages as $language)
 			{
 				$page->parameters['lang'] = $language->getCode();

@@ -7,7 +7,7 @@
  * @param Department $this->department ( optional )
  */
 	$title = isset($this->department) ? View::escape($this->department->getName()) : '';
-	$url = new URL($_SERVER['REQUEST_URI']);
+	$url = new URL("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
 ?>
 <form id="filter" method="get" action="<?php echo BASE_URL; ?>/media">
 <div class="interfaceBox">

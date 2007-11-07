@@ -20,7 +20,7 @@
 	<table>
 	<tr>
 	<?php
-		$url = new URL($_SERVER['REQUEST_URI']);
+		$url = new URL("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
 		$url->parameters['sort'] = 'filename'; echo "<th><a href=\"{$url->getURL()}\">Filename</a></th>";
 		$url->parameters['sort'] = 'title'; echo "<th><a href=\"{$url->getURL()}\">Title</a></th>";
 		$url->parameters['sort'] = 'uploaded desc'; echo "<th><a href=\"{$url->getURL()}\">Uploaded</a></th>";

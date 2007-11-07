@@ -14,7 +14,7 @@
 			$back = getdate(strtotime('-1 day',$timestamp));
 			$next = getdate(strtotime('+1 day',$timestamp));
 
-			$url = new URL($_SERVER['REQUEST_URI']);
+			$url = new URL("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
 			$url->parameters['mon'] = $back['mon'];
 			$url->parameters['mday'] = $back['mday'];
 			$url->parameters['year'] = $back['year'];
