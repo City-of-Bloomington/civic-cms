@@ -35,11 +35,9 @@
 </fieldset>
 <?php
 	# If the Widget uses any extra data parameters, include those fields as well
-	$className = $this->sectionWidget->getWidget()->getWidget()->getClassname();
-	$data = $this->sectionWidget->getData();
-	if (is_file(APPLICATION_HOME."/widgets/$className/dataFields.inc"))
+	if ($this->sectionWidget->usesData())
 	{
-		include APPLICATION_HOME."/widgets/$className/dataFields.inc";
+		include $this->sectionWidget->getDataFieldsetInclude();
 	}
 ?>
 <fieldset><legend>Submit</lgend>

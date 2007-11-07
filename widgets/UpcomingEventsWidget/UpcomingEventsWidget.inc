@@ -16,9 +16,6 @@ class UpcomingEventsWidget extends Widget
 		$this->description = 'Lists events happening in the next week for the current section';
 	}
 
-	public function setData($string) { }
-	public function serializePost(array $post) { }
-
 	public function render($template)
 	{
 
@@ -50,4 +47,21 @@ class UpcomingEventsWidget extends Widget
 			}
 		}
 	}
+
+	/**
+	 * This widget does not use an extra data
+	 */
+	public function usesData() { return false; }
+	/**
+	 * @ignore
+	 */
+	public function setData($string) { }
+	/**
+	 * @ignore
+	 */
+	public function serializePost(array $post) { }
+	/**
+	 * @ignore
+	 */
+	public function getDataFieldsetInclude() { return null; }
 }

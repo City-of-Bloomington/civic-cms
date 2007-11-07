@@ -4,28 +4,41 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
-	class LanguagesWidget extends Widget
+class LanguagesWidget extends Widget
+{
+	protected $languages;
+
+	public function __construct()
 	{
-		protected $languages;
+		$this->className = 'LanguagesWidget';
+		$this->displayName = 'Languages';
+		$this->includeFile = 'sidebar.inc';
+		$this->description = 'Displays the list of available translations for a document';
+	}
 
-		public function __construct()
+	public function render($template)
+	{
+		if (isset($template->document))
 		{
-			$this->className = 'LanguagesWidget';
-			$this->displayName = 'Languages';
-			$this->includeFile = 'sidebar.inc';
-			$this->description = 'Displays the list of available translations for a document';
-		}
-
-		public function setData($string) { }
-		public function serializePost(array $post) { }
-
-		public function render($template)
-		{
-			if (isset($template->document))
-			{
-				$this->languages = $template->document->getLanguages();
-				$this->renderIncludeFile($this);
-			}
+			$this->languages = $template->document->getLanguages();
+			$this->renderIncludeFile($this);
 		}
 	}
-?>
+
+	/**
+	 * This widget does not use an extra data
+	 */
+	public function usesData() { return false; }
+	/**
+	 * @ignore
+	 */
+	public function setData($string) { }
+	/**
+	 * @ignore
+	 */
+	public function serializePost(array $post) { }
+	/**
+	 * @ignore
+	 */
+	public function getDataFieldsetInclude() { return null; }
+}

@@ -4,25 +4,39 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
-	class AdminToolsWidget extends Widget
+class AdminToolsWidget extends Widget
+{
+	public function __construct()
 	{
-		public function __construct()
-		{
-			$this->className = 'AdminToolsWidget';
-			$this->displayName = 'Admin';
-			$this->includeFile = 'sidebar.inc';
-			$this->description = 'Shows links to all the stuff a user can do';
-		}
+		$this->className = 'AdminToolsWidget';
+		$this->displayName = 'Admin';
+		$this->includeFile = 'sidebar.inc';
+		$this->description = 'Shows links to all the stuff a user can do';
+	}
 
-		public function setData($string) { }
-		public function serializePost(array $post) { }
 
-		public function render($template)
+	public function render($template)
+	{
+		if (isset($_SESSION['USER']))
 		{
-			if (isset($_SESSION['USER']))
-			{
-				$this->renderIncludeFile($this);
-			}
+			$this->renderIncludeFile($this);
 		}
 	}
-?>
+
+	/**
+	 * This widget does not use an extra data
+	 */
+	public function usesData() { return false; }
+	/**
+	 * @ignore
+	 */
+	public function setData($string) { }
+	/**
+	 * @ignore
+	 */
+	public function serializePost(array $post) { }
+	/**
+	 * @ignore
+	 */
+	public function getDataFieldsetInclude() { return null; }
+}

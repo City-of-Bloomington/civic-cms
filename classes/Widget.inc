@@ -3,6 +3,11 @@
  * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
+ *
+ * Widgets store all their instance data serialized into a single field
+ * in the database.  It is up to the individual widget to serialize and
+ * unserialize the the data in their own way.  This should allow widget
+ * authors to work with serialize, XML, JSON, or whatever serialize method
  */
 	abstract class Widget extends Database
 	{
@@ -17,13 +22,37 @@
 		public $editDataLink = '';
 
 		/**
-		 * Widgets must declare this function.  It's up to the individual
-		 * widget what format to serialize their data in, though.
-		 * They could use XML, JSON, serialize(), whatever
+		 * Callback for the widget to convert the serialized data string
+		 * into its own internal variables
 		 * @param string $serializedData
 		 */
 		abstract public function setData($serializedData);
+
+		/**
+		 * Callback for the widget to convert an array representing its
+		 * data into the serialized data string for storage in the database
+		 * The array will most commonly come from a form POST
+		 *
+		 * Widgets should provide their own fieldset markup for this form
+		 * in a dataFields.inc file
+		 */
 		abstract public function serializePost(array $post);
+
+		/**
+		 * Callback for the widget to tell the application whether it uses serialized or not
+		 * @return boolean
+		 */
+		abstract public function usesData();
+
+		/**
+		 * Callback for the widget to give the application the path to the file
+		 * used as part of the Form.  This lets the widget provide it's own form
+		 * fields for whatever data it needs
+		 * The HTML should be an entire XHTML fieldset able to be included in
+		 * an XHTML Strict Form
+		 * @return string Path to the include file
+		 */
+		abstract public function getDataFieldsetInclude();
 
 		public static function load($classname)
 		{

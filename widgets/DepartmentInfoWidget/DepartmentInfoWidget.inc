@@ -4,28 +4,41 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
-	class DepartmentInfoWidget extends Widget
+class DepartmentInfoWidget extends Widget
+{
+	protected $department;
+
+	public function __construct()
 	{
-		protected $department;
+		$this->className = 'DepartmentInfoWidget';
+		$this->displayName = 'Department Info';
+		$this->includeFile = 'sidebar.inc';
+		$this->description = 'Displays contact information for the Department that owns the current document.';
+	}
 
-		public function __construct()
+	public function render($template)
+	{
+		if (isset($template->document))
 		{
-			$this->className = 'DepartmentInfoWidget';
-			$this->displayName = 'Department Info';
-			$this->includeFile = 'sidebar.inc';
-			$this->description = 'Displays contact information for the Department that owns the current document.';
-		}
-
-		public function setData($string) { }
-		public function serializePost(array $post) { }
-
-		public function render($template)
-		{
-			if (isset($template->document))
-			{
-				$this->department = $template->document->getDepartment();
-				$this->renderIncludeFile($this);
-			}
+			$this->department = $template->document->getDepartment();
+			$this->renderIncludeFile($this);
 		}
 	}
-?>
+
+	/**
+	 * This widget does not use an extra data
+	 */
+	public function usesData() { return false; }
+	/**
+	 * @ignore
+	 */
+	public function setData($string) { }
+	/**
+	 * @ignore
+	 */
+	public function serializePost(array $post) { }
+	/**
+	 * @ignore
+	 */
+	public function getDataFieldsetInclude() { return null; }
+}

@@ -4,35 +4,48 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
-	class RelatedLinksWidget extends Widget
+class RelatedLinksWidget extends Widget
+{
+	protected $section;
+	protected $document;
+
+	public function __construct()
 	{
-		protected $section;
-		protected $document;
+		$this->className = 'RelatedLinksWidget';
+		$this->displayName = 'Related Links';
+		$this->includeFile = 'sidebar.inc';
+		$this->description = 'Shows links from all the documents in the current section';
+	}
 
-		public function __construct()
+	public function render($template)
+	{
+		global $section;
+		if ($section)
 		{
-			$this->className = 'RelatedLinksWidget';
-			$this->displayName = 'Related Links';
-			$this->includeFile = 'sidebar.inc';
-			$this->description = 'Shows links from all the documents in the current section';
-		}
-
-		public function setData($string) { }
-		public function serializePost(array $post) { }
-
-		public function render($template)
-		{
-			global $section;
-			if ($section)
+			if (isset($template->document))
 			{
-				if (isset($template->document))
-				{
-					$this->section = $section;
-					$this->document = $template->document;
+				$this->section = $section;
+				$this->document = $template->document;
 
-					$this->renderIncludeFile($this);
-				}
+				$this->renderIncludeFile($this);
 			}
 		}
 	}
-?>
+
+	/**
+	 * This widget does not use an extra data
+	 */
+	public function usesData() { return false; }
+	/**
+	 * @ignore
+	 */
+	public function setData($string) { }
+	/**
+	 * @ignore
+	 */
+	public function serializePost(array $post) { }
+	/**
+	 * @ignore
+	 */
+	public function getDataFieldsetInclude() { return null; }
+}

@@ -4,22 +4,35 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
-	class SearchWidget extends Widget
+class SearchWidget extends Widget
+{
+	public function __construct()
 	{
-		public function __construct()
-		{
-			$this->className = 'SearchWidget';
-			$this->displayName = 'Search';
-			$this->includeFile = 'sidebar.inc';
-			$this->description = 'Displays a search box';
-		}
-
-		public function setData($string) { }
-		public function serializePost(array $post) { }
-
-		public function render($template)
-		{
-			$this->renderIncludeFile($this);
-		}
+		$this->className = 'SearchWidget';
+		$this->displayName = 'Search';
+		$this->includeFile = 'sidebar.inc';
+		$this->description = 'Displays a search box';
 	}
-?>
+
+	public function render($template)
+	{
+		$this->renderIncludeFile($this);
+	}
+
+	/**
+	 * This widget does not use an extra data
+	 */
+	public function usesData() { return false; }
+	/**
+	 * @ignore
+	 */
+	public function setData($string) { }
+	/**
+	 * @ignore
+	 */
+	public function serializePost(array $post) { }
+	/**
+	 * @ignore
+	 */
+	public function getDataFieldsetInclude() { return null; }
+}

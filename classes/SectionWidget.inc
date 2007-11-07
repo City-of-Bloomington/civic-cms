@@ -110,9 +110,21 @@
 		}
 
 		/**
-		 * Aliases for WidgetInstallation functions
+		 * Alias for WidgetInstallation->render()
 		 */
 		public function render($template) { $this->getWidget()->render($template); }
+
+		/**
+		 * Alias for Widget->usesData()
+		 * @return boolean
+		 */
+		public function usesData() { return $this->getWidget()->getWidget()->usesData(); }
+
+		/**
+		 * Alias for Widget->getDataFieldsetInclude()
+		 * @return string Path to include file
+		 */
+		public function getDataFieldsetInclude() { return $this->getWidget()->getWidget()->getDataFieldsetInclude(); }
 
 		/**
 		 * Generic Getters
