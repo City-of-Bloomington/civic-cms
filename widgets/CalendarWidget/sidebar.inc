@@ -17,6 +17,14 @@
 	$lastDayOfMonth = date('t',$rangeStart);
 ?>
 <div class="widget">
+<h1>Calendar
+	<?php
+		$feedsURL = new URL(BASE_URL.'/feeds');
+		$feedsURL->type = 'webcal';
+		$feedsURL->url = BASE_URL.'/calendars?format=ical';
+	?>
+	<button type="button" class="ical" onclick="document.location.href='<?php echo $feedsURL; ?>';">Subscribe</button>
+</h1>
 <table class="calendar">
 <tr><th colspan="7"><?php echo $calendarDate['month']; ?></th></tr>
 <tr><th>S</th><th>M</th><th>T</th><th>W</th><th>R</th><th>F</th><th>S</th></tr>

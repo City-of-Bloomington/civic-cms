@@ -64,6 +64,15 @@
 				}
 
 
+				if (isset($fields['rangeStart']))
+				{
+					$options[] = "publishDate > from_unixtime($fields[rangeStart])";
+				}
+				if (isset($fields['rangeEnd']))
+				{
+					$options[] = "(retireDate is null or retireDate < from_unixtime($fields[rangeEnd]))";
+				}
+
 				# Finding on fields from other tables required joining those tables.
 				# You can add fields from other tables to $options by adding the join SQL
 				# to $this->joins here
@@ -152,4 +161,3 @@
 
 		protected function loadResult($key) { return new Document($this->list[$key]); }
 	}
-?>
