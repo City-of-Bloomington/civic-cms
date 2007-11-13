@@ -34,7 +34,13 @@
 										'xls'=>array('mime_type'=>'application/msexcel','media_type'=>'attachment'),
 										'gz'=>array('mime_type'=>'application/x-gzip','media_type'=>'attachment'),
 										'zip'=>array('mime_type'=>'application/zip','media_type'=>'attachment'),
-										'txt'=>array('mime_type'=>'text/plain','media_type'=>'attachment')
+										'txt'=>array('mime_type'=>'text/plain','media_type'=>'attachment'),
+										'wmv'=>array('mime_type'=>'video/x-ms-wmv','media_type'=>'video'),
+										'mov'=>array('mime_type'=>'video/quicktime','media_type'=>'video'),
+										'rm'=>array('mime_type'=>'application/vnd.rn-realmedia','media_type'=>'video'),
+										'ram'=>array('mime_type'=>'audio/vnd.rn-realaudio','media_type'=>'audio'),
+										'mp3'=>array('mime_type'=>'audio/mpeg','media_type'=>'audio'),
+										'wma'=>array('mime_type='=>'audio/x-ms-wma','media_type'=>'audio')
 									);
 
 		public static function getExtensions() { return self::$extensions; }

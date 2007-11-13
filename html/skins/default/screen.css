@@ -221,6 +221,12 @@ a.rss img { margin:0; }
 .zip { height:16px; padding-left:18px; background: url('default/images/icons/zip.png') no-repeat; }
 .gz { height:16px; padding-left:18px; background: url('default/images/icons/gz.png') no-repeat; }
 .txt { height:16px; padding-left:18px; background: url('default/images/icons/txt.png') no-repeat; }
+.wmv { height:16px; padding-left:18px; background: url('default/images/icons/windowsMedia.png') no-repeat; }
+.mov { height:16px; padding-left:18px; background: url('default/images/icons/quicktime.png') no-repeat; }
+.rm { height:16px; padding-left:18px; background: url('default/images/icons/real.png') no-repeat; }
+.ram { height:16px; padding-left:18px; background: url('default/images/icons/real.png') no-repeat; }
+.mp3 { height:16px; padding-left:18px; background: url('default/images/icons/sound.png') no-repeat; }
+.wma { height:16px; padding-left:18px; background: url('default/images/icons/windowsMedia.png') no-repeat; }
 .thumbnail { width:100px; float:left; }
 
 /* Controls how error messages are displayed */
