@@ -17,10 +17,17 @@
 	{
 		if ($_GET['locationGroup_id']>0)
 		{
-			$group = new LocationGroup($_GET['locationGroup_id']);
-			$fields['locationGroup_id'] = $group->getId();
-			$listBlock->title = $group->getName();
-			$listBlock->locationGroup = $group;
+			try
+			{
+				$group = new LocationGroup($_GET['locationGroup_id']);
+				$fields['locationGroup_id'] = $group->getId();
+				$listBlock->title = $group->getName();
+				$listBlock->locationGroup = $group;
+			}
+			catch (Exception $e)
+			{
+				$_SESSION['errorMessages'][] = $e;
+			}
 		}
 		else
 		{
@@ -37,7 +44,8 @@
 		}
 		else { $sort = 'name'; }
 
-		$listBlock->locationList = new LocationList($fields,$sort);
+		# Don't bother trying to look anything up if we don't have a valid group
+		if (isset($fields)) { $listBlock->locationList = new LocationList($fields,$sort); }
 	}
 	else
 	{
@@ -64,13 +72,5 @@
 		}
 	}
 
-
-
-
-
 	$template->blocks[] = $listBlock;
-
-
-
 	$template->render();
-?>

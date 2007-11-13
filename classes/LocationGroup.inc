@@ -32,6 +32,7 @@
 				catch (Exception $e) { throw $e; }
 
 				$result = $query->fetchAll();
+				if (!count($result)) { throw new Exception('locations/unknownLocationGroup'); }
 				foreach($result[0] as $field=>$value) { if ($value) $this->$field = $value; }
 			}
 			else
@@ -146,4 +147,3 @@
 		public function setDescription($text) { $this->description = trim($text); }
 		public function setDepartment($department) { $this->department_id = $department->getId(); $this->department = $department; }
 	}
-?>
