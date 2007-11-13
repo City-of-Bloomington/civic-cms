@@ -9,7 +9,7 @@ class FacetGroupWidget extends Widget
 	/**
 	 * The group this widget is supposed to render.
 	 */
-	protected $facetGroup;
+	public $facetGroup;
 
 	public function __construct()
 	{
@@ -33,6 +33,7 @@ class FacetGroupWidget extends Widget
 	 * This will usually be from a form posting.  The form should have used
 	 * this widget's dataFields include so we know what array to expect
 	 * @param array $post
+	 * @return string Serialized data for the widget
 	 */
 	public function serializePost(array $post)
 	{

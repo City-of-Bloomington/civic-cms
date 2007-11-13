@@ -3,13 +3,13 @@
  * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
- * @param WidgetInstallation $this->widget
+ * @param WidgetInstallation $this->widgetInstallation
  */
 ?>
-<h2>Edit <?php echo View::escape($this->widget->getName()); ?></h2>
+<h2>Edit <?php echo View::escape($this->widgetInstallation->getName()); ?></h2>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 <fieldset><legend>Global Widget</legend>
-	<input name="widget_id" type="hidden" value="<?php echo $this->widget->getId(); ?>" />
+	<input name="widget_id" type="hidden" value="<?php echo $this->widgetInstallation->getId(); ?>" />
 	<p>Set this information if you want the widget to always be used throughout the site</p>
 	<table>
 	<tr><td><label for="widget-global_panel_id">Panel</label></td>
@@ -19,7 +19,7 @@
 				$panels->find();
 				foreach($panels as $panel)
 				{
-					$selected = ($this->widget->getGlobal_panel_id() === $panel->getId()) ? 'selected="selected"' : '';
+					$selected = ($this->widgetInstallation->getGlobal_panel_id() === $panel->getId()) ? 'selected="selected"' : '';
 					echo "<option value=\"{$panel->getId()}\" $selected>$panel</option>";
 				}
 			?>
@@ -27,17 +27,17 @@
 		</td>
 	</tr>
 	<tr><td><label for="widget-global_layout_order">Layout Order</label></td>
-		<td><input name="widget[global_layout_order]" id="widget-global_layout_order" size="2" maxlength="2" value="<?php echo $this->widget->getGlobal_layout_order(); ?>" /></td>
+		<td><input name="widget[global_layout_order]" id="widget-global_layout_order" size="2" maxlength="2" value="<?php echo $this->widgetInstallation->getGlobal_layout_order(); ?>" /></td>
 	</tr>
 	</table>
 </fieldset>
 <?php
 	# If the Widget uses any extra data parameters, include those fields as well
-	$className = $this->widget->getWidget()->getClassname();
-	$data = $this->widget->getGlobal_data();
-	if (is_file(APPLICATION_HOME."/widgets/$className/dataFields.inc"))
+	if ($this->widgetInstallation->getWidget()->usesData())
 	{
-		include APPLICATION_HOME."/widgets/$className/dataFields.inc";
+		$this->widget = $this->widgetInstallation->getWidget();
+		$this->widget->setData($this->widgetInstallation->getGlobal_data());
+		include $this->widget->getDataFieldsetInclude();
 	}
 ?>
 
@@ -51,7 +51,7 @@
 			<?php
 				foreach($panels as $panel)
 				{
-					$selected = ($this->widget->getDefault_panel_id() === $panel->getId()) ? 'selected="selected"' : '';
+					$selected = ($this->widgetInstallation->getDefault_panel_id() === $panel->getId()) ? 'selected="selected"' : '';
 					echo "<option value=\"{$panel->getId()}\" $selected>$panel</option>";
 				}
 			?>
@@ -59,7 +59,7 @@
 		</td>
 	</tr>
 	<tr><td><label for="widget-Default_layout_order">Layout Order</label></td>
-		<td><input name="widget[Default_layout_order]" id="widget-Default_layout_order" size="2" maxlength="2" value="<?php echo $this->widget->getDefault_layout_order(); ?>" /></td>
+		<td><input name="widget[Default_layout_order]" id="widget-Default_layout_order" size="2" maxlength="2" value="<?php echo $this->widgetInstallation->getDefault_layout_order(); ?>" /></td>
 	</tr>
 	</table>
 </fieldset>

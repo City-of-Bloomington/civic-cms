@@ -37,7 +37,9 @@
 	# If the Widget uses any extra data parameters, include those fields as well
 	if ($this->sectionWidget->usesData())
 	{
-		include $this->sectionWidget->getDataFieldsetInclude();
+		$this->widget = $this->sectionWidget->getWidget()->getWidget();
+		$this->widget->setData($this->sectionWidget->getData());
+		include $this->widget->getDataFieldsetInclude();
 	}
 ?>
 <fieldset><legend>Submit</lgend>

@@ -30,6 +30,6 @@
 	}
 
 	$template = new Template();
-	$template->blocks[] = new Block('widgets/updateWidgetForm.inc',array('widget'=>$widget));
+	$template->blocks[] = new Block('widgets/updateWidgetForm.inc',array('widgetInstallation'=>$widget));
 	$template->render();
 ?>

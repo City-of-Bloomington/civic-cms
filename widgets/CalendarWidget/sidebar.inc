@@ -77,3 +77,28 @@
 </tr>
 </table>
 </div>
+<?php
+	/* Debug Code
+	echo '<ul>';
+	foreach($recurrences as $y=>$months)
+	{
+		echo "<li>$y<ul>";
+		foreach($months as $m=>$days)
+		{
+			echo "<li>$m<ul>";
+			foreach($days as $d=>$recs)
+			{
+				echo "<li>$d<ul>";
+				foreach($recs as $r)
+				{
+					echo "<li>".$r->getEvent_id().$r->getStart('Y-m-d H:i:s')."</li>";
+				}
+				echo "</ul></li>";
+			}
+			echo "</ul></li>";
+		}
+		echo "</ul></li>";
+	}
+	echo '</ul>';
+	*/
+?>

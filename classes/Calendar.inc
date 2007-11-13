@@ -166,10 +166,12 @@
 		 * in the same format.
 		 * @param timestamp $rangeStart
 		 * @param timestamp $rangeEnd
+		 * @param array $search Additional search terms
 		 */
-		public function getEvents($rangeStart=null,$rangeEnd=null)
+		public function getEvents($rangeStart=null,$rangeEnd=null,$search=null)
 		{
-			$search = array();
+			if (!is_array($search)) { $search = array(); }
+
 			if ($this->id) { $search['calendar_id'] = $this->id; }
 			if (isset($rangeStart))
 			{
@@ -191,11 +193,12 @@
 		 * in the same format.
 		 * @param timestamp $rangeStart
 		 * @param timestamp $rangeEnd
+		 * @param array $search Additional search terms
 		 */
-		public function getEventRecurrenceArray($rangeStart=null,$rangeEnd=null)
+		public function getEventRecurrenceArray($rangeStart=null,$rangeEnd=null,$search=null)
 		{
 			$recurrenceArray = array();
-			foreach($this->getEvents($rangeStart,$rangeEnd) as $event)
+			foreach($this->getEvents($rangeStart,$rangeEnd,$search) as $event)
 			{
 				foreach($event->getRecurrences($rangeStart,$rangeEnd) as $recurrence)
 				{

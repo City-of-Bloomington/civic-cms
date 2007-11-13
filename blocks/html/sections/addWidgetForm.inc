@@ -4,15 +4,15 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Section $this->section
- * @param WidgetInstallation $this->widget
+ * @param WidgetInstallation $this->widgetInstallation
  */
 ?>
 <h2><?php echo View::escape($this->section->getName()); ?></h2>
-<h2>Add <?php echo View::escape($this->widget->getName()); ?> Widget</h2>
+<h2>Add <?php echo View::escape($this->widgetInstallation->getName()); ?> Widget</h2>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 <fieldset><legend>Widget</legend>
 	<input name="sectionWidget[section_id]" type="hidden" value="<?php echo $this->section->getId(); ?>" />
-	<input name="sectionWidget[widget_id]" type="hidden" value="<?php echo $this->widget->getId(); ?>" />
+	<input name="sectionWidget[widget_id]" type="hidden" value="<?php echo $this->widgetInstallation->getId(); ?>" />
 	<table>
 	<tr><td><label for="sectionWidget-panel_id">Panel</label></td>
 		<td><select name="sectionWidget[panel_id]" id="sectionWidget-panel_id">
@@ -36,10 +36,11 @@
 </fieldset>
 <?php
 	# If the Widget uses any extra data parameters, include those fields as well
-	$className = $this->widget->getWidget()->getClassname();
-	if (is_file(APPLICATION_HOME."/widgets/$className/dataFields.inc"))
+	if ($this->widgetInstallation->getWidget()->usesData())
 	{
-		include APPLICATION_HOME."/widgets/$className/dataFields.inc";
+		$this->widget = $this->widgetInstallation->getWidget();
+		$this->widget->setData($this->widgetInstallation->getGlobal_data());
+		include $this->widget->getDataFieldsetInclude();
 	}
 ?>
 <fieldset><legend>Submit</lgend>

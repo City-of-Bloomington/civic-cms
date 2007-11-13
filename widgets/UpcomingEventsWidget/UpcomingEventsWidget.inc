@@ -6,7 +6,11 @@
  */
 class UpcomingEventsWidget extends Widget
 {
-	protected $upcomingEvents = array();
+	protected $recurrenceArray = array();
+
+	public $calendar_id;
+	public $numDays = 5;
+	public $isSectionBased = true;
 
 	public function __construct()
 	{
@@ -18,50 +22,73 @@ class UpcomingEventsWidget extends Widget
 
 	public function render($template)
 	{
-
-		if (isset($template->document))
+		if ($this->isSectionBased)
 		{
-			$sections = array();
-			foreach($template->document->getSections() as $section) { $sections[] = $section->getId(); }
-			if (count($sections))
+			$search = array();
+			if (isset($template->document))
 			{
-				$search = array();
-				$search['section_id'] = $sections;
-
-				$t = getdate();
-				$search['rangeStart'] = mktime(0,0,0,$t['mon'],$t['mday'],$t['year']);
-				$search['rangeEnd'] = strtotime('+7 days',$search['rangeStart']);
-
-				$list = new EventList();
-				$list->find($search,'start');
-
-				$upcomingEvents = array();
-				foreach($list as $event)
-				{
-					$recurrences = $event->getRecurrences($search['rangeStart'],$search['rangeEnd']);
-					if (count($recurrences)) { $upcomingEvents = array_merge($upcomingEvents,$recurrences); }
-				}
-				$this->upcomingEvents = $upcomingEvents;
-
-				$this->renderIncludeFile($this);
+				$sections = array();
+				foreach($template->document->getSections() as $section) { $sections[] = $section->getId(); }
+				if (count($sections)) { $search['section_id'] = $sections; }
+			}
+			else
+			{
+				# There shouldn't be any sections with an ID of 0
+				$search['section_id'] = 0;
 			}
 		}
+		else { $search = null; }
+
+
+		$t = getdate();
+		$rangeStart = mktime(0,0,0,$t['mon'],$t['mday'],$t['year']);
+		$rangeEnd = strtotime('+7 days',$rangeStart);
+
+		$calendar = ($this->calendar_id > 0) ? new Calendar($this->calendar_id) : new Calendar();
+		$this->recurrenceArray = $calendar->getEventRecurrenceArray($rangeStart,$rangeEnd,$search);
+
+		$this->renderIncludeFile($this);
 	}
 
 	/**
-	 * This widget does not use an extra data
+	 * The application can call this to find out whether this widget uses stored data
+	 * @return boolean
 	 */
-	public function usesData() { return false; }
+	public function usesData() { return true; }
 	/**
-	 * @ignore
+	 * Unserializes the string field from the database into a variable
+	 * @param string $string
 	 */
-	public function setData($string) { }
+	public function setData($string)
+	{
+		$data = unserialize($string);
+		$this->calendar_id = isset($data['calendar_id']) ? $data['calendar_id'] : null;
+		$this->numDays = isset($data['numDays']) ? $data['numDays'] : 5;
+
+		# The default for this should be true.
+		# If developers do not explicityly turn off the section based feature, then
+		# this widget should only show events for the current section
+		# or show no events for a null section
+		$this->isSectionBased = isset($data['isSectionBased']) ? $data['isSectionBased'] : true;
+	}
 	/**
-	 * @ignore
+	 * Serializes an array into a string that can be insterted into the database
+	 * This will usually be from a form posting.  The form should have used
+	 * this widget's dataFields include so we know what array to expect
+	 * @param array $post
 	 */
-	public function serializePost(array $post) { }
+	public function serializePost(array $post)
+	{
+		$data = array();
+		if (isset($_POST['calendar_id']) && $_POST['calendar_id']) { $data['calendar_id'] = (int) $_POST['calendar_id']; }
+		if (isset($_POST['numDays']) && $_POST['numDays']) { $data['numDays'] = (int) $_POST['numDays']; }
+		if (isset($_POST['isSectionBased'])) { $data['isSectionBased'] = $_POST['isSectionBased']=='true' ? true : false; }
+		return serialize($data);
+	}
 	/**
-	 * @ignore
+	 * This lets the application ask for the path to the file holding the form fields
+	 * this widgets wants used
+	 * @return string Path to include file
 	 */
-	public function getDataFieldsetInclude() { return null; }
+	public function getDataFieldsetInclude() { return dirname(__FILE__).'/dataFields.inc'; }
 }

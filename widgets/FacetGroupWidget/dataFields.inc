@@ -3,9 +3,7 @@
  * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
- * @param string $data
- * Scripts that want to include these fields need to give this script
- * a current copy of the data, so we can render the form appropriately
+ * @param SectionWidget $this->sectionWidget
  */
 ?>
 <fieldset><legend>Choose a Facet Group</legend>
@@ -16,8 +14,10 @@
 	$list->find();
 	foreach($list as $group)
 	{
+		$facetGroup_id = $this->sectionWidget->getWidget()->getWidget()->facetGroup;
+
 		$name = View::escape($group->getName());
-		$selected = (isset($data) && $data==$group->getId()) ? 'selected="selected"' : '';
+		$selected = ($facetGroup_id==$group->getId()) ? 'selected="selected"' : '';
 		echo "<option value=\"{$group->getId()}\" $selected>$name</option>";
 	}
 ?>

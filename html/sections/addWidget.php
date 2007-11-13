@@ -11,7 +11,7 @@
 	if (isset($_GET['section_id']) && isset($_GET['widget_id']))
 	{
 		$section = new Section($_GET['section_id']);
-		$widget = new WidgetInstallation($_GET['widget_id']);
+		$widgetInstallation = new WidgetInstallation($_GET['widget_id']);
 	}
 
 	if (isset($_POST['sectionWidget']))
@@ -34,11 +34,11 @@
 		{
 			$_SESSION['errorMessages'][] = $e;
 			$section = $sectionWidget->getSection();
-			$widget = $sectionWidget->getWidget();
+			$widgetInstallation = $sectionWidget->getWidget();
 		}
 	}
 
 	$template = new Template();
-	$template->blocks[] = new Block('sections/addWidgetForm.inc',array('section'=>$section,'widget'=>$widget));
+	$template->blocks[] = new Block('sections/addWidgetForm.inc',array('section'=>$section,'widgetInstallation'=>$widgetInstallation));
 	$template->render();
 ?>
