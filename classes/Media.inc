@@ -73,6 +73,8 @@
 			{
 				# This is where the code goes to generate a new, empty instance.
 				# Set any default values for properties that need it here
+				$this->setUser($_SESSION['USER']);
+				$this->department_id = $_SESSION['USER']->getDepartment_id();
 			}
 		}
 
