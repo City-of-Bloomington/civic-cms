@@ -184,8 +184,8 @@
 		elseif($this->event->getRrule_until()) { $rrule_end_type = 'until'; }
 		else { $rrule_end_type = 'none'; }
 
-		$count = $this->event->getRrule_count() ? $this->event->getRrule_count : 10;
-		$until = $this->event->getRrule_until() ? $this->event->getRrule_until : strtotime('+2 weeks');
+		$count = $this->event->getRrule_count() ? $this->event->getRrule_count() : 10;
+		$until = $this->event->getRrule_until() ? $this->event->getRrule_until() : strtotime('+2 weeks');
 	?>
 	<div><label><input type="radio" name="rrule_end_type" value="none" <?php if($rrule_end_type=='none') echo 'checked="checked"'; ?> />No end date</label></div>
 	<div><label><input type="radio" name="rrule_end_type" value="count" <?php if($rrule_end_type=='count') echo 'checked="checked"'; ?> />End after</label>
