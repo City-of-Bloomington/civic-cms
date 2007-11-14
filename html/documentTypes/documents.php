@@ -27,7 +27,11 @@
 	}
 
 
-	$template->blocks[] = new Block('documentTypes/breadcrumbs.inc',array('documentType'=>$type));
+	if ($template->outputFormat=='html')
+	{
+		$template->blocks[] = new Block('documentTypes/breadcrumbs.inc',array('documentType'=>$type));
+	}
+
 	$template->blocks[] = $block;
 	$template->render();
 ?>
