@@ -58,7 +58,8 @@
 				";
 					foreach($documents as $document)
 					{
-						$title = View::escape($document->getTitle());
+						$title = $document->getFeature_title() ? $document->getFeature_title() : $document->getTitle();
+						$title = View::escape($title);
 						echo "<li><a href=\"{$document->getURL()}\">$title</a></li>\n";
 					}
 				echo "
@@ -77,7 +78,8 @@
 			echo '<ul>';
 			foreach($documents as $document)
 			{
-				$title = View::escape($document->getTitle());
+				$title = $document->getFeature_title() ? $document->getFeature_title() : $document->getTitle();
+				$title = View::escape($title);
 				echo "<li><a href=\"{$document->getURL()}\">$title</a></li>\n";
 			}
 			echo '</ul>';
