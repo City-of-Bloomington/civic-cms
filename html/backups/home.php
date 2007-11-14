@@ -7,6 +7,6 @@
 	verifyUser('Administrator');
 
 	$template = new Template();
-	$template->blocks[] = new Block('backups/listBackups.inc',array('PDO'=>$PDO));
+	$template->blocks[] = new Block('backups/listBackups.inc');
 	$template->render();
 ?>
