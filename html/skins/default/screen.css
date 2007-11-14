@@ -212,6 +212,7 @@ a.rss img { margin:0; }
 
 /* Custom Icons for mime types */
 .jpg { height:16px; padding-left:18px; background: url('default/images/icons/jpg.png') no-repeat; }
+.png { height:16px; padding-left:18px; background: url('default/images/icons/jpg.png') no-repeat; }
 .gif { height:16px; padding-left:18px; background: url('default/images/icons/gif.png') no-repeat; }
 .tiff { height:16px; padding-left:18px; background: url('default/images/icons/tiff.png') no-repeat; }
 .pdf { height:16px; padding-left:18px; background: url('default/images/icons/pdf.png') no-repeat; }
