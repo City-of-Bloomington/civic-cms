@@ -6,8 +6,8 @@
  * @param Section $this->section
  */
 ?>
-<h2><?php echo View::escape($this->section->getName()); ?></h2>
-<h3><?php echo View::escape($this->section->getNickname()); ?></h3>
+<h1><?php echo View::escape($this->section->getName()); ?></h1>
+<h2><?php echo View::escape($this->section->getNickname()); ?></h2>
 
 <h3>Departments</h3>
 <ul>

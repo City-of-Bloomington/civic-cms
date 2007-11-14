@@ -5,7 +5,7 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 ?>
-<h2>KML for Google Earth and Google Maps</h2>
+<h1>KML for Google Earth and Google Maps</h1>
 <p>These links provide live location data from our website in KML format.</p>
 <table>
 <?php

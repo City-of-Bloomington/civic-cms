@@ -6,7 +6,7 @@
  * @param Facet $this->facet
  */
 ?>
-<h2><?php echo View::escape($this->facet->getName()); ?></h2>
+<h1><?php echo View::escape($this->facet->getName()); ?></h1>
 <div><?php echo WikiMarkup::parse($this->facet->getDescription()); ?></div>
 <script type="text/javascript">
 	function toggleSiblings(button)

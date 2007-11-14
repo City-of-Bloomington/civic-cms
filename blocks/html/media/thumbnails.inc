@@ -23,8 +23,8 @@ else
 {
 	$department = View::escape($this->department->getName());
 	echo "
-	<h2>Choose an existing image</h2>
-	<h3>$department</h3>
+	<h1>Choose an existing image</h1>
+	<h2>$department</h2>
 	";
 
 	foreach($this->imageList as $image)

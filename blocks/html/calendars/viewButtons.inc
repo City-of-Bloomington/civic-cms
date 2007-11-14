@@ -1,4 +1,4 @@
-<h2><a href="<?php echo BASE_URL; ?>/calendars">City of Bloomington Calendars</a></h2>
+<h1><a href="<?php echo BASE_URL; ?>/calendars">City of Bloomington Calendars</a></h1>
 <?php
 /**
  * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
@@ -10,12 +10,12 @@
  */
 	if ($this->calendar->getName())
 	{
-		echo '<h2>';
+		echo '<h1>';
 		if (isset($_SESSION['USER']) && $this->calendar->permitsEditingBy($_SESSION['USER']))
 		{
 			echo "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/calendars/updateCalendar.php?calendar_id={$this->calendar->getId()}';\">Edit</button>";
 		}
-		echo View::escape($this->calendar->getName()).'</h2>';
+		echo View::escape($this->calendar->getName()).'</h1>';
 		echo "<p>".View::escape($this->calendar->getDescription())."</p>";
 	}
 ?>

@@ -5,7 +5,7 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 ?>
-<h2>Calendar Feeds</h2>
+<h1>Calendar Feeds</h1>
 <p>You can subscribe to any of our calendars using your own calendar program.
 The calendars are available at these URLs.</p>
 <table>

@@ -5,7 +5,7 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 ?>
-<h2>RSS Feeds</h2>
+<h1>RSS Feeds</h1>
 <table>
 <?php
 	$list = new DocumentTypeList();

@@ -7,7 +7,7 @@
  * @param SectionWidgetList $this->sectionWidgetList
  */
 ?>
-<h2><?php echo $this->section->getName(); ?></h2>
+<h1><?php echo $this->section->getName(); ?></h1>
 <div class="interfaceBox">
 	<div class="titleBar">Widgets</div>
 	<table>

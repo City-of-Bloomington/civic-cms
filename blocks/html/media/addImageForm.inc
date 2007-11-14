@@ -5,7 +5,7 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 ?>
-<h2>Upload a new Image</h2>
+<h1>Upload a new Image</h1>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
 <fieldset><legend>Image Info</legend>
 	<table>

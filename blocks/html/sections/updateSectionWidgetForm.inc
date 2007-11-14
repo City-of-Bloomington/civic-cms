@@ -6,8 +6,8 @@
  * @param SectionWidget $this->sectionWidget
  */
 ?>
-<h2><?php echo View::escape($this->sectionWidget->getSection()->getName()); ?></h2>
-<h2>Edit <?php echo View::escape($this->sectionWidget->getWidget()->getName()); ?> Widget</h2>
+<h1><?php echo View::escape($this->sectionWidget->getSection()->getName()); ?></h1>
+<h1>Edit <?php echo View::escape($this->sectionWidget->getWidget()->getName()); ?> Widget</h1>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 <fieldset><legend>Widget</legend>
 	<input name="sectionWidget_id" type="hidden" value="<?php echo $this->sectionWidget->getId(); ?>" />

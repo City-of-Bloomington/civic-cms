@@ -9,7 +9,7 @@
  */
 ?>
 <div class="interfaceBox">
-	<h2>Add a Related Link</h2>
+	<h1>Add a Related Link</h1>
 	<p>Links created here will show up in a widget on the side of the page.</p>
 
 	<form id="documentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">

@@ -6,7 +6,7 @@
  * @param object $this->results
  */
 ?>
-<h2>Search Results</h2>
+<h1>Search Results</h1>
 <?php
 	if (count($this->results))
 	{

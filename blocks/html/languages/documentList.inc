@@ -7,7 +7,7 @@
  */
 	$language = new Language($_SESSION['LANGUAGE']);
 ?>
-<h2><?php echo $language->getNative(); ?></h2>
+<h1><?php echo $language->getNative(); ?></h1>
 <ul>
 <?php
 	foreach($this->documentList as $document)

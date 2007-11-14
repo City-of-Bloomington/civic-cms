@@ -16,7 +16,7 @@
 	else { $editButton = ""; }
 
 	$title = View::escape($this->document->getTitle());
-	echo "<h2>$editButton $title</h2>";
+	echo "<h1>$editButton $title</h1>";
 
 
 	# We want to render PHP code harmless in the markup, unless

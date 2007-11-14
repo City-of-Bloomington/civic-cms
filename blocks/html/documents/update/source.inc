@@ -9,7 +9,7 @@
  * @param int $this->instance_id
  */
 ?>
-<h2>Document Source Code</h2>
+<h1>Document Source Code</h1>
 <p>This page lets you upload a text file to be used as the content of this document.  Content is used <em>as is</em>!.
 There will be no stripping or escaping of characters, tags, code, or anything else.  Use with discretion.</p>
 

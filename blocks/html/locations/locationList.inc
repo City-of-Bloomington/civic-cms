@@ -8,7 +8,7 @@
  * @param LocationGroup $this->locationGroup
  */
 ?>
-<h2>Locations</h2>
+<h1>Locations</h1>
 <form method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 <fieldset>
 	<select name="locationGroup_id" onchange="this.form.submit();">

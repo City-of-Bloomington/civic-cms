@@ -7,8 +7,8 @@
  * @param WidgetInstallation $this->widgetInstallation
  */
 ?>
-<h2><?php echo View::escape($this->section->getName()); ?></h2>
-<h2>Add <?php echo View::escape($this->widgetInstallation->getName()); ?> Widget</h2>
+<h1><?php echo View::escape($this->section->getName()); ?></h1>
+<h1>Add <?php echo View::escape($this->widgetInstallation->getName()); ?> Widget</h1>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 <fieldset><legend>Widget</legend>
 	<input name="sectionWidget[section_id]" type="hidden" value="<?php echo $this->section->getId(); ?>" />

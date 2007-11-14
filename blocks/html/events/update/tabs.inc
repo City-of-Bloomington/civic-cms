@@ -1,4 +1,4 @@
-<h2>Event</h2>
+<h1>Event</h1>
 <div class="tabBar">
 <ul>
 <?php

@@ -5,5 +5,5 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 ?>
-<h2>404 not found</h2>
+<h1>404 not found</h1>
 <p>We could not find the media you were looking for.  It  does not exist in this website.</p>

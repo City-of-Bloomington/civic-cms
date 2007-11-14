@@ -6,7 +6,7 @@
  * @param Facet $this->facet
  */
 ?>
-<h2>Update Facet</h2>
+<h1>Update Facet</h1>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 <fieldset><legend>Facet Info</legend>
 	<input name="facet_id" type="hidden" value="<?php echo $this->facet->getId(); ?>" />

@@ -24,7 +24,7 @@
 </ul>
 </div>
 <?php
-	echo "<h2>{$this->letter}</h2>";
+	echo "<h1>{$this->letter}</h1>";
 
 	$service = new DocumentType('Service');
 	$list = new DocumentList(array('documentType_id'=>$service->getId(),'first_letter'=>$this->letter));

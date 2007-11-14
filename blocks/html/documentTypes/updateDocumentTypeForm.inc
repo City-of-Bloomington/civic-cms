@@ -6,7 +6,7 @@
  * @param object $this->documentType
  */
 ?>
-<h2>Edit <?php echo $this->documentType; ?></h2>
+<h1>Edit <?php echo $this->documentType; ?></h1>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 <fieldset><legend>Document Type</legend>
 	<input name="documentType_id" type="hidden" value="<?php echo $this->documentType->getId(); ?>" />

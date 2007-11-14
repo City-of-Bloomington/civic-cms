@@ -5,11 +5,11 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 ?>
-<h2><?php
+<h1><?php
 		if (userHasRole(array('Administrator','Webmaster')))
 		{
 			echo "<button type=\"button\" class=\"addSmall\" onclick=\"document.location.href='".BASE_URL."/facets/addFacet.php';\">Add</button>";
 		}
 	?>
 	Facets
-</h2>
+</h1>
