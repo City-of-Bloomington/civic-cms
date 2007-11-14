@@ -199,7 +199,7 @@
 				$PDO = Database::getConnection();
 
 				$query = $PDO->prepare('delete from event_sections where event_id=?');
-				$query->execute($this->id);
+				$query->execute(array($this->id));
 
 				$query = $PDO->prepare('insert event_sections set event_id=?,section_id=?');
 				foreach($this->sections as $id=>$section)
