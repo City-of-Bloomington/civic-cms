@@ -10,7 +10,7 @@
 	<h1>Languages</h1>
 	<ul>
 	<?php
-		$page = new URL("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
+		$page = new URL("http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]");
 		foreach($this->languages as $language)
 		{
 			$page->parameters['lang'] = $language->getCode();

@@ -9,7 +9,7 @@
 	{
 		$url = new URL(BASE_URL.'/documents/updateDocument.php');
 		$url->parameters['document_id'] = $this->document->getId();
-		$url->parameters['return_url'] = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+		$url->parameters['return_url'] = "http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]";
 		$editButton = "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='$url';\">Edit</button>";
 		#$editButton = "<a href=\"".BASE_URL."/documents/updateDocument.php?document_id={$this->document->getId()}\" class=\"editSmall\">Edit</a>";
 	}

@@ -21,7 +21,7 @@
 			echo $this->title;
 			include APPLICATION_HOME.'/blocks/html/documents/addDocumentToolbar.inc';
 
-			$url = new URL("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
+			$url = new URL("http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]");
 		?>
 	</div>
 	<table>
@@ -99,7 +99,7 @@
 				$url =  new URL(BASE_URL.'/documents/updateDocument.php');
 				$url->parameters['document_id'] = $document->getId();
 				$url->parameters['lang'] = $_SESSION['LANGUAGE'];
-				$url->parameters['return_url'] = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+				$url->parameters['return_url'] = "http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]";
 			}
 			else { $url = new URL($document->getURL()); }
 

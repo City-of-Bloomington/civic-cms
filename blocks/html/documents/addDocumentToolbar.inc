@@ -6,7 +6,7 @@
 ?>
 <form method="get" action="<?php echo BASE_URL; ?>/documents/addDocument.php">
 <fieldset>
-	<input name="return_url" type="hidden" value="<?php echo "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>" />
+	<input name="return_url" type="hidden" value="<?php echo "http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]"; ?>" />
 	<select name="documentType_id" onchange="this.form.submit();">
 		<option value="">Add</option>
 		<?php

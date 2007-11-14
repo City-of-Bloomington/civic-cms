@@ -20,7 +20,7 @@
 	<?php
 		$back = getdate(strtotime('-1 month',$start));
 		$next = getdate($end);
-		$url = new URL("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
+		$url = new URL("http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]");
 
 		$url->parameters['year'] = $back['year'];
 		$url->parameters['mon'] = $back['mon'];

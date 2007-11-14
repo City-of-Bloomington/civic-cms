@@ -7,7 +7,7 @@
  * @param FacetGroup $this->facetGroup
  */
 	$type = View::escape($this->documentType->getType());
-	$href = new URL("http://$_SERVER[HTTP_HOST]$_SERVER[PHP_SELF]");
+	$href = new URL("http://$_SERVER[SERVER_NAME]$_SERVER[PHP_SELF]");
 	$href->parameters['documentType_id'] = $this->documentType->getId();
 	$href->parameters['facetGroup_id'] = 'none';
 	echo "

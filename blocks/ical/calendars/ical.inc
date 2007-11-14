@@ -34,7 +34,7 @@
 # icalendar format requires everything be flush left.
 		echo "
 BEGIN:VEVENT
-UID:$start-{$event->getId()}@$_SERVER[HTTP_HOST]
+UID:$start-{$event->getId()}@$_SERVER[SERVER_NAME]
 $SUMMARY
 LOCATION:{$event->getLocation()->getName()}
 $DTSTART
