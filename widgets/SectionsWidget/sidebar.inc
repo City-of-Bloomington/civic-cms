@@ -24,12 +24,11 @@
 		";
 		foreach($section->getChildren() as $child)
 		{
-			$title = View::escape($chid->getTitle());
-			echo "<li><a href=\"{$document->getURL()}\">$title</a></li>\n";
+			$title = View::escape($child->getName());
+			echo "<li><a href=\"{$child->getURL()}\">$title</a></li>\n";
 		}
 		echo "
 		</ul>
 		</div>
 		";
 	}
-?>
