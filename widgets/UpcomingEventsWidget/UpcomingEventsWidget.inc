@@ -56,7 +56,7 @@ class UpcomingEventsWidget extends Widget
 	 */
 	public function usesData() { return true; }
 	/**
-	 * Unserializes the string field from the database into a variable
+	 * Unserializes the string field from the database into class variables
 	 * @param string $string
 	 */
 	public function setData($string)
