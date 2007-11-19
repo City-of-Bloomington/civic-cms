@@ -81,6 +81,8 @@ class WikiMarkup
 		if (preg_match('/:/',$link))
 		{
 			list($type,$link) = explode(':',$link);
+			$type = trim($type);
+			$link = trim($link);
 			switch ($type)
 			{
 				case 'file':
