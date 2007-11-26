@@ -24,14 +24,11 @@
 				$PDO = Database::getConnection();
 				if (is_numeric($id)) { $sql = 'select * from facetGroups where id=?'; }
 				else { $sql = 'select * from facetGroups where name=?'; }
-				try
-				{
-					$query = $PDO->prepare($sql);
-					$query->execute(array($id));
-				}
-				catch (Exception $e) { throw $e; }
+				$query = $PDO->prepare($sql);
+				$query->execute(array($id));
 
 				$result = $query->fetchAll();
+				if (!count($result)) { throw new Exception('facets/unknownFacetGroup'); }
 				foreach($result[0] as $field=>$value) { if ($value) $this->$field = $value; }
 			}
 			else

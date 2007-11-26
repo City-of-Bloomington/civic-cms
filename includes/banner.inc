@@ -20,15 +20,12 @@
 <div id="banner">
 	<div id="application_name"></div>
 	<div id="location_name"><a href="<?php echo BASE_URL; ?>/">City of Bloomington, Indiana</a></div>
-	<div id="navigation">
-		Take Action
+	<div class="widgets">
 		<?php
-			$actions = new FacetGroup('Act Up');
-			foreach($actions->getFacets() as $facet)
-			{
-				$name = View::escape($facet->getName());
-				echo "<a href=\"{$facet->getURL()}\">$name</a> ";
-			}
+			$panel = new Panel('banner');
+			$widgets = isset($this->document) ? $panel->getWidgets($this->document) : $panel->getWidgets();
+
+			foreach($widgets as $widget) { $widget->render($this); }
 		?>
 	</div>
 </div>

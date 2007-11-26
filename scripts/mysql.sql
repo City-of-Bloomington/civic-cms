@@ -206,6 +206,7 @@ create table panels (
 insert panels set div_id='leftSidebar';
 insert panels set div_id='rightSidebar';
 insert panels set div_id='mainContent';
+insert panels set div_id='banner';
 
 create table widgets (
 	id int unsigned not null primary key auto_increment,

@@ -1,3 +1,4 @@
+@import 'reset.css';
 /* Set the default styles for common HTML elements */
 body { color:black; background-color:white; margin:0px; font-family:sans-serif; font-size:10pt; }
 
@@ -53,7 +54,6 @@ li.current>a { background-color:#cccccc; width:100%; }
 #banner { height:62px; border-bottom:2px solid black; background:#3366cc url('default/images/citylogo-white.gif') no-repeat; padding-left:80px; }
 #application_name { color:white; background-color:#3366cc; text-align:left; padding-top:5px; }
 #location_name { color:white; background-color:#3366cc; text-align:left; font-size:12pt; }
-#navigation { float:right; }
 #banner a { color:white; background-color:#3366cc; text-decoration:none; }
 
 /* Used to create a menu bar across any div */
@@ -95,6 +95,12 @@ li.current>a { background-color:#cccccc; width:100%; }
 .widget h1 { background-color:#3366cc; height:20px; color:white; font-family: serif; font-size:12pt; margin:0; border-top:0; border-right:0; border-left:0; border-bottom:2px solid black; text-align:center; }
 	.widget h1 form { margin:0; padding:0; display:inline; height:1em; }
 	.widget h1 form fieldset { margin:0; padding:0; border:0; display:inline; }
+
+#banner .widget { margin:0; border:0; }
+#banner .widget h1 { display:inline; }
+#banner .widget ul,#banner .widget li { display:inline; }
+#banner .widgets { float:right; }
+
 
 
 /* Breadcrumb class for navigational items */
