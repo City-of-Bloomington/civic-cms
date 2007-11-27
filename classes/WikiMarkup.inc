@@ -61,8 +61,8 @@ class WikiMarkup
 		}
 
 		# Check if this is supposed to be a full URL
-		$pattern = '/(www\.|https?:\/\/)([\w\.]+)([\#\,\/\~\?\&\=\;\%\-\w+\.]+)/';
-		if (preg_match($pattern,$link))
+		$fullURLPattern = '/^(www\.|https?:\/\/)([\w\.]+)([\#\,\/\~\?\&\=\;\%\-\w+\.]+)/';
+		if (preg_match($fullURLPattern,$link))
 		{
 			# If they didn't put in an http://, we need to add it to the url
 			if (!preg_match('/:\/\//',$link)) { $link = 'http://'.$link; }
@@ -80,7 +80,7 @@ class WikiMarkup
 		# Check for all the colon specified link types
 		if (preg_match('/:/',$link))
 		{
-			list($type,$link) = explode(':',$link);
+			list($type,$link) = explode(':',$link,2);
 			$type = trim($type);
 			$link = trim($link);
 			switch ($type)
@@ -158,6 +158,36 @@ class WikiMarkup
 					return "<a href=\"$url\">$linkText</a>";
 				break;
 
+				case 'image':
+					# Parse any user-specified alignment
+					if (strpos($link,',')!==false)
+					{
+						list($link,$align) = explode(',',$link);
+						$align = strtolower($align);
+					}
+					# If the link is a URL, use that as the src
+					if (preg_match($fullURLPattern,$link))
+					{
+						$url = $link;
+						$alt = '';
+					}
+					# Otherwise look for an image with $link as a filename
+					else
+					{
+						$list = new ImageList(array('filename'=>$link));
+						if (count($list))
+						{
+							$image = $list[0];
+							$url = $image->getURL();
+							$alt = View::escape($image->getTitle());
+						}
+						# We couldn't find an image with that filename, just display the raw text
+						else { return $matches[0]; }
+					}
+					$caption = isset($linkText) ? '<span class="caption">'.View::escape($linkText).'</span>' : '';
+					$style = isset($align) ? "style=\"float:$align\"" : '';
+					return "<span class=\"image\" $style><img src=\"$url\" alt=\"$alt\" />$caption</span>";
+				break;
 			}
 		}
 
