@@ -6,7 +6,7 @@
  * @param string $this->search
  */
 ?>
-<form method="get" action="<?php echo BASE_URL; ?>/documents/search.php">
+<form method="get" action="<?php echo BASE_URL; ?>/search">
 <fieldset><legend>Search</legend>
 	<input name="search" id="search" value="<?php echo $this->search; ?>" />
 	<button type="submit" class="search">Search</button>

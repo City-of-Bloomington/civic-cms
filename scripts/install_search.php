@@ -24,13 +24,15 @@
 
 	# Load all the documents into the new index
 	$search = new Search();
+
+
 	$documents = new DocumentList();
 	$documents->find();
 	$c = 0;
 	foreach($documents as $document)
 	{
 		$c++;
-		$search->addDocument($document);
+		$search->add($document);
 		$used_memory = memory_get_usage();
 		echo "Added document: {$document->getId()} - $used_memory/$memory_limit\n";
 		if ($c>=200)
@@ -40,8 +42,24 @@
 			$c = 0;
 		}
 	}
-
 	$search->optimize();
 
-	echo "Search now has {$search->count()} documents\n";
-?>
+	# Load all the events into the new index
+	$events = new EventList();
+	$events->find();
+	$c = 0;
+	foreach($events as $event)
+	{
+		$c++;
+		$search->add($event);
+		$used_memory = memory_get_usage();
+		echo "Added event: {$event->getId()} - $used_memory/$memory_limit\n";
+		if ($c>=200)
+		{
+			echo "Optimizing\n";
+			$search->optimize();
+			$c = 0;
+		}
+	}
+
+	echo "Search now has {$search->count()} entries\n";

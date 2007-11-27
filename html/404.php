@@ -22,8 +22,8 @@
 				$search = new Search();
 				$results = $search->find($string);
 
-				$template->blocks[] = new Block('documents/searchForm.inc',array('search'=>$string));
-				$template->blocks[] = new Block('documents/searchResults.inc',array('results'=>$results));
+				$template->blocks[] = new Block('search/searchForm.inc',array('search'=>$string));
+				$template->blocks[] = new Block('search/results.inc',array('results'=>$results));
 			}
 			catch (Exception $e) { exception_handler($e); }
 			$template->render();
@@ -46,7 +46,6 @@
 
 		default:
 			$template = new Template();
-			$template->blocks[] = new Block('documents/searchResults.inc',array('results'=>$list));
+			$template->blocks[] = new Block('search/results.inc',array('results'=>$list));
 			$template->render();
 	}
-?>

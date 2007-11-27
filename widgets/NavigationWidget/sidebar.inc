@@ -68,7 +68,7 @@
 ?>
 <div class="widget">
 	<h1>
-		<form method="get" action="<?php echo BASE_URL; ?>/documents/search.php">
+		<form method="get" action="<?php echo BASE_URL; ?>/search">
 		<fieldset>
 			<input name="search" id="search" size="7" />
 			<button type="submit" class="search">Search</button>

@@ -20,26 +20,64 @@
 			$this->search->setMaxMergeDocs(ZEND_SEARCH_MAX_MERGE_DOCS);
 			$this->search->setMergeFactor(ZEND_SEARCH_MERGE_FACTOR);
 
+			# Set up all the stop words.  Words that we don't want to bother indexing.
+			$stopWordsFilter = new Zend_Search_Lucene_Analysis_TokenFilter_StopWords();
+			$stopWordsFilter->loadFromFile(APPLICATION_HOME.'/includes/search/stopwords.txt');
+
 			# This analyzer is case-sensitive, but it's the only one that can handle UTF8 characters
 			# We'll need to remember to lowercase search queries before doing the search
-			Zend_Search_Lucene_Analysis_Analyzer::setDefault(new Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8());
+			$analyzer = new Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8();
+			$analyzer->addFilter($stopWordsFilter);
+
+			Zend_Search_Lucene_Analysis_Analyzer::setDefault($analyzer);
 		}
 
-		public function addDocument($document)
+		/**
+		 * Takes Objects from the content manager and adds them to the search index
+		 * we can add support for different things from the content manager as time goes on
+		 * @param Object $entry
+		 */
+		public function add($entry)
 		{
 			$doc = new Zend_Search_Lucene_Document();
-			$doc->addField(Zend_Search_Lucene_Field::Keyword('document_id',$document->getId()));
-			$doc->addField(Zend_Search_Lucene_Field::UnStored('title',$document->getTitle(),'utf-8'));
-			$doc->addField(Zend_Search_Lucene_Field::UnStored('content',strtolower(strip_tags(implode("\n",$document->getContent()))),'utf-8'));
+
+			if ($entry instanceof Document)
+			{
+				$doc->addField(Zend_Search_Lucene_Field::Keyword('type','Document'));
+				$doc->addField(Zend_Search_Lucene_Field::Keyword('document_id',$entry->getId()));
+				$doc->addField(Zend_Search_Lucene_Field::UnStored('title',$entry->getTitle(),'utf-8'));
+				$doc->addField(Zend_Search_Lucene_Field::UnStored('content',strtolower(strip_tags(implode("\n",$entry->getContent()))),'utf-8'));
+			}
+			elseif ($entry instanceof Event)
+			{
+				$doc->addField(Zend_Search_Lucene_Field::Keyword('type','Event'));
+				$doc->addField(Zend_Search_Lucene_Field::Keyword('event_id',$entry->getId()));
+				$doc->addField(Zend_Search_Lucene_Field::UnStored('title',$entry->getTitle(),'utf-8'));
+				$doc->addField(Zend_Search_Lucene_Field::UnStored('content',strtolower(strip_tags($entry->getDescription())),'utf-8'));
+			}
+			else { throw new Exception('search/unknownType'); }
 
 			$this->search->addDocument($doc);
 		}
 
-		public function removeDocument($document)
+		/**
+		 * Removed an entry from the search index
+		 * @param Obejct $entry
+		 */
+		public function remove($entry)
 		{
-			$term  = new Zend_Search_Lucene_Index_Term($document->getId(),'document_id');
-			$queryTerm = new Zend_Search_Lucene_Search_Query_Term($term);
+			if ($entry instanceof Document)
+			{
+				$term  = new Zend_Search_Lucene_Index_Term($entry->getId(),'document_id');
+			}
+			elseif ($entry instanceof Event)
+			{
+				$term  = new Zend_Search_Lucene_Index_Term($entry->getId(),'event_id');
+			}
+			else { throw new Exception('search/unknownType'); }
 
+
+			$queryTerm = new Zend_Search_Lucene_Search_Query_Term($term);
 			$query = new Zend_Search_Lucene_Search_Query_Boolean();
 			$query->addSubquery($queryTerm, true /* required */);
 
@@ -50,13 +88,13 @@
 			}
 		}
 
-		public function updateDocument($document)
+		public function update($entry)
 		{
-			$this->removeDocument($document);
-			$this->addDocument($document);
+			$this->removeDocument($entry);
+			$this->addDocument($entry);
 		}
 
-		public function find($string)
+		public function find($string,$type=null)
 		{
 			$string = strtolower($string);
 			try
@@ -64,6 +102,13 @@
 				$userQuery = Zend_Search_Lucene_Search_QueryParser::parse($string);
 				$query = new Zend_Search_Lucene_Search_Query_Boolean();
 				$query->addSubquery($userQuery, true /* required */);
+
+				if ($type)
+				{
+					$typeTerm  = new Zend_Search_Lucene_Index_Term($type,'type');
+					$typeQuery = new Zend_Search_Lucene_Search_Query_Term($typeTerm);
+	                $query->addSubquery($typeQuery,true /* required */);
+				}
 			}
 			catch (Exception $e)
 			{
@@ -80,10 +125,23 @@
 			$results = array();
 			foreach($hits as $hit)
 			{
-				try { $results[] = new Document($hit->document_id); }
-				catch(Exception $e)
+				switch ($hit->type)
 				{
-					# If there's a failure with the Document, just don't add anything to the results
+					case 'Document':
+						try { $results['documents'][] = new Document($hit->document_id); }
+						catch(Exception $e)
+						{
+							# If there's a failure with the Document, just don't add anything to the results
+						}
+					break;
+
+					case 'Event':
+						try { $results['events'][] = new Event($hit->event_id); }
+						catch(Exception $e)
+						{
+							# If there's a failure with the Event, just don't add anything to the results
+						}
+					break;
 				}
 			}
 			return $results;
@@ -94,4 +152,3 @@
 		public function count() { return $this->search->count(); }
 		public function numDocs() { return $this->search->numDocs(); }
 	}
-?>
