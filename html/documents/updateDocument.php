@@ -264,7 +264,7 @@
 		case 'attachments':
 		break;
 
-		case 'source':
+		case 'admin':
 			# Make sure they're allowed to edit the raw source code
 			if ( !(userHasRole('Webmaster') || userHasRole('Administrator')) )
 			{

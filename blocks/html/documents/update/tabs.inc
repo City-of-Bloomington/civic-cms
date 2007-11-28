@@ -24,12 +24,12 @@
 	}
 	if (!isset($this->next_tab)) { $this->next_tab = $tabs[0]; }
 
-	# Access to the Source tab is controlled seperately
+	# Access to the Admin tab is controlled seperately
 	if(userHasRole('Webmaster') || userHasRole('Administrator'))
 	{
-		$class = $this->current_tab=='source' ? 'class="current"' : '';
-		$onclick = "FRAMEWORK.processTabbedForm('documentForm','source','next');return false;";
-		echo "<li><a onclick=\"$onclick\" $class>Source</a></li>";
+		$class = $this->current_tab=='admin' ? 'class="current"' : '';
+		$onclick = "FRAMEWORK.processTabbedForm('documentForm','admin','next');return false;";
+		echo "<li><a onclick=\"$onclick\" $class>Admin</a></li>";
 	}
 ?>
 </ul>
