@@ -9,11 +9,17 @@
  * @param int $this->instance_id
  */
 ?>
-<h1>Document Source Code</h1>
-<p>This page lets you upload a text file to be used as the content of this document.  Content is used <em>as is</em>!.
-There will be no stripping or escaping of characters, tags, code, or anything else.  Use with discretion.</p>
+<h1>Document Admin</h1>
 
 <form id="documentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
+	<fieldset><legend>Alias</legend>
+	<p>This is an alternative title used to find this document when the user types this into the URL</p>
+	<table>
+	<tr><td><label for="document-alias">Alias</label></td>
+	<td><input name="document[alias]" id="document-alias" value="<?php echo View::escape($this->document->getAlias()); ?>" /></td></tr>
+	</table>
+	</fieldset>
+
 	<fieldset><legend>Language</legend>
 		<input type="hidden" name="tab" id="tab" value="info" />
 		<input type="hidden" name="action" id="action" value="next" />
@@ -79,6 +85,8 @@ There will be no stripping or escaping of characters, tags, code, or anything el
 	</fieldset>
 
 	<fieldset><legend>Source Code</legend>
+	<p>Content provided here is used <em>as is</em>!.
+		There will be no stripping or escaping of characters, tags, code, or anything else.  Use with discretion.</p>
 		<?php if (!$this->document->isLocked()) { ?>
 			<textarea name="source_<?php echo $this->language->getCode(); ?>" rows="30" cols="100"><?php echo View::escape($this->document->getContent($this->language->getCode())); ?></textarea>
 			<div>

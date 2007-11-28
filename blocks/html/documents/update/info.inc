@@ -56,8 +56,6 @@
 		?>
 		<tr><td><label for="document-title" class="required">Title</label></td>
 			<td><input name="document[title]" id="document-title" value="<?php echo View::escape($this->document->getTitle()); ?>" /></td></tr>
-		<tr><td><label for="document-alias">Alias</label></td>
-			<td><input name="document[alias]" id="document-alias" value="<?php echo View::escape($this->document->getAlias()); ?>" /></td></tr>
 		<tr><td><label for="document-feature_title">Action Title</label></td>
 			<td><input name="document[feature_title]" id="document-feature_title" value="<?php echo View::escape($this->document->getFeature_title()); ?>" /></td></tr>
 		<tr><td colspan="2">
