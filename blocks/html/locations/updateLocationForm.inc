@@ -10,6 +10,7 @@
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 <fieldset><legend>Location Info</legend>
 	<input name="location_id" type="hidden" value="<?php echo $this->location->getId(); ?>" />
+	<input name="return_url" type="hidden" value="<?php echo $this->return_url; ?>" />
 	<table>
 
 	<tr><td><label for="location-name" class="required">Name</label></td>
@@ -91,6 +92,6 @@
 </fieldset>
 <fieldset><legend>Submit</legend>
 	<button type="submit" class="submit">Submit</button>
-	<button type="button" class="cancel" onclick="document.location.href='<?php echo BASE_URL; ?>/locations';">Cancel</button>
+	<button type="button" class="cancel" onclick="document.location.href='<?php echo $this->return_url; ?>';">Cancel</button>
 </fieldset>
 </form>

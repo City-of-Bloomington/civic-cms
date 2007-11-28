@@ -45,6 +45,7 @@
 	<ul><?php
 			$points = array();
 			$info = array();
+			$return_url = "http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]";
 			foreach($this->locationList as $location)
 			{
 				$name = View::escape($location->getName());
@@ -64,7 +65,10 @@
 
 				if (isset($_SESSION['USER']) && $location->permitsEditingBy($_SESSION['USER']))
 				{
-					$editButton = "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/locations/updateLocation.php?location_id={$location->getId()}';\">Edit</button>";
+					$edit_url = new URL(BASE_URL.'/locations/updateLocation.php');
+					$edit_url->location_id = $location->getId();
+					$edit_url->return_url = $return_url;
+					$editButton = "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='$edit_url';\">Edit</button>";
 				}
 				else { $editButton = ''; }
 
