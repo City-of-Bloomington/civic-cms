@@ -68,6 +68,7 @@
 		{
 			$_GET['page'] = (isset($_GET['page']) && $_GET['page']) ? $_GET['page'] : 0;
 			$pages = $this->mediaList->getPagination(50);
+			if (!$pages->offsetExists($_GET['page'])) { $_GET['page'] = 0; }
 			$mediaList = new LimitIterator($this->mediaList->getIterator(),$pages[$_GET['page']],$pages->getPageSize());
 		}
 		else { $mediaList = $this->mediaList; }

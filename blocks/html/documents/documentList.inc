@@ -11,6 +11,7 @@
 	{
 		if (!isset($_GET['page'])) { $_GET['page'] = 0; }
 		$pages = $this->documentList->getPagination(50);
+		if (!$pages->offsetExists($_GET['page'])) { $_GET['page'] = 0; }
 		$documents = new LimitIterator($this->documentList->getIterator(),$pages[$_GET['page']],$pages->getPageSize());
 	}
 	else { $documents = $this->documentList; }

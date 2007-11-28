@@ -38,6 +38,7 @@
 				$resultArray = new ArrayObject($this->results[$type]);
 				if (!isset($_GET['page'])) { $_GET['page'] = 0; }
 				$pages = new Paginator($resultArray,10);
+				if (!$pages->offsetExists($_GET['page'])) { $_GET['page'] = 0; }
 				$results = new LimitIterator($resultArray->getIterator(),$pages[$_GET['page']],$pages->getPageSize());
 			}
 			else { $results = $this->results[$type]; }
