@@ -7,5 +7,4 @@
 ?>
 <p>That document is no longer open for editing.  Any changes to it have <strong>not</strong>
 been saved.</p>
-
-<p>Currently, this system only supports editing one document at a time.</p>
+<p>We have no idea what document you were editing.</p>

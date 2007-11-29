@@ -19,7 +19,11 @@
 		<input type="hidden" name="return_url" value="<?php echo $this->return_url; ?>" />
 		<input type="hidden" name="instance_id" value="<?php echo $this->instance_id; ?>" />
 		<input type="hidden" name="continue" id="continue" value="true" />
-
+<?php
+	# Make sure the document has been saved before we attempt to do links
+	if ($this->document->getId())
+	{
+?>
 		<table>
 		<tr><td><label for="documentLink-title" class="required">Title</label></td>
 			<td><input name="documentLink[title]" id="documentLink-title" size="30" /></td></tr>
@@ -32,6 +36,13 @@
 		</table>
 
 		<button type="button" class="add" onclick="FRAMEWORK.processTabbedForm('documentForm','links','next');">Add</button>
+<?php
+	}
+	else
+	{
+		echo "<p>You cannot assign related links until the document has been saved.</p>";
+	}
+?>
 	</fieldset>
 
 	</form>

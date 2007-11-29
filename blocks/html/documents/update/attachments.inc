@@ -16,8 +16,11 @@
 		<input type="hidden" name="return_url" value="<?php echo $this->return_url; ?>" />
 		<input type="hidden" name="instance_id" value="<?php echo $this->instance_id; ?>" />
 		<input type="hidden" name="continue" id="continue" value="true" />
-
-
+<?php
+	# Make sure the document has been saved before we attempt to do attachments
+	if ($this->document->getId())
+	{
+?>
 		<p>Browse for an existing file.</p>
 		<button type="button" class="browse" onclick="window.open('<?php echo BASE_URL; ?>/documents/mediaSelector.php');">Browse</button>
 		<input type="hidden" name="attachment[media_id]" id="attachment-media_id" />
@@ -32,27 +35,38 @@
 		<input name="max_file_size" type="hidden" value="<?php echo 1000000 * (int)ini_get('upload_max_filesize'); ?>" />
 		<input name="attachment" type="file" />
 		<button type="button" class="upload" onclick="FRAMEWORK.processTabbedForm('documentForm','attachments','next');">Upload</button>
+<?php
+	}
+	else
+	{
+		echo "<p>You cannot assign attachments until the document has been saved.</p>";
+	}
+?>
 	</fieldset>
 
 </form>
 
 <div class="interfaceBox">
 	<div class="titleBar">Attachments</div>
-	<table>
 	<?php
-		$list = new MediaList(array('document_id'=>$this->document->getId()));
-		foreach($list as $attachment)
+		# Make sure the document has been saved before we attempt to do attachments
+		if ($this->document->getId())
 		{
-			$title = View::escape($attachment->getTitle());
-			echo "
-			<tr><td><a class=\"{$attachment->getExtension()}\">{$attachment->getFilename()}</a></td>
-				<td>$title</td>
-				<td><button type=\"button\" class=\"deleteSmall\" onclick=\"removeAttachment({$attachment->getId()});\">Delete</button></td>
-			</tr>
-			";
+			echo '<table>';
+			$list = new MediaList(array('document_id'=>$this->document->getId()));
+			foreach($list as $attachment)
+			{
+				$title = View::escape($attachment->getTitle());
+				echo "
+				<tr><td><a class=\"{$attachment->getExtension()}\">{$attachment->getFilename()}</a></td>
+					<td>$title</td>
+					<td><button type=\"button\" class=\"deleteSmall\" onclick=\"removeAttachment({$attachment->getId()});\">Delete</button></td>
+				</tr>
+				";
+			}
+			echo '</table>';
 		}
 	?>
-	</table>
 	<script type="text/javascript">
 		var removalRequest = FRAMEWORK.getXMLHttpRequestObject();
 		function removeAttachment(media_id)

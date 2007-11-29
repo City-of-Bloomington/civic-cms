@@ -3,7 +3,8 @@
  * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
- * @param GET document_id
+ * @param GET document_id If we're editing a document, this will be set
+ * @param GET documentType_id If we're creating a new document, this *may* be set
  * @param GET lang
  * @param GET/POST return_url
  * @param GET/POST instance_id
@@ -20,39 +21,42 @@
 	# Documents are stored in the SESSION while they are edited.  To be able
 	# to keep track of which document we're editing we'll create an instance_id
 	# The instance_id must be passed between all forms
-	if (isset($_REQUEST['instance_id'])) { $instance_id = $_REQUEST['instance_id']; }
+	if (isset($_REQUEST['instance_id']))
+	{
+		$instance_id = $_REQUEST['instance_id'];
+
+		# Make sure the document is actually still loaded in the SESSION
+		if (!isset($_SESSION['document'][$instance_id]))
+		{
+			$_SESSION['errorMessages'][] = new Exception('documents/documentNoLongerAvailable.inc');
+		}
+	}
+	# If they don't pass an instance_id, this must be the first time to this page
 	else
 	{
-		# Create a new instance
+		# If they pass in a document_id, load the document for editing
 		if (isset($_GET['document_id']))
 		{
-			if (!isset($_SESSION['document'])) { $_SESSION['document'] = array(); }
-			$_SESSION['document'][] = new Document($_GET['document_id']);
-			$keys = array_keys($_SESSION['document']);
-			$instance_id = end($keys);
+			$document = new Document($_GET['document_id']);
 		}
-		# We have no idea what document they're editing
+		# Otherwise they're adding a new document
 		else
 		{
-			$_SESSION['errorMessages'][] = new Exception('documents/documentNoLongerAvailable');
-			if (isset($_REQUEST['return_url']))
+			$document = new Document();
+
+			if (isset($_GET['documentType_id']))
 			{
-				Header("Location: $return_url");
-				exit();
-			}
-			else
-			{
-				$template = new Template();
-				$template->render();
+				$document->setDocumentType_id($_GET['documentType_id']);
 			}
 		}
+
+		# Create a new instance
+		if (!isset($_SESSION['document'])) { $_SESSION['document'] = array(); }
+		$_SESSION['document'][] = $document;
+		$keys = array_keys($_SESSION['document']);
+		$instance_id = end($keys);
 	}
 
-	# Load the document into the session, if it hasn't been loaded already
-	if (!isset($_SESSION['document'][$instance_id]))
-	{
-		$_SESSION['document'][$instance_id] = new Document($_GET['document_id']);
-	}
 
 	# Make sure they're allowed to be editing this document
 	if (!$_SESSION['document'][$instance_id]->permitsEditingBy($_SESSION['USER']))
