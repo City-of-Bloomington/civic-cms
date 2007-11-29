@@ -28,7 +28,8 @@
 	else
 	{
 		$fields['department_id'] = $_SESSION['USER']->getDepartment_id();
-		$documentList = new DocumentList($fields,$sort);
+		$documentList = new DocumentList();
+		$documentList->find($fields,$sort);
 		$title = "{$_SESSION['USER']->getDepartment()} Documents";
 	}
 
