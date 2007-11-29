@@ -6,12 +6,11 @@
  * @param MediaList $this->mediaList
  * @param Department $this->department ( optional )
  */
-	$title = isset($this->department) ? View::escape($this->department->getName()) : '';
 	$url = new URL("http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]");
 ?>
 <form id="filter" method="get" action="<?php echo BASE_URL; ?>/media">
 <div class="interfaceBox">
-	<div class="titleBar"><?php echo $title; ?> Media</div>
+	<div class="titleBar">Media</div>
 	<?php
 		echo "
 		<input name=\"mime_type\" id=\"mime_type\" type=\"hidden\" value=\"{$url->mime_type}\" />
@@ -64,15 +63,7 @@
 	?>
 	</tr>
 	<?php
-		if (count($this->mediaList) > 50)
-		{
-			$_GET['page'] = (isset($_GET['page']) && $_GET['page']) ? $_GET['page'] : 0;
-			$pages = $this->mediaList->getPagination(50);
-			if (!$pages->offsetExists($_GET['page'])) { $_GET['page'] = 0; }
-			$mediaList = new LimitIterator($this->mediaList->getIterator(),$pages[$_GET['page']],$pages->getPageSize());
-		}
-		else { $mediaList = $this->mediaList; }
-		foreach($mediaList as $media)
+		foreach($this->mediaList as $media)
 		{
 			$title = View::escape($media->getTitle());
 			$department = View::escape($media->getDepartment()->getName());
@@ -90,6 +81,3 @@
 	</table>
 </div>
 </form>
-<?php
-	if (isset($pages)) { include FRAMEWORK.'/pageNavigation.inc'; }
-?>

@@ -85,7 +85,7 @@
 
 <div id="location_map">
 </div>
-<script src="http://maps.google.com/maps?file=api&amp;v=2.77&amp;key=ABQIAAAACqoQOZ2EAqg13jBR94AfexQNf7mhA6pY0zZO8gsdk0EdOTN8sxQDa2L0KB-dgEIEE-5Qas2VnQE6DQ" type="text/javascript"></script>
+<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=ABQIAAAACqoQOZ2EAqg13jBR94AfexQNf7mhA6pY0zZO8gsdk0EdOTN8sxQDa2L0KB-dgEIEE-5Qas2VnQE6DQ" type="text/javascript"></script>
 <script type="text/javascript">
 	<?php
 		$points = implode(',',$points);
@@ -95,6 +95,7 @@
 		echo "var info = [$info];\n";
 	?>
 	var map = new GMap2(document.getElementById("location_map"));
+
 	function loadMap()
 	{
 		if (GBrowserIsCompatible())
@@ -103,6 +104,9 @@
 			map.addControl(new GSmallMapControl());
 			map.addControl(new GMapTypeControl());
 			map.setCenter(new GLatLng(39.167119,-86.533800), 12);
+
+			var boundaries = new GGeoXml("http://bloomington.in.gov/locations/Bloomington.kml");
+			map.addOverlay(boundaries);
 
 			for(var i=0; i<points.length; i++) { map.addOverlay(createMarker(points[i],info[i])); }
 		}

@@ -5,16 +5,7 @@
  * @author Cliff Inghamn <inghamn@bloomington.in.gov>
  * @param DocumentList $this->documentList
  * @param string $this->title
- * @param GET page
  */
-	if (count($this->documentList) > 50)
-	{
-		if (!isset($_GET['page'])) { $_GET['page'] = 0; }
-		$pages = $this->documentList->getPagination(50);
-		if (!$pages->offsetExists($_GET['page'])) { $_GET['page'] = 0; }
-		$documents = new LimitIterator($this->documentList->getIterator(),$pages[$_GET['page']],$pages->getPageSize());
-	}
-	else { $documents = $this->documentList; }
 ?>
 <div class="interfaceBox">
 	<div class="titleBar">
@@ -93,7 +84,7 @@
 	</thead>
 	<tbody>
 	<?php
-		foreach($documents as $document)
+		foreach($this->documentList as $document)
 		{
 			if ($document->permitsEditingBy($_SESSION['USER']))
 			{
@@ -162,6 +153,3 @@
 	</tbody>
 	</table>
 </div>
-<?php
-	if (isset($pages)) { include FRAMEWORK.'/pageNavigation.inc'; }
-?>
