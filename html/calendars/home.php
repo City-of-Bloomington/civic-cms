@@ -16,6 +16,7 @@
 			switch ($_GET['view'])
 			{
 				case 'month': $block = 'calendars/monthView.inc'; break;
+				case 'twoweek': $block = 'calendars/twoWeekView.inc'; break;
 				case 'week': $block = 'calendars/weekView.inc'; break;
 				case 'day': $block = 'calendars/dayView.inc'; break;
 				default: $block = 'calendars/weekView.inc';

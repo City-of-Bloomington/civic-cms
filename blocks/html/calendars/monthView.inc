@@ -24,7 +24,7 @@
 
 		$url->parameters['year'] = $back['year'];
 		$url->parameters['mon'] = $back['mon'];
-		echo "<button type=\"button\" class=\"back\" onclick=\"document.location.href='{$url->getURL()}'\">Previous Month</button>";
+		echo "<button type=\"button\" class=\"previous\" onclick=\"document.location.href='{$url->getURL()}'\">Previous Month</button>";
 
 		$monthName = date('F',$start);
 		echo "{$this->calendar->getName()} $monthName $year";

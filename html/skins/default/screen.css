@@ -209,13 +209,21 @@ button.print { }
 button.addSmall { width:15px; height:15px; padding-top:15px; background: url('default/images/addSmall.gif') no-repeat; border:0; }
 button.editSmall { width:15px; height:15px; padding-top:15px; background: url('default/images/editSmall.gif') no-repeat; border:0; }
 button.deleteSmall { width:15px; height:15px; padding-top:15px; background: url('default/images/deleteSmall.gif') no-repeat; border:0; }
-button.excel { width:16px; height:16px; padding-top:16px; background: url('default/images/excel.gif') no-repeat; cursor:pointer; border:0; }
+button.excel { width:16px; height:16px; padding-top:16px; background: url('default/images/excel.gif') no-repeat; border:0; }
 button.printSmall { width:16px; height:16px; padding-top:16px; background: url('default/images/printSmall.gif') no-repeat; border:0; }
-button.up { width:16px; height:16px; padding-top:16px; background: url('default/images/up.png') no-repeat; cursor:pointer; border:0; }
+button.up { width:16px; height:16px; padding-top:16px; background: url('default/images/up.png') no-repeat; border:0; }
 button.down { width:16px; height:16px; padding-top:16px; background: url('default/images/down.png') no-repeat; border:0; }
 button.rssSmall { width:14px; height:14px; padding-top:14px; background:url('default/images/feed-icon-14x14.png') no-repeat; border:0; }
 button.rss { width:28px; height:28px; padding-top:28px; background:url('default/images/feed-icon-28x28.png') no-repeat; border:0; }
-button.ical { width:16px; height:16px; padding-top:16px; background: url('default/images/date.png') no-repeat; cursor:pointer; border:0; }
+button.ical { width:16px; height:16px; padding-top:16px; background: url('default/images/date.png') no-repeat; border:0; }
+
+button.day { width:16px; height:14px; padding-top:16px; background: url('default/images/calendar/day.png') no-repeat; border:0; }
+button.week { width:16px; height:14px; padding-top:16px; background: url('default/images/calendar/week.png') no-repeat; border:0; }
+button.twoweek { width:16px; height:14px; padding-top:16px; background: url('default/images/calendar/twoweek.png') no-repeat; border:0; }
+button.month { width:16px; height:14px; padding-top:16px; background: url('default/images/calendar/month.png') no-repeat; border:0; }
+
+button.previous { width:16px; height:16px; padding-top:16px; background: url('default/images/previous.png') no-repeat; border:0; }
+button.next { width:16px; height:16px; padding-top:16px; background: url('default/images/next.png') no-repeat; border:0; }
 a.rss img { margin:0; }
 
 /* Custom Icons for mime types */

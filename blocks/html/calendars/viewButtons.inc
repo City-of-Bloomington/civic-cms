@@ -33,11 +33,15 @@
 			$this->url->parameters['view'] = 'week';
 			$week = $this->url->getURL();
 
+			$this->url->parameters['view'] = 'twoweek';
+			$twoweek = $this->url->getURL();
+
 			$this->url->parameters['view'] = 'month';
 			$month = $this->url->getURL();
 		?>
 		<button type="button" class="day" onclick="document.location.href='<?php echo $day; ?>';">Day View</button>
 		<button type="button" class="week" onclick="document.location.href='<?php echo $week; ?>';">Week View</button>
+		<button type="button" class="twoweek" onclick="document.location.href='<?php echo $twoweek; ?>';">Two Week View</button>
 		<button type="button" class="month" onclick="document.location.href='<?php echo $month; ?>';">Month View</button>
 
 		<select name="calendar_id" onchange="this.form.submit();">

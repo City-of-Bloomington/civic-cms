@@ -11,3 +11,8 @@ The FCKEditor is used under the GPL license.
 PHPiCalendar project. http://phpicalendar.net/
 The recurring events code used has been adapted from PHPiCalendar
 The PHPiCalendar project code has been used in accordance with the GPL.
+
+
+Icons are from the Crystal Project
+http://www.everaldo.com/crystal/
+The Crystal Icons are in accordance with the LGPL

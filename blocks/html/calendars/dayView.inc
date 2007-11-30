@@ -20,7 +20,7 @@
 			$url->parameters['mon'] = $back['mon'];
 			$url->parameters['mday'] = $back['mday'];
 			$url->parameters['year'] = $back['year'];
-			echo "<button type=\"button\" class=\"back\" onclick=\"document.location.href='{$url->getURL()}';\">Previous Day</button>";
+			echo "<button type=\"button\" class=\"previous\" onclick=\"document.location.href='{$url->getURL()}';\">Previous Day</button>";
 
 			echo date('D, M j, Y',$rangeStart);
 

@@ -5,10 +5,10 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Calendar $this->calendar
  * @param array $this->date
- * Display 7 days of events starting on the given date
+ * Display 14 days of events starting on the given date
  */
 	$now = mktime(0,0,0,$this->date['mon'],$this->date['mday'],$this->date['year']);
-	$then = strtotime('+7 day',$now);
+	$then = strtotime('+14 day',$now);
 
 	$recurrences = $this->calendar->getEventRecurrenceArray($now,$then);
 ?>
