@@ -7,6 +7,7 @@
  * @param Department $this->department ( optional )
  */
 	$title = isset($this->department) ? View::escape($this->department->getName()) : '';
+	$url = new URL("http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]");
 ?>
 <script type="text/javascript">
 	function selectAttachment(media_id)
@@ -15,30 +16,76 @@
 		self.close();
 	}
 </script>
+<form id="filter" method="get" action="<?php echo BASE_URL; ?>/documents/mediaSelector.php">
 <div class="interfaceBox">
 	<div class="titleBar"><?php echo $title; ?> Media</div>
+	<?php
+		echo "
+		<input name=\"mime_type\" id=\"mime_type\" type=\"hidden\" value=\"{$url->mime_type}\" />
+		<input name=\"department_id\" id=\"department_id\" type=\"hidden\" value=\"{$url->department_id}\" />
+		<input name=\"page\" id=\"page\" type=\"hidden\" value=\"{$url->page}\" />
+		<input name=\"sort\" id=\"sort\" type=\"hidden\" value=\"{$url->sort}\" />
+		";
+	?>
 	<table>
+	<tr><th><select onchange="document.getElementById('mime_type').value=this.options[this.selectedIndex].value;this.form.submit();">
+				<option></option>
+				<?php
+					foreach(Media::getExtensions() as $ext=>$info)
+					{
+						$selected = (isset($url->mime_type) && $url->mime_type===$info['mime_type']) ? 'selected="selected"' : '';
+						echo "<option value=\"$info[mime_type]\" $selected>$ext</option>";
+					}
+				?>
+			</select>
+		</th>
+		<th></th>
+		<th><select onchange="document.getElementById('department_id').value=this.options[this.selectedIndex].value;this.form.submit();">
+			<option></option>
+			<?php
+				$list = new DepartmentList();
+				$list->find();
+				foreach($list as $department)
+				{
+					$name = View::escape(substr($department->getName(),0,20));
+					$selected = (isset($url->department_id) && $url->department_id===$department->getId()) ? 'selected="selected"' : '';
+					echo "<option value=\"{$department->getId()}\" $selected>$name</option>";
+				}
+			?>
+			</select>
+		</th>
+	</tr>
 	<tr>
 	<?php
-		$url = new URL("http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]");
-		$url->parameters['sort'] = 'filename'; echo "<th><a href=\"{$url->getURL()}\">Filename</a></th>";
-		$url->parameters['sort'] = 'title'; echo "<th><a href=\"{$url->getURL()}\">Title</a></th>";
-		$url->parameters['sort'] = 'uploaded desc'; echo "<th><a href=\"{$url->getURL()}\">Uploaded</a></th>";
+		# Objects are always passed by reference.  So we must explicitly clone
+		# the data, if we don't want to mess up the original version
+		$sortingURL = new URL($url->getURL());
+
+		$sortingURL->sort = $url->sort==='filename' ? 'filename+desc' : 'filename';
+		echo "<th><a href=\"$sortingURL\">Filename</a></th>";
+
+		$sortingURL->sort = $url->sort==='title' ? 'title+desc' : 'title';
+		echo "<th><a href=\"$sortingURL\">Title</a></th>";
+
+		$sortingURL->sort = 'department_id';
+		echo "<th><a href=\"$sortingURL\">Department</a></th>";
+
+		$sortingURL->sort = $url->sort==='uploaded' ? 'uploaded+desc' : 'uploaded';
+		echo "<th><a href=\"$sortingURL\">Uploaded</a></th>";
 	?>
 	</tr>
 	<?php
 		foreach($this->mediaList as $media)
 		{
-			$url = new URL($_SERVER['REQUEST_URI']);
-			$url->parameters['department_id'] = $media->getDepartment_id();
-
 			$title = View::escape($media->getTitle());
-			$department = View::escape($media->getDepartment()->getName());
+			$department = View::escape(substr($media->getDepartment()->getName(),0,20));
+
+			$filename = substr($media->getFilename(),0,25);
+
 			echo "
-			<tr><td><a href=\"{$media->getURL()}\" class=\"{$media->getExtension()}\" onclick=\"selectAttachment({$media->getId()}); return false;\">
-					{$media->getFilename()}</a>
-				</td>
+			<tr><td><a href=\"{$media->getURL()}\" class=\"{$media->getExtension()}\" onclick=\"selectAttachment({$media->getId()}); return false;\">$filename</a></td>
 				<td>$title</td>
+				<td>$department</td>
 				<td>{$media->getUploaded('%D')}</td>
 			</tr>
 			";
@@ -46,3 +93,4 @@
 	?>
 	</table>
 </div>
+</form>

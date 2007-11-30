@@ -4,7 +4,6 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param MediaList $this->mediaList
- * @param Department $this->department ( optional )
  */
 	$url = new URL("http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]");
 ?>
@@ -39,8 +38,9 @@
 				$list->find();
 				foreach($list as $department)
 				{
+					$name = View::escape(substr($department->getName(),0,20));
 					$selected = (isset($url->department_id) && $url->department_id===$department->getId()) ? 'selected="selected"' : '';
-					echo "<option value=\"{$department->getId()}\" $selected>$department</option>";
+					echo "<option value=\"{$department->getId()}\" $selected>$name</option>";
 				}
 			?>
 			</select>
@@ -50,30 +50,34 @@
 	<?php
 		# Objects are always passed by reference.  So we must explicitly clone
 		# the data, if we don't want to mess up the original version
-		$tempURL = new URL($url->getURL());
+		$sortingURL = new URL($url->getURL());
 
-		$tempURL->sort = $url->sort==='filename' ? 'filename+desc' : 'filename';
-		echo "<th><a href=\"$tempURL\">Filename</a></th>";
+		$sortingURL->sort = $url->sort==='filename' ? 'filename+desc' : 'filename';
+		echo "<th><a href=\"$sortingURL\">Filename</a></th>";
 
-		$tempURL->sort = $url->sort==='title' ? 'title+desc' : 'title';
-		echo "<th><a href=\"$tempURL\">Title</a></th>";
+		$sortingURL->sort = $url->sort==='title' ? 'title+desc' : 'title';
+		echo "<th><a href=\"$sortingURL\">Title</a></th>";
 
-		$tempURL->sort = 'department_id';
-		echo "<th><a href=\"$tempURL\">Department</a></th>";
+		$sortingURL->sort = 'department_id';
+		echo "<th><a href=\"$sortingURL\">Department</a></th>";
+
+		$sortingURL->sort = $url->sort==='uploaded' ? 'uploaded+desc' : 'uploaded';
+		echo "<th><a href=\"$sortingURL\">Uploaded</a></th>";
 	?>
 	</tr>
 	<?php
 		foreach($this->mediaList as $media)
 		{
 			$title = View::escape($media->getTitle());
-			$department = View::escape($media->getDepartment()->getName());
+			$department = View::escape(substr($media->getDepartment()->getName(),0,20));
 
 			$filename = substr($media->getFilename(),0,25);
 
 			echo "
-			<tr><td><a href=\"".BASE_URL."/media/info.php?media_id={$media->getId()}\" class=\"{$media->getExtension()}\">$filename</a></td>
+			<tr><td><a href=\"{$media->getURL()}\" class=\"{$media->getExtension()}\">$filename</a></td>
 				<td>$title</td>
 				<td>$department</td>
+				<td>{$media->getUploaded('%D')}</td>
 			</tr>
 			";
 		}
