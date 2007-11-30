@@ -13,6 +13,8 @@
 	<li><a href="<?php echo BASE_URL; ?>/locations">Locations</a></li>
 	<li><a href="<?php echo BASE_URL; ?>/community_profile">Profile</a></li>
 	<li><a href="<?php echo BASE_URL; ?>/documents/az_index.php">A-Z Index</a></li>
+	<li><a href="<?php echo BASE_URL; ?>/feeds">Feeds</a></li>
+	<li><a href="<?php echo BASE_URL; ?>/languages">Languages</a></li>
 	<li><a href="<?php echo BASE_URL; ?>/jobs">Jobs</a></li>
 	<li><a href="<?php echo BASE_URL; ?>/directory">Contacts</a></li>
 </ul>
