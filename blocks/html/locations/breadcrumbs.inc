@@ -7,7 +7,7 @@
  * @param Location $this->location (optional)
  */
 ?>
-<div id="breadcrumbs">
+<div class="breadcrumbs">
 <?php
 	if(isset($this->locationGroup))
 	{

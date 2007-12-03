@@ -6,7 +6,7 @@
  * @param Facet $this->facet (optional)
  */
 ?>
-<div id="breadcrumbs">
+<div class="breadcrumbs">
 <ul><li><a href="<?php echo BASE_URL; ?>">Home</a></li>
 	<li><a href="<?php echo BASE_URL; ?>/facets">Facets</a></li>
 	<?php

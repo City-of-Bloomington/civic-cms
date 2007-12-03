@@ -6,7 +6,7 @@
  * @param DocumentType $this->documentType (optional)
  */
 ?>
-<div id="breadcrumbs">
+<div class="breadcrumbs">
 <ul><li><a href="<?php echo BASE_URL; ?>">Home</a></li>
 	<?php
 		if(isset($this->documentType))

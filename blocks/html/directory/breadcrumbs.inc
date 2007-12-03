@@ -8,7 +8,7 @@
  * @param string $this->location (optional)
  */
 	echo "
-	<div id=\"breadcrumbs\">
+	<div class=\"breadcrumbs\">
 	<ul><li><a href=\"".BASE_URL."/directory\">Departments</a></li>
 	";
 	if (isset($this->category)) { echo "<li><a href=\"".BASE_URL."/directory/viewCategory.php?category={$this->category}\">{$this->category}</a></li>"; }
