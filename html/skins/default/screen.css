@@ -222,8 +222,10 @@ button.week { width:16px; height:14px; padding-top:16px; background: url('defaul
 button.twoweek { width:16px; height:14px; padding-top:16px; background: url('default/images/calendar/twoweek.png') no-repeat; border:0; }
 button.month { width:16px; height:14px; padding-top:16px; background: url('default/images/calendar/month.png') no-repeat; border:0; }
 
-button.previous { width:16px; height:16px; padding-top:16px; background: url('default/images/previous.png') no-repeat; border:0; }
-button.next { width:16px; height:16px; padding-top:16px; background: url('default/images/next.png') no-repeat; border:0; }
+button.previous { width:22px; height:22px; padding-top:22px; background: url('default/images/previous.png') no-repeat; border:0; }
+button.next { width:22px; height:22px; padding-top:22px; background: url('default/images/next.png') no-repeat; border:0; }
+button.first { width:22px; height:22px; padding-top:22px; background: url('default/images/player_start.png') no-repeat; border:0; }
+button.last { width:22px; height:22px; padding-top:22px; background: url('default/images/player_end.png') no-repeat; border:0; }
 a.rss img { margin:0; }
 
 /* Custom Icons for mime types */
