@@ -86,7 +86,7 @@ class WikiMarkup
 			switch ($type)
 			{
 				case 'file':
-					$list = new MediaList(array('filename'=>$link));
+					$list = ctype_digit($link) ? new MediaList(array('id'=>$link)) : new MediaList(array('filename'=>$link));
 					if (count($list))
 					{
 						$media = $list[0];
@@ -98,7 +98,7 @@ class WikiMarkup
 				break;
 
 				case 'locationGroup':
-					$list = new LocationGroupList(array('name'=>$link));
+					$list = ctype_digit($link) ? new LocationGroupList(array('id'=>$link)) : new LocationGroupList(array('name'=>$link));
 					if (count($list))
 					{
 						$locationGroup = $list[0];
@@ -109,7 +109,7 @@ class WikiMarkup
 				break;
 
 				case 'location':
-					$list = new LocationList(array('name'=>$link));
+					$list = ctype_digit($link) ? new LocationList(array('id'=>$link)) : new LocationList(array('name'=>$link));
 					if (count($list))
 					{
 						$location = $list[0];
@@ -120,7 +120,7 @@ class WikiMarkup
 				break;
 
 				case 'calendar':
-					$list = new CalendarList(array('name'=>$link));
+					$list = ctype_digit($link) ? new CalendarList(array('id'=>$link)) : new CalendarList(array('name'=>$link));
 					if (count($list))
 					{
 						$calendar = $list[0];
@@ -131,7 +131,7 @@ class WikiMarkup
 				break;
 
 				case 'facet':
-					$list = new FacetList(array('name'=>$link));
+					$list = ctype_digit($link) ? new FacetList(array('id'=>$link)) : new FacetList(array('name'=>$link));
 					if (count($list))
 					{
 						$facet = $list[0];
@@ -174,7 +174,7 @@ class WikiMarkup
 					# Otherwise look for an image with $link as a filename
 					else
 					{
-						$list = new ImageList(array('filename'=>$link));
+						$list = ctype_digit($link) ? new ImageList(array('id'=>$link)) : new ImageList(array('filename'=>$link));
 						if (count($list))
 						{
 							$image = $list[0];
@@ -198,7 +198,7 @@ class WikiMarkup
 		if ($title)
 		{
 			$wikiTitle = WikiMarkup::wikify($title);
-			$list = new DocumentList(array('wikiTitle_or_alias'=>$wikiTitle));
+			$list = ctype_digit($wikiTitle) ? new DocumentList(array('id'=>$wikiTitle)) : new DocumentList(array('wikiTitle_or_alias'=>$wikiTitle));
 			if (count($list))
 			{
 				# Draw a link to the first document we find
@@ -230,4 +230,3 @@ class WikiMarkup
         return sprintf($retstring, $size, $sizestring);
 	}
 }
-?>
