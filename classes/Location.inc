@@ -158,6 +158,7 @@
 
 		public function __toString() { return $this->name; }
 		public function getType() { return $this->getLocationType()->getType(); }
+		public function getURL() { return BASE_URL.'/locations/viewLocation.php?location_id='.$this->id; }
 
 		/**
 		 * Generic Getters

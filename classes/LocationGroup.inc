@@ -121,6 +121,7 @@
 		}
 
 		public function __toString() { return $this->name; }
+		public function getURL() { return BASE_URL.'/locations/?locationGroup_id='.$this->id; }
 
 		/**
 		 * Generic Getters
