@@ -28,4 +28,3 @@
 	#	'table', 'thead','tbody','tr','th','td'
 	#);
 	#$config->set('HTML','AllowedElements',$allowedElements);
-?>

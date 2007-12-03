@@ -50,20 +50,20 @@
 		"-u," +
 		"-p," +
 		"br," +
-		"img[id|longdesc|usemap|style|class|src|alt=|title|hspace|vspace|width|height|align]," +
+		"img[id|longdesc|usemap|class|src|alt=|title|hspace|vspace|width|height|align]," +
 		"-sub," +
 		"-sup," +
 		"-blockquote," +
-		"-table[width|height|class|align|summary|style]," +
-		"-tr[abbr|align|class|rowspan|id|style|valign]," +
+		"-table[width|height|class|align|summary]," +
+		"-tr[abbr|align|class|rowspan|id|valign]," +
 		"tbody," +
 		"thead," +
 		"tfoot," +
-		"-td[class|colspan|style]," +
-		"-th[class|colspan|rowspan|width|height|align|valign|style|scope]," +
-		"caption[class|style]," +
-		"-div[id|class|style]," +
-		//"-span[style|class]," +
+		"-td[class|colspan]," +
+		"-th[class|colspan|rowspan|width|height|align|valign|scope]," +
+		"caption[class]," +
+		"-div[id|class]," +
+		"-span[class]," +
 		"-pre," +
 		"address," +
 		"-h2," +
@@ -72,12 +72,12 @@
 		"-h5," +
 		"-h6," +
 		"hr," +
-		"-ol[class|style]," +
-		"-ul[class|style]," +
-		"-li[class|style]," +
-		"dd[class|style]," +
-		"dl[class|style]," +
-		"dt[class|style]" +
+		"-ol[class]," +
+		"-ul[class]," +
+		"-li[class]," +
+		"dd[class]," +
+		"dl[class]," +
+		"dt[class]" +
 		"form[action|class|enctype|id|method<get?post|onsubmit]," +
 		"fieldset,legend," +
 		"label[class|for|id]," +
