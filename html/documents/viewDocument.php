@@ -51,7 +51,6 @@
 					{
 						# This is the current ancestral line
 						$currentAncestors = $test;
-						unset($ancestors[$i]);
 					}
 				}
 			}
@@ -72,7 +71,6 @@
 				}
 
 				$currentAncestors = $ancestors[$shortest];
-				unset($ancestors[$shortest]);
 			}
 		}
 		else { $currentAncestors = array(); }
@@ -81,7 +79,6 @@
 		$breadcrumbs = new Block('documents/breadcrumbs.inc');
 		$breadcrumbs->document = $document;
 		$breadcrumbs->currentAncestors = $currentAncestors;
-		$breadcrumbs->relatedAncestors = $ancestors;
 
 
 		$template->blocks[] = $breadcrumbs;

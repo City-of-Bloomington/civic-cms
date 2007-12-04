@@ -110,9 +110,6 @@ li.current>a { background-color:#cccccc; width:100%; }
 .breadcrumbs li { display:inline; list-style-type:none; }
 .breadcrumbs li a:after { content:' > '; }
 
-.related-sections ul { margin:0; }
-.related-sections li { display:inline; list-style-type:none; margin:0; padding:0; }
-.related-sections li:after { content:' > '; }
 
 /* The language bar */
 #languages ul { margin:0; float:right; margin-bottom:1em; }
