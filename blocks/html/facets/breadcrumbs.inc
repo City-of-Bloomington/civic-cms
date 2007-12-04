@@ -13,7 +13,7 @@
 		if (isset($this->facet))
 		{
 			$name = View::escape($this->facet->getName());
-			echo "<li><a href=\"".BASE_URL."/facets/viewFacet.php?facet_id={$this->facet->getId()}\">$name</a></li>";
+			echo "<li>$name</li>";
 		}
 	?>
 </ul>

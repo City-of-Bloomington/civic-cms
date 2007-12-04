@@ -107,8 +107,8 @@ li.current>a { background-color:#cccccc; width:100%; }
 
 /* Breadcrumb class for navigational items */
 .breadcrumbs ul { margin:0; }
-.breadcrumbs li { display:inline; list-style-type:none; margin:0; padding:0; }
-.breadcrumbs li:after { content:' > '; }
+.breadcrumbs li { display:inline; list-style-type:none; }
+.breadcrumbs li a:after { content:' > '; }
 
 .related-sections ul { margin:0; }
 .related-sections li { display:inline; list-style-type:none; margin:0; padding:0; }

@@ -26,6 +26,6 @@
 		{
 			$url->calendar_id = $calendar->getId();
 		}
-		echo "<li><a href=\"$url\">$name</a></li>";
+		echo "<li>$name</li>";
 	?>
 </div>

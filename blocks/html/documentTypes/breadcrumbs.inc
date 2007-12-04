@@ -8,15 +8,12 @@
 ?>
 <div class="breadcrumbs">
 <ul><li><a href="<?php echo BASE_URL; ?>">Home</a></li>
+	<li><a href="<?php echo BASE_URL; ?>">Document Types</a></li>
 	<?php
 		if(isset($this->documentType))
 		{
 			$name = View::escape(Inflector::pluralize($this->documentType));
-			echo "<li><a href=\"".BASE_URL."/documentTypes/documents.php?documentType_id={$this->documentType->getId()}\">$name</a></li>";
-		}
-		else
-		{
-			echo "<li><a href=\"".BASE_URL."/documentTypes\">Document Types</a></li>";
+			echo "<li>$name</li>";
 		}
 	?>
 </div>

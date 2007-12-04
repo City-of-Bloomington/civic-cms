@@ -15,7 +15,7 @@
 		echo "
 		<ul><li><a href=\"".BASE_URL."\">Home</a></li>
 			<li><a href=\"".BASE_URL."/locations\">Locations</a></li>
-			<li><a href=\"{$this->locationGroup->getURL()}\">$name</a></li>
+			<li>$name</li>
 		</ul>
 		";
 	}
@@ -29,7 +29,7 @@
 			<ul><li><a href=\"".BASE_URL."\">Home</a></li>
 				<li><a href=\"".BASE_URL."/locations\">Locations</a></li>
 				<li><a href=\"{$group->getURL()}\">$groupName</a></li>
-				<li><a href=\"{$this->location->getURL()}\">$location</a></li>
+				<li>$location</li>
 			</ul>
 			";
 		}
@@ -38,7 +38,7 @@
 	{
 		echo "
 		<ul><li><a href=\"".BASE_URL."\">Home</a></li>
-			<li><a href=\"".BASE_URL."/locations\">Locations</a></li>
+			<li>Locations</li>
 		</ul>
 		";
 	}

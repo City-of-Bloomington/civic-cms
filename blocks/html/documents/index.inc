@@ -8,7 +8,7 @@
 ?>
 <div class="breadcrumbs">
 <ul><li><a href="<?php echo BASE_URL; ?>">Home</a></li>
-	<li><a href="<?php echo BASE_URL; ?>/documents/az_index.php">A-Z Index</a></li>
+	<li>A-Z Index</li>
 </ul>
 </div>
 <div class="tabBar">
