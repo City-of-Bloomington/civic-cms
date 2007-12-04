@@ -74,7 +74,7 @@
 			$filename = substr($media->getFilename(),0,25);
 
 			echo "
-			<tr><td><a href=\"{$media->getURL()}\" class=\"{$media->getExtension()}\">$filename</a></td>
+			<tr><td><a href=\"".BASE_URL."/media/info.php?media_id={$media->getId()}\" class=\"{$media->getExtension()}\">$filename</a></td>
 				<td>$title</td>
 				<td>$department</td>
 				<td>{$media->getUploaded('%D')}</td>
