@@ -35,41 +35,46 @@
 			$ancestors = array_merge($ancestors,$parent->getAncestors());
 		}
 
-
-		if (isset($_SESSION['previousSectionId']))
+		if (count($ancestors))
 		{
-			# Choose the current ancestral line by looking at the last section
-			# of each ancestral line
-			foreach($ancestors as $i=>$vector)
+			if (isset($_SESSION['previousSectionId']))
 			{
-				$test = end($vector);
-				if ($test->getId()==$_SESSION['previousSectionId'])
+				# Choose the current ancestral line by looking at the last section
+				# of each ancestral line
+				foreach($ancestors as $i=>$vector)
 				{
-					# This is the current ancestral line
-					$currentAncestors = $test;
-					unset($ancestors[$i]);
-				}
-			}
-		}
-		else
-		{
-			# We don't have a previous section to compare
-			# Use the shortest vector in ancestors as the current
-			$shortest = 0;
-			foreach($ancestors as $i=>$vector)
-			{
-				if ($shortest)
-				{
-					if (count($vector) < count($ancestors[$shortest]))
+					$test = end($vector);
+					if ($test->getId()==$_SESSION['previousSectionId'])
 					{
-						$shortest = $i;
+						# This is the current ancestral line
+						$currentAncestors = $test;
+						unset($ancestors[$i]);
 					}
 				}
 			}
+			else
+			{
+				# We don't have a previous section to compare
+				# Use the shortest vector in ancestors as the current
+				$shortest = 0;
+				foreach($ancestors as $i=>$vector)
+				{
+					if ($shortest)
+					{
+						if (count($vector) < count($ancestors[$shortest]))
+						{
+							$shortest = $i;
+						}
+					}
+				}
 
-			$currentAncestors = $ancestors[$shortest];
-			unset($ancestors[$shortest]);
+				$currentAncestors = $ancestors[$shortest];
+				unset($ancestors[$shortest]);
+			}
 		}
+		else { $currentAncestors = array(); }
+
+
 		$breadcrumbs = new Block('documents/breadcrumbs.inc');
 		$breadcrumbs->document = $document;
 		if (isset($section)) { $breadcrumbs->section = $section; }
