@@ -60,7 +60,7 @@
 					}
 					echo "
 					<label for=\"locked\">Locking</label>
-					<select name=\"locked\" id=\"locked\" onchange=\"FRAMEWORK.processTabbedForm('documentForm','source','next');\">
+					<select name=\"locked\" id=\"locked\" onchange=\"FRAMEWORK.processTabbedForm('documentForm','admin','next');\">
 						<option $locked>Locked</option>
 						<option $unlocked>Unlocked</option>
 					</select>
@@ -98,7 +98,7 @@
 					}
 				?>
 				<input name="source" type="file" />
-				<button type="button" class="upload" onclick="FRAMEWORK.processTabbedForm('documentForm','source','next');">Upload</button>
+				<button type="button" class="upload" onclick="FRAMEWORK.processTabbedForm('documentForm','admin','next');">Upload</button>
 			</div>
 		<?php
 			}
