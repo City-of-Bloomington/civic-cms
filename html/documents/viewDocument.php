@@ -32,7 +32,10 @@
 		$ancestors = array();
 		foreach($document->getSections() as $parent)
 		{
-			$ancestors = array_merge($ancestors,$parent->getAncestors());
+			$temp = $parent->getAncestors();
+			foreach($temp as $i=>$vector) { $temp[$i][$parent->getId()] = $parent; }
+
+			$ancestors = array_merge($ancestors,$temp);
 		}
 
 		if (count($ancestors))
@@ -77,7 +80,6 @@
 
 		$breadcrumbs = new Block('documents/breadcrumbs.inc');
 		$breadcrumbs->document = $document;
-		if (isset($section)) { $breadcrumbs->section = $section; }
 		$breadcrumbs->currentAncestors = $currentAncestors;
 		$breadcrumbs->relatedAncestors = $ancestors;
 
