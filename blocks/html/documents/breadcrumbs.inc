@@ -5,37 +5,31 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Document $this->document
- * @param array $_SESSION[vector] - The Navigation widget must initialize this
+ * @param Section $this->section
+ * @param array $this->currentAncestors
+ * @param array $this->relatedAncestors
  */
+	$currentSection = View::escape($this->section);
+
 	echo '<ul>';
-	foreach($_SESSION['vector'] as $section)
+	foreach($this->currentAncestors as $section)
 	{
-		$name = View::escape($section->getName());
+		$name = View::escape($section);
 		echo "<li><a href=\"{$section->getURL()}\">$name</a></li>";
 	}
+	echo "<li>$currentSection</li>";
 	echo '</ul>';
-	$currentSection = $section;
 
-?>
-</div>
-<?php
-	if (count($this->document->getSections()) > 1)
+	foreach($this->relatedAncestors as $vector)
 	{
-		echo "
-		<div class=\"related-sections\">
-		<ul><li>Related Sections</li>
-		";
-		foreach($this->document->getSections() as $section)
+		echo '<ul><li>Related Sections: </li>';
+		foreach($vector as $section)
 		{
-			if ($section->getId() != $currentSection->getId())
-			{
-				$name = View::escape($section->getName());
-				echo "<li><a href=\"{$section->getURL()}\">$name</a></li>";
-			}
+			$name = View::escape($section);
+			echo "<li><a href=\"{$section->getURL()}\">$name</a></li>";
 		}
-		echo "
-		</ul>
-		</div>
-		";
+		echo "<li>$currentSection</li>";
+		echo '</ul>';
 	}
 ?>
+</div>
