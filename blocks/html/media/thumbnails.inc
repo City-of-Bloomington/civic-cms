@@ -7,37 +7,20 @@
  * @param Department $this->department
  * @param Image $this->image (optional) The chosen or Uploaded Image
  */
-include APPLICATION_HOME.'/includes/editors/'.EDITOR.'/filebrowser_init.inc';
-if (isset($this->image))
-{
-	# If they've uploaded or chosen an image, fire off the
-	# javascript necessary to get the WYSIWYG editor to take the image
-	$title = View::escape($this->image->getTitle());
-	echo "
-	<script type=\"text/javascript\">
-		selectImage('{$this->image->getURL()}','$title');
-	</script>
-	";
-}
-else
-{
-	$department = View::escape($this->department->getName());
-	echo "
-	<h1>Choose an existing image</h1>
-	<h2>$department</h2>
-	";
+$department = View::escape($this->department->getName());
+echo "
+<h1>Choose an existing image</h1>
+<h2>$department</h2>
+<p>Copy the image link that you want, and paste it into your document.</p>
+";
 
-	foreach($this->imageList as $image)
-	{
-		$callback = getFilebrowserCallback($image);
-		$title = htmlspecialchars($image->getTitle(),ENT_QUOTES);
-		echo "
-		<div class=\"thumbnail\">
-			<a href=\"{$image->getURL()}\" onclick=\"$callback\">
-			<img src=\"".BASE_URL."/media/thumbnail.php?media_id={$image->getId()}\" alt=\"$title\" />
-			{$image->getFilename()}</a>
-		</div>
-		";
-	}
+foreach($this->imageList as $image)
+{
+	$title = htmlspecialchars($image->getTitle(),ENT_QUOTES);
+	echo "
+	<span class=\"image thumbnail\">
+		<a href=\"{$image->getURL()}\"><img src=\"".BASE_URL."/media/thumbnail.php?media_id={$image->getId()}\" alt=\"$title\" /></a>
+		<span class=\"caption\">[image:{$image->getId()}]</span>
+	</span>
+	";
 }
-?>

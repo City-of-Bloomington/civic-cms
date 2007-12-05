@@ -10,6 +10,11 @@
  */
 ?>
 <form id="documentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+	<fieldset><legend>Tools</legend>
+		<button type="button" class="browse" onclick="window.open('<?php echo BASE_URL; ?>/media/imageBrowser.php');">Browse Images</button>
+		<button type="button" class="help" onclick="window.open('<?php echo BASE_URL; ?>/documents/notationGuide.php');">Notation Guide</button>
+	</fieldset>
+
 	<fieldset><legend>Content</legend>
 		<input type="hidden" name="tab" id="tab" value="sections" />
 		<input type="hidden" name="action" id="action" value="next" />

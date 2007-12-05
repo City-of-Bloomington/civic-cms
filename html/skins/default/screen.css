@@ -18,8 +18,9 @@ a:hover { color:#666666; background-color:transparent; }
 
 img { border:0; }
 span.image { display:block; text-align:center; }
-span.image img { display:block; }
-.thumnbnail { width:100px; }
+span.image img { }
+.thumbnail { width:100px; height:150px; float:left; }
+
 
 h1 { text-align:left; margin:0; font-size:16pt; font-weight:bold; }
 h2 { margin:0; font-size:14pt; font-weight:bold; }
@@ -243,7 +244,6 @@ a.rss img { margin:0; }
 .ram { height:16px; padding-left:18px; background: url('default/images/icons/real.png') no-repeat; }
 .mp3 { height:16px; padding-left:18px; background: url('default/images/icons/sound.png') no-repeat; }
 .wma { height:16px; padding-left:18px; background: url('default/images/icons/windowsMedia.png') no-repeat; }
-.thumbnail { width:100px; float:left; }
 
 /* Controls how error messages are displayed */
 #errorMessages { border:2px solid black; }
