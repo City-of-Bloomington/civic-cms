@@ -40,10 +40,10 @@
 		plugins : 'table,paste',
 		theme_advanced_buttons1 : "bold,italic,underline,|,sub,sup,|,bullist,numlist,|,hr,removeformat,formatselect",
 		theme_advanced_buttons2 : "cut,copy,paste,|,pastetext,pasteword,selectall,|,undo,redo,|,code,cleanup,help",
-		theme_advanced_buttons3 : "tablecontrols",
+		theme_advanced_buttons3 : "",
+		theme_advanced_buttons4 : "",
 
 		valid_elements : "" +
-		//"+a[id|style|name|href|title|class]," +
 		"-strong/-b," +
 		"-em/-i," +
 		"-strike," +
