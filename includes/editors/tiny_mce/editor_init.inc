@@ -14,23 +14,25 @@
 		mode : "exact",
 		elements : "<?php echo $content_field_name; ?>",
 
-		apply_source_formatting : true,
+		//apply_source_formatting : true,
 		remove_linebreaks: true,
 		cleanup_on_startup : true,
 		doctype : '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">',
 		//encoding : 'xml',
-		//entity_encoding : 'raw',
+		entity_encoding : 'raw',
+		convert_fonts_to_spans : false,
 		fix_list_elements : true,
 		fix_table_elements : true,
 		fix_content_duplication : true,
 		//forced_root_block : 'p',
 		inline_styles : true,
 		remove_trailing_nbsp : true,
-		relative_urls : false,
-		remove_script_host : true,
-		document_base_url : "/",
 
-		file_browser_callback : 'mediaBrowser',
+		//relative_urls : false,
+		//remove_script_host : true,
+		//document_base_url : "/",
+
+		//file_browser_callback : 'mediaBrowser',
 
 		theme : "advanced",
 		content_css : "<?php echo BASE_URL; ?>/skins/<?php echo $_SESSION['skin']; ?>/skin.css",
@@ -63,7 +65,7 @@
 		"-th[class|colspan|rowspan|width|height|align|valign|scope]," +
 		"caption[class]," +
 		"-div[id|class]," +
-		"-span[class]," +
+		"-span[class|style]," +
 		"-pre," +
 		"address," +
 		"-h2," +
@@ -89,25 +91,5 @@
 		"button[accesskey|class|id|name|onclick|type|value],"
 	}
 	);
-
-	function mediaBrowser (field_name, url, type, win)
-	{
-		tinyMCE.openWindow(
-		{
-			file : '<?php echo BASE_URL; ?>/media/imageBrowser.php?department_id=<?php echo $_SESSION['USER']->getDepartment_id(); ?>;type='+type,
-			title : "File Browser",
-			width : 640,  // Your dimensions may differ - toy around with them!
-			height : 480,
-			close_previous : "no"
-		}, {
-			window : win,
-			input : field_name,
-			resizable : "yes",
-			scrollbars : 'yes',
-			inline : "yes",  // This parameter only has an effect if you use the inlinepopups plugin!
-			editor_id : tinyMCE.getWindowArg("editor_id")
-		});
-		return false;
-    }
 </script>
 <textarea name="<?php echo $content_field_name; ?>" id="<?php echo $content_field_name; ?>" rows="40" cols="80"><?php echo $content ?></textarea>

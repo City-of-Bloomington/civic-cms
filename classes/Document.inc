@@ -199,6 +199,10 @@
 					$purifier = new HTMLPurifier($config);
 					$string = $purifier->purify($string);
 				}
+				if (defined('TIDY_CONFIG'))
+				{
+					$string = tidy_repair_string($string,TIDY_CONFIG);
+				}
 				$this->content[$lang] = trim($string);
 			}
 		}

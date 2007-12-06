@@ -19,27 +19,6 @@ define('COPYRIGHT',"/**
 	 * http://framework.zend.com
 	 */
 	define('ZEND','/var/www/libraries/ZendFramework/library');
-	/**
-	 * These control search index performance.  If indexing seems slow
-	 * or PHP runs out of memory, you might try adjusting these to suit
-	 * Documentation is available at:
-	 * http://framework.zend.com/manual/en/zend.search.lucene.best-practice.html
-	 */
-	define('ZEND_SEARCH_MAX_BUFFERED_DOCS',5);
-	define('ZEND_SEARCH_MAX_MERGE_DOCS',10000);
-	define('ZEND_SEARCH_MERGE_FACTOR',10);
-
-
-	/**
-	 * Optional Content cleaning - Uncomment this is you want
-	 * extra cleaning to be done on content submitted from the WYSIWYG editor
-	 *
-	 * This should point to the library directory inside your
-	 * installation of the HTMLPurifier
-	 * http://htmlpurifier.org
-	 */
-	#define('HTMLPURIFIER','/var/www/libraries/htmlpurifier/library');
-
 
 	/**
 	 * Where on the filesystem this application is installed
@@ -59,7 +38,6 @@ define('COPYRIGHT',"/**
 	 */
 	define('ADMINISTRATOR_NAME','Site Admin');
 	define('ADMINISTRATOR_EMAIL','admin@servername.com');
-
 
 	/**
 	 * Database Setup
@@ -84,6 +62,35 @@ define('COPYRIGHT',"/**
 	define('LDAP_ADMIN_PASS','password');
 	define('LDAP_SERVER','ldap.bloomington.in.gov');
 	define('LDAP_PASSWORD_ATTRIBUTE','userpassword');
+
+	/**
+	 * These control search index performance.  If indexing seems slow
+	 * or PHP runs out of memory, you might try adjusting these to suit
+	 * Documentation is available at:
+	 * http://framework.zend.com/manual/en/zend.search.lucene.best-practice.html
+	 */
+	define('ZEND_SEARCH_MAX_BUFFERED_DOCS',5);
+	define('ZEND_SEARCH_MAX_MERGE_DOCS',10000);
+	define('ZEND_SEARCH_MERGE_FACTOR',10);
+
+	/**
+	 * Optional Content cleaning - Uncomment this if you want
+	 * extra cleaning to be done on content submitted from the WYSIWYG editor
+	 *
+	 * This should point to the library directory inside your
+	 * installation of the HTMLPurifier
+	 * http://htmlpurifier.org
+	 *
+	 * Content Manager reads the HTMLPurifier_Config.inc file
+	 */
+	#define('HTMLPURIFIER','/var/www/libraries/htmlpurifier/library');
+
+	/**
+	 * Optional Content Cleaning - Uncomment this if you want
+	 * content submitted from the WYSIWYG editor to be cleaned by Tidy
+	 * This should point to a Tidy config file
+	 */
+	define('TIDY_CONFIG',APPLICATION_HOME.'/tidy_config.txt');
 
 	/**
 	 * Subversion setup

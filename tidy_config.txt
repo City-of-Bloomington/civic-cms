@@ -1,0 +1,21 @@
+bare: yes
+doctype: omit
+drop-empty-paras: yes
+drop-font-tags: yes
+drop-proprietary-attributes: yes
+enclose-block-text: yes
+enclose-text: yes
+logical-emphasis: yes
+numeric-entities: no
+output-xhtml: yes
+show-body-only: yes
+word-2000: yes
+indent: auto
+indent-spaces: 4
+vertical-space: no
+tab-size: 4
+wrap: 0
+char-encoding: utf8
+newline: lf
+output-bom: no
+

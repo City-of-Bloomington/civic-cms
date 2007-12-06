@@ -58,6 +58,7 @@ PHP:
 		MySQL
 		LDAP
 		Browscap
+		Tidy
 
 	Actually, you can substitute any database support for MySQL, as our
 	framework uses PDO for database interaction.
