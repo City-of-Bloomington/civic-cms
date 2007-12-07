@@ -10,6 +10,8 @@
 	$href = new URL("http://$_SERVER[SERVER_NAME]$_SERVER[PHP_SELF]");
 	$href->parameters['documentType_id'] = $this->documentType->getId();
 	$href->parameters['facetGroup_id'] = 'none';
+
+	$class = (!isset($this->facetGroup)) ? 'class="current"' : '';
 	echo "
 	<h1><a href=\"$href\">$type</a>
 		<a href=\"$href;format=rss\" class=\"rss\">
@@ -17,7 +19,8 @@
 		</a>
 	</h1>
 	<div class=\"tabBar\">
-	<ul>
+	<ul><li><a href=\"$href\" $class>Show All</a></li>
+		<li>Organize By:</li>
 	";
 
 	$groups = new FacetGroupList();
