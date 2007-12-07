@@ -93,7 +93,7 @@ class WikiMarkup
 						if (!isset($linkText)) { $linkText = View::escape($media->getTitle()); }
 						$type = strtoupper($media->getExtension());
 						$size = self::size_readable($media->getFilesize());
-						return "<a href=\"{$media->getURL()}\" class=\"{$media->getExtension()}\">$linkText ($type $size)</a>";
+						return "<a href=\"{$media->getURL()}\" class=\"{$media->getExtension()}\">$linkText <em>($type $size)</em></a>";
 					}
 				break;
 
@@ -242,7 +242,7 @@ class WikiMarkup
 	public static function size_readable ($size, $retstring='%01.2f %s')
 	{
         // adapted from code at http://aidanlister.com/repos/v/function.size_readable.php
-        $sizes = array('B', 'K', 'MB', 'GB');
+        $sizes = array('B', 'KB', 'MB', 'GB');
         $lastsizestring = end($sizes);
         foreach ($sizes as $sizestring)
         {
