@@ -55,7 +55,7 @@
 				if ($location->getLatitude() && $location->getLongitude())
 				{
 					$points[] = "new GLatLng({$location->getLatitude()},{$location->getLongitude()})";
-					$info[] = '"<h3>'.addslashes($name).'</h3><p>'.addslashes($description).'</p>"';
+					$info[] = "'<h3 style=\"width:200px\">".addslashes($name)."</h3><p style=\"width:200px\">".addslashes($description)."</p>'";
 
 					$i = count($points) - 1;
 					$mapButton = "<button type=\"button\" onclick=\"popup($i);\">Map It</button>";
@@ -88,8 +88,8 @@
 <script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=ABQIAAAACqoQOZ2EAqg13jBR94AfexQNf7mhA6pY0zZO8gsdk0EdOTN8sxQDa2L0KB-dgEIEE-5Qas2VnQE6DQ" type="text/javascript"></script>
 <script type="text/javascript">
 	<?php
-		$points = implode(',',$points);
-		$info = implode(',',$info);
+		$points = implode(",\n",$points);
+		$info = implode(",\n",$info);
 
 		echo "var points = [$points];\n";
 		echo "var info = [$info];\n";
