@@ -14,7 +14,7 @@
 	<p>$address</p>
 	<p>$description></p>
 	";
-	echo $this->location->getContent();
+	echo WikiMarkup::parse($this->location->getContent());
 ?>
 <div id="location_map">
 </div>
