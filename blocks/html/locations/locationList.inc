@@ -9,10 +9,14 @@
  */
 ?>
 <h1>Locations</h1>
+<p>Use this feature to find locations grouped together into categories, such as City Facilities or Historic Sites.
+Using GoogleMap technology, you can find the position of different locations all across the city,
+as well as find driving directions, and information specific to a certain site.</p>
 <form method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 <fieldset>
 	<select name="locationGroup_id" onchange="this.form.submit();">
-		<option value="">Choose a group</option>
+		<option value="">Choose a category</option>
+		<option value=""></option>
 	<?php
 		$list = new LocationGroupList();
 		$list->find();
