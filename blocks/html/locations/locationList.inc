@@ -59,7 +59,9 @@ as well as find driving directions, and information specific to a certain site.<
 				if ($location->getLatitude() && $location->getLongitude())
 				{
 					$points[] = "new GLatLng({$location->getLatitude()},{$location->getLongitude()})";
-					$info[] = "'<h3 style=\"width:200px\">".addslashes($name)."</h3><p style=\"width:200px\">".addslashes($description)."</p>'";
+
+					$desc = addslashes(str_replace(array("\r\n","\n","\r"),' ',$description));
+					$info[] = "'<h3 style=\"width:200px\">".addslashes($name)."</h3><p style=\"width:200px\">$desc</p>'";
 
 					$i = count($points) - 1;
 					$mapButton = "<button type=\"button\" onclick=\"popup($i);\">Map It</button>";

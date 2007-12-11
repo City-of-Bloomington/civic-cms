@@ -198,7 +198,7 @@
 		public function setName($string) { $this->name = trim($string); }
 		public function setLocationType_id($int) { $this->locationType = new LocationType($int); $this->locationType_id = $int; }
 		public function setAddress($string) { $this->address = trim($string); }
-		public function setDescription($string) { $this->description = trim($string); }
+		public function setDescription($string) { $this->description = trim(str_replace(array("\r\n","\n","\r"),' ',$string)); }
 		public function setContent($text) { $this->content = $text; }
 		public function setLatitude($float) { $this->latitude = ereg_replace("[^0-9.\-]","",$float); }
 		public function setLongitude($float) { $this->longitude = ereg_replace("[^0-9.\-]","",$float); }
