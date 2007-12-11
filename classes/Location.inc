@@ -38,6 +38,7 @@
 				catch (Exception $e) { throw $e; }
 
 				$result = $query->fetchAll();
+				if (!count($result)) { throw new Exception('locations/unknownLocation'); }
 				foreach($result[0] as $field=>$value) { if ($value) $this->$field = $value; }
 			}
 			else
