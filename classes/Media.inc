@@ -209,7 +209,7 @@
 			# Clean out any previous version of the file
 			if ($this->id)
 			{
-				foreach(glob($this->getDirectory().'/'.$this->id) as $file)
+				foreach(glob($this->getDirectory().'/'.$this->id.'.') as $file)
 				{
 					unlink($this->getDirectory().'/'.$file);
 				}
