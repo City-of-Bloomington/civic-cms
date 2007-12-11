@@ -53,9 +53,9 @@
 					";
 				}
 			}
-			else { echo '<tr><td colspan="2">none</td></tr>'; }
+			else { echo '<tr><td colspan="2">No events scheduled in this calendar</td></tr>'; }
 		}
-		else { echo '<tr><td colspan="2">none</td></tr>'; }
+		else { echo '<tr><td colspan="2">No events scheduled in this calendar</td></tr>'; }
 	?>
 	</table>
 </div>

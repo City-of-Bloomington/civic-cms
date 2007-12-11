@@ -53,25 +53,20 @@
 		";
 		if (isset($recurrences[$year][$month][$day]))
 		{
-			if (count($recurrences[$year][$month][$day]))
+			echo '<ul>';
+			foreach($recurrences[$year][$month][$day] as $recurrence)
 			{
-				echo '<ul>';
-				foreach($recurrences[$year][$month][$day] as $recurrence)
-				{
-					$time = $recurrence->getEvent()->isAllDayEvent() ? '' : $recurrence->getStart('g:i A');
-					$title = View::escape($recurrence->getEvent()->getTitle());
-					echo "
-					<li><a href=\"".BASE_URL."/calendars/viewEvent.php?event_id={$recurrence->getEvent_id()}\">
-						$time $title
-						</a>
-					</li>
-					";
-				}
-				echo '</ul>';
+				$time = $recurrence->getEvent()->isAllDayEvent() ? '' : $recurrence->getStart('g:i A');
+				$title = View::escape($recurrence->getEvent()->getTitle());
+				echo "
+				<li><a href=\"".BASE_URL."/calendars/viewEvent.php?event_id={$recurrence->getEvent_id()}\">
+					$time $title
+					</a>
+				</li>
+				";
 			}
-			else { echo 'none'; }
+			echo '</ul>';
 		}
-		else { echo 'none'; }
 		echo "
 			</td>
 		</tr>
