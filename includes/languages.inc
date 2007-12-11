@@ -5,17 +5,17 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Document $this->document
  */
-	if (isset($this->document))
-	{
-		$languages = $this->document->getLanguages();
+if (isset($this->document))
+{
+	$languages = $this->document->getLanguages();
 
-		echo "<div id=\"languages\"><ul>";
-			$page = new URL("http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]");
-			foreach($languages as $language)
-			{
-				$page->parameters['lang'] = $language->getCode();
-				echo "<li><a href=\"{$page->getURL()}\">{$language->getNative()}</a></li>";
-			}
-		echo "</ul></div>";
-	}
-?>
+	echo "<div id=\"languages\" class=\"tabBar\"><ul>";
+		$page = new URL("http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]");
+		foreach($languages as $language)
+		{
+			$page->parameters['lang'] = $language->getCode();
+			$class = ($language->getCode()==$_SESSION['LANGUAGE']) ? 'class="current"' : '';
+			echo "<li><a href=\"{$page->getURL()}\" $class>{$language->getNative()}</a></li>";
+		}
+	echo "</ul></div>";
+}
