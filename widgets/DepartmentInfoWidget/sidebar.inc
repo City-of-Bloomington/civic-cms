@@ -18,6 +18,12 @@
 	$zip = View::escape($this->department->getZip());
 	$phone = View::escape($this->department->getPhone());
 	$email = View::escape($this->department->getEmail());
+
+	if ($this->department->getLdap_name())
+	{
+		$params = $this->department->getLdap_name();
+		$name = "<a href=\"".BASE_URL."/directory/viewDepartment.php?$params\">$name</a>";
+	}
 	echo "<tr><th>$name</th></tr>";
 	if ($address1) { echo "<tr><td>$address1</td></tr>\n"; }
 	if ($address2) { echo "<tr><td>$address2</td></tr>\n"; }

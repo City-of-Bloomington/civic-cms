@@ -40,6 +40,7 @@
 			if (isset($fields['zip'])) { $options[] = "zip='$fields[zip]'"; }
 			if (isset($fields['phone'])) { $options[] = "phone='$fields[phone]'"; }
 			if (isset($fields['email'])) { $options[] = "email='$fields[email]'"; }
+			if (isset($fields['ldap_name'])) { $options[] = "ldap_name='$fields[ldap_name]'"; }
 			if (isset($fields['document_id'])) { $options[] = "document_id='$fields[document_id]'"; }
 			if (isset($fields['location_id'])) { $options[] = "location_id='$fields[location_id]'"; }
 

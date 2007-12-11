@@ -12,6 +12,7 @@ create table departments (
 	zip varchar(15),
 	phone varchar(20),
 	email varchar(128),
+	ldap_name varchar(128),
 	document_id int unsigned,
 	location_id int unsigned,
 	foreign key (document_id) references documents(id),

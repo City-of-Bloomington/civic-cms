@@ -15,6 +15,7 @@
 		private $zip;
 		private $phone;
 		private $email;
+		private $ldap_name;
 		private $document_id;
 		private $location_id;
 
@@ -67,6 +68,7 @@
 			$fields['zip'] = $this->zip ? $this->zip : null;
 			$fields['phone'] = $this->phone ? $this->phone : null;
 			$fields['email'] = $this->email ? $this->email : null;
+			$fields['ldap_name'] = $this->ldap_name ? $this->ldap_name : null;
 			$fields['document_id'] = $this->document_id ? $this->document_id : null;
 			$fields['location_id'] = $this->location_id ? $this->location_id : null;
 
@@ -118,6 +120,7 @@
 		public function getZip() { return $this->zip; }
 		public function getPhone() { return $this->phone; }
 		public function getEmail() { return $this->email; }
+		public function getLdap_name() { return $this->ldap_name; }
 		public function getDocument_id() { return $this->document_id; }
 		public function getLocation_id() { return $this->location_id; }
 		public function getDocument()
@@ -148,6 +151,7 @@
 		public function setZip($string) { $this->zip = trim($string); }
 		public function setPhone($string) { $this->phone = trim($string); }
 		public function setEmail($string) { $this->email = trim($string); }
+		public function setLdap_name($string) { $this->ldap_name = trim($string); }
 		public function setLocation_id($int) { $this->location = new Location($int); $this->location_id = $int; }
 		public function setLocation($location) { $this->location_id = $location->getId(); $this->location = $location; }
 		public function setDocument_id($int)
@@ -177,4 +181,3 @@
 			else { throw new Exception('departments/documentDepartmentMismatch'); }
 		}
 	}
-?>
