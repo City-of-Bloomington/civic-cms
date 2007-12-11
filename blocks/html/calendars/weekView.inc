@@ -32,18 +32,23 @@
 			$day = $date['mday'];
 			if (isset($recurrences[$year][$month][$day]))
 			{
-				echo '<ul>';
-				foreach($recurrences[$year][$month][$day] as $recurrence)
+				if (count($recurrences[$year][$month][$day]))
 				{
-					$time = $recurrence->getEvent()->isAllDayEvent() ? '' : $recurrence->getStart('g:i A');
-					$title = View::escape($recurrence->getEvent()->getTitle());
-					echo "
-					<li><a href=\"".BASE_URL."/calendars/viewEvent.php?event_id={$recurrence->getEvent_id()}\">
-						$time $title</a></li>
-					";
+					echo '<ul>';
+					foreach($recurrences[$year][$month][$day] as $recurrence)
+					{
+						$time = $recurrence->getEvent()->isAllDayEvent() ? '' : $recurrence->getStart('g:i A');
+						$title = View::escape($recurrence->getEvent()->getTitle());
+						echo "
+						<li><a href=\"".BASE_URL."/calendars/viewEvent.php?event_id={$recurrence->getEvent_id()}\">
+							$time $title</a></li>
+						";
+					}
+					echo '</ul>';
 				}
-				echo '</ul>';
+				else { echo 'none'; }
 			}
+			else { echo 'none'; }
 			echo "</td></tr>";
 		}
 	?>

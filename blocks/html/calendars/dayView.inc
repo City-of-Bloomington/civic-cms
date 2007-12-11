@@ -38,19 +38,24 @@
 		$recurrences = $this->calendar->getEventRecurrenceArray($rangeStart,$rangeEnd);
 		if (isset($recurrences[$year][$month][$day]))
 		{
-			foreach($recurrences[$year][$month][$day] as $recurrence)
+			if (count($recurrences[$year][$month][$day]))
 			{
-				$time = $recurrence->getEvent()->isAllDayEvent() ? '' : $recurrence->getStart('g:i A');
-				$title = View::escape($recurrence->getEvent()->getTitle());
-				echo "
-				<tr><td>$time</td>
-					<td><a href=\"".BASE_URL."/calendars/viewEvent.php?event_id={$recurrence->getEvent_id()}\">
-						$title</a>
-					</td>
-				</tr>
-				";
+				foreach($recurrences[$year][$month][$day] as $recurrence)
+				{
+					$time = $recurrence->getEvent()->isAllDayEvent() ? '' : $recurrence->getStart('g:i A');
+					$title = View::escape($recurrence->getEvent()->getTitle());
+					echo "
+					<tr><td>$time</td>
+						<td><a href=\"".BASE_URL."/calendars/viewEvent.php?event_id={$recurrence->getEvent_id()}\">
+							$title</a>
+						</td>
+					</tr>
+					";
+				}
 			}
+			else { echo '<tr><td colspan="2">none</td></tr>'; }
 		}
+		else { echo '<tr><td colspan="2">none</td></tr>'; }
 	?>
 	</table>
 </div>
