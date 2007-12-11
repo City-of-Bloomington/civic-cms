@@ -67,6 +67,7 @@
 					}
 				echo "
 					</ul>
+					<a href=\"#top\">[Top]</a>
 				</div>
 				";
 			}
