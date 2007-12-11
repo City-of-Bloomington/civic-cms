@@ -16,7 +16,7 @@
 		<td><input name="media[title]" id="media-title" value="<?php echo $this->media->getTitle(); ?>" /></td></tr>
 
 	<tr><td><label for="media-description" class="required">description</label></td>
-		<td><textarea name="media[description]" id="media-description" rows="3" cols="60"><?php echo $this->media->getDescription(); ?></textarea></td></tr>
+		<td><textarea name="media[description]" id="media-description" rows="4" cols="60" onkeyup="FRAMEWORK.limit(this,255);"><?php echo $this->media->getDescription(); ?></textarea></td></tr>
 
 	</table>
 </fieldset>

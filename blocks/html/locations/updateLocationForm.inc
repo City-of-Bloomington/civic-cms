@@ -59,7 +59,7 @@
 		<td><input name="location[longitude]" id="location-longitude" value="<?php echo $this->location->getLongitude(); ?>" /></td></tr>
 	<tr><td colspan="2">
 			<label for="location-description" class="required">Description</label>
-			<textarea name="location[description]" id="location-description" rows="3" cols="60"><?php echo View::escape($this->location->getDescription()); ?></textarea>
+			<textarea name="location[description]" id="location-description" rows="4" cols="60" onkeyup="FRAMEWORK.limit(this,255);"><?php echo View::escape($this->location->getDescription()); ?></textarea>
 	</td></tr>
 
 	</table>

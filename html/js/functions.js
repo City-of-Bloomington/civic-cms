@@ -61,3 +61,16 @@ FRAMEWORK.getFormValues = function (form)
 	//Remove the trailing semicolon before returning
 	return params.substr(0,(params.length - 1));
 };
+
+/**
+ * Limits a given form field to a given number of characters
+ * @param field The DOM element for the field to limit
+ * @param maxNumChars The maximum number of characters you want to allow
+ */
+FRAMEWORK.limit = function (field,maxNumChars)
+{
+	if (field.value.length > maxNumChars)
+	{
+		field.value = field.value.substring(0,maxNumChars);
+	}
+}

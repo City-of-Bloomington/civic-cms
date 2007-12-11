@@ -12,7 +12,7 @@
 	<tr><td><label for="image-title" class="required">Title</label></td>
 		<td><input name="image[title]" id="image-title" /></td></tr>
 	<tr><td><label for="image-description" class="required">Description</label></td>
-		<td><textarea name="image[description]" id="image-description" rows="3" cols="50"></textarea></td></tr>
+		<td><textarea name="image[description]" id="image-description" rows="4" cols="60" onkeyup="FRAMEWORK.limit(this,255);"></textarea></td></tr>
 	</table>
 </fieldset>
 <fieldset><legend>Upload</legend>

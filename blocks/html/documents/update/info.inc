@@ -60,7 +60,7 @@
 			<td><input name="document[feature_title]" id="document-feature_title" value="<?php echo View::escape($this->document->getFeature_title()); ?>" /></td></tr>
 		<tr><td colspan="2">
 				<label for="document-description">Description</label>
-				<textarea name="document[description]" id="document-description" rows="3" cols="60"><?php echo View::escape($this->document->getDescription()); ?></textarea>
+				<textarea name="document[description]" id="document-description" rows="5" cols="60" onkeyup="FRAMEWORK.limit(this,255);"><?php echo View::escape($this->document->getDescription()); ?></textarea>
 		</td></tr>
 
 		<tr><td><label for="document-publishDate-mon">Publish Date</label></td>
