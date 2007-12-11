@@ -14,18 +14,18 @@
 			$user->$set($value);
 		}
 
-		# Load their information from LDAP
-		# Delete this statement if you're not using LDAP
-		if ($user->getAuthenticationMethod() == 'LDAP')
-		{
-			$ldap = new LDAPEntry($user->getUsername());
-			$user->setFirstname($ldap->getFirstname());
-			$user->setLastname($ldap->getLastname());
-			$user->setEmail($ldap->getEmail());
-		}
-
 		try
 		{
+			# Load their information from LDAP
+			# Delete this statement if you're not using LDAP
+			if ($user->getAuthenticationMethod() == 'LDAP')
+			{
+				$ldap = new LDAPEntry($user->getUsername());
+				$user->setFirstname($ldap->getFirstname());
+				$user->setLastname($ldap->getLastname());
+				$user->setEmail($ldap->getEmail());
+			}
+
 			$user->save();
 			Header('Location: home.php');
 			exit();
@@ -36,4 +36,3 @@
 	$template = new Template();
 	$template->blocks[] = new Block('users/addUserForm.inc');
 	$template->render();
-?>
