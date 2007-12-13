@@ -544,6 +544,14 @@
 
    		public function isLocked() { return $this->lockedBy ? true : false; }
    		public function PHPIsEnabled() { return $this->enablePHP ? true : false; }
+		public function isActive()
+		{
+			$now = time();
+			$publish = strtotime($this->publishDate);
+			$retire = $this->retireDate ? strtotime($this->retireDate) : null;
+
+			return ($publish < $now && (!$retire || $now < $retire));
+		}
 
 
 		/**
@@ -566,12 +574,20 @@
 		}
 		public function getPublishDate($format=null)
 		{
-			if ($format && $this->publishDate!=0) return strftime($format,strtotime($this->publishDate));
+			if ($format && $this->publishDate)
+			{
+				if (strpos($format,'%')!==false) { return strftime($format,strtotime($this->publishDate)); }
+				else { return date($format,strtotime($this->publishDate)); }
+			}
 			else return $this->publishDate;
 		}
 		public function getRetireDate($format=null)
 		{
-			if ($format && $this->retireDate!=0) return strftime($format,strtotime($this->retireDate));
+			if ($format && $this->retireDate)
+			{
+				if (strpos($format,'%')!==false) { return strftime($format,strtotime($this->retireDate)); }
+				else { return date($format,strtotime($this->retireDate)); }
+			}
 			else return $this->retireDate;
 		}
 		public function getCreatedBy() { return $this->createdBy; }

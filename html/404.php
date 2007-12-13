@@ -11,7 +11,7 @@
  	$title = $url[0];
 	$wikiTitle = WikiMarkup::wikify($title);
 
-	$list = new DocumentList(array('wikiTitle_or_alias'=>$wikiTitle,'active'=>date('Y-m-d')));
+	$list = new DocumentList(array('wikiTitle_or_alias'=>$wikiTitle));
 	switch (count($list))
 	{
 		case 0:

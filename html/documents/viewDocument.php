@@ -79,10 +79,79 @@
 		$breadcrumbs = new Block('documents/breadcrumbs.inc');
 		$breadcrumbs->document = $document;
 		$breadcrumbs->currentAncestors = $currentAncestors;
-
-
 		$template->blocks[] = $breadcrumbs;
-		$template->blocks[] = new Block('documents/viewDocument.inc',array('document'=>$document));
+
+		if (!$document->isActive())
+		{
+			#$_SESSION['errorMessages'][] = new Exception('documents/unavailable');
+			$template->blocks[] = new Block('documents/unavailable.inc',array('document'=>$document));
+
+			if (isset($_SESSION['USER']) && $document->permitsEditingBy($_SESSION['USER']))
+			{
+				$template->blocks[] = new Block('documents/viewDocument.inc',array('document'=>$document));
+			}
+			else
+			{
+				try
+				{
+					$search = new Search();
+					$results = $search->find($document->getTitle());
+				}
+				catch (Exception $e) { exception_handler($e); }
+
+
+				$currentType = isset($_GET['type']) ? Inflector::pluralize($_GET['type']) : 'Documents';
+				$type = strtolower($currentType);
+
+
+				if (isset($results[$type]) && count($results[$type]))
+				{
+					# If we've got a lot of results, split them up into seperate pages
+					if ($results[$type] > 10)
+					{
+						$resultArray = new ArrayObject($results[$type]);
+						$pages = new Paginator($resultArray,10);
+
+						# Make sure we're asking for a page that actually exists
+						$page = (isset($_GET['page']) && $_GET['page']) ? (int)$_GET['page'] : 0;
+						if (!$pages->offsetExists($page)) { $page = 0; }
+
+						$resultsList = new LimitIterator($resultArray->getIterator(),$pages[$page],$pages->getPageSize());
+					}
+					else { $resultsList = $this->results[$type]; }
+				}
+				else { $resultList = array(); }
+				if (isset($results))
+				{
+					$resultsTab = new Block('search/resultTabs.inc');
+					$resultsTab->currentType = $currentType;
+					$resultsTab->type = $type;
+					$resultsTab->results = $results;
+
+					$resultBlock = new Block('search/results.inc');
+					$resultBlock->results = $resultsList;
+					$resultBlock->currentType = $currentType;
+					$resultBlock->type = $type;
+
+					$template->blocks[] = $resultsTab;
+					$template->blocks[] = $resultBlock;
+
+					if (isset($pages))
+					{
+						$pageNavigation = new Block('pageNavigation.inc');
+						$pageNavigation->page = $page;
+						$pageNavigation->pages = $pages;
+						$pageNavigation->url = new URL("$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]");
+
+						$template->blocks[] = $pageNavigation;
+					}
+				}
+			}
+		}
+		else
+		{
+			$template->blocks[] = new Block('documents/viewDocument.inc',array('document'=>$document));
+		}
 
 
 		# If we don't have a specific section we're in yet,
@@ -125,4 +194,3 @@
 	}
 
 	$template->render();
-?>

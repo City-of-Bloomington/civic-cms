@@ -17,28 +17,31 @@ if (count($this->results))
 		#------------------------------------------------------------
 		if ($hit instanceof Document)
 		{
-			$title = View::escape($hit->getTitle());
-
-			if ($hit->getDescription()) { $description = View::escape($hit->getDescription()); }
-			else { $description = substr(strip_tags($hit->getContent('en')),0,160).'...'; }
-
-			$size_in_bytes = strlen($hit->getContent('en'));
-			if ($size_in_bytes>1000)
+			if ($hit->isActive())
 			{
-				$size = round($size_in_bytes/1024);
-				$size.='k';
+				$title = View::escape($hit->getTitle());
+
+				if ($hit->getDescription()) { $description = View::escape($hit->getDescription()); }
+				else { $description = substr(strip_tags($hit->getContent('en')),0,160).'...'; }
+
+				$size_in_bytes = strlen($hit->getContent('en'));
+				if ($size_in_bytes>1000)
+				{
+					$size = round($size_in_bytes/1024);
+					$size.='k';
+				}
+				else { $size = $size_in_bytes.'bytes'; }
+
+
+				echo "
+				<div id=\"searchResult\">
+					<h3><a href=\"{$hit->getURL()}\">$title</a></h3>
+					<p>$description</p>
+					<span><a href=\"{$hit->getURL()}\">".BASE_URL."/{$hit->getWikiTitle()}</a> - $size
+						- last updated {$hit->getModified('%D')}</span>
+				</div>
+				";
 			}
-			else { $size = $size_in_bytes.'bytes'; }
-
-
-			echo "
-			<div id=\"searchResult\">
-				<h3><a href=\"{$hit->getURL()}\">$title</a></h3>
-				<p>$description</p>
-				<span><a href=\"{$hit->getURL()}\">".BASE_URL."/{$hit->getWikiTitle()}</a> - $size
-					- last updated {$hit->getModified('%D')}</span>
-			</div>
-			";
 		}
 		#------------------------------------------------------------
 		# Event Results

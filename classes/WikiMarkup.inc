@@ -216,6 +216,7 @@ class WikiMarkup
 
 
 		# If we've got down here, all that's left is to check for Document title
+		$class = '';
 		if (preg_match('/\#/',$link)) { list($title,$anchor) = explode('#',$link); }
 		else { $title = $link; }
 		if ($title)
@@ -228,13 +229,15 @@ class WikiMarkup
 				$document = $list[0];
 				if (!isset($linkText)) { $linkText = View::escape($document->getTitle()); }
 				$url = $document->getURL();
+
+				if (!$document->isActive()) { $class = 'class="unpublished"'; }
 			}
 		}
 		if (isset($anchor)) { $url = isset($url) ? "$url#$anchor" : "#$anchor"; }
 		if (isset($url))
 		{
 			$linkText = isset($linkText) ? $linkText : $url;
-			return "<a href=\"$url\">$linkText</a>";
+			return "<a href=\"$url\" $class>$linkText</a>";
 		}
 		else { return "<span style=\"background-color:red\">$matches[0]</span>"; }
 	}

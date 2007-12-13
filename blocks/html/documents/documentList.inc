@@ -102,9 +102,11 @@
 			$title = View::escape($document->getTitle());
 			$partialTitle = substr($title,0,20);
 
+			$class = $document->isActive() ? '' : 'class="unpublished"';
+
 			echo "
 			<tr><td style=\"width:100px; white-space:nowrap; overflow:hidden;\">
-					<a href=\"{$document->getURL()}\" title=\"$title\">$partialTitle</a></td>
+					<a href=\"{$document->getURL()}\" title=\"$title\" $class>$partialTitle</a></td>
 				<td>{$document->getCreated('%D')}</td>
 				<td>{$document->getPublishDate('%D')}</td>
 				<td>{$document->getModified('%D')}</td>
