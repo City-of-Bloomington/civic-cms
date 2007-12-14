@@ -5,8 +5,10 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param char SESSION[LANGUAGE]
  */
-	$list = new DocumentList(array('lang'=>$_SESSION['LANGUAGE']));
-	$template = new Template();
-	$template->blocks[] = new Block('languages/documentList.inc',array('documentList'=>$list));
-	$template->render();
-?>
+$language = new Language($_SESSION['LANGUAGE']);
+$list = new DocumentList(array('lang'=>$_SESSION['LANGUAGE']));
+
+$template = new Template();
+$template->blocks[] = new Block('languages/breadcrumbs.inc',array('language'=>$language));
+$template->blocks[] = new Block('languages/documentList.inc',array('documentList'=>$list));
+$template->render();

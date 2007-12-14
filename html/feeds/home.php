@@ -7,6 +7,7 @@
  * @param GET url
  */
 	$template = new Template();
+	$template->blocks[] = new Block('feeds/breadcrumbs.inc');
 
 	if (isset($_GET['url']))
 	{
