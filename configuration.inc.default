@@ -147,6 +147,14 @@ define('COPYRIGHT',"/**
 	define('DIRECTORY_WEBSERVICE','http://isotope.bloomington.in.gov/directory');
 
 	/**
+	 * Google Map Key
+	 * The content manager can map locations using Google Maps.
+	 * If you want this functionality, you must provide your own Google Map Key
+	 * Google issues these on a per-server basis
+	 */
+	 #define('GOOGLE_MAP_KEY','');
+
+	/**
 	 * Bad URL Definitions
 	 * Regular expressions defining what bad links would look like
 	 * URLs that match these regular expressions will be treated as bad
@@ -157,4 +165,3 @@ define('COPYRIGHT',"/**
 		'/http:\/\/bloomington/',
 		'/http:\/\/www\.bloomington\./'
 	 );
-?>

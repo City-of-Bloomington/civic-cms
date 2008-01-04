@@ -55,8 +55,9 @@ as well as find driving directions, and information specific to a certain site.<
 				$name = View::escape($location->getName());
 				$description = View::escape($location->getDescription());
 
+				# Check if the installation has a Google Maps Key
 				# Make sure the location has Latitude and Longitude before trying to map it
-				if ($location->getLatitude() && $location->getLongitude())
+				if (defined('GOOGLE_MAP_KEY') && $location->getLatitude() && $location->getLongitude())
 				{
 					$points[] = "new GLatLng({$location->getLatitude()},{$location->getLongitude()})";
 
@@ -93,10 +94,10 @@ as well as find driving directions, and information specific to a certain site.<
 		?>
 	</ul>
 </div>
-
+<?php if (defined('GOOGLE_MAP_KEY')) { ?>
 <div id="location_map">
 </div>
-<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=ABQIAAAACqoQOZ2EAqg13jBR94AfexQNf7mhA6pY0zZO8gsdk0EdOTN8sxQDa2L0KB-dgEIEE-5Qas2VnQE6DQ" type="text/javascript"></script>
+<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=<?php echo GOOGLE_MAP_KEY; ?>" type="text/javascript"></script>
 <script type="text/javascript">
 	<?php
 		$points = implode(",\n",$points);
@@ -145,6 +146,8 @@ as well as find driving directions, and information specific to a certain site.<
 	setTimeout('loadMap()',500);
 </script>
 <?php
+	} # End of If checking for GOOGLE_MAP_KEY
+
 	} # End of If checking for $this->locationList
 
 	if (isset($this->locationGroup))

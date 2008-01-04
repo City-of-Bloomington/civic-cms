@@ -5,20 +5,23 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Location $this->location
  */
-	$name = View::escape($this->location->getName());
-	$address = View::escape($this->location->getAddress());
-	$description = View::escape($this->location->getDescription());
+$name = View::escape($this->location->getName());
+$address = View::escape($this->location->getAddress());
+$description = View::escape($this->location->getDescription());
 
-	echo "
-	<h1>$name</h1>
-	<p>$address</p>
-	<p>$description></p>
-	";
-	echo WikiMarkup::parse($this->location->getContent());
+echo "
+<h1>$name</h1>
+<p>$address</p>
+<p>$description</p>
+";
+echo WikiMarkup::parse($this->location->getContent());
+
+if (defined('GOOGLE_MAP_KEY'))
+{
 ?>
 <div id="location_map">
 </div>
-<script src="http://maps.google.com/maps?file=api&amp;v=2.77&amp;key=ABQIAAAACqoQOZ2EAqg13jBR94AfexQNf7mhA6pY0zZO8gsdk0EdOTN8sxQDa2L0KB-dgEIEE-5Qas2VnQE6DQ" type="text/javascript"></script>
+<script src="http://maps.google.com/maps?file=api&amp;v=2.77&amp;key=<?php echo GOOGLE_MAP_KEY; ?>" type="text/javascript"></script>
 <script type="text/javascript">
 	var point = new GLatLng(<?php echo $this->location->getLatitude(); ?>,<?php echo $this->location->getLongitude(); ?>);
 	<?php
@@ -56,3 +59,6 @@
 
 	setTimeout('loadMap()',500);
 </script>
+<?php
+} # End of If checking for GOOGLE_MAP_KEY
+?>
