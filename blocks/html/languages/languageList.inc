@@ -17,7 +17,7 @@
 		if ($language->getCode()!= 'en')
 		{
 			echo "
-			<li><a href=\"".BASE_URL."/languages/documents.php?lang={$language->getCode()}\">
+			<li><a href=\"".BASE_URL."/languages/documents.php?language={$language->getCode()}\">
 				{$language->getNative()}</a>
 			</li>
 			";

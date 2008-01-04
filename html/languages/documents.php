@@ -3,10 +3,10 @@
  * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
- * @param char SESSION[LANGUAGE]
+ * @param GET language
  */
-$language = new Language($_SESSION['LANGUAGE']);
-$list = new DocumentList(array('lang'=>$_SESSION['LANGUAGE']));
+$language = new Language($_GET['language']);
+$list = new DocumentList(array('lang'=>$_GET['language']));
 
 $template = new Template();
 $template->blocks[] = new Block('languages/breadcrumbs.inc',array('language'=>$language));
