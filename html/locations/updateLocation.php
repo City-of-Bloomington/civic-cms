@@ -59,7 +59,7 @@ if (isset($_POST['location']))
 
 $form = new Block('locations/updateLocationForm.inc');
 $form->location = $location;
-$form->return_url = $_GET['return_url'];
+$form->return_url = $_REQUEST['return_url'];
 
 $template = new Template();
 $template->blocks[] = $form;

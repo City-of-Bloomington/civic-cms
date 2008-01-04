@@ -111,6 +111,20 @@
 			$this->id = $PDO->lastInsertID();
 		}
 
+		public function delete()
+		{
+			if($this->id)
+			{
+				$PDO = Database::getConnection();
+
+				$query = $PDO->prepare('delete from locationGroup_locations where location_id=?');
+				$query->execute(array($this->id));
+
+				$query = $PDO->prepare('delete from locations where id=?');
+				$query->execute(array($this->id));
+			}
+		}
+
 		public function getLocationGroups()
 		{
 			if ($this->id)

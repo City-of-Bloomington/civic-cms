@@ -84,11 +84,20 @@ as well as find driving directions, and information specific to a certain site.<
 					$edit_url->location_id = $location->getId();
 					$edit_url->return_url = $return_url;
 					$editButton = "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='$edit_url';\">Edit</button>";
+
+					$delete_url = new URL(BASE_URL.'/locations/deleteLocation.php');
+					$delete_url->location_id = $location->getId();
+					$delete_url->return_url = $return_url;
+					$deleteButton = "<button type=\"button\" class=\"deleteSmall\" onclick=\"FRAMEWORK.deleteConfirmation('$delete_url');\">Delete</button>";
 				}
-				else { $editButton = ''; }
+				else
+				{
+					$editButton = '';
+					$deleteButton = '';
+				}
 
 				echo "
-				<li>$editButton
+				<li>$editButton $deleteButton
 					<a href=\"".BASE_URL."/locations/viewLocation.php?location_id={$location->getId()}\">$name</a>
 					$mapButton
 				</li>
