@@ -39,9 +39,13 @@ as well as find driving directions, and information specific to a certain site.<
 <div class="interfaceBox" id="location_list">
 	<div class="titleBar">
 		<?php
+			$return_url = "http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]";
+
 			if (userHasRole(array('Administrator','Webmaster','Content Creator')))
 			{
-				echo "<button type=\"button\" class=\"addSmall\" onclick=\"document.location.href='".BASE_URL."/locations/updateLocation.php';\">Add</button>";
+				$add_url = new URL(BASE_URL.'/locations/updateLocation.php');
+				$add_url->return_url = $return_url;
+				echo "<button type=\"button\" class=\"addSmall\" onclick=\"document.location.href='$add_url';\">Add</button>";
 			}
 			echo View::escape($this->title);
 		?>
@@ -49,7 +53,6 @@ as well as find driving directions, and information specific to a certain site.<
 	<ul><?php
 			$points = array();
 			$info = array();
-			$return_url = "http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]";
 			foreach($this->locationList as $location)
 			{
 				$name = View::escape($location->getName());
