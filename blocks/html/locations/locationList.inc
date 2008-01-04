@@ -60,8 +60,13 @@ as well as find driving directions, and information specific to a certain site.<
 				{
 					$points[] = "new GLatLng({$location->getLatitude()},{$location->getLongitude()})";
 
-					$desc = addslashes(str_replace(array("\r\n","\n","\r"),' ',$description));
-					$info[] = "'<h3 style=\"width:200px\">".addslashes($name)."</h3><p style=\"width:200px\">$desc</p>'";
+					$n = addslashes($name);
+					$d = addslashes(str_replace(array("\r\n","\n","\r"),' ',$description));
+
+					$title = "<h3 style=\"width:200px\">$n</h3>";
+					$desc = "<p style=\"width:200px\">$d</p>";
+					$directions = "<p>Get Directions: <a href=\"http://maps.google.com/?q=to:$n@{$location->getLatitude()},{$location->getLongitude()}\">To Here</a></p>";
+					$info[] = "'{$title}{$desc}{$directions}'";
 
 					$i = count($points) - 1;
 					$mapButton = "<button type=\"button\" onclick=\"popup($i);\">Map It</button>";

@@ -21,7 +21,15 @@
 <script src="http://maps.google.com/maps?file=api&amp;v=2.77&amp;key=ABQIAAAACqoQOZ2EAqg13jBR94AfexQNf7mhA6pY0zZO8gsdk0EdOTN8sxQDa2L0KB-dgEIEE-5Qas2VnQE6DQ" type="text/javascript"></script>
 <script type="text/javascript">
 	var point = new GLatLng(<?php echo $this->location->getLatitude(); ?>,<?php echo $this->location->getLongitude(); ?>);
-	var info = '<h3 style="width:200px"><?php echo addslashes($name); ?></h3><p style="width:200px"><?php echo addslashes($description); ?></p>';
+	<?php
+		$n = addslashes($name);
+		$d = addslashes(str_replace(array("\r\n","\n","\r"),' ',$description));
+
+		$title = "<h3 style=\"width:200px\">$n</h3>";
+		$desc = "<p style=\"width:200px\">$d</p>";
+		$directions = "<p>Get Directions: <a href=\"http://maps.google.com/?q=to:$n@{$this->location->getLatitude()},{$this->location->getLongitude()}\">To Here</a></p>";
+	?>
+	var info = '<?php echo $title.$desc.$directions; ?>';
 
 	var map = new GMap2(document.getElementById("location_map"));
 	function loadMap()
