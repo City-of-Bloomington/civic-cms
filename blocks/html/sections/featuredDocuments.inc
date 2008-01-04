@@ -18,21 +18,16 @@
 			#</a>
 		?>
 	</h3>
-	<table>
 	<?php
 		foreach($this->documentList as $document)
 		{
 			$title = $document->getFeature_title() ? View::escape($document->getFeature_title()) : View::escape($document->getTitle());
-			$alt = htmlspecialchars($title,ENT_QUOTES);
 			$description = View::escape($document->getDescription());
 			echo "
-			<tr><th><img src=\"".BASE_URL."/documents/icon.php?document_id={$document->getId()}\" alt=\"$alt\" /></th>
-				<td><h4><a href=\"{$document->getURL()}\">$title</a></h4>
-					$description
-				</td>
-			</tr>
+			<div><h4><a href=\"{$document->getURL()}\">$title</a></h4>
+				<p>$description</p>
+			</div>
 			";
 		}
 	?>
-	</table>
 </div>
