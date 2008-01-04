@@ -12,10 +12,26 @@
 	<input name="media_id" type="hidden" value="<?php echo $this->media->getId(); ?>" />
 	<table>
 
-	<tr><td><label for="media-title" class="required">title</label></td>
+	<tr><td><label for="media-title" class="required">Title</label></td>
 		<td><input name="media[title]" id="media-title" value="<?php echo $this->media->getTitle(); ?>" /></td></tr>
 
-	<tr><td><label for="media-description" class="required">description</label></td>
+	<tr><td><label for="media-department_id" class="required">Department</label></td>
+		<td><select name="media[department_id]" id="media-department_id">
+			<?php
+				$list = new DepartmentList();
+				$list->find();
+				foreach($list as $dept)
+				{
+					$name = View::escape($dept->getName());
+					$selected = ($this->media->getDepartment_id()==$dept->getId()) ? 'selected="selected"' : '';
+					echo "<option value=\"{$dept->getId()}\" $selected>$name</option>";
+				}
+			?>
+			</select>
+		</td>
+	</tr>
+
+	<tr><td><label for="media-description" class="required">Description</label></td>
 		<td><textarea name="media[description]" id="media-description" rows="4" cols="60" onkeyup="FRAMEWORK.limit(this,255);"><?php echo $this->media->getDescription(); ?></textarea></td></tr>
 
 	</table>

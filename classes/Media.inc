@@ -96,6 +96,7 @@
 			if (!$this->filename || !$this->mime_type || !$this->media_type) { throw new Exception('missingRequiredFields'); }
 			if (!$this->title) { throw new Exception('media/missingTitle'); }
 			if (!$this->description) { throw new Exception('media/missingDescription'); }
+			if (!$this->department_id) { $this->department_id = $_SESSION['USER']->getDepartment_id(); }
 
 			$fields = array();
 			$fields['filename'] = $this->filename;
@@ -104,7 +105,7 @@
 			$fields['title'] = $this->title;
 			$fields['description'] = $this->description ? $this->description : null;
 			$fields['md5'] = $this->md5 ? $this->md5 : null;
-			$fields['department_id'] = $_SESSION['USER']->getDepartment_id();
+			$fields['department_id'] = $this->department_id;
 			$fields['uploaded'] = $this->uploaded ? $this->uploaded : null;
 			$fields['user_id'] = $_SESSION['USER']->getId();
 
