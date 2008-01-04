@@ -15,6 +15,10 @@
 	<tr><td><label for="media-title" class="required">Title</label></td>
 		<td><input name="media[title]" id="media-title" value="<?php echo $this->media->getTitle(); ?>" /></td></tr>
 
+	<?php
+		if (userHasRole(array('Administrator','Webmaster')))
+		{
+	?>
 	<tr><td><label for="media-department_id" class="required">Department</label></td>
 		<td><select name="media[department_id]" id="media-department_id">
 			<?php
@@ -30,6 +34,9 @@
 			</select>
 		</td>
 	</tr>
+	<?php
+		} # End of checking for permission to edit Departments
+	?>
 
 	<tr><td><label for="media-description" class="required">Description</label></td>
 		<td><textarea name="media[description]" id="media-description" rows="4" cols="60" onkeyup="FRAMEWORK.limit(this,255);"><?php echo $this->media->getDescription(); ?></textarea></td></tr>
