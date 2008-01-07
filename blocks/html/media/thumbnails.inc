@@ -20,7 +20,7 @@ foreach($this->imageList as $image)
 	echo "
 	<span class=\"image thumbnail\">
 		<a href=\"{$image->getURL()}\"><img src=\"".BASE_URL."/media/thumbnail.php?media_id={$image->getId()}\" alt=\"$title\" /></a>
-		<span class=\"caption\">[image:{$image->getId()}]</span>
+		<span class=\"caption\">{$image->getId()}</span>
 	</span>
 	";
 }
