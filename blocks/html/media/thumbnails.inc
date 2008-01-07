@@ -19,8 +19,18 @@ foreach($this->imageList as $image)
 	$title = htmlspecialchars($image->getTitle(),ENT_QUOTES);
 	echo "
 	<span class=\"image thumbnail\">
-		<a href=\"{$image->getURL()}\"><img src=\"".BASE_URL."/media/thumbnail.php?media_id={$image->getId()}\" alt=\"$title\" /></a>
+		<a href=\"{$image->getURL()}\" onclick=\"insert('[image:{$image->getId()}]');return false;\">
+			<img src=\"".BASE_URL."/media/thumbnail.php?media_id={$image->getId()}\" alt=\"$title\" />
+		</a>
 		<span class=\"caption\">{$image->getId()}</span>
 	</span>
 	";
 }
+?>
+<script type="text/javascript">
+function insert(string)
+{
+	window.opener.tinyMCE.execCommand('mceInsertContent',false,string);
+	self.close();
+}
+</script>
