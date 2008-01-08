@@ -184,9 +184,17 @@ class WikiMarkup
 						# We couldn't find an image with that filename, just display the raw text
 						else { return $matches[0]; }
 					}
+
 					$caption = isset($linkText) ? '<span class="caption">'.View::escape($linkText).'</span>' : '';
 					$style = isset($align) ? "style=\"float:$align\"" : '';
-					return "<span class=\"image\" $style><img src=\"$url\" alt=\"$alt\" />$caption</span>";
+					if ($caption)
+					{
+						return "<span class=\"image\" $style><img src=\"$url\" alt=\"$alt\" />$caption</span>";
+					}
+					else
+					{
+						return "<img src=\"$url\" alt=\"$alt\" $style />";
+					}
 				break;
 
 				case 'thumbnail':
@@ -201,15 +209,23 @@ class WikiMarkup
 					if (count($list))
 					{
 						$image = $list[0];
-						$url = BASE_URL.'/media/thumbnail.php?media_id='.$image->getId();
+						$url = BASE_URL.'/media/media.php?size=thumbnail;media_id='.$image->getId();
 						$alt = View::escape($image->getTitle());
 					}
 					# We couldn't find an image with that filename, just display the raw text
 					else { return $matches[0]; }
 
 					$caption = isset($linkText) ? '<span class="caption">'.View::escape($linkText).'</span>' : '';
-					$style = isset($align) ? "style=\"float:$align\"" : '';
-					return "<span class=\"image\" $style><img src=\"$url\" alt=\"$alt\" />$caption</span>";
+					if ($caption)
+					{
+						$style = isset($align) ? "style=\"float:$align\"" : '';
+						return "<span class=\"image thumbnail\" $style><img src=\"$url\" alt=\"$alt\" />$caption</span>";
+					}
+					else
+					{
+						$style = isset($align) ? "align=\"$align\"" : '';
+						return "<img src=\"$url\" alt=\"$alt\" $style />";
+					}
 				break;
 			}
 		}
