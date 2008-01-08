@@ -21,44 +21,20 @@ $config->set('Cache','DefinitionImpl',null);
 $allowedElements = array
 (
 	'div','p','h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'br', 'hr',
-	'em', 'strong', 'u', 'sub', 'sup',
+	'em', 'strong', 'sub', 'sup',
 	'abbr', 'acronym', 'address', 'blockquote', 'cite', 'code', 'pre', 'q',
 	'dl', 'ol', 'ul', 'li', 'dt', 'dd',
 	'table', 'thead','tbody','tr','th','td'
 );
 $config->set('HTML','AllowedElements',$allowedElements);
 
+/**
+ * Even though we want to allow style="" as an attribute, we
+ * still want to keep people from changing fonts and others.
+ * This should strip those from allowed CSS definitions
+ */
+$invalid_css = array('font','font-style','font-variant','font-size','font-family','font-weight',
+					'color','background','background-color','background-image');
 
-/*
-$config->set('HTML', 'DefinitionID', 'content_manager');
-$config->set('HTML', 'DefinitionRev', 1);
-$config->set('Core', 'DefinitionCache', null); // remove this later!
-$def =& $config->getHTMLDefinition(true);
-
-$form =& $def->addElement(
-  'form',   // name
-  'Block',  // content set
-  'Flow|Optional: fieldset', // allowed children
-  'Common', // attribute collection
-  array( // attributes
-	'action*' => 'URI',
-	'method' => 'Enum#get|post'
-  )
-);
-$form->excludes = array('form' => true);
-
-$def->addElement( 'fieldset','Block','Optional: legend|Flow','',array() );
-$def->addElement( 'legend','Inline','Flow','',array() );
-
-$def->addElement('label','Inline','Flow','',array('for'=>'NMTOKENS'));
-$def->addElement('select','Inline','Flow','',array('name'=>'ID','id'=>'ID'));
-$def->addElement('option','Inline','Flow','',array('value'=>'CDATA','selected'=>'Enum#selected'));
-$def->addElement('textarea','Inline','Empty','',array('name'=>'ID','id'=>'ID','rows'=>'Number','cols'=>'Number'));
-$def->addElement('input','Inline','Flow','',array('type'=>'CDATA',
-											   'name'=>'ID',
-											   'id'=>'ID',
-											   'value'=>'CDATA',
-											   'size'=>'Number',
-											   'maxlength'=>'Number',
-											   'checked'=>'Enum#checked'));
-*/
+$css =& $config->getCSSDefinition();
+foreach($invalid_css as $property) { unset($css->info[$property]); }
