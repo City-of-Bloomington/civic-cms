@@ -50,22 +50,22 @@
 		"-em/-i," +
 		"-strike," +
 		"-u," +
-		"-p[class|style]," +
+		"-p[class]," +
 		"br," +
 		"img[id|longdesc|usemap|class|src|alt=|title|hspace|vspace|width|height|align]," +
 		"-sub," +
 		"-sup," +
 		"-blockquote," +
-		"-table[width|height|class|align|summary|class|style]," +
-		"-tr[abbr|align|class|rowspan|id|valign|class|style]," +
+		"-table[width|height|class|align|summary|class]," +
+		"-tr[abbr|align|class|rowspan|id|valign|class]," +
 		"tbody," +
 		"thead," +
 		"tfoot," +
-		"-td[class|colspan|style]," +
-		"-th[class|colspan|style|rowspan|width|height|align|valign|scope]," +
-		"caption[class|style]," +
-		"-div[id|class|style]," +
-		"-span[class|style]," +
+		"-td[class|colspan]," +
+		"-th[class|colspan|rowspan|width|height|align|valign|scope]," +
+		"caption[class]," +
+		"-div[id|class]," +
+		"-span[class]," +
 		"-pre," +
 		"address," +
 		"-h2," +
@@ -74,21 +74,21 @@
 		"-h5," +
 		"-h6," +
 		"hr," +
-		"-ol[class|style]," +
-		"-ul[class|style]," +
-		"-li[class|style]," +
-		"dd[class|style]," +
-		"dl[class|style]," +
-		"dt[class|style]" +
+		"-ol[class]," +
+		"-ul[class]," +
+		"-li[class]," +
+		"dd[class]," +
+		"dl[class]," +
+		"dt[class]" +
 		"form[action|class|enctype|id|method<get?post|onsubmit]," +
 		"fieldset,legend," +
-		"label[class|for|id|style]," +
-		"input[checked<checked|class|style|id|maxlength|name|size|type<button?checkbox?file?hidden?image?password?radio?reset?submit?text]," +
+		"label[class|for|id]," +
+		"input[checked<checked|class|id|maxlength|name|size|type<button?checkbox?file?hidden?image?password?radio?reset?submit?text]," +
 		"select[multiple<multiple|name|onchange]," +
 		"option[value]," +
 		"optgroup," +
-		"textarea[class|style|cols|id|name|rows]," +
-		"button[accesskey|class|style|id|name|onclick|type|value],"
+		"textarea[class|cols|id|name|rows]," +
+		"button[accesskey|class|id|name|onclick|type|value],"
 	}
 	);
 </script>
