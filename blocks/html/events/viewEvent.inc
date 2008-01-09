@@ -34,7 +34,7 @@
 
 		$description = WikiMarkup::parse($this->event->getDescription());
 		echo "
-		<p><strong>Location:</strong> $location</p>
+		<p><strong>Location:</strong> <a href=\"{$this->event->getLocation()->getURL()}\">$location</a></p>
 		<p><strong>Contact:</strong> $name. $phone, $email</p>
 		<div>$description</div>
 		<div>{$this->event->getRRule()}</div>
