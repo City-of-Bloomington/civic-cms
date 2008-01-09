@@ -73,7 +73,7 @@ as well as find driving directions, and information specific to a certain site.<
 					$info[] = "'{$title}{$desc}{$directions}'";
 
 					$i = count($points) - 1;
-					$mapButton = "<button type=\"button\" onclick=\"popup($i);\">Map It</button>";
+					$mapButton = "<a href=\"#\" onclick=\"popup($i)\">Reveal In Map</a>";
 				}
 				else { $mapButton = ''; }
 
