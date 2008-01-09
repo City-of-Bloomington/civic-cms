@@ -23,14 +23,12 @@
 				$PDO = Database::getConnection();
 				if (is_numeric($id)) { $sql = 'select * from languages where id=?'; }
 				else { $sql = 'select * from languages where code=?'; }
-				try
-				{
-					$query = $PDO->prepare($sql);
-					$query->execute(array($id));
-				}
-				catch (Exception $e) { throw $e; }
+
+				$query = $PDO->prepare($sql);
+				$query->execute(array($id));
 
 				$result = $query->fetchAll();
+				if (!count($result)) { throw new Exception('languages/unknownLanguage'); }
 				foreach($result[0] as $field=>$value) { if ($value) $this->$field = $value; }
 			}
 			else
