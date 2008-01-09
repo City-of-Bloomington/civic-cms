@@ -159,5 +159,20 @@
 		}
 
 
+		public function grep($regex)
+		{
+			$regex = escapeshellarg($regex);
+
+			$this->list = array();
+
+			$dir = APPLICATION_HOME.'/data/documents/';
+			$files = explode("\n",shell_exec("grep -lR --exclude '*.svn*' $regex $dir"));
+			foreach($files as $file)
+			{
+				$d = explode('.',basename($file));
+				if ($d[0]) { $this->list[] = $d[0]; }
+			}
+		}
+
 		protected function loadResult($key) { return new Document($this->list[$key]); }
 	}

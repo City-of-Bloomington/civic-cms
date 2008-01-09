@@ -25,6 +25,7 @@
 	if (userHasRole('Webmaster') || userHasRole('Administrator'))
 	{
 		$links['Documents'] = "<li><a href=\"".BASE_URL."/documents\">Documents</a></li>";
+		$links['Content'] = "<li><a href=\"".BASE_URL."/documents/maintenance.php\">Content Checking</a></li>";
 		$links['Sections'] = "<li><a href=\"".BASE_URL."/sections\">Sections</a></li>";
 		$links['Facets'] = "<li><a href=\"".BASE_URL."/facets\">Facets</a></li>";
 		$links['DocumentTypes'] = "<li><a href=\"".BASE_URL."/documentTypes\">Document Types</a></li>";

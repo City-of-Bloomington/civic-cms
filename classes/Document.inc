@@ -176,6 +176,8 @@
 				$query = $PDO->prepare("delete from media_documents where document_id={$this->id}");
 				$query->execute();
 
+				$this->deleteContent();
+
 				$query = $PDO->prepare("delete from documents where id={$this->id}");
 				$query->execute();
 
