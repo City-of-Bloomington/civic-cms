@@ -9,10 +9,14 @@ $name = View::escape($this->location->getName());
 $address = View::escape($this->location->getAddress());
 $description = View::escape($this->location->getDescription());
 
+$n = addslashes($name);
+$directions = "Get Directions: <a href=\"http://maps.google.com/?q=to:$n@{$this->location->getLatitude()},{$this->location->getLongitude()}\">To $name</a>";
+
 echo "
 <h1>$name</h1>
 <p>$address</p>
 <p>$description</p>
+<p>$directions</p>
 ";
 echo WikiMarkup::parse($this->location->getContent());
 
@@ -25,14 +29,9 @@ if (defined('GOOGLE_MAP_KEY'))
 <script type="text/javascript">
 	var point = new GLatLng(<?php echo $this->location->getLatitude(); ?>,<?php echo $this->location->getLongitude(); ?>);
 	<?php
-		$n = addslashes($name);
 		$d = addslashes(str_replace(array("\r\n","\n","\r"),' ',$description));
-
-		$title = "<h3 style=\"width:200px\">$n</h3>";
-		$desc = "<p style=\"width:200px\">$d</p>";
-		$directions = "<p>Get Directions: <a href=\"http://maps.google.com/?q=to:$n@{$this->location->getLatitude()},{$this->location->getLongitude()}\">To Here</a></p>";
 	?>
-	var info = '<?php echo $title.$desc.$directions; ?>';
+	var info = '<?php echo "<h3 style=\"width:200px\">$n</h3><p style=\"width:200px\">$d</p><p>$directions</p>"; ?>';
 
 	var map = new GMap2(document.getElementById("location_map"));
 	function loadMap()
