@@ -120,6 +120,8 @@ define('COPYRIGHT',"/**
 	/**
 	 * Session Startup
 	 */
+	ini_set('session.save_path',APPLICATION_HOME.'/data/sessions');
+	ini_set('session.gc_maxlifetime',30*60);
 	session_start();
 
 	/**
