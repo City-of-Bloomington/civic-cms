@@ -56,6 +56,7 @@
 
 
 	$template = new Template('backend');
+	if (isset($pageNavigation)) { $template->blocks[] = $pageNavigation; }
 	$template->blocks[] = $documentsBlock;
 	if (isset($pageNavigation)) { $template->blocks[] = $pageNavigation; }
 	$template->render();
