@@ -80,153 +80,17 @@ class WikiMarkup
 		# Check for all the colon specified link types
 		if (preg_match('/:/',$link))
 		{
-			list($type,$link) = explode(':',$link,2);
+			list($type,$linkTarget) = explode(':',$link,2);
 			$type = trim($type);
-			$link = trim($link);
-			switch ($type)
+			$linkTarget = trim($linkTarget);
+			$t = isset($linkText) ? $linkText : null;
+
+			$parse = $type.'Markup';
+			# Colon specified types are declared as private functions
+			# They are written at the bottom of this script
+			if (method_exists('WikiMarkup',$parse) && $markup = self::$parse($linkTarget,$t))
 			{
-				case 'file':
-					$list = ctype_digit($link) ? new MediaList(array('id'=>$link)) : new MediaList(array('filename'=>$link));
-					if (count($list))
-					{
-						$media = $list[0];
-						if (!isset($linkText)) { $linkText = View::escape($media->getTitle()); }
-						$type = strtoupper($media->getExtension());
-						$size = self::size_readable($media->getFilesize());
-						return "<a href=\"{$media->getURL()}\" class=\"{$media->getExtension()}\">$linkText <em>($type $size)</em></a>";
-					}
-				break;
-
-				case 'locationGroup':
-					$list = ctype_digit($link) ? new LocationGroupList(array('id'=>$link)) : new LocationGroupList(array('name'=>$link));
-					if (count($list))
-					{
-						$locationGroup = $list[0];
-						$linkText = isset($linkText) ? $linkText : View::escape($locationGroup->getName());
-						$url = BASE_URL.'/locations/?locationGroup_id='.$locationGroup->getId();
-						return "<a href=\"$url\">$linkText</a>";
-					}
-				break;
-
-				case 'location':
-					$list = ctype_digit($link) ? new LocationList(array('id'=>$link)) : new LocationList(array('name'=>$link));
-					if (count($list))
-					{
-						$location = $list[0];
-						$linkText = isset($linkText) ? $linkText : View::escape($location->getName());
-						$url = BASE_URL.'/locations/viewLocation.php?location_id='.$location->getId();
-						return "<a href=\"$url\">$linkText</a>";
-					}
-				break;
-
-				case 'calendar':
-					$list = ctype_digit($link) ? new CalendarList(array('id'=>$link)) : new CalendarList(array('name'=>$link));
-					if (count($list))
-					{
-						$calendar = $list[0];
-						$linkText = isset($linkText) ? $linkText : View::escape($calendar->getName());
-						$url = BASE_URL.'/calendars/home.php?calendar_id='.$calendar->getId();
-						return "<a href=\"$url\">$linkText</a>";
-					}
-				break;
-
-				case 'facet':
-					$list = ctype_digit($link) ? new FacetList(array('id'=>$link)) : new FacetList(array('name'=>$link));
-					if (count($list))
-					{
-						$facet = $list[0];
-						$linkText = isset($linkText) ? $linkText : View::escape($facet->getName());
-						$url = BASE_URL.'/facets/viewFacet.php?facet_id='.$facet->getId();
-						return "<a href=\"$url\">$linkText</a>";
-					}
-				break;
-
-				case 'event':
-				break;
-
-				case 'language':
-				break;
-
-				case 'anchor':
-					if (isset($linkText)) { return "<a id=\"$link\">$linkText</a>"; }
-					else { return "<a id=\"$link\" />"; }
-				break;
-
-				case 'mailto':
-					$linkText = isset($linkText) ? $linkText : $link;
-					$url = "mailto:$link";
-					return "<a href=\"$url\">$linkText</a>";
-				break;
-
-				case 'image':
-					# Parse any user-specified alignment
-					if (strpos($link,',')!==false)
-					{
-						list($link,$align) = explode(',',$link);
-						$align = strtolower($align);
-					}
-					# If the link is a URL, use that as the src
-					if (preg_match($fullURLPattern,$link))
-					{
-						$url = $link;
-						$alt = '';
-					}
-					# Otherwise look for an image with $link as a filename
-					else
-					{
-						$list = ctype_digit($link) ? new ImageList(array('id'=>$link)) : new ImageList(array('filename'=>$link));
-						if (count($list))
-						{
-							$image = $list[0];
-							$url = $image->getURL();
-							$alt = View::escape($image->getTitle());
-						}
-						# We couldn't find an image with that filename, just display the raw text
-						else { return $matches[0]; }
-					}
-
-					$caption = isset($linkText) ? '<span class="caption">'.View::escape($linkText).'</span>' : '';
-					$style = isset($align) ? "style=\"float:$align\"" : '';
-					if ($caption)
-					{
-						return "<span class=\"image\" $style><img src=\"$url\" alt=\"$alt\" />$caption</span>";
-					}
-					else
-					{
-						return "<img src=\"$url\" alt=\"$alt\" $style />";
-					}
-				break;
-
-				case 'thumbnail':
-					# Parse any user-specified alignment
-					if (strpos($link,',')!==false)
-					{
-						list($link,$align) = explode(',',$link);
-						$align = strtolower($align);
-					}
-
-					$list = ctype_digit($link) ? new ImageList(array('id'=>$link)) : new ImageList(array('filename'=>$link));
-					if (count($list))
-					{
-						$image = $list[0];
-						$url = BASE_URL.'/media/media.php?size=thumbnail;media_id='.$image->getId();
-						$alt = View::escape($image->getTitle());
-					}
-					# We couldn't find an image with that filename, just display the raw text
-					else { return $matches[0]; }
-
-					$caption = isset($linkText) ? '<span class="caption">'.View::escape($linkText).'</span>' : '';
-					if ($caption)
-					{
-						$style = isset($align) ? "style=\"float:$align\"" : '';
-						return "<span class=\"image thumbnail\" $style><img src=\"$url\" alt=\"$alt\" />$caption</span>";
-					}
-					else
-					{
-						$style = isset($align) ? "align=\"$align\"" : '';
-						return "<img src=\"$url\" alt=\"$alt\" $style />";
-					}
-				break;
+				return $markup;
 			}
 		}
 
@@ -270,5 +134,164 @@ class WikiMarkup
         }
         if ($sizestring == $sizes[0]) { $retstring = '%01d %s'; } // Bytes aren't normally fractional
         return sprintf($retstring, $size, $sizestring);
+	}
+
+
+	#----------------------------------------------------------------
+	# Colon-specifed Markup functions.
+	# These functions parse the target and return appropriate markup if they can
+	# find the target in the system.  If not, they should return false
+	#----------------------------------------------------------------
+	private static function fileMarkup($linkTarget,$linkText=null)
+	{
+		$list = ctype_digit($linkTarget) ? new MediaList(array('id'=>$linkTarget)) : new MediaList(array('filename'=>$linkTarget));
+		if (count($list))
+		{
+			$media = $list[0];
+			if (!isset($linkText)) { $linkText = View::escape($media->getTitle()); }
+			$type = strtoupper($media->getExtension());
+			$size = self::size_readable($media->getFilesize());
+			return "<a href=\"{$media->getURL()}\" class=\"{$media->getExtension()}\">$linkText <em>($type $size)</em></a>";
+		}
+		else { return false; }
+	}
+
+	private static function locationGroupMarkup($linkTarget,$linkText=null)
+	{
+		$list = ctype_digit($linkTarget) ? new LocationGroupList(array('id'=>$linkTarget)) : new LocationGroupList(array('name'=>$linkTarget));
+		if (count($list))
+		{
+			$locationGroup = $list[0];
+			$linkText = isset($linkText) ? $linkText : View::escape($locationGroup->getName());
+			$url = BASE_URL.'/locations/?locationGroup_id='.$locationGroup->getId();
+			return "<a href=\"$url\">$linkText</a>";
+		}
+		else { return false; }
+	}
+
+	private static function locationMarkup($linkTarget,$linkText=null)
+	{
+		$list = ctype_digit($linkTarget) ? new LocationList(array('id'=>$linkTarget)) : new LocationList(array('name'=>$linkTarget));
+		if (count($list))
+		{
+			$location = $list[0];
+			$linkText = isset($linkText) ? $linkText : View::escape($location->getName());
+			$url = BASE_URL.'/locations/viewLocation.php?location_id='.$location->getId();
+			return "<a href=\"$url\">$linkText</a>";
+		}
+		else { return false; }
+	}
+	private static function calendarMarkup($linkTarget,$linkText=null)
+	{
+		$list = ctype_digit($linkTarget) ? new CalendarList(array('id'=>$linkTarget)) : new CalendarList(array('name'=>$linkTarget));
+		if (count($list))
+		{
+			$calendar = $list[0];
+			$linkText = isset($linkText) ? $linkText : View::escape($calendar->getName());
+			$url = BASE_URL.'/calendars/home.php?calendar_id='.$calendar->getId();
+			return "<a href=\"$url\">$linkText</a>";
+		}
+		else { return false; }
+	}
+	private static function facetMarkup($linkTarget,$linkText=null)
+	{
+		$list = ctype_digit($linkTarget) ? new FacetList(array('id'=>$linkTarget)) : new FacetList(array('name'=>$linkTarget));
+		if (count($list))
+		{
+			$facet = $list[0];
+			$linkText = isset($linkText) ? $linkText : View::escape($facet->getName());
+			$url = BASE_URL.'/facets/viewFacet.php?facet_id='.$facet->getId();
+			return "<a href=\"$url\">$linkText</a>";
+		}
+		else { return false; }
+	}
+	private static function eventMarkup($linkTarget,$linkText=null)
+	{
+		return false;
+	}
+	private static function languageMarkup($linkTarget,$linkText=null)
+	{
+		return false;
+	}
+	private static function anchorMarkup($linkTarget,$linkText=null)
+	{
+		if (isset($linkText)) { return "<a id=\"$linkTarget\">$linkText</a>"; }
+		else { return "<a id=\"$linkTarget\" />"; }
+	}
+	private static function mailtoMarkup($linkTarget,$linkText=null)
+	{
+		$linkText = isset($linkText) ? $linkText : $linkTarget;
+		$url = "mailto:$linkTarget";
+		return "<a href=\"$url\">$linkText</a>";
+	}
+	private static function imageMarkup($linkTarget,$linkText=null)
+	{
+		# Parse any user-specified alignment
+		if (strpos($linkTarget,',')!==false)
+		{
+			list($linkTarget,$align) = explode(',',$linkTarget);
+			$align = strtolower($align);
+		}
+
+		# If the link is a URL, use that as the src
+		if (preg_match($fullURLPattern,$linkTarget))
+		{
+			$url = $linkTarget;
+			$alt = '';
+		}
+		# Otherwise look for an image with $linkTarget as a filename
+		else
+		{
+			$list = ctype_digit($linkTarget) ? new ImageList(array('id'=>$linkTarget)) : new ImageList(array('filename'=>$linkTarget));
+			if (count($list))
+			{
+				$image = $list[0];
+				$url = $image->getURL();
+				$alt = View::escape($image->getTitle());
+			}
+			# We couldn't find an image with that filename, just display the raw text
+			else { return false; }
+		}
+
+		$caption = isset($linkText) ? '<span class="caption">'.View::escape($linkText).'</span>' : '';
+		$style = isset($align) ? "style=\"float:$align\"" : '';
+		if ($caption)
+		{
+			return "<span class=\"image\" $style><img src=\"$url\" alt=\"$alt\" />$caption</span>";
+		}
+		else
+		{
+			return "<img src=\"$url\" alt=\"$alt\" $style />";
+		}
+	}
+	private static function thumbnailMarkup($linkTarget,$linkText=null)
+	{
+		# Parse any user-specified alignment
+		if (strpos($linkTarget,',')!==false)
+		{
+			list($linkTarget,$align) = explode(',',$linkTarget);
+			$align = strtolower($align);
+		}
+
+		$list = ctype_digit($linkTarget) ? new ImageList(array('id'=>$linkTarget)) : new ImageList(array('filename'=>$linkTarget));
+		if (count($list))
+		{
+			$image = $list[0];
+			$url = BASE_URL.'/media/media.php?size=thumbnail;media_id='.$image->getId();
+			$alt = View::escape($image->getTitle());
+		}
+		# We couldn't find an image with that filename, just display the raw text
+		else { return false; }
+
+		$caption = isset($linkText) ? '<span class="caption">'.View::escape($linkText).'</span>' : '';
+		$style = isset($align) ? "style=\"float:$align\"" : '';
+		if ($caption)
+		{
+			return "<span class=\"image thumbnail\" $style><img src=\"$url\" alt=\"$alt\" />$caption</span>";
+		}
+		else
+		{
+			return "<img src=\"$url\" alt=\"$alt\" $style />";
+		}
 	}
 }
