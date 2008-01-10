@@ -44,11 +44,20 @@
 				#<a href=\"".BASE_URL."/sections/viewSection.php?section_id={$this->section->getId()};format=rss\" class=\"rss\">
 				#	<img src=\"".BASE_URL."/skins/default/images/feed-icon-14x14.png\" alt=\"RSS\" />
 				#</a>
+
+		# Don't list Featured Documents.  They should have already been displayed
+		$list = new DocumentList(array('section_id'=>$this->section->getId(),'featured'=>1,'active'=>date('Y-m-d')));
+		$featured = array();
+		foreach($list as $d) { $featured[] = $d->getId(); }
+
 		# List the first five documents
 		$count = 0;
 		foreach($documents as $document)
 		{
-			if (!isset($this->document) || $document->getId()!=$this->document->getId())
+			# Check to see if we should display this document
+			if ($document->getId()!=$this->document->getId() && # The current document should be left out of this list
+				!in_array($document->getId(),$featured) # Featured documents should have already been displayed
+				)
 			{
 				# When we've displayed five documents, start new list, but keep it hidden
 				if ($count==5)
