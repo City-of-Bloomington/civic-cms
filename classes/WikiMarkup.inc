@@ -234,6 +234,7 @@ class WikiMarkup
 		}
 
 		# If the link is a URL, use that as the src
+		$fullURLPattern = '/^(www\.|https?:\/\/)([\w\.]+)([\#\,\/\~\?\&\=\;\%\-\w+\.]+)/';
 		if (preg_match($fullURLPattern,$linkTarget))
 		{
 			$url = $linkTarget;
