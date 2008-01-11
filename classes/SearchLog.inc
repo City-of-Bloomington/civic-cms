@@ -14,7 +14,7 @@ class SearchLog
 	{
 		$PDO = Database::getConnection();
 		$sql = "select queryString,count(*) as count from search_log
-				group by queryString order by count limit $numHits";
+				group by queryString order by count desc limit $numHits";
 		$query = $PDO->prepare($sql);
 		$query->execute();
 		$results = $query->fetchAll();

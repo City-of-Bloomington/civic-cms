@@ -119,6 +119,11 @@ create table search_log (
 	access_time timestamp not null default CURRENT_TIMESTAMP
 ) engine=Archive;
 
+create table file_not_found_log (
+	path varchar(128) not null,
+	access_time timestamp not null default CURRENT_TIMESTAMP
+) engine=Archive;
+
 ---------------------------------------------------------------------
 -- Section tables
 ---------------------------------------------------------------------

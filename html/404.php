@@ -15,6 +15,8 @@
 	switch (count($list))
 	{
 		case 0:
+			FileNotFoundLog::log($path);
+
 			$string = str_replace('-',' ',$wikiTitle);
 			$template = new Template();
 			$template->blocks[] = new Block('404.inc');
