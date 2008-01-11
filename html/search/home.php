@@ -37,7 +37,7 @@ if (isset($_GET['search']) && $_GET['search'])
 		}
 		else { $resultsList = $this->results[$type]; }
 	}
-	else { $resultList = array(); }
+	else { $resultsList = array(); }
 }
 
 

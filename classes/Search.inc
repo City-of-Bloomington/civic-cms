@@ -94,30 +94,33 @@
 			$this->addDocument($entry);
 		}
 
+		/**
+		 * Does a search, using AND for each of the words in the string
+		 * The string is tokenized and built in Zend_Search as a multi-term
+		 * query.  This enables searching for words that are reserved words
+		 * in Zend_Search_Lucene.
+		 *
+		 * Reserved words and fancy boolean searches are not parsed.
+		 *
+		 * @param string $string The text to search for
+		 * @param string type One of the types known to the Search class (see Search->add())
+		 */
 		public function find($string,$type=null)
 		{
-			$string = strtolower($string);
-			try
-			{
-				$userQuery = Zend_Search_Lucene_Search_QueryParser::parse($string);
-				$query = new Zend_Search_Lucene_Search_Query_Boolean();
-				$query->addSubquery($userQuery, true /* required */);
+			$query = new Zend_Search_Lucene_Search_Query_MultiTerm();
 
-				if ($type)
-				{
-					$typeTerm  = new Zend_Search_Lucene_Index_Term($type,'type');
-					$typeQuery = new Zend_Search_Lucene_Search_Query_Term($typeTerm);
-	                $query->addSubquery($typeQuery,true /* required */);
-				}
-			}
-			catch (Exception $e)
+			$string = strtolower($string);
+			$tokens = preg_split('/\s+/',$string);
+			foreach($tokens as $term)
 			{
-				# The string they entered threw an exception when we tried to parse it
-				# The string is most likely invalid.
-				# Clean the string of anything that could be bad and try again
-				$query = strtolower($string);
-				$query = preg_replace('/[^a-z0-9\s]/','',$query);
-				$query = preg_replace('/\b(and)\b|\b(or)\b|\b(not)\b/',' ',$query);
+				$query->addTerm(new Zend_Search_Lucene_Index_Term($term), true);
+			}
+
+			if ($type)
+			{
+				$typeTerm  = new Zend_Search_Lucene_Index_Term($type,'type');
+				$typeQuery = new Zend_Search_Lucene_Search_Query_Term($typeTerm);
+				$query->addSubquery($typeQuery,true /* required */);
 			}
 
 			$hits = $this->search->find($query);
