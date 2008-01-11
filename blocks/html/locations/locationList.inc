@@ -138,7 +138,7 @@ as well as find driving directions, and information specific to a certain site.<
 			map.addControl(new GLargeMapControl());
 			map.addControl(new GMapTypeControl());
 			map.setCenter(new GLatLng(39.167119,-86.533800), 12);
-			map.setMapType(G_SATELLITE_MAP);
+			map.setMapType(G_HYBRID_MAP);
 
 			//var boundaries = new GGeoXml("http://bloomington.in.gov/locations/Bloomington.kml");
 			//map.addOverlay(boundaries);
