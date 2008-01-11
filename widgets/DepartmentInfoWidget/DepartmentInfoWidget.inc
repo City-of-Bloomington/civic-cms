@@ -18,10 +18,14 @@ class DepartmentInfoWidget extends Widget
 
 	public function render($template)
 	{
-		if (isset($template->document))
+		if (isset($_GET['section_id']) && isset($template->document))
 		{
-			$this->department = $template->document->getDepartment();
-			$this->renderIncludeFile($this);
+			$section = new Section($_GET['section_id']);
+			if ($section->getSectionDocument_id() == $template->document->getId())
+			{
+				$this->department = $template->document->getDepartment();
+				$this->renderIncludeFile($this);
+			}
 		}
 	}
 
