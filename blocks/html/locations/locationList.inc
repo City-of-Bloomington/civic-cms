@@ -125,14 +125,21 @@ as well as find driving directions, and information specific to a certain site.<
 		if (GBrowserIsCompatible())
 		{
 			// Create map and add controls
-			map.addControl(new GSmallMapControl());
+			map.addControl(new GLargeMapControl());
 			map.addControl(new GMapTypeControl());
 			map.setCenter(new GLatLng(39.167119,-86.533800), 12);
+			map.setMapType(G_SATELLITE_MAP);
 
-			var boundaries = new GGeoXml("http://bloomington.in.gov/locations/Bloomington.kml");
-			map.addOverlay(boundaries);
+			//var boundaries = new GGeoXml("http://bloomington.in.gov/locations/Bloomington.kml");
+			//map.addOverlay(boundaries);
+			var bounds = new GLatLngBounds();
 
-			for(var i=0; i<points.length; i++) { map.addOverlay(createMarker(points[i],info[i])); }
+			for(var i=0; i<points.length; i++)
+			{
+				map.addOverlay(createMarker(points[i],info[i]));
+				bounds.extend(points[i]);
+			}
+			map.setCenter(bounds.getCenter(),map.getBoundsZoomLevel(bounds));
 		}
 	}
 

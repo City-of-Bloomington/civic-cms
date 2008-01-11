@@ -44,6 +44,10 @@ if (defined('GOOGLE_MAP_KEY'))
 			map.setCenter(new GLatLng(39.167119,-86.533800), 12);
 
 			map.addOverlay(createMarker(point,info));
+
+			var bounds = new GLatLngBounds();
+			bounds.extend(point);
+			map.setCenter(bounds.getCenter(),map.getBoundsZoomLevel(bounds));
 		}
 	}
 
