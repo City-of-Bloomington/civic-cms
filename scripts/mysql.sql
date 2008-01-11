@@ -108,6 +108,12 @@ create table document_watches (
 	foreign key (document_id) references documents(id) on delete cascade,
 	foreign key (user_id) references users(id) on delete cascade
 ) engine=InnoDB;
+
+create table document_accesslog (
+	document_id int unsigned not null,
+	access_time timestamp not null default CURRENT_TIMESTAMP
+) engine=Archive;
+
 ---------------------------------------------------------------------
 -- Section tables
 ---------------------------------------------------------------------

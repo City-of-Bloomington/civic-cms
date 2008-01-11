@@ -64,10 +64,17 @@ PHP:
 	framework uses PDO for database interaction.
 
 MySQL:
+	InnoDB Storage Engine:
 	MySQL should have support for InnoDB.  Foreign keys are written into
 	the database load scripts.  While MyISAM tables will just ignore them,
 	you database and your application will be that much more robust with InnoDB
 	support.
+
+	Archive Storage Engine:
+	MySQL should also have support for the Archive storage engine.  Content
+	Manager uses this storage engine for logs.  The Archive storage engine
+	stores the table data compressed, using zlib.  Without this storage engine
+	the log tables may end up taking up a large amount of space on the server.
 
 	Currently MySQL is the only database supported.  Content Manager is
 	written expecting MySQL's fulltext indexing. Also, backups and

@@ -23,6 +23,8 @@
 
 	if (isset($document))
 	{
+		$document->logAccess();
+
 		$template->document = $document;
 		$template->title = $document->getTitle();
 
