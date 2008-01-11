@@ -50,6 +50,13 @@
 	else
 	{
 		$listBlock->title = 'Locations';
+
+		# If they ask for KML without specifying a particular group,
+		# send them a KML file with all the groups
+		if ($template->outputFormat=='kml')
+		{
+			$listBlock = new Block('locations/locationGroupList.inc');
+		}
 	}
 
 
