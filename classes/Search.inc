@@ -110,6 +110,7 @@
 			$query = new Zend_Search_Lucene_Search_Query_MultiTerm();
 
 			$string = strtolower($string);
+			$this->log($string);
 			$tokens = preg_split('/\s+/',$string);
 			foreach($tokens as $term)
 			{
@@ -154,4 +155,11 @@
 
 		public function count() { return $this->search->count(); }
 		public function numDocs() { return $this->search->numDocs(); }
+
+		private function log($string)
+		{
+			$PDO = Database::getConnection();
+			$query = $PDO->prepare('insert search_log set queryString=?');
+			$query->execute(array($string));
+		}
 	}

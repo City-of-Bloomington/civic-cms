@@ -114,6 +114,11 @@ create table document_accesslog (
 	access_time timestamp not null default CURRENT_TIMESTAMP
 ) engine=Archive;
 
+create table search_log (
+	queryString varchar(128) not null,
+	access_time timestamp not null default CURRENT_TIMESTAMP
+) engine=Archive;
+
 ---------------------------------------------------------------------
 -- Section tables
 ---------------------------------------------------------------------

@@ -9,4 +9,7 @@ $template = new Template('backend');
 $hits = DocumentAccessLog::getTopDocuments();
 $template->blocks[] = new Block('documents/statistics/topHits.inc',array('hits'=>$hits));
 
+$hits = SearchLog::getTopSearches();
+$template->blocks[] = new Block('search/statistics/topSearches.inc',array('searches'=>$hits));
+
 $template->render();
