@@ -8,7 +8,10 @@
  * @param LocationGroup $this->locationGroup
  */
 ?>
-<h1>Locations</h1>
+<h1>
+	<button type="button" class="kml" onclick="document.location.href='<?php echo BASE_URL; ?>/locations/?format=kml';">Locations KML</button>
+	Locations
+</h1>
 <p>Use this feature to find locations grouped together into categories, such as City Facilities or Historic Sites.
 Using GoogleMap technology, you can find the position of different locations all across the city,
 as well as find driving directions, and information specific to a certain site.</p>
@@ -47,6 +50,13 @@ as well as find driving directions, and information specific to a certain site.<
 				$add_url->return_url = $return_url;
 				echo "<button type=\"button\" class=\"addSmall\" onclick=\"document.location.href='$add_url';\">Add</button>";
 			}
+
+			$url = new URL(BASE_URL.'/locations');
+			$url->format = 'kml';
+			$url->locationGroup_id = $this->locationGroup->getId();
+			$name = View::escape($this->locationGroup->getName());
+			echo "<button type=\"button\" class=\"kml\" onclick=\"document.location.href='$url';\">$name KML</button>";
+
 			echo View::escape($this->title);
 		?>
 	</div>
