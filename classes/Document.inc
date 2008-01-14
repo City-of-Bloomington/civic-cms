@@ -445,7 +445,6 @@
 			return false;
 		}
 
-
 		/**
 		 * Watch Functions
 		 */
@@ -639,6 +638,93 @@
 		public function getURL()
 		{
 			return BASE_URL.'/documents/viewDocument.php?document_id='.$this->id;
+		}
+
+		/**
+		 * Creates an array of sections representing the best path this Document,
+		 * to be used as breadcrumbs
+		 * @param int $currentSectionId The section where the user currently is
+		 * @param int $previousSectionId The section where the user just was
+		 */
+		public function getBreadcrumbs($currentSectionId=null,$previousSectionId=null)
+		{
+			#------------------------------------------------------------
+			# Set up the breadcrumbs
+			#------------------------------------------------------------
+			$ancestors = array();
+			foreach($this->getSections() as $parent)
+			{
+				$temp = $parent->getAncestors();
+				foreach($temp as $i=>$vector) { $temp[$i][$parent->getId()] = $parent; }
+
+				$ancestors = array_merge($ancestors,$temp);
+			}
+
+			if ($currentSectionId)
+			{
+				# The vector needs to start with our current section
+				foreach($ancestors as $vector)
+				{
+					$ids = array_reverse(array_keys($vector));
+					if ($ids[0] == $currentSectionId)
+					{
+						# Choose a vector that has the previous section as the second element
+						if (!$previousSectionId || $ids[1]==$previousSectionId)
+						{
+							# This vector looks as good as any
+							$currentAncestors = $vector;
+							break;
+						}
+					}
+				}
+			}
+			elseif($previousSectionId)
+			{
+				# Try and find a vector that has the previous section first
+				foreach($ancestors as $vector)
+				{
+					$ids = array_reverse(array_keys($vector));
+					if ($ids[0] == $previousSectionId)
+					{
+						$currentAncestors = $vector;
+						break;
+					}
+				}
+				# If we still haven't found a vector to use
+				if (!isset($currentAncestors))
+				{
+					# Try and find a vector that has the previous section second
+					foreach($ancestors as $vector)
+					{
+						$ids = array_reverse(array_keys($vector));
+						if (isset($ids[1]) && $ids[1] == $previousSectionId)
+						{
+							$currentAncestors = $vector;
+							break;
+						}
+					}
+				}
+			}
+
+			if (!isset($currentAncestors))
+			{
+				# Just choose the shortest vector
+				$shortest_length = 0;
+
+				foreach($ancestors as $vector)
+				{
+					$ids = array_reverse(array_keys($vector));
+
+					$numAncestors = count($ids);
+					if (!$shortest_length || $numAncestors<$shortest_length)
+					{
+						$shortest_length = $numAncestors;
+						$currentAncestors = $vector;
+					}
+				}
+			}
+
+			return isset($currentAncestors) ? $currentAncestors : array();
 		}
 
 		/**

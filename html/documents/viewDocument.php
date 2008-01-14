@@ -29,60 +29,27 @@
 		$template->title = $document->getTitle();
 
 		#------------------------------------------------------------
-		# Set up the breadcrumbs
+		# Set up the BreadCrumbs
 		#------------------------------------------------------------
-		$ancestors = array();
-		foreach($document->getSections() as $parent)
+		$p = isset($_SESSION['previousSectionId']) ? $_SESSION['previousSectionId'] : null;
+		echo "Previous: $p\n";
+		if (isset($_GET['section_id']))
 		{
-			$temp = $parent->getAncestors();
-			foreach($temp as $i=>$vector) { $temp[$i][$parent->getId()] = $parent; }
-
-			$ancestors = array_merge($ancestors,$temp);
+			$s = $_GET['section_id'];
+			$_SESSION['previousSectionId'] = $s;
 		}
-
-		if (count($ancestors))
-		{
-			if (isset($_SESSION['previousSectionId']))
-			{
-				# Choose the current ancestral line by looking at the last section
-				# of each ancestral line
-				foreach($ancestors as $i=>$vector)
-				{
-					$test = end($vector);
-					if ($test->getId()==$_SESSION['previousSectionId'])
-					{
-						# This is the current ancestral line
-						$currentAncestors = $test;
-					}
-				}
-			}
-			else
-			{
-				# We don't have a previous section to compare
-				# Use the shortest vector in ancestors as the current
-				$shortest = 0;
-				foreach($ancestors as $i=>$vector)
-				{
-					if ($shortest)
-					{
-						if (count($vector) < count($ancestors[$shortest]))
-						{
-							$shortest = $i;
-						}
-					}
-				}
-
-				$currentAncestors = $ancestors[$shortest];
-			}
-		}
-		else { $currentAncestors = array(); }
-
+		else { $s = null; }
+		echo "Current $s\n";
+		$currentAncestors = $document->getBreadcrumbs($s,$p);
 
 		$breadcrumbs = new Block('documents/breadcrumbs.inc');
 		$breadcrumbs->document = $document;
 		$breadcrumbs->currentAncestors = $currentAncestors;
 		$template->blocks[] = $breadcrumbs;
 
+		#------------------------------------------------------------
+		# Set up the content of the document
+		#------------------------------------------------------------
 		if (!$document->isActive())
 		{
 			#$_SESSION['errorMessages'][] = new Exception('documents/unavailable');
