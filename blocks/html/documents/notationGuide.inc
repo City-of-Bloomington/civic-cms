@@ -51,9 +51,9 @@
 </tr>
 
 <tr><th colspan="2">Link to an email address</th></tr>
-<tr><td><ul><li>[email:address]</li></ul>
+<tr><td><ul><li>[mailto:address]</li></ul>
 		Example
-		<ul><li>[email:inghamn@bloomington.in.gov]</li></ul>
+		<ul><li>[mailto:inghamn@bloomington.in.gov]</li></ul>
 	</td>
 	<td><p>Creates a mailto: link to the address provided.</p></td>
 </tr>
