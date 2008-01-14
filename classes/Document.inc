@@ -669,7 +669,7 @@
 					if ($ids[0] == $currentSectionId)
 					{
 						# Choose a vector that has the previous section as the second element
-						if (!$previousSectionId || $ids[1]==$previousSectionId)
+						if (!$previousSectionId || (isset($ids[1]) && $ids[1]==$previousSectionId))
 						{
 							# This vector looks as good as any
 							$currentAncestors = $vector;
