@@ -189,9 +189,14 @@ class WikiMarkup
 			$calendar = $list[0];
 			$linkText = isset($linkText) ? $linkText : View::escape($calendar->getName());
 			$url = BASE_URL.'/calendars/home.php?calendar_id='.$calendar->getId();
-			return "<a href=\"$url\">$linkText</a>";
 		}
-		else { return false; }
+		else
+		{
+			$linkText = isset($linkText) ? $linkText : 'All Calendars';
+			$url = BASE_URL.'/calendars';
+		}
+
+		return "<a href=\"$url\">$linkText</a>";
 	}
 	private static function facetMarkup($linkTarget,$linkText=null)
 	{
