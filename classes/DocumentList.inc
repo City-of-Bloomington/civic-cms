@@ -8,7 +8,7 @@
 	{
 		public function __construct($fields=null)
 		{
-			$this->select = "select documents.id from documents";
+			$this->select = "select distinct documents.id from documents";
 			if (is_array($fields)) { $this->find($fields); }
 		}
 
@@ -81,11 +81,10 @@
 					$options[] = "(wikiTitle='$fields[wikiTitle_or_alias]' or alias='$fields[wikiTitle_or_alias]')";
 				}
 
-				if (isset($fields['section_id']))
+				if (isset($fields['section_id']) || isset($fields['featured']))
 				{
 					$this->joins.= ' left join sectionDocuments s on documents.id=s.document_id';
-					$options[] = "section_id='$fields[section_id]'";
-
+					if (isset($fields['section_id'])) { $options[] = "section_id='$fields[section_id]'"; }
 					if (isset($fields['featured'])) { $options[] = "featured='$fields[featured]'"; }
 				}
 
