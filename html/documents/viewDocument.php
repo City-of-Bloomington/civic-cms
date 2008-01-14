@@ -12,7 +12,12 @@
  * Documents that include forms are expected to have the PHP code
  * inside themselves to process their own POST
  */
-	$template = new Template();
+	$format = isset($_GET['format']) ? strtolower($_GET['format']) : 'html';
+	switch($format)
+	{
+		case 'print': $template = new Template('print','html'); break;
+		default: $template = new Template();
+	}
 
 	try
 	{

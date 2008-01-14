@@ -208,7 +208,7 @@ button.addSmall { width:15px; height:15px; padding-top:15px; background: url('de
 button.editSmall { width:15px; height:15px; padding-top:15px; background: url('default/images/editSmall.gif') no-repeat; border:0; }
 button.deleteSmall { width:15px; height:15px; padding-top:15px; background: url('default/images/deleteSmall.gif') no-repeat; border:0; }
 button.excel { width:16px; height:16px; padding-top:16px; background: url('default/images/excel.gif') no-repeat; border:0; }
-button.printSmall { width:16px; height:16px; padding-top:16px; background: url('default/images/printSmall.gif') no-repeat; border:0; }
+button.printSmall { width:16px; height:16px; padding-top:16px; background: url('default/images/printer1.png') no-repeat; border:0; }
 button.up { width:16px; height:16px; padding-top:16px; background: url('default/images/up.png') no-repeat; border:0; }
 button.down { width:16px; height:16px; padding-top:16px; background: url('default/images/down.png') no-repeat; border:0; }
 button.rssSmall { width:14px; height:14px; padding-top:14px; background:url('default/images/feed-icon-14x14.png') no-repeat; border:0; }
