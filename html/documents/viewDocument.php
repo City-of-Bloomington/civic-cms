@@ -32,14 +32,12 @@
 		# Set up the BreadCrumbs
 		#------------------------------------------------------------
 		$p = isset($_SESSION['previousSectionId']) ? $_SESSION['previousSectionId'] : null;
-		echo "Previous: $p\n";
 		if (isset($_GET['section_id']))
 		{
 			$s = $_GET['section_id'];
 			$_SESSION['previousSectionId'] = $s;
 		}
 		else { $s = null; }
-		echo "Current $s\n";
 		$currentAncestors = $document->getBreadcrumbs($s,$p);
 
 		$breadcrumbs = new Block('documents/breadcrumbs.inc');
