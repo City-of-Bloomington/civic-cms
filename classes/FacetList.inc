@@ -13,7 +13,7 @@
 		}
 
 
-		public function find($fields=null,$sort='name',$limit=null,$groupBy=null)
+		public function find($fields=null,$sort='ordering,name',$limit=null,$groupBy=null)
 		{
 			$this->sort = $sort;
 			$this->limit = $limit;
@@ -32,6 +32,7 @@
 			if (isset($fields['name'])) { $options[] = "name='$fields[name]'"; }
 			if (isset($fields['facetGroup_id'])) { $options[] = "facetGroup_id='$fields[facetGroup_id]'"; }
 			if (isset($fields['description'])) { $options[] = "description='$fields[description]'"; }
+			if (isset($fields['ordering'])) { $options[] = "ordering='$fields[ordering]'"; }
 
 
 			# Finding on fields from other tables required joining those tables.

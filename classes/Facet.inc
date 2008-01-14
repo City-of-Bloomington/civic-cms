@@ -10,6 +10,7 @@
 		private $name;
 		private $facetGroup_id;
 		private $description;
+		private $ordering;
 
 		private $facetGroup;
 		private $documents;
@@ -57,6 +58,7 @@
 			$fields['name'] = $this->name;
 			$fields['facetGroup_id'] = $this->facetGroup_id;
 			$fields['description'] = $this->description ? $this->description : null;
+			$fields['ordering'] = $this->ordering ? $this->ordering : null;
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
@@ -130,6 +132,7 @@
 		public function getName() { return $this->name; }
 		public function getFacetGroup_id() { return $this->facetGroup_id; }
 		public function getDescription() { return $this->description; }
+		public function getOrdering() { return $this->ordering; }
 		public function getFacetGroup()
 		{
 			if ($this->facetGroup_id)
@@ -157,6 +160,6 @@
 		public function setName($string) { $this->name = trim($string); }
 		public function setFacetGroup_id($int) { $this->facetGroup = new FacetGroup($int); $this->facetGroup_id = $int; }
 		public function setDescription($string) { $this->description = trim($string); }
+		public function setOrdering($int) { $this->ordering = (int) $int; }
 		public function setFacetGroup($facetGroup) { $this->facetGroup_id = $facetGroup->getId(); $this->facetGroup = $facetGroup; }
 	}
-?>

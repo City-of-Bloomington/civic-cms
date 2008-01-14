@@ -29,6 +29,9 @@
 			</select>
 		</td>
 	</tr>
+	<tr><td><label for="facet-ordering">Ordering</label></td>
+		<td><input name="facet[ordering]" id="facet-ordering" size="2" maxlength="2" value="<?php echo $this->facet->getOrdering(); ?>" /></td>
+	</tr>
 	<tr><td colspan="2">
 			<div><label for="description">Description</label></div>
 			<?php

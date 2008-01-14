@@ -185,6 +185,7 @@ create table facets (
   name varchar(50) not null unique,
   facetGroup_id int unsigned not null,
   description text,
+  ordering tinyint(2) unsigned,
   foreign key (facetGroup_id) references facetGroups(id)
 ) engine=InnoDB;
 

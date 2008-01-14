@@ -5,7 +5,7 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param GET facet_id
  */
-	verifyUser('Webmaster');
+	verifyUser(array('Administrator','Webmaster'));
 
 	if (isset($_GET['facet_id'])) { $facet = new Facet($_GET['facet_id']); }
 	if (isset($_POST['facet_id']))
@@ -30,4 +30,3 @@
 	$template = new Template();
 	$template->blocks[] = new Block('facets/updateFacetForm.inc',array('facet'=>$facet));
 	$template->render();
-?>
