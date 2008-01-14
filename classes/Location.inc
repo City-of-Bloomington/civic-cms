@@ -117,6 +117,9 @@
 			{
 				$PDO = Database::getConnection();
 
+				$query = $PDO->prepare('update events set location_id=null where location_id=?');
+				$query->execute(array($this->id));
+
 				$query = $PDO->prepare('delete from locationGroup_locations where location_id=?');
 				$query->execute(array($this->id));
 
