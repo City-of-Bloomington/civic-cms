@@ -72,7 +72,7 @@ class UpcomingEventsWidget extends Widget
 		$this->isSectionBased = isset($data['isSectionBased']) ? $data['isSectionBased'] : true;
 	}
 	/**
-	 * Serializes an array into a string that can be insterted into the database
+	 * Serializes an array into a string that can be inserted into the database
 	 * This will usually be from a form posting.  The form should have used
 	 * this widget's dataFields include so we know what array to expect
 	 * @param array $post

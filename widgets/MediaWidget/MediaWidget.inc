@@ -4,43 +4,21 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
-class FacetGroupWidget extends Widget
+class MediaWidget extends Widget
 {
-	/**
-	 * The group this widget is supposed to render.
-	 */
-	public $facetGroup;
+	public $media = array();
 
 	public function __construct()
 	{
-		$this->className = 'FacetGroupWidget';
-		$this->displayName = 'Facet Group Links';
-		$this->includeFile = 'sidebar.inc';
-		$this->description = 'Displays links to the facets in the chosen group';
+		$this->className = 'MediaWidget';
+		$this->displayName = 'Spotlight';
+		$this->includeFile = 'include.inc';
+		$this->description = 'Displays selected media';
 	}
 
-	/**
-	 * Unserializes the string field from the database into a variable
-	 * @param string $string
-	 */
-	public function setData($string)
+	public function render($template)
 	{
-		$this->facetGroup = new FacetGroup($string);
-	}
-
-	/**
-	 * Serializes an array into a string that can be inserted into the database
-	 * This will usually be from a form posting.  The form should have used
-	 * this widget's dataFields include so we know what array to expect
-	 * @param array $post
-	 * @return string Serialized data for the widget
-	 */
-	public function serializePost(array $post)
-	{
-		if(isset($_POST['facetGroup_id']))
-		{
-			return $_POST['facetGroup_id'];
-		}
+		$this->renderIncludeFile($this);
 	}
 
 	/**
@@ -50,15 +28,38 @@ class FacetGroupWidget extends Widget
 	public function usesData() { return true; }
 
 	/**
+	 * Unserializes the string field from the database into class variables
+	 * @param string $string
+	 */
+	public function setData($string)
+	{
+		$this->media = array();
+		foreach(explode(',',$string) as $id)
+		{
+			$id = trim($id);
+			try { $this->media[] = new Media($id); }
+			catch (Exception $e)
+			{
+				# Just ignore invalid media
+			};
+		}
+	}
+
+	/**
+	 * Serializes an array into a string that can be inserted into the database
+	 * This will usually be from a form posting.  The form should have used
+	 * this widget's dataFields include so we know what array to expect
+	 * @param array $post
+	 */
+	public function serializePost(array $post)
+	{
+		if (isset($post['media'])) { return $post['media']; }
+	}
+
+	/**
 	 * This lets the application ask for the path to the file holding the form fields
 	 * this widgets wants used
 	 * @return string Path to include file
 	 */
 	public function getDataFieldsetInclude() { return dirname(__FILE__).'/dataFields.inc'; }
-
-
-	public function render($template)
-	{
-		$this->renderIncludeFile($this);
-	}
 }
