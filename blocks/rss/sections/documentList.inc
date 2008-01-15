@@ -24,8 +24,23 @@
 
 			$title = View::escape($document->getTitle());
 			$link = $document->getURL();
-			#$description = View::escape($document->getDescription());
-			$description = View::escape(WikiMarkup::parse(substr(strip_tags($document->getContent($_SESSION['LANGUAGE'])),0,255)));
+
+			# Use only the first 30 words of the document
+			$description = '';
+			$words = preg_split('/\s+/',strip_tags($document->getContent($_SESSION['LANGUAGE'])));
+			$c = 0;
+			foreach($words as $word)
+			{
+				$description.= "$word ";
+				$c++;
+				if ($c >= 30)
+				{
+					$description.=  "...";
+					break;
+				}
+			}
+			$description = View::escape(WikiMarkup::parse($description));
+
 			echo "
 			<item>
 				<title>$title</title>

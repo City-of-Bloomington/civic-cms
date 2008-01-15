@@ -24,8 +24,7 @@ if (count($this->results))
 				if ($hit->getDescription()) { $description = View::escape($hit->getDescription()); }
 				else
 				{
-					$description = substr(strip_tags($hit->getContent('en')),0,160).'...';
-
+					$description = '';
 					$words = preg_split('/\s+/',strip_tags($hit->getContent('en')));
 					$c = 0;
 					foreach($words as $word)
