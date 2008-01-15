@@ -22,7 +22,23 @@ if (count($this->results))
 				$title = View::escape($hit->getTitle());
 
 				if ($hit->getDescription()) { $description = View::escape($hit->getDescription()); }
-				else { $description = substr(strip_tags($hit->getContent('en')),0,160).'...'; }
+				else
+				{
+					$description = substr(strip_tags($hit->getContent('en')),0,160).'...';
+
+					$words = preg_split('/\s+/',strip_tags($hit->getContent('en')));
+					$c = 0;
+					foreach($words as $word)
+					{
+						$description.= "$word ";
+						$c++;
+						if ($c >= 30)
+						{
+							$description.=  "...";
+							break;
+						}
+					}
+				}
 
 				$size_in_bytes = strlen($hit->getContent('en'));
 				if ($size_in_bytes>1000)
