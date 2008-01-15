@@ -5,23 +5,27 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 ?>
-<h1>Translations</h1>
-<p>Use the links below to search our website for documents that have been translated into that language.</p>
-<ul>
-<?php
-	$list = new LanguageList();
-	$list->find();
-	foreach($list as $language)
-	{
-		# Don't bother showing English
-		if ($language->getCode()!= 'en')
+<div class="interfaceBox">
+	<div class="titleBar">
+		<a href="<?php echo BASE_URL; ?>/languages">Translations</a>
+	</div>
+	<p>Use the links below to search our website for documents that have been translated into that language.</p>
+	<ul>
+	<?php
+		$list = new LanguageList();
+		$list->find();
+		foreach($list as $language)
 		{
-			echo "
-			<li><a href=\"".BASE_URL."/languages/documents.php?language={$language->getCode()}\">
-				{$language->getNative()}</a>
-			</li>
-			";
+			# Don't bother showing English
+			if ($language->getCode()!= 'en')
+			{
+				echo "
+				<li><a href=\"".BASE_URL."/languages/documents.php?language={$language->getCode()}\">
+					{$language->getNative()}</a>
+				</li>
+				";
+			}
 		}
-	}
-?>
-</ul>
+	?>
+	</ul>
+</div>

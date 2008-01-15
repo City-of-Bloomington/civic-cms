@@ -48,7 +48,7 @@
 			$list->find();
 			foreach($list as $cal)
 			{
-				if ($cal->permitsEditingBy($_SESSION['USER'])) { $addable = true; }
+				if ($cal->permitsPostingBy($_SESSION['USER'])) { $addable = true; }
 			}
 		}
 

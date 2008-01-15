@@ -17,6 +17,7 @@
 	<li><a href="<?php echo BASE_URL; ?>/languages">Languages</a></li>
 	<li><a href="<?php echo BASE_URL; ?>/jobs">Jobs</a></li>
 	<li><a href="<?php echo BASE_URL; ?>/directory">Contacts</a></li>
+	<li><a href="<?php echo BASE_URL; ?>/search/sitemap.php">Sitemap</a></li>
 </ul>
 </div>
 <div id="banner">

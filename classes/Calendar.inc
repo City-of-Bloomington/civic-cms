@@ -153,7 +153,24 @@
 				foreach($this->newDepartments as $id=>$department) { $query->execute(array($id)); }
 			}
 		}
+
+		/**
+		 * Determines whether the user is allowed to make changes to the calendar.
+		 * For example, changing it's name or department.
+		 * This does not determine whether the user is allowed to post events to
+		 * this calendar.
+		 * @param User $user
+		 */
 		public function permitsEditingBy($user)
+		{
+			return $user->hasRole(array('Administrator','Webmaster'));
+		}
+
+		/**
+		 * Determines whether the user is allowed to post events to this calendar
+		 * @param User $user
+		 */
+		public function permitsPostingBy($user)
 		{
 			return ($user->hasRole(array('Administrator','Webmaster')) ||
 				($user->hasRole('Content Creator') && $this->hasDepartment($user->getDepartment())));

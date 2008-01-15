@@ -4,11 +4,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
-	$list = new DocumentTypeList();
-	$list->find();
-
-	$template = new Template();
-	$template->blocks[] = new Block('documentTypes/breadcrumbs.inc');
-	$template->blocks[] = new Block('documentTypes/documentTypeList.inc',array('documentTypeList'=>$list));
-	$template->render();
-?>
+$template = new Template();
+$template->blocks[] = new Block('documentTypes/breadcrumbs.inc');
+$template->blocks[] = new Block('documentTypes/documentTypeList.inc');
+$template->render();

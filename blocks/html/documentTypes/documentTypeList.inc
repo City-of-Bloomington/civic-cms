@@ -3,7 +3,6 @@
  * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
- * @param array $this->documentTypeList
  */
 ?>
 <div class="interfaceBox">
@@ -14,11 +13,13 @@
 				echo "<button type=\"button\" class=\"addSmall\" onclick=\"document.location.href='".BASE_URL."/documentTypes/addDocumentType.php';\">Add</button>";
 			}
 		?>
-		Document Types
+		<a href="<?php echo BASE_URL; ?>/documentTypes">Document Types</a>
 	</div>
 <ul>
 <?php
-	foreach($this->documentTypeList as $type)
+	$list = new DocumentTypeList();
+	$list->find();
+	foreach($list as $type)
 	{
 		echo '<li>';
 		if (userHasRole(array('Administrator','Webmaster')))

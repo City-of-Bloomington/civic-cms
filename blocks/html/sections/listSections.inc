@@ -5,6 +5,8 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Section $this->section
  */
+	include_once APPLICATION_HOME.'/includes/js/tree.inc';
+
 	function listSections($parent)
 	{
 		foreach($parent->getChildNodes() as $node)
@@ -12,12 +14,22 @@
 			$section = $node->getSection();
 
 			$name = View::escape($section->getName());
-			echo "
-			<li class=\"closed\">
-				<a href=\"".BASE_URL."/sections/sectionInfo.php?section_id={$section->getId()}\">$name</a>
-				<button type=\"button\" class=\"info\" onclick=\"document.location.href='".BASE_URL."/sections/sectionInfo.php?section_id={$section->getId()}';\">Info</button>
-				<button type=\"button\" class=\"view\" onclick=\"document.location.href='".BASE_URL."/sections/viewSection.php?section_id={$section->getId()}';\">View</button>
-			";
+			if (userHasRole(array('Administrator','Webmaster')))
+			{
+				echo "
+				<li class=\"closed\">
+					<a href=\"".BASE_URL."/sections/sectionInfo.php?section_id={$section->getId()}\">$name</a>
+					<button type=\"button\" class=\"info\" onclick=\"document.location.href='".BASE_URL."/sections/sectionInfo.php?section_id={$section->getId()}';\">Info</button>
+					<button type=\"button\" class=\"view\" onclick=\"document.location.href='".BASE_URL."/sections/viewSection.php?section_id={$section->getId()}';\">View</button>
+				";
+			}
+			else
+			{
+				echo "
+				<li class=\"closed\">
+					<a href=\"{$section->getURL()}\">$name</a>
+				";
+			}
 
 			if ($section->hasChildren())
 			{
@@ -32,7 +44,7 @@
 ?>
 <div class="interfaceBox">
 <?php
-	if (userHasRole('Webmaster'))
+	if (userHasRole(array('Administrator','Webmaster')))
 	{
 		echo "
 		<div class=\"contextualMenu\">
@@ -41,19 +53,29 @@
 		</div>
 		";
 	}
-	else { echo "<div class=\"titleBar\">Sections</div>"; }
+	else { echo "<div class=\"titleBar\"><a href=\"".BASE_URL."/sections\">Sections</a></div>"; }
 ?>
 	<ul><li>
 		<?php
 			# Start with the top section
 			$section = new Section($this->section->getId());
 			$name = View::escape($section->getName());
-			echo "
-			<a href=\"".BASE_URL."/sections/sectionInfo.php?section_id={$section->getId()}\">$name</a>
-			<button type=\"button\" class=\"info\" onclick=\"document.location.href='".BASE_URL."/sections/sectionInfo.php?section_id={$section->getId()}';\">Info</button>
-			<button type=\"button\" class=\"view\" onclick=\"document.location.href='".BASE_URL."/sections/viewSection.php?section_id={$section->getId()}';\">View</button>
-			<ul class=\"expandable\">
-			";
+			if (userHasRole(array('Administrator','Webmaster')))
+			{
+				echo "
+				<a href=\"".BASE_URL."/sections/sectionInfo.php?section_id={$section->getId()}\">$name</a>
+				<button type=\"button\" class=\"info\" onclick=\"document.location.href='".BASE_URL."/sections/sectionInfo.php?section_id={$section->getId()}';\">Info</button>
+				<button type=\"button\" class=\"view\" onclick=\"document.location.href='".BASE_URL."/sections/viewSection.php?section_id={$section->getId()}';\">View</button>
+				<ul class=\"expandable\">
+				";
+			}
+			else
+			{
+				echo "
+				<a href=\"{$section->getURL()}\">$name</a>
+				<ul class=\"expandable\">
+				";
+			}
 
 			listSections($section);
 
@@ -62,4 +84,3 @@
 		</li>
 	</ul>
 </div>
-<script type="text/javascript" src="<?php echo BASE_URL; ?>/js/tree.js"></script>
