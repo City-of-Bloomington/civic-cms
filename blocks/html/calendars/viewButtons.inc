@@ -38,11 +38,15 @@
 
 			$this->url->parameters['view'] = 'month';
 			$month = $this->url->getURL();
+
+			$currentView = isset($_GET['view']) ? strtolower($_GET['view']) : 'week';
 		?>
-		<button type="button" class="day" onclick="document.location.href='<?php echo $day; ?>';">Day View</button>
-		<button type="button" class="week" onclick="document.location.href='<?php echo $week; ?>';">Week View</button>
-		<button type="button" class="twoweek" onclick="document.location.href='<?php echo $twoweek; ?>';">Two Week View</button>
-		<button type="button" class="month" onclick="document.location.href='<?php echo $month; ?>';">Month View</button>
+		<select name="view" onchange="document.location.href=this.options[this.options.selectedIndex].value;">
+			<option value="<?php echo $day; ?>" <?php if($currentView=='day') echo 'selected="selected"'; ?>>Day View</option>
+			<option value="<?php echo $week; ?>" <?php if($currentView=='week') echo 'selected="selected"'; ?>>Week View</option>
+			<option value="<?php echo $twoweek; ?>" <?php if($currentView=='twoweek') echo 'selected="selected"'; ?>>Two-Week View</option>
+			<option value="<?php echo $month; ?>" <?php if($currentView=='month') echo 'selected="selected"'; ?>>Month View</option>
+		</select>
 
 		<select name="calendar_id" onchange="this.form.submit();">
 			<option value=''>All Calendars</option>
