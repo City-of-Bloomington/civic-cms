@@ -8,7 +8,7 @@
 <div class="interfaceBox">
 	<div class="titleBar">
 		<?php
-			if (isset($_SESSION['USER']) && $calendar->permitsEditingBy($_SESSION['USER']))
+			if (userHasRole(array('Administrator','Webmaster')))
 			{
 				echo "<button type=\"button\" class=\"addSmall\" onclick=\"document.location.href='".BASE_URL."/calendars/addCalendar.php';\">Add</button>";
 			}
