@@ -13,10 +13,14 @@
      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
      xsi:schemaLocation="http://www.w3.org/MarkUp/SCHEMA/xhtml11.xsd"
      xml:lang="en" >
-<head>
+<head profile="http://dublincore.org/documents/dcq-html/">
+	<title><?php echo View::escape($this->title); ?></title>
 	<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
 	<meta http-equiv="Content-Script-Type" content="text/javascript" />
-	<link rel="SHORTCUT ICON" href="/favicon.ico" />
+	<meta name="robots" content="index,follow" />
+	<meta name="Publisher" content="City of Bloomington Indiana 401 N Morton St. Bloomington IN 47403" />
+	<meta name="Publisher-Email" content="webmaster@bloomington.in.gov" />
+	<link rel="SHORTCUT ICON" href="<?php echo BASE_URL; ?>/favicon.ico" />
 	<style type="text/css" media="screen">
 		@import url("<?php echo BASE_URL; ?>/skins/screen.php");
 	</style>
@@ -24,6 +28,23 @@
 		@import url("<?php echo BASE_URL; ?>/skins/print.php");
 	</style>
 	<script type="text/javascript" src="<?php echo BASE_URL; ?>/js/functions.js"></script>
-	<title><?php echo View::escape($this->title); ?></title>
+	<?php
+		if (isset($this->document))
+		{
+			$title = htmlspecialchars($this->document->getTitle(),ENT_QUOTES);
+			$description = htmlspecialchars($this->document->getDescription(),ENT_QUOTES);
+			$date = $this->document->getPublishDate('Y-m-d');
+
+			echo "
+			<link rel=\"schema.DC\" href=\"http://purl.org/dc/elements/1.1/\" />
+			<meta name=\"DC.title\" content=\"$title\" />
+			<meta name=\"DC.description\" content=\"$description\" />
+			<meta name=\"DC.date\" content=\"$date\" />
+			<meta name=\"DC.publisher\" content=\"City of Bloomington Indiana 401 N Morton St. Bloomington IN 47403\" />
+			<meta name=\"DC.format\" content=\"text/xhtml\" />
+			<meta name=\"DC.coverage\" content=\"Bloomington City Government\" />
+			";
+		}
+	?>
 </head>
 <body>
