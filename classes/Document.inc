@@ -564,82 +564,6 @@
 			}
 		}
 
-
-		/**
-		 * Generic Getters
-		 */
-		public function getId() { return $this->id; }
-		public function getTitle() { return $this->title; }
-		public function getWikiTitle() { return $this->wikiTitle; }
-		public function getAlias() { return $this->alias; }
-		public function getFeature_title() { return $this->feature_title; }
-		public function getCreated($format=null)
-		{
-			if ($format && $this->created!=0) return strftime($format,strtotime($this->created));
-			else return $this->created;
-		}
-		public function getModified($format=null)
-		{
-			if ($format && $this->modified!=0) return strftime($format,strtotime($this->modified));
-			else return $this->modified;
-		}
-		public function getPublishDate($format=null)
-		{
-			if ($format && $this->publishDate)
-			{
-				if (strpos($format,'%')!==false) { return strftime($format,strtotime($this->publishDate)); }
-				else { return date($format,strtotime($this->publishDate)); }
-			}
-			else return $this->publishDate;
-		}
-		public function getRetireDate($format=null)
-		{
-			if ($format && $this->retireDate)
-			{
-				if (strpos($format,'%')!==false) { return strftime($format,strtotime($this->retireDate)); }
-				else { return date($format,strtotime($this->retireDate)); }
-			}
-			else return $this->retireDate;
-		}
-		public function getCreatedBy() { return $this->createdBy; }
-		public function getModifiedBy() { return $this->modifiedBy; }
-		public function getDepartment_id() { return $this->department_id; }
-		public function getDocumentType_id() { return $this->documentType_id; }
-		public function getDescription() { return $this->description; }
-		public function getModifiedByUser() { return new User($this->modifiedBy); }
-		public function getLockedBy() { return $this->lockedBy; }
-		public function getEnablePHP() { return $this->enablePHP; }
-		public function getLockedByUser()
-		{
-			if (!$this->lockedByUser)
-			{
-				if ($this->lockedBy) { $this->lockedByUser = new User($this->lockedBy); }
-			}
-			return $this->lockedByUser;
-		}
-		public function getDepartment()
-		{
-			if (!$this->department) { $this->department = new Department($this->department_id); }
-			return $this->department;
-		}
-		public function getDocumentType()
-		{
-			if ($this->documentType_id)
-			{
-				if (!$this->documentType) { $this->documentType = new DocumentType($this->documentType_id); }
-				return $this->documentType;
-			}
-			else return null;
-		}
-
-		/**
-		 * Return a URL that can always navigate to this document
-		 */
-		public function getURL()
-		{
-			return BASE_URL.'/documents/viewDocument.php?document_id='.$this->id;
-		}
-
 		/**
 		 * Creates an array of sections representing the best path this Document,
 		 * to be used as breadcrumbs
@@ -726,6 +650,83 @@
 
 			return isset($currentAncestors) ? $currentAncestors : array();
 		}
+
+		/**
+		 * Return a URL that can always navigate to this document
+		 */
+		public function getURL()
+		{
+			return BASE_URL.'/documents/viewDocument.php?document_id='.$this->id;
+		}
+
+		/**
+		 * Generic Getters
+		 */
+		public function getId() { return $this->id; }
+		public function getTitle() { return $this->title; }
+		public function getWikiTitle() { return $this->wikiTitle; }
+		public function getAlias() { return $this->alias; }
+		public function getFeature_title() { return $this->feature_title; }
+		public function getCreated($format=null)
+		{
+			if ($format && $this->created!=0) return strftime($format,strtotime($this->created));
+			else return $this->created;
+		}
+		public function getModified($format=null)
+		{
+			if ($format && $this->modified!=0) return strftime($format,strtotime($this->modified));
+			else return $this->modified;
+		}
+		public function getPublishDate($format=null)
+		{
+			if ($format && $this->publishDate)
+			{
+				if (strpos($format,'%')!==false) { return strftime($format,strtotime($this->publishDate)); }
+				else { return date($format,strtotime($this->publishDate)); }
+			}
+			else return $this->publishDate;
+		}
+		public function getRetireDate($format=null)
+		{
+			if ($format && $this->retireDate)
+			{
+				if (strpos($format,'%')!==false) { return strftime($format,strtotime($this->retireDate)); }
+				else { return date($format,strtotime($this->retireDate)); }
+			}
+			else return $this->retireDate;
+		}
+		public function getCreatedBy() { return $this->createdBy; }
+		public function getModifiedBy() { return $this->modifiedBy; }
+		public function getDepartment_id() { return $this->department_id; }
+		public function getDocumentType_id() { return $this->documentType_id; }
+		public function getDescription() { return $this->description; }
+		public function getModifiedByUser() { return new User($this->modifiedBy); }
+		public function getLockedBy() { return $this->lockedBy; }
+		public function getEnablePHP() { return $this->enablePHP; }
+		public function getLockedByUser()
+		{
+			if (!$this->lockedByUser)
+			{
+				if ($this->lockedBy) { $this->lockedByUser = new User($this->lockedBy); }
+			}
+			return $this->lockedByUser;
+		}
+		public function getDepartment()
+		{
+			if (!$this->department) { $this->department = new Department($this->department_id); }
+			return $this->department;
+		}
+		public function getDocumentType()
+		{
+			if ($this->documentType_id)
+			{
+				if (!$this->documentType) { $this->documentType = new DocumentType($this->documentType_id); }
+				return $this->documentType;
+			}
+			else return null;
+		}
+
+
 
 		/**
 		 * Generic Setters
