@@ -23,29 +23,13 @@
 	<form method="get" action="<?php echo BASE_URL; ?>/calendars">
 	<fieldset>
 		<?php
-			foreach($this->url->parameters as $field=>$value)
-			{
-				if ($field != 'calendar_id') { echo "<input name=\"$field\" type=\"hidden\" value=\"$value\" />"; }
-			}
-			$this->url->parameters['view'] = 'day';
-			$day = $this->url->getURL();
-
-			$this->url->parameters['view'] = 'week';
-			$week = $this->url->getURL();
-
-			$this->url->parameters['view'] = 'twoweek';
-			$twoweek = $this->url->getURL();
-
-			$this->url->parameters['view'] = 'month';
-			$month = $this->url->getURL();
-
 			$currentView = isset($_GET['view']) ? strtolower($_GET['view']) : 'week';
 		?>
-		<select name="view" onchange="document.location.href=this.options[this.options.selectedIndex].value;">
-			<option value="<?php echo $day; ?>" <?php if($currentView=='day') echo 'selected="selected"'; ?>>Day View</option>
-			<option value="<?php echo $week; ?>" <?php if($currentView=='week') echo 'selected="selected"'; ?>>Week View</option>
-			<option value="<?php echo $twoweek; ?>" <?php if($currentView=='twoweek') echo 'selected="selected"'; ?>>Two-Week View</option>
-			<option value="<?php echo $month; ?>" <?php if($currentView=='month') echo 'selected="selected"'; ?>>Month View</option>
+		<select name="view" onchange="this.form.submit();">
+			<option value="day" <?php if($currentView=='day') echo 'selected="selected"'; ?>>Day View</option>
+			<option value="week" <?php if($currentView=='week') echo 'selected="selected"'; ?>>Week View</option>
+			<option value="twoweek" <?php if($currentView=='twoweek') echo 'selected="selected"'; ?>>Two-Week View</option>
+			<option value="month" <?php if($currentView=='month') echo 'selected="selected"'; ?>>Month View</option>
 		</select>
 
 		<select name="calendar_id" onchange="this.form.submit();">
