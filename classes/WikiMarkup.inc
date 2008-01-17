@@ -6,6 +6,8 @@
  */
 class WikiMarkup
 {
+	public static $CURRENT_URL = null;
+
 	/**
 	 * @param string $string
 	 * Formats a string to be safely used as a portion of a URL
@@ -25,8 +27,12 @@ class WikiMarkup
 	 */
 	public static function parse($string)
 	{
-		# Grabs everything that's inside of square brackets
-		return preg_replace_callback('/\[[^]]+\]/',array('WikiMarkup','callback'),$string);
+		# This is a recursive regular expression, matching balanced square brackets
+		$pattern = "/\[((?>[^][]+)|(?R))*\]/";
+
+		# The callback function will determine what to do with each type
+		# of thing found in the square brackets
+		return preg_replace_callback($pattern,array('WikiMarkup','callback'),$string);
 	}
 
 	/**
@@ -47,34 +53,31 @@ class WikiMarkup
 	 */
 	public static function callback($matches)
 	{
-		global $BAD_LINK_EXPRESSIONS;
-
 		# Strip off the brackets
 		$link = substr($matches[0],1,-1);
-		if (preg_match('/\|/',$link)) { list($linkText,$link) = explode('|',$link); }
+
+		# See if there's caption stuff.  LinkText is the custom content the
+		# users have included
+		if (preg_match("/\|[^]]*$/",$link))
+		{
+			preg_match("/(.*)(\|[^]]*$)/",$link,$m);
+			$linkText = $m[1];
+			# Strip the pipe '|' off the link
+			$link = substr($m[2],1);
+		}
+		else { $linkText = null; }
 
 		# Links starting with slash get treated like relative links
 		if (substr($link,0,1)=='/')
 		{
-			$title = isset($linkText) ? $linkText : $link;
-			return "<a href=\"$link\">$title</a>";
+			return self::relativeLinkMarkup($link,$linkText);
 		}
 
 		# Check if this is supposed to be a full URL
 		$fullURLPattern = '/^(www\.|https?:\/\/)([\w\.]+)([\#\,\/\~\?\&\=\;\%\-\w+\.]+)/';
 		if (preg_match($fullURLPattern,$link))
 		{
-			# If they didn't put in an http://, we need to add it to the url
-			if (!preg_match('/:\/\//',$link)) { $link = 'http://'.$link; }
-
-			$title = isset($linkText) ? $linkText : $link;
-
-			# They should not be trying to do full URLS to bloomington.in.gov
-			foreach($BAD_LINK_EXPRESSIONS as $regex)
-			{
-				if (preg_match($regex,$link)) { return "<span style=\"background-color:red\">[$title]</span>"; }
-			}
-			return "<a href=\"$link\">$title</a>";
+			return self::fullURLMarkup($link,$linkText);
 		}
 
 		# Check for all the colon specified link types
@@ -83,43 +86,25 @@ class WikiMarkup
 			list($type,$linkTarget) = explode(':',$link,2);
 			$type = trim($type);
 			$linkTarget = trim($linkTarget);
-			$t = isset($linkText) ? $linkText : null;
 
-			$parse = $type.'Markup';
 			# Colon specified types are declared as private functions
 			# They are written at the bottom of this script
-			if (method_exists('WikiMarkup',$parse) && $markup = self::$parse($linkTarget,$t))
+			$parseFunction = $type.'Markup';
+			if (method_exists('WikiMarkup',$parseFunction) && $markup = self::$parseFunction($linkTarget,$linkText))
 			{
 				return $markup;
 			}
 		}
 
-
-		# If we've got down here, all that's left is to check for Document title
-		$class = '';
-		if (preg_match('/\#/',$link)) { list($title,$anchor) = explode('#',$link); }
-		else { $title = $link; }
-		if ($title)
+		# Check for a link to a Document
+		if ($markup = self::documentLinkMarkup($link,$linkText))
 		{
-			$wikiTitle = WikiMarkup::wikify($title);
-			$list = ctype_digit($wikiTitle) ? new DocumentList(array('id'=>$wikiTitle)) : new DocumentList(array('wikiTitle_or_alias'=>$wikiTitle));
-			if (count($list))
-			{
-				# Draw a link to the first document we find
-				$document = $list[0];
-				if (!isset($linkText)) { $linkText = View::escape($document->getTitle()); }
-				$url = $document->getURL();
+			return $markup;
+		}
 
-				if (!$document->isActive()) { $class = 'class="unpublished"'; }
-			}
-		}
-		if (isset($anchor)) { $url = isset($url) ? "$url#$anchor" : "#$anchor"; }
-		if (isset($url))
-		{
-			$linkText = isset($linkText) ? $linkText : $url;
-			return "<a href=\"$url\" $class>$linkText</a>";
-		}
-		else { return "<span style=\"background-color:red\">$matches[0]</span>"; }
+		# We could not find a match for the syntax they typed.  They must have typed
+		# something invalid.  Make it big and red, so they don't do it again
+		return "<span style=\"background-color:red\">$matches[0]</span>";
 	}
 
 	public static function size_readable ($size, $retstring='%01.2f %s')
@@ -136,6 +121,132 @@ class WikiMarkup
         return sprintf($retstring, $size, $sizestring);
 	}
 
+	/**
+	 * Parses the target and returns appropriate markup for relative links
+	 * @param string $linkTarget This should become the URL in the HREF
+	 * @param string $linkText This should used as the content of the <a> tag
+	 */
+	/*
+		Becuase we're using recursion to parse all the balannced square brackets
+		We have to keep track of when we're inside of <a> tags.  <a> tags are
+		not allowed to be nested.
+
+		What we're trying to do is defer <a> tag rendering to the innermost
+		content.  In order to do this we keep track of the CURRENT_URL.
+
+		If a parsing function handles a $linkTarget that is NOT the CURRENT_URL
+		it should render the CURRENT_URL appropriately.
+
+		Parsing functions should do the recursive ::parse() call on $linkText
+		BEFORE rendering the $linkTarget.  If the CURRENT_URL changes during
+		that ::parse() we know that there are inner <A> tags, and the $linkTarget
+		should not be rendered (it should have been rendered by an inner ::parse()
+	*/
+	private static function relativeLinkMarkup($link,$linkText=null)
+	{
+		# Tell all inner parse calls that they are inside of
+		# the link we're handling here
+		self::$CURRENT_URL = $link;
+
+		# Parse the inner custom content for more square brackets
+		$title = $linkText ? self::parse($linkText) : $link;
+
+		# If there were hrefs in linkText
+		# Wiki parsing should have handled putting link where it belongs in linkText
+		if (self::$CURRENT_URL != $link)
+		{
+			# Make sure to reset the current URL before returning
+			self::$CURRENT_URL = null;
+
+			# We should not render this link, just render
+			# what the inner ::parse() calls returned
+			return $title;
+
+		}
+		# There were no hrefs in linkText, so it's safe to draw this href
+		else
+		{
+			# Make sure to reset the current URL before returning
+			self::$CURRENT_URL = null;
+			return "<a href=\"$link\">$title</a>";
+		}
+	}
+
+	private static function fullURLMarkup($link,$linkText=null)
+	{
+		# BAD URLS are specified in configuration.inc
+		global $BAD_LINK_EXPRESSIONS;
+
+		# They should not be trying to do URLs to bad places
+		foreach($BAD_LINK_EXPRESSIONS as $regex)
+		{
+			if (preg_match($regex,$link)) { return "<span style=\"background-color:red\">[$title]</span>"; }
+		}
+
+		# If they didn't put in an http://, we need to add it to the url
+		if (!preg_match('/:\/\//',$link)) { $link = 'http://'.$link; }
+
+		self::$CURRENT_URL = $link;
+		$title = $linkText ? self::parse($linkText) : $link;
+		if (self::$CURRENT_URL != $link)
+		{
+			self::$CURRENT_URL = null;
+			return $title;
+		}
+		else
+		{
+			self::$CURRENT_URL = null;
+			return "<a href=\"$link\">$title</a>";
+		}
+	}
+
+	/*
+		Document markup must make sure to set a VALID URL in
+		CURRENT_URL before parsing the linkText.  The parse()
+		must assume that CURRENT_URL is always a valid URL
+	*/
+	private static function documentLinkMarkup($link,$linkText=null)
+	{
+		# For Document Links, we must look up the Document first, to
+		# to make sure we have a valid $url
+		$class = '';
+		if (preg_match('/\#/',$link)) { list($document_id,$anchor) = explode('#',$link); }
+		else { $document_id = $link; }
+		if ($document_id)
+		{
+			$wikiTitle = WikiMarkup::wikify($document_id);
+			$list = ctype_digit($wikiTitle) ? new DocumentList(array('id'=>$wikiTitle)) : new DocumentList(array('wikiTitle_or_alias'=>$wikiTitle));
+			if (count($list))
+			{
+				# Draw a link to the first document we find
+				$document = $list[0];
+				if (!isset($linkText)) { $linkText = View::escape($document->getTitle()); }
+				$url = $document->getURL();
+
+				if (!$document->isActive()) { $class = 'class="unpublished"'; }
+			}
+		}
+		if (isset($anchor)) { $url = isset($url) ? "$url#$anchor" : "#$anchor"; }
+
+
+		if (isset($url))
+		{
+			self::$CURRENT_URL = $url;
+			$linkText = $linkText ? self::parse($linkText) : null;
+			if (self::$CURRENT_URL==$url)
+			{
+				self::$CURRENT_URL = null;
+				$linkText = $linkText ? $linkText : $url;
+				return "<a href=\"$url\" $class>$linkText</a>";
+			}
+			else
+			{
+				self::$CURRENT_URL = null;
+				return $linkText;
+			}
+		}
+		else { return self::parse($linkText); }
+	}
 
 	#----------------------------------------------------------------
 	# Colon-specifed Markup functions.
@@ -144,71 +255,119 @@ class WikiMarkup
 	#----------------------------------------------------------------
 	private static function fileMarkup($linkTarget,$linkText=null)
 	{
+		self::$CURRENT_URL = $linkTarget;
+		$title = $linkText ? self::parse($linkText) : null;
+
 		$list = ctype_digit($linkTarget) ? new MediaList(array('id'=>$linkTarget)) : new MediaList(array('filename'=>$linkTarget));
-		if (count($list))
+		if (self::$CURRENT_URL == $linkTarget && count($list))
 		{
 			$media = $list[0];
-			if (!isset($linkText)) { $linkText = View::escape($media->getTitle()); }
+			if (!$title) { $title = View::escape($media->getTitle()); }
 			$type = strtoupper($media->getExtension());
 			$size = self::size_readable($media->getFilesize());
-			return "<a href=\"{$media->getURL()}\" class=\"{$media->getExtension()}\">$linkText <em>($type $size)</em></a>";
+
+			self::$CURRENT_URL = null;
+			return "<a href=\"{$media->getURL()}\" class=\"{$media->getExtension()}\">$title <em>($type $size)</em></a>";
 		}
-		else { return false; }
+		else
+		{
+			self::$CURRENT_URL = null;
+			return $title;
+		}
 	}
 
 	private static function locationGroupMarkup($linkTarget,$linkText=null)
 	{
+		self::$CURRENT_URL = $linkTarget;
+		$title = $linkText ? self::parse($linkText) : null;
+
 		$list = ctype_digit($linkTarget) ? new LocationGroupList(array('id'=>$linkTarget)) : new LocationGroupList(array('name'=>$linkTarget));
-		if (count($list))
+		if (self::$CURRENT_URL==$linkTarget && count($list))
 		{
 			$locationGroup = $list[0];
-			$linkText = isset($linkText) ? $linkText : View::escape($locationGroup->getName());
+			if (!$title) { $title = View::escape($locationGroup->getName()); }
 			$url = BASE_URL.'/locations/?locationGroup_id='.$locationGroup->getId();
-			return "<a href=\"$url\">$linkText</a>";
+
+			self::$CURRENT_URL = null;
+			return "<a href=\"$url\">$title</a>";
 		}
-		else { return false; }
+		else
+		{
+			self::$CURRENT_URL = null;
+			return $title;
+		}
 	}
 
 	private static function locationMarkup($linkTarget,$linkText=null)
 	{
+		self::$CURRENT_URL = $linkTarget;
+		$title = $linkText ? self::parse($linkText) : null;
+
 		$list = ctype_digit($linkTarget) ? new LocationList(array('id'=>$linkTarget)) : new LocationList(array('name'=>$linkTarget));
-		if (count($list))
+		if (self::$CURRENT_URL==$linkTarget && count($list))
 		{
 			$location = $list[0];
-			$linkText = isset($linkText) ? $linkText : View::escape($location->getName());
+			if (!$title) { $title = View::escape($location->getName()); }
 			$url = BASE_URL.'/locations/viewLocation.php?location_id='.$location->getId();
-			return "<a href=\"$url\">$linkText</a>";
-		}
-		else { return false; }
-	}
-	private static function calendarMarkup($linkTarget,$linkText=null)
-	{
-		$list = ctype_digit($linkTarget) ? new CalendarList(array('id'=>$linkTarget)) : new CalendarList(array('name'=>$linkTarget));
-		if (count($list))
-		{
-			$calendar = $list[0];
-			$linkText = isset($linkText) ? $linkText : View::escape($calendar->getName());
-			$url = BASE_URL.'/calendars/home.php?calendar_id='.$calendar->getId();
+
+			self::$CURRENT_URL = null;
+			return "<a href=\"$url\">$title</a>";
 		}
 		else
 		{
-			$linkText = isset($linkText) ? $linkText : 'All Calendars';
-			$url = BASE_URL.'/calendars';
+			self::$CURRENT_URL = null;
+			return $title;
 		}
+	}
+	private static function calendarMarkup($linkTarget,$linkText=null)
+	{
+		self::$CURRENT_URL = $linkTarget;
+		$title = $linkText ? self::parse($linkText) : null;
 
-		return "<a href=\"$url\">$linkText</a>";
+		$list = ctype_digit($linkTarget) ? new CalendarList(array('id'=>$linkTarget)) : new CalendarList(array('name'=>$linkTarget));
+		if (self::$CURRENT_URL==$linkTarget)
+		{
+			if (count($list))
+			{
+				$calendar = $list[0];
+				if (!$title) { $title = View::escape($calendar->getName()); }
+				$url = BASE_URL.'/calendars/home.php?calendar_id='.$calendar->getId();
+			}
+			else
+			{
+				if (!$title) { $title = 'All Calendars'; }
+				$url = BASE_URL.'/calendars';
+			}
+
+			self::$CURRENT_URL = null;
+			return "<a href=\"$url\">$title</a>";
+		}
+		else
+		{
+			self::$CURRENT_URL = null;
+			return $title;
+		}
 	}
 	private static function facetMarkup($linkTarget,$linkText=null)
 	{
+		self::$CURRENT_URL = $linkTarget;
+		$title = $linkText ? self::parse($linkText) : null;
+
 		$list = ctype_digit($linkTarget) ? new FacetList(array('id'=>$linkTarget)) : new FacetList(array('name'=>$linkTarget));
-		if (count($list))
+		if (self::$CURRENT_URL==$linkTarget && count($list))
 		{
 			$facet = $list[0];
-			$linkText = isset($linkText) ? $linkText : View::escape($facet->getName());
+			if (!$title) { $title = View::escape($facet->getName()); }
 			$url = BASE_URL.'/facets/viewFacet.php?facet_id='.$facet->getId();
-			return "<a href=\"$url\">$linkText</a>";
+
+			self::$CURRENT_URL = null;
+			return "<a href=\"$url\">$title</a>";
 		}
-		else { return false; }
+		else
+		{
+			self::$CURRENT_URL = null;
+			return $title;
+		}
 	}
 	private static function eventMarkup($linkTarget,$linkText=null)
 	{
@@ -220,23 +379,60 @@ class WikiMarkup
 	}
 	private static function anchorMarkup($linkTarget,$linkText=null)
 	{
-		if (isset($linkText)) { return "<a id=\"$linkTarget\">$linkText</a>"; }
-		else { return "<a id=\"$linkTarget\" />"; }
+		self::$CURRENT_URL = $linkTarget;
+		$title = $linkText ? self::parse($linkText) : null;
+
+		if (self::$CURRENT_URL==$linkTarget)
+		{
+			self::$CURRENT_URL = null;
+			if ($title) { return "<a id=\"$linkTarget\">$title</a>"; }
+			else { return "<a id=\"$linkTarget\" />"; }
+		}
+		else
+		{
+			self::$CURRENT_URL = null;
+			return $title;
+		}
 	}
 	private static function mailtoMarkup($linkTarget,$linkText=null)
 	{
-		$linkText = isset($linkText) ? $linkText : $linkTarget;
-		$url = "mailto:$linkTarget";
-		return "<a href=\"$url\">$linkText</a>";
+		self::$CURRENT_URL = $linkTarget;
+		$title = $linkText ? self::parse($linkText) : null;
+
+		if (self::$CURRENT_URL==$linkTarget)
+		{
+			self::$CURRENT_URL = null;
+
+			$url = "mailto:$linkTarget";
+			if ($title) { return "<a href=\"$url\">$title</a>"; }
+			else { return "<a href=\"$url\">$linkTarget</a>"; }
+		}
+		else
+		{
+			self::$CURRENT_URL = null;
+			return $title;
+		}
 	}
+
+
+	/*
+		Images will work slightly different from the linkMarkup functions
+		Images need to check to see if they're being used in a CURRENT_URL
+		IF so, they need to render the CURRENT_URL as an HREf around the image
+
+		If the image does end up rendering an HREF, it needs to update
+		CURRENT_URL, so that the upper parse() calls know not to render theirs
+
+		An Image needs to decide if it's going to render an HREF around the
+		image tag BEFORE the caption is parsed.  Otherwise the caption
+		will reset the CURRENT_URL,
+	*/
 	private static function imageMarkup($linkTarget,$linkText=null)
 	{
-		# Parse any user-specified alignment
-		if (strpos($linkTarget,',')!==false)
-		{
-			list($linkTarget,$align) = explode(',',$linkTarget);
-			$align = strtolower($align);
-		}
+		# Decide whether we're going to wrap the <img> tag with an HREF
+		$imageLink = self::$CURRENT_URL ? self::$CURRENT_URL : null;
+
+		$caption = $linkText ? self::parse($linkText) : null;
 
 		# If the link is a URL, use that as the src
 		$fullURLPattern = '/^(www\.|https?:\/\/)([\w\.]+)([\#\,\/\~\?\&\=\;\%\-\w+\.]+)/';
@@ -256,28 +452,28 @@ class WikiMarkup
 				$alt = View::escape($image->getTitle());
 			}
 			# We couldn't find an image with that filename, just display the raw text
-			else { return false; }
+			else { return $caption; }
 		}
 
-		$caption = isset($linkText) ? '<span class="caption">'.View::escape($linkText).'</span>' : '';
-		$style = isset($align) ? "style=\"float:$align\"" : '';
-		if ($caption)
+		# Wrap the Image an CURRENT_URL, if there is one
+		$imageTag = "<img src=\"$url\" alt=\"$alt\" />";
+		if ($imageLink)
 		{
-			return "<span class=\"image\" $style><img src=\"$url\" alt=\"$alt\" />$caption</span>";
+			$imageTag = "<a href=\"$imageLink\">$imageTag</a>";
+			self::$CURRENT_URL = $url;
 		}
-		else
-		{
-			return "<img src=\"$url\" alt=\"$alt\" $style />";
-		}
+
+		# Wrap the caption in a span
+		$caption = $caption ? "<span class=\"caption\">$caption</span>" : null;
+
+		return "<span class=\"image\">$imageTag $caption</span>";
 	}
 	private static function thumbnailMarkup($linkTarget,$linkText=null)
 	{
-		# Parse any user-specified alignment
-		if (strpos($linkTarget,',')!==false)
-		{
-			list($linkTarget,$align) = explode(',',$linkTarget);
-			$align = strtolower($align);
-		}
+		# Decide whether we're going to wrap the <img> tag with an HREF
+		$imageLink = self::$CURRENT_URL ? self::$CURRENT_URL : null;
+
+		$caption = $linkText ? self::parse($linkText) : null;
 
 		$list = ctype_digit($linkTarget) ? new ImageList(array('id'=>$linkTarget)) : new ImageList(array('filename'=>$linkTarget));
 		if (count($list))
@@ -287,17 +483,19 @@ class WikiMarkup
 			$alt = View::escape($image->getTitle());
 		}
 		# We couldn't find an image with that filename, just display the raw text
-		else { return false; }
+		else { return $caption; }
 
-		$caption = isset($linkText) ? '<span class="caption">'.View::escape($linkText).'</span>' : '';
-		$style = isset($align) ? "style=\"float:$align\"" : '';
-		if ($caption)
+		# Wrap the Image an CURRENT_URL, if there is one
+		$imageTag = "<img src=\"$url\" alt=\"$alt\" />";
+		if ($imageLink)
 		{
-			return "<span class=\"image thumbnail\" $style><img src=\"$url\" alt=\"$alt\" />$caption</span>";
+			$imageTag = "<a href=\"$imageLink\">$imageTag</a>";
+			self::$CURRENT_URL = $url;
 		}
-		else
-		{
-			return "<img src=\"$url\" alt=\"$alt\" $style />";
-		}
+
+		# Wrap the caption in a span
+		$caption = $caption ? "<span class=\"caption\">$caption</span>" : null;
+
+		return "<span class=\"image thumbnail\">$imageTag $caption</span>";
 	}
 }
