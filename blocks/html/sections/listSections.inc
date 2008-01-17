@@ -5,6 +5,12 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Section $this->section
  */
+
+	/**
+	 * This fires off the JavaScript that turns an expandable UL into a tree
+	 * This library has a bug - it will freeze if the <li> elements are not on their
+	 * own line.  Make sure to put line breaks for each <li>
+	 */
 	include_once APPLICATION_HOME.'/includes/js/tree.inc';
 
 	function listSections($parent)

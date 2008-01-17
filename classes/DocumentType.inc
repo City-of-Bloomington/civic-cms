@@ -12,7 +12,6 @@
 		private $ordering;
 		private $defaultFacetGroup_id;
 
-		private $document_list;
 		private $defaultFacetGroup;
 
 		/**
@@ -95,14 +94,19 @@
 			$this->id = $PDO->lastInsertID();
 		}
 
-		public function getDocuments($sort=null)
+		/**
+		 * Returns a DocumentList with filtered to just documents of this type
+		 * @param array $fields Additional fields to filter the DocumentList on
+		 */
+		public function getDocuments(array $fields=null)
 		{
-			if (!$this->document_list)
-			{
-				$this->document_list = new DocumentList();
-				$this->document_list->find(array('documentType_id'=>$this->id),$sort);
-			}
-			return $this->document_list;
+			if (!$fields) { $fields = array(); }
+			$fields['documentType_id'] = $this->id;
+
+			$list = new DocumentList();
+			$list->find($fields,$this->ordering);
+
+			return $list;
 		}
 
 		public function __toString() { return $this->type; }

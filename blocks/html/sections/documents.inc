@@ -6,76 +6,67 @@
  * @param Section $this->section
  * @param Document $this->document The current document, which should probably be left out of the list
  */
-?>
-<script type="text/javascript">
-	function toggleDisplay(element,button)
-	{
-		var siblings = document.getElementById(element);
-		if (siblings.style.display === 'none')
-		{
-			// Display the siblings
-			siblings.style.display = '';
-			button.className = 'less';
-			button.firstChild.nodeValue = 'Less';
-		}
-		else
-		{
-			// Hide the siblings
-			siblings.style.display = 'none';
-			button.className = 'more';
-			button.firstChild.nodeValue = 'More';
-		}
-	}
-</script>
-<?php
-	$sort = isset($this->document) ? $this->document->getDocumentType()->getOrdering() : null;
-	$documents = $this->section->getDocuments($sort);
-	# The curent document will always be included in this list,
-	# But we only want to show this box if there are other documents
-	# in this list
-	if (count($documents)>1)
-	{
-		$name = View::escape($this->section->getName());
-		echo "
-		<div class=\"interfaceBox siblings\">
-			<h3>Information in $name</h3>
-			<ul>
-		";
-				#<a href=\"".BASE_URL."/sections/viewSection.php?section_id={$this->section->getId()};format=rss\" class=\"rss\">
-				#	<img src=\"".BASE_URL."/skins/default/images/feed-icon-14x14.png\" alt=\"RSS\" />
-				#</a>
+$documentTypeList = new DocumentTypeList();
+$documentTypeList->find();
 
-		# Don't list Featured Documents.  They should have already been displayed
-		$list = new DocumentList(array('section_id'=>$this->section->getId(),'featured'=>1,'active'=>date('Y-m-d')));
-		$featured = array();
-		foreach($list as $d) { $featured[] = $d->getId(); }
+# We only want to display stuff if we've actually got documents
+$output = array();
+foreach($documentTypeList as $type)
+{
+	$search['section_id'] = $this->section->getId();
+	$search['active'] = date('Y-m-d');
+	$search['featured'] = 0;
+	$documents = $type->getDocuments($search);
 
-		# List the first five documents
-		$count = 0;
+	if (count($documents))
+	{
+		$documentListHTML = '';
 		foreach($documents as $document)
 		{
-			# Check to see if we should display this document
-			if ($document->getId()!=$this->document->getId() && # The current document should be left out of this list
-				!in_array($document->getId(),$featured) # Featured documents should have already been displayed
-				)
+			if ($document->getId() != $this->section->getDocument()->getId())
 			{
-				# When we've displayed five documents, start new list, but keep it hidden
-				if ($count==5)
-				{
-					echo "
-					</ul>
-					<button type=\"button\" class=\"more\" onclick=\"toggleDisplay('siblings_{$this->section->getId()}',this);\">More</button>
-					<ul id=\"siblings_{$this->section->getId()}\" style=\"display:none;\">";
-				}
-
-				$count++; # Count how many documents we've displayed
-				$title = View::escape($document->getTitle());
-				echo "<li><a href=\"{$document->getURL()}\">$title</a></li>\n";
+				$name = View::escape($document->getTitle());
+				$documentListHTML.= "
+					<li class=\"closed\">
+						<a href=\"{$document->getURL()}\">$name</a>
+					</li>
+				";
 			}
 		}
-		echo "
-			</ul>
-		</div>
-		";
+
+		if ($documentListHTML)
+		{
+			$name = View::escape(Inflector::pluralize($type->getType()));
+			$output[] = "
+			<li class=\"closed\">
+				<a href=\"".BASE_URL."/documentTypes/documents.php?documentType_id={$type->getId()}\">$name</a>
+				<ul>
+					$documentListHTML
+				</ul>
+			</li>
+			";
+		}
 	}
-?>
+}
+
+$name = View::escape($this->section->getName());
+if (count($output))
+{
+	echo "
+	<div class=\"interfaceBox\">
+		<h3>Information in $name</h3>
+		<ul class=\"expandable\">
+	";
+	foreach($output as $html) { echo $html; }
+	echo "
+		</ul>
+	</div>
+	";
+
+	/**
+	 * This fires off the JavaScript that turns the expandable UL into a tree
+	 * This library has a bug - it will freeze if the <li> elements are not on their
+	 * own line.  Make sure to put line breaks for each <li>
+	 */
+	include_once APPLICATION_HOME.'/includes/js/tree.inc';
+}
