@@ -9,7 +9,7 @@
 	<ul><li><a href="<?php echo BASE_URL; ?>">Home</a></li>
 		<li><a href="<?php echo BASE_URL; ?>/Website-Accessibility-Statement">Accessibility</a></li>
 		<li><a href="<?php echo BASE_URL; ?>/website-privacy-statement">Privacy</a></li>
-		<li><a href="<?php echo BASE_URL; ?>/sections/viewSection.php?section_id=280">Contact the City</li>
+		<li><a href="<?php echo BASE_URL; ?>/contact">Contact the City</li>
 		<li><a href="<?php echo BASE_URL; ?>/city-website">About this Website</a></li>
 	</ul>
 	</div>
