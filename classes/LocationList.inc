@@ -39,6 +39,11 @@
 			if (isset($fields['description'])) { $options[] = "description='$fields[description]'"; }
 			if (isset($fields['content'])) { $options[] = "content='$fields[content]'"; }
 			if (isset($fields['department_id'])) { $options[] = "department_id='$fields[department_id]'"; }
+			if (isset($fields['handicap_accessible']))
+			{
+				if ($fields['handicap_accessible']) { $options = "handicap_accessible"; }
+				else { $options = "!handicap_accessible"; }
+			}
 
 			# Latitude and longitude are being used for calculating distance.  We can't use them
 			# for an exact search as well

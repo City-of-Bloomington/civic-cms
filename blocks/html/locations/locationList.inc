@@ -53,11 +53,11 @@ as well as find driving directions, and information specific to a certain site.<
 
 			$url = new URL(BASE_URL.'/locations');
 			$url->format = 'kml';
-			$url->locationGroup_id = $this->locationGroup->getId();
-			$name = View::escape($this->locationGroup->getName());
-			echo "<button type=\"button\" class=\"kml\" onclick=\"document.location.href='$url';\">$name KML</button>";
+			$url->locationGroup_id = isset($this->locationGroup) ? $this->locationGroup->getId() : 0;
+			$title = View::escape($this->title);
+			echo "<button type=\"button\" class=\"kml\" onclick=\"document.location.href='$url';\">$title KML</button>";
 
-			echo View::escape($this->title);
+			echo $name;
 		?>
 	</div>
 	<ul><?php
@@ -106,9 +106,10 @@ as well as find driving directions, and information specific to a certain site.<
 					$deleteButton = '';
 				}
 
+				$class = $location->isHandicapAccessible() ? 'class="handicap_accessible"' : '';
 				echo "
 				<li>$editButton $deleteButton
-					<a href=\"".BASE_URL."/locations/viewLocation.php?location_id={$location->getId()}\">$name</a>
+					<a href=\"".BASE_URL."/locations/viewLocation.php?location_id={$location->getId()}\" $class>$name</a>
 					$mapButton
 				</li>
 				";

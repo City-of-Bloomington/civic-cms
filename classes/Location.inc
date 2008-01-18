@@ -15,6 +15,7 @@
 		private $latitude;
 		private $longitude;
 		private $department_id;
+		private $handicap_accessible;
 
 		private $locationType;
 		private $department;
@@ -73,6 +74,7 @@
 			$fields['latitude'] = $this->latitude ? $this->latitude : null;
 			$fields['longitude'] = $this->longitude ? $this->longitude : null;
 			$fields['department_id'] = $this->department_id;
+			$fields['handicap_accessible'] = $this->handicap_accessible ? true : false;
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
@@ -177,6 +179,7 @@
 		public function __toString() { return $this->name; }
 		public function getType() { return $this->getLocationType()->getType(); }
 		public function getURL() { return BASE_URL.'/locations/viewLocation.php?location_id='.$this->id; }
+		public function isHandicapAccessible() { return $this->handicap_accessible ? true : false; }
 
 		/**
 		 * Generic Getters
@@ -190,6 +193,7 @@
 		public function getLatitude() { return $this->latitude; }
 		public function getLongitude() { return $this->longitude; }
 		public function getDepartment_id() { return $this->department_id; }
+		public function getHandicap_accessible() { return $this->handicap_accessible; }
 		public function getDepartment()
 		{
 			if ($this->department_id)
@@ -220,8 +224,8 @@
 		public function setLatitude($float) { $this->latitude = ereg_replace("[^0-9.\-]","",$float); }
 		public function setLongitude($float) { $this->longitude = ereg_replace("[^0-9.\-]","",$float); }
 		public function setDepartment_id($int) { $this->department = new Department($int); $this->department_id = $int; }
+		public function setHandicap_accessible($bool) { $this->handicap_accessible = $bool ? true : false; }
 
 		public function setDepartment($department) { $this->department_id = $department->getId(); $this->department = $department; }
 		public function setLocationType($locationType) { $this->locationType_id = $locationType->getId(); $this->locationType = $locationType; }
 	}
-?>

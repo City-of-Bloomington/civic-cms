@@ -290,6 +290,7 @@ create table locations (
 	latitude float(10,6),
 	longitude float(10,6),
 	department_id int unsigned not null,
+	handicap_accessible boolean not null default false,
 	foreign key (locationType_id) references locationTypes(id),
 	foreign key (department_id) references departments(id)
 ) engine=InnoDB;

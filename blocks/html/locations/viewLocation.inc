@@ -12,8 +12,10 @@ $description = View::escape($this->location->getDescription());
 $n = addslashes($name);
 $directions = "Get Directions: <a href=\"http://maps.google.com/?q=to:$n@{$this->location->getLatitude()},{$this->location->getLongitude()}\">To $name</a>";
 
+$class = $this->location->isHandicapAccessible() ? 'class="handicap_accessible"' : '';
+
 echo "
-<h1>$name</h1>
+<h1 $class>$name</h1>
 <p>$address</p>
 <p>$description</p>
 <p>$directions</p>

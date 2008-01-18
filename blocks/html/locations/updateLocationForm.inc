@@ -57,6 +57,19 @@
 		<td><input name="location[latitude]" id="location-latitude" value="<?php echo $this->location->getLatitude(); ?>" /></td></tr>
 	<tr><td><label for="location-longitude">Longitude</label></td>
 		<td><input name="location[longitude]" id="location-longitude" value="<?php echo $this->location->getLongitude(); ?>" /></td></tr>
+	<tr><td><label>Handicap Accessible</label></td>
+		<td><label>
+				<?php $checked = $this->location->isHandicapAccessible() ? 'checked="checked"' : ''; ?>
+				<input name="location[handicap_accessible]" id="location-handicap_accessible_yes" type="radio" value="1" <?php echo $checked; ?> />
+				Yes
+			</label>
+			<label>
+				<?php $checked = !$this->location->isHandicapAccessible() ? 'checked="checked"' : ''; ?>
+				<input name="location[handicap_accessible]" id="location-handicap_accessible_no" type="radio" value="0" <?php echo $checked; ?> />
+				No
+			</label>
+		</td>
+	</tr>
 	<tr><td colspan="2">
 			<label for="location-description" class="required">Description</label>
 			<textarea name="location[description]" id="location-description" rows="4" cols="60" onkeyup="FRAMEWORK.limit(this,255);"><?php echo View::escape($this->location->getDescription()); ?></textarea>

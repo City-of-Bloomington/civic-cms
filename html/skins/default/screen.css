@@ -257,6 +257,7 @@ a.rss img { margin:0; }
 #location_list { float:right; width:200px; margin-right:1em; }
 #location_map { width:360px; height:360px; border:2px solid black; margin-right:200px; }
 #locationGroup_description { margin-right:200px; }
+.handicap_accessible { height:16px; padding-left:18px; background: url('default/images/access.png') no-repeat; }
 
 /* Various Styles for text */
 .copyright { text-align:center; font-size:10pt; }
