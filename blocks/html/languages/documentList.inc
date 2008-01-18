@@ -4,10 +4,10 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param DocumentList $this->documentList
+ * @param Language $this->language
  */
-	$language = new Language($_SESSION['LANGUAGE']);
 ?>
-<h1><?php echo $language->getNative(); ?></h1>
+<h1><?php echo $this->language->getNative(); ?></h1>
 <ul>
 <?php
 	foreach($this->documentList as $document)
