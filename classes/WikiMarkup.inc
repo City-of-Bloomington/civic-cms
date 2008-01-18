@@ -180,7 +180,7 @@ class WikiMarkup
 		# They should not be trying to do URLs to bad places
 		foreach($BAD_LINK_EXPRESSIONS as $regex)
 		{
-			if (preg_match($regex,$link)) { return "<span style=\"background-color:red\">[$title]</span>"; }
+			if (preg_match($regex,$link)) { return "<span style=\"background-color:red\">[$link]</span>"; }
 		}
 
 		# If they didn't put in an http://, we need to add it to the url
