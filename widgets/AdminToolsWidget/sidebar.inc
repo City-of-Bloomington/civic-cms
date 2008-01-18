@@ -6,15 +6,28 @@
  */
 	$links = array();
 
-	# All users get access to these things
-	$links['Calendars'] = "<li><a href=\"".BASE_URL."/calendars\">Calendars</a></li>";
-	$links['Locations'] = "<li><a href=\"".BASE_URL."/locations\">Locations</a></li>";
-	$links['Attachments'] = "<li><a href=\"".BASE_URL."/media\">Media</a></li>";
-
 	if ( userHasRole('Content Creator') || userHasRole('Publisher') )
 	{
 		$links['Documents'] = "<li><a href=\"".BASE_URL."/documents\">My Documents</a></li>";
 	}
+	if (userHasRole('Webmaster') || userHasRole('Administrator'))
+	{
+		$links['Documents'] = "<li><a href=\"".BASE_URL."/documents\">Documents</a></li>";
+	}
+
+	# All users get access to these things
+	$links['Attachments'] = "<li><a href=\"".BASE_URL."/media\">Media</a></li>";
+	$links['Calendars'] = "<li><a href=\"".BASE_URL."/calendars\">Calendars</a></li>";
+	$links['Locations'] = "<li><a href=\"".BASE_URL."/locations\">Locations</a></li>";
+
+	if (userHasRole('Webmaster') || userHasRole('Administrator'))
+	{
+		$links['Widgets'] = "<li><a href=\"".BASE_URL."/widgets\">Widgets</a></li>";
+		$links['Facets'] = "<li><a href=\"".BASE_URL."/facets\">Facets</a></li>";
+		$links['DocumentTypes'] = "<li><a href=\"".BASE_URL."/documentTypes\">Document Types</a></li>";
+		$links['Sections'] = "<li><a href=\"".BASE_URL."/sections\">Sections</a></li>";
+	}
+
 	if (userHasRole('Administrator'))
 	{
 		$links['Users'] = "<li><a href=\"".BASE_URL."/users\">Users</a></li>";
@@ -24,13 +37,8 @@
 
 	if (userHasRole('Webmaster') || userHasRole('Administrator'))
 	{
-		$links['Documents'] = "<li><a href=\"".BASE_URL."/documents\">Documents</a></li>";
 		$links['Content'] = "<li><a href=\"".BASE_URL."/documents/maintenance.php\">Content Checking</a></li>";
 		$links['Statistics'] = "<li><a href=\"".BASE_URL."/documents/statistics\">Statistics</a></li>";
-		$links['Sections'] = "<li><a href=\"".BASE_URL."/sections\">Sections</a></li>";
-		$links['Facets'] = "<li><a href=\"".BASE_URL."/facets\">Facets</a></li>";
-		$links['DocumentTypes'] = "<li><a href=\"".BASE_URL."/documentTypes\">Document Types</a></li>";
-		$links['Widgets'] = "<li><a href=\"".BASE_URL."/widgets\">Widgets</a></li>";
 	}
 
 ?>
