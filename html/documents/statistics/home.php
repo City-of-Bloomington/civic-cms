@@ -15,4 +15,6 @@ $template->blocks[] = new Block('search/statistics/topSearches.inc',array('searc
 $hits = FileNotFoundLog::getTopRequests();
 $template->blocks[] = new Block('documents/statistics/top404.inc',array('requests'=>$hits));
 
+$template->blocks[] = new Block('documents/statistics/departmentTopHits.inc');
+
 $template->render();
