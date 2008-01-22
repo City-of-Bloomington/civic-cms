@@ -9,7 +9,7 @@
 ?>
 <form id="filter" method="get" action="<?php echo BASE_URL; ?>/media">
 <div class="interfaceBox">
-	<div class="titleBar">Media</div>
+	<h1>Media</h1>
 	<?php
 		echo "
 		<input name=\"mime_type\" id=\"mime_type\" type=\"hidden\" value=\"{$url->mime_type}\" />

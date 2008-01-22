@@ -12,7 +12,7 @@
 	else { $addButton = ""; }
 ?>
 <div class="interfaceBox">
-	<div class="titleBar"><?php echo $addButton; ?>Users</div>
+	<h1><?php echo $addButton; ?>Users</h1>
 	<table>
 	<?php
 		foreach($this->userList as $user)

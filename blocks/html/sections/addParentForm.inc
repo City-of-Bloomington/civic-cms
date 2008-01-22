@@ -34,7 +34,7 @@
 	}
 ?>
 <div class="interfaceBox">
-	<div class="titleBar">Add Parents</div>
+	<h1>Add Parents</h1>
 
 	<p>Choose parents for this section:</p>
 	<ul><li>

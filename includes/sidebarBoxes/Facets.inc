@@ -9,7 +9,7 @@
 	{
 		if (count($this->document->getRelatedDocuments()))
 		{
-			echo "<div><div class=\"titleBar\">Related</div><ul>";
+			echo "<div><h1>Related</h1><ul>";
 			foreach($this->document->getRelatedDocuments() as $document)
 			{
 				$title = View::escape($document->getTitle());

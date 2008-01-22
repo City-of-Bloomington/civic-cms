@@ -6,7 +6,7 @@
  */
 ?>
 <div class="interfaceBox">
-	<div class="titleBar">
+	<h1>
 		<?php
 			if (userHasRole(array('Administrator','Webmaster')))
 			{
@@ -14,7 +14,7 @@
 			}
 		?>
 		<a href="<?php echo BASE_URL; ?>/documentTypes">Document Types</a>
-	</div>
+	</h1>
 <ul>
 <?php
 	$list = new DocumentTypeList();

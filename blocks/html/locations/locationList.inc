@@ -40,7 +40,7 @@ as well as find driving directions, and information specific to a certain site.<
 </form>
 <?php if(isset($this->locationList)) { ?>
 <div class="interfaceBox" id="location_list">
-	<div class="titleBar">
+	<h1>
 		<?php
 			$return_url = "http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]";
 
@@ -59,7 +59,7 @@ as well as find driving directions, and information specific to a certain site.<
 
 			echo $name;
 		?>
-	</div>
+	</h1>
 	<ul><?php
 			$points = array();
 			$info = array();

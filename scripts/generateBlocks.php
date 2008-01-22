@@ -33,10 +33,10 @@ foreach($tables as $tableName)
 		*/
 	$getId = "get".ucwords($key['Column_name']);
 	$HTML = "<div class=\"interfaceBox\">
-	<div class=\"titleBar\">
+	<h1>
 		<button type=\"button\" class=\"addSmall\" onclick=\"document.location.href='<?php echo BASE_URL; ?>/$tableName/add$className.php';\">Add</button>
 		{$className}s
-	</div>
+	</h1>
 	<ul><?php
 			foreach(\$this->{$variableName}List as \${$variableName})
 			{

@@ -6,10 +6,10 @@
  */
 ?>
 <div class="interfaceBox">
-	<div class="titleBar">
+	<h1>
 		Backups
 		<button type="button" class="addSmall" onclick="document.location.href='<?php echo BASE_URL; ?>/backups/create.php';">Add</button>
-	</div>
+	</h1>
 	<table>
 	<?php
 		$files = array();

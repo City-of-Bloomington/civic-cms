@@ -48,7 +48,7 @@
 	</form>
 </div>
 <div class="interfaceBox">
-	<div class="titleBar">Related Links</div>
+	<h1>Related Links</h1>
 	<?php
 		$links = new DocumentLinkList(array('document_id'=>$this->document->getId()));
 		if (count($links))

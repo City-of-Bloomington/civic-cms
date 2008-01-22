@@ -6,9 +6,9 @@
  */
 ?>
 <div class="interfaceBox">
-	<div class="titleBar">
+	<h1>
 		<a href="<?php echo BASE_URL; ?>/languages">Translations</a>
-	</div>
+	</h1>
 	<p>Use the links below to search our website for documents that have been translated into that language.</p>
 	<ul>
 	<?php

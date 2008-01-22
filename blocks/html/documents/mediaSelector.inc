@@ -18,7 +18,7 @@
 </script>
 <form id="filter" method="get" action="<?php echo BASE_URL; ?>/documents/mediaSelector.php">
 <div class="interfaceBox">
-	<div class="titleBar"><?php echo $title; ?> Media</div>
+	<h1><?php echo $title; ?> Media</h1>
 	<?php
 		echo "
 		<input name=\"mime_type\" id=\"mime_type\" type=\"hidden\" value=\"{$url->mime_type}\" />

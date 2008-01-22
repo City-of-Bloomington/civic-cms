@@ -59,7 +59,7 @@
 		</div>
 		";
 	}
-	else { echo "<div class=\"titleBar\"><a href=\"".BASE_URL."/sections\">Sections</a></div>"; }
+	else { echo "<h1><a href=\"".BASE_URL."/sections\">Sections</a></h1>"; }
 ?>
 	<ul><li>
 		<?php

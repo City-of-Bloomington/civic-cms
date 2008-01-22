@@ -16,7 +16,7 @@
 	$month = $date['mon'];
 ?>
 <div class="interfaceBox">
-	<div class="titleBar">
+	<h1>
 	<?php
 		$back = getdate(strtotime('-1 month',$start));
 		$next = getdate($end);
@@ -33,7 +33,7 @@
 		$url->parameters['mon'] = $next['mon'];
 		echo "<button type=\"button\" class=\"next\" onclick=\"document.location.href='{$url->getURL()}'\">Next Month</button>";
 	?>
-	</div>
+	</h1>
 <table class="calendar">
 <?php
 	# Loop through all the days of the month

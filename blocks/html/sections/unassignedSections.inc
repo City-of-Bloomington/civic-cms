@@ -9,7 +9,7 @@
 	{
 		echo "
 		<div class=\"interfaceBox\">
-			<div class=\"titleBar\">Unassigned Sections</div>
+			<h1>Unassigned Sections</h1>
 			<p>These Sections have not been assigned any parents.
 				You must assign them a parent to get them to show up in the site.</p>
 			<ul>

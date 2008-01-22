@@ -9,7 +9,7 @@
  */
 ?>
 <div class="interfaceBox">
-	<div class="titleBar">
+	<h1>
 		<?php
 			$url = new URL(BASE_URL.'/facets/updateFacetGroup.php');
 			if (isset($this->facetGroup))
@@ -22,7 +22,7 @@
 			}
 			echo View::escape($this->title);
 		?>
-	</div>
+	</h1>
 	<ul><?php
 			foreach($this->facetList as $facet)
 			{

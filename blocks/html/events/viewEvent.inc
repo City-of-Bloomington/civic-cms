@@ -7,7 +7,7 @@
  */
 ?>
 <div class="interfaceBox">
-	<div class="titleBar">
+	<h1>
 	<?php
 		if (isset($_SESSION['USER']) && $this->event->permitsEditingBy($_SESSION['USER']))
 		{
@@ -18,7 +18,7 @@
 		}
 		echo View::escape($this->event->getTitle());
 	?>
-	</div>
+	</h1>
 	<?php
 		$format = $this->event->isAllDayEvent() ? 'M j' : 'M j g:i A';
 		$start = $this->event->getStart($format);

@@ -8,14 +8,14 @@
  */
 ?>
 <div class="interfaceBox">
-	<div class="titleBar">
+	<h1>
 		<?php
 			echo $this->title;
 			include APPLICATION_HOME.'/blocks/html/documents/addDocumentToolbar.inc';
 
 			$url = new URL("http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]");
 		?>
-	</div>
+	</h1>
 	<table>
 	<thead>
 		<tr><th>Filters:</th>

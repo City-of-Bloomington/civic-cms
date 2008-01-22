@@ -8,7 +8,7 @@
 	$title = View::escape($this->media->getTitle());
 ?>
 <div class="interfaceBox">
-	<div class="titleBar">
+	<h1>
 	<?php
 		if ($this->media->permitsEditingBy($_SESSION['USER']))
 		{
@@ -19,7 +19,7 @@
 		}
 		echo $title;
 	?>
-	</div>
+	</h1>
 	<table>
 	<tr><th>Filename</th>
 		<td><?php echo "<a href=\"{$this->media->getURL()}\">{$this->media->getFilename()}</a>"; ?></td></tr>

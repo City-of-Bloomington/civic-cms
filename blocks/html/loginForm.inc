@@ -1,5 +1,5 @@
 <div id="login">
-	<div class="titleBar">Login</div>
+	<h1>Login</h1>
 	<form method="post" action="login.php">
 	<fieldset><legend>Login</legend>
 		<table>

@@ -72,11 +72,11 @@ li.current>a { background-color:#cccccc; width:100%; }
 .interfaceBox { border-bottom:2px dotted black; }
 .interfaceBox img { margin:0; }
 
-.titleBar { background-color:#3366cc; color:white; font-size:14pt; border:2px solid black; font-weight:bold; padding-left:.5em; padding-right:.5em; }
-.titleBar a { margin:0px; height:20px; }
-.titleBar a:link,.titleBar a:visited { color:white; background-color:transparent; }
-	.titleBar form { margin:0; padding:0; display:inline; height:1em; }
-	.titleBar form fieldset { margin:0; padding:0; border:0; display:inline; }
+.interfaceBox h1 { background-color:#3366cc; color:white; font-size:14pt; border:2px solid black; font-weight:bold; padding-left:.5em; padding-right:.5em; }
+.interfaceBox h1 a { margin:0px; height:20px; }
+.interfaceBox h1 a:link,.titleBar a:visited { color:white; background-color:transparent; }
+.interfaceBox h1 form { margin:0; padding:0; display:inline; height:1em; }
+.interfaceBox h1 form fieldset { margin:0; padding:0; border:0; display:inline; }
 
 
 

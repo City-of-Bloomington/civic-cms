@@ -6,10 +6,10 @@
  */
 ?>
 <div class="interfaceBox">
-	<div class="titleBar">
+	<h1>
 		<button type="button" class="addSmall" onclick="document.location.href='<?php echo BASE_URL; ?>/locations/addLocationType.php';">Add</button>
 		Location Types
-	</div>
+	</h1>
 	<ul><?php
 			foreach($this->locationTypeList as $locationType)
 			{

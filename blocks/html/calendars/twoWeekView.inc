@@ -9,7 +9,7 @@
  */
 ?>
 <div class="interfaceBox">
-	<div class="titleBar">
+	<h1>
 		<?php
 			$rangeStart = mktime(0,0,0,$this->date['mon'],$this->date['mday'],$this->date['year']);
 			$rangeEnd = strtotime('+14 day',$rangeStart);
@@ -31,7 +31,7 @@
 			$url->parameters['year'] = $next['year'];
 			echo "<button type=\"button\" class=\"next\" onclick=\"document.location.href='{$url->getURL()}';\">Next Two Weeks</button>";
 		?>
-	</div>
+	</h1>
 	<table class="calendar">
 	<?php
 		for($i=0; $i<=14; $i++)

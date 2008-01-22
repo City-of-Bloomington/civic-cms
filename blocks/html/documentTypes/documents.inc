@@ -56,7 +56,7 @@
 				$name = View::escape($facet->getName());
 				echo "
 				<div class=\"interfaceBox\">
-					<div class=\"titleBar\">$name</div>
+					<h1>$name</h1>
 					<ul>
 				";
 					foreach($documents as $document)

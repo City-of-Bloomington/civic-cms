@@ -8,7 +8,7 @@
  */
 ?>
 <div class="interfaceBox">
-	<div class="titleBar">
+	<h1>
 		<?php
 			$rangeStart = mktime(0,0,0,$this->date['mon'],$this->date['mday'],$this->date['year']);
 			$rangeEnd = strtotime('+1 day',$rangeStart);
@@ -29,7 +29,7 @@
 			$url->parameters['year'] = $next['year'];
 			echo "<button type=\"button\" class=\"next\" onclick=\"document.location.href='{$url->getURL()}';\">Next Day</button>";
 		?>
-	</div>
+	</h1>
 	<table>
 	<?php
 		$year = $this->date['year'];
