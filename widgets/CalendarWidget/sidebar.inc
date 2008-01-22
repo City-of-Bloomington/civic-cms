@@ -55,8 +55,12 @@
 		$url->parameters['view'] = 'day';
 
 		$day = $currentDay;
-		if (isset($recurrences[$year][$month][$day])) { echo "<td class=\"event\"><a href=\"{$url->getURL()}\">$currentDay</a>"; }
-		else { echo "<td>$currentDay"; }
+		$dayOfWeek = date('l',mktime(0,0,0,$month,$day,$year));
+		if (isset($recurrences[$year][$month][$day]))
+		{
+			echo "<td class=\"$dayOfWeek hasEvent\"><a href=\"{$url->getURL()}\">$currentDay</a>";
+		}
+		else { echo "<td class=\"$dayOfWeek\">$currentDay"; }
 		echo "</td>";
 
 

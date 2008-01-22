@@ -47,8 +47,12 @@
 		if ($this->calendar->getId()) { $url->parameters['calendar_id'] = $this->calendar->getId(); }
 		$url->parameters['view'] = 'day';
 
+		$dayOfWeek = date('l',mktime(0,0,0,$month,$day,$year));
+		$hasEvent = (isset($recurrences[$year][$month][$day]) && count($recurrences[$year][$month][$day])) ? ' hasEvent' : '';
+
 		echo "
-		<tr><th class=\"date\"><a href=\"{$url->getURL()}\">$day</a></th>
+		<tr class=\"$dayOfWeek$hasEvent\">
+			<th class=\"date\"><a href=\"{$url->getURL()}\">$day</a></th>
 			<td>
 		";
 		if (isset($recurrences[$year][$month][$day]))

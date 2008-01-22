@@ -39,17 +39,20 @@
 		{
 			$timestamp = strtotime("+$i day",$rangeStart);
 
-			$currentDateString = date('D, M j',$timestamp);
-			echo "
-			<tr><th>$currentDateString</th>
-				<td>
-			";
-
 			$date = getdate($timestamp);
 			$year = $date['year'];
 			$month = $date['mon'];
 			$day = $date['mday'];
 			$recurrences = $this->calendar->getEventRecurrenceArray($rangeStart,$rangeEnd);
+
+			$currentDateString = date('D, M j',$timestamp);
+			$dayOfWeek = date('l',$timestamp);
+			$hasEvent = (isset($recurrences[$year][$month][$day]) && count($recurrences[$year][$month][$day])) ? ' hasEvent' : '';
+			echo "
+			<tr class=\"$dayOfWeek$hasEvent\"><th>$currentDateString</th>
+				<td>
+			";
+
 			if (isset($recurrences[$year][$month][$day]))
 			{
 				echo '<ul>';
