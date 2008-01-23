@@ -20,24 +20,23 @@ if ($_GET['media_id'])
 		$path = $media->getDirectory();
 		$internalFilename = $media->getInternalFilename();
 	}
-	catch(Exception $e) { }
+	catch(Exception $e)
+	{
+		$mime = 'image/png';
+		$disposition = 'inline';
+		$filename = 'missing.png';
+		$path = APPLICATION_HOME.'/html/media';
+		$internalFilename = $filename;
+	}
 }
 
-if (!isset($media))
-{
-	$mime = 'image/png';
-	$disposition = 'inline';
-	$filename = 'missing.png';
-	$path = APPLICATION_HOME.'/html/media';
-	$internalFilename = $filename;
-}
 Header('Expires: 0');
 Header('Pragma: cache');
 Header('Cache-Control: private');
 Header("Content-type: $mime");
 Header("Content-Disposition: $disposition; filename=$filename");
 
-if ($media->getMedia_type() == 'image')
+if (isset($media) && $media->getMedia_type() == 'image')
 {
 	$size = (isset($_GET['size'])&&$_GET['size']) ? $_GET['size'] : 'medium';
 	$image = new Image($media->getId());
