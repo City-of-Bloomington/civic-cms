@@ -21,8 +21,48 @@
 			else { $this->original_start = strtotime($original_start); }
 		}
 
+		/**
+		 * Returns true if this is a single occurence of a non-recurring event
+		 */
 		public function isEvent() { return $this->type == 'Event'; }
+
+		/**
+		 * Returns true if this is a single occurence of a recurring event
+		 */
 		public function isRecurrence() { return $this->type == 'Recurrence'; }
+
+		/**
+		 * Aliases for event functions
+		 * We want code to be able to work with EventRecurrences
+		 * in the same way it would work with Events.  For information
+		 * this EventRecurrence doesn't store, we provide these aliases
+		 * to the Event's function
+		 */
+		public function permitsEditingBy($user) { return $this->event->permitsEditingBy($user); }
+		public function isAllDayEvent() { return $this->event->isAllDayEvent(); }
+		public function isRecurringEvent() { return $this->event->isRecurringEvent(); }
+		public function getRRule() { return $this->event->getRRule(); }
+		public function getLocation() { return $this->event->getLocation(); }
+		public function getContact_name() { return $this->event->getContact_name(); }
+		public function getContact_phone() { return $this->event->getContact_phone(); }
+		public function getContact_email() { return $this->event->getContact_email(); }
+		public function getDescription() { return $this->event->getDescription(); }
+		public function getTitle() { return $this->event->getTitle(); }
+
+		/**
+		 * Returns the URL to see this on the site
+		 * Helps make an EventRecurrence work the same as an Event
+		 */
+		public function getURL()
+		{
+			return BASE_URL."/calendars/viewEvent.php?event_id={$this->event_id};date=".$this->getStart('Y-m-d');
+		}
+
+		/**
+		 * Alias for getEvent_id
+		 * This helps make an EventRecurrence work the same as an Event
+		 */
+		public function getId() { return $this->getEvent_id(); }
 
 		/**
 		 * Generic Getters

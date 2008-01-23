@@ -59,7 +59,7 @@
 					$time = $recurrence->getEvent()->isAllDayEvent() ? '' : $recurrence->getStart('g:i A');
 					$title = View::escape($recurrence->getEvent()->getTitle());
 					echo "
-					<li><a href=\"".BASE_URL."/calendars/viewEvent.php?event_id={$recurrence->getEvent_id()}\">
+					<li><a href=\"".BASE_URL."/calendars/viewEvent.php?event_id={$recurrence->getEvent_id()};date=$year-$month-$day\">
 						$time $title</a></li>
 					";
 				}

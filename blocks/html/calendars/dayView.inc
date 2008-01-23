@@ -46,7 +46,7 @@
 					$title = View::escape($recurrence->getEvent()->getTitle());
 					echo "
 					<tr><td>$time</td>
-						<td><a href=\"".BASE_URL."/calendars/viewEvent.php?event_id={$recurrence->getEvent_id()}\">
+						<td><a href=\"".BASE_URL."/calendars/viewEvent.php?event_id={$recurrence->getEvent_id()};date=$year-$month-$day\">
 							$title</a>
 						</td>
 					</tr>

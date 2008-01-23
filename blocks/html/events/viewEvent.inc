@@ -4,6 +4,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Event $this->event
+ * @param EventRecurrence $this->event
  */
 ?>
 <div class="interfaceBox">
@@ -37,7 +38,11 @@
 		<p><strong>Location:</strong> <a href=\"{$this->event->getLocation()->getURL()}\">$location</a></p>
 		<p><strong>Contact:</strong> $name. $phone, $email</p>
 		<div>$description</div>
-		<div>{$this->event->getRRule()}</div>
 		";
+
+		if (!$this->event instanceof EventRecurrence && $this->event->getRRule())
+		{
+			echo "<div>{$this->event->getRRule()}</div>";
+		}
 	?>
 </div>
