@@ -223,20 +223,29 @@
 			$directory = $this->getContentDirectory();
 			foreach($this->content as $lang=>$content)
 			{
-				$file = "$directory/{$this->id}.$lang";
-
-				list($year,$month,$day) = explode("-",substr($this->created,0,10));
-
-				$sandbox = new SubversionWorkingCopy(APPLICATION_HOME.'/data/documents');
-				if (!is_dir($directory))
+				# Make sure content isn't empty
+				if ($content)
 				{
-					mkdir($directory,0775,true);
-					$sandbox->add(APPLICATION_HOME."/data/documents/$year","--force");
-				}
-				file_put_contents($file,$this->content[$lang]);
+					$file = "$directory/{$this->id}.$lang";
 
-				$out = $sandbox->status($file);
-				if (count($out) && $out[0]{0} == "?") { $sandbox->add($file); }
+					list($year,$month,$day) = explode("-",substr($this->created,0,10));
+
+					$sandbox = new SubversionWorkingCopy(APPLICATION_HOME.'/data/documents');
+					if (!is_dir($directory))
+					{
+						mkdir($directory,0775,true);
+						$sandbox->add(APPLICATION_HOME."/data/documents/$year","--force");
+					}
+					file_put_contents($file,$this->content[$lang]);
+
+					$out = $sandbox->status($file);
+					if (count($out) && $out[0]{0} == "?") { $sandbox->add($file); }
+				}
+				else
+				{
+					# Delete the empty language content
+					$this->deleteContent($lang);
+				}
 			}
 			$sandbox->commit(APPLICATION_HOME."/data/documents/$year",$_SESSION['USER']->getUsername());
 
@@ -244,13 +253,13 @@
 			# Inform the people on the watch list
 			foreach($this->getWatches() as $watch) { $watch->notify(); }
 		}
-		private function deleteContent()
+		private function deleteContent($lang='*')
 		{
 			if (!$this->isLocked())
 			{
 				$sandbox = new SubversionWorkingCopy(APPLICATION_HOME.'/data/documents');
 				$directory = $this->getContentDirectory();
-				foreach(glob("$directory/{$this->id}.*") as $file)
+				foreach(glob("$directory/{$this->id}.$lang") as $file)
 				{
 					$sandbox->delete($file);
 				}
