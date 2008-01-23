@@ -22,10 +22,33 @@
 	</table>
 </fieldset>
 
+<fieldset><legend>List Display Information</legend>
+<p>Choose the information you want to display when documents of this type
+are displayed in a list.</p>
+<div>
+<?php
+	foreach(Document::getDisplayableFields() as $field=>$name)
+	{
+		$checked = in_array($field,$this->documentType->getDocumentInfoFields()) ? 'checked="checked"' : '';
+		echo "
+		<label>
+			<input name=\"documentType[documentInfoFields][]\" type=\"checkbox\" value=\"$field\" $checked />
+			$name
+		</label>
+		";
+	}
+?>
+</div>
+</fieldset>
+
 <fieldset><legend>Display Options</legend>
 	<table>
 	<tr><td><label for="documentType-ordering">Ordering</label></td>
-		<td><input name="documentType[ordering]" id="documentType-ordering" value="<?php echo View::escape($this->documentType->getOrdering()); ?>" /></td>
+		<td><select name="documentType[ordering]" id="documentType-ordering">
+				<option value="title" <?php if ($this->documentType->getOrdering()=='title') echo 'selected="selected"'; ?>>Alphabetical</option>
+				<option value="publishDate desc" <?php if ($this->documentType->getOrdering()=='publishDate desc') echo 'selected="selected"'; ?>>Publish Date</option>
+			</select>
+		</td>
 		<td><p>This ordering field controls how documents of this type are sorted when they are displayed as a list.
 				For instance in the 'Information in $section' box.</p>
 		</td>

@@ -19,10 +19,32 @@
 	</table>
 </fieldset>
 
+<fieldset><legend>List Display Information</legend>
+<p>Choose the information you want to display when documents of this type
+are displayed in a list.</p>
+<div>
+<?php
+	foreach(Document::getDisplayableFields() as $field=>$name)
+	{
+		echo "
+		<label>
+			<input name=\"documentType[documentInfoFields][]\" type=\"checkbox\" value=\"$field\" />
+			$name
+		</label>
+		";
+	}
+?>
+</div>
+</fieldset>
+
 <fieldset><legend>Display Options</legend>
 	<table>
 	<tr><td><label for="documentType-ordering">Ordering</label></td>
-		<td><input name="documentType[ordering]" id="documentType-ordering" value="title" /></td>
+		<td><select name="documentType[ordering]" id="documentType-ordering">
+				<option value="title">Alphabetical</option>
+				<option value="publishDate desc">Publish Date</option>
+			</select>
+		</td>
 		<td><p>This ordering field controls how documents of this type are sorted when they are displayed as a list.
 				For instance in the 'Information in $section' box.</p>
 		</td>

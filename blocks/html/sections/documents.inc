@@ -25,10 +25,38 @@ foreach($documentTypeList as $type)
 		{
 			if ($document->getId() != $this->section->getDocument()->getId())
 			{
-				$name = View::escape($document->getTitle());
+				$info = array();
+				foreach($type->getDocumentInfoFields() as $field)
+				{
+					$get = 'get'.ucfirst($field);
+					switch ($field)
+					{
+						case 'created':
+						case 'modified':
+						case 'publishDate':
+						case 'retireDate':
+							$info[] = $document->$get('Y-m-d');
+						break;
+
+						case 'createdBy':
+						case 'modifiedBy':
+							$info[] = $document->$get()->getUsername();
+						break;
+
+						case 'DocumentType':
+						case 'Department':
+							$info[] = View::escape($document->$get()->getName());
+						break;
+
+						default:
+							$info[] = View::escape($document->$get());
+					}
+				}
+				$info = implode(' - ',$info);
+
 				$documentListHTML.= "
 					<li class=\"closed\">
-						<a href=\"{$document->getURL()}\">$name</a>
+						<a href=\"{$document->getURL()}\">$info</a>
 					</li>
 				";
 			}

@@ -13,6 +13,7 @@
 		private $defaultFacetGroup_id;
 
 		private $defaultFacetGroup;
+		private $documentInfoFields = array();
 
 		/**
 		 * This will load all fields in the table as properties of this class.
@@ -25,15 +26,23 @@
 				$PDO = Database::getConnection();
 				if (is_numeric($id)) { $sql = 'select * from documentTypes where id=?'; }
 				else { $sql = 'select * from documentTypes where type=?'; }
-				try
-				{
-					$query = $PDO->prepare($sql);
-					$query->execute(array($id));
-				}
-				catch (Exception $e) { throw $e; }
 
-				$result = $query->fetchAll();
-				foreach($result[0] as $field=>$value) { if ($value) $this->$field = $value; }
+				$query = $PDO->prepare($sql);
+				$query->execute(array($id));
+
+				$result = $query->fetchAll(PDO::FETCH_ASSOC);
+				if (!count($result)) { throw new Exception('documentTypes/unknownDocumentType'); }
+
+				foreach($result[0] as $field=>$value)
+				{
+					if ($value)
+					{
+						# The documentInfoFields need to be unserialized
+						if ($field=='documentInfoFields') { $value = unserialize($value); }
+
+						$this->$field = $value;
+					}
+				}
 			}
 			else
 			{
@@ -58,6 +67,7 @@
 			$fields['template'] = $this->template ? $this->template : null;
 			$fields['ordering'] = $this->ordering ? $this->ordering : null;
 			$fields['defaultFacetGroup_id'] = $this->defaultFacetGroup_id ? $this->defaultFacetGroup_id : null;
+			$fields['documentInfoFields'] = count($this->documentInfoFields) ? serialize($this->documentInfoFields) : null;
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
@@ -124,6 +134,14 @@
 			}
 			return $this->defaultFacetGroup;
 		}
+		public function getDocumentInfoFields()
+		{
+			if (!count($this->documentInfoFields))
+			{
+				$this->documentInfoFields[] = 'title';
+			}
+			return $this->documentInfoFields;
+		}
 
 
 		public function setType($string) { $this->type = trim($string); }
@@ -131,5 +149,8 @@
 		public function setOrdering($string) { $this->ordering = trim($string); }
 		public function setDefaultFacetGroup_id($int) { $this->defaultFacetGroup = new FacetGroup($int); $this->defaultFacetGroup_id = $int; }
 		public function setDefaultFacetGroup($facetGroup) { $this->defaultFacetGroup_id = $facetGroup->getId(); $this->defaultFacetGroup = $facetGroup; }
+		public function setDocumentInfoFields($array)
+		{
+			if (count($array)) { $this->documentInfoFields = $array; }
+		}
 	}
-?>

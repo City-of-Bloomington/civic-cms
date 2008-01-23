@@ -62,6 +62,7 @@ create table documentTypes (
 	template text not null,
 	ordering varchar(50) not null default 'title',
 	defaultFacetGroup_id int unsigned,
+	documentInfoFields varchar(255),
 	foreign key (defaultFacetGroup_id) references facetGroups(id)
 ) engine=InnoDB;
 insert documentTypes set type='Webpage';

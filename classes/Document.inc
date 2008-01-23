@@ -660,6 +660,27 @@
 		}
 
 		/**
+		 * Returns an array of fields that are publically displayable about this class
+		 * $array[shortname] = 'Display Name'
+		 */
+		public static function getDisplayableFields()
+		{
+			return array('id'=>'ID',
+						'title'=>'Title',
+						'wikiTitle'=>'Wiki Title',
+						'alias'=>'Alias',
+						'feature_title'=>'Feature Title',
+						'created'=>'Created Date',
+						'createdBy'=>'Created By Username',
+						'modified'=>'Modified Date',
+						'modifiedBy'=>'Modified By Username',
+						'publishDate'=>'Publish Date',
+						'retireDate'=>'Retire Date',
+						'department'=>'Department'
+						);
+		}
+
+		/**
 		 * Generic Getters
 		 */
 		public function getId() { return $this->id; }
