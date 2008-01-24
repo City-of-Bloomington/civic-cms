@@ -137,32 +137,29 @@
 			$section = count($sections) ? current($sections) : null;
 		}
 
-		foreach($sections as $s)
+		# Current Ancestors should be set by now, so we should know where we are
+		$s = end($currentAncestors);
+		# If we're viewing the homepage of the current section
+		if ($s->getDocument_id() === $document->getId())
 		{
-			# Find out which Sections this Document is a homepage of
-			if ($s->getDocument_id() === $document->getId())
+			# Check for Featured Documents in this Section
+			$types = new DocumentTypeList();
+			$types->find();
+			foreach($types as $type)
 			{
-				$template->blocks[] = new Block('sections/subsections.inc',array('section'=>$s));
-
-				# Check for Featured Documents in this Section
-				$types = new DocumentTypeList();
-				$types->find();
-				foreach($types as $type)
+				$documentList = new DocumentList(array('documentType_id'=>$type->getId(),'section_id'=>$s->getId(),'featured'=>1,'active'=>date('Y-m-d')));
+				if (count($documentList))
 				{
-					$documentList = new DocumentList(array('documentType_id'=>$type->getId(),'section_id'=>$s->getId(),'featured'=>1,'active'=>date('Y-m-d')));
-					if (count($documentList))
-					{
-						$featuredDocuments = new Block('sections/featuredDocuments.inc');
-						$featuredDocuments->documentType = $type;
-						$featuredDocuments->documentList = $documentList;
-						$featuredDocuments->section = $s;
+					$featuredDocuments = new Block('sections/featuredDocuments.inc');
+					$featuredDocuments->documentType = $type;
+					$featuredDocuments->documentList = $documentList;
+					$featuredDocuments->section = $s;
 
-						$template->blocks[] = $featuredDocuments;
-					}
+					$template->blocks[] = $featuredDocuments;
 				}
-
-				$template->blocks[] = new Block('sections/documents.inc',array('section'=>$s,'document'=>$document));
 			}
+
+			$template->blocks[] = new Block('sections/documents.inc',array('section'=>$s,'document'=>$document));
 		}
 	}
 
