@@ -16,5 +16,6 @@ $template->blocks[] = new Block('calendars/calendarList.inc');
 $template->blocks[] = new Block('locations/locationTree.inc');
 $template->blocks[] = new Block('languages/languageList.inc');
 $template->blocks[] = new Block('facets/facetTree.inc');
+$template->blocks[] = new Block('feeds/sitemap.inc');
 
 $template->render();
