@@ -6,8 +6,11 @@
  */
 ?>
 <h1>Calendar Feeds</h1>
-<p>You can subscribe to any of our calendars using your own calendar program.
-The calendars are available at these URLs.</p>
+<p>If you keep track of events on multiple websites that use calendar feeds,
+you can view them together using a web-calendar application, such as iCal for
+Mac users or <a href="http://www.mozilla.org/projects/calendar/">Mozilla's Calendar Project</a>
+for PC users.  Follow the intructions of your application to add one of our calendar feeds.
+</p>
 <table>
 <tr><th>All Calendars</th>
 	<td>

@@ -6,6 +6,18 @@
  */
 ?>
 <h1>RSS Feeds</h1>
+<p>RSS feeds assist persons interested in keeping track of changes to a website.
+Often, RSS feeds are used to keep track of news releases or blog entries.
+Websites usually divide their feeds up into topics, so that you can keep track
+of your areas of interest, specifically.  By subscribing to an RSS feed, you can
+keep track of all updates to the portions of the website that interest you without
+hunting it down or event visiting the website!</p>
+<p>To subscribe to an RSS feed, you need an RSS Reader,
+<a href="http://dir.yahoo.com/Computers_and_Internet/Data_Formats/XML__eXtensible_Markup_Language_/RSS/RSS_Readers_and_Aggregators/">see Yahoo's list of RSS Readers</a>.
+The homepage you've set for your browser might have an area for RSS feeds, as well
+(such as Yahoo, Google, or AOL.  You can also view the RSS feed as a list by
+clicking the feed.</p>
+
 <table>
 <?php
 	$list = new DocumentTypeList();

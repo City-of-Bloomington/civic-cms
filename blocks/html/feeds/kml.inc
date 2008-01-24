@@ -6,7 +6,11 @@
  */
 ?>
 <h1>KML for Google Earth and Google Maps</h1>
-<p>These links provide live location data from our website in KML format.</p>
+<p>KML is a file format that tells a map aplpication how to display geographical
+information.  Paste a KML address into an application, such as Google Earth,
+AutoCAD, or Yahoo Pipes, and the application will read the file from our server
+and display the information as a map.  Once saved, your application should identify
+the most current map data on our website each time you open it.</p>
 <table>
 <?php
 	$list = new LocationGroupList();
