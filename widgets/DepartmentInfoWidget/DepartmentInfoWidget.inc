@@ -18,10 +18,14 @@ class DepartmentInfoWidget extends Widget
 
 	public function render($template)
 	{
-		if (isset($_GET['section_id']) && isset($template->document))
+		if (isset($template->document))
 		{
-			$section = new Section($_GET['section_id']);
-			if ($section->getSectionDocument_id() == $template->document->getId())
+			# The last entry in currentAncestors is the current section
+			$currentAncestors = $template->currentAncestors;
+			$section = end($currentAncestors);
+
+			# If they're viewing the homepage of the section
+			if ($section->getDocument_id() == $template->document->getId())
 			{
 				$this->department = $template->document->getDepartment();
 				$this->renderIncludeFile($this);

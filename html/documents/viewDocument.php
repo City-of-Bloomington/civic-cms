@@ -44,6 +44,7 @@
 		}
 		else { $s = null; }
 		$currentAncestors = $document->getBreadcrumbs($s,$p);
+		$template->currentAncestors = $currentAncestors;
 
 		$breadcrumbs = new Block('documents/breadcrumbs.inc');
 		$breadcrumbs->document = $document;

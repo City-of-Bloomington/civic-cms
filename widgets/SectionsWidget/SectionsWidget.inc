@@ -6,7 +6,7 @@
  */
 class SectionsWidget extends Widget
 {
-	protected $document;
+	protected $section;
 
 	public function __construct()
 	{
@@ -20,9 +20,21 @@ class SectionsWidget extends Widget
 	{
 		if (isset($template->document))
 		{
-			$this->document = $template->document;
-			$this->renderIncludeFile($this);
+			$currentAncestors = $template->currentAncestors;
+			$path = array_reverse($template->currentAncestors);
+			foreach($path as $section)
+			{
+				if ($section->hasChildren())
+				{
+					$this->section = $section;
+					break;
+				}
+			}
 		}
+		# If we can't figure out where the user is, just display the top
+		# level navigation
+		if (!$this->section) { $this->section = new Section(1); }
+		$this->renderIncludeFile($this);
 	}
 
 	/**

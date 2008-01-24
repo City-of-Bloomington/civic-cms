@@ -92,7 +92,8 @@
 			if (!count($this->widgets))
 			{
 				# Get all the global widgets that should be in this panel
-				$list = new WidgetInstallationList(array('global_panel_id'=>$this->id));
+				$list = new WidgetInstallationList();
+				$list->find(array('global_panel_id'=>$this->id),'global_layout_order');
 				foreach($list as $widget) { $this->widgets[$widget->getId()] = $widget; }
 
 				# Get any document widgets that should be in this panel
