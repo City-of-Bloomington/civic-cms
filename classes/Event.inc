@@ -47,18 +47,19 @@
 
 			if ($id)
 			{
-				$sql = 'select id,unix_timestamp(start) as start,unix_timestamp(end) as end,
+				$f = ctype_digit($id) ? 'id' : 'title';
+				$sql = "select id,unix_timestamp(start) as start,unix_timestamp(end) as end,
 								unix_timestamp(created) as created,unix_timestamp(modified) as modified,
 								title,description,allDayEvent,
 								rrule_freq,unix_timestamp(rrule_until) as rrule_until,rrule_count,
 								rrule_interval,rrule_byday,rrule_bymonthday,rrule_bysetpos,
 								calendar_id,location_id,user_id,
 								contact_name,contact_phone,contact_email
-						from events where id=?';
+						from events where $f=?";
 				$query = $PDO->prepare($sql);
 				$query->execute(array($id));
 
-				$result = $query->fetchAll();
+				$result = $query->fetchAll(PDO::FETCH_ASSOC);
 				if (!count($result)) { throw new Exception('events/unknownEvent'); }
 				foreach($result[0] as $field=>$value) { if ($value) $this->$field = $value; }
 			}

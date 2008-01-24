@@ -83,9 +83,9 @@ class WikiMarkup
 		# Check for all the colon specified link types
 		if (preg_match('/:/',$link))
 		{
-			list($type,$linkTarget) = explode(':',$link,2);
-			$type = trim($type);
-			$linkTarget = trim($linkTarget);
+			preg_match('/^([^:]*):(.*)/',$link,$matches);
+			$type = trim($matches[1]);
+			$linkTarget = trim($matches[2]);
 
 			# Colon specified types are declared as private functions
 			# They are written at the bottom of this script
@@ -371,7 +371,36 @@ class WikiMarkup
 	}
 	private static function eventMarkup($linkTarget,$linkText=null)
 	{
-		return false;
+		self::$CURRENT_URL = $linkTarget;
+		$title = $linkText ? self::parse($linkText) : null;
+
+		if (self::$CURRENT_URL==$linkTarget)
+		{
+
+			if (preg_match('|^/(\d{4})/(\d{1,2})/(\d{1,2})/(.*)|',$linkTarget,$matches))
+			{
+				$year = $matches[1];
+				$month = $matches[2];
+				$day = $matches[3];
+				$linkTarget = $matches[4];
+			}
+
+			try
+			{
+				$event = new Event($linkTarget);
+				$url = new URL($event->getURL());
+				if (isset($year)) { $url->date = "$year-$month-$day"; }
+
+				if (!$title) { $title = View::escape($event->getTitle()); }
+				return "<a href=\"$url\">$title</a>";
+			}
+			catch(Exception $e) { return false; }
+		}
+		else
+		{
+			self::$CURRENT_URL = null;
+			return $title;
+		}
 	}
 	private static function languageMarkup($linkTarget,$linkText=null)
 	{
