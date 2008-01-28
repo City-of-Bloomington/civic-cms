@@ -94,17 +94,14 @@
 				# Get all the global widgets that should be in this panel
 				$list = new WidgetInstallationList();
 				$list->find(array('global_panel_id'=>$this->id),'global_layout_order');
-				foreach($list as $widget) { $this->widgets[$widget->getId()] = $widget; }
+				foreach($list as $widget) { $this->widgets[] = $widget; }
 
 				# Get any document widgets that should be in this panel
 				if (isset($document))
 				{
 					foreach($document->getWidgets(array('panel_id'=>$this->id)) as $widget)
 					{
-						if (!isset($this->widgets[$widget->getWidget_id()]))
-						{
-							$this->widgets[$widget->getWidget_id()] = $widget;
-						}
+						$this->widgets[] = $widget;
 					}
 				}
 			}
