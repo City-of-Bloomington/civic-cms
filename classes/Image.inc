@@ -65,12 +65,37 @@ class Image extends Media
 	}
 
 
-	public function getWidth()
+	/**
+	 * Returns the width of the requested version of an image
+	 * @param string $size The version of the image (see $this->sizes)
+	 */
+	public function getWidth($size=null)
 	{
-		return exec(IMAGEMAGICK."/identify -format '%w' {$this->getDirectory()}/{$this->getInternalFilename()}");
+		if ($size)
+		{
+			return exec(IMAGEMAGICK."/identify -format '%w' {$this->getDirectory()}/$size/{$this->getId()}.{$this->sizes[$size]['ext']}");
+		}
+		else
+		{
+			# Return the size of the original
+			return exec(IMAGEMAGICK."/identify -format '%w' {$this->getDirectory()}/{$this->getInternalFilename()}");
+		}
 	}
-	public function getHeight()
+
+	/**
+	 * Returns the height of the requested version of an image
+	 * @param string $size The version of the image (see $this->sizes)
+	 */
+	public function getHeight($size=null)
 	{
-		return exec(IMAGEMAGICK."/identify -format '%h' {$this->getDirectory()}/{$this->getInternalFilename()}");
+		if ($size)
+		{
+			return exec(IMAGEMAGICK."/identify -format '%h' {$this->getDirectory()}/$size/{$this->getId()}.{$this->sizes[$size]['ext']}");
+		}
+		else
+		{
+			# Return the size of the original
+			return exec(IMAGEMAGICK."/identify -format '%h' {$this->getDirectory()}/{$this->getInternalFilename()}");
+		}
 	}
 }
