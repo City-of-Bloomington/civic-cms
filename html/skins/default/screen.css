@@ -17,9 +17,10 @@ a:visited { color:#3366cc;  background-color:transparent; }
 a:hover { color:#666666; background-color:transparent; }
 
 img { border:0; }
-span.image { display:block; text-align:center; }
+span.image { }
 span.image img { }
-.thumbnail { width:100px; height:150px; float:left; }
+span.caption { display:block; }
+.thumbnail { }
 
 
 h1 { text-align:left; margin:0; font-size:16pt; font-weight:bold; }
