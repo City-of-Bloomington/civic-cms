@@ -6,6 +6,7 @@
  */
 class DepartmentsWidget extends Widget
 {
+	public $content;
 	protected $department;
 
 	public function __construct()
@@ -22,20 +23,34 @@ class DepartmentsWidget extends Widget
 	}
 
 	/**
-	 * This widget does not use an extra data
+	 * The application can call this to find out whether this widget uses stored data
+	 * @return boolean
 	 */
-	public function usesData() { return false; }
+	public function usesData() { return true; }
 	/**
-	 * @ignore
+	 * Unserializes the string field from the database into a variable
+	 * @param string $string
 	 */
-	public function setData($string) { }
+	public function setData($string)
+	{
+		$this->content = $string;
+	}
 	/**
-	 * @ignore
+	 * Serializes an array into a string that can be inserted into the database
+	 * This will usually be from a form posting.  The form should have used
+	 * this widget's dataFields include so we know what array to expect
+	 * @param array $post
+	 * @return string Serialized data for the widget
 	 */
-	public function serializePost(array $post) { }
+	public function serializePost(array $post)
+	{
+		return $_POST['content'];
+	}
 	/**
-	 * @ignore
+	 * This lets the application ask for the path to the file holding the form fields
+	 * this widgets wants used
+	 * @return string Path to include file
 	 */
-	public function getDataFieldsetInclude() { return null; }
+	public function getDataFieldsetInclude() { return dirname(__FILE__).'/dataFields.inc'; }
 }
 

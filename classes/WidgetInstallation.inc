@@ -32,12 +32,8 @@
 
 			if (is_numeric($id)) { $sql = 'select * from widgets where id=?'; }
 			else { $sql = 'select * from widgets where class=?'; }
-			try
-			{
-				$query = $PDO->prepare($sql);
-				$query->execute(array($id));
-			}
-			catch (Exception $e) { throw $e; }
+			$query = $PDO->prepare($sql);
+			$query->execute(array($id));
 
 			$result = $query->fetchAll();
 			if (count($result))

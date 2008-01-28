@@ -7,26 +7,23 @@
 ?>
 <div class="widget">
 	<h1>City Offices</h1>
-	<ul><li>Elected Officials</li>
-		<li>Mayor</li>
-		<li>Clerk</li>
-		<li>Council</li>
-		<li><form method="get" action="<?php echo BASE_URL; ?>/documents/viewDocument.php">
-			<fieldset><legend>Departments</legend>
-				<select name="document_id" onchange="this.form.submit();">
-					<option value="">City Departments</option>
-				<?php
-					$list = new DepartmentList();
-					$list->find();
-					foreach($list as $department)
-					{
-						$name = View::escape($department->getName());
-						echo "<option value=\"{$department->getDocument_id()}\">$name</option>";
-					}
-				?>
-				</select>
-			</fieldset>
-			</form>
-		</li>
-	</ul>
+	<?php
+		echo WikiMarkup::parse($this->content);
+	?>
+	<form method="get" action="<?php echo BASE_URL; ?>/documents/viewDocument.php">
+	<fieldset><legend>Departments</legend>
+		<select name="document_id" onchange="this.form.submit();">
+			<option value="">City Departments</option>
+		<?php
+			$list = new DepartmentList();
+			$list->find();
+			foreach($list as $department)
+			{
+				$name = View::escape($department->getName());
+				echo "<option value=\"{$department->getDocument_id()}\">$name</option>";
+			}
+		?>
+		</select>
+	</fieldset>
+	</form>
 </div>
