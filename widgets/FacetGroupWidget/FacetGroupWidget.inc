@@ -19,6 +19,16 @@ class FacetGroupWidget extends Widget
 		$this->description = 'Displays links to the facets in the chosen group';
 	}
 
+	public function render($template)
+	{
+		$this->renderIncludeFile($this);
+	}
+
+	/**
+	 * The application can call this to find out whether this widget uses stored data
+	 * @return boolean
+	 */
+	public function usesData() { return true; }
 	/**
 	 * Unserializes the string field from the database into a variable
 	 * @param string $string
@@ -27,7 +37,6 @@ class FacetGroupWidget extends Widget
 	{
 		$this->facetGroup = new FacetGroup($string);
 	}
-
 	/**
 	 * Serializes an array into a string that can be inserted into the database
 	 * This will usually be from a form posting.  The form should have used
@@ -42,23 +51,10 @@ class FacetGroupWidget extends Widget
 			return $_POST['facetGroup_id'];
 		}
 	}
-
-	/**
-	 * The application can call this to find out whether this widget uses stored data
-	 * @return boolean
-	 */
-	public function usesData() { return true; }
-
 	/**
 	 * This lets the application ask for the path to the file holding the form fields
 	 * this widgets wants used
 	 * @return string Path to include file
 	 */
 	public function getDataFieldsetInclude() { return dirname(__FILE__).'/dataFields.inc'; }
-
-
-	public function render($template)
-	{
-		$this->renderIncludeFile($this);
-	}
 }
