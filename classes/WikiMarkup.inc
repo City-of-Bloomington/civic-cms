@@ -479,13 +479,15 @@ class WikiMarkup
 				$image = $list[0];
 				$url = $image->getURL();
 				$alt = View::escape($image->getTitle());
+				$width = $image->getWidth('medium');
+				$height = $image->getHeight('medium');
 			}
 			# We couldn't find an image with that filename, just display the raw text
 			else { return $caption; }
 		}
 
 		# Wrap the Image an CURRENT_URL, if there is one
-		$imageTag = "<img src=\"$url\" alt=\"$alt\" />";
+		$imageTag = "<img src=\"$url\" alt=\"$alt\" width=\"$width\" height=\"$height\" />";
 		if ($imageLink)
 		{
 			$imageTag = "<a href=\"$imageLink\">$imageTag</a>";
@@ -510,12 +512,14 @@ class WikiMarkup
 			$image = $list[0];
 			$url = BASE_URL.'/media/media.php?size=thumbnail;media_id='.$image->getId();
 			$alt = View::escape($image->getTitle());
+			$width = $image->getWidth('thumbnail');
+			$height = $image->getHeight('thumbnail');
 		}
 		# We couldn't find an image with that filename, just display the raw text
 		else { return $caption; }
 
 		# Wrap the Image an CURRENT_URL, if there is one
-		$imageTag = "<img src=\"$url\" alt=\"$alt\" />";
+		$imageTag = "<img src=\"$url\" alt=\"$alt\" width=\"$width\" height=\"$height\" />";
 		if ($imageLink)
 		{
 			$imageTag = "<a href=\"$imageLink\">$imageTag</a>";
