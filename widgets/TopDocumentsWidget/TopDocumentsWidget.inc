@@ -4,17 +4,19 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
-class DepartmentsWidget extends Widget
+class TopDocumentsWidget extends Widget
 {
-	public $content;
-	protected $department;
+	/**
+	 * The documentType this widget is supposed to render.
+	 */
+	public $documentType;
 
 	public function __construct()
 	{
-		$this->className = 'DepartmentsWidget';
-		$this->displayName = 'City Offices';
+		$this->className = 'TopDocumentsWidget';
+		$this->displayName = 'Top Documents';
 		$this->includeFile = 'include.inc';
-		$this->description = 'Displays the list of departments in a drop down.';
+		$this->description = 'Displays links to the top documents for the DocumentType provided';
 	}
 
 	public function render($template)
@@ -33,7 +35,7 @@ class DepartmentsWidget extends Widget
 	 */
 	public function setData($string)
 	{
-		$this->content = $string;
+		$this->documentType = new DocumentType($string);
 	}
 	/**
 	 * Serializes an array into a string that can be inserted into the database
@@ -44,7 +46,7 @@ class DepartmentsWidget extends Widget
 	 */
 	public function serializePost(array $post)
 	{
-		return $_POST['content'];
+		return $_POST['documentType_id'];
 	}
 	/**
 	 * This lets the application ask for the path to the file holding the form fields

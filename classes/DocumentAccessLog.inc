@@ -10,17 +10,28 @@ class DocumentAccessLog
 	 * Returns an array of the most accessed Documents and how
 	 * often they were accessed.
 	 * @param int $numDocuments How many documents you want returned
+	 * @param int $documentType_id Limit the hits to only documents of this type
 	 */
-	public static function getTopDocuments($numDocuments=10)
+	public static function getTopDocuments($numDocuments=10,$documentType_id=null)
 	{
 		$numDocuments = (int) $numDocuments;
 		$PDO = Database::getConnection();
 
-		$sql = "select document_id,count(*) as count from document_accesslog
-				group by document_id order by count desc limit $numDocuments";
-		$query = $PDO->prepare($sql);
-		$query->execute();
-
+		if ($documentType_id)
+		{
+			$sql = "select l.document_id,count(*) as count from document_accesslog l
+					left join documents d on l.document_id=d.id where d.documentType_id=?
+					group by l.document_id order by count desc limit $numDocuments";
+			$query = $PDO->prepare($sql);
+			$query->execute(array($documentType_id));
+		}
+		else
+		{
+			$sql = "select document_id,count(*) as count from document_accesslog
+					group by document_id order by count desc limit $numDocuments";
+			$query = $PDO->prepare($sql);
+			$query->execute();
+		}
 		return self::prepareHits($query->fetchAll());
 	}
 
