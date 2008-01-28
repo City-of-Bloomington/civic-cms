@@ -9,7 +9,7 @@
 <fieldset><legend>Calendar Info</legend>
 	<table>
 	<tr><td><label for="calendar-name" class="required">Name</label></td>
-		<td><input name="calendar[name]" id="calendar-name" /></td></tr>
+		<td><input name="calendar[name]" id="calendar-name" size="60" /></td></tr>
 	<tr><td colspan="2">
 			<label for="calendar-description" class="required">Description</label>
 			<textarea name="calendar[description]" id="calendar-description" rows="3" cols="60"></textarea>

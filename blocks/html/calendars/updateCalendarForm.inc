@@ -11,7 +11,7 @@
 	<input name="calendar_id" type="hidden" value="<?php echo $this->calendar->getId(); ?>" />
 	<table>
 	<tr><td><label for="calendar-name">Name</label></td>
-		<td><input name="calendar[name]" id="calendar-name" value="<?php echo View::escape($this->calendar->getName()); ?>" /></td></tr>
+		<td><input name="calendar[name]" id="calendar-name" size="60" value="<?php echo View::escape($this->calendar->getName()); ?>" /></td></tr>
 	<tr><td colspan="2">
 			<label for="calendar-description" class="required">Description</label>
 			<textarea name="calendar[description]" id="calendar-description" rows="3" cols="60"><?php echo View::escape($this->calendar->getDescription()); ?></textarea>

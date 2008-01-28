@@ -22,9 +22,9 @@
 <fieldset><legend>Section Info</legend>
 	<table>
 	<tr><td><label for="section-name" class="required">Name</label></td>
-		<td><input name="section[name]" id="section-name" /></td></tr>
+		<td><input name="section[name]" id="section-name" size="60" /></td></tr>
 	<tr><td><label for="section-nickname">Nickname</label></td>
-		<td><input name="section[nickname]" id="nickname" /></td></tr>
+		<td><input name="section[nickname]" id="nickname" size="60" /></td></tr>
 	</table>
 </fieldset>
 

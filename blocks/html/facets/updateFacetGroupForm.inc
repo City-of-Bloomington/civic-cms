@@ -13,7 +13,7 @@
 
 	<table>
 	<tr><td><label for="facetGroup-name" class="required">Name</label></td>
-		<td><input name="facetGroup[name]" id="facetGroup-name" value="<?php echo $this->facetGroup->getName(); ?>" /></td></tr>
+		<td><input name="facetGroup[name]" id="facetGroup-name" size="60" value="<?php echo $this->facetGroup->getName(); ?>" /></td></tr>
 	</table>
 </fieldset>
 

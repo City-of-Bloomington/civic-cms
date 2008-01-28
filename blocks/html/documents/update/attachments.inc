@@ -28,7 +28,7 @@
 	<fieldset><legend>Upload a new file</legend>
 		<table>
 		<tr><td><label for="attachment-title" class="required">Title</label></td>
-			<td><input name="attachment[title]" id="attachment-title" /></td></tr>
+			<td><input name="attachment[title]" id="attachment-title" size="60" /></td></tr>
 		<tr><td><label for="attachment-description" class="required">Description</label></td>
 			<td><textarea name="attachment[description]" id="attachment-description" rows="3" cols="60"></textarea></td></tr>
 		</table>

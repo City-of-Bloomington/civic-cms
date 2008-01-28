@@ -10,7 +10,7 @@
 <fieldset><legend>Document Type</legend>
 	<table>
 	<tr><td><label for="documentType-type">Type</label></td>
-		<td><input name="documentType[type]" id="documentType-type" /></td></tr>
+		<td><input name="documentType[type]" id="documentType-type" size="60" /></td></tr>
 	<tr><td colspan="2">
 		<label for="documentType-template">Template</label>
 		<textarea name="documentType[template]" id="documentType-template" rows="20" cols="60"></textarea>

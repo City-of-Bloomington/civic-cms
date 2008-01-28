@@ -13,7 +13,7 @@
 	<table>
 
 	<tr><td><label for="event-summary">Title</label></td>
-		<td><input name="event[summary]" id="event-summary" /></td></tr>
+		<td><input name="event[summary]" id="event-summary" size="60" /></td></tr>
 
 	<tr><td><label for="event-location_id">Location</label></td>
 		<td><select name="event[location_id]" id="event-location">

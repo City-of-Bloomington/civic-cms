@@ -11,7 +11,7 @@
 
 	<table>
 	<tr><td><label for="locationGroup-name" class="required">Name</label></td>
-		<td><input name="locationGroup[name]" id="locationGroup-name" /></td></tr>
+		<td><input name="locationGroup[name]" id="locationGroup-name" size="60" /></td></tr>
 	<tr><td><label for="locationGroup-department_id" class="required">Department</label></td>
 		<td><select name="locationGroup[department_id]" id="locationGroup-department_id">
 			<?php

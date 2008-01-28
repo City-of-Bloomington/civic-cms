@@ -11,7 +11,7 @@
 
 	<table>
 	<tr><td><label for="facet-name" class="required">Name</label></td>
-		<td><input name="facet[name]" id="facet-name" /></td></tr>
+		<td><input name="facet[name]" id="facet-name" size="60" /></td></tr>
 	<tr><td><label for="facet-facetGroup_id" class="required">Group</label></td>
 		<td><select name="facet[facetGroup_id]" id="facet-facetGroup_id">
 			<?php

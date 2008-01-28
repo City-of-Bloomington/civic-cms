@@ -30,6 +30,6 @@
 		}
 		$ids = implode(',',$ids);
 	?>
-	<input name="media" id="media" value="<?php echo $ids; ?>" />
+	<input name="media" id="media" size="60" value="<?php echo $ids; ?>" />
 </div>
 </fieldset>

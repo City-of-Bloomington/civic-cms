@@ -12,16 +12,16 @@
 	<input name="department_id" type="hidden" value="<?php echo View::escape($this->department->getId()); ?>" />
 	<table>
 	<tr><td><label for="department-name">Name</label></td>
-		<td><input name="department[name]" id="department-name" value="<?php echo View::escape($this->department->getName()); ?>" /></td></tr>
+		<td><input name="department[name]" id="department-name" size="60" value="<?php echo View::escape($this->department->getName()); ?>" /></td></tr>
 
 	<tr><td><label for="department-address1">Address</label></td>
-		<td><input name="department[address1]" id="department-address1" value="<?php echo View::escape($this->department->getAddress1()); ?>" /></td></tr>
+		<td><input name="department[address1]" id="department-address1" size="60" value="<?php echo View::escape($this->department->getAddress1()); ?>" /></td></tr>
 
 	<tr><td><label for="department-address2">Address</label></td>
-		<td><input name="department[address2]" id="department-address2" value="<?php echo View::escape($this->department->getAddress2()); ?>" /></td></tr>
+		<td><input name="department[address2]" id="department-address2" size="60" value="<?php echo View::escape($this->department->getAddress2()); ?>" /></td></tr>
 
 	<tr><td><label for="department-city">City</label></td>
-		<td><input name="department[city]" id="department-city" value="<?php echo View::escape($this->department->getCity()); ?>" />
+		<td><input name="department[city]" id="department-city" size="60" value="<?php echo View::escape($this->department->getCity()); ?>" />
 			<label for="department-state">State</label>
 			<input name="department[state]" id="department-state" size="2" value="<?php echo View::escape($this->department->getState()); ?>" />
 			<label for="department-zip">Zip</label>
@@ -29,13 +29,13 @@
 		</td></tr>
 
 	<tr><td><label for="department-phone">Phone</label></td>
-		<td><input name="department[phone]" id="department-phone" value="<?php echo View::escape($this->department->getPhone()); ?>" /></td></tr>
+		<td><input name="department[phone]" id="department-phone" size="60" value="<?php echo View::escape($this->department->getPhone()); ?>" /></td></tr>
 
 	<tr><td><label for="department-email">Email</label></td>
-		<td><input name="department[email]" id="department-email" value="<?php echo View::escape($this->department->getEmail()); ?>" /></td></tr>
+		<td><input name="department[email]" id="department-email" size="60" value="<?php echo View::escape($this->department->getEmail()); ?>" /></td></tr>
 
-	<tr><td><label for=="department-ldap_name">LDAP Name</label></td>
-		<td><input name="department[ldap_name]" id="department-ldap_name" value="<?php echo View::escape($this->department->getLdap_name()); ?>" /></td></tr>
+	<tr><td><label for="department-ldap_name">LDAP Name</label></td>
+		<td><input name="department[ldap_name]" id="department-ldap_name" size="60" value="<?php echo View::escape($this->department->getLdap_name()); ?>" /></td></tr>
 
 	<tr><td><label for="department-location_id">Location</label></td>
 		<td><select name="department[location_id]" id="department-location_id"><option></option>

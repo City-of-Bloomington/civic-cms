@@ -13,7 +13,7 @@
 	<table>
 
 	<tr><td><label for="media-title" class="required">Title</label></td>
-		<td><input name="media[title]" id="media-title" value="<?php echo $this->media->getTitle(); ?>" /></td></tr>
+		<td><input name="media[title]" id="media-title" size="60" value="<?php echo $this->media->getTitle(); ?>" /></td></tr>
 
 	<?php
 		if (userHasRole(array('Administrator','Webmaster')))

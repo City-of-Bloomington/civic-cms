@@ -31,9 +31,9 @@
 	<input name="id" type="hidden" value="<?php echo $this->section->getId(); ?>" />
 	<table>
 	<tr><td><label for="section-name" class="required">Name</label></td>
-		<td><input name="section[name]" id="section-name" value="<?php echo View::escape($this->section->getName()); ?>" /></td></tr>
+		<td><input name="section[name]" id="section-name" size="60" value="<?php echo View::escape($this->section->getName()); ?>" /></td></tr>
 	<tr><td><label for="section-nickname">Nickname</label></td>
-		<td><input name="section[nickname]" id="nickname" value="<?php echo View::escape($this->section->getNickname()); ?>" /></td></tr>
+		<td><input name="section[nickname]" id="nickname" size="60" value="<?php echo View::escape($this->section->getNickname()); ?>" /></td></tr>
 	</table>
 </fieldset>
 

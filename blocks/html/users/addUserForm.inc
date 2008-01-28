@@ -17,9 +17,9 @@
 		</td>
 	</tr>
 	<tr><td><label for="user-username">Username</label></td>
-		<td><input name="user[username]" id="user-username" value="<?php if(isset($_POST['user']['username'])) echo View::escape($_POST['user']['username']); ?>" /></td></tr>
+		<td><input name="user[username]" id="user-username" size="30" value="<?php if(isset($_POST['user']['username'])) echo View::escape($_POST['user']['username']); ?>" /></td></tr>
 	<tr><td><label for="user-password">Password</label></td>
-		<td><input name="user[password]" id="user-password" /></td></tr>
+		<td><input name="user[password]" id="user-password" size="30" /></td></tr>
 	<tr><td><label for="user-department_id">Department</label></td>
 		<td><select name="user[department_id]" id="user-department_id">
 			<?php
@@ -55,11 +55,11 @@
 	<p>This information is only necessary for local users.  For LDAP authentication, this information will be pulled from LDAP.</p>
 	<table>
 	<tr><td><label for="user-firstname">Firstname</label></td>
-		<td><input name="user[firstname]" id="user-firstname" value="<?php if(isset($_POST['user']['firstname'])) echo View::escape($_POST['user']['firstname']); ?>" /></td></tr>
+		<td><input name="user[firstname]" id="user-firstname" size="30" value="<?php if(isset($_POST['user']['firstname'])) echo View::escape($_POST['user']['firstname']); ?>" /></td></tr>
 	<tr><td><label for="user-lastname">Lastname</label></td>
-		<td><input name="user[lastname]" id="user-lastname" value="<?php if(isset($_POST['user']['lastname'])) echo View::escape($_POST['user']['lastname']); ?>" /></td></tr>
+		<td><input name="user[lastname]" id="user-lastname" size="30" value="<?php if(isset($_POST['user']['lastname'])) echo View::escape($_POST['user']['lastname']); ?>" /></td></tr>
 	<tr><td><label for="user-email">Email</label></td>
-		<td><input name="user[email]" id="user-email" value="<?php if(isset($_POST['user']['email'])) echo View::escape($_POST['user']['email']); ?>" /></td></tr>
+		<td><input name="user[email]" id="user-email" size="60" value="<?php if(isset($_POST['user']['email'])) echo View::escape($_POST['user']['email']); ?>" /></td></tr>
 	</table>
 
 	<button type="submit" class="submit">Submit</button>

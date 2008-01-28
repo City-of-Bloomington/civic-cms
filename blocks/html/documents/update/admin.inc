@@ -16,7 +16,7 @@
 	<p>This is an alternative title used to find this document when the user types this into the URL</p>
 	<table>
 	<tr><td><label for="document-alias">Alias</label></td>
-	<td><input name="document[alias]" id="document-alias" value="<?php echo View::escape($this->document->getAlias()); ?>" /></td></tr>
+	<td><input name="document[alias]" id="document-alias" size="60" value="<?php echo View::escape($this->document->getAlias()); ?>" /></td></tr>
 	</table>
 	</fieldset>
 

@@ -12,7 +12,7 @@
 <fieldset><legend>Event Info</legend>
 	<table>
 	<tr><td><label for="event-title" class="required">Title</label></td>
-		<td><input name="event[title]" id="event-title" value="<?php echo $this->event->getTitle(); ?>" /></td></tr>
+		<td><input name="event[title]" id="event-title" size="60" value="<?php echo $this->event->getTitle(); ?>" /></td></tr>
 
 	<tr><td><label for="event-location_id">Location</label></td>
 		<td><select name="event[location_id]" id="event-location_id">
@@ -108,7 +108,7 @@
 	<tr><td><label for="event-contact_phone">Phone</label></td>
 		<td><input name="event[contact_phone]" id="event-contact_phone" size="12" value="<?php echo View::escape($this->event->getContact_phone()); ?>" /></td></tr>
 	<tr><td><label for="event-contact_email">Email</label></td>
-		<td><input name="event[contact_email]" id="event-contact_email" size="30" value="<?php echo View::escape($this->event->getContact_email()); ?>" /></td></tr>
+		<td><input name="event[contact_email]" id="event-contact_email" size="60" value="<?php echo View::escape($this->event->getContact_email()); ?>" /></td></tr>
 	</table>
 </fieldset>
 <?php

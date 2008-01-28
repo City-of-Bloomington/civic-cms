@@ -19,9 +19,9 @@
 		</td>
 	</tr>
 	<tr><td><label for="user-username">Username</label></td>
-		<td><input name="user[username]" id="user-username" value="<?php echo $this->user->getUsername(); ?>" /></td></tr>
+		<td><input name="user[username]" id="user-username" value="<?php echo $this->user->getUsername(); ?>" size="30" /></td></tr>
 	<tr><td><label for="user-password">Password</label></td>
-		<td><input name="user[password]" id="user-password" /></td></tr>
+		<td><input name="user[password]" id="user-password" size="30" /></td></tr>
 	<tr><td><label for="user-department_id">Department</label></td>
 		<td><select name="user[department_id]" id="user-department_id">
 			<?php
@@ -57,11 +57,11 @@
 <fieldset><legend>Personal Info</legend>
 	<table>
 	<tr><td><label for="user-firstname">Firstname</label></td>
-		<td><input name="user[firstname]" id="user-firstname" value="<?php echo View::escape($this->user->getFirstname()); ?>" /></td></tr>
+		<td><input name="user[firstname]" id="user-firstname" size="30" value="<?php echo View::escape($this->user->getFirstname()); ?>" /></td></tr>
 	<tr><td><label for="user-lastname">Lastname</label></td>
-		<td><input name="user[lastname]" id="user-lastname" value="<?php echo View::escape($this->user->getLastname()); ?>" /></td></tr>
+		<td><input name="user[lastname]" id="user-lastname" size="30" value="<?php echo View::escape($this->user->getLastname()); ?>" /></td></tr>
 	<tr><td><label for="user-email">Email</label></td>
-		<td><input name="user[email]" id="user-email" value="<?php echo View::escape($this->user->getEmail()); ?>" /></td></tr>
+		<td><input name="user[email]" id="user-email" size="60" value="<?php echo View::escape($this->user->getEmail()); ?>" /></td></tr>
 	</table>
 
 	<button type="submit" class="submit">Submit</button>

@@ -10,7 +10,7 @@
 <fieldset><legend>Image Info</legend>
 	<table>
 	<tr><td><label for="image-title" class="required">Title</label></td>
-		<td><input name="image[title]" id="image-title" /></td></tr>
+		<td><input name="image[title]" id="image-title" size="60" /></td></tr>
 	<tr><td><label for="image-description" class="required">Description</label></td>
 		<td><textarea name="image[description]" id="image-description" rows="4" cols="60" onkeyup="FRAMEWORK.limit(this,255);"></textarea></td></tr>
 	</table>

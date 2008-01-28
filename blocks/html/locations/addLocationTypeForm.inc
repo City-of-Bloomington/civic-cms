@@ -11,7 +11,7 @@
 
 	<table>
 	<tr><td><label for="locationType-type" class="required">Type</label></td>
-		<td><input name="locationType[type]" id="locationType-type" /></td></tr>
+		<td><input name="locationType[type]" id="locationType-type" size="60" /></td></tr>
 	</table>
 
 	<button type="submit" class="submit">Submit</button>

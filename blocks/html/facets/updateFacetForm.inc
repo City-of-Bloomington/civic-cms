@@ -13,7 +13,7 @@
 
 	<table>
 	<tr><td><label for="facet-name" class="required">Name</label></td>
-		<td><input name="facet[name]" id="facet-name" value="<?php echo View::escape($this->facet->getName()); ?>" /></td></tr>
+		<td><input name="facet[name]" id="facet-name" size="60" value="<?php echo View::escape($this->facet->getName()); ?>" /></td></tr>
 	<tr><td><label for="facet-facetGroup_id" class="required">Group</label></td>
 		<td><select name="facet[facetGroup_id]" id="facet-facetGroup_id">
 			<?php

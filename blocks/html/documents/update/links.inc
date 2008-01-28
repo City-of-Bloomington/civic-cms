@@ -26,9 +26,9 @@
 ?>
 		<table>
 		<tr><td><label for="documentLink-title" class="required">Title</label></td>
-			<td><input name="documentLink[title]" id="documentLink-title" size="30" /></td></tr>
+			<td><input name="documentLink[title]" id="documentLink-title" size="60" /></td></tr>
 		<tr><td><label for="documentLink-href" class="required">URL</label></td>
-			<td><input name="documentLink[href]" id="documentLink-href" size="30" /></td></tr>
+			<td><input name="documentLink[href]" id="documentLink-href" size="60" /></td></tr>
 		<tr><td colspan="2">
 				<div><label for="documentLink-description" class="required">Description</label></div>
 				<textarea name="documentLink[description]" id="documentLink-description" rows="3" cols="60"></textarea>

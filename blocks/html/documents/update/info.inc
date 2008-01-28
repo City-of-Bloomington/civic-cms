@@ -55,9 +55,9 @@
 			}
 		?>
 		<tr><td><label for="document-title" class="required">Title</label></td>
-			<td><input name="document[title]" id="document-title" value="<?php echo View::escape($this->document->getTitle()); ?>" /></td></tr>
+			<td><input name="document[title]" id="document-title" size="60" value="<?php echo View::escape($this->document->getTitle()); ?>" /></td></tr>
 		<tr><td><label for="document-feature_title">Action Title</label></td>
-			<td><input name="document[feature_title]" id="document-feature_title" value="<?php echo View::escape($this->document->getFeature_title()); ?>" /></td></tr>
+			<td><input name="document[feature_title]" id="document-feature_title" size="60" value="<?php echo View::escape($this->document->getFeature_title()); ?>" /></td></tr>
 		<tr><td colspan="2">
 				<label for="document-description">Description</label>
 				<textarea name="document[description]" id="document-description" rows="5" cols="60" onkeyup="FRAMEWORK.limit(this,255);"><?php echo View::escape($this->document->getDescription()); ?></textarea>

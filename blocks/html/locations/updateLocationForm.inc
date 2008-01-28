@@ -14,7 +14,7 @@
 	<table>
 
 	<tr><td><label for="location-name" class="required">Name</label></td>
-		<td><input name="location[name]" id="location-name" value="<?php echo View::escape($this->location->getName()); ?>" /></td></tr>
+		<td><input name="location[name]" id="location-name" size="60" value="<?php echo View::escape($this->location->getName()); ?>" /></td></tr>
 	<tr><td><label for="location-locationType_id" class="required">Type</label></td>
 		<td><select name="location[locationType_id]" id="location-locationType_id">
 			<?php
@@ -52,11 +52,11 @@
 		}
 	?>
 	<tr><td><label for="location-address" class="required">Address</label></td>
-		<td><input name="location[address]" id="location-address" value="<?php echo View::escape($this->location->getAddress()); ?>" /></td></tr>
+		<td><input name="location[address]" id="location-address" size="60" value="<?php echo View::escape($this->location->getAddress()); ?>" /></td></tr>
 	<tr><td><label for="location-latitude">Latitude</label></td>
-		<td><input name="location[latitude]" id="location-latitude" value="<?php echo $this->location->getLatitude(); ?>" /></td></tr>
+		<td><input name="location[latitude]" id="location-latitude" size="60" value="<?php echo $this->location->getLatitude(); ?>" /></td></tr>
 	<tr><td><label for="location-longitude">Longitude</label></td>
-		<td><input name="location[longitude]" id="location-longitude" value="<?php echo $this->location->getLongitude(); ?>" /></td></tr>
+		<td><input name="location[longitude]" id="location-longitude" size="60" value="<?php echo $this->location->getLongitude(); ?>" /></td></tr>
 	<tr><td><label>Handicap Accessible</label></td>
 		<td><label>
 				<?php $checked = $this->location->isHandicapAccessible() ? 'checked="checked"' : ''; ?>

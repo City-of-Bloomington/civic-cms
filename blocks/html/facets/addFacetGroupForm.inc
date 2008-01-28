@@ -11,7 +11,7 @@
 
 	<table>
 	<tr><td><label for="facetGroup-name" class="required">Name</label></td>
-		<td><input name="facetGroup[name]" id="facetGroup-name" /></td></tr>
+		<td><input name="facetGroup[name]" id="facetGroup-name" size="60" /></td></tr>
 	</table>
 </fieldset>
 

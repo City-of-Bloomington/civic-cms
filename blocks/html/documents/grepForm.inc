@@ -11,7 +11,7 @@
 <fieldset><legend>Grep</legend>
 	<table>
 	<tr><td><label for="grep">Grep</label></td>
-		<td><input name="grep" id="grep" value="<?php if (isset($_GET['grep'])) echo $_GET['grep']; ?>" /></td></tr>
+		<td><input name="grep" id="grep" size="60" value="<?php if (isset($_GET['grep'])) echo $_GET['grep']; ?>" /></td></tr>
 	</table>
 
 	<button type="submit" class="search">Search</button>
