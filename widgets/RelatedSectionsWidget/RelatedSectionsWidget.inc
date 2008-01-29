@@ -23,8 +23,17 @@ class RelatedSectionsWidget extends Widget
 		{
 			if (isset($template->document))
 			{
-				$this->sectionList = $section->getParents();
-				if (count($this->sectionList) > 1)
+				$sections = $section->getParents();
+				foreach($sections as $id=>$section)
+				{
+					if (in_array($id,array_keys($template->currentAncestors)))
+					{
+						unset($sections[$id]);
+					}
+				}
+				$this->sectionList = $sections;
+
+				if (count($this->sectionList))
 				{
 					$this->renderIncludeFile($this);
 				}
