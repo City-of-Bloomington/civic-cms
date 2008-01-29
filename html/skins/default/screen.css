@@ -89,8 +89,8 @@ li.current>a { background-color:#cccccc; width:100%; }
 .sidebar ul a { display:inline; font-weight:bold; }
 .sidebar fieldset { border:0; }
 .sidebar legend { display:none; }
-.sidebar select { width:120px; }
-	#login input { width: 10ex; }
+.sidebar select { width:140px; }
+.sidebar input { width: 140px; }
 
 .left { float:left; clear:left; }
 .right { float:right; clear:right; }
