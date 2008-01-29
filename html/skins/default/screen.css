@@ -87,6 +87,7 @@ li.current>a { background-color:#cccccc; width:100%; }
 
 .sidebar ul { list-style-type:none; margin-left:.5em; padding:0; }
 .sidebar ul a { display:inline; font-weight:bold; }
+.sidebar ul .current { background-color:#ff6600; }
 .sidebar fieldset { border:0; }
 .sidebar legend { display:none; }
 .sidebar select { width:140px; }

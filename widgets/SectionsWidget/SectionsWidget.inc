@@ -7,6 +7,7 @@
 class SectionsWidget extends Widget
 {
 	protected $section;
+	protected $currentAncestors;
 
 	public function __construct()
 	{
@@ -20,7 +21,7 @@ class SectionsWidget extends Widget
 	{
 		if (isset($template->document))
 		{
-			$currentAncestors = $template->currentAncestors;
+			$this->currentAncestors = $template->currentAncestors;
 			$path = array_reverse($template->currentAncestors);
 			foreach($path as $section)
 			{
