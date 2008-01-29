@@ -11,6 +11,32 @@
 	<table>
 	<tr><td><label for="documentType-type">Type</label></td>
 		<td><input name="documentType[type]" id="documentType-type" size="60" /></td></tr>
+	<tr><td><label for="documentType-media_id">Icon</label></td>
+		<td><button type="button" class="browse" onclick="window.open('<?php echo BASE_URL; ?>/media/imageBrowser.php');">Choose Media</button>
+			<button type="button" class="deleteSmall" onclick="removeIcon();">Delete</button>
+			<input name="documentType[media_id]" id="documentType-media_id" type="hidden" value="<?php echo $this->documentType->getMedia_id(); ?>" />
+			<span id="icon"></span>
+			<script type="text/javascript">
+			var icon = document.getElementById('icon');
+			function handleSelection(media_id)
+			{
+				var BASE_URL = '<?php echo BASE_URL; ?>';
+				document.getElementById('documentType-media_id').value = media_id;
+
+				// Update the icon
+				while(icon.hasChildNodes()) { icon.removeChild(icon.firstChild); }
+				var img = document.createElement('img');
+				img.src = BASE_URL+'/media/media.php?size=thumbnail;media_id='+media_id;
+				icon.appendChild(img);
+			}
+			function removeIcon()
+			{
+				while(icon.hasChildNodes()) { icon.removeChild(icon.firstChild); }
+				document.getElementById('documentType-media_id').value = '';
+			}
+			</script>
+		</td>
+	</tr>
 	<tr><td colspan="2">
 		<label for="documentType-template">Template</label>
 		<textarea name="documentType[template]" id="documentType-template" rows="20" cols="60"></textarea>

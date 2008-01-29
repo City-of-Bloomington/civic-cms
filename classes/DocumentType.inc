@@ -11,9 +11,11 @@
 		private $template;
 		private $ordering;
 		private $defaultFacetGroup_id;
+		private $media_id;
 
 		private $defaultFacetGroup;
 		private $documentInfoFields = array();
+		private $media;
 
 		/**
 		 * This will load all fields in the table as properties of this class.
@@ -68,6 +70,7 @@
 			$fields['ordering'] = $this->ordering ? $this->ordering : null;
 			$fields['defaultFacetGroup_id'] = $this->defaultFacetGroup_id ? $this->defaultFacetGroup_id : null;
 			$fields['documentInfoFields'] = count($this->documentInfoFields) ? serialize($this->documentInfoFields) : null;
+			$fields['media_id'] = $this->media_id ? $this->media_id : null;
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
@@ -90,8 +93,8 @@
 			$PDO = Database::getConnection();
 
 			$sql = "update documentTypes set $preparedFields where id={$this->id}";
-			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
-			if (false === $query->execute($values)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
+			$query = $PDO->prepare($sql);
+			$query->execute($values);
 		}
 
 		private function insert($values,$preparedFields)
@@ -99,8 +102,8 @@
 			$PDO = Database::getConnection();
 
 			$sql = "insert documentTypes set $preparedFields";
-			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
-			if (false === $query->execute($values)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
+			$query = $PDO->prepare($sql);
+			$query->execute($values);
 			$this->id = $PDO->lastInsertID();
 		}
 
@@ -142,6 +145,15 @@
 			}
 			return $this->documentInfoFields;
 		}
+		public function getMedia_id() { return $this->media_id; }
+		public function getMedia()
+		{
+			if ($this->media_id)
+			{
+				if (!$this->media) { $this->media = new Media($this->media_id); }
+				return $this->media;
+			}
+		}
 
 
 		public function setType($string) { $this->type = trim($string); }
@@ -153,4 +165,6 @@
 		{
 			if (count($array)) { $this->documentInfoFields = $array; }
 		}
+		public function setMedia_id($int) { $this->media = new Media($int); $this->media_id = $this->media->getId(); }
+		public function setMedia($media) { $this->media_id = $this->media->getId(); $this->media = $media; }
 	}

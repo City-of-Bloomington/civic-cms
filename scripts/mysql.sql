@@ -63,7 +63,9 @@ create table documentTypes (
 	ordering varchar(50) not null default 'title',
 	defaultFacetGroup_id int unsigned,
 	documentInfoFields varchar(255),
-	foreign key (defaultFacetGroup_id) references facetGroups(id)
+	media_id int unsigned,
+	foreign key (defaultFacetGroup_id) references facetGroups(id),
+	foreign key (media_id) references media(id)
 ) engine=InnoDB;
 insert documentTypes set type='Webpage';
 

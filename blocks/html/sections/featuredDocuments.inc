@@ -18,16 +18,22 @@
 			#</a>
 		?>
 	</h3>
+	<table>
 	<?php
 		foreach($this->documentList as $document)
 		{
 			$title = $document->getFeature_title() ? View::escape($document->getFeature_title()) : View::escape($document->getTitle());
 			$description = View::escape($document->getDescription());
+			$icon = $document->getDocumentType()->getMedia_id() ? "<img src=\"".BASE_URL."/media/media.php?size=thumbnail;media_id={$document->getDocumentType()->getMedia_id()}\" />" : '';
+
 			echo "
-			<div><h4><a href=\"{$document->getURL()}\">$title</a></h4>
-				<p>$description</p>
-			</div>
+			<tr><th>$icon</th>
+				<td><h4><a href=\"{$document->getURL()}\">$title</a></h4>
+					<p>$description</p>
+				</td>
+			</tr>
 			";
 		}
 	?>
+	</table>
 </div>
