@@ -1,16 +1,15 @@
 <?php
 /**
- * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2007,2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 	class SectionWidgetList extends PDOResultIterator
 	{
 
-		public function __construct($fields=null,$sort='layout_order')
+		public function __construct($fields=null)
 		{
 			$this->select = 'select section_widgets.id as id from section_widgets';
-			$this->sort = $sort;
 			if (is_array($fields)) $this->find($fields);
 		}
 
@@ -58,4 +57,3 @@
 
 		protected function loadResult($key) { return new SectionWidget($this->list[$key]); }
 	}
-?>

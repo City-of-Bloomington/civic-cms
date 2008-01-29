@@ -87,23 +87,39 @@
 			$this->id = $PDO->lastInsertID();
 		}
 
+		/**
+		 * Returns an array of widgets.  The widgets should include both
+		 * global and document widgets.  We should merge the two lists
+		 * so layout_orders should apply across the full set
+		 */
 		public function getWidgets($document=null)
 		{
+			$widgets = array();
 			if (!count($this->widgets))
 			{
 				# Get all the global widgets that should be in this panel
 				$list = new WidgetInstallationList();
 				$list->find(array('global_panel_id'=>$this->id),'global_layout_order');
-				foreach($list as $widget) { $this->widgets[] = $widget; }
+				foreach($list as $widget)
+				{
+					$order = $widget->getGlobal_layout_order() ? $widget->getGlobal_layout_order() : 0;
+					$widgets[$order][] = $widget;
+				}
 
 				# Get any document widgets that should be in this panel
 				if (isset($document))
 				{
 					foreach($document->getWidgets(array('panel_id'=>$this->id)) as $widget)
 					{
-						$this->widgets[] = $widget;
+						$order = $widget->getLayout_order() ? $widget->getLayout_order() : 0;
+						$widgets[$order][] = $widget;
 					}
 				}
+			}
+			ksort($widgets);
+			foreach($widgets as $order=>$list)
+			{
+				foreach($list as $widget) { $this->widgets[] = $widget; }
 			}
 			return $this->widgets;
 		}
