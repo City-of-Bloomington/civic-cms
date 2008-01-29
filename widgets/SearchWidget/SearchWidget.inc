@@ -6,6 +6,8 @@
  */
 class SearchWidget extends Widget
 {
+	protected $search;
+
 	public function __construct()
 	{
 		$this->className = 'SearchWidget';
@@ -16,6 +18,7 @@ class SearchWidget extends Widget
 
 	public function render($template)
 	{
+		$this->search = isset($_GET['search']) ? $_GET['search'] : '';
 		$this->renderIncludeFile($this);
 	}
 
