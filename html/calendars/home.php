@@ -16,13 +16,14 @@
 			switch ($_GET['view'])
 			{
 				case 'month': $block = 'calendars/monthView.inc'; break;
+				case 'list': $block = 'calendars/listView.inc'; break;
 				case 'twoweek': $block = 'calendars/twoWeekView.inc'; break;
 				case 'week': $block = 'calendars/weekView.inc'; break;
 				case 'day': $block = 'calendars/dayView.inc'; break;
-				default: $block = 'calendars/weekView.inc';
+				default: $block = 'calendars/listView.inc';
 			}
 		}
-		else { $block = 'calendars/weekView.inc'; }
+		else { $block = 'calendars/listView.inc'; }
 
 		# Get the date that we're wanting to display
 		$now = getdate();

@@ -23,12 +23,12 @@
 	<form method="get" action="<?php echo BASE_URL; ?>/calendars">
 	<fieldset>
 		<?php
-			$currentView = isset($_GET['view']) ? strtolower($_GET['view']) : 'week';
+			$currentView = isset($_GET['view']) ? strtolower($_GET['view']) : 'list';
 		?>
 		<select name="view" onchange="this.form.submit();">
 			<option value="day" <?php if($currentView=='day') echo 'selected="selected"'; ?>>Day View</option>
 			<option value="week" <?php if($currentView=='week') echo 'selected="selected"'; ?>>Week View</option>
-			<option value="twoweek" <?php if($currentView=='twoweek') echo 'selected="selected"'; ?>>Two-Week View</option>
+			<option value="list" <?php if($currentView=='list') echo 'selected="selected"'; ?>>List View</option>
 			<option value="month" <?php if($currentView=='month') echo 'selected="selected"'; ?>>Month View</option>
 		</select>
 
