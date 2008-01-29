@@ -19,4 +19,12 @@
 		}
 	?>
 	</ol>
+	<div>
+		<a href="<?php echo BASE_URL; ?>/documentTypes/documents.php?documentType_id=<?php echo $this->documentType->getId(); ?>">
+			More <?php echo $name; ?>
+		</a>
+	</div>
+	<?php
+
+	?>
 </div>
