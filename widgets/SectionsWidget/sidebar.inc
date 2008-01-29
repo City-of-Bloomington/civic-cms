@@ -8,12 +8,9 @@
 ?>
 <div class="widget">
 	<h1>
-		<form method="get" action="<?php echo BASE_URL; ?>/search">
-		<fieldset>
-			<input name="search" id="search" size="7" />
-			<button type="submit" class="search">Search</button>
-		</fieldset>
-		</form>
+	<?php
+		echo View::escape($this->section->getName());
+	?>
 	</h1>
 	<ul>
 	<?php
