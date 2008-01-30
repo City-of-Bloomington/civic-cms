@@ -7,7 +7,7 @@
 class SectionsWidget extends Widget
 {
 	protected $section;
-	protected $currentAncestors;
+	protected $currentSection;
 
 	public function __construct()
 	{
@@ -21,14 +21,18 @@ class SectionsWidget extends Widget
 	{
 		if (isset($template->document))
 		{
-			$this->currentAncestors = $template->currentAncestors;
-			$path = array_reverse($template->currentAncestors);
-			foreach($path as $section)
+			$ancestors = $template->currentAncestors;
+			if (count($ancestors))
 			{
-				if ($section->hasChildren())
+				$this->currentSection = end($ancestors);
+				$path = array_reverse($ancestors);
+				foreach($path as $section)
 				{
-					$this->section = $section;
-					break;
+					if ($section->hasChildren())
+					{
+						$this->section = $section;
+						break;
+					}
 				}
 			}
 		}
