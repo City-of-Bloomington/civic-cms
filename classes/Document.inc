@@ -573,6 +573,11 @@
 			}
 		}
 
+		public function getDocumentLinks()
+		{
+			return new DocumentLinkList(array('document_id'=>$this->id));
+		}
+
 		/**
 		 * Creates an array of sections representing the best path this Document,
 		 * to be used as breadcrumbs

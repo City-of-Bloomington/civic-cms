@@ -6,7 +6,6 @@
  */
 class RelatedLinksWidget extends Widget
 {
-	protected $section;
 	protected $document;
 
 	public function __construct()
@@ -14,21 +13,16 @@ class RelatedLinksWidget extends Widget
 		$this->className = 'RelatedLinksWidget';
 		$this->displayName = 'Related Links';
 		$this->includeFile = 'sidebar.inc';
-		$this->description = 'Shows links from all the documents in the current section';
+		$this->description = 'Shows links related to the current Document';
 	}
 
 	public function render($template)
 	{
-		global $section;
-		if ($section)
+		if (isset($template->document))
 		{
-			if (isset($template->document))
-			{
-				$this->section = $section;
-				$this->document = $template->document;
+			$this->document = $template->document;
 
-				$this->renderIncludeFile($this);
-			}
+			$this->renderIncludeFile($this);
 		}
 	}
 
