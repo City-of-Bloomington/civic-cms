@@ -87,7 +87,17 @@ foreach($tables as $tableName)
 			case 'date':
 			case 'datetime':
 			case 'timestamp':
-				$getters.= "\tpublic function get$fieldFunctionName(\$format=null)\n\t\t{\n\t\t\tif (\$format && \$this->$field[Field]!=0) return strftime(\$format,strtotime(\$this->$field[Field]));\n\t\t\telse return \$this->$field[Field];\n\t\t}\n";
+				$getters.= "
+	public function get$fieldFunctionName(\$format=null)
+	{
+		if (\$format && \$this->$field[Field])
+		{
+			if (strpos(\$format,'%')!==false) { return strftime(\$format,\$this->$field[Field]); }
+			else { return date(\$format,\$this->$field[Field]); }
+		}
+		else return \$this->$field[Field];
+	}
+";
 			break;
 
 			default: $getters.= "\tpublic function get$fieldFunctionName() { return \$this->$field[Field]; }\n";

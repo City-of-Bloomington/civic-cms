@@ -1,6 +1,5 @@
 <?php
 include '../configuration.inc';
-
 $PDO = Database::getConnection();
 
 $tables = array();
@@ -42,7 +41,7 @@ foreach($tables as $tableName)
 			{
 				echo \"
 				<li><button type=\\\"button\\\" class=\\\"editSmall\\\" onclick=\\\"document.location.href='\".BASE_URL.\"/$tableName/update$className.php?$key[Column_name]={\${$variableName}->{$getId}()}';\\\">Edit</button>
-					$variableName</li>
+					\$$variableName</li>
 				\";
 			}
 		?>
