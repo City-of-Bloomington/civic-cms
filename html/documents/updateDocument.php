@@ -46,7 +46,7 @@
 
 			if (isset($_GET['documentType_id']))
 			{
-				$document->setDocumentType_id($_GET['documentType_id']);
+				$document->setDocumentType_id($_GET['documentType_id'],$language->getCode());
 			}
 		}
 
