@@ -93,7 +93,7 @@
 					}
 					else { $resultsList = $this->results[$type]; }
 				}
-				else { $resultList = array(); }
+				else { $resultsList = array(); }
 				if (isset($results))
 				{
 					$resultsTab = new Block('search/resultTabs.inc');
