@@ -163,7 +163,7 @@
 
 		public function permitsEditingBy($user)
 		{
-			if (isset($this->calendar_id)) { return $this->getCalendar()->permitsEditingBy($user); }
+			if (isset($this->calendar_id)) { return $this->getCalendar()->permitsPostingBy($user); }
 			else return true;
 		}
 
