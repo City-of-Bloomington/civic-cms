@@ -1,23 +1,23 @@
 <h1><a href="<?php echo BASE_URL; ?>/calendars">City of Bloomington Calendars</a></h1>
 <?php
 /**
- * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006,2007,2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  *
  * @param URL $this->url
  * @param Calendar $this->calendar
  */
-	if ($this->calendar->getName())
+if ($this->calendar->getName())
+{
+	echo '<h1>';
+	if (isset($_SESSION['USER']) && $this->calendar->permitsEditingBy($_SESSION['USER']))
 	{
-		echo '<h1>';
-		if (isset($_SESSION['USER']) && $this->calendar->permitsEditingBy($_SESSION['USER']))
-		{
-			echo "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/calendars/updateCalendar.php?calendar_id={$this->calendar->getId()}';\">Edit</button>";
-		}
-		echo View::escape($this->calendar->getName()).'</h1>';
-		echo "<p>".View::escape($this->calendar->getDescription())."</p>";
+		echo "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/calendars/updateCalendar.php?calendar_id={$this->calendar->getId()}';\">Edit</button>";
 	}
+	echo View::escape($this->calendar->getName()).'</h1>';
+	echo "<p>".View::escape($this->calendar->getDescription())."</p>";
+}
 ?>
 <div class="contextualMenu">
 	<form method="get" action="<?php echo BASE_URL; ?>/calendars">

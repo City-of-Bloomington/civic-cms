@@ -138,7 +138,7 @@
 		}
 
 		# Current Ancestors should be set by now, so we should know where we are
-		$s = end($currentAncestors);
+		$s = isset($_GET['section_id']) ? new Section($_GET['section_id']) : end($currentAncestors);
 		# Make sure the document is actually in at least one section
 		if ($s instanceof Section)
 		{

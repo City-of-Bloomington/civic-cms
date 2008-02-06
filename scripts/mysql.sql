@@ -24,12 +24,12 @@ create table departments (
 ---------------------------------------------------------------------
 create table users (
   id int unsigned not null primary key auto_increment,
-  username varchar(30) not null,
+  username varchar(128) not null,
   password varchar(32) default null,
   authenticationMethod varchar(40) not null default 'LDAP',
-  firstname varchar(128) not null,
-  lastname varchar(128) not null,
-  department_id int unsigned not null,
+  firstname varchar(128),
+  lastname varchar(128),
+  department_id int unsigned,
   email varchar(255) not null,
   access enum('private','public') not null default 'private',
   unique key (username),
@@ -51,6 +51,13 @@ create table user_roles (
   primary key  (user_id,role_id),
   foreign key (user_id) references users (id),
   foreign key (role_id) references roles (id)
+) engine=InnoDB;
+
+create table pendingUsers (
+	id int unsigned not null primary key auto_increment,
+	email varchar(255) not null unique,
+	password varchar(32) not null,
+	date date not null
 ) engine=InnoDB;
 
 ---------------------------------------------------------------------

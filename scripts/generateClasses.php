@@ -152,7 +152,14 @@ foreach($tables as $tableName)
 				case 'date':
 				case 'datetime':
 				case 'timestamp':
-					$setters.= "\tpublic function set$fieldFunctionName(\$$field[Type]) { \$this->$field[Field] = is_array(\$$field[Type]) ? \$this->dateArrayToString(\$$field[Type]) : \$$field[Type]; }\n";
+	$setters.= "
+	public function set$fieldFunctionName(\$$field[Type])
+	{
+		if (is_array(\$$field[Type])) { \$this->$field[Field] = \$this->dateArrayToTimestamp(\$$field[Type]); }
+		elseif(ctype_digit(\$$field[Type])) { \$this->$field[Field] = \$$field[Type]; }
+		else { \$this->$field[Field] = strtotime(\$$field[Type]); }
+	}
+	";
 				break;
 
 				case 'float':
