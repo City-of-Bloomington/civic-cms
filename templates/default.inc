@@ -9,7 +9,6 @@
 	include APPLICATION_HOME.'/includes/xhtmlStrictHeader.inc';
 	include APPLICATION_HOME.'/includes/banner.inc';
 	include APPLICATION_HOME.'/includes/menubar.inc';
-	include APPLICATION_HOME.'/includes/languages.inc';
 	include APPLICATION_HOME.'/includes/leftSidebar.inc';
 	include APPLICATION_HOME.'/includes/rightSidebar.inc';
 ?>

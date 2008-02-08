@@ -143,6 +143,7 @@ create table sections (
   nickname varchar(50),
   sectionDocument_id int unsigned,
   placement tinyint(2) unsigned,
+  highlightSubscription boolean,
   foreign key (sectionDocument_id) references sectionDocuments(id) on delete set null
 ) engine=InnoDB;
 

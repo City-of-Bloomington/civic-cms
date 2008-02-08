@@ -124,6 +124,10 @@ li.current>a { background-color:#cccccc; width:100%; }
 #mainContent { background-color:inherit; margin-left:170px; margin-right:170px; margin-top:1em; }
 #backendContent { background-color:inherit; margin-left:170px; margin-top:1em; }
 
+#documentToolbox { }
+#documentToolbox ul, #documentToolbox li { display:inline; list-style-type:none; }
+#documentToolbox form { display:inline; }
+
 .contextualMenu { background-color:#fba500; color:black; border:2px solid black; margin-bottom:1em; margin-top:1em; }
 .contextualMenu div { display:inline; }
 .contextualMenu span.title { background:inherit; color:white; font-size:12pt; font-weight:bold; border:0; padding-left:1em; padding-right:0; }

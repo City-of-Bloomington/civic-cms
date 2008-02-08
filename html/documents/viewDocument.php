@@ -51,17 +51,23 @@
 		$breadcrumbs->currentAncestors = $currentAncestors;
 		$template->blocks[] = $breadcrumbs;
 
+		# Current Ancestors should be set by now, so we should know where we are
+		$currentSection = $s ? new Section($s) : end($currentAncestors);
+
 		#------------------------------------------------------------
 		# Set up the content of the document
 		#------------------------------------------------------------
+		$viewDocument = new Block('documents/viewDocument.inc');
+		$viewDocument->document = $document;
+		$viewDocument->section = $currentSection;
+
 		if (!$document->isActive())
 		{
-			#$_SESSION['errorMessages'][] = new Exception('documents/unavailable');
 			$template->blocks[] = new Block('documents/unavailable.inc',array('document'=>$document));
 
 			if (isset($_SESSION['USER']) && $document->permitsEditingBy($_SESSION['USER']))
 			{
-				$template->blocks[] = new Block('documents/viewDocument.inc',array('document'=>$document));
+				$template->blocks[] = $viewDocument;
 			}
 			else
 			{
@@ -123,47 +129,31 @@
 		}
 		else
 		{
-			$template->blocks[] = new Block('documents/viewDocument.inc',array('document'=>$document));
+			$template->blocks[] = $viewDocument;
 		}
 
 
-		# If we don't have a specific section we're in yet,
-		# choose one of the sections for this Document.
-		$sections = $document->getSections();
-		if (!isset($section))
+		# If we're viewing the homepage of the current section
+		if ($currentSection->getDocument_id() === $document->getId())
 		{
-			# The section list returned will not be zero based.  To get the
-			# first element, you have to call current()
-			$section = count($sections) ? current($sections) : null;
-		}
-
-		# Current Ancestors should be set by now, so we should know where we are
-		$s = isset($_GET['section_id']) ? new Section($_GET['section_id']) : end($currentAncestors);
-		# Make sure the document is actually in at least one section
-		if ($s instanceof Section)
-		{
-			# If we're viewing the homepage of the current section
-			if ($s->getDocument_id() === $document->getId())
+			# Check for Featured Documents in this Section
+			$types = new DocumentTypeList();
+			$types->find();
+			foreach($types as $type)
 			{
-				# Check for Featured Documents in this Section
-				$types = new DocumentTypeList();
-				$types->find();
-				foreach($types as $type)
+				$documentList = new DocumentList(array('documentType_id'=>$type->getId(),'section_id'=>$currentSection->getId(),'featured'=>1,'active'=>date('Y-m-d')));
+				if (count($documentList))
 				{
-					$documentList = new DocumentList(array('documentType_id'=>$type->getId(),'section_id'=>$s->getId(),'featured'=>1,'active'=>date('Y-m-d')));
-					if (count($documentList))
-					{
-						$featuredDocuments = new Block('sections/featuredDocuments.inc');
-						$featuredDocuments->documentType = $type;
-						$featuredDocuments->documentList = $documentList;
-						$featuredDocuments->section = $s;
+					$featuredDocuments = new Block('sections/featuredDocuments.inc');
+					$featuredDocuments->documentType = $type;
+					$featuredDocuments->documentList = $documentList;
+					$featuredDocuments->section = $currentSection;
 
-						$template->blocks[] = $featuredDocuments;
-					}
+					$template->blocks[] = $featuredDocuments;
 				}
-
-				$template->blocks[] = new Block('sections/documents.inc',array('section'=>$s,'document'=>$document));
 			}
+
+			$template->blocks[] = new Block('sections/documents.inc',array('section'=>$currentSection,'document'=>$document));
 		}
 	}
 

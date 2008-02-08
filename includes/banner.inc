@@ -21,11 +21,6 @@
 </div>
 <div id="banner">
 	<div id="application_name">
-		<?php
-			$printURL = new URL('http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
-			$printURL->format = 'print';
-		?>
-		<button type="button" class="printSmall" onclick="window.open('<?php echo $printURL; ?>');">Print</button>
 	</div>
 	<div id="location_name"><a href="<?php echo BASE_URL; ?>/">City of Bloomington, Indiana</a></div>
 	<div class="widgets">

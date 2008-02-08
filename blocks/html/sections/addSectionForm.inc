@@ -28,6 +28,16 @@
 	</table>
 </fieldset>
 
+<fieldset><legend>Subscription Highlight</legend>
+<p>If you make this section a Highlighted Subscription, it will show up on the special
+"Subscriptions" page.</p>
+<div>
+<label>Highlight this subscription?</label>
+<label><input name="section[highlightSubscription]" type="radio" value="yes" />Yes</label>
+<label><input name="section[highlightSubscription]" type="radio" value="no" checked="checked" />No</label>
+</div>
+</fieldset>
+
 <fieldset><legend class="required">Departments</legend>
 	<p>Choose the departments that will be allowed to post content to this section.</p>
 	<p>You must choose at least one.</p>
