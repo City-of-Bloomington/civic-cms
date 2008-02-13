@@ -27,5 +27,5 @@ if (userHasRole(array('Administrator','Webmaster','Content Creator')))
 }
 else
 {
-	Header('Location: '.BASE_URL);
+	Header('Location: '.BASE_URL.'/sections/subscriptions');
 }

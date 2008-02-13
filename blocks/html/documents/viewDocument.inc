@@ -82,22 +82,6 @@ if (isset($_SESSION['USER']) && $this->document->permitsEditingBy($_SESSION['USE
 	else { $deleteButton = ''; }
 
 	#----------------------------------------------------------------
-	# Subscription Notifications Button
-	#----------------------------------------------------------------
-	$url = new URL(BASE_URL.'/sections/subscriptions/notify.php');
-	$url->document_id = $this->document->getId();
-	$url->return_url = $return_url;
-	$notifyButton = "
-	<button type=\"button\"
-			class=\"notify\"
-			onclick=\"document.location.href='$url';\"
-			onmouseover=\"FRAMEWORK.popupTooltip('Notify Subscribers.  This will send an email out to all people subscribed to this section.');\"
-			onmouseout=\"FRAMEWORK.hideTooltip();\">
-		Notify
-	</button>
-	";
-
-	#----------------------------------------------------------------
 	# Document Watch Button
 	#----------------------------------------------------------------
 	if($_SESSION['USER']->hasWatch($this->document))
@@ -125,7 +109,7 @@ if (isset($_SESSION['USER']) && $this->document->permitsEditingBy($_SESSION['USE
 		";
 	}
 
-	echo "<div>$editButton $deleteButton $notifyButton</div>";
+	echo "<div>$editButton $deleteButton $watchButton</div>";
 }
 echo "
 	<h1>$title</h1>

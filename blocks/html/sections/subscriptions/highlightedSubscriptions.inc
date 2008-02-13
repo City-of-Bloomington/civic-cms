@@ -15,12 +15,12 @@
 			{
 				$name = View::escape($section->getName());
 
-				$button = '';
+				$subscribeButton = '';
 				if (isset($_SESSION['USER']))
 				{
 					if ($_SESSION['USER']->hasSubscription($section))
 					{
-						$button = "
+						$subscribeButton = "
 						<button type=\"button\"
 								class=\"unsubscribe\"
 								onclick=\"document.location.href='".BASE_URL."/sections/subscriptions/unsubscribe.php?section_id={$section->getId()};return_url=$return_url';\"
@@ -32,7 +32,7 @@
 					}
 					else
 					{
-						$button = "
+						$subscribeButton = "
 						<button type=\"button\"
 								class=\"subscribe\"
 								onclick=\"document.location.href='".BASE_URL."/sections/subscriptions/subscribe.php?section_id={$section->getId()};return_url=$return_url';\"
@@ -45,7 +45,7 @@
 					if ($section->permitsPostingBy($_SESSION['USER']))
 					{
 						$url = new URL(BASE_URL.'/sections/subscriptions/notify.php');
-						$url->document_id = $section->getDocumentId();
+						$url->document_id = $section->getDocument_id();
 						$url->return_url = $return_url;
 						$notifyButton = "
 						<button type=\"button\"
@@ -60,7 +60,7 @@
 				}
 				echo "
 				<li><a href=\"{$section->getURL()}\">$name</a>
-					$button
+					$subscribeButton $notifyButton
 				</li>
 				";
 			}

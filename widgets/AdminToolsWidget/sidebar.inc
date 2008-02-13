@@ -19,6 +19,7 @@
 	$links['Attachments'] = "<li><a href=\"".BASE_URL."/media\">Media</a></li>";
 	$links['Calendars'] = "<li><a href=\"".BASE_URL."/calendars\">Calendars</a></li>";
 	$links['Locations'] = "<li><a href=\"".BASE_URL."/locations\">Locations</a></li>";
+	$links['Subscriptions'] = "<li><a href=\"".BASE_URL."/sections/subscriptions\">Subscriptions</a></li>";
 
 	if (userHasRole('Webmaster') || userHasRole('Administrator'))
 	{
