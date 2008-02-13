@@ -10,10 +10,10 @@
 <div class="interfaceBox">
 	<h1>
 		<?php
-			echo $this->title;
+			echo View::escape($this->title);
 			include APPLICATION_HOME.'/blocks/html/documents/addDocumentToolbar.inc';
 
-			$url = new URL("http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]");
+			$url = new URL($_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
 		?>
 	</h1>
 	<table>

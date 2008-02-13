@@ -45,7 +45,7 @@ if (isset($pages))
 	$pageNavigation = new Block('pageNavigation.inc');
 	$pageNavigation->page = $page;
 	$pageNavigation->pages = $pages;
-	$pageNavigation->url = new URL("$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]");
+	$pageNavigation->url = new URL($_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
 
 	$template->blocks[] = $pageNavigation;
 }

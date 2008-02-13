@@ -7,7 +7,7 @@
  * @param Department $this->department ( optional )
  */
 	$title = isset($this->department) ? View::escape($this->department->getName()) : '';
-	$url = new URL("http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]");
+	$url = new URL($_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
 ?>
 <script type="text/javascript">
 	function selectAttachment(media_id)

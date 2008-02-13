@@ -35,7 +35,7 @@
 		}
 		else { $date = $now; }
 
-		$url = new URL("http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]");
+		$url = new URL($_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
 		$template->blocks[] = new Block('calendars/breadcrumbs.inc',array('calendar'=>$calendar));
 		$template->blocks[] = new Block('calendars/viewButtons.inc',array('url'=>$url,'calendar'=>$calendar));
 		$template->blocks[] = new Block($block,array('calendar'=>$calendar,'date'=>$date));

@@ -5,7 +5,7 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param MediaList $this->mediaList
  */
-	$url = new URL("http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]");
+$url = new URL($_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
 ?>
 <form id="filter" method="get" action="<?php echo BASE_URL; ?>/media">
 <div class="interfaceBox">

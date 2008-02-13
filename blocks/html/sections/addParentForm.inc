@@ -43,7 +43,7 @@
 			$section = new Section(1);
 			$name = View::escape($section->getName());
 
-			$url = new URL("http://$_SERVER[SERVER_NAME]$_SERVER[PHP_SELF]");
+			$url = new URL($_SERVER['SERVER_NAME'].$_SERVER['PHP_SELF']);
 			$url->parameters['section_id'] = $this->section->getId();
 			$url->parameters['parent_id'] = $section->getId();
 

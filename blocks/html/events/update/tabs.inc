@@ -8,7 +8,7 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param string $this->currentTab
  */
-	$href = new URL("http://$_SERVER[SERVER_NAME]$_SERVER[PHP_SELF]");
+	$href = new URL($_SERVER['SERVER_NAME'].$_SERVER['PHP_SELF']);
 	$tabs = array('info','description','sections');
 
 	foreach($tabs as $tab)

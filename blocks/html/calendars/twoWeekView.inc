@@ -15,7 +15,7 @@
 			$rangeEnd = strtotime('+14 day',$rangeStart);
 
 			$back = getdate(strtotime('-14 day',$rangeStart));
-			$url = new URL("http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]");
+			$url = new URL($_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
 			$url->parameters['mon'] = $back['mon'];
 			$url->parameters['mday'] = $back['mday'];
 			$url->parameters['year'] = $back['year'];

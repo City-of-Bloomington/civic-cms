@@ -11,7 +11,7 @@
 <div class="tabBar">
 	<ul>
 	<?php
-		$url = new URL("http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]");
+		$url = new URL($_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
 
 		$url->type = 'Document';
 		$class = $this->currentType=='Documents' ? 'class="current"' : '';
