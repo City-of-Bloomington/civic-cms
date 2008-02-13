@@ -9,76 +9,15 @@
 
 $title = View::escape($this->document->getTitle());
 
-$page = new URL("http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]");
+$page = new URL($_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
 if (isset($page->lang)) { unset($page->lang); }
 $printURL = $page;
 $printURL->format = 'print';
 $rss = BASE_URL.'/sections/viewSection.php?format=rss;section_id='.$this->section->getId();
-
-$subscriptionButton = '';
-$watch = '';
-if (isset($_SESSION['USER']))
-{
-	$return_url = new URL("http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]");
-	if ($_SESSION['USER']->hasSubscription($this->section))
-	{
-		$subscriptionButton = "
-		<li><button type=\"button\"
-					class=\"unsubscribe\"
-					onclick=\"document.location.href='".BASE_URL."/sections/subscriptions/unsubscribe.php?section_id={$this->section->getId()};return_url=$return_url';\"
-					onmouseover=\"FRAMEWORK.popupTooltip('Unsubscribe to {$this->section->getName()}.  You will no longer receive emails when new things are added.');\"
-					onmouseout=\"FRAMEWORK.hideTooltip();\">
-				Unsubscribe
-			</button>
-		</li>
-		";
-	}
-	else
-	{
-		$subscriptionButton = "
-		<li><button type=\"button\"
-					class=\"subscribe\"
-					onclick=\"document.location.href='".BASE_URL."/sections/subscriptions/subscribe.php?section_id={$this->section->getId()};return_url=$return_url';\"
-					onmouseover=\"FRAMEWORK.popupTooltip('Subscribe to {$this->section->getName()}.  You will receive email notices when new things are added to this section.');\"
-					onmouseout=\"FRAMEWORK.hideTooltip();\">
-				Subscribe
-			</button>
-		</li>
-		";
-	}
-	if($_SESSION['USER']->hasWatch($this->document))
-	{
-		$watch = "
-		<li><button type=\"button\"
-					class=\"unwatch\"
-					onclick=\"document.location.href='".BASE_URL."/documents/removeWatch.php?document_id={$this->document->getId()};return_url=$return_url';\"
-					onmouseover=\"FRAMEWORK.popupTooltip('Stop watching this page.  You will no longer receive emails when changes are made to this page.');\"
-					onmouseout=\"FRAMEWORK.hideTooltip();\">
-				Unwatch
-			</button>
-		</li>
-		";
-	}
-	else
-	{
-		$watch = "
-		<li><button type=\"button\"
-					class=\"watch\"
-					onclick=\"document.location.href='".BASE_URL."/documents/addWatch.php?document_id={$this->document->getId()};return_url=$return_url';\"
-					onmouseover=\"FRAMEWORK.popupTooltip('Watch this page.  You will receive emails when changes are made to this page.');\"
-					onmouseout=\"FRAMEWORK.hideTooltip();\">
-				Watch
-			</button>
-		</li>
-		";
-	}
-}
 echo "
 <div id=\"documentToolbox\">
 	<div>
-		<ul>$watch
-			$subscriptionButton
-			<li><button type=\"button\" class=\"rss\" onclick=\"document.location.href='$rss';\">RSS</button></li>
+		<ul><li><button type=\"button\" class=\"rss\" onclick=\"document.location.href='$rss';\">RSS</button></li>
 			<li><button type=\"button\" class=\"printSmall\" onclick=\"window.open('$printURL');\">Print</button></li>
 			<li><form method=\"get\" action=\"{$page->getProtocol()}{$page->getScript()}\">
 ";
@@ -104,9 +43,14 @@ echo "
 
 if (isset($_SESSION['USER']) && $this->document->permitsEditingBy($_SESSION['USER']))
 {
+	$return_url = new URL($_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
+
+	#----------------------------------------------------------------
+	# Edit Button
+	#----------------------------------------------------------------
 	$url = new URL(BASE_URL.'/documents/updateDocument.php');
-	$url->parameters['document_id'] = $this->document->getId();
-	$url->parameters['return_url'] = "http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]";
+	$url->document_id = $this->document->getId();
+	$url->return_url = $return_url;
 	$editButton = "
 	<button type=\"button\"
 			class=\"editSmall\"
@@ -117,13 +61,32 @@ if (isset($_SESSION['USER']) && $this->document->permitsEditingBy($_SESSION['USE
 	</button>
 	";
 
+	#----------------------------------------------------------------
+	# Delete Button
 	# Documents that are homepages should not be deleted.
 	# At least until we can work out a way to choose new homepages for sections
-	$deleteButton = $this->document->isHomepage() ? '' : "<button type=\"button\" class=\"delete\" onclick=\"FRAMEWORK.deleteConfirmation('".BASE_URL."/documents/deleteDocument.php?document_id={$this->document->getId()}');\">Delete</button>";
+	#----------------------------------------------------------------
+	$deleteURL = new URL(BASE_URL.'/documents/deleteDocument.php?document_id='.$this->document->getId());
+	if (!$this->document->isHomepage())
+	{
+		$deleteButton = "
+		<button type=\"button\"
+				class=\"delete\"
+				onclick=\"FRAMEWORK.deleteConfirmation('$deleteURL');\"
+				onmouseover=\"FRAMEWORK.popupTooltip('Delete this document');\"
+				onmouseout=\"FRAMEWORK.hideTooltip();\">
+			Delete
+		</button>
+		";
+	}
+	else { $deleteButton = ''; }
 
+	#----------------------------------------------------------------
+	# Subscription Notifications Button
+	#----------------------------------------------------------------
 	$url = new URL(BASE_URL.'/sections/subscriptions/notify.php');
 	$url->document_id = $this->document->getId();
-	$url->return_url = "http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]";
+	$url->return_url = $return_url;
 	$notifyButton = "
 	<button type=\"button\"
 			class=\"notify\"
@@ -133,6 +96,34 @@ if (isset($_SESSION['USER']) && $this->document->permitsEditingBy($_SESSION['USE
 		Notify
 	</button>
 	";
+
+	#----------------------------------------------------------------
+	# Document Watch Button
+	#----------------------------------------------------------------
+	if($_SESSION['USER']->hasWatch($this->document))
+	{
+		$watchButton = "
+		<button type=\"button\"
+				class=\"unwatch\"
+				onclick=\"document.location.href='".BASE_URL."/documents/removeWatch.php?document_id={$this->document->getId()};return_url=$return_url';\"
+				onmouseover=\"FRAMEWORK.popupTooltip('Stop watching this page.  You will no longer receive emails when changes are made to this page.');\"
+				onmouseout=\"FRAMEWORK.hideTooltip();\">
+			Unwatch
+		</button>
+		";
+	}
+	else
+	{
+		$watchButton = "
+		<button type=\"button\"
+				class=\"watch\"
+				onclick=\"document.location.href='".BASE_URL."/documents/addWatch.php?document_id={$this->document->getId()};return_url=$return_url';\"
+				onmouseover=\"FRAMEWORK.popupTooltip('Watch this page.  You will receive emails when changes are made to this page.');\"
+				onmouseout=\"FRAMEWORK.hideTooltip();\">
+			Watch
+		</button>
+		";
+	}
 
 	echo "<div>$editButton $deleteButton $notifyButton</div>";
 }

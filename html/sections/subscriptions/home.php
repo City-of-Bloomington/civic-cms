@@ -8,11 +8,4 @@ $list = new SectionList(array('highlightSubscription'=>1));
 
 $template = new Template();
 $template->blocks[] = new Block('sections/subscriptions/highlightedSubscriptions.inc',array('sectionList'=>$list));
-if (isset($_SESSION['USER']))
-{
-	$mySubscriptions = new Block('sections/subscriptions/subscriptions.inc');
-	$mySubscriptions->title = 'My Subscriptions';
-	$mySubscriptions->subscriptionList = $_SESSION['USER']->getSubscriptions();
-	$template->blocks[] = $mySubscriptions;
-}
 $template->render();
