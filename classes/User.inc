@@ -204,6 +204,16 @@ class User extends SystemUser
 		else { return false; }
 	}
 
+	public function getSubscriptions()
+	{
+		return new SectionSubscriptionList(array('user_id'=>$this->id));
+	}
+	public function hasSubscription(Section $section)
+	{
+		$list = new SectionSubscriptionList(array('user_id'=>$this->id,'section_id'=>$section->getId()));
+		return count($list) ? true : false;
+	}
+
 	/**
 	 * Generates an MD5 hash that can uniquely identify this user
 	 */

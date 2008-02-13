@@ -73,4 +73,39 @@ FRAMEWORK.limit = function (field,maxNumChars)
 	{
 		field.value = field.value.substring(0,maxNumChars);
 	}
-}
+};
+
+
+FRAMEWORK.popupTooltip = function (text)
+{
+	function newelement(newid)
+	{
+		var el = document.createElement('div');
+		el.id = newid;
+		el.style.display = 'none';
+		el.style.position = 'absolute';
+		document.body.appendChild(el);
+	}
+	function getmouseposition(e)
+	{
+		var offsetx = 17;
+		var offsety = 13;
+		var tooltip = document.getElementById('tooltip');
+		tooltip.style.left = (e.clientX+offsetx) + 'px';
+		tooltip.style.top = (e.clientY+offsety) + 'px';
+	}
+    if(!document.getElementById('tooltip')) newelement('tooltip');
+    var tooltip = document.getElementById('tooltip');
+
+
+    while(tooltip.childNodes.length>=1) { tooltip.removeChild(tooltip.firstChild); }
+    tip = document.createTextNode(text);
+    tooltip.appendChild(tip);
+
+    tooltip.style.display = 'block';
+    document.onmousemove = getmouseposition;
+};
+FRAMEWORK.hideTooltip = function ()
+{
+    document.getElementById('tooltip').style.display = 'none';
+};

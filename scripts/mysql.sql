@@ -182,6 +182,14 @@ create table sectionDocuments (
 	foreign key (document_id) references documents (id) on delete cascade
 ) engine=InnoDB;
 
+create table section_subscriptions (
+	id int unsigned not null primary key auto_increment,
+	section_id int unsigned not null,
+	user_id int unsigned not null,
+	unique (section_id,user_id),
+	foreign key (section_id) references sections(id),
+	foreign key (user_id) references users(id)
+) engine=InnoDB;
 
 ---------------------------------------------------------------------
 -- Facet tables

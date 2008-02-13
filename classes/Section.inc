@@ -430,6 +430,14 @@ class Section extends ActiveRecord
 		return false;
 	}
 
+	/**
+	 * Subscription functions
+	 */
+	public function getSubscriptions()
+	{
+		return new SectionSubscriptionList(array('section_id'=>$this->id));
+	}
+
 	public function getURL() { return BASE_URL.'/sections/viewSection.php?section_id='.$this->id; }
 	public function __toString() { return $this->name; }
 	public function isHighlightedSubscription() { return $this->getHighlightSubscription(); }

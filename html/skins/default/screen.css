@@ -239,6 +239,12 @@ button.previous { width:22px; height:22px; padding-top:22px; background: url('de
 button.next { width:22px; height:22px; padding-top:22px; background: url('default/images/next.png') no-repeat; border:0; }
 button.first { width:22px; height:22px; padding-top:22px; background: url('default/images/player_start.png') no-repeat; border:0; }
 button.last { width:22px; height:22px; padding-top:22px; background: url('default/images/player_end.png') no-repeat; border:0; }
+
+button.subscribe { width:22px; height:22px; padding-top:22px; background: url('default/images/news_subscribe.png') no-repeat; border:0; }
+button.unsubscribe { width:22px; height:22px; padding-top:22px; background: url('default/images/news_unsubscribe.png') no-repeat; border:0; }
+button.notify { width:22px; height:22px; padding-top:22px; background: url('default/images/mail_send.png') no-repeat; border:0; }
+button.watch { width:22px; height:22px; padding-top:22px; background: url('default/images/mail_get.png') no-repeat; border:0; }
+button.unwatch { width:22px; height:22px; padding-top:22px; background: url('default/images/mail_delete.png') no-repeat; border:0; }
 a.rss img { margin:0; }
 
 /* Custom Icons for mime types */
@@ -265,6 +271,8 @@ a.rss img { margin:0; }
 #errorMessages h1 { color:red; background-color:inherit; }
 #warning { border:2px solid red; }
 #warning h1 { color:inherit; background-color:red; font-size:14pt; }
+
+#tooltip { padding:3px; background:white; border:2px solid black; width:100px; }
 
 
 /* Locations page layout */

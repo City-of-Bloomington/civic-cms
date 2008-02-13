@@ -29,7 +29,8 @@ define('COPYRIGHT',"/**
 	 * The URL to get to this site
 	 * Do NOT use a trailing slash
 	 */
-	define('BASE_URL','http://localhost');
+	$protocol = $_SERVER['SERVER_PORT']==443 ? 'https' : 'http';
+	define('BASE_URL',"$protocol://localhost");
 
 	/**
 	 * Used when there's an error on the site.  The Framework will

@@ -96,6 +96,20 @@
 		}
 	?>
 </fieldset>
+<fieldset><legend>Tools</legend>
+	<button type="button" class="browse" onclick="window.open('<?php echo BASE_URL; ?>/media/imageBrowser.php');">Browse Images</button>
+	<script type="text/javascript">
+	// This declares the function that will handle the return value from the
+	// image browser.  The image browser will call this function with the
+	// media_id of the image the user selected
+	function handleSelection(media_id)
+	{
+		string = '[image:'+media_id+']';
+		tinyMCE.execCommand('mceInsertContent',false,string);
+	}
+	</script>
+	<button type="button" class="help" onclick="window.open('<?php echo BASE_URL; ?>/documents/notationGuide.php');">Notation Guide</button>
+</fieldset>
 <fieldset><legend>Web Content</legend>
 	<?php
 		$content = $this->location->getContent();
