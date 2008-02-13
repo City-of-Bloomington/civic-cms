@@ -51,15 +51,20 @@
 		$breadcrumbs->currentAncestors = $currentAncestors;
 		$template->blocks[] = $breadcrumbs;
 
-		# Current Ancestors should be set by now, so we should know where we are
-		$currentSection = $s ? new Section($s) : end($currentAncestors);
+		# The current section should be pulled from the URL
+		# If there isn't one in the URL, try pulling it from $currentAncestors
+		if (isset($_GET['section_id']))
+		{
+			$currentSection = new Section($_GET['section_id']);
+		}
+		elseif(count($currentAncestors)) { $currentSection = end($currentAncestors); }
 
 		#------------------------------------------------------------
 		# Set up the content of the document
 		#------------------------------------------------------------
 		$viewDocument = new Block('documents/viewDocument.inc');
 		$viewDocument->document = $document;
-		$viewDocument->section = $currentSection;
+		if (isset($currentSection)) { $viewDocument->section = $currentSection; }
 
 		if (!$document->isActive())
 		{
@@ -134,7 +139,7 @@
 
 
 		# If we're viewing the homepage of the current section
-		if ($currentSection->getDocument_id() === $document->getId())
+		if (isset($currentSection) && $currentSection->getDocument_id() === $document->getId())
 		{
 			# Check for Featured Documents in this Section
 			$types = new DocumentTypeList();

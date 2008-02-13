@@ -4,7 +4,8 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Document $this->document
- * @param Section $this->section
+ * @param Section $this->section (optional)
+ * Some documents are not in sections, and will not produce a section obejct
  */
 
 $title = View::escape($this->document->getTitle());
@@ -13,11 +14,25 @@ $page = new URL($_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
 if (isset($page->lang)) { unset($page->lang); }
 $printURL = $page;
 $printURL->format = 'print';
-$rss = BASE_URL.'/sections/viewSection.php?format=rss;section_id='.$this->section->getId();
+if (isset($this->section))
+{
+	$rss = BASE_URL.'/sections/viewSection.php?format=rss;section_id='.$this->section->getId();
+	$rssButton = "
+	<li><button type=\"button\"
+				class=\"rss\"
+				onclick=\"document.location.href='$rss';\"
+				onmouseover=\"FRAMEWORK.popupTooltip('Subscribe to this page');\"
+				onmouseout=\"FRAMEWORK.hideTooltip();\">
+			RSS
+		</button>
+	</li>
+	";
+}
+else { $rssButton = ''; }
 echo "
 <div id=\"documentToolbox\">
 	<div>
-		<ul><li><button type=\"button\" class=\"rss\" onclick=\"document.location.href='$rss';\">RSS</button></li>
+		<ul>$rssButton
 			<li><button type=\"button\" class=\"printSmall\" onclick=\"window.open('$printURL');\">Print</button></li>
 			<li><form method=\"get\" action=\"{$page->getProtocol()}{$page->getScript()}\">
 ";
@@ -71,7 +86,7 @@ if (isset($_SESSION['USER']) && $this->document->permitsEditingBy($_SESSION['USE
 	{
 		$deleteButton = "
 		<button type=\"button\"
-				class=\"delete\"
+				class=\"deleteSmall\"
 				onclick=\"FRAMEWORK.deleteConfirmation('$deleteURL');\"
 				onmouseover=\"FRAMEWORK.popupTooltip('Delete this document');\"
 				onmouseout=\"FRAMEWORK.hideTooltip();\">
