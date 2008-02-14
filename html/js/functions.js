@@ -88,6 +88,7 @@ FRAMEWORK.popupTooltip = function (text)
 	}
 	function getmouseposition(e)
 	{
+		if (!e) { e = window.event; }
 		var offsetx = 17;
 		var offsety = 13;
 		var tooltip = document.getElementById('tooltip');
