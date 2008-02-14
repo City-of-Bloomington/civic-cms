@@ -415,7 +415,7 @@ class WikiMarkup
 		{
 			self::$CURRENT_URL = null;
 			if ($title) { return "<a id=\"$linkTarget\">$title</a>"; }
-			else { return "<a id=\"$linkTarget\" />"; }
+			else { return "<a id=\"$linkTarget\"></a>"; }
 		}
 		else
 		{
