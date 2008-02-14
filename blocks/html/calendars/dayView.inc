@@ -17,17 +17,17 @@
 			$next = getdate($rangeEnd);
 
 			$url = new URL($_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
-			$url->parameters['mon'] = $back['mon'];
-			$url->parameters['mday'] = $back['mday'];
-			$url->parameters['year'] = $back['year'];
-			echo "<button type=\"button\" class=\"previous\" onclick=\"document.location.href='{$url->getURL()}';\">Previous Day</button>";
+			$url->mon = $back['mon'];
+			$url->mday = $back['mday'];
+			$url->year = $back['year'];
+			echo "<a class=\"previous\" href=\"$url\">Previous Day</a>";
 
 			echo date('D, M j, Y',$rangeStart);
 
-			$url->parameters['mon'] = $next['mon'];
-			$url->parameters['mday'] = $next['mday'];
-			$url->parameters['year'] = $next['year'];
-			echo "<button type=\"button\" class=\"next\" onclick=\"document.location.href='{$url->getURL()}';\">Next Day</button>";
+			$url->mon = $next['mon'];
+			$url->mday = $next['mday'];
+			$url->year = $next['year'];
+			echo "<a class=\"next\" href=\"$url\">Next Day</a>";
 		?>
 	</h1>
 	<table>

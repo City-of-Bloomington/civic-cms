@@ -21,25 +21,23 @@
 					if ($_SESSION['USER']->hasSubscription($section))
 					{
 						$subscribeButton = "
-						<button type=\"button\"
-								class=\"unsubscribe\"
-								onclick=\"document.location.href='".BASE_URL."/sections/subscriptions/unsubscribe.php?section_id={$section->getId()};return_url=$return_url';\"
-								onmouseover=\"FRAMEWORK.popupTooltip('Unsubscribe to this section');\"
-								onmouseout=\"FRAMEWORK.hideTooltip();\">
+						<a class=\"unsubscribe\"
+							href=\"".BASE_URL."/sections/subscriptions/unsubscribe.php?section_id={$section->getId()};return_url=$return_url\"
+							onmouseover=\"FRAMEWORK.popupTooltip('Unsubscribe to this section');\"
+							onmouseout=\"FRAMEWORK.hideTooltip();\">
 							Unsubscribe
-						</button>
+						</a>
 						";
 					}
 					else
 					{
 						$subscribeButton = "
-						<button type=\"button\"
-								class=\"subscribe\"
-								onclick=\"document.location.href='".BASE_URL."/sections/subscriptions/subscribe.php?section_id={$section->getId()};return_url=$return_url';\"
-								onmouseover=\"FRAMEWORK.popupTooltip('Subscribe to this section');\"
-								onmouseout=\"FRAMEWORK.hideTooltip();\">
+						<a class=\"subscribe\"
+							href=\"".BASE_URL."/sections/subscriptions/subscribe.php?section_id={$section->getId()};return_url=$return_url\"
+							onmouseover=\"FRAMEWORK.popupTooltip('Subscribe to this section');\"
+							onmouseout=\"FRAMEWORK.hideTooltip();\">
 							Subscribe
-						</button>
+						</a>
 						";
 					}
 					if ($section->permitsPostingBy($_SESSION['USER']))
@@ -48,13 +46,12 @@
 						$url->document_id = $section->getDocument_id();
 						$url->return_url = $return_url;
 						$notifyButton = "
-						<button type=\"button\"
-								class=\"notify\"
-								onclick=\"document.location.href='$url';\"
-								onmouseover=\"FRAMEWORK.popupTooltip('Notify Subscribers.  This will send an email out to all people subscribed to this section.');\"
-								onmouseout=\"FRAMEWORK.hideTooltip();\">
+						<a class=\"notify\"
+							href=\"$url\"
+							onmouseover=\"FRAMEWORK.popupTooltip('Notify Subscribers.  This will send an email out to all people subscribed to this section.');\"
+							onmouseout=\"FRAMEWORK.hideTooltip();\">
 							Notify
-						</button>
+						</a>
 						";
 					}
 				}

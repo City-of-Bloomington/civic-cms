@@ -17,7 +17,7 @@
 				{
 					echo "
 					<a href=\"$url\">$name</a>
-					<button type=\"button\" class=\"addSmall\" onclick=\"document.location.href='$url';\">Add</button>
+					<a class=\"addSmall\" href=\"$url\">Add</a>
 					";
 				}
 				else { echo "<a href=\"#\">$name</a>"; }
@@ -51,7 +51,7 @@
 			{
 				echo "
 				<a href=\"$url\">$name</a>
-				<button type=\"button\" class=\"addSmall\" onclick=\"document.location.href='$url';\">Add</button>
+				<a class=\"addSmall\" href=\"$url\">Add</a>
 				";
 			}
 			else { echo "<a href=\"#\">$name</a>"; }

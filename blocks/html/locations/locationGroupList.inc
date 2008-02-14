@@ -11,7 +11,7 @@
 		<?php
 			if (userHasRole(array('Administrator','Webmaster')))
 			{
-				echo "<button type=\"button\" class=\"addSmall\" onclick=\"document.location.href='".BASE_URL."/locations/addLocationGroup.php';\">Add</button>";
+				echo "<a class=\"addSmall\" href=\"".BASE_URL."/locations/addLocationGroup.php\">Add</a>";
 			}
 		?>
 		Location Groups
@@ -24,7 +24,7 @@
 				if (isset($_SESSION['USER']) && $locationGroup->permitsEditingBy($_SESSION['USER']))
 				{
 					$buttons = "
-					<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/locations/updateLocationGroup.php?id={$locationGroup->getId()}';\">Edit</button>
+					<a class=\"editSmall\" href=\"".BASE_URL."/locations/updateLocationGroup.php?id={$locationGroup->getId()}\">Edit</a>
 					<button type=\"button\" class=\"deleteSmall\" onclick=\"FRAMEWORK.deleteConfirmation('".BASE_URL."/locations/deleteLocationGroup.php?locationGroup_id={$locationGroup->getId()}');\">Delete</button>
 					";
 				}

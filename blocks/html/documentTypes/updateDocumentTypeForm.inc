@@ -107,6 +107,6 @@ are displayed in a list.</p>
 
 <fieldset><legend>Submit</legend>
 	<button type="submit" class="submit">Save</button>
-	<button type="button" class="cancel" onclick="document.location.href='<?php echo BASE_URL; ?>/documentTypes';">Cancel</button>
+	<a class="cancel" href="<?php echo BASE_URL; ?>/documentTypes">Cancel</a>
 </fieldset>
 </form>

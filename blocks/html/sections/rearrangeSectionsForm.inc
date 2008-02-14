@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006,2007,2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Section $this->section
@@ -36,6 +36,6 @@ Un-numbered sections may be ordered differently each time they are displayed.</p
 	</ul>
 
 	<button type="submit" class="save">Save</button>
-	<button type="button" class="done" onclick="document.location.href='home.php';">Done</button>
+	<a class="done" href="home.php">Done</a>
 </fieldset>
 </form>

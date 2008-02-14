@@ -8,7 +8,7 @@
 <div class="interfaceBox">
 	<h1>
 		Backups
-		<button type="button" class="addSmall" onclick="document.location.href='<?php echo BASE_URL; ?>/backups/create.php';">Add</button>
+		<a class="addSmall" href="<?php echo BASE_URL; ?>/backups/create.php">Add</a>
 	</h1>
 	<table>
 	<?php
@@ -28,7 +28,7 @@
 
 			echo "
 			<tr><td>$backup</td>
-				<td><button type=\"button\" class=\"download\" onclick=\"document.location.href='".BASE_URL."/backups/download.php?backup=$backup';\">Download</button>
+				<td><a class=\"download\" href=\"".BASE_URL."/backups/download.php?backup=$backup\">Download</a>
 				</td>
 			</tr>
 			";

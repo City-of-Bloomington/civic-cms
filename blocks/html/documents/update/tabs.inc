@@ -37,7 +37,7 @@
 <div>
 	<p>Move on to the next tab.  The document will not be saved to the database until you click the "Save" button.</p>
 	<button type="submit" class="next" onclick="FRAMEWORK.processTabbedForm('documentForm','<?php echo $this->next_tab; ?>','next');">Next</button>
-	<button type="cancel" class="cancel" onclick="document.location.href='<?php echo $this->return_url; ?>';">Cancel</button>
+	<a class="cancel" href="<?php echo $this->return_url; ?>">Cancel</a>
 	<button type="button" class="save" onclick="FRAMEWORK.processTabbedForm('documentForm','<?php echo $this->current_tab; ?>','save');">Save</button>
 	<button type="button" class="saveAndContinue" onclick="FRAMEWORK.processTabbedForm('documentForm','<?php echo $this->current_tab; ?>','saveAndContinue');">Save and Continue</button>
 </div>

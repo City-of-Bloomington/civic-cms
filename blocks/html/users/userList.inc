@@ -7,7 +7,7 @@
  */
 	if (userHasRole("Administrator"))
 	{
-		$addButton = "<button type=\"button\" class=\"addSmall\" onclick=\"document.location.href='".BASE_URL."/users/addUser.php';\">Add</button>";
+		$addButton = "<a class=\"addSmall\" href=\"".BASE_URL."/users/addUser.php\">Add</a>";
 	}
 	else { $addButton = ""; }
 ?>
@@ -19,7 +19,7 @@
 		{
 			if (userHasRole("Administrator"))
 			{
-				$editButton = "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='updateUser.php?id={$user->getId()}'\">Edit</button>";
+				$editButton = "<a class=\"editSmall\" href=\"updateUser.php?id={$user->getId()}\">Edit</a>";
 				$deleteButton = "<button type=\"button\" class=\"deleteSmall\" onclick=\"FRAMEWORK.deleteConfirmation('deleteUser.php?id={$user->getId()}');\">Delete</button>";
 			}
 			else

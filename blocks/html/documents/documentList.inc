@@ -123,15 +123,15 @@
 				# Show all the editing buttons
 				#$url->parameters['tab'] = 'attachments';
 				# <a href=\"$url\" onclick=\"window.open('$url');return false;\">Attachments</a>
-				$retireButton = !$document->getRetireDate() ? "<button type=\"button\" class=\"retire\" onclick=\"document.location.href='".BASE_URL."/documents/retireDocument.php?document_id={$document->getId()}';\">Retire</button>" : "";
+				$retireButton = !$document->getRetireDate() ? "<a class=\"retire\" href=\"".BASE_URL."/documents/retireDocument.php?document_id={$document->getId()}\">Retire</a>" : "";
 
 				if($_SESSION['USER']->hasWatch($document))
 				{
-					$watch = "<button type=\"button\" class=\"unwatch\" onclick=\"document.location.href='".BASE_URL."/documents/removeWatch.php?document_id={$document->getId()}';\">Unwatch</button>";
+					$watch = "<a class=\"unwatch\" href=\"".BASE_URL."/documents/removeWatch.php?document_id={$document->getId()}\">Unwatch</a>";
 				}
 				else
 				{
-					$watch = "<button type=\"button\" class=\"watch\" onclick=\"document.location.href='".BASE_URL."/documents/addWatch.php?document_id={$document->getId()}';\">Watch</button>";
+					$watch = "<a class=\"watch\" href=\"".BASE_URL."/documents/addWatch.php?document_id={$document->getId()}\">Watch</a>";
 				}
 
 				# Documents that are homepages should not be deleted.
@@ -140,8 +140,8 @@
 
 				echo "
 				<tr><td colspan=\"7\">
-						<button type=\"button\" class=\"edit\" onclick=\"document.location.href='".BASE_URL."/documents/updateDocument.php?document_id={$document->getId()}';\">Edit</button>
-						<button type=\"button\" class=\"view\" onclick=\"document.location.href='{$document->getURL()}';\">View</button>
+						<a class=\"edit\" href=\"".BASE_URL."/documents/updateDocument.php?document_id={$document->getId()}\">Edit</a>
+						<a class=\"view\" href=\"{$document->getURL()}\">View</a>
 						$deleteButton
 						$retireButton
 						$watch

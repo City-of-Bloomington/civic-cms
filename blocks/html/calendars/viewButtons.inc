@@ -13,7 +13,7 @@ if ($this->calendar->getName())
 	echo '<h1>';
 	if (isset($_SESSION['USER']) && $this->calendar->permitsEditingBy($_SESSION['USER']))
 	{
-		echo "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/calendars/updateCalendar.php?calendar_id={$this->calendar->getId()}';\">Edit</button>";
+		echo "<a class=\"editSmall\" href=\"".BASE_URL."/calendars/updateCalendar.php?calendar_id={$this->calendar->getId()}\">Edit</a>";
 	}
 	echo View::escape($this->calendar->getName()).'</h1>';
 	echo "<p>".View::escape($this->calendar->getDescription())."</p>";
@@ -49,7 +49,7 @@ if ($this->calendar->getName())
 		<?php
 			if (userHasRole(array('Administrator','Webmaster')))
 			{
-				echo "<button type=\"button\" class=\"add\" onclick=\"document.location.href='".BASE_URL."/calendars/addCalendar.php';\">Add Calendar</button>";
+				echo "<a class=\"add\" href=\"".BASE_URL."/calendars/addCalendar.php';\">Add Calendar</a>";
 			}
 		?>
 	</fieldset>

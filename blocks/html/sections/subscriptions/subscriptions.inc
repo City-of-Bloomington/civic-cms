@@ -18,13 +18,12 @@
 
 				echo "
 				<li><a href=\"$url\">$name</a>
-					<button type=\"button\"
-							class=\"unsubscribe\"
-							onclick=\"document.location.href='".BASE_URL."/sections/subscriptions/unsubscribe.php?section_id={$subscription->getSection_id()};return_url=$return_url';\"
-							onmouseover=\"FRAMEWORK.popupTooltip('Unsubscribe to this section.')\"
-							onmouseout=\"FRAMEWORK.hideTooltip();\">
+					<a class=\"unsubscribe\"
+						href=\"".BASE_URL."/sections/subscriptions/unsubscribe.php?section_id={$subscription->getSection_id()};return_url=$return_url\"
+						onmouseover=\"FRAMEWORK.popupTooltip('Unsubscribe to this section.');\"
+						onmouseout=\"FRAMEWORK.hideTooltip();\">
 						Unsubscribe
-					</button>
+					</a>
 				</li>
 				";
 			}

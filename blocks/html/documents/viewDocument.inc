@@ -18,13 +18,12 @@ if (isset($this->section))
 {
 	$rss = BASE_URL.'/sections/viewSection.php?format=rss;section_id='.$this->section->getId();
 	$rssButton = "
-	<li><button type=\"button\"
-				class=\"rss\"
-				onclick=\"document.location.href='$rss';\"
-				onmouseover=\"FRAMEWORK.popupTooltip('Subscribe to this page');\"
-				onmouseout=\"FRAMEWORK.hideTooltip();\">
+	<li><a class=\"rss\"
+			href=\"$rss\"
+			onmouseover=\"FRAMEWORK.popupTooltip('Subscribe to this page');\"
+			onmouseout=\"FRAMEWORK.hideTooltip();\">
 			RSS
-		</button>
+		</a>
 	</li>
 	";
 }
@@ -67,13 +66,12 @@ if (isset($_SESSION['USER']) && $this->document->permitsEditingBy($_SESSION['USE
 	$url->document_id = $this->document->getId();
 	$url->return_url = $return_url;
 	$editButton = "
-	<button type=\"button\"
-			class=\"editSmall\"
-			onclick=\"document.location.href='$url';\"
-			onmouseover=\"FRAMEWORK.popupTooltip('Edit this document');\"
-			onmouseout=\"FRAMEWORK.hideTooltip();\">
+	<a class=\"editSmall\"
+		href=\"$url\"
+		onmouseover=\"FRAMEWORK.popupTooltip('Edit this document');\"
+		onmouseout=\"FRAMEWORK.hideTooltip();\">
 		Edit
-	</button>
+	</a>
 	";
 
 	#----------------------------------------------------------------
@@ -102,25 +100,23 @@ if (isset($_SESSION['USER']) && $this->document->permitsEditingBy($_SESSION['USE
 	if($_SESSION['USER']->hasWatch($this->document))
 	{
 		$watchButton = "
-		<button type=\"button\"
-				class=\"unwatch\"
-				onclick=\"document.location.href='".BASE_URL."/documents/removeWatch.php?document_id={$this->document->getId()};return_url=$return_url';\"
-				onmouseover=\"FRAMEWORK.popupTooltip('Stop watching this page.  You will no longer receive emails when changes are made to this page.');\"
-				onmouseout=\"FRAMEWORK.hideTooltip();\">
+		<a class=\"unwatch\"
+			href=\"".BASE_URL."/documents/removeWatch.php?document_id={$this->document->getId()};return_url=$return_url\"
+			onmouseover=\"FRAMEWORK.popupTooltip('Stop watching this page.  You will no longer receive emails when changes are made to this page.');\"
+			onmouseout=\"FRAMEWORK.hideTooltip();\">
 			Unwatch
-		</button>
+		</a>
 		";
 	}
 	else
 	{
 		$watchButton = "
-		<button type=\"button\"
-				class=\"watch\"
-				onclick=\"document.location.href='".BASE_URL."/documents/addWatch.php?document_id={$this->document->getId()};return_url=$return_url';\"
-				onmouseover=\"FRAMEWORK.popupTooltip('Watch this page.  You will receive emails when changes are made to this page.');\"
-				onmouseout=\"FRAMEWORK.hideTooltip();\">
+		<a class=\"watch\"
+			href=\"".BASE_URL."/documents/addWatch.php?document_id={$this->document->getId()};return_url=$return_url\"
+			onmouseover=\"FRAMEWORK.popupTooltip('Watch this page.  You will receive emails when changes are made to this page.');\"
+			onmouseout=\"FRAMEWORK.hideTooltip();\">
 			Watch
-		</button>
+		</a>
 		";
 	}
 

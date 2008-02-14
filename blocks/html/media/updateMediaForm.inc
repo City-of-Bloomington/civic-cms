@@ -53,7 +53,7 @@
 
 <fieldset><legend>Submit</legend>
 	<button type="submit" class="submit">Submit</button>
-	<button type="button" class="cancel" onclick="document.location.href='<?php echo BASE_URL; ?>/media/info.php?media_id=<?php echo $this->media->getId(); ?>';">Cancel</button>
+	<a class="cancel" href="<?php echo BASE_URL; ?>/media/info.php?media_id=<?php echo $this->media->getId(); ?>">Cancel</a>
 </fieldset>
 
 </form>

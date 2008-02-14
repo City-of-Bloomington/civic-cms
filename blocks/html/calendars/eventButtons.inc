@@ -10,5 +10,5 @@
 	if ($this->calendar->getId()) { $url->parameters['calendar_id'] = $this->calendar->getId(); }
 ?>
 <div>
-	<button type="button" class="addEvent" onclick="document.location.href='<?php echo $url; ?>';">Add Event</button>
+	<a class="addEvent" href="<?php echo $url; ?>">Add Event</a>
 </div>

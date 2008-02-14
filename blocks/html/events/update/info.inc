@@ -203,7 +203,7 @@
 		<input type="hidden" name="return_url" id="return_url" value="<?php echo $this->return_url; ?>" />
 		<input type="hidden" name="instance_id" id="instance_id" value="<?php echo $this->instance_id; ?>" />
 		<button type="submit" class="next">Next</button>
-		<button type="button" class="cancel" onclick="document.location.href='<?php echo $this->return_url; ?>';">Cancel</button>
+		<a class="cancel" href="<?php echo $this->return_url; ?>">Cancel</a>
 		<button type="button" class="save" onclick="FRAMEWORK.processTabbedForm('eventForm','info','save');">Save</button>
 </fieldset>
 </form>

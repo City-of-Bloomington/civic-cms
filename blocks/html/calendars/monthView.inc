@@ -22,16 +22,16 @@
 		$next = getdate($end);
 		$url = new URL($_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
 
-		$url->parameters['year'] = $back['year'];
-		$url->parameters['mon'] = $back['mon'];
-		echo "<button type=\"button\" class=\"previous\" onclick=\"document.location.href='{$url->getURL()}'\">Previous Month</button>";
+		$url->year = $back['year'];
+		$url->mon = $back['mon'];
+		echo "<a class=\"previous\" href=\"$url\">Previous Month</a>";
 
 		$monthName = date('F',$start);
 		echo "{$this->calendar->getName()} $monthName $year";
 
-		$url->parameters['year'] = $next['year'];
-		$url->parameters['mon'] = $next['mon'];
-		echo "<button type=\"button\" class=\"next\" onclick=\"document.location.href='{$url->getURL()}'\">Next Month</button>";
+		$url->year = $next['year'];
+		$url->mon = $next['mon'];
+		echo "<a class=\"next\" href=\"$url\">Next Month</a>";
 	?>
 	</h1>
 <table class="calendar">

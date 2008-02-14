@@ -13,7 +13,7 @@
 		if ($this->media->permitsEditingBy($_SESSION['USER']))
 		{
 			echo "
-			<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/media/updateMedia.php?media_id={$this->media->getId()}';\">Edit</button>
+			<a class=\"editSmall\" href=\"".BASE_URL."/media/updateMedia.php?media_id={$this->media->getId()}\">Edit</a>
 			<button type=\"button\" class=\"deleteSmall\" onclick=\"FRAMEWORK.deleteConfirmation('".BASE_URL."/media/deleteMedia.php?media_id={$this->media->getId()}');\">Delete</button>
 			";
 		}

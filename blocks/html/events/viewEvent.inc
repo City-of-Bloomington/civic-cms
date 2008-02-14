@@ -13,7 +13,7 @@
 		if (isset($_SESSION['USER']) && $this->event->permitsEditingBy($_SESSION['USER']))
 		{
 			echo "
-			<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/events/updateEvent.php?event_id={$this->event->getId()};return_url={$this->event->getURL()}';\">Edit</button>
+			<a class=\"editSmall\" href=\"".BASE_URL."/events/updateEvent.php?event_id={$this->event->getId()};return_url={$this->event->getURL()}\">Edit</a>
 			<button type=\"button\" class=\"deleteSmall\" onclick=\"FRAMEWORK.deleteConfirmation('".BASE_URL."/events/deleteEvent.php?event_id={$this->event->getId()}');\">Delete</button>
 			";
 		}

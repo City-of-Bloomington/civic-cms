@@ -94,7 +94,7 @@
 					# You can't download anything until we've saved the document, and have a document_id
 					if ($this->document->getId())
 					{
-						echo "<button type=\"button\" class=\"download\" onclick=\"document.location.href='".BASE_URL."/documents/downloadSource.php?document_id={$this->document->getId()};lang={$this->language->getCode()}';\">Download</button>";
+						echo "<a class=\"download\" href=\"".BASE_URL."/documents/downloadSource.php?document_id={$this->document->getId()};lang={$this->language->getCode()}\">Download</a>";
 					}
 				?>
 				<input name="source" type="file" />

@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006,2007,2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Section $this->section
@@ -25,8 +25,8 @@
 				echo "
 				<li class=\"closed\">
 					<a href=\"".BASE_URL."/sections/sectionInfo.php?section_id={$section->getId()}\">$name</a>
-					<button type=\"button\" class=\"info\" onclick=\"document.location.href='".BASE_URL."/sections/sectionInfo.php?section_id={$section->getId()}';\">Info</button>
-					<button type=\"button\" class=\"view\" onclick=\"document.location.href='".BASE_URL."/sections/viewSection.php?section_id={$section->getId()}';\">View</button>
+					<a class=\"info\" href=\"".BASE_URL."/sections/sectionInfo.php?section_id={$section->getId()}\">Info</a>
+					<a class=\"view\" href=\"".BASE_URL."/sections/viewSection.php?section_id={$section->getId()}\">View</a>
 				";
 			}
 			else
@@ -70,8 +70,8 @@
 			{
 				echo "
 				<a href=\"".BASE_URL."/sections/sectionInfo.php?section_id={$section->getId()}\">$name</a>
-				<button type=\"button\" class=\"info\" onclick=\"document.location.href='".BASE_URL."/sections/sectionInfo.php?section_id={$section->getId()}';\">Info</button>
-				<button type=\"button\" class=\"view\" onclick=\"document.location.href='".BASE_URL."/sections/viewSection.php?section_id={$section->getId()}';\">View</button>
+				<a class=\"info\" href=\"".BASE_URL."/sections/sectionInfo.php?section_id={$section->getId()}\">Info</a>
+				<a class=\"view\" href=\"".BASE_URL."/sections/viewSection.php?section_id={$section->getId()}\">View</a>
 				<ul class=\"expandable\">
 				";
 			}

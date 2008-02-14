@@ -10,7 +10,7 @@
 		<?php
 			if (userHasRole(array('Administrator','Webmaster')))
 			{
-				echo "<button type=\"button\" class=\"addSmall\" onclick=\"document.location.href='".BASE_URL."/documentTypes/addDocumentType.php';\">Add</button>";
+				echo "<a class=\"addSmall\" href='".BASE_URL."/documentTypes/addDocumentType.php\">Add</a>";
 			}
 		?>
 		<a href="<?php echo BASE_URL; ?>/documentTypes">Document Types</a>
@@ -24,7 +24,7 @@
 		echo '<li>';
 		if (userHasRole(array('Administrator','Webmaster')))
 		{
-			echo "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/documentTypes/updateDocumentType.php?documentType_id={$type->getId()}';\">Edit</button>";
+			echo "<a class=\"editSmall\" href=\"".BASE_URL."/documentTypes/updateDocumentType.php?documentType_id={$type->getId()}\">Edit</a>";
 		}
 		echo View::escape($type->getType());
 		$count = count($type->getDocuments());

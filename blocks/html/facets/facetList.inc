@@ -17,7 +17,7 @@
 				if (userHasRole(array('Administrator','Webmaster')))
 				{
 					$url->parameters['facetGroup_id'] = $this->facetGroup->getId();
-					echo "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='$url';\">Add</button>";
+					echo "<a class=\"editSmall\" href=\"$url\">Add</a>";
 				}
 			}
 			echo View::escape($this->title);
@@ -30,7 +30,7 @@
 				if (userHasRole(array('Administrator','Webmaster')))
 				{
 					echo "
-					<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/facets/updateFacet.php?facet_id={$facet->getId()}';\">Edit</button>
+					<a class=\"editSmall\" href=\"".BASE_URL."/facets/updateFacet.php?facet_id={$facet->getId()}\">Edit</a>
 					<button type=\"button\" class=\"deleteSmall\" onclick=\"FRAMEWORK.deleteConfirmation('".BASE_URL."/facets/deleteFacet.php?facet_id={$facet->getId()}');\">Delete</button>
 					";
 				}

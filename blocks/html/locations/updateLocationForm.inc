@@ -119,6 +119,6 @@
 </fieldset>
 <fieldset><legend>Submit</legend>
 	<button type="submit" class="submit">Submit</button>
-	<button type="button" class="cancel" onclick="document.location.href='<?php echo $this->return_url; ?>';">Cancel</button>
+	<a class="cancel" href="<?php echo $this->return_url; ?>">Cancel</a>
 </fieldset>
 </form>

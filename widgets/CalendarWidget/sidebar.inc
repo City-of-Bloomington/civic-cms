@@ -23,7 +23,7 @@
 		$feedsURL->type = 'webcal';
 		$feedsURL->url = BASE_URL.'/calendars?format=ical';
 	?>
-	<button type="button" class="ical" onclick="document.location.href='<?php echo $feedsURL; ?>';">Subscribe</button>
+	<a class="ical" href="<?php echo $feedsURL; ?>">Subscribe</a>
 </h1>
 <table class="calendar">
 <tr><th colspan="7"><?php echo $calendarDate['month']; ?></th></tr>

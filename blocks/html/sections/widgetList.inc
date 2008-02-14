@@ -17,8 +17,8 @@
 		{
 			$name = View::escape($widget->getName());
 			echo "
-			<tr><td><button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/sections/updateWidget.php?sectionWidget_id={$widget->getId()}';\">Edit</button>
-					<button type=\"button\" class=\"deleteSmall\" onclick=\"document.location.href='".BASE_URL."/sections/removeWidget.php?sectionWidget_id={$widget->getId()}';\">delete</button></td>
+			<tr><td><a class=\"editSmall\" href=\"".BASE_URL."/sections/updateWidget.php?sectionWidget_id={$widget->getId()}\">Edit</a>
+					<a class=\"deleteSmall\" href=\"".BASE_URL."/sections/removeWidget.php?sectionWidget_id={$widget->getId()}\">delete</a></td>
 				<td>$name</td>
 				<td>{$widget->getPanel()}</td>
 				<td>{$widget->getLayout_order()}</td></tr>
@@ -41,7 +41,7 @@
 				$name = View::escape($widget->getName());
 				$description = View::escape($widget->getDescription());
 				echo "
-				<tr><td><button type=\"button\" class=\"addSmall\" onclick=\"document.location.href='".BASE_URL."/sections/addWidget.php?section_id={$this->section->getId()};widget_id={$widget->getId()}';\">Add</button></td>
+				<tr><td><a class=\"addSmall\" href=\"".BASE_URL."/sections/addWidget.php?section_id={$this->section->getId()};widget_id={$widget->getId()}\">Add</a></td>
 					<td>$name</td>
 					<td>$description</td></tr>
 				";

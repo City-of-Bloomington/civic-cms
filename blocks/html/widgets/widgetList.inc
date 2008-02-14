@@ -26,8 +26,8 @@
 		$name = View::escape($widget->getName());
 		$description = View::escape($widget->getDescription());
 		echo "
-		<tr><td><button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/widgets/updateWidget.php?widget_id={$widget->getId()}';\">Edit</button>
-				<button type=\"button\" class=\"deleteSmall\" onclick=\"document.location.href='".BASE_URL."/widgets/uninstall.php?widget_id={$widget->getId()}';\">Uninstall</button></td>
+		<tr><td><a class=\"editSmall\" href=\"".BASE_URL."/widgets/updateWidget.php?widget_id={$widget->getId()}\">Edit</a>
+				<a class=\"deleteSmall\" href=\"".BASE_URL."/widgets/uninstall.php?widget_id={$widget->getId()}\">Uninstall</a></td>
 			<td>$name</td>
 			<td>$description</td>
 			<td>$global</td>
@@ -52,7 +52,7 @@
 			$name = View::escape($widget->getName());
 			$description = View::escape($widget->getDescription());
 			echo "
-			<tr><td><button type=\"button\" class=\"addSmall\" onclick=\"document.location.href='".BASE_URL."/widgets/install.php?widget={$widget->getClassName()}';\">Install</button></td>
+			<tr><td><a class=\"addSmall\" href=\"".BASE_URL."/widgets/install.php?widget={$widget->getClassName()}\">Install</a></td>
 				<td>$name</td>
 				<td>$description</td></tr>
 			";

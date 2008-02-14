@@ -9,7 +9,7 @@
  */
 ?>
 <h1>
-	<button type="button" class="kml" onclick="document.location.href='<?php echo BASE_URL; ?>/locations/?format=kml';">Locations KML</button>
+	<a class="kml" href="<?php echo BASE_URL; ?>/locations/?format=kml">Locations KML</a>
 	Locations
 </h1>
 <p>Use this feature to find locations grouped together into categories, such as City Facilities or Historic Sites.
@@ -48,14 +48,14 @@ as well as find driving directions, and information specific to a certain site.<
 			{
 				$add_url = new URL(BASE_URL.'/locations/updateLocation.php');
 				$add_url->return_url = $return_url;
-				echo "<button type=\"button\" class=\"addSmall\" onclick=\"document.location.href='$add_url';\">Add</button>";
+				echo "<a class=\"addSmall\" href=\"$add_url\">Add</a>";
 			}
 
 			$url = new URL(BASE_URL.'/locations');
 			$url->format = 'kml';
 			$url->locationGroup_id = isset($this->locationGroup) ? $this->locationGroup->getId() : 0;
 			$title = View::escape($this->title);
-			echo "<button type=\"button\" class=\"kml\" onclick=\"document.location.href='$url';\">$title KML</button>";
+			echo "<a class=\"kml\" href=\"$url\">$title KML</a>";
 
 			echo $name;
 		?>
@@ -93,7 +93,7 @@ as well as find driving directions, and information specific to a certain site.<
 					$edit_url = new URL(BASE_URL.'/locations/updateLocation.php');
 					$edit_url->location_id = $location->getId();
 					$edit_url->return_url = $return_url;
-					$editButton = "<button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='$edit_url';\">Edit</button>";
+					$editButton = "<a class=\"editSmall\" href=\"$edit_url\">Edit</a>";
 
 					$delete_url = new URL(BASE_URL.'/locations/deleteLocation.php');
 					$delete_url->location_id = $location->getId();

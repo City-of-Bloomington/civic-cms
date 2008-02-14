@@ -44,6 +44,6 @@
 ?>
 <fieldset><legend>Submit</lgend>
 	<button type="submit" class="submit">Submit</button>
-	<button type="button" class="cancel" onclick="document.location.href='<?php echo BASE_URL; ?>/sections/updateWidgets.php?section_id=<?php echo $this->sectionWidget->getSection_Id(); ?>';">Cancel</button>
+	<a class="cancel" href="<?php echo BASE_URL; ?>/sections/updateWidgets.php?section_id=<?php echo $this->sectionWidget->getSection_Id(); ?>">Cancel</a>
 </fieldset>
 </form>

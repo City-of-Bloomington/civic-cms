@@ -8,7 +8,7 @@
 <h1><?php
 		if (userHasRole(array('Administrator','Webmaster')))
 		{
-			echo "<button type=\"button\" class=\"addSmall\" onclick=\"document.location.href='".BASE_URL."/facets/addFacet.php';\">Add</button>";
+			echo "<a class=\"addSmall\" href=\"".BASE_URL."/facets/addFacet.php\">AddM</a>";
 		}
 	?>
 	Facets

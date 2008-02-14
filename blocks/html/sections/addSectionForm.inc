@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006,2007,2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
@@ -60,6 +60,6 @@
 
 <fieldset><legend>Submit</legend>
 	<button type="submit" class="save">Save</button>
-	<button type="button" class="cancel" onclick="document.location.href='<?php echo BASE_URL; ?>/sections';">Cancel</button>
+	<a class="cancel" href="<?php echo BASE_URL; ?>/sections">Cancel</a>
 </fieldset>
 </form>

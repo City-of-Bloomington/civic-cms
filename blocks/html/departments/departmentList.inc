@@ -6,7 +6,7 @@
  * @param DepartmentList $this->departmentList
  */
 ?>
-<h1><?php if (userHasRole('Administrator')) { echo "<button type=\"button\" class=\"addSmall\" onclick=\"document.location.href='".BASE_URL."/departments/addDepartment.php';\">Add</button>"; } ?>
+<h1><?php if (userHasRole('Administrator')) { echo "<a class=\"addSmall\" href=\"".BASE_URL."/departments/addDepartment.php\">Add</a>"; } ?>
 	Departments</h1>
 <table>
 <?php
@@ -17,7 +17,7 @@
 		$phone = View::escape($department->getPhone());
 		$email = View::escape($department->getEmail());
 		echo "<tr>";
-		if (userHasRole('Administrator')) { echo "<td><button type=\"button\" class=\"editSmall\" onclick=\"document.location.href='".BASE_URL."/departments/updateDepartment.php?department_id={$department->getId()}';\">Edit</button></td>"; }
+		if (userHasRole('Administrator')) { echo "<td><a class=\"editSmall\" href=\"".BASE_URL."/departments/updateDepartment.php?department_id={$department->getId()}\">Edit</a></td>"; }
 		if ($department->getDocument_id())
 		{
 			$name = "<a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$department->getDocument_id()}\">$name</a>";
