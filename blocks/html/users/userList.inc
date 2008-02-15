@@ -1,18 +1,18 @@
 <?php
 /**
- * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2007,2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param UserList $this->userList
+ * @param string $this->title
  */
-	if (userHasRole("Administrator"))
-	{
-		$addButton = "<a class=\"addSmall\" href=\"".BASE_URL."/users/addUser.php\">Add</a>";
-	}
-	else { $addButton = ""; }
 ?>
 <div class="interfaceBox">
-	<h1><?php echo $addButton; ?>Users</h1>
+	<h1><?php
+			if (userHasRole('Administrator')) { echo "<a class=\"addSmall\" href=\"".BASE_URL."/users/addUser.php\">Add</a>"; }
+			echo isset($this->title) ? View::escape($this->title) : 'Users';
+		?>
+	</h1>
 	<table>
 	<?php
 		foreach($this->userList as $user)
@@ -30,7 +30,7 @@
 
 			$firstname = View::escape($user->getFirstname());
 			$lastname = View::escape($user->getLastname());
-			$department = View::escape($user->getDepartment()->getName());
+			$department = $user->getDepartment_id() ? View::escape($user->getDepartment()->getName()) : '';
 			echo "
 			<tr><td>{$editButton}{$deleteButton}</td>
 				<td><a href=\"".BASE_URL."/users/viewUser.php?user_id={$user->getId()}\">{$user->getUsername()}</a></td>
