@@ -19,6 +19,8 @@ try
 catch (Exception $e)
 {
 	$_SESSION['errorMessages'][] = $e;
+	Header('Location: '.BASE_URL.'/login');
+	exit();
 }
 
 if (userHasRole(array('Administrator','Webmaster','Content Creator')))

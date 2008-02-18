@@ -16,6 +16,7 @@
 				$name = View::escape($section->getName());
 
 				$subscribeButton = '';
+				$notifyButton = '';
 				if (isset($_SESSION['USER']))
 				{
 					#------------------------------------------------
@@ -61,7 +62,6 @@
 						</a>
 						";
 					}
-					else { $notifyButton = ''; }
 				}
 				echo "
 				<li><a href=\"{$section->getURL()}\">$name</a>
