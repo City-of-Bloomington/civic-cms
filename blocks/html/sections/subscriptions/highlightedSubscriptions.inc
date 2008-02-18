@@ -18,6 +18,9 @@
 				$subscribeButton = '';
 				if (isset($_SESSION['USER']))
 				{
+					#------------------------------------------------
+					# Subscription Button
+					#------------------------------------------------
 					if ($_SESSION['USER']->hasSubscription($section))
 					{
 						$subscribeButton = "
@@ -40,6 +43,10 @@
 						</a>
 						";
 					}
+
+					#------------------------------------------------
+					# Notify Button
+					#------------------------------------------------
 					if ($section->permitsPostingBy($_SESSION['USER']))
 					{
 						$url = new URL(BASE_URL.'/sections/subscriptions/notify.php');
@@ -54,6 +61,7 @@
 						</a>
 						";
 					}
+					else { $notifyButton = ''; }
 				}
 				echo "
 				<li><a href=\"{$section->getURL()}\">$name</a>
