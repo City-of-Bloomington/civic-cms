@@ -36,7 +36,7 @@
 	<?php
 		include FRAMEWORK.'/errorMessages.inc';
 
-		$this->includeBlocks();
+		echo $this->includeBlocks();
 
 		$panel = new Panel('mainContent');
 		$widgets = isset($this->document) ? $panel->getWidgets($this->document) : $panel->getWidgets();

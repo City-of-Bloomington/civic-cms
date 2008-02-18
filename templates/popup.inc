@@ -5,11 +5,10 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param string $this->title
  */
-	if (!isset($this->title)) { $this->title = "Content Manager - City of Bloomington"; }
-	include APPLICATION_HOME.'/includes/xhtmlStrictHeader.inc';
-	include FRAMEWORK.'/errorMessages.inc';
+if (!isset($this->title)) { $this->title = "Content Manager - City of Bloomington"; }
+include APPLICATION_HOME.'/includes/xhtmlStrictHeader.inc';
+include FRAMEWORK.'/errorMessages.inc';
 
-	$this->includeBlocks();
+echo $this->includeBlocks();
 
-	include FRAMEWORK.'/xhtmlFooter.inc';
-?>
+include FRAMEWORK.'/xhtmlFooter.inc';

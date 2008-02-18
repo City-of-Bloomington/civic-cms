@@ -28,6 +28,6 @@ END:DAYLIGHT
 END:VTIMEZONE
 
 <?php
-	$this->includeBlocks();
+	echo $this->includeBlocks();
 ?>
 END:VCALENDAR

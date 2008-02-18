@@ -28,7 +28,7 @@
 <div id="backendContent">
 	<?php
 		include FRAMEWORK.'/errorMessages.inc';
-		$this->includeBlocks();
+		echo $this->includeBlocks();
 	?>
 </div>
 <?php
