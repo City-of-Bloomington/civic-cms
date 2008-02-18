@@ -230,16 +230,11 @@
 
 					list($year,$month,$day) = explode("-",substr($this->created,0,10));
 
-					$sandbox = new SubversionWorkingCopy(APPLICATION_HOME.'/data/documents');
 					if (!is_dir($directory))
 					{
 						mkdir($directory,0775,true);
-						$sandbox->add(APPLICATION_HOME."/data/documents/$year","--force");
 					}
 					file_put_contents($file,$this->content[$lang]);
-
-					$out = $sandbox->status($file);
-					if (count($out) && $out[0]{0} == "?") { $sandbox->add($file); }
 				}
 				else
 				{
@@ -247,8 +242,6 @@
 					$this->deleteContent($lang);
 				}
 			}
-			$sandbox->commit(APPLICATION_HOME."/data/documents/$year",$_SESSION['USER']->getUsername());
-
 
 			# Inform the people on the watch list
 			foreach($this->getWatches() as $watch) { $watch->notify(); }
@@ -257,13 +250,11 @@
 		{
 			if (!$this->isLocked())
 			{
-				$sandbox = new SubversionWorkingCopy(APPLICATION_HOME.'/data/documents');
 				$directory = $this->getContentDirectory();
 				foreach(glob("$directory/{$this->id}.$lang") as $file)
 				{
-					$sandbox->delete($file);
+					unlink($file);
 				}
-				$sandbox->commit($directory,$_SESSION['USER']->getUsername());
 			}
 		}
 		public function getContent($lang=null)
