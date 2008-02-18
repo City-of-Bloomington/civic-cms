@@ -5,4 +5,5 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 ?>
-<p>Your account has been activated. You can now log in.</p>
+<p>Your account has been activated. You can now log in.  Welcome!</p>
+<p>Your username is your email address.</p>
