@@ -10,5 +10,5 @@
 
 	$template = new Template('backend');
 	$template->blocks[] = new Block('media/info.inc',array('media'=>$media));
-	$template->render();
+	echo $template->render();
 ?>

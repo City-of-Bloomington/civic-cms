@@ -17,4 +17,4 @@ $template->blocks[] = new Block('documents/statistics/top404.inc',array('request
 
 $template->blocks[] = new Block('documents/statistics/departmentTopHits.inc');
 
-$template->render();
+echo $template->render();

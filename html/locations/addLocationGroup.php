@@ -27,5 +27,5 @@
 
 	$template = new Template();
 	$template->blocks[] = new Block('locations/addLocationGroupForm.inc');
-	$template->render();
+	echo $template->render();
 ?>

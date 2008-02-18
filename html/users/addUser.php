@@ -35,4 +35,4 @@
 
 	$template = new Template();
 	$template->blocks[] = new Block('users/addUserForm.inc');
-	$template->render();
+	echo $template->render();

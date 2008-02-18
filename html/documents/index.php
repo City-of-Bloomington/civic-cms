@@ -59,4 +59,4 @@
 	if (isset($pageNavigation)) { $template->blocks[] = $pageNavigation; }
 	$template->blocks[] = $documentsBlock;
 	if (isset($pageNavigation)) { $template->blocks[] = $pageNavigation; }
-	$template->render();
+	echo $template->render();

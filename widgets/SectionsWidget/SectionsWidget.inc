@@ -39,7 +39,7 @@ class SectionsWidget extends Widget
 		# If we can't figure out where the user is, just display the top
 		# level navigation
 		if (!$this->section) { $this->section = new Section(1); }
-		$this->renderIncludeFile($this);
+		echo $this->renderIncludeFile($this);
 	}
 
 	/**

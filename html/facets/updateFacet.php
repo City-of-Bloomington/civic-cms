@@ -29,4 +29,4 @@
 
 	$template = new Template();
 	$template->blocks[] = new Block('facets/updateFacetForm.inc',array('facet'=>$facet));
-	$template->render();
+	echo $template->render();

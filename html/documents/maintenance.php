@@ -45,4 +45,4 @@ if (isset($resultBlock))
 		$template->blocks[] = $pageNavigation;
 	}
 }
-$template->render();
+echo $template->render();

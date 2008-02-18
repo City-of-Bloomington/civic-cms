@@ -8,5 +8,5 @@
 
 	$template = new Template();
 	$template->blocks[] = new Block('backups/listBackups.inc');
-	$template->render();
+	echo $template->render();
 ?>

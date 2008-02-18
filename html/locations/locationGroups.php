@@ -13,5 +13,5 @@
 	$groupList->find();
 	$template->blocks[] = new Block('locations/locationGroupList.inc',array('locationGroupList'=>$groupList));
 
-	$template->render();
+	echo $template->render();
 ?>

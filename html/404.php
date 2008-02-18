@@ -29,7 +29,7 @@
 				$template->blocks[] = new Block('search/results.inc',array('results'=>$results));
 			}
 			catch (Exception $e) { exception_handler($e); }
-			$template->render();
+			echo $template->render();
 		break;
 
 		case 1:
@@ -50,5 +50,5 @@
 		default:
 			$template = new Template();
 			$template->blocks[] = new Block('search/results.inc',array('results'=>$list));
-			$template->render();
+			echo $template->render();
 	}

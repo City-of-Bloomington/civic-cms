@@ -16,4 +16,4 @@ catch (Exception $e)
 $template = new Template();
 $template->blocks[] = new Block('locations/breadcrumbs.inc',array('location'=>$location));
 $template->blocks[] = new Block('locations/viewLocation.inc',array('location'=>$location));
-$template->render();
+echo $template->render();

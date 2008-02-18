@@ -18,7 +18,7 @@ class WhatsRelatedWidget extends Widget
 	{
 		if (count($template->document->getRelatedDocuments()))
 		{
-			$this->renderIncludeFile($this);
+			echo $this->renderIncludeFile($this);
 		}
 	}
 

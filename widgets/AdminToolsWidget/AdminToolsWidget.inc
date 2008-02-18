@@ -19,7 +19,7 @@ class AdminToolsWidget extends Widget
 	{
 		if (isset($_SESSION['USER']))
 		{
-			$this->renderIncludeFile($this);
+			echo $this->renderIncludeFile($this);
 		}
 	}
 

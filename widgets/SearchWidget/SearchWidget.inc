@@ -19,7 +19,7 @@ class SearchWidget extends Widget
 	public function render($template)
 	{
 		$this->search = isset($_GET['search']) ? $_GET['search'] : '';
-		$this->renderIncludeFile($this);
+		echo $this->renderIncludeFile($this);
 	}
 
 	/**

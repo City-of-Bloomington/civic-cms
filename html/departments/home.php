@@ -8,5 +8,5 @@
 
 	$template = new Template();
 	$template->blocks[] = new Block('departments/departmentList.inc',array('departmentList'=>$departmentList));
-	$template->render();
+	echo $template->render();
 ?>

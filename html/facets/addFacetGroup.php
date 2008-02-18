@@ -26,5 +26,5 @@
 
 	$template = new Template();
 	$template->blocks[] = new Block('facets/addFacetGroupForm.inc');
-	$template->render();
+	echo $template->render();
 ?>

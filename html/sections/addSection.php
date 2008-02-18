@@ -25,5 +25,5 @@
 	}
 	$template = new Template();
 	$template->blocks[] = new Block("sections/addSectionForm.inc");
-	$template->render();
+	echo $template->render();
 ?>

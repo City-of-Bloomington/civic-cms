@@ -28,5 +28,5 @@
 
 	$template = new Template();
 	$template->blocks[] = new Block('sections/updateSectionWidgetForm.inc',array('sectionWidget'=>$sectionWidget));
-	$template->render();
+	echo $template->render();
 ?>

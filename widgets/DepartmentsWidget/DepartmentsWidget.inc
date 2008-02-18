@@ -19,7 +19,7 @@ class DepartmentsWidget extends Widget
 
 	public function render($template)
 	{
-		$this->renderIncludeFile($this);
+		echo $this->renderIncludeFile($this);
 	}
 
 	/**

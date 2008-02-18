@@ -10,4 +10,4 @@
  */
 	$template = new Template('backend');
 	$template->blocks[] = new Block('skins/skinList.inc');
-	$template->render();
+	echo $template->render();

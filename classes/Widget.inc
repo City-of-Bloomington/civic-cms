@@ -119,7 +119,9 @@
 
 		protected function renderIncludeFile($widget)
 		{
+			ob_start();
 			include APPLICATION_HOME.'/widgets/'.get_class($widget).'/'.$widget->includeFile;
+			return ob_get_clean();
 		}
 
 		/**

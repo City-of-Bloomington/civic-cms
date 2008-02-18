@@ -34,4 +34,4 @@ if (isset($_GET['date']))
 	else { $_SESSION['errorMessages'][] = new Exception('events/unknownRecurrence'); }
 }
 $template->blocks[] = new Block('events/viewEvent.inc',array('event'=>$event));
-$template->render();
+echo $template->render();

@@ -13,5 +13,5 @@
 
 	$template = new Template();
 	$template->blocks[] = new Block('sections/widgetList.inc',array('section'=>$section,'sectionWidgetList'=>$widgets));
-	$template->render();
+	echo $template->render();
 ?>

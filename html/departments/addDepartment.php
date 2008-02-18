@@ -25,5 +25,5 @@
 
 	$template = new Template();
 	$template->blocks[] = new Block('departments/addDepartmentForm.inc');
-	$template->render();
+	echo $template->render();
 ?>

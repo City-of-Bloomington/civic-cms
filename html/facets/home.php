@@ -20,5 +20,5 @@
 		$template->blocks[] = new Block('facets/facetGroupList.inc',array('facetGroupList'=>$groups));
 	}
 
-	$template->render();
+	echo $template->render();
 ?>

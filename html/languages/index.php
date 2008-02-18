@@ -7,4 +7,4 @@
 	$template = new Template();
 	$template->blocks[] = new Block('languages/breadcrumbs.inc');
 	$template->blocks[] = new Block('languages/languageList.inc');
-	$template->render();
+	echo $template->render();

@@ -27,5 +27,5 @@
 
 	$template = new Template();
 	$template->blocks[] = new Block("users/updateUserForm.inc",array('user'=>$user));
-	$template->render();
+	echo $template->render();
 ?>

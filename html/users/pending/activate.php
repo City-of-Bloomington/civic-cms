@@ -21,4 +21,4 @@ if (isset($_GET['hash']))
 		$template->blocks[] = new Block('users/pending/createAccountForm.inc');
 	}
 }
-$template->render();
+echo $template->render();

@@ -22,7 +22,7 @@ class RelatedLinksWidget extends Widget
 		{
 			$this->document = $template->document;
 
-			$this->renderIncludeFile($this);
+			echo $this->renderIncludeFile($this);
 		}
 	}
 

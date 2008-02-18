@@ -33,5 +33,5 @@
 	}
 
 	$template->blocks[] = $block;
-	$template->render();
+	echo $template->render();
 ?>

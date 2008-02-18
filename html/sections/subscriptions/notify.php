@@ -34,7 +34,7 @@ if ($document->permitsEditingBy($_SESSION['USER']))
 
 		$template = new Template();
 		$template->blocks[] = $form;
-		$template->render();
+		echo $template->render();
 	}
 }
 else

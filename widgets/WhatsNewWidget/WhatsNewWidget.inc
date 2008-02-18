@@ -41,7 +41,7 @@ class WhatsNewWidget extends Widget
 			foreach($PDO->query($sql) as $row) { $documentIds[] = $row['id']; }
 			foreach($documentIds as $id) { $this->documents[$id] = new Document($id); }
 
-			$this->renderIncludeFile($this);
+			echo $this->renderIncludeFile($this);
 		}
 	}
 

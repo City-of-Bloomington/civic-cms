@@ -291,4 +291,4 @@
 	}
 
 	$template->blocks[] = $form;
-	$template->render();
+	echo $template->render();

@@ -18,4 +18,4 @@ catch (Exception $e)
 
 $template = new Template();
 $template->blocks[] = new Block('users/pending/view.inc',array('pendingUser'=>$pending));
-$template->render();
+echo $template->render();

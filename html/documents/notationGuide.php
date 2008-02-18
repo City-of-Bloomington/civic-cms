@@ -26,4 +26,4 @@ switch ($page)
 $template = new Template('popup');
 $template->blocks[] = new Block('documents/notationGuide/toc.inc');
 $template->blocks[] = $guide;
-$template->render();
+echo $template->render();

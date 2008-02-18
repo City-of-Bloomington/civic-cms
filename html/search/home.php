@@ -69,4 +69,4 @@ if (isset($results))
 		$template->blocks[] = $pageNavigation;
 	}
 }
-$template->render();
+echo $template->render();

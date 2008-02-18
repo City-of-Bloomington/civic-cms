@@ -7,5 +7,5 @@
  */
 	$_SESSION['errorMessages'][] = new Exception('noJavascript');
 	$template = new Template();
-	$template->render();
+	echo $template->render();
 ?>

@@ -47,7 +47,7 @@ class UpcomingEventsWidget extends Widget
 		$calendar = ($this->calendar_id > 0) ? new Calendar($this->calendar_id) : new Calendar();
 		$this->recurrenceArray = $calendar->getEventRecurrenceArray($rangeStart,$rangeEnd,$search);
 
-		$this->renderIncludeFile($this);
+		echo $this->renderIncludeFile($this);
 	}
 
 	/**

@@ -31,5 +31,5 @@
 
 	$template = new Template();
 	$template->blocks[] = new Block('widgets/updateWidgetForm.inc',array('widgetInstallation'=>$widget));
-	$template->render();
+	echo $template->render();
 ?>

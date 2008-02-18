@@ -12,4 +12,4 @@ if (userHasRole(array('Administrator','Webmaster')))
 	$list = new SectionList(array('parent_id'=>'null'));
 	$template->blocks[] = new Block('sections/unassignedSections.inc',array('sectionList'=>$list));
 }
-$template->render();
+echo $template->render();

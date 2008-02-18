@@ -7,4 +7,4 @@
 $template = new Template();
 $template->blocks[] = new Block('documentTypes/breadcrumbs.inc');
 $template->blocks[] = new Block('documentTypes/documentTypeList.inc');
-$template->render();
+echo $template->render();

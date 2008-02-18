@@ -9,5 +9,5 @@
 
 	$template = new Template();
 	$template->blocks[] = new Block('documents/index.inc',array('letter'=>$letter));
-	$template->render();
+	echo $template->render();
 ?>

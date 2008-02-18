@@ -42,7 +42,7 @@
 
 
 		$template->blocks[] = $block;
-		$template->render();
+		echo $template->render();
 	}
 	else { include APPLICATION_HOME.'/html/documents/viewDocument.php'; }
 ?>

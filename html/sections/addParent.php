@@ -24,5 +24,5 @@
 	$template->blocks[] = new Block('sections/sectionToolbar.inc',array('section'=>$section));
 	$template->blocks[] = new Block('sections/sectionInfo.inc',array('section'=>$section));
 	$template->blocks[] = new Block('sections/addParentForm.inc',array('section'=>$section));
-	$template->render();
+	echo $template->render();
 ?>

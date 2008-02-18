@@ -28,5 +28,5 @@
 
 	$template = new Template();
 	$template->blocks[] = new Block('facets/updateFacetGroupForm.inc',array('facetGroup'=>$facetGroup));
-	$template->render();
+	echo $template->render();
 ?>

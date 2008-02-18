@@ -27,4 +27,4 @@
 
 	$template = new Template();
 	$template->blocks[] = new Block('facets/addFacetForm.inc');
-	$template->render();
+	echo $template->render();

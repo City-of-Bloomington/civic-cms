@@ -10,5 +10,5 @@
 
 	$template = new Template('ical',array('calendar'=>$calendar));
 	$template->blocks[] = new Block('calendars/ical.inc',array('calendar'=>$calendar));
-	$template->render();
+	echo $template->render();
 ?>

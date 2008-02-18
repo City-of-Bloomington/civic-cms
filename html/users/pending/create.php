@@ -38,4 +38,4 @@ if (isset($_POST['email']))
 
 $template = new Template();
 $template->blocks[] = new Block('users/pending/createAccountForm.inc');
-$template->render();
+echo $template->render();

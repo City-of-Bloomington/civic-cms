@@ -21,7 +21,7 @@ class AttachmentsWidget extends Widget
 		if (isset($template->document))
 		{
 			$this->document = $template->document;
-			$this->renderIncludeFile($this);
+			echo $this->renderIncludeFile($this);
 		}
 	}
 

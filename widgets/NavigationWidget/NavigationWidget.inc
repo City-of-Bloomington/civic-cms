@@ -79,7 +79,7 @@ class NavigationWidget extends Widget
 		}
 
 		$_SESSION['vector'] = $this->ancestors;
-		$this->renderIncludeFile($this);
+		echo $this->renderIncludeFile($this);
 	}
 
 	/**

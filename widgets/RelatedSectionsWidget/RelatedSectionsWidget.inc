@@ -35,7 +35,7 @@ class RelatedSectionsWidget extends Widget
 
 				if (count($this->sectionList))
 				{
-					$this->renderIncludeFile($this);
+					echo $this->renderIncludeFile($this);
 				}
 			}
 		}

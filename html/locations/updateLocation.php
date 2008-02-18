@@ -63,4 +63,4 @@ $form->return_url = $_REQUEST['return_url'];
 
 $template = new Template();
 $template->blocks[] = $form;
-$template->render();
+echo $template->render();

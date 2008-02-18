@@ -12,5 +12,5 @@
 
 	$template = new Template('mediaBrowser');
 	$template->blocks[] = new Block('media/mediaList.inc',array('mediaList'=>$mediaList,'department'=>$department));
-	$template->render();
+	echo $template->render();
 ?>

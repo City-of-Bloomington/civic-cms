@@ -21,4 +21,4 @@
 	$template->blocks[] = new Block('feeds/rss.inc');
 	$template->blocks[] = new Block('feeds/ical.inc');
 	$template->blocks[] = new Block('feeds/kml.inc');
-	$template->render();
+	echo $template->render();

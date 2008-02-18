@@ -59,5 +59,5 @@
 	{
 		$template->blocks[] = new Block('calendars/ical.inc',array('calendar'=>$calendar));
 	}
-	$template->render();
+	echo $template->render();
 ?>

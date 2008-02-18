@@ -162,4 +162,4 @@
 		}
 	}
 
-	$template->render();
+	echo $template->render();

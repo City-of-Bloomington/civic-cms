@@ -49,4 +49,4 @@ if (isset($pages))
 
 	$template->blocks[] = $pageNavigation;
 }
-$template->render();
+echo $template->render();

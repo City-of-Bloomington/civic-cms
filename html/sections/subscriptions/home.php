@@ -8,4 +8,4 @@ $list = new SectionList(array('highlightSubscription'=>1));
 
 $template = new Template();
 $template->blocks[] = new Block('sections/subscriptions/highlightedSubscriptions.inc',array('sectionList'=>$list));
-$template->render();
+echo $template->render();

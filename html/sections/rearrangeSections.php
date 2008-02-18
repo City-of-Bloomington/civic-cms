@@ -17,5 +17,5 @@
 
 	$template = new Template();
 	$template->blocks[] = new Block('sections/rearrangeSectionsForm.inc',array('section'=>new Section(1)));
-	$template->render();
+	echo $template->render();
 ?>

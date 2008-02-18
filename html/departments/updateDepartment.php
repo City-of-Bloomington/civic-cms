@@ -29,5 +29,5 @@
 
 	$template = new Template();
 	$template->blocks[] = new Block('departments/updateDepartmentForm.inc',array('department'=>$department));
-	$template->render();
+	echo $template->render();
 ?>

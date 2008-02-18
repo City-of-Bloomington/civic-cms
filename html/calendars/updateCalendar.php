@@ -27,5 +27,5 @@
 
 	$template = new Template();
 	$template->blocks[] = new Block('calendars/updateCalendarForm.inc',array('calendar'=>$calendar));
-	$template->render();
+	echo $template->render();
 ?>

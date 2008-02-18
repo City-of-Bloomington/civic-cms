@@ -13,5 +13,5 @@
 
 	$template->blocks[] = new Block('widgets/widgetList.inc',array('widgetInstallationList'=>$widgets));
 
-	$template->render();
+	echo $template->render();
 ?>

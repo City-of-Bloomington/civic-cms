@@ -37,5 +37,5 @@
 
  	$template = new Template('backend');
  	$template->blocks[] = new Block('media/updateMediaForm.inc',array('media'=>$media));
- 	$template->render();
+ 	echo $template->render();
 ?>

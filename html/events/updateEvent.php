@@ -42,7 +42,7 @@
 	{
 		$_SESSION['errorMessages'][] = "noAccessAllowed";
 		$template = new Template('closePopup');
-		$template->render();
+		echo $template->render();
 		exit();
 	}
 
@@ -144,5 +144,5 @@
 	$template = new Template('popup');
 	$template->blocks[] = $tabs;
 	$template->blocks[] = $form;
-	$template->render();
+	echo $template->render();
 ?>

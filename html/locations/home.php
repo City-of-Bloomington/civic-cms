@@ -80,4 +80,4 @@
 	}
 
 	$template->blocks[] = $listBlock;
-	$template->render();
+	echo $template->render();

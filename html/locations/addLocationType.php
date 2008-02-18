@@ -26,5 +26,5 @@
 
 	$template = new Template();
 	$template->blocks[] = new Block('locations/addLocationTypeForm.inc');
-	$template->render();
+	echo $template->render();
 ?>

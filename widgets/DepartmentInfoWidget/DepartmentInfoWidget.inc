@@ -28,7 +28,7 @@ class DepartmentInfoWidget extends Widget
 			if ($section->getDocument_id() == $template->document->getId())
 			{
 				$this->department = $template->document->getDepartment();
-				$this->renderIncludeFile($this);
+				echo $this->renderIncludeFile($this);
 			}
 		}
 	}

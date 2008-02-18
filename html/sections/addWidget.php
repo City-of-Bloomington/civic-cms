@@ -40,5 +40,5 @@
 
 	$template = new Template();
 	$template->blocks[] = new Block('sections/addWidgetForm.inc',array('section'=>$section,'widgetInstallation'=>$widgetInstallation));
-	$template->render();
+	echo $template->render();
 ?>

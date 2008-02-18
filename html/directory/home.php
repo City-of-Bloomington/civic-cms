@@ -7,5 +7,5 @@
 	$template = new Template();
 	$template->blocks[] = new Block('directory/breadcrumbs.inc');
 	$template->blocks[] = new Block('directory/index.inc');
-	$template->render();
+	echo $template->render();
 ?>

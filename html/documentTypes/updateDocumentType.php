@@ -28,5 +28,5 @@
 
 	$template = new Template();
 	$template->blocks[] = new Block('documentTypes/updateDocumentTypeForm.inc',array('documentType'=>$documentType));
-	$template->render();
+	echo $template->render();
 ?>

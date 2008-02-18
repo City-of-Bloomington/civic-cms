@@ -45,5 +45,5 @@
 	$template = new Template('mediaBrowser');
 	$template->blocks[] = new Block('media/addImageForm.inc');
 	$template->blocks[] = $thumbnails;
-	$template->render();
+	echo $template->render();
 ?>

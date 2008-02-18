@@ -9,5 +9,5 @@
 	$template = new Template();
 	$template->blocks[] = new Block('directory/breadcrumbs.inc',array('category'=>$_GET['category'],'department'=>$_GET['department']));
 	$template->blocks[] = new Block('directory/viewDepartment.inc',array('category'=>$_GET['category'],'department'=>$_GET['department']));
-	$template->render();
+	echo $template->render();
 ?>

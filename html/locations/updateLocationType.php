@@ -27,5 +27,5 @@
 
 	$template = new Template();
 	$template->blocks[] = new Block('locations/updateLocationTypeForm.inc',array('locationType'=>$locationType));
-	$template->render();
+	echo $template->render();
 ?>

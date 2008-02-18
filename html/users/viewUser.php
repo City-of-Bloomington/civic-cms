@@ -19,5 +19,5 @@
 
 	$template = new Template();
 	$template->blocks[] = new Block('users/userInfo.inc',array('username'=>$_GET['username']));
-	$template->render();
+	echo $template->render();
 ?>

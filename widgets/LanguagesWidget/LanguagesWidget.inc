@@ -21,7 +21,7 @@ class LanguagesWidget extends Widget
 		if (isset($template->document))
 		{
 			$this->languages = $template->document->getLanguages();
-			$this->renderIncludeFile($this);
+			echo $this->renderIncludeFile($this);
 		}
 	}
 

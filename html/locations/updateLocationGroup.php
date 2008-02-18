@@ -44,5 +44,5 @@
 
 	$template = new Template();
 	$template->blocks[] = new Block('locations/updateLocationGroupForm.inc',array('locationGroup'=>$locationGroup));
-	$template->render();
+	echo $template->render();
 ?>

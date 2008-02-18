@@ -21,5 +21,5 @@
 	$locationBlock->location = $_GET['location'];
 	$template->blocks[] = $locationBlock;
 
-	$template->render();
+	echo $template->render();
 ?>
