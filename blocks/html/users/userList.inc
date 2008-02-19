@@ -4,13 +4,23 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param UserList $this->userList
- * @param string $this->title
+ * @param string $this->authenticationMethod
  */
 ?>
 <div class="interfaceBox">
+	<div class="tabBar">
+		<ul><?php
+				$class = $this->authenticationMethod==='LDAP' ? 'class="current"' : '';
+				echo "<li $class><a href=\"".BASE_URL."/users?authenticationMethod=LDAP\">LDAP</a></li>";
+
+				$class = $this->authenticationMethod==='local' ? 'class="current"' : '';
+				echo "<li $class><a href=\"".BASE_URL."/users?authenticationMethod=local\">local</a></li>";
+			?>
+		</ul>
+	</div>
 	<h1><?php
 			if (userHasRole('Administrator')) { echo "<a class=\"addSmall\" href=\"".BASE_URL."/users/addUser.php\">Add</a>"; }
-			echo isset($this->title) ? View::escape($this->title) : 'Users';
+			echo $this->authenticationMethod.' Users';
 		?>
 	</h1>
 	<table>

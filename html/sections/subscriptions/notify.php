@@ -14,23 +14,36 @@ if ($section->permitsPostingBy($_SESSION['USER']))
 {
 	if (isset($_POST['message']))
 	{
-		foreach($section->getSubscriptions() as $subscription)
+		$documents = array();
+		if (isset($_POST['documents']))
 		{
-			$documents = array();
 			foreach($_POST['documents'] as $id=>$checked)
 			{
 				$documents[] = new Document($id);
 			}
-
-			$email = new Template('email','text');
-			$message = new Block('sections/subscriptions/notification.inc');
-			$message->message = $_POST['message'];
-			$message->documents = $documents;
-			$email->blocks[] = $message;
-
-			$subscription->notify($email->render());
 		}
-		Header("Location: $_REQUEST[return_url]");
+
+		$email = new Template('email','text');
+		$notification = new Block('sections/subscriptions/notification.inc');
+		$notification->message = $_POST['message'];
+		$notification->documents = $documents;
+		$notification->section = $section;
+		$email->blocks[] = $notification;
+		$message = $email->render();
+
+		$errorCount = 0;
+		foreach($section->getSubscriptions() as $subscription)
+		{
+			try { $subscription->notify($message); }
+			catch (Exception $e) { $errorCount++; }
+		}
+		if ($errorCount) { $_SESSION['errorMessages'][] = new Exception('sections/subscriptions/badEmailAddresses'); }
+
+		$template = new Template();
+		$success = new Block('sections/subscriptions/notificationSuccess.inc');
+		$success->message = $message;
+		$template->blocks[] = $success;
+		echo $template->render();
 	}
 	else
 	{

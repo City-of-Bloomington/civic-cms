@@ -3,6 +3,9 @@
  * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  */
+ini_set('include_path',ini_get('include_path').ZEND.':');
+require_once 'Zend/Mail.php';
+require_once 'Zend/Mail/Transport/Sendmail.php';
 class PendingUser extends ActiveRecord
 {
 	private $id;
@@ -144,14 +147,14 @@ class PendingUser extends ActiveRecord
 	 * To activate the account, the user must respond with the hash
 	 * contained in this email
 	 */
-	public function sendEmail()
+	public function notify($message)
 	{
-		$url = new URL(BASE_URL.'/users/pending/activate.php');
-		$url->hash = $this->getHash();
-
-		$subject = APPLICATION_NAME." account confirmation";
-		$message = "Go to this URL to activate your account: $url";
-		mail($this->email,$subject,$message,"From: ".APPLICATION_NAME."@$_SERVER[SERVER_NAME]");
+		$mail = new Zend_Mail('utf-8');
+		$mail->setBodyText($message);
+		$mail->setFrom(ADMINISTRATOR_EMAIL, APPLICATION_NAME);
+		$mail->addTo($this->getEmail());
+		$mail->setSubject(APPLICATION_NAME.' account confirmation');
+		$mail->send();
 	}
 
 	/**

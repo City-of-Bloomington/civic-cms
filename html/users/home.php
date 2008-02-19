@@ -13,7 +13,7 @@ $users = new UserList();
 $users->find(array('authenticationMethod'=>$authenticationMethod));
 $userList = new Block('users/userList.inc');
 $userList->userList = $users;
-$userList->title = "$authenticationMethod Users";
+$userList->authenticationMethod = $authenticationMethod;
 
 
 $template = isset($_GET['format']) ? new Template('default',$_GET['format']) : new Template();

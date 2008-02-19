@@ -7,6 +7,12 @@
  */
 $pending = new PendingUser($_GET['email']);
 
-$pending->sendEmail();
+$instructions = new Block('users/pending/activationInstructions.inc');
+$instructions->pendingUser = $pending;
+
+$email = new Template('email','text');
+$email->blocks[] = $instructions;
+
+$pending->notify($email->render());
 
 Header('Location: view.php?email='.$pending->getEmail());

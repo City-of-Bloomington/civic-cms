@@ -13,8 +13,15 @@ if (isset($_POST['email']))
 		$account->setPassword($_POST['password']);
 		try
 		{
+			$email = new Template('email','text');
+			$instructions = new Block('users/pending/activationInstructions.inc');
+			$instructions->pendingUser = $account;
+			$email->blocks[] = $instructions;
+
+			$account->notify($email->render());
+
 			$account->save();
-			Header('Location: sendEmail.php?email='.$account->getEmail());
+			Header('Location: view.php?email='.$account->getEmail());
 			exit();
 		}
 		catch (Exception $e)
@@ -25,6 +32,10 @@ if (isset($_POST['email']))
 				$_SESSION['errorMessages'][] = new Exception('users/pending/userAlreadyPending');
 				Header('Location: view.php?email='.$account->getEmail());
 				exit();
+			}
+			elseif($e->getMessage() == 'Unable to send mail')
+			{
+				$_SESSION['errorMessages'][] = new Exception('users/pending/invalidEmail');
 			}
 			else
 			{

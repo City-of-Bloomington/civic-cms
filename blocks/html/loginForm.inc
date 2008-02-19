@@ -15,7 +15,7 @@
 			</form>
 		</td>
 	</tr>
-	<tr><th>New To Bloomington Online?</th>
+	<tr><th>New to the Bloomington Website?</th>
 		<td><p>If you want to sign in, you'll need to create an account and register first.</p>
 			<p>Creating an account will give you access to subscriptions and personalization features.</p>
 			<p><a href="<?php echo BASE_URL; ?>/users/pending/create.php">Create a New Account</a></p>

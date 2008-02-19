@@ -4,14 +4,20 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param string $this->message
+ * @param Section $this->section
  * @param array $this->documents
  */
 echo "{$this->message}\n\n";
-foreach($this->documents as $document)
+if (count($this->documents))
 {
-echo "
-{$document->getTitle()}
-{$document->getURL()}
-
-";
+	foreach($this->documents as $document)
+	{
+		echo "{$document->getTitle()}\n";
+		echo "{$document->getURL()}\n\n";
+	}
+}
+else
+{
+	echo "{$this->section->getName()}\n";
+	echo "{$this->section->getURL()}\n\n";
 }
