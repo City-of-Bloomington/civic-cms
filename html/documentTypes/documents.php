@@ -10,7 +10,7 @@
  */
 	$type = new DocumentType($_GET['documentType_id']);
 
-	$template = (isset($_GET['format'])) ? new Template($_GET['format'],$_GET['format']) : new Template();
+	$template = (isset($_GET['format'])) ? new Template('default',$_GET['format']) : new Template();
 
 	$block = new Block('documentTypes/documents.inc',array('documentType'=>$type));
 	if (isset($_GET['facetGroup_id']))

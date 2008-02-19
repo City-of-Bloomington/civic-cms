@@ -6,7 +6,7 @@
  * @param GET calendar_id
  */
 	$calendar = isset($_GET['calendar_id']) ? new Calendar($_GET['calendar_id']) : new Calendar();
-	$template = isset($_GET['format']) ? new Template($_GET['format'],$_GET['format']) : new Template();
+	$template = isset($_GET['format']) ? new Template('default',$_GET['format']) : new Template();
 
 	if ($template->outputFormat==='html')
 	{

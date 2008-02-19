@@ -16,6 +16,6 @@ $userList->userList = $users;
 $userList->title = "$authenticationMethod Users";
 
 
-$template = isset($_GET['format']) ? new Template($_GET['format'],$_GET['format']) : new Template();
+$template = isset($_GET['format']) ? new Template('default',$_GET['format']) : new Template();
 $template->blocks[] = $userList;
 echo $template->render();

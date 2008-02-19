@@ -9,7 +9,7 @@
 	switch($format)
 	{
 		case 'html': $template = new Template('backend'); break;
-		default: $template = new Template($_GET['format'],$_GET['format']);
+		default: $template = new Template('default',$_GET['format']);
 	}
 
 	$listBlock = new Block('locations/locationList.inc');
