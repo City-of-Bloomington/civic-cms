@@ -6,7 +6,7 @@
  */
 ?>
 <div class="menuBar">
-<ul>
+<ul><li><a href="<?php echo BASE_URL; ?>">Home</a></li>
 <?php
 	#$sectionNodeList = new SectionNodeList(array('parent_id'=>1));
 	#foreach($sectionNodeList as $node)
