@@ -695,12 +695,20 @@
 		public function getFeature_title() { return $this->feature_title; }
 		public function getCreated($format=null)
 		{
-			if ($format && $this->created!=0) return strftime($format,strtotime($this->created));
+			if ($format && $this->created)
+			{
+				if (strpos($format,'%')!==false) { return strftime($format,strtotime($this->created)); }
+				else { return date($format,strtotime($this->created)); }
+			}
 			else return $this->created;
 		}
 		public function getModified($format=null)
 		{
-			if ($format && $this->modified!=0) return strftime($format,strtotime($this->modified));
+			if ($format && $this->modified)
+			{
+				if (strpos($format,'%')!==false) { return strftime($format,strtotime($this->modified)); }
+				else { return date($format,strtotime($this->modified)); }
+			}
 			else return $this->modified;
 		}
 		public function getPublishDate($format=null)

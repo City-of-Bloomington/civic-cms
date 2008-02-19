@@ -3,33 +3,39 @@
  * @copyright Copyright (C) 2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
- * @param GET document_id
+ * @param GET section_id
  * @param GET return_url
  */
 verifyUser();
 
-$document = new Document($_REQUEST['document_id']);
-if ($document->permitsEditingBy($_SESSION['USER']))
+$section = new Section($_REQUEST['section_id']);
+
+if ($section->permitsPostingBy($_SESSION['USER']))
 {
 	if (isset($_POST['message']))
 	{
-		foreach($document->getSections() as $section)
+		foreach($section->getSubscriptions() as $subscription)
 		{
-			foreach($section->getSubscriptions() as $subscription)
+			$documents = array();
+			foreach($_POST['documents'] as $id=>$checked)
 			{
-				$message = $_POST['message'].="\n\n".$document->getURL();
-
-				$to = $subscription->getUser()->getEmail();
-				$headers = "From: ".APPLICATION_NAME;
-				mail($to,$section->getName()." subscription",$message,$headers);
+				$documents[] = new Document($id);
 			}
+
+			$email = new Template('email','text');
+			$message = new Block('sections/subscriptions/notification.inc');
+			$message->message = $_POST['message'];
+			$message->documents = $documents;
+			$email->blocks[] = $message;
+
+			$subscription->notify($email->render());
 		}
 		Header("Location: $_REQUEST[return_url]");
 	}
 	else
 	{
 		$form = new Block('sections/subscriptions/notificationForm.inc');
-		$form->document = $document;
+		$form->section = $section;
 		$form->return_url = $_REQUEST['return_url'];
 
 		$template = new Template();

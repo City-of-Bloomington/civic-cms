@@ -51,7 +51,7 @@
 					if ($section->permitsPostingBy($_SESSION['USER']))
 					{
 						$url = new URL(BASE_URL.'/sections/subscriptions/notify.php');
-						$url->document_id = $section->getDocument_id();
+						$url->section_id = $section->getId();
 						$url->return_url = $return_url;
 						$notifyButton = "
 						<a class=\"notify\"
