@@ -23,7 +23,7 @@
 			if (userHasRole(array('Administrator','Webmaster')))
 			{
 				echo "
-				<li class=\"closed\">
+				<li class=\"liClosed\">
 					<a href=\"".BASE_URL."/sections/sectionInfo.php?section_id={$section->getId()}\">$name</a>
 					<a class=\"info\" href=\"".BASE_URL."/sections/sectionInfo.php?section_id={$section->getId()}\">Info</a>
 					<a class=\"view\" href=\"".BASE_URL."/sections/viewSection.php?section_id={$section->getId()}\">View</a>
@@ -32,7 +32,7 @@
 			else
 			{
 				echo "
-				<li class=\"closed\">
+				<li class=\"liClosed\">
 					<a href=\"{$section->getURL()}\">$name</a>
 				";
 			}
@@ -72,14 +72,14 @@
 				<a href=\"".BASE_URL."/sections/sectionInfo.php?section_id={$section->getId()}\">$name</a>
 				<a class=\"info\" href=\"".BASE_URL."/sections/sectionInfo.php?section_id={$section->getId()}\">Info</a>
 				<a class=\"view\" href=\"".BASE_URL."/sections/viewSection.php?section_id={$section->getId()}\">View</a>
-				<ul class=\"expandable\">
+				<ul class=\"mktree\">
 				";
 			}
 			else
 			{
 				echo "
 				<a href=\"{$section->getURL()}\">$name</a>
-				<ul class=\"expandable\">
+				<ul class=\"mktree\">
 				";
 			}
 

@@ -55,7 +55,7 @@ foreach($documentTypeList as $type)
 				$info = implode(' - ',$info);
 
 				$documentListHTML.= "
-					<li class=\"closed\">
+					<li>
 						<a href=\"{$document->getURL()}\">$info</a>
 					</li>
 				";
@@ -66,7 +66,7 @@ foreach($documentTypeList as $type)
 		{
 			$name = View::escape(Inflector::pluralize($type->getType()));
 			$output[] = "
-			<li class=\"closed\">
+			<li class=\"liClosed\">
 				<a href=\"".BASE_URL."/documentTypes/documents.php?documentType_id={$type->getId()}\">$name</a>
 				<ul>
 					$documentListHTML
@@ -83,7 +83,7 @@ if (count($output))
 	echo "
 	<div class=\"interfaceBox\">
 		<h3>Information in $name</h3>
-		<ul class=\"expandable\">
+		<ul class=\"mktree\">
 	";
 	foreach($output as $html) { echo $html; }
 	echo "

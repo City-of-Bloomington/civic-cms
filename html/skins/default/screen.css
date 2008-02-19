@@ -59,6 +59,8 @@ li.current>a { background-color:#cccccc; width:100%; }
 #application_name { color:white; background-color:#3366cc; text-align:left; padding-top:5px; }
 #location_name { color:white; background-color:#3366cc; text-align:left; font-size:12pt; }
 #banner a { color:white; background-color:#3366cc; text-decoration:none; }
+#top .menuBar ul,#top .menuBar li { display:inline; }
+#top input { width:10ex; }
 
 /* Used to create a menu bar across any div */
 .menuBar { width:100%; border-bottom:2px solid black; background-color:#FFFFFF; font-size:12px; }
@@ -68,6 +70,7 @@ li.current>a { background-color:#cccccc; width:100%; }
 	/* This lets us put small forms into the menubar without hurting the layout too bad */
 	.menuBar form { margin:0; padding:0; display:inline; height:1em; }
 	.menuBar form fieldset { margin:0; padding:0; border:0; display:inline; }
+	.menuBar legend { display:none; }
 
 /* Used to draw fancy bordered boxes around content */
 .interfaceBox { border-bottom:2px dotted black; }
@@ -178,26 +181,22 @@ table.calendar li { margin-left:0; }
 .Friday {}
 .hasEvent {}
 
-/* Unordered lists can be made to be expandable/collapsible */
+/* JavaScript Tree Generator Styles */
 /* Turn off list bullets */
-ul.expandable li { list-style: none; }
-ul.expandable, ul.expandable ul, ul.expandable li { margin: 0; padding: 0; }
+ul.mktree  li { list-style: none; }
+/* Control how "spaced out" the tree is */
+ul.mktree, ul.mktree ul , ul.mktree li { margin-left:10px; padding:0px; }
+/* Provide space for our own "bullet" inside the LI */
+ul.mktree  li .bullet { padding-left: 15px; }
+/* Show "bullets" in the links, depending on the class of the LI that the link's in */
+ul.mktree li.liOpen .bullet { cursor: pointer; background: url('default/images/expanded.gif') center left no-repeat; }
+ul.mktree li.liClosed .bullet { cursor: pointer; background: url('default/images/collapsed.gif') center left no-repeat; }
+ul.mktree li.bullet .bullet { cursor: default; background: url('default/images/bullet.gif') center left no-repeat; }
+/* Sublists are visible or not based on class of parent LI */
+ul.mktree li.liOpen ul { display: block; }
+ul.mktree li.liClosed ul { display: none; }
 
-/* This controls the indent for each sublist */
-ul.expandable ul { padding-left: 20px; }
 
-/* Provide space for our own "bullet" inside the link */
-ul.expandable li a { padding-left: 20px; }
-
-/* Show "bullets" in the links, depending on the class of the
-   LI that the link's in */
-ul.expandable li.open a { background: url('default/images/expanded.gif') center left no-repeat; }
-ul.expandable li.closed a { background: url('default/images/collapsed.gif') center left no-repeat; }
-ul.expandable li.bullet a { background: url('default/images/bullet.gif') center left no-repeat; }
-
-/* Actually show and hide sublists */
-ul.expandable li.open ul { display: block; }
-ul.expandable li.closed ul { display: none; }
 
 div.featured { }
 div.siblings { }

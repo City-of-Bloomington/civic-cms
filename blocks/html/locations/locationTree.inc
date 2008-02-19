@@ -12,7 +12,7 @@
 
 	$list = new LocationGroupList();
 	$list->find();
-	echo '<ul class="expandable">';
+	echo '<ul class="mktree">';
 	foreach($list as $group)
 	{
 		$name = View::escape($group->getName());
@@ -23,7 +23,7 @@
 			foreach($group->getLocations() as $location)
 			{
 				$name = View::escape($location->getName());
-				echo "<li class=\"closed\"><a href=\"{$location->getURL()}\">$name</a></li>";
+				echo "<li><a href=\"{$location->getURL()}\">$name</a></li>";
 			}
 			echo '</ul>';
 		}

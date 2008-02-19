@@ -12,7 +12,7 @@
 
 	$list = new FacetGroupList();
 	$list->find();
-	echo '<ul class="expandable">';
+	echo '<ul class="mktree">';
 	foreach($list as $group)
 	{
 		$name = View::escape($group->getName());
@@ -23,7 +23,7 @@
 			foreach($group->getFacets() as $facet)
 			{
 				$name = View::escape($facet->getName());
-				echo "<li class=\"closed\"><a href=\"{$facet->getURL()}\">$name</a></li>";
+				echo "<li><a href=\"{$facet->getURL()}\">$name</a></li>";
 			}
 			echo '</ul>';
 		}
