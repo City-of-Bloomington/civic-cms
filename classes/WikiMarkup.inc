@@ -463,6 +463,13 @@ class WikiMarkup
 
 		$caption = $linkText ? self::parse($linkText) : null;
 
+		# Parse for any left or right alignment
+		if (preg_match('/^([^,]*),(left|right)/',$linkTarget,$m))
+		{
+			$linkTarget = $m[1];
+			$align = $m[2];
+		}
+
 		# If the link is a URL, use that as the src
 		$fullURLPattern = '/^(www\.|https?:\/\/)([\w\.]+)([\#\,\/\~\?\&\=\;\%\-\w+\.]+)/';
 		if (preg_match($fullURLPattern,$linkTarget))
@@ -497,7 +504,10 @@ class WikiMarkup
 		# Wrap the caption in a span
 		$caption = $caption ? "<span class=\"caption\">$caption</span>" : null;
 
-		return "<span class=\"image\">$imageTag $caption</span>";
+		# Add the alignment;
+		$style = isset($align) ? "style=\"float:$align;\"" : '';
+
+		return "<span class=\"image\" $style>$imageTag $caption</span>";
 	}
 	private static function thumbnailMarkup($linkTarget,$linkText=null)
 	{
@@ -505,6 +515,13 @@ class WikiMarkup
 		$imageLink = self::$CURRENT_URL ? self::$CURRENT_URL : null;
 
 		$caption = $linkText ? self::parse($linkText) : null;
+
+		# Parse for any left or right alignment
+		if (preg_match('/^([^,]*),(left|right)/',$linkTarget,$m))
+		{
+			$linkTarget = $m[1];
+			$align = $m[2];
+		}
 
 		$list = ctype_digit($linkTarget) ? new ImageList(array('id'=>$linkTarget)) : new ImageList(array('filename'=>$linkTarget));
 		if (count($list))
@@ -528,6 +545,9 @@ class WikiMarkup
 
 		# Wrap the caption in a span
 		$caption = $caption ? "<span class=\"caption\">$caption</span>" : null;
+
+		# Add the alignment;
+		$style = isset($align) ? "style=\"float:$align;\"" : '';
 
 		return "<span class=\"image thumbnail\">$imageTag $caption</span>";
 	}
