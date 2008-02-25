@@ -1,6 +1,6 @@
 @import 'reset.css';
 /* Set the default styles for common HTML elements */
-body { color:black; background-color:white; margin:0px; font-family:sans-serif; font-size:10pt; }
+body { width:981px; clip:0px 981px auto 0; color:black; background-color:white; margin:0px; font-family:sans-serif; font-size:10pt;  }
 
 /* Text formatting */
 strong { font-weight:bold; }
@@ -54,29 +54,42 @@ li.current>a { background-color:#cccccc; width:100%; }
 /* Some styles for the splash page of applications */
 .splashImage { float:right; }
 
-/* Top Banner stuff */
-#banner { height:62px; border-bottom:2px solid black; background:#3366cc url('default/images/citylogo-white.gif') no-repeat; padding-left:80px; }
-#application_name { color:white; background-color:#3366cc; text-align:left; padding-top:5px; }
-#location_name { color:white; background-color:#3366cc; text-align:left; font-size:12pt; }
-#banner a { color:white; background-color:#3366cc; text-decoration:none; }
-#top .menuBar ul,#top .menuBar li { display:inline; }
-#top input { width:10ex; }
-
-/* Used to create a menu bar across any div */
-.menuBar { width:100%; border-bottom:2px solid black; background-color:#FFFFFF; font-size:12px; }
-.menuBar ul { width:100%; height:1em; list-style-type:none; margin:0; padding:0; }
-.menuBar li { float:left; margin-left:1.5em; list-style-type:none; }
-.menuBar a { font-weight:bold; }
+/* Used to set up inline lists.  We want stuff in these to display in a single line  */
+.inline ul { width:100%; list-style-type:none; margin:0; padding:0; }
+.inline li { float:left; list-style-type:none; }
 	/* This lets us put small forms into the menubar without hurting the layout too bad */
-	.menuBar form { margin:0; padding:0; display:inline; height:1em; }
-	.menuBar form fieldset { margin:0; padding:0; border:0; display:inline; }
-	.menuBar legend { display:none; }
+	.inline form { margin:0; padding:0; display:inline; }
+	.inline form fieldset { margin:0; padding:0; border:0; display:inline; }
+	.inline legend { display:none; }
+
+/* Top Banner stuff */
+#banner { height:129px; background:url('default/images/hanapin/banner.jpg') no-repeat; }
+#application_name { color:white; background-color:transparent; text-align:left; }
+#location_name { position:relative; width:268px; height:25px; }
+#banner a { color:white; background-color:transparent; text-decoration:none; }
+#banner ul,#top li { display:inline; border:0; color:black; }
+#banner li { margin-left:.5em; }
+#banner a { color:black; }
+#banner input { width:10ex; }
+#mainLinks { position:relative; top:12px; left:350px; border:none; width:323px; height:27px; }
+#secondaryLinks { position:relative; top:-15px; left:715px; width:266px; height:27px; }
+#banner .widgets { position:relative; top:15px; left:15px; width:300px; height:20px; }
+#banner .widgets h1 { width:80px; }
+#banner .widgets ul { padding:0; }
+#banner .widgets h1,#banner .widgets a { color: black; background:transparent; }
+#location_name a { font-weight:bold; color:white; }
+
+#topLevelSections { height:21px; border-bottom:2px solid black; margin-top:1px; }
+#topLevelSections ul { height:21px; }
+#topLevelSections li { height:21px; color:white; background:#013567 url('default/images/hanapin/tab_left_corner.gif') no-repeat; padding-left:10px; margin-right:1px; }
+#topLevelSections a { font-weight:bold; color:white; background:url('default/images/hanapin/tab_right_corner.gif') no-repeat right; padding-right:10px; }
+
 
 /* Used to draw fancy bordered boxes around content */
 .interfaceBox { border-bottom:2px dotted black; }
 .interfaceBox img { margin:0; }
 
-.interfaceBox h1 { background-color:#3366cc; color:white; font-size:14pt; border:2px solid black; font-weight:bold; padding-left:.5em; padding-right:.5em; }
+.interfaceBox h1 { background-color:#5a8fdd; color:white; font-size:14pt; font-weight:bold; padding-left:.5em; padding-right:.5em; }
 .interfaceBox h1 a { margin:0px; height:20px; }
 .interfaceBox h1 a:link,.titleBar a:visited { color:white; background-color:transparent; }
 .interfaceBox h1 form { margin:0; padding:0; display:inline; height:1em; }
@@ -88,9 +101,11 @@ li.current>a { background-color:#cccccc; width:100%; }
 /* These are for the boxes on the sides of the page */
 .sidebar { width:155px; font-size:12px; margin-top:1em; }
 
-.sidebar ul { list-style-type:none; margin-left:.5em; padding:0; }
-.sidebar ul a { display:inline; font-weight:bold; }
-.sidebar ul .current { background-color:#ff6600; }
+.sidebar ul { list-style-type:none; margin-left:0; padding:0; }
+.sidebar ul a { display:inline; color:black; }
+.sidebar ul .current { background-color:#ff6600; font-weight:bold; }
+.sidebar ul li { border-bottom:1px solid #bdbdbd; list-style-image:url('default/images/hanapin/arrow_marker.gif'); list-style-position:inside; }
+.sidebar ol { margin-left:0; padding-left:0; list-style-position:inside; }
 .sidebar fieldset { border:0; }
 .sidebar legend { display:none; }
 .sidebar select { width:140px; }
@@ -100,15 +115,14 @@ li.current>a { background-color:#cccccc; width:100%; }
 .right { float:right; clear:right; }
 
 /* Widget Styles */
-.widget { margin-bottom:2em; border:2px solid black; }
-.widget h1 { background-color:#3366cc; height:20px; color:white; font-family: serif; font-size:12pt; margin:0; border-top:0; border-right:0; border-left:0; border-bottom:2px solid black; text-align:center; }
+.widget { margin-bottom:2em; }
+.widget h1 { background-color:#5a8fdd; color:white; font-size:10pt; font-family: sans-serif; font-weight:bold; padding:5px; margin:0; border:0; }
 	.widget h1 form { margin:0; padding:0; display:inline; height:1em; }
 	.widget h1 form fieldset { margin:0; padding:0; border:0; display:inline; }
 
 #banner .widget { margin:0; border:0; }
 #banner .widget h1 { display:inline; }
 #banner .widget ul,#banner .widget li { display:inline; }
-#banner .widgets { float:right; }
 
 
 

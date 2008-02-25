@@ -6,7 +6,8 @@
  */
 ?>
 <div id="banner">
-	<div id="top" class="menuBar">
+	<div id="top"></div>
+	<div class="inline" id="mainLinks">
 	<ul>
 		<li><a href="<?php echo BASE_URL; ?>/documentTypes/documents.php?documentType_id=4">Services</a></li>
 		<li><a href="<?php echo BASE_URL; ?>/documentTypes/documents.php?documentType_id=5">News</a></li>
@@ -15,6 +16,8 @@
 		<li><a href="<?php echo BASE_URL; ?>/community_profile">Profile</a></li>
 		<li><a href="<?php echo BASE_URL; ?>/search/sitemap.php">Sitemap</a></li>
 	</ul>
+	</div>
+	<div class="inline" id="secondaryLinks">
 	<ul>
 		<?php
 			if(!isset($_SESSION['USER']))

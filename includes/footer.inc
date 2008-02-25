@@ -5,7 +5,7 @@
  */
 ?>
 <div id="footer">
-	<div class="menuBar">
+	<div class="inline">
 	<ul>
 		<li><a href="<?php echo BASE_URL; ?>/documents/az_index.php">A-Z Index</a></li>
 		<li>Terms of Use</li>
@@ -21,7 +21,7 @@
 				else { echo '<a href="'.BASE_URL.'/login/logout.php">Logout</a>'; }
 			?>
 		</li>
-		<li><a href="<?php echo BASE_URL; ?>/contact">Contact Us</li>
+		<li><a href="<?php echo BASE_URL; ?>/contact">Contact Us</a></li>
 	</ul>
 	</div>
 	<p class="copyright">
