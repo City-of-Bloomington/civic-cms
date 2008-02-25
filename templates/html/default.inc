@@ -12,7 +12,7 @@
 	include APPLICATION_HOME.'/includes/leftSidebar.inc';
 	include APPLICATION_HOME.'/includes/rightSidebar.inc';
 ?>
-<div id="mainContent" lang="<?php echo $_SESSION['LANGUAGE']; ?>" xml:lang="<?php echo $_SESSION['LANGUAGE']; ?>">
+<div id="mainContent" xml:lang="<?php echo $_SESSION['LANGUAGE']; ?>">
 	<?php
 		include FRAMEWORK.'/errorMessages.inc';
 

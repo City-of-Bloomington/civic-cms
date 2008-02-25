@@ -34,6 +34,7 @@ echo "
 		<ul>$rssButton
 			<li><button type=\"button\" class=\"printSmall\" onclick=\"window.open('$printURL');\">Print</button></li>
 			<li><form method=\"get\" action=\"{$page->getProtocol()}{$page->getScript()}\">
+				<fieldset>
 ";
 				foreach($page->parameters as $field=>$value)
 				{
@@ -49,6 +50,7 @@ echo "
 					}
 echo "
 					</select>
+				</fieldset>
 				</form>
 			</li>
 		</ul>
