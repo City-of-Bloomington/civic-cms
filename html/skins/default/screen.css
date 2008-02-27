@@ -89,7 +89,7 @@ li.current>a { background-color:#cccccc; width:100%; }
 .interfaceBox { border-bottom:2px dotted black; }
 .interfaceBox img { margin:0; }
 
-.interfaceBox h1 { background-color:#5a8fdd; color:white; font-size:14pt; font-weight:bold; padding-left:.5em; padding-right:.5em; }
+.interfaceBox h1 { background-color:#5a8fdd; color:white; font-size:14pt; font-weight:bold; padding-left:.5em; padding-right:.5em; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; }
 .interfaceBox h1 a { margin:0px; height:20px; }
 .interfaceBox h1 a:link,.titleBar a:visited { color:white; background-color:transparent; }
 .interfaceBox h1 form { margin:0; padding:0; display:inline; height:1em; }
@@ -116,7 +116,8 @@ li.current>a { background-color:#cccccc; width:100%; }
 
 /* Widget Styles */
 .widget { margin-bottom:2em; }
-.widget h1 { background-color:#5a8fdd; color:white; font-size:10pt; font-family: sans-serif; font-weight:bold; padding:5px; margin:0; border:0; }
+.widget h1 { background-color:#5a8fdd; color:white; font-size:10pt; font-family: sans-serif; font-weight:bold; padding:5px; margin:0; border:0;
+    		-moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; }
 	.widget h1 form { margin:0; padding:0; display:inline; height:1em; }
 	.widget h1 form fieldset { margin:0; padding:0; border:0; display:inline; }
 
