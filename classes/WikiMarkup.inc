@@ -493,7 +493,6 @@ class WikiMarkup
 	*/
 	private static function imageMarkup($linkTarget,$linkText=null)
 	{
-		echo "Parsing Image Syntax\n";
 		# Decide whether we're going to wrap the <img> tag with an HREF
 		$imageLink = self::$CURRENT_URL ? self::$CURRENT_URL : null;
 
