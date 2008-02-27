@@ -255,151 +255,187 @@ class WikiMarkup
 	#----------------------------------------------------------------
 	private static function fileMarkup($linkTarget,$linkText=null)
 	{
-		self::$CURRENT_URL = $linkTarget;
-		$title = $linkText ? self::parse($linkText) : null;
-
-		$list = ctype_digit($linkTarget) ? new MediaList(array('id'=>$linkTarget)) : new MediaList(array('filename'=>$linkTarget));
-		if (self::$CURRENT_URL == $linkTarget && count($list))
+		try
 		{
-			$media = $list[0];
-			if (!$title) { $title = View::escape($media->getTitle()); }
-			$type = strtoupper($media->getExtension());
-			$size = self::size_readable($media->getFilesize());
+			$media = new Media($linkTarget);
 
-			self::$CURRENT_URL = null;
-			return "<a href=\"{$media->getURL()}\" class=\"{$media->getExtension()}\">$title <em>($type $size)</em></a>";
+			self::$CURRENT_URL = $media->getURL();
+			$title = $linkText ? self::parse($linkText) : null;
+
+			# If we didn't render an href inside of the linkText
+			if (self::$CURRENT_URL == $media->getURL())
+			{
+				# We should go ahead and render this href
+				if (!$title) { $title = View::escape($media->getTitle()); }
+				$type = strtoupper($media->getExtension());
+				$size = self::size_readable($media->getFilesize());
+
+				self::$CURRENT_URL = null;
+
+				return "<a href=\"{$media->getURL()}\" class=\"{$media->getExtension()}\">$title <em>($type $size)</em></a>";
+			}
+			else
+			{
+				# We rendered an href inside of the linkText.  we should just
+				# return that, instead of rendering an href
+				self::$CURRENT_URL = null;
+				return $title;
+			}
 		}
-		else
+		catch (Exception $e)
 		{
 			self::$CURRENT_URL = null;
-			return $title;
+			return $linkText;
 		}
 	}
 
 	private static function locationGroupMarkup($linkTarget,$linkText=null)
 	{
-		self::$CURRENT_URL = $linkTarget;
-		$title = $linkText ? self::parse($linkText) : null;
-
 		$list = ctype_digit($linkTarget) ? new LocationGroupList(array('id'=>$linkTarget)) : new LocationGroupList(array('name'=>$linkTarget));
-		if (self::$CURRENT_URL==$linkTarget && count($list))
+		if (count($list))
 		{
 			$locationGroup = $list[0];
-			if (!$title) { $title = View::escape($locationGroup->getName()); }
-			$url = BASE_URL.'/locations/?locationGroup_id='.$locationGroup->getId();
 
-			self::$CURRENT_URL = null;
-			return "<a href=\"$url\">$title</a>";
+			self::$CURRENT_URL = $locationGroup->getURL();
+			$title = $linkText ? self::parse($linkText) : null;
+
+			if (self::$CURRENT_URL == $locationGroup->getURL())
+			{
+				$title = $title ? $title : View::escape($locationGroup->getName());
+				self::$CURRENT_URL = null;
+				return "<a href=\"{$locationGroup->getURL()}\">$title</a>";
+			}
+			else
+			{
+				self::$CURRENT_URL = null;
+				return $title;
+			}
 		}
 		else
 		{
 			self::$CURRENT_URL = null;
-			return $title;
+			return $linkText;
 		}
 	}
 
 	private static function locationMarkup($linkTarget,$linkText=null)
 	{
-		self::$CURRENT_URL = $linkTarget;
-		$title = $linkText ? self::parse($linkText) : null;
-
 		$list = ctype_digit($linkTarget) ? new LocationList(array('id'=>$linkTarget)) : new LocationList(array('name'=>$linkTarget));
-		if (self::$CURRENT_URL==$linkTarget && count($list))
+		if (count($list))
 		{
 			$location = $list[0];
-			if (!$title) { $title = View::escape($location->getName()); }
-			$url = BASE_URL.'/locations/viewLocation.php?location_id='.$location->getId();
 
-			self::$CURRENT_URL = null;
-			return "<a href=\"$url\">$title</a>";
+			self::$CURRENT_URL = $location->getURL();
+			$title = $linkText ? self::parse($linkText) : null;
+
+			if (self::$CURRENT_URL == $location->getURL())
+			{
+				if (!$title) { $title = View::escape($location->getName()); }
+				self::$CURRENT_URL = null;
+				return "<a href=\"{$location->getURL()}\">$title</a>";
+			}
+			else
+			{
+				self::$CURRENT_URL = null;
+				return $title;
+			}
 		}
 		else
 		{
 			self::$CURRENT_URL = null;
-			return $title;
+			return $linkText;
 		}
 	}
 	private static function calendarMarkup($linkTarget,$linkText=null)
 	{
-		self::$CURRENT_URL = $linkTarget;
-		$title = $linkText ? self::parse($linkText) : null;
-
 		$list = ctype_digit($linkTarget) ? new CalendarList(array('id'=>$linkTarget)) : new CalendarList(array('name'=>$linkTarget));
-		if (self::$CURRENT_URL==$linkTarget)
+		if (count($list))
 		{
-			if (count($list))
-			{
-				$calendar = $list[0];
-				if (!$title) { $title = View::escape($calendar->getName()); }
-				$url = BASE_URL.'/calendars/home.php?calendar_id='.$calendar->getId();
-			}
-			else
-			{
-				if (!$title) { $title = 'All Calendars'; }
-				$url = BASE_URL.'/calendars';
-			}
+			$calendar = $list[0];
+			$title = View::escape($calendar->getName());
+			$url = BASE_URL.'/calendars?calendar_id='.$calendar->getId();
+		}
+		else
+		{
+			$title = 'All Calendars';
+			$url = BASE_URL.'/calendars';
+		}
 
+		self::$CURRENT_URL = $url;
+		$title = $linkText ? self::parse($linkText) : $title;
+		if (self::$CURRENT_URL == $url)
+		{
 			self::$CURRENT_URL = null;
 			return "<a href=\"$url\">$title</a>";
 		}
 		else
 		{
 			self::$CURRENT_URL = null;
-			return $title;
+			return $linkText;
 		}
 	}
 	private static function facetMarkup($linkTarget,$linkText=null)
 	{
-		self::$CURRENT_URL = $linkTarget;
-		$title = $linkText ? self::parse($linkText) : null;
-
 		$list = ctype_digit($linkTarget) ? new FacetList(array('id'=>$linkTarget)) : new FacetList(array('name'=>$linkTarget));
-		if (self::$CURRENT_URL==$linkTarget && count($list))
+		if (count($list))
 		{
 			$facet = $list[0];
-			if (!$title) { $title = View::escape($facet->getName()); }
-			$url = BASE_URL.'/facets/viewFacet.php?facet_id='.$facet->getId();
 
-			self::$CURRENT_URL = null;
-			return "<a href=\"$url\">$title</a>";
+			self::$CURRENT_URL = $facet->getURL();
+			$title = $linkText ? self::parse($linkText) : null;
+
+			if (self::$CURRENT_URL == $facet->getURL())
+			{
+				if (!$title) { $title = View::escape($facet->getName()); }
+				self::$CURRENT_URL = null;
+				return "<a href=\"{$facet->getURL()}\">$title</a>";
+			}
+			else
+			{
+				self::$CURRENT_URL = null;
+				return $title;
+			}
 		}
 		else
 		{
 			self::$CURRENT_URL = null;
-			return $title;
+			return $linkText;
 		}
 	}
 	private static function eventMarkup($linkTarget,$linkText=null)
 	{
-		self::$CURRENT_URL = $linkTarget;
-		$title = $linkText ? self::parse($linkText) : null;
-
-		if (self::$CURRENT_URL==$linkTarget)
+		if (preg_match('|^/(\d{4})/(\d{1,2})/(\d{1,2})/(.*)|',$linkTarget,$matches))
 		{
+			$year = $matches[1];
+			$month = $matches[2];
+			$day = $matches[3];
+			$linkTarget = $matches[4];
+		}
 
-			if (preg_match('|^/(\d{4})/(\d{1,2})/(\d{1,2})/(.*)|',$linkTarget,$matches))
+		try
+		{
+			$event = new Event($linkTarget);
+			$url = new URL($event->getURL());
+			if (isset($year)) { $url->date = "$year-$month-$day"; }
+
+			self::$CURRENT_URL = $url->getURL();
+			$title = $linkText ? self::parse($linkText) : null;
+			if (self::$CURRENT_URL == $url->getURL())
 			{
-				$year = $matches[1];
-				$month = $matches[2];
-				$day = $matches[3];
-				$linkTarget = $matches[4];
-			}
-
-			try
-			{
-				$event = new Event($linkTarget);
-				$url = new URL($event->getURL());
-				if (isset($year)) { $url->date = "$year-$month-$day"; }
-
 				if (!$title) { $title = View::escape($event->getTitle()); }
+				self::$CURRENT_URL = null;
 				return "<a href=\"$url\">$title</a>";
 			}
-			catch(Exception $e) { return false; }
+			else
+			{
+				self::$CURRENT_URL = null;
+				return $title;
+			}
 		}
-		else
+		catch (Exception $e)
 		{
 			self::$CURRENT_URL = null;
-			return $title;
+			return $linkText;
 		}
 	}
 	private static function languageMarkup($linkTarget,$linkText=null)
@@ -431,7 +467,6 @@ class WikiMarkup
 		if (self::$CURRENT_URL==$linkTarget)
 		{
 			self::$CURRENT_URL = null;
-
 			$url = "mailto:$linkTarget";
 			if ($title) { return "<a href=\"$url\">$title</a>"; }
 			else { return "<a href=\"$url\">$linkTarget</a>"; }
@@ -458,6 +493,7 @@ class WikiMarkup
 	*/
 	private static function imageMarkup($linkTarget,$linkText=null)
 	{
+		echo "Parsing Image Syntax\n";
 		# Decide whether we're going to wrap the <img> tag with an HREF
 		$imageLink = self::$CURRENT_URL ? self::$CURRENT_URL : null;
 

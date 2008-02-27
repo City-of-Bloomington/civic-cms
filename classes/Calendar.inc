@@ -226,8 +226,6 @@
 			return $recurrenceArray;
 		}
 
-
-
 		/**
 		 * Generic Getters
 		 */
