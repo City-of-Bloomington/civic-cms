@@ -24,7 +24,8 @@ $allowedElements = array
 	'em', 'strong', 'sub', 'sup',
 	'abbr', 'acronym', 'address', 'blockquote', 'cite', 'code', 'pre', 'q',
 	'dl', 'ol', 'ul', 'li', 'dt', 'dd',
-	'table', 'thead','tbody','tr','th','td'
+	'table', 'thead','tbody','tr','th','td',
+	'img'
 );
 $config->set('HTML','AllowedElements',$allowedElements);
 
