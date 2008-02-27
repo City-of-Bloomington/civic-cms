@@ -57,7 +57,7 @@ as well as find driving directions, and information specific to a certain site.<
 			$title = View::escape($this->title);
 			echo "<a class=\"kml\" href=\"$url\">$title KML</a>";
 
-			echo $name;
+			echo View::escape($this->title);
 		?>
 	</h1>
 	<ul><?php
