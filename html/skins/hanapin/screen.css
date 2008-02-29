@@ -92,7 +92,7 @@ span.caption { display:block; font-size:11px; }
 .interfaceBox h1 { width:190px; background:url('hanapin/images/widgets/widget_top_bg.gif') top no-repeat; background-color:#5a8fdc; padding:5px 10px 5px 10px; font-size:14px; color:#ffffff; font-weight:bold; }
 .interfaceBox h1 .rss {  }
 
-.sidebar { width:210px; padding:10px 15px 0 20px; }
+.sidebar { width:210px; padding:0 15px 0 20px; }
 .left { float:left; clear:left; }
 .right { float:right; clear:right; }
 
@@ -120,7 +120,7 @@ span.caption { display:block; font-size:11px; }
 .breadcrumbs li { display:inline; list-style-type:none; }
 .breadcrumbs li a { padding-right:8px; background:url('default/images/breadcrumb.gif') no-repeat right; margin-right:8px; color:black; }
 
-#pageTools { height:39px; background:url('hanapin/images/pagetools/bg_left.gif') top left no-repeat; padding-left:19px; float:right; margin-right:15px; margin-top:10px; }
+#pageTools { height:39px; background:url('hanapin/images/pagetools/bg_left.gif') top left no-repeat; padding-left:19px; float:right; margin-right:15px; margin-bottom:10px; }
 #pageTools ul { list-style-type:none; margin:0; padding:7px 10px 5px 0; height:39px; background:url('hanapin/images/pagetools/bg_right.gif') top right no-repeat; display:table; }
 #pageTools li { display:inline; list-style-type:none; height:39px; vertical-align:middle; background-image:none; padding:0; border:0; }
 #pageTools form { border:0; margin:0; padding:0; display:inline; vertical-align:middle; }
