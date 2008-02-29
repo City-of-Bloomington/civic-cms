@@ -6,15 +6,21 @@
  * @param Document $this->document
  * @param array $this->currentAncestors
  */
-echo '<div class="breadcrumbs"><ul>';
-foreach($this->currentAncestors as $section)
-{
-	$name = View::escape($section);
-	echo "<li><a href=\"{$section->getURL()}\">$name</a></li>";
-	$currentSection = $section->getId();
-}
-echo '</ul></div>';
-
+echo "
+<div id=\"pageTitle\">
+	<div class=\"breadcrumbs\">
+		<ul>
+";
+		foreach($this->currentAncestors as $section)
+		{
+			$name = View::escape($section);
+			echo "\t\t<li><a href=\"{$section->getURL()}\">$name</a></li>\n";
+			$currentSection = $section->getId();
+		}
+echo "
+		</ul>
+	</div>
+";
 
 # List all the parents of the curent document as a related section
 # Don't try and show the full ancestral line of each of these
@@ -31,7 +37,6 @@ if (count($this->document->getSections())>1)
 	}
 	$relatedSections = implode(', ',$relatedSections);
 
-
 	echo "
 	<div class=\"related-sections\">
 		Related Sections:
@@ -39,3 +44,9 @@ if (count($this->document->getSections())>1)
 	</div>
 	";
 }
+
+$title = View::escape($this->document->getTitle());
+echo "
+	<h1>$title</h1>
+</div>
+";

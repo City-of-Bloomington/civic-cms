@@ -9,10 +9,14 @@
 	include APPLICATION_HOME.'/includes/xhtmlStrictHeader.inc';
 	include APPLICATION_HOME.'/includes/banner.inc';
 	include APPLICATION_HOME.'/includes/menubar.inc';
-	include APPLICATION_HOME.'/includes/leftSidebar.inc';
-	include APPLICATION_HOME.'/includes/rightSidebar.inc';
 ?>
-<div id="mainContent" xml:lang="<?php echo $_SESSION['LANGUAGE']; ?>">
+<div id="main-content-container">
+	<?php
+		include APPLICATION_HOME.'/includes/leftSidebar.inc';
+		if (isset($this->document)) { include APPLICATION_HOME.'/includes/pageTools.inc'; }
+		include APPLICATION_HOME.'/includes/rightSidebar.inc';
+	?>
+	<div id="mainContent" xml:lang="<?php echo $_SESSION['LANGUAGE']; ?>">
 	<?php
 		include FRAMEWORK.'/errorMessages.inc';
 
@@ -23,6 +27,7 @@
 
 		foreach($widgets as $widget) { $widget->render($this); }
 	?>
+	</div>
 </div>
 <?php
 	include APPLICATION_HOME.'/includes/footer.inc';

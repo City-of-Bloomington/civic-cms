@@ -5,26 +5,26 @@
  */
 ?>
 <div id="footer">
-	<div class="inline">
-	<ul>
-		<li><a href="<?php echo BASE_URL; ?>/documents/az_index.php">A-Z Index</a></li>
-		<li>Terms of Use</li>
-		<li><a href="<?php echo BASE_URL; ?>/website-privacy-statement">Privacy</a></li>
-		<li><a href="<?php echo BASE_URL; ?>/Website-Accessibility-Statement">Accessibility</a></li>
-		<li><a href="<?php echo BASE_URL; ?>/languages">Languages</a></li>
-		<li><a href="<?php echo BASE_URL; ?>/feeds">Feeds</a></li>
-		<li><a href="<?php echo BASE_URL; ?>/jobs">Jobs</a></li>
-		<li>Help</li>
-		<li><a href="<?php echo BASE_URL; ?>/search/sitemap.php">Sitemap</a></li>
-		<li><?php
-				if(!isset($_SESSION['USER'])) { echo '<a href="'.BASE_URL.'/login">Login</a>'; }
-				else { echo '<a href="'.BASE_URL.'/login/logout.php">Logout</a>'; }
-			?>
-		</li>
-		<li><a href="<?php echo BASE_URL; ?>/contact">Contact Us</a></li>
-	</ul>
+	<div>
+		<ul>
+			<li><a href="<?php echo BASE_URL; ?>/documents/az_index.php">A-Z Index</a></li>
+			<li>Terms of Use</li>
+			<li><a href="<?php echo BASE_URL; ?>/website-privacy-statement">Privacy</a></li>
+			<li><a href="<?php echo BASE_URL; ?>/Website-Accessibility-Statement">Accessibility</a></li>
+			<li><a href="<?php echo BASE_URL; ?>/languages">Languages</a></li>
+			<li><a href="<?php echo BASE_URL; ?>/feeds">Feeds</a></li>
+			<li><a href="<?php echo BASE_URL; ?>/jobs">Jobs</a></li>
+			<li>Help</li>
+			<li><a href="<?php echo BASE_URL; ?>/search/sitemap.php">Sitemap</a></li>
+			<li><?php
+					if(!isset($_SESSION['USER'])) { echo '<a href="'.BASE_URL.'/login">Login</a>'; }
+					else { echo '<a href="'.BASE_URL.'/login/logout.php">Logout</a>'; }
+				?>
+			</li>
+			<li><a href="<?php echo BASE_URL; ?>/contact">Contact Us</a></li>
+		</ul>
+		<p class="copyright">
+			Copyright (C) 2006-2008 City of Bloomington, Indiana. All rights reserved.
+		</p>
 	</div>
-	<p class="copyright">
-		Copyright (C) 2006-2008 City of Bloomington, Indiana. All rights reserved.
-	</p>
 </div>

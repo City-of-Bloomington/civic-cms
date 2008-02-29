@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006-2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param string $this->title
@@ -28,11 +28,14 @@
 <?php
 	include APPLICATION_HOME.'/includes/banner.inc';
 	include APPLICATION_HOME.'/includes/menubar.inc';
-	include APPLICATION_HOME.'/includes/languages.inc';
+?>
+<div id="main-content-container">
+<?php
 	include APPLICATION_HOME.'/includes/leftSidebar.inc';
+	if (isset($this->document)) { include APPLICATION_HOME.'/includes/pageTools.inc'; }
 	include APPLICATION_HOME.'/includes/rightSidebar.inc';
 ?>
-<div id="mainContent" lang="<?php echo $_SESSION['LANGUAGE']; ?>" xml:lang="<?php echo $_SESSION['LANGUAGE']; ?>">
+<div id="mainContent" xml:lang="<?php echo $_SESSION['LANGUAGE']; ?>">
 	<?php
 		include FRAMEWORK.'/errorMessages.inc';
 
@@ -43,6 +46,7 @@
 
 		foreach($widgets as $widget) { $widget->render($this); }
 	?>
+</div>
 </div>
 <?php
 	include APPLICATION_HOME.'/includes/footer.inc';

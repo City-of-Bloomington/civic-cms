@@ -5,7 +5,7 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 ?>
-<div id="topLevelSections" class="inline">
+<div id="topLevelSections">
 <ul><li><a href="<?php echo BASE_URL; ?>">Home</a></li>
 <?php
 	#$sectionNodeList = new SectionNodeList(array('parent_id'=>1));
