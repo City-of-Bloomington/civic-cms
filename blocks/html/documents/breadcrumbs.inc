@@ -11,10 +11,16 @@ echo "
 	<div class=\"breadcrumbs\">
 		<ul>
 ";
+		$f = count($this->currentAncestors) - 1;
+		$c = 0;
 		foreach($this->currentAncestors as $section)
 		{
+			$c++;
+
 			$name = View::escape($section);
-			echo "\t\t<li><a href=\"{$section->getURL()}\">$name</a></li>\n";
+			if ($c > $f) { echo "\t\t<li>$name</li>\n"; }
+			else { echo "\t\t<li><a href=\"{$section->getURL()}\">$name</a></li>\n"; }
+
 			$currentSection = $section->getId();
 		}
 echo "

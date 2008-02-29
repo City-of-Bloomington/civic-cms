@@ -1,4 +1,4 @@
-html { background:url('hanapin/images/pagebg.gif'); background-repeat:repeat; background-position:top; text-align:center; }
+html { background:url('hanapin/images/pagebg.gif'); background-repeat:repeat; background-position:top; text-align:center; margin-bottom:15px; }
 
 body { font-family: Arial, Helvetica, sans-serif; font-size:12px; color:#000000; background-color:white; height:100%; width:980px; margin:0 auto; min-height:100%; text-align:left; }
 
@@ -117,11 +117,11 @@ span.caption { display:block; font-size:11px; }
 #pageTitle h1 { background:url('hanapin/images/contentarea/pageTitle-bottom.gif') bottom left no-repeat; width:488px; padding-left:10px; padding-bottom:2px; }
 .breadcrumbs { font-size:11px; color:black; padding-bottom:10px; margin-left:10px; }
 .breadcrumbs ul { margin:0; padding:0; }
-.breadcrumbs li { display:inline; list-style-type:none; }
-.breadcrumbs li a { padding-right:8px; background:url('default/images/breadcrumb.gif') no-repeat right; margin-right:8px; color:black; }
+.breadcrumbs li { display:inline; list-style-type:none; font-weight:bold; }
+.breadcrumbs li a { padding-right:8px; background:url('hanapin/images/contentarea/breadcrumb.gif') no-repeat right; color:black; font-weight:normal; }
 
 #pageTools { height:39px; background:url('hanapin/images/pagetools/bg_left.gif') top left no-repeat; padding-left:19px; float:right; margin-right:15px; margin-bottom:10px; }
-#pageTools ul { list-style-type:none; margin:0; padding:7px 10px 5px 0; height:39px; background:url('hanapin/images/pagetools/bg_right.gif') top right no-repeat; display:table; }
+#pageTools ul { list-style-type:none; margin:0; padding:7px 10px 5px 0; height:39px; background:url('hanapin/images/pagetools/bg_right.gif') top right no-repeat;  text-align:right; min-width:181px; }
 #pageTools li { display:inline; list-style-type:none; height:39px; vertical-align:middle; background-image:none; padding:0; border:0; }
 #pageTools form { border:0; margin:0; padding:0; display:inline; vertical-align:middle; }
 #pageTools fieldset { border:0; margin:0; padding:0; display:inline; vertical-align:middle; }
