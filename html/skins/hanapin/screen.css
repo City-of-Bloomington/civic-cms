@@ -50,7 +50,8 @@ span.caption { display:block; font-size:11px; }
 #banner-left { width:300px; float:left; height:130px; }
 #banner-right { width:620px; float:right; height:130px; padding:0 0 0 60px; }
 
-#logo { width:260px; height:39px; padding:20px 0 0 18px; margin-top:20px; margin-left:15px; cursor:pointer; }
+#logo { text-indent:-9999px; }
+#logo a { width:280px; height:60px; display:block; margin-top:20px; margin-left:15px; }
 
 /* Take Action Items */
 #banner .widgets { margin-left:19px; margin-top:19px; width:280px; height:30px; }
@@ -61,13 +62,16 @@ span.caption { display:block; font-size:11px; }
 #banner .widget li a { color:#033266; }
 
 /* Primary Top Nav */
-#banner-right ul { display:inline; list-style-type:none; margin:0; padding:0; font-size:11px; color:#003366; font-weight:bold; }
-#banner-right li { list-style-type:none; display:inline; float:left; padding:0px 4px 0 4px; border-left:1px solid #003366; }
-#banner-right li.first { border-left:0; }
+#banner-right ul { display:inline; list-style-type:none; margin:0; padding:0; font-size:11px; color:#003366; }
+#banner-right li { list-style-type:none; float:left; padding:0px 4px 0 4px; }
 #banner-right a { color:#003366; }
 
-#mainLinks { width:330px; float:left; margin-top:16px; padding:0; }
-#secondaryLinks { width:280px; float:left; padding:0; margin-top:16px; margin-left:10px; }
+#mainLinks { width:340px; float:left; margin-top:16px; padding:0; }
+#mainLinks li { border-left:1px solid #003366; }
+#mainLinks li.first { border-left:0; }
+
+#secondaryLinks { width:260px; float:left; margin-top:16px; padding-left:10px; }
+#secondaryLinks li.first { border-right:1px solid #003366; }
 
 /* Site search Form */
 #secondaryLinks form { height:20px; width:110px; padding-left:15px; border:0; margin:0; background:url('hanapin/images/banner/search_left.gif') no-repeat; }
@@ -82,7 +86,7 @@ span.caption { display:block; font-size:11px; }
 #topLevelSections a { display:block; background:url('hanapin/images/mainnav/tab-right.gif') top right no-repeat; height:21px; padding-top:4px; padding-left:4px; padding-right:8px; font-size:13px; color:#ffffff; font-weight:bold; }
 
 
-#main-content-container { width:980px; height:100%; overflow:auto; border-left:1px solid black; border-right:1px solid black; }
+#main-content-container { width:980px; height:100%; overflow:auto; border-left:1px solid black; border-right:1px solid black; padding-top:10px; }
 
 .interfaceBox {   }
 .interfaceBox h1 { width:190px; background:url('hanapin/images/widgets/widget_top_bg.gif') top no-repeat; background-color:#5a8fdc; padding:5px 10px 5px 10px; font-size:14px; color:#ffffff; font-weight:bold; }
@@ -109,10 +113,10 @@ span.caption { display:block; font-size:11px; }
 #mainContent { margin-left:246px; margin-right:246px; width:488px; }
 #backendContent { margin-left:246px; width:734px; }
 
-#pageTitle { background:url('hanapin/images/contentarea/pageTitle-background.gif') top repeat-y; width:488px; padding:5px 10px 0 10px; margin-bottom:10px; }
-#pageTitle h1 { background:url('hanapin/images/contentarea/pageTitle-bottom.gif') bottom left no-repeat; width:488px; padding-left:10px;  }
-.breadcrumbs { font-size:11px; color:black; padding-bottom:10px; }
-.breadcrumbs ul { margin:0; }
+#pageTitle { background:url('hanapin/images/contentarea/pageTitle-background.gif') top repeat-y; width:488px; margin-bottom:10px; padding-top:5px; }
+#pageTitle h1 { background:url('hanapin/images/contentarea/pageTitle-bottom.gif') bottom left no-repeat; width:488px; padding-left:10px; padding-bottom:2px; }
+.breadcrumbs { font-size:11px; color:black; padding-bottom:10px; margin-left:10px; }
+.breadcrumbs ul { margin:0; padding:0; }
 .breadcrumbs li { display:inline; list-style-type:none; }
 .breadcrumbs li a { padding-right:8px; background:url('default/images/breadcrumb.gif') no-repeat right; margin-right:8px; color:black; }
 
