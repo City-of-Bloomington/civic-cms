@@ -80,13 +80,22 @@ span.caption { display:block; font-size:11px; }
 #secondaryLinks input { width:97px; height:19px; margin:0; padding:0; background:transparent url('hanapin/images/banner/search_bg.gif') no-repeat; font-size:11px; border:0; }
 #secondaryLinks button { display:none; }
 
-#topLevelSections { width:980px; height:22px; background:#ffffff; padding-top:1px; }
-#topLevelSections ul { display:inline; list-style-type:none; margin:0; padding:0; height:21px; }
-#topLevelSections li { float:left; list-style-type:none; height:22px; background:url('hanapin/images/mainnav/tab-left.gif') top left no-repeat; margin-right:1px; padding-left:4px; }
-#topLevelSections a { display:block; background:url('hanapin/images/mainnav/tab-right.gif') top right no-repeat; height:21px; padding-top:4px; padding-left:4px; padding-right:8px; font-size:13px; color:#ffffff; font-weight:bold; }
+#topLevelSections { width:980px; height:20px; background:url('hanapin/images/mainnav/mainnav.gif') no-repeat; padding-top:1px; }
+#topLevelSections ul { list-style-type:none; margin:0; padding:0; text-align:left;  }
+#topLevelSections li { list-style-type:none; display:inline; float:left; }
+#topLevelSections a { font-size:13px; color:#ffffff; font-weight:bold; }
+/* styles for each of the main nav items */
+#topLevelSections .home { padding-left:24px; }
+#topLevelSections .government { padding-left:38px; }
+#topLevelSections .community { padding-left:26px; }
+#topLevelSections .business-sustainability { padding-left:30px; }
+#topLevelSections .arts-culture { padding-left:28px; }
+#topLevelSections .parks-recreation { padding-left:30px; }
+#topLevelSections .public-safety { padding-left:26px; }
+#topLevelSections .transportation { padding-left:32px; }
 
 
-#main-content-container { width:980px; height:100%; overflow:auto; border-left:1px solid black; border-right:1px solid black; padding-top:10px; }
+#main-content-container { width:978px; height:100%; overflow:auto; border-left:1px solid black; border-right:1px solid black; padding-top:10px; }
 
 .interfaceBox {   }
 .interfaceBox h1 { width:190px; background:url('hanapin/images/widgets/widget_top_bg.gif') top no-repeat; background-color:#5a8fdc; padding:5px 10px 5px 10px; font-size:14px; color:#ffffff; font-weight:bold; }
@@ -259,7 +268,7 @@ a.unwatch { width:22px; height:22px; padding:11px; background: url('default/imag
 #alert { border:1px solid #e0e0e0; padding:5px; margin: 10px 0px 10px 0px; }
 #alert h1 { color:red; font-size:14px; }
 
-#footer { width:980px; padding-top:20px; font-size:11px; color:#003366; clear:both; border-left:1px solid black; border-bottom:1px solid black; border-right:1px solid black; }
+#footer { width:978px; padding-top:20px; font-size:11px; color:#003366; clear:both; border-left:1px solid black; border-bottom:1px solid black; border-right:1px solid black; }
 #footer a { color:#003366; }
 #footer ul { width:600px;  float:right; margin:0; padding:0; }
 #footer li { list-style-type:none; display:inline; border-left:1px solid black; padding-left:4px; }

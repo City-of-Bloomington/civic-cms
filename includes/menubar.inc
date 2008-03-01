@@ -6,17 +6,14 @@
  */
 ?>
 <div id="topLevelSections">
-<ul><li><a href="<?php echo BASE_URL; ?>">Home</a></li>
+<ul><li class="home"><a href="<?php echo BASE_URL; ?>">Home</a></li>
 <?php
-	#$sectionNodeList = new SectionNodeList(array('parent_id'=>1));
-	#foreach($sectionNodeList as $node)
 	$sectionList = new SectionList(array('parent_id'=>1));
 	foreach($sectionList as $section)
 	{
-		#$section = $node->getSection();
-		echo "<li><a href=\"".BASE_URL."/sections/viewSection.php?section_id={$section->getId()}\">";
-		echo View::escape($section->getName());
-		echo '</a></li>';
+		$name = View::escape($section->getName());
+		$class = WikiMarkup::wikify($section->getName());
+		echo "\t<li class=\"$class\"><a href=\"".BASE_URL."/sections/viewSection.php?section_id={$section->getId()}\">$name</a></li>\n";
 	}
 ?>
 </ul>
