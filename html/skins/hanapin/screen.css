@@ -54,12 +54,16 @@ span.caption { display:block; font-size:11px; }
 #logo a { width:280px; height:60px; display:block; margin-top:20px; margin-left:15px; }
 
 /* Take Action Items */
-#banner .widgets { margin-left:19px; margin-top:19px; width:280px; height:30px; }
-#banner .widget { width:280px; height:30px; }
-#banner .widget h1 { display:inline; font-size:11px; font-weight:bold; color:#006600;  }
-#banner .widget ul { display:inline; list-style-type:none; margin:0; border:0px; padding:0;  }
-#banner .widget li { list-style-type:none; display:inline; padding-left:18px; font-weight:bold; }
+#banner .widgets {  }
+#banner .widget { float:left; padding-top:21px; padding-left:28px; }
+#banner .widget h1 { float:left; display:inline; font-size:11px; font-weight:bold; color:#006600; }
+#banner .widget ul { list-style-type:none; margin:0; border:0px; padding:0;  }
+#banner .widget li { list-style-type:none; display:inline; padding-left:0px; border:0; font-size:11px; font-weight:bold; color:#033266; }
 #banner .widget li a { color:#033266; }
+#banner .take-action .do { padding-left:21px; }
+#banner .take-action .report { padding-left:15px; }
+#banner .take-action .ask { padding-left:13px; }
+#banner .take-action .explore { padding-left:15px; }
 
 /* Primary Top Nav */
 #banner-right ul { display:inline; list-style-type:none; margin:0; padding:0; font-size:11px; color:#003366; }
@@ -80,7 +84,7 @@ span.caption { display:block; font-size:11px; }
 #secondaryLinks input { width:97px; height:19px; margin:0; padding:0; background:transparent url('hanapin/images/banner/search_bg.gif') no-repeat; font-size:11px; border:0; }
 #secondaryLinks button { display:none; }
 
-#topLevelSections { width:980px; height:20px; background:url('hanapin/images/mainnav/mainnav.gif') no-repeat; padding-top:1px; }
+#topLevelSections { width:980px; height:21px; background:url('hanapin/images/mainnav/mainnav.gif') no-repeat 0 1px; padding-top:1px; }
 #topLevelSections ul { list-style-type:none; margin:0; padding:0; text-align:left;  }
 #topLevelSections li { list-style-type:none; display:inline; float:left; }
 #topLevelSections a { font-size:13px; color:#ffffff; font-weight:bold; }
@@ -117,6 +121,18 @@ span.caption { display:block; font-size:11px; }
 .sidebar select { width:190px; }
 .sidebar input { max-width:190px; }
 
+/* styles for Constituencies Widget */
+li.business-guide { background-image: url('hanapin/images/icons/bullet_rec_red.gif'); }
+li.for-kids-guide { background-image: url('hanapin/images/icons/bullet_rec_aqua.gif'); }
+li.local-arts-guide { background-image: url('hanapin/images/icons/bullet_rec_teal.gif'); }
+li.nonprofits-guide { background-image: url('hanapin/images/icons/bullet_rec_lred.gif'); }
+li.residents-guide { background-image: url('hanapin/images/icons/bullet_rec_violet.gif'); }
+li.students-guide { background-image: url('hanapin/images/icons/bullet_rec_orange.gif'); }
+li.visitors-guide { background-image: url('hanapin/images/icons/bullet_rec_lgreen.gif'); }
+li.volunteers-guide { background-image: url('hanapin/images/icons/bullet_rec_lblue.gif'); }
+li.voters-guide { background-image: url('hanapin/images/icons/bullet_rec_lblue.gif'); }
+
+
 /*  mainContent allows for 3 columns,	*/
 /*	backendContent allows for 2 columns	*/
 #mainContent { margin-left:246px; margin-right:246px; width:488px; }
@@ -137,15 +153,6 @@ span.caption { display:block; font-size:11px; }
 #pageTools select { margin:0; padding:0; width:auto; }
 
 
-/* styles for list items that use the colored rectangle img bullets */
-li.red { background-image: url('hanapin/images/icons/bullet_rec_red.gif'); }
-li.aqua { background-image: url('hanapin/images/icons/bullet_rec_aqua.gif'); }
-li.teal { background-image: url('hanapin/images/icons/bullet_rec_teal.gif'); }
-li.lightred { background-image: url('hanapin/images/icons/bullet_rec_lred.gif'); }
-li.violet { background-image: url('hanapin/images/icons/bullet_rec_violet.gif'); }
-li.orange { background-image: url('hanapin/images/icons/bullet_rec_orange.gif'); }
-li.lightgreen { background-image: url('hanapin/images/icons/bullet_rec_lgreen.gif'); }
-li.lightblue { background-image: url('hanapin/images/icons/bullet_rec_lblue.gif'); }
 
 
 
