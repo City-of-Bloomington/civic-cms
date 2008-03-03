@@ -53,7 +53,7 @@ class Image extends Media
 
 				$dimension = $this->sizes[$size]['size'];
 
-				exec(IMAGEMAGICK."/convert $originalFile -resize '{$dimension}x{$dimension}>' $newFile");
+				exec(IMAGEMAGICK."/convert $originalFile -resize '{$dimension}x{$dimension}>' -background white -flatten $newFile");
 			}
 
 			readfile("$directory/$filename.$ext");
