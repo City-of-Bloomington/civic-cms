@@ -272,7 +272,7 @@ class WikiMarkup
 
 				self::$CURRENT_URL = null;
 
-				return "<a href=\"{$media->getURL()}\" class=\"{$media->getExtension()}\">$title <em>($type $size)</em></a>";
+				return "<a href=\"{$media->getURL('original')}\" class=\"{$media->getExtension()}\">$title <em>($type $size)</em></a>";
 			}
 			else
 			{

@@ -263,9 +263,16 @@
 		/**
 		 *  All media will be served by scripts that stream the media to the browser
 		 */
-		public function getURL()
+		public function getURL($size=null)
 		{
-			return BASE_URL."/media/media.php?media_id={$this->id}";
+			$url = BASE_URL."/media/media.php?media_id={$this->id}";
+
+			# Sizes only really apply to images
+			if ($this->media_type == 'image' && $size)
+			{
+				$url.= ';size='.$size;
+			}
+			return $url;
 		}
 
 
