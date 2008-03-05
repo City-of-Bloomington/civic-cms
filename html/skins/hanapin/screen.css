@@ -262,6 +262,7 @@ a.unwatch { width:22px; height:22px; padding:11px; background: url('default/imag
 
 
 /* Locations page layout */
+#locationGroups_list { height:360px; background:url('hanapin/images/contentarea/googlemap.png') top right no-repeat; }
 #location_list { float:right; width:200px; margin-right:1em; }
 #location_list ul {  }
 #location_map { width:360px; height:360px; border:2px solid black; margin-right:200px; }

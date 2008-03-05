@@ -16,7 +16,7 @@
 Using GoogleMap technology, you can find the position of different locations all across the city,
 as well as find driving directions, and information specific to a certain site.</p>
 <h2>Select a Map</h2>
-<ul>
+<ul id="locationGroups_list">
 	<?php
 		$url = new URL(BASE_URL.'/locations');
 
