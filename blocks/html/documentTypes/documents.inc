@@ -8,8 +8,8 @@
  */
 	$type = View::escape($this->documentType->getType());
 	$href = new URL($_SERVER['SERVER_NAME'].$_SERVER['PHP_SELF']);
-	$href->parameters['documentType_id'] = $this->documentType->getId();
-	$href->parameters['facetGroup_id'] = 'none';
+	$href->documentType_id = $this->documentType->getId();
+	$href->facetGroup_id = 'none';
 
 	$class = (!isset($this->facetGroup)) ? 'class="current"' : '';
 	echo "
@@ -19,8 +19,7 @@
 		</a>
 	</h1>
 	<div class=\"tabBar\">
-	<ul><li><a href=\"$href\" $class>Show All</a></li>
-		<li>Organize By:</li>
+	<ul><li>Organize By:</li>
 	";
 
 	$groups = new FacetGroupList();
@@ -36,7 +35,9 @@
 		}
 	}
 
+	$href->facetGroup_id = 'none';
 	echo "
+		<li><a href=\"$href\" $class>Show All</a></li>
 	</ul>
 	</div>
 	";
