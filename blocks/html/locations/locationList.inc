@@ -15,29 +15,23 @@
 <p>Use this feature to find locations grouped together into categories, such as City Facilities or Historic Sites.
 Using GoogleMap technology, you can find the position of different locations all across the city,
 as well as find driving directions, and information specific to a certain site.</p>
-<form method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-<fieldset>
-	<select name="locationGroup_id" onchange="this.form.submit();">
-		<option value="">Choose a category</option>
-		<option value=""></option>
+<h2>Select a Map</h2>
+<ul>
 	<?php
+		$url = new URL(BASE_URL.'/locations');
+
 		$list = new LocationGroupList();
 		$list->find();
 		foreach($list as $group)
 		{
 			$name = View::escape($group->getName());
-
-			if (isset($this->locationGroup) && $this->locationGroup->getId()==$group->getId()) { $selected = 'selected="selected"'; }
-			else { $selected = ''; }
-
-			echo "<option value=\"{$group->getId()}\" $selected>$name</option>\n";
+			$url->locationGroup_id = $group->getId();
+			echo "<li><a href=\"$url\">$name</a></li>\n";
 		}
-		$selected = $this->title=='Other' ? 'selected="selected"' : '';
-		echo "<option value=\"0\" $selected>Other</option>";
+		$url->locationGroup_id = 0;
+		echo "<li><a href=\"$url\">Other</a></li>";
 	?>
-	</select>
-</fieldset>
-</form>
+</ul>
 <?php if(isset($this->locationList)) { ?>
 <div class="interfaceBox" id="location_list">
 	<h1>
