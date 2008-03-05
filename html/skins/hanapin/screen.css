@@ -14,7 +14,7 @@ hr { border:0; height:1px; background-color:#003366; margin-bottom:10px; margin-
 p { margin:0; margin-bottom:.5em; }
 
 h1 { font-size:18px; color:#003366; margin:0; padding:0; font-weight:bold; }
-h2 { font-size:16px; color:#003366;  margin:5px 0px 5px 0px; padding:0; font-weight:bold; }
+h2 { font-size:16px; color:#003366;  margin:5px 0px 5px 0px; padding-bottom:5px; font-weight:bold; border-bottom:1px; border-bottom-color:#bdbdbd; border-bottom-style:solid; }
 h2 a { color:#003366; }
 h3 { font-size:14px; color:#003366; margin:5px 0px 5px 0px; padding:0; font-weight:bold; }
 h3 a { color:#003366; }
@@ -22,7 +22,7 @@ h4 { font-size:13px; color:#003366; margin:5px 0px 5px 0px; padding:0; font-weig
 h4 a { color:#003366; }
 h5 { font-size:13px; color:#003366; margin:5px 0px 5px 0px; padding:0; font-weight:bold; }
 h5 a { color:#003366; }
-h6 { font-size:12px; color:#003366; margin:5px 0px 5px 0px; padding:0; font-weight:bold; }
+h6 { font-size:12px; color:#003366; font-weight:bold; }
 h6 a { color:#003366; }
 
 strong { font-weight:bold; }
@@ -33,17 +33,14 @@ sup { vertical-align:super; }
 code { font-family:monospace; }
 address { font-style:normal; }
 
-table { border-collapse:collapse; border:1px solid #e0e0e0; }
-tr { vertical-align:top; }
-td { padding:.5em; background-color:inherit; }
-th { text-align:left; background-color:#f3f3f3; padding:.5em; border-bottom:1px solid #e0e0e0; vertical-align: top; font-weight:bold; }
-th a:link,th a:visited { color:#3366cc; background-color:inherit; }
+dt { font-weight:bold; }
+
 
 img { border:0; }
-span.image { margin:5px 15px 5px 15px; }
-span.image img { }
-span.caption { display:block; font-size:11px; }
-.thumbnail { }
+span.image { margin:5px 15px 5px 15px; text-align:center;  }
+span.thumbnail { margin:5px 15px 5px 15px; text-align:center; }
+span.image img,span.thumbnail img { border:1px solid #999999; }
+span.caption { display:block; font-size:11px; width:inherit; padding:7px; background-color:#e0e0e0; }
 
 #banner { width:980px; margin:0; padding:0; height:130px; background:url('hanapin/images/banner/banner.gif') top left no-repeat; font-size:12px; }
 #banner ul { list-style-type:none; margin:0; padding:0; }
@@ -131,15 +128,22 @@ span.caption { display:block; font-size:11px; }
 .breadcrumbs li a { padding-right:8px; background:url('hanapin/images/contentarea/breadcrumb.gif') no-repeat right; color:black; font-weight:normal; }
 
 
-
-
-
-
 #footer { padding-top:20px; padding-bottom:10px; font-size:11px; color:#003366; clear:both; border-left:1px solid black; border-right:1px solid black; border-bottom:1px solid black; }
 #footer ul { list-style-type:none; margin:0; float:right; width:600px; }
 #footer li { display:inline; margin-left:4px; }
 #footer .copyright { width:300px; margin-left:5px; }
 #footer a { color:#003366; }
+
+
+/* adds 5px spacing for list items in the content area. does not affect other list items in the layout such as nav and widgets */
+#mainContent li { margin:5px; }
+
+/* defines table styles for tables in the center column / content area. Will not affect other tables like the calendar */
+#mainContent table { border-collapse:collapse; border:1px solid #e0e0e0; }
+#mainContent tr { vertical-align:top; }
+#mainContent td { padding:.5em; background-color:inherit; border:1px solid #e0e0e0; }
+#mainContent th { text-align:left; background-color:#e0e0e0; padding:.5em; border-bottom:1px solid #e0e0e0; vertical-align: top; font-weight:bold; }
+#mainContent th a:link,th a:visited { color:#3366cc; background-color:inherit; }
 
 /* Calendars MUST BE marked up as tables */
 table.calendar { border:0; background:white; text-align:center; font-size:12px; }
@@ -255,3 +259,11 @@ a.unwatch { width:22px; height:22px; padding:11px; background: url('default/imag
 #message h1 { color:#003366; font-size:14px; background-color:#e6e6e6;  clear:both; }
 #alert { border:1px solid #013567; padding:5px; margin: 10px 0px 10px 0px; background-color:#e6e6e6; }
 #alert h1 { color:red; font-size:14px; clear:both; }
+
+
+/* Locations page layout */
+#location_list { float:right; width:200px; margin-right:1em; }
+#location_list ul {  }
+#location_map { width:360px; height:360px; border:2px solid black; margin-right:200px; }
+#locationGroup_description { margin-right:200px; }
+.handicap_accessible { height:16px; padding-left:18px; background: url('default/images/access.png') no-repeat; }
