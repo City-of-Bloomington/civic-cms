@@ -1,16 +1,31 @@
 <?php
 /**
- * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2007-2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Facet $this->facet
  */
-	$name = View::escape($this->facet->getName());
-	$description = WikiMarkup::parse($this->facet->getDescription());
-	echo "
-	<h1>$name</h1>
-	<div>$description</div>
-	";
+$name = View::escape($this->facet->getName());
+$description = WikiMarkup::parse($this->facet->getDescription());
+echo "
+<h1>$name</h1>
+<div>$description</div>
+<div class=\"table-of-contents\">
+	<ul>
+";
+foreach($this->facet->getRelatedGroups() as $group)
+{
+	foreach($group->getFacets() as $facet)
+	{
+		$name = View::escape($facet->getName());
+		$anchor = WikiMarkup::wikify($facet->getName());
+		echo "<li><a href=\"#$anchor\">$name</a></li>\n";
+	}
+}
+echo "
+	</ul>
+</div>
+";
 
 	$displayedDocuments = array();
 	foreach($this->facet->getRelatedGroups() as $group)
@@ -23,9 +38,10 @@
 				if (count($list))
 				{
 					$name = View::escape($facet->getName());
+					$anchor = WikiMarkup::wikify($facet->getName());
 					echo "
 					<div class=\"interfaceBox\">
-						<h1>$name</h1>
+						<h1><a id=\"$anchor\">$name</a></h1>
 						<ul>
 					";
 						foreach($list as $document)

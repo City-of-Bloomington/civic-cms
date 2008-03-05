@@ -181,6 +181,10 @@ ul.mktree li.bullet .bullet { cursor: default; background: url('default/images/b
 ul.mktree li.liOpen ul { display: block; }
 ul.mktree li.liClosed ul { display: none; }
 
+/* Table of Contents styles */
+.table-of-contents ul { list-style-type:none; }
+.table-of-contents li { display:inline; }
+
 /*  Custom buttons for forms */
 button { cursor:pointer; overflow:hidden; vertical-align:middle; }
 /* Rick doesn't want these custom images right now.
