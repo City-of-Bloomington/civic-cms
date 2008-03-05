@@ -8,6 +8,9 @@
 ?>
 <div id="rightSidebar" class="right sidebar">
 <?php
+	if (isset($this->document)) { include APPLICATION_HOME.'/includes/pageTools.inc'; }
+
+
 	$panel = new Panel('rightSidebar');
 	$widgets = isset($this->document) ? $panel->getWidgets($this->document) : $panel->getWidgets();
 

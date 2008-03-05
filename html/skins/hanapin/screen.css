@@ -1,14 +1,15 @@
-html { background:url('hanapin/images/pagebg.gif'); background-repeat:repeat; background-position:top; text-align:center; margin-bottom:15px; }
+@import url('reset.css');
 
-body { font-family: Arial, Helvetica, sans-serif; font-size:12px; color:#000000; background-color:white; height:100%; width:980px; margin:0 auto; min-height:100%; text-align:left; }
+html { background:url('hanapin/images/pagebg.gif'); background-repeat:repeat; background-position:top; text-align:center; padding-bottom:10px; }
+body { width:980px; position:relative; margin:0 auto; text-align:left; background-color:white; font-family:Arial, Helvetica, sans-serif; }
 
 /* DEFAULT TEXT */
-a { color:#3399cc; text-decoration:none; }
-a:visited { color:#3399cc; text-decoration:none; }
-a:active { color:#3399cc; text-decoration:none; }
+a { color:#3399cc; }
+a:visited { color:#3399cc; }
+a:active { color:#3399cc; }
 a:hover { color:#3399cc; text-decoration:underline; }
 
-hr { border:0; height:1px; background-color:#003366; margin-bottom:10px; margin-top:10px; clear:both; }
+hr { border:0; height:1px; background-color:#003366; margin-bottom:10px; margin-top:10px; }
 
 p { margin:0; margin-bottom:.5em; }
 
@@ -44,99 +45,83 @@ span.image img { }
 span.caption { display:block; font-size:11px; }
 .thumbnail { }
 
+#banner { width:980px; margin:0; padding:0; height:130px; background:url('hanapin/images/banner/banner.gif') top left no-repeat; font-size:12px; }
+#banner ul { list-style-type:none; margin:0; padding:0; }
+#banner a { color:black; font-size:10px; }
 
-/* PAGE BANNER */
-#banner { width:980px; height:130px; background:url('hanapin/images/banner/banner.gif'); background-repeat:no-repeat; background-color:#ffffff; }
-#banner-left { width:300px; float:left; height:130px; }
-#banner-right { width:620px; float:right; height:130px; padding:0 0 0 60px; }
+#logo { width:284px; height:68px; position:absolute; top:16px; left:16px;  text-indent:-9999px; }
+#logo a { display:block; width:246px; height:64px; }
 
-#logo { text-indent:-9999px; }
-#logo a { width:280px; height:60px; display:block; margin-top:20px; margin-left:15px; }
+#banner .widgets { width:296px; height:24px; position:relative; top:98px; left:16px; padding-top:4px; }
+#banner .widgets h1 { display:inline; margin-left:4px; font-weight:bold; font-size:12px; }
+#banner .widgets ul,#banner .widgets li { display:inline; margin-left:4px; }
+#banner .widgets a { font-weight:bold; color:#033266; }
 
-/* Take Action Items */
-#banner .widgets {  }
-#banner .widget { float:left; padding-top:21px; padding-left:28px; }
-#banner .widget h1 { float:left; display:inline; font-size:11px; font-weight:bold; color:#006600; }
-#banner .widget ul { list-style-type:none; margin:0; border:0px; padding:0;  }
-#banner .widget li { list-style-type:none; display:inline; padding-left:0px; border:0; font-size:11px; font-weight:bold; color:#033266; }
-#banner .widget li a { color:#033266; }
-#banner .take-action .do { padding-left:21px; }
-#banner .take-action .report { padding-left:15px; }
-#banner .take-action .ask { padding-left:13px; }
-#banner .take-action .explore { padding-left:15px; }
+#mainLinks { width:326px; height:30px; position:absolute; top:10px; left:348px; padding-top:4px; padding-left:4px; }
+#mainLinks ul, #mainLinks li { display:inline; }
 
-/* Primary Top Nav */
-#banner-right ul { display:inline; list-style-type:none; margin:0; padding:0; font-size:11px; color:#003366; }
-#banner-right li { list-style-type:none; float:left; padding:0px 4px 0 4px; }
-#banner-right a { color:#003366; }
-
-#mainLinks { width:340px; float:left; margin-top:16px; padding:0; }
-#mainLinks li { border-left:1px solid #003366; }
+#mainLinks a, #secondaryLinks a { color:#003366; }
+#mainLinks li { border-left:1px solid #003366; padding-left:4px; }
 #mainLinks li.first { border-left:0; }
 
-#secondaryLinks { width:260px; float:left; margin-top:16px; padding-left:10px; }
+#secondaryLinks { width:260px; height:30px; position:absolute; top:10px; right:4px; padding-top:4px; }
+#secondaryLinks li { float:left;  padding-right:4px; margin-right:4px; }
 #secondaryLinks li.first { border-right:1px solid #003366; }
-
-/* Site search Form */
-#secondaryLinks form { height:20px; width:110px; padding-left:15px; border:0; margin:0; background:url('hanapin/images/banner/search_left.gif') no-repeat; }
-#secondaryLinks fieldset { height:20px; border:0; margin:0; padding:0; background:url('hanapin/images/banner/search_right.gif') right no-repeat; }
+#secondaryLinks form { width:110px;  background:url('hanapin/images/banner/search.gif') top left no-repeat; }
+#secondaryLinks fieldset {  }
 #secondaryLinks legend { display:none; }
-#secondaryLinks input { width:97px; height:19px; margin:0; padding:0; background:transparent url('hanapin/images/banner/search_bg.gif') no-repeat; font-size:11px; border:0; }
+#secondaryLinks input { border:0; background-color:transparent; width:82px; margin-left:18px; }
 #secondaryLinks button { display:none; }
 
-#topLevelSections { width:980px; height:21px; background:url('hanapin/images/mainnav/mainnav.gif') no-repeat 0 1px; padding-top:1px; }
-#topLevelSections ul { list-style-type:none; margin:0; padding:0; text-align:left;  }
-#topLevelSections li { list-style-type:none; display:inline; float:left; }
-#topLevelSections a { font-size:13px; color:#ffffff; font-weight:bold; }
-/* styles for each of the main nav items */
-#topLevelSections .home { padding-left:24px; }
-#topLevelSections .government { padding-left:38px; }
-#topLevelSections .community { padding-left:26px; }
-#topLevelSections .business-sustainability { padding-left:30px; }
-#topLevelSections .arts-culture { padding-left:28px; }
-#topLevelSections .parks-recreation { padding-left:30px; }
-#topLevelSections .public-safety { padding-left:26px; }
-#topLevelSections .transportation { padding-left:32px; }
 
+#topLevelSections { height:21px; padding-top:1px; padding-right:5px; background:url('hanapin/images/mainnav/tab-right.gif') right no-repeat 1px; }
+#topLevelSections ul { list-style-type:none; background:#013466 url('hanapin/images/mainnav/tab-left.gif') top left no-repeat; height:21px; margin:0; padding:0; }
+#topLevelSections li { height:21px; float:left; margin-left:5px; border-left:1px solid white; padding-left:5px; }
+#topLevelSections li.home { border-left:none; }
+#topLevelSections a { color:white; font-weight:bold; font-size:12px; }
 
-#main-content-container { width:978px; height:100%; overflow:auto; border-left:1px solid black; border-right:1px solid black; padding-top:10px; }
+#main-content-container { width:978px; border-left:1px solid black; border-right:1px solid black; margin:0; overflow:auto; padding-top:10px; }
 
-.interfaceBox {   }
-.interfaceBox h1 { width:190px; background:url('hanapin/images/widgets/widget_top_bg.gif') top no-repeat; background-color:#5a8fdc; padding:5px 10px 5px 10px; font-size:14px; color:#ffffff; font-weight:bold; }
-.interfaceBox h1 .rss {  }
+.sidebar { width:210px; }
+#leftSidebar { float:left; clear:left; margin-left:10px; }
+#rightSidebar { float:right; clear:right; margin-right:10px; }
+.sidebar .widget ul,.sidebar .widget ol { margin-left:10px; padding:0; list-style-type:none; }
+.sidebar .widget li { background:url('hanapin/images/icons/bullet_arrow_right.gif') no-repeat 0 .5em; padding:6px 0 6px 20px; border-bottom:1px solid #bdbdbd; vertical-align:top; }
+.sidebar .widget form { margin-left:10px; }
+.sidebar .widget select { width:180px; }
 
-.sidebar { width:210px; padding:0 15px 0 20px; }
-.left { float:left; clear:left; }
-.right { float:right; clear:right; }
-
-.sidebar ul { list-style-type:none; margin:0; padding-left:10px; }
-.sidebar ol { list-style-type:none; margin:0; padding-left:10px; }
-.sidebar li { background:url('hanapin/images/icons/bullet_arrow_right.gif') no-repeat 0 .5em; padding:6px 0px 6px 26px; border-bottom:1px solid #bdbdbd; vertical-align:top; }
-.sidebar .widget { width:210px; margin-bottom:15px; }
-.sidebar .widget h1 { width:190px; background:#5a8fdc url('hanapin/images/widgets/widget_top_bg.gif') top no-repeat; padding:5px 10px 5px 10px; font-size:12px; color:#ffffff; font-weight:bold; margin-bottom:10px; }
-.sidebar .widget a { font-size:11px; color:#000000; }
-
-.sidebar fieldset { border:0; }
-.sidebar legend { display:none; }
-.sidebar select { width:190px; }
-.sidebar input { max-width:190px; }
+.sidebar .widget { width:200px; margin-bottom:15px; font-size:12px; }
+.sidebar .widget h1 { width:190px; background:#5a8fdc url('hanapin/images/widgets/widget_top_bg.gif') top no-repeat; padding:5px 10px 5px 10px; font-size:12px; color:#ffffff; font-weight:bold; }
+.sidebar .widget a { color:black; font-size:10px; }
 
 /* styles for Constituencies Widget */
-li.business-guide { background-image: url('hanapin/images/icons/bullet_rec_red.gif'); }
-li.for-kids-guide { background-image: url('hanapin/images/icons/bullet_rec_aqua.gif'); }
-li.local-arts-guide { background-image: url('hanapin/images/icons/bullet_rec_teal.gif'); }
-li.nonprofits-guide { background-image: url('hanapin/images/icons/bullet_rec_lred.gif'); }
-li.residents-guide { background-image: url('hanapin/images/icons/bullet_rec_violet.gif'); }
-li.students-guide { background-image: url('hanapin/images/icons/bullet_rec_orange.gif'); }
-li.visitors-guide { background-image: url('hanapin/images/icons/bullet_rec_lgreen.gif'); }
-li.volunteers-guide { background-image: url('hanapin/images/icons/bullet_rec_lblue.gif'); }
-li.voters-guide { background-image: url('hanapin/images/icons/bullet_rec_lblue.gif'); }
+.sidebar .widget li.business-guide { background-image: url('hanapin/images/icons/bullet_rec_red.gif'); }
+.sidebar .widget li.for-kids-guide { background-image: url('hanapin/images/icons/bullet_rec_aqua.gif'); }
+.sidebar .widget li.local-arts-guide { background-image: url('hanapin/images/icons/bullet_rec_teal.gif'); }
+.sidebar .widget li.nonprofits-guide { background-image: url('hanapin/images/icons/bullet_rec_lred.gif'); }
+.sidebar .widget li.residents-guide { background-image: url('hanapin/images/icons/bullet_rec_violet.gif'); }
+.sidebar .widget li.students-guide { background-image: url('hanapin/images/icons/bullet_rec_orange.gif'); }
+.sidebar .widget li.visitors-guide { background-image: url('hanapin/images/icons/bullet_rec_lgreen.gif'); }
+.sidebar .widget li.volunteers-guide { background-image: url('hanapin/images/icons/bullet_rec_lblue.gif'); }
+.sidebar .widget li.voters-guide { background-image: url('hanapin/images/icons/bullet_rec_lblue.gif'); }
+
+.sidebar .calendar { width:190px; margin-left:10px; }
+.sidebar .calendar td { padding:2px; }
+
+#pageTools { background:url('hanapin/images/pagetools/pagetools_bg.gif') top left no-repeat; width:210px; height:39px; margin-bottom:10px; }
+#pageTools ul { list-style-type:none; width:160px; height:39px; text-align:right; float:right; margin:0; margin-top:7px; margin-right:10px; }
+#pageTools li { display:inline; }
+#pageTools form { display:inline; }
+#pageTools fieldset { display:inline; vertical-align:bottom; }
+#pageTools legend { display:none; }
+#pageTools select { margin:0; padding:0; }
 
 
 /*  mainContent allows for 3 columns,	*/
 /*	backendContent allows for 2 columns	*/
-#mainContent { margin-left:246px; margin-right:246px; width:488px; }
-#backendContent { margin-left:246px; width:734px; }
+#mainContent { margin-left:240px; margin-right:240px; width:480px; font-size:12px; line-height:1.25; }
+#backendContent { margin-left:240px; font-size:12px; }
+
 
 #pageTitle { background:url('hanapin/images/contentarea/pageTitle-background.gif') top repeat-y; width:488px; margin-bottom:10px; padding-top:5px; }
 #pageTitle h1 { background:url('hanapin/images/contentarea/pageTitle-bottom.gif') bottom left no-repeat; width:488px; padding-left:10px; padding-bottom:2px; }
@@ -145,22 +130,22 @@ li.voters-guide { background-image: url('hanapin/images/icons/bullet_rec_lblue.g
 .breadcrumbs li { display:inline; list-style-type:none; font-weight:bold; }
 .breadcrumbs li a { padding-right:8px; background:url('hanapin/images/contentarea/breadcrumb.gif') no-repeat right; color:black; font-weight:normal; }
 
-#pageTools { height:39px; background:url('hanapin/images/pagetools/bg_left.gif') top left no-repeat; padding-left:19px; float:right; margin-right:15px; margin-bottom:10px; }
-#pageTools ul { list-style-type:none; margin:0; padding:7px 10px 5px 0; height:39px; background:url('hanapin/images/pagetools/bg_right.gif') top right no-repeat;  text-align:right; min-width:181px; }
-#pageTools li { display:inline; list-style-type:none; height:39px; vertical-align:middle; background-image:none; padding:0; border:0; }
-#pageTools form { border:0; margin:0; padding:0; display:inline; vertical-align:middle; }
-#pageTools fieldset { border:0; margin:0; padding:0; display:inline; vertical-align:middle; }
-#pageTools select { margin:0; padding:0; width:auto; }
 
 
 
 
+
+#footer { padding-top:20px; padding-bottom:10px; font-size:11px; color:#003366; clear:both; border-left:1px solid black; border-right:1px solid black; border-bottom:1px solid black; }
+#footer ul { list-style-type:none; margin:0; float:right; width:600px; }
+#footer li { display:inline; margin-left:4px; }
+#footer .copyright { width:300px; margin-left:5px; }
+#footer a { color:#003366; }
 
 /* Calendars MUST BE marked up as tables */
-table.calendar { width:190px; border:0; padding:2px; background:#ffffff; text-align:center; }
+table.calendar { border:0; background:white; text-align:center; font-size:12px; }
 table.calendar tr { }
-table.calendar th { border:0; text-align:center; background:#c2daff; }
-table.calendar td { border:0; text-align:center; }
+table.calendar th { border:0; text-align:center; background:#c2daff; font-size:12px; }
+table.calendar td { border:0; text-align:center; font-size:12px; }
 table.calendar .date { padding:0; border:0; }
 table.calendar ul { list-style-type:none; padding:0; }
 table.calendar li { margin-left:0; }
@@ -176,10 +161,6 @@ table.calendar li { margin-left:0; }
 .hasEvent a { background:#9cbae0; color:#000000; font-weight:bold; text-decoration:none;  }
 .hasEvent a:active a:visited a:hover { background:#9cbae0; color:#000000; font-weight:bold; text-decoration:none; }
 .hasEvent a:hover { background:#9cbae0; color:#000000; font-weight:bold; text-decoration:none; }
-
-/* Calendar Widget */
-.widget .calendar { width:190px; background:#c2daff; margin-left:10px;}
-
 
 /* JavaScript Tree Generator Styles */
 /* Turn off list bullets */
@@ -266,17 +247,11 @@ a.unwatch { width:22px; height:22px; padding:11px; background: url('default/imag
 .wma { height:16px; padding: 0px 0px 10px 22px; background: url('hanapin/images/icons/mime/sound.png') no-repeat; }
 
 /* notification blocks */
-#errorMessages { border:1px solid #e0e0e0; padding:5px; margin: 10px 0px 10px 0px; }
-#errorMessages h1 { color:red; font-size:14px; background-color:#ffffff; }
-#warning { border:1px solid #e0e0e0; padding:5px; margin: 10px 0px 10px 0px; }
-#warning h1 { color:#006600; font-size:14px; background-color:#ffffff;  }
-#message { border:1px solid #e0e0e0; padding:5px; margin: 10px 0px 10px 0px; }
-#message h1 { color:#003366; font-size:14px; background-color:#ffffff; }
-#alert { border:1px solid #e0e0e0; padding:5px; margin: 10px 0px 10px 0px; }
-#alert h1 { color:red; font-size:14px; }
-
-#footer { width:978px; padding-top:20px; font-size:11px; color:#003366; clear:both; border-left:1px solid black; border-bottom:1px solid black; border-right:1px solid black; }
-#footer a { color:#003366; }
-#footer ul { width:600px;  float:right; margin:0; padding:0; }
-#footer li { list-style-type:none; display:inline; border-left:1px solid black; padding-left:4px; }
-#footer .copyright {  width:400px; margin-left:5px; }
+#errorMessages { border:1px solid #013567; padding:5px; margin: 10px 0px 10px 0px; background-color:#e6e6e6; }
+#errorMessages h1 { color:red; font-size:14px; background-color:#e6e6e6; clear:both; }
+#warning { border:1px solid #013567; padding:5px; margin: 10px 0px 10px 0px; background-color:#e6e6e6; }
+#warning h1 { color:#006600; font-size:14px; background-color:#e6e6e6; clear:both;  }
+#message { border:1px solid #013567; padding:5px; margin: 10px 0px 10px 0px; background-color:#e6e6e6; }
+#message h1 { color:#003366; font-size:14px; background-color:#e6e6e6;  clear:both; }
+#alert { border:1px solid #013567; padding:5px; margin: 10px 0px 10px 0px; background-color:#e6e6e6; }
+#alert h1 { color:red; font-size:14px; clear:both; }

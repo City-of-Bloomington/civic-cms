@@ -13,7 +13,6 @@
 <div id="main-content-container">
 	<?php
 		include APPLICATION_HOME.'/includes/leftSidebar.inc';
-		if (isset($this->document)) { include APPLICATION_HOME.'/includes/pageTools.inc'; }
 		include APPLICATION_HOME.'/includes/rightSidebar.inc';
 	?>
 	<div id="mainContent" xml:lang="<?php echo $_SESSION['LANGUAGE']; ?>">
