@@ -686,6 +686,22 @@
 		}
 
 		/**
+		 * Returns all the displayable fields that were chosen in this
+		 * Document's DocumentType
+		 * @return array
+		 */
+		public function getInfo()
+		{
+			$info = array();
+			foreach($this->getDocumentType()->getDocumentInfoFields() as $field)
+			{
+				$getter = 'get'.ucfirst($field);
+				$info[$field] = $this->$getter();
+			}
+			return $info;
+		}
+
+		/**
 		 * Generic Getters
 		 */
 		public function getId() { return $this->id; }
