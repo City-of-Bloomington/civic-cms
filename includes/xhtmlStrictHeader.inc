@@ -20,11 +20,14 @@
 	<meta name="Publisher-Email" content="webmaster@bloomington.in.gov" />
 	<link rel="SHORTCUT ICON" href="<?php echo BASE_URL; ?>/favicon.ico" />
 	<style type="text/css" media="screen">
-		@import url("<?php echo BASE_URL; ?>/skins/screen.php");
+		@import url('<?php echo BASE_URL."/skins/$_SESSION[skin]/screen.css"; ?>');
 	</style>
 	<style type="text/css" media="print">
-		@import url("<?php echo BASE_URL; ?>/skins/print.php");
+		@import url('<?php echo BASE_URL."/skins/$_SESSION[skin]/print.css"; ?>');
 	</style>
+	<!--[if IE 6]>
+	<style type="text/css" media="screen">@import url('<?php echo BASE_URL."/skins/$_SESSION[skin]/IE6.css"; ?>');</style>
+	<![endif]-->
 	<script type="text/javascript" src="<?php echo BASE_URL; ?>/js/functions.js"></script>
 	<?php
 		if (isset($this->document))

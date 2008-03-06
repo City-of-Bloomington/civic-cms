@@ -1,6 +1,6 @@
-@import url('reset.css');
+@import url('../reset.css');
 
-html { background:url('hanapin/images/pagebg.gif'); background-repeat:repeat; background-position:top; text-align:center; padding-bottom:10px; }
+html { background:url('images/pagebg.gif'); background-repeat:repeat; background-position:top; text-align:center; padding-bottom:10px; }
 body { width:980px; position:relative; margin:0 auto; text-align:left; background-color:white; font-family:Arial, Helvetica, sans-serif; }
 
 /* DEFAULT TEXT */
@@ -42,7 +42,7 @@ span.thumbnail { margin:5px 15px 5px 15px; text-align:center; }
 span.image img,span.thumbnail img { border:1px solid #999999; }
 span.caption { display:block; font-size:11px; width:inherit; padding:7px; background-color:#e0e0e0; }
 
-#banner { width:980px; margin:0; padding:0; height:130px; background:url('hanapin/images/banner/banner.gif') top left no-repeat; font-size:12px; }
+#banner { width:980px; margin:0; padding:0; height:130px; background:url('images/banner/banner.gif') top left no-repeat; font-size:12px; }
 #banner ul { list-style-type:none; margin:0; padding:0; }
 #banner a { color:black; font-size:10px; }
 
@@ -64,15 +64,15 @@ span.caption { display:block; font-size:11px; width:inherit; padding:7px; backgr
 #secondaryLinks { width:260px; height:30px; position:absolute; top:10px; right:4px; padding-top:4px; }
 #secondaryLinks li { float:left;  padding-right:4px; margin-right:4px; }
 #secondaryLinks li.first { border-right:1px solid #003366; }
-#secondaryLinks form { width:110px;  background:url('hanapin/images/banner/search.gif') top left no-repeat; }
+#secondaryLinks form { width:110px;  background:url('images/banner/search.gif') top left no-repeat; }
 #secondaryLinks fieldset {  }
 #secondaryLinks legend { display:none; }
 #secondaryLinks input { border:0; background-color:transparent; width:82px; margin-left:18px; }
 #secondaryLinks button { display:none; }
 
 
-#topLevelSections { height:21px; padding-top:1px; padding-right:5px; background:url('hanapin/images/mainnav/tab-right.gif') right no-repeat 1px; }
-#topLevelSections ul { list-style-type:none; background:#013466 url('hanapin/images/mainnav/tab-left.gif') top left no-repeat; height:21px; margin:0; padding:0; }
+#topLevelSections { height:21px; padding-top:1px; background:url('images/mainnav/background.gif') top left no-repeat; }
+#topLevelSections ul { list-style-type:none; height:21px; margin:0; padding:0; }
 #topLevelSections li { height:21px; float:left; margin-left:5px; border-left:1px solid white; padding-left:5px; }
 #topLevelSections li.home { border-left:none; }
 #topLevelSections a { color:white; font-weight:bold; font-size:12px; }
@@ -83,29 +83,29 @@ span.caption { display:block; font-size:11px; width:inherit; padding:7px; backgr
 #leftSidebar { float:left; clear:left; margin-left:10px; }
 #rightSidebar { float:right; clear:right; margin-right:10px; }
 .sidebar .widget ul,.sidebar .widget ol { margin-left:10px; padding:0; list-style-type:none; }
-.sidebar .widget li { background:url('hanapin/images/icons/bullet_arrow_right.gif') no-repeat 0 .5em; padding:6px 0 6px 20px; border-bottom:1px solid #bdbdbd; vertical-align:top; }
+.sidebar .widget li { background:url('images/icons/bullet_arrow_right.gif') no-repeat 0 .5em; padding:6px 0 6px 20px; border-bottom:1px solid #bdbdbd; vertical-align:top; }
 .sidebar .widget form { margin-left:10px; }
 .sidebar .widget select { width:180px; }
 
 .sidebar .widget { width:200px; margin-bottom:15px; font-size:12px; }
-.sidebar .widget h1 { width:190px; background:#5a8fdc url('hanapin/images/widgets/widget_top_bg.gif') top no-repeat; padding:5px 10px 5px 10px; font-size:12px; color:#ffffff; font-weight:bold; }
+.sidebar .widget h1 { width:190px; background:#5a8fdc url('images/widgets/widget_top_bg.gif') top no-repeat; padding:5px 10px 5px 10px; font-size:12px; color:#ffffff; font-weight:bold; }
 .sidebar .widget a { color:black; font-size:10px; }
 
 /* styles for Constituencies Widget */
-.sidebar .widget li.business-guide { background-image: url('hanapin/images/icons/bullet_rec_red.gif'); }
-.sidebar .widget li.for-kids-guide { background-image: url('hanapin/images/icons/bullet_rec_aqua.gif'); }
-.sidebar .widget li.local-arts-guide { background-image: url('hanapin/images/icons/bullet_rec_teal.gif'); }
-.sidebar .widget li.nonprofits-guide { background-image: url('hanapin/images/icons/bullet_rec_lred.gif'); }
-.sidebar .widget li.residents-guide { background-image: url('hanapin/images/icons/bullet_rec_violet.gif'); }
-.sidebar .widget li.students-guide { background-image: url('hanapin/images/icons/bullet_rec_orange.gif'); }
-.sidebar .widget li.visitors-guide { background-image: url('hanapin/images/icons/bullet_rec_lgreen.gif'); }
-.sidebar .widget li.volunteers-guide { background-image: url('hanapin/images/icons/bullet_rec_lblue.gif'); }
-.sidebar .widget li.voters-guide { background-image: url('hanapin/images/icons/bullet_rec_lblue.gif'); }
+.sidebar .widget li.business-guide { background-image: url('images/icons/bullet_rec_red.gif'); }
+.sidebar .widget li.for-kids-guide { background-image: url('images/icons/bullet_rec_aqua.gif'); }
+.sidebar .widget li.local-arts-guide { background-image: url('images/icons/bullet_rec_teal.gif'); }
+.sidebar .widget li.nonprofits-guide { background-image: url('images/icons/bullet_rec_lred.gif'); }
+.sidebar .widget li.residents-guide { background-image: url('images/icons/bullet_rec_violet.gif'); }
+.sidebar .widget li.students-guide { background-image: url('images/icons/bullet_rec_orange.gif'); }
+.sidebar .widget li.visitors-guide { background-image: url('images/icons/bullet_rec_lgreen.gif'); }
+.sidebar .widget li.volunteers-guide { background-image: url('images/icons/bullet_rec_lblue.gif'); }
+.sidebar .widget li.voters-guide { background-image: url('images/icons/bullet_rec_lblue.gif'); }
 
 .sidebar .calendar { width:190px; margin-left:10px; }
 .sidebar .calendar td { padding:2px; }
 
-#pageTools { background:url('hanapin/images/pagetools/pagetools_bg.gif') top left no-repeat; width:210px; height:39px; margin-bottom:10px; }
+#pageTools { background:url('images/pagetools/pagetools_bg.gif') top left no-repeat; width:210px; height:39px; margin-bottom:10px; }
 #pageTools ul { list-style-type:none; width:160px; height:39px; text-align:right; float:right; margin:0; margin-top:7px; margin-right:10px; }
 #pageTools li { display:inline; }
 #pageTools form { display:inline; }
@@ -116,19 +116,19 @@ span.caption { display:block; font-size:11px; width:inherit; padding:7px; backgr
 
 /*  mainContent allows for 3 columns,	*/
 /*	backendContent allows for 2 columns	*/
-#mainContent { margin-left:240px; margin-right:240px; width:480px; font-size:12px; line-height:1.25; }
+#mainContent { float:left; margin-left:18px; width:480px; font-size:12px; line-height:1.25; }
 #backendContent { margin-left:240px; font-size:12px; }
 
 
-#pageTitle { background:url('hanapin/images/contentarea/pageTitle-background.gif') top repeat-y; width:488px; margin-bottom:10px; padding-top:5px; }
-#pageTitle h1 { background:url('hanapin/images/contentarea/pageTitle-bottom.gif') bottom left no-repeat; width:488px; padding-left:10px; padding-bottom:2px; }
+#pageTitle { background:url('images/contentarea/pageTitle-background.gif') top repeat-y; width:488px; margin-bottom:10px; padding-top:5px; }
+#pageTitle h1 { background:url('images/contentarea/pageTitle-bottom.gif') bottom left no-repeat; width:488px; padding-left:10px; padding-bottom:2px; }
 .breadcrumbs { font-size:11px; color:black; padding-bottom:10px; margin-left:10px; }
 .breadcrumbs ul { margin:0; padding:0; }
 .breadcrumbs li { display:inline; list-style-type:none; font-weight:bold; }
-.breadcrumbs li a { padding-right:8px; background:url('hanapin/images/contentarea/breadcrumb.gif') no-repeat right; color:black; font-weight:normal; }
+.breadcrumbs li a { padding-right:8px; background:url('images/contentarea/breadcrumb.gif') no-repeat right; color:black; font-weight:normal; }
 
 
-#footer { padding-top:20px; padding-bottom:10px; font-size:11px; color:#003366; clear:both; border-left:1px solid black; border-right:1px solid black; border-bottom:1px solid black; }
+#footer { width:978px; padding-top:20px; padding-bottom:10px; font-size:11px; color:#003366; clear:both; border-left:1px solid black; border-right:1px solid black; border-bottom:1px solid black; }
 #footer ul { list-style-type:none; margin:0; float:right; width:600px; }
 #footer li { display:inline; margin-left:4px; }
 #footer .copyright { width:300px; margin-left:5px; }
@@ -174,9 +174,9 @@ ul.mktree, ul.mktree ul , ul.mktree li { margin-left:10px; padding:0px; }
 /* Provide space for our own "bullet" inside the LI */
 ul.mktree  li .bullet { padding-left: 15px; }
 /* Show "bullets" in the links, depending on the class of the LI that the link's in */
-ul.mktree li.liOpen .bullet { cursor: pointer; background: url('default/images/expanded.gif') center left no-repeat; }
-ul.mktree li.liClosed .bullet { cursor: pointer; background: url('default/images/collapsed.gif') center left no-repeat; }
-ul.mktree li.bullet .bullet { cursor: default; background: url('default/images/bullet.gif') center left no-repeat; }
+ul.mktree li.liOpen .bullet { cursor: pointer; background: url('../default/images/expanded.gif') center left no-repeat; }
+ul.mktree li.liClosed .bullet { cursor: pointer; background: url('../default/images/collapsed.gif') center left no-repeat; }
+ul.mktree li.bullet .bullet { cursor: default; background: url('../default/images/bullet.gif') center left no-repeat; }
 /* Sublists are visible or not based on class of parent LI */
 ul.mktree li.liOpen ul { display: block; }
 ul.mktree li.liClosed ul { display: none; }
@@ -188,71 +188,71 @@ ul.mktree li.liClosed ul { display: none; }
 /*  Custom buttons for forms */
 button { cursor:pointer; overflow:hidden; vertical-align:middle; }
 /* Rick doesn't want these custom images right now.
-button.login { width:52px; height:15px; padding-top:15px; background: url('default/images/login.gif') no-repeat; border:0; }
-button.submit { width:70px; height:15px; padding-top:15px; background: url('default/images/submit.gif') no-repeat; border:0; }
-button.search { width:67px; height:15px; padding-top:15px; background: url('default/images/search.gif') no-repeat; border:0; }
-button.cancel { width:69px; height:15px; padding-top:15px; background: url('default/images/cancel.gif') no-repeat; border:0; }
-button.save { width:52px; height:15px; padding-top:15px; background: url('default/images/save.gif') no-repeat; border:0; }
-button.addLarge { width:52px; height:15px; padding-top:15px; background: url('default/images/addLarge.gif') no-repeat; border:0; }
-button.editLarge { width:52px; height:15px; padding-top:15px; background: url('default/images/editLarge.gif') no-repeat; border:0; }
-button.deleteLarge { width:63px; height:15px; padding-top:15px; background: url('default/images/deleteLarge.gif') no-repeat; border:0; }
-button.start { width:52px; height:15px; padding-top:15px; background: url('default/images/start.gif') no-repeat; border:0; }
+button.login { width:52px; height:15px; padding-top:15px; background: url('../default/images/login.gif') no-repeat; border:0; }
+button.submit { width:70px; height:15px; padding-top:15px; background: url('../default/images/submit.gif') no-repeat; border:0; }
+button.search { width:67px; height:15px; padding-top:15px; background: url('../default/images/search.gif') no-repeat; border:0; }
+button.cancel { width:69px; height:15px; padding-top:15px; background: url('../default/images/cancel.gif') no-repeat; border:0; }
+button.save { width:52px; height:15px; padding-top:15px; background: url('../default/images/save.gif') no-repeat; border:0; }
+button.addLarge { width:52px; height:15px; padding-top:15px; background: url('../default/images/addLarge.gif') no-repeat; border:0; }
+button.editLarge { width:52px; height:15px; padding-top:15px; background: url('../default/images/editLarge.gif') no-repeat; border:0; }
+button.deleteLarge { width:63px; height:15px; padding-top:15px; background: url('../default/images/deleteLarge.gif') no-repeat; border:0; }
+button.start { width:52px; height:15px; padding-top:15px; background: url('../default/images/start.gif') no-repeat; border:0; }
 button.print { }
 */
-button.addSmall { width:15px; height:15px; padding-top:15px; background: url('default/images/addSmall.gif') no-repeat; border:0; }
-button.deleteSmall { width:15px; height:15px; padding-top:15px; background: url('default/images/deleteSmall.gif') no-repeat; border:0; }
-button.excel { width:16px; height:16px; padding-top:16px; background: url('default/images/excel.gif') no-repeat; border:0; }
-button.printSmall { width:16px; height:16px; padding-top:16px; background: url('default/images/printer1.png') no-repeat; border:0; }
+button.addSmall { width:15px; height:15px; padding-top:15px; background: url('../default/images/addSmall.gif') no-repeat; border:0; }
+button.deleteSmall { width:15px; height:15px; padding-top:15px; background: url('../default/images/deleteSmall.gif') no-repeat; border:0; }
+button.excel { width:16px; height:16px; padding-top:16px; background: url('../default/images/excel.gif') no-repeat; border:0; }
+button.printSmall { width:16px; height:16px; padding-top:16px; background: url('../default/images/printer1.png') no-repeat; border:0; }
 
-button.previous { width:22px; height:22px; padding-top:22px; background: url('default/images/previous.png') no-repeat; border:0; }
-button.next { width:22px; height:22px; padding-top:22px; background: url('default/images/next.png') no-repeat; border:0; }
+button.previous { width:22px; height:22px; padding-top:22px; background: url('../default/images/previous.png') no-repeat; border:0; }
+button.next { width:22px; height:22px; padding-top:22px; background: url('../default/images/next.png') no-repeat; border:0; }
 
 /* Image Replacements for hrefs that are to be rendered as buttons */
-a.addSmall { width:15px; height:15px; padding:7px; background: url('default/images/addSmall.gif') no-repeat; font-size:0 !important; }
-a.editSmall { width:15px; height:15px; padding:7px; background: url('default/images/editSmall.gif') no-repeat; font-size:0 !important; }
-a.deleteSmall { width:15px; height:15px; padding:7px; background: url('default/images/deleteSmall.gif') no-repeat; font-size:0 !important; }
+a.addSmall { width:15px; height:15px; padding:7px; background: url('../default/images/addSmall.gif') no-repeat; font-size:0 !important; }
+a.editSmall { width:15px; height:15px; padding:7px; background: url('../default/images/editSmall.gif') no-repeat; font-size:0 !important; }
+a.deleteSmall { width:15px; height:15px; padding:7px; background: url('../default/images/deleteSmall.gif') no-repeat; font-size:0 !important; }
 
-a.up { width:16px; height:16px; padding:8px; background: url('default/images/up.png') no-repeat; font-size:0 !important; }
-a.down { width:16px; height:16px; padding:8px; background: url('default/images/down.png') no-repeat; font-size:0 !important; }
-a.rssSmall { width:14px; height:14px; padding:7px; background:url('default/images/feed-icon-14x14.png') no-repeat; font-size:0 !important; }
-a.rss { width:28px; height:28px; padding:14px; background: url('default/images/feed-icon-28x28.png') no-repeat; font-size:0 !important; }
-a.ical { width:16px; height:16px; padding:8px; background: url('default/images/date.png') no-repeat; font-size:0 !important; }
-a.kml { width:16px; height:16px; padding:8px; background: url('default/images/kml_feed_small.png') no-repeat; font-size:0 !important; }
+a.up { width:16px; height:16px; padding:8px; background: url('../default/images/up.png') no-repeat; font-size:0 !important; }
+a.down { width:16px; height:16px; padding:8px; background: url('../default/images/down.png') no-repeat; font-size:0 !important; }
+a.rssSmall { width:14px; height:14px; padding:7px; background:url('../default/images/feed-icon-14x14.png') no-repeat; font-size:0 !important; }
+a.rss { width:28px; height:28px; padding:14px; background: url('../default/images/feed-icon-28x28.png') no-repeat; font-size:0 !important; }
+a.ical { width:16px; height:16px; padding:8px; background: url('../default/images/date.png') no-repeat; font-size:0 !important; }
+a.kml { width:16px; height:16px; padding:8px; background: url('../default/images/kml_feed_small.png') no-repeat; font-size:0 !important; }
 
-a.day { width:16px; height:14px; padding:8px; background: url('default/images/calendar/day.png') no-repeat; font-size:0 !important; }
-a.week { width:16px; height:14px; padding:8px; background: url('default/images/calendar/week.png') no-repeat; font-size:0 !important; }
-a.twoweek { width:16px; height:14px; padding:8px; background: url('default/images/calendar/twoweek.png') no-repeat; font-size:0 !important; }
-a.month { width:16px; height:14px; padding:8px; background: url('default/images/calendar/month.png') no-repeat; font-size:0 !important; }
+a.day { width:16px; height:14px; padding:8px; background: url('../default/images/calendar/day.png') no-repeat; font-size:0 !important; }
+a.week { width:16px; height:14px; padding:8px; background: url('../default/images/calendar/week.png') no-repeat; font-size:0 !important; }
+a.twoweek { width:16px; height:14px; padding:8px; background: url('../default/images/calendar/twoweek.png') no-repeat; font-size:0 !important; }
+a.month { width:16px; height:14px; padding:8px; background: url('../default/images/calendar/month.png') no-repeat; font-size:0 !important; }
 
-a.previous { width:22px; height:22px; padding:11px; background: url('default/images/previous.png') no-repeat; font-size:0 !important; }
-a.next { width:22px; height:22px; padding:11px; background: url('default/images/next.png') no-repeat; font-size:0 !important; }
-a.first { width:22px; height:22px; padding:11px; background: url('default/images/player_start.png') no-repeat; font-size:0 !important; }
-a.last { width:22px; height:22px; padding:11px; background: url('default/images/player_end.png') no-repeat; font-size:0 !important; }
+a.previous { width:22px; height:22px; padding:11px; background: url('../default/images/previous.png') no-repeat; font-size:0 !important; }
+a.next { width:22px; height:22px; padding:11px; background: url('../default/images/next.png') no-repeat; font-size:0 !important; }
+a.first { width:22px; height:22px; padding:11px; background: url('../default/images/player_start.png') no-repeat; font-size:0 !important; }
+a.last { width:22px; height:22px; padding:11px; background: url('../default/images/player_end.png') no-repeat; font-size:0 !important; }
 
-a.subscribe { width:22px; height:22px; padding:11px; background: url('default/images/news_subscribe.png') no-repeat; font-size:0 !important; }
-a.unsubscribe { width:22px; height:22px; padding:11px; background: url('default/images/news_unsubscribe.png') no-repeat; font-size:0 !important; }
-a.notify { width:22px; height:22px; padding:11px; background: url('default/images/mail_send.png') no-repeat; font-size:0 !important; }
-a.watch { width:22px; height:22px; padding:11px; background: url('default/images/mail_get.png') no-repeat; font-size:0 !important; }
-a.unwatch { width:22px; height:22px; padding:11px; background: url('default/images/mail_delete.png') no-repeat; font-size:0 !important; }
+a.subscribe { width:22px; height:22px; padding:11px; background: url('../default/images/news_subscribe.png') no-repeat; font-size:0 !important; }
+a.unsubscribe { width:22px; height:22px; padding:11px; background: url('../default/images/news_unsubscribe.png') no-repeat; font-size:0 !important; }
+a.notify { width:22px; height:22px; padding:11px; background: url('../default/images/mail_send.png') no-repeat; font-size:0 !important; }
+a.watch { width:22px; height:22px; padding:11px; background: url('../default/images/mail_get.png') no-repeat; font-size:0 !important; }
+a.unwatch { width:22px; height:22px; padding:11px; background: url('../default/images/mail_delete.png') no-repeat; font-size:0 !important; }
 
 /* ICONS FOR MIME TYPES */
-.jpg { height:16px; padding: 0px 0px 10px 22px; background: url('hanapin/images/icons/mime/image.png') no-repeat; }
-.png { height:16px; padding: 0px 0px 10px 22px; background: url('hanapin/images/icons/mime/image.png') no-repeat; }
-.gif { height:16px; padding: 0px 0px 10px 22px; background: url('hanapin/images/icons/mime/image.png') no-repeat; }
-.tiff { height:16px; padding: 0px 0px 10px 22px; background: url('hanapin/images/icons/mime/page.png') no-repeat; }
-.pdf { height:16px; padding: 0px 0px 10px 22px; background: url('hanapin/images/icons/mime/pdf.png') no-repeat; }
-.doc { height:16px; padding: 0px 0px 10px 22px; background: url('hanapin/images/icons/mime/doc.png') no-repeat; }
-.xls { height:16px; padding: 0px 0px 10px 22px; background: url('hanapin/images/icons/mime/xls.png') no-repeat; }
-.rtf { height:16px; padding: 0px 0px 10px 22px; background: url('hanapin/images/icons/mime/page.png') no-repeat; }
-.zip { height:16px; padding: 0px 0px 10px 22px; background: url('hanapin/images/icons/mime/zip.png') no-repeat; }
-.gz { height:16px; padding: 0px 0px 10px 22px; background: url('hanapin/images/icons/mime/zip.png') no-repeat; }
-.txt { height:16px; padding: 0px 0px 10px 22px; background: url('hanapin/images/icons/mime/page.png') no-repeat; }
-.wmv { height:16px; padding: 0px 0px 10px 22px; background: url('hanapin/images/icons/mime/windowsMedia.png') no-repeat; }
-.mov { height:16px; padding: 0px 0px 10px 22px; background: url('hanapin/images/icons/mime/quicktime.png') no-repeat; }
-.rm { height:16px; padding: 0px 0px 10px 22px; background: url('hanapin/images/icons/mime/real.png') no-repeat; }
-.ram { height:16px; padding: 0px 0px 10px 22px; background: url('hanapin/images/icons/mime/real.png') no-repeat; }
-.mp3 { height:16px; padding: 0px 0px 10px 22px; background: url('hanapin/images/icons/mime/sound.png') no-repeat; }
-.wma { height:16px; padding: 0px 0px 10px 22px; background: url('hanapin/images/icons/mime/sound.png') no-repeat; }
+.jpg { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/image.png') no-repeat; }
+.png { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/image.png') no-repeat; }
+.gif { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/image.png') no-repeat; }
+.tiff { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/page.png') no-repeat; }
+.pdf { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/pdf.png') no-repeat; }
+.doc { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/doc.png') no-repeat; }
+.xls { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/xls.png') no-repeat; }
+.rtf { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/page.png') no-repeat; }
+.zip { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/zip.png') no-repeat; }
+.gz { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/zip.png') no-repeat; }
+.txt { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/page.png') no-repeat; }
+.wmv { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/windowsMedia.png') no-repeat; }
+.mov { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/quicktime.png') no-repeat; }
+.rm { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/real.png') no-repeat; }
+.ram { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/real.png') no-repeat; }
+.mp3 { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/sound.png') no-repeat; }
+.wma { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/sound.png') no-repeat; }
 
 /* notification blocks */
 #errorMessages { border:1px solid #013567; padding:5px; margin: 10px 0px 10px 0px; background-color:#e6e6e6; }
@@ -271,7 +271,7 @@ a.unwatch { width:22px; height:22px; padding:11px; background: url('default/imag
 #location_list ul {  }
 #location_map { width:360px; height:360px; border:2px solid black; margin-right:200px; }
 #locationGroup_description { margin-right:200px; }
-.handicap_accessible { height:16px; padding-left:18px; background: url('default/images/access.png') no-repeat; }
+.handicap_accessible { height:16px; padding-left:18px; background: url('../default/images/access.png') no-repeat; }
 
 /* Styles for stuff that is invalid */
 .badlink { background-color:red; }
