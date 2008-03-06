@@ -63,7 +63,8 @@
 					foreach($documents as $document)
 					{
 						$info = View::escape(implode(' - ',$document->getInfo()));
-						echo "<li><a href=\"{$document->getURL()}\">$info</a></li>\n";
+						$class = preg_match('/Please add a/',$info) ? 'class="badlink"' : '';
+						echo "<li><a href=\"{$document->getURL()}\" $class>$info</a></li>\n";
 					}
 				echo "
 					</ul>
@@ -83,7 +84,8 @@
 			foreach($documents as $document)
 			{
 				$info = View::escape(implode(' - ',$document->getInfo()));
-				echo "<li><a href=\"{$document->getURL()}\">$info</a></li>\n";
+				$class = preg_match('/Please add a/',$info) ? 'class="badlink"' : '';
+				echo "<li><a href=\"{$document->getURL()}\" $class>$info</a></li>\n";
 			}
 			echo '</ul>';
 		}

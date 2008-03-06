@@ -26,10 +26,11 @@ foreach($documentTypeList as $type)
 			if ($document->getId() != $this->section->getDocument()->getId())
 			{
 				$info = implode(' - ',$document->getInfo());
+				$class = preg_match('/Please add a/',$info) ? 'class="badlink"' : '';
 
 				$documentListHTML.= "
 					<li>
-						<a href=\"{$document->getURL()}\">$info</a>
+						<a href=\"{$document->getURL()}\" $class>$info</a>
 					</li>
 				";
 			}

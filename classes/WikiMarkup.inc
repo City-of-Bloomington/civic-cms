@@ -104,7 +104,7 @@ class WikiMarkup
 
 		# We could not find a match for the syntax they typed.  They must have typed
 		# something invalid.  Make it big and red, so they don't do it again
-		return "<span style=\"background-color:red\">$matches[0]</span>";
+		return "<span class=\"badlink\">$matches[0]</span>";
 	}
 
 	public static function size_readable ($size, $retstring='%01.2f %s')
@@ -180,7 +180,7 @@ class WikiMarkup
 		# They should not be trying to do URLs to bad places
 		foreach($BAD_LINK_EXPRESSIONS as $regex)
 		{
-			if (preg_match($regex,$link)) { return "<span style=\"background-color:red\">[$link]</span>"; }
+			if (preg_match($regex,$link)) { return "<span class=\"badlink\">[$link]</span>"; }
 		}
 
 		# If they didn't put in an http://, we need to add it to the url

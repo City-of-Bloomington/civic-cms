@@ -272,3 +272,6 @@ a.unwatch { width:22px; height:22px; padding:11px; background: url('default/imag
 #location_map { width:360px; height:360px; border:2px solid black; margin-right:200px; }
 #locationGroup_description { margin-right:200px; }
 .handicap_accessible { height:16px; padding-left:18px; background: url('default/images/access.png') no-repeat; }
+
+/* Styles for stuff that is invalid */
+.badlink { background-color:red; }

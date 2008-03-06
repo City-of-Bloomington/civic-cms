@@ -697,6 +697,12 @@
 			{
 				$getter = 'get'.ucfirst($field);
 				$info[$field] = $this->$getter();
+
+				if (!$info[$field])
+				{
+					$fields = $this->getDisplayableFields();
+					$info[$field] = "Please add a(n) $fields[$field] to this {$this->getDocumentType()->getType()}";
+				}
 			}
 			return $info;
 		}
