@@ -48,10 +48,10 @@ blockquote { margin:1em 40px; }
 
 
 img { border:0; }
-span.image { margin:5px 15px 5px 15px; text-align:center;  }
-span.thumbnail { margin:5px 15px 5px 15px; text-align:center; }
-span.image img,span.thumbnail img { border:1px solid #999999; }
-span.caption { display:block; font-size:11px; width:inherit; padding:7px; background-color:#e0e0e0; }
+span.image { display:block; text-align:center; margin:0 15px 5px 15px; }
+span.thumbnail {  }
+span.image img { border:1px solid #999999; }
+span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e0e0; }
 
 
 
@@ -276,14 +276,14 @@ a.unwatch { width:22px; height:22px; padding:11px; background: url('../default/i
 .wma { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/sound.png') no-repeat; }
 
 /* notification blocks */
-#errorMessages { border:1px solid #013567; padding:5px; margin: 10px 0px 10px 0px; background-color:#e6e6e6; }
-#errorMessages h1 { color:red; font-size:14px; background-color:#e6e6e6; clear:both; }
-#warning { border:1px solid #013567; padding:5px; margin: 10px 0px 10px 0px; background-color:#e6e6e6; }
-#warning h1 { color:#006600; font-size:14px; background-color:#e6e6e6; clear:both;  }
-#message { border:1px solid #013567; padding:5px; margin: 10px 0px 10px 0px; background-color:#e6e6e6; }
-#message h1 { color:#003366; font-size:14px; background-color:#e6e6e6;  clear:both; }
-#alert { border:1px solid #013567; padding:5px; margin: 10px 0px 10px 0px; background-color:#e6e6e6; }
-#alert h1 { color:red; font-size:14px; clear:both; }
+#errorMessages { border:1px solid #013567; padding:5px; margin: 10px 0px 10px 0px; background-color:#e6e6e6; clear:both; }
+#errorMessages h1 { color:red; font-size:14px; background-color:#e6e6e6; }
+#warning { border:1px solid #013567; padding:5px; margin: 10px 0px 10px 0px; background-color:#e6e6e6; clear:both; }
+#warning h1 { color:#006600; font-size:14px; background-color:#e6e6e6; }
+#message { border:1px solid #013567; padding:5px; margin: 10px 0px 10px 0px; background-color:#e6e6e6; clear:both; }
+#message h1 { color:#003366; font-size:14px; background-color:#e6e6e6; }
+#alert { border:1px solid #013567; padding:5px; margin: 10px 0px 10px 0px; background-color:#e6e6e6; clear:both; }
+#alert h1 { color:red; font-size:14px; }
 
 
 /* Locations page layout */

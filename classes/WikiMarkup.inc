@@ -539,8 +539,14 @@ class WikiMarkup
 		# Wrap the caption in a span
 		$caption = $caption ? "<span class=\"caption\">$caption</span>" : null;
 
-		# Add the alignment;
-		$style = isset($align) ? "style=\"float:$align;\"" : '';
+		# Add the size and alignment;
+		if (isset($width) || isset($align))
+		{
+			$width = isset($width) ? "width:{$width}px;" : '';
+			$align = isset($align) ? "float:$align;" : '';
+			$style = "style=\"$width$align\"";
+		}
+		else { $style = ''; }
 
 		return "<span class=\"image\" $style>$imageTag $caption</span>";
 	}
@@ -581,9 +587,15 @@ class WikiMarkup
 		# Wrap the caption in a span
 		$caption = $caption ? "<span class=\"caption\">$caption</span>" : null;
 
-		# Add the alignment;
-		$style = isset($align) ? "style=\"float:$align;\"" : '';
+		# Add the size and alignment;
+		if (isset($width) || isset($align))
+		{
+			$width = isset($width) ? "width:{$width}px;" : '';
+			$align = isset($align) ? "float:$align;" : '';
+			$style = "style=\"$width$align\"";
+		}
+		else { $style = ''; }
 
-		return "<span class=\"image thumbnail\">$imageTag $caption</span>";
+		return "<span class=\"image thumbnail\" $style>$imageTag $caption</span>";
 	}
 }
