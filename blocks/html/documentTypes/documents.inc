@@ -6,7 +6,7 @@
  * @param DocumentType $this->documentType
  * @param FacetGroup $this->facetGroup
  */
-	$type = View::escape($this->documentType->getType());
+	$type = View::escape(Inflector::pluralize($this->documentType->getType()));
 	$href = new URL($_SERVER['SERVER_NAME'].$_SERVER['PHP_SELF']);
 	$href->documentType_id = $this->documentType->getId();
 	$href->facetGroup_id = 'none';
@@ -14,12 +14,11 @@
 	$class = (!isset($this->facetGroup)) ? 'class="current"' : '';
 	echo "
 	<h1><a href=\"$href\">$type</a>
-		<a href=\"$href;format=rss\" class=\"rss\">
-			<img src=\"".BASE_URL."/skins/default/images/feed-icon-14x14.png\" alt=\"RSS $type feed\" />
-		</a>
+		<a href=\"$href;format=rss\" class=\"rss\">RSS</a>
 	</h1>
 	<div class=\"tabBar\">
-	<ul><li>Organize By:</li>
+	<h1>Organize By:</h1>
+	<ul><li><a href=\"$href\" $class>Show All</a></li>
 	";
 
 	$groups = new FacetGroupList();
@@ -34,13 +33,7 @@
 			echo "<li><a href=\"$href\" $class>$name</a></li>";
 		}
 	}
-
-	$href->facetGroup_id = 'none';
-	echo "
-		<li><a href=\"$href\" $class>Show All</a></li>
-	</ul>
-	</div>
-	";
+	echo "</ul></div>";
 
 
 
