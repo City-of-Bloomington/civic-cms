@@ -8,17 +8,15 @@
 	<div>
 		<ul>
 			<li><a href="<?php echo BASE_URL; ?>/documents/az_index.php">A-Z Index</a></li>
-			<li>Terms of Use</li>
 			<li><a href="<?php echo BASE_URL; ?>/website-privacy-statement">Privacy</a></li>
 			<li><a href="<?php echo BASE_URL; ?>/Website-Accessibility-Statement">Accessibility</a></li>
 			<li><a href="<?php echo BASE_URL; ?>/languages">Languages</a></li>
 			<li><a href="<?php echo BASE_URL; ?>/feeds">Feeds</a></li>
 			<li><a href="<?php echo BASE_URL; ?>/jobs">Jobs</a></li>
-			<li>Help</li>
 			<li><a href="<?php echo BASE_URL; ?>/search/sitemap.php">Sitemap</a></li>
 			<li><?php
-					if(!isset($_SESSION['USER'])) { echo '<a href="'.BASE_URL.'/login">Login</a>'; }
-					else { echo '<a href="'.BASE_URL.'/login/logout.php">Logout</a>'; }
+					if(!isset($_SESSION['USER'])) { echo '<a href="'.BASE_URL.'/login">Sign In</a>'; }
+					else { echo '<a href="'.BASE_URL.'/login/logout.php">Sign Out</a>'; }
 				?>
 			</li>
 			<li><a href="<?php echo BASE_URL; ?>/contact">Contact Us</a></li>

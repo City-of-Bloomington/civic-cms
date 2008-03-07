@@ -11,13 +11,10 @@
 	$sectionName = View::escape($this->section->getName());
 ?>
 <div class="interfaceBox featured">
-	<h3><?php
-			echo "$type in $sectionName";
-			#<a href=\"".BASE_URL."/sections/viewSection.php?section_id={$this->section->getId()};featured={$this->documentType->getId()};format=rss\" class=\"rss\">
-			#	<img src=\"".BASE_URL."/skins/default/images/feed-icon-14x14.png\" alt=\"RSS\" />
-			#</a>
+	<h2><?php
+			echo "Spotlight $type in $sectionName";
 		?>
-	</h3>
+	</h2>
 	<table>
 	<?php
 		foreach($this->documentList as $document)
