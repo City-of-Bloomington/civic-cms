@@ -112,6 +112,7 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 .sidebar .widget { width:200px; margin-bottom:15px; font-size:11px; }
 .sidebar .widget h1 { width:190px; background:#5a8fdc url('images/widgets/widget_top_bg.gif') top no-repeat; margin-left:-10px; padding:5px 10px 5px 10px; font-size:12px; color:#ffffff; font-weight:bold; }
 .sidebar .widget a { color:black; font-size:11px; }
+.sidebar .widget address a { color:#3399cc; }
 
 /* styles for Constituencies Widget */
 .sidebar .widget li.business-guide { background-image: url('images/icons/bullet_rec_red.gif'); }

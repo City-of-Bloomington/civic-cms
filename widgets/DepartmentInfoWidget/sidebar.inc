@@ -21,12 +21,13 @@
 
 	$name = "<a href=\"".BASE_URL."/directory\">$name</a>";
 
-	echo "<tr><th>$name</th></tr>";
-	if ($address1) { echo "<tr><td>$address1</td></tr>\n"; }
-	if ($address2) { echo "<tr><td>$address2</td></tr>\n"; }
-	if ($city || $state || $zip) { echo "<tr><td>$city $state $zip</td></tr>"; }
-	if ($phone) { echo "<tr><td>$phone</td></tr>"; }
-	if ($email) { echo "<tr><td>$email</td></tr>"; }
+	echo "<address>$name<br />";
+	if ($address1) { echo "$address1<br />"; }
+	if ($address2) { echo "$address2<br />"; }
+	if ($city || $state || $zip) { echo "$city $state $zip<br />"; }
+	if ($phone) { echo "$phone<br />"; }
+	if ($email) { echo "$email<br />"; }
+	echo "</address>";
 ?>
 </table>
 </div>
