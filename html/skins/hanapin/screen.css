@@ -294,7 +294,8 @@ a.unwatch { width:22px; height:22px; padding:11px; background: url('../default/i
 
 
 /* Locations page layout */
-#locationGroups_list {  }
+#locationGroups_list { list-style-type:none; }
+#locationGroups_list li { display:inline; }
 #location_list { float:right; width:200px; margin-right:1em; }
 #location_list ul {  }
 #location_map { width:360px; height:360px; border:2px solid black; margin-right:200px; }
