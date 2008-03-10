@@ -20,7 +20,7 @@
 			<li><a href="<?php echo BASE_URL; ?>/documentTypes/documents.php?documentType_id=5">News</a></li>
 			<li><a href="<?php echo BASE_URL; ?>/calendars">Events</a></li>
 			<li><a href="<?php echo BASE_URL; ?>/locations">Locations</a></li>
-			<li><a href="<?php echo BASE_URL; ?>/community_profile">Profile</a></li>
+			<li><a href="<?php echo BASE_URL; ?>/mybloomington">My Bloomington</a></li>
 			<li><a href="<?php echo BASE_URL; ?>/search/sitemap.php">Sitemap</a></li>
 		</ul>
 	</div>
