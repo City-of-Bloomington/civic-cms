@@ -5,7 +5,7 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 ?>
-<h1>RSS Feeds</h1>
+<h2>RSS Feeds</h2>
 <p>RSS feeds assist persons interested in keeping track of changes to a website.
 Often, RSS feeds are used to keep track of news releases or blog entries.
 Websites usually divide their feeds up into topics, so that you can keep track

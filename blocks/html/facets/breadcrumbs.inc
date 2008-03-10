@@ -5,16 +5,27 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Facet $this->facet (optional)
  */
+$title = isset($this->facet) ? View::escape($this->facet->getName()) : 'Facets';
 ?>
-<div class="breadcrumbs">
-<ul><li><a href="<?php echo BASE_URL; ?>">Home</a></li>
-	<li><a href="<?php echo BASE_URL; ?>/facets">Facets</a></li>
+<div id="pageTitle">
+	<div class="breadcrumbs">
+	<ul><li><a href="<?php echo BASE_URL; ?>">Home</a></li>
+		<li><a href="<?php echo BASE_URL; ?>/facets">Facets</a></li>
+		<?php
+			if (isset($this->facet))
+			{
+				echo "<li>$title</li>";
+			}
+		?>
+	</ul>
+	</div>
+	<h1>
 	<?php
-		if (isset($this->facet))
+		if (userHasRole(array('Administrator','Webmaster')))
 		{
-			$name = View::escape($this->facet->getName());
-			echo "<li>$name</li>";
+			echo "<a class=\"addSmall\" href=\"".BASE_URL."/facets/addFacet.php\">Add</a>";
 		}
+		echo $title;
 	?>
-</ul>
+	</h1>
 </div>

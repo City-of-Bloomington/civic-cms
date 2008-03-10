@@ -1,4 +1,3 @@
-<h1><a href="<?php echo BASE_URL; ?>/calendars">City of Bloomington Calendars</a></h1>
 <?php
 /**
  * @copyright Copyright (C) 2006,2007,2008 City of Bloomington, Indiana. All rights reserved.

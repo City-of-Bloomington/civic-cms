@@ -5,14 +5,27 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param DocumentType $this->documentType (optional)
  */
+$title = 'Document Types';
+$href = new URL($_SERVER['SERVER_NAME'].$_SERVER['PHP_SELF']);
+$href->facetGroup_id = 'none';
+if (isset($this->documentType))
+{
+	$title = View::escape(Inflector::pluralize($this->documentType->getType()));
+	$href->documentType_id = $this->documentType->getId();
+}
 ?>
-<div class="breadcrumbs">
-<ul><li><a href="<?php echo BASE_URL; ?>">Home</a></li>
+<div id="pageTitle">
+	<div class="breadcrumbs">
+	<ul><li><a href="<?php echo BASE_URL; ?>">Home</a></li>
+		<li><?php echo $title; ?></li>
+	</div>
+	<h1>
 	<?php
-		if(isset($this->documentType))
+		if (userHasRole(array('Administrator','Webmaster')))
 		{
-			$name = View::escape(Inflector::pluralize($this->documentType));
-			echo "<li>$name</li>";
+			echo "<a class=\"addSmall\" href='".BASE_URL."/documentTypes/addDocumentType.php\">Add</a>";
 		}
+		echo "<a href=\"$href\">$title</a>";
 	?>
+	</h1>
 </div>

@@ -5,8 +5,11 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 ?>
-<div class="breadcrumbs">
-<ul><li><a href="<?php echo BASE_URL; ?>">Home</a></li>
-	<li><a href="<?php echo BASE_URL; ?>/feeds">Feeds</a></li>
-</ul>
+<div id="pageTitle">
+	<div class="breadcrumbs">
+	<ul><li><a href="<?php echo BASE_URL; ?>">Home</a></li>
+		<li><a href="<?php echo BASE_URL; ?>/feeds">Feeds</a></li>
+	</ul>
+	</div>
+	<h1>Feeds</h1>
 </div>

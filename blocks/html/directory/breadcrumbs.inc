@@ -7,7 +7,8 @@
  * @param string $this->department (optional)
  * @param string $this->location (optional)
  */
-	echo "
+echo "
+<div id=\"pageTitle\">
 	<div class=\"breadcrumbs\">
 	<ul><li><a href=\"".BASE_URL."/directory\">Departments</a></li>
 	";
@@ -17,5 +18,6 @@
 	echo "
 	</ul>
 	</div>
-	";
-?>
+	<h1>Directory</h1>
+</div>
+";

@@ -7,7 +7,7 @@
  */
 ?>
 <div class="interfaceBox">
-	<h1>
+	<h2>
 		<?php
 			if (userHasRole(array('Administrator','Webmaster')))
 			{
@@ -15,7 +15,7 @@
 			}
 		?>
 		Location Groups
-	</h1>
+	</h2>
 	<ul><?php
 			foreach($this->locationGroupList as $locationGroup)
 			{

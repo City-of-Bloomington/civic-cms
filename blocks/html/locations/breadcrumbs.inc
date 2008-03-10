@@ -7,40 +7,49 @@
  * @param Location $this->location (optional)
  */
 ?>
-<div class="breadcrumbs">
-<?php
-	if(isset($this->locationGroup))
-	{
-		$name = View::escape($this->locationGroup->getName());
-		echo "
-		<ul><li><a href=\"".BASE_URL."\">Home</a></li>
-			<li><a href=\"".BASE_URL."/locations\">Locations</a></li>
-			<li>$name</li>
-		</ul>
-		";
-	}
-	elseif (isset($this->location))
-	{
-		$location = View::escape($this->location->getName());
-		foreach($this->location->getLocationGroups() as $group)
+<div id="pageTitle">
+	<div class="breadcrumbs">
+	<?php
+		if(isset($this->locationGroup))
 		{
-			$groupName = View::escape($group->getName());
+			$groupName = View::escape($this->locationGroup->getName());
 			echo "
 			<ul><li><a href=\"".BASE_URL."\">Home</a></li>
 				<li><a href=\"".BASE_URL."/locations\">Locations</a></li>
-				<li><a href=\"{$group->getURL()}\">$groupName</a></li>
-				<li>$location</li>
+				<li>$groupName</li>
 			</ul>
 			";
 		}
-	}
-	else
-	{
-		echo "
-		<ul><li><a href=\"".BASE_URL."\">Home</a></li>
-			<li>Locations</li>
-		</ul>
-		";
-	}
-?>
+		elseif (isset($this->location))
+		{
+			$locationName = View::escape($this->location->getName());
+			foreach($this->location->getLocationGroups() as $group)
+			{
+				$groupName = View::escape($group->getName());
+				echo "
+				<ul><li><a href=\"".BASE_URL."\">Home</a></li>
+					<li><a href=\"".BASE_URL."/locations\">Locations</a></li>
+					<li><a href=\"{$group->getURL()}\">$groupName</a></li>
+					<li>$locationName</li>
+				</ul>
+				";
+			}
+		}
+		else
+		{
+			echo "
+			<ul><li><a href=\"".BASE_URL."\">Home</a></li>
+				<li>Locations</li>
+			</ul>
+			";
+		}
+	?>
+	</div>
+	<h1>
+	<?php
+		if (isset($locationName)) { echo $locationName; }
+		elseif (isset($groupName)) { echo $groupName; }
+		else { echo 'Locations'; }
+	?>
+	</h1>
 </div>

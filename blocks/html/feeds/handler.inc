@@ -33,7 +33,7 @@
 		default:
 	}
 	echo <<<EOT
-	<h1>$title</h1>
+	<h2>$title</h2>
 	<p>$message</p>
 	<p><a href="{$this->url}">{$this->url}</a></p>
 EOT;

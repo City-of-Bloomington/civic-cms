@@ -6,16 +6,12 @@
  * @param DocumentType $this->documentType
  * @param FacetGroup $this->facetGroup
  */
-	$type = View::escape(Inflector::pluralize($this->documentType->getType()));
 	$href = new URL($_SERVER['SERVER_NAME'].$_SERVER['PHP_SELF']);
 	$href->documentType_id = $this->documentType->getId();
 	$href->facetGroup_id = 'none';
 
 	$class = (!isset($this->facetGroup)) ? 'class="current"' : '';
 	echo "
-	<h1><a href=\"$href\">$type</a>
-		<a href=\"$href;format=rss\" class=\"rss\">RSS</a>
-	</h1>
 	<div class=\"tabBar\">
 	<h1>Organize By:</h1>
 	<ul><li><a href=\"$href\" $class>Show All</a></li>
@@ -50,7 +46,7 @@
 				$name = View::escape($facet->getName());
 				echo "
 				<div class=\"interfaceBox\">
-					<h1>$name</h1>
+					<h2>$name</h2>
 					<ul>
 				";
 					foreach($documents as $document)

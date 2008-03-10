@@ -6,7 +6,6 @@
  */
 	$template = new Template();
 	$template->blocks[] = new Block('facets/breadcrumbs.inc');
-	$template->blocks[] = new Block('facets/info.inc');
 
 	$groups = new FacetGroupList();
 	$groups->find();

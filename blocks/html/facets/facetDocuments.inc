@@ -5,10 +5,8 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Facet $this->facet
  */
-$name = View::escape($this->facet->getName());
 $description = WikiMarkup::parse($this->facet->getDescription());
 echo "
-<h1>$name</h1>
 <div>$description</div>
 <div class=\"table-of-contents\">
 	<ul>
@@ -41,7 +39,7 @@ echo "
 					$anchor = WikiMarkup::wikify($facet->getName());
 					echo "
 					<div class=\"interfaceBox\">
-						<h1><a id=\"$anchor\">$name</a></h1>
+						<h2><a id=\"$anchor\">$name</a></h2>
 						<ul>
 					";
 						foreach($list as $document)

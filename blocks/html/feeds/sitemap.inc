@@ -12,7 +12,7 @@
 	include_once APPLICATION_HOME.'/includes/js/tree.inc';
 ?>
 <div class="interfaceBox">
-<h1><a href="<?php echo BASE_URL; ?>/feeds">Feeds</a></h1>
+<h2><a href="<?php echo BASE_URL; ?>/feeds">Feeds</a></h2>
 <ul class="mktree">
 	<li>
 		<a href="<?php echo BASE_URL; ?>/feeds">RSS</a>

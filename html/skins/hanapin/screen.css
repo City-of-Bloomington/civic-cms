@@ -142,7 +142,7 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 /*  mainContent allows for 3 columns,	*/
 /*	backendContent allows for 2 columns	*/
 #mainContent { float:left; margin-left:18px; width:480px; font-size:12px; line-height:1.25; }
-#backendContent { margin-left:240px; font-size:12px; }
+#backendContent { float:left; margin-left:18px; width:680px; font-size:12px; }
 
 
 #pageTitle { background:url('images/contentarea/pageTitle-background.gif') top repeat-y; width:488px; margin-bottom:10px; padding-top:5px; }

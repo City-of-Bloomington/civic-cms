@@ -7,10 +7,10 @@
  */
 ?>
 <div class="interfaceBox">
-	<h1>
+	<h2>
 		<a class="addSmall" href="<?php echo BASE_URL; ?>/facets/addFacetGroup.php">Add</a>
 		Facet Groups
-	</h1>
+	</h2>
 	<ul><?php
 			foreach($this->facetGroupList as $facetGroup)
 			{

@@ -6,15 +6,6 @@
  */
 ?>
 <div class="interfaceBox">
-	<h1>
-		<?php
-			if (userHasRole(array('Administrator','Webmaster')))
-			{
-				echo "<a class=\"addSmall\" href='".BASE_URL."/documentTypes/addDocumentType.php\">Add</a>";
-			}
-		?>
-		<a href="<?php echo BASE_URL; ?>/documentTypes">Document Types</a>
-	</h1>
 <ul>
 <?php
 	$list = new DocumentTypeList();

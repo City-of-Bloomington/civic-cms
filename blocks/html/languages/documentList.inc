@@ -7,7 +7,6 @@
  * @param Language $this->language
  */
 ?>
-<h1><?php echo $this->language->getNative(); ?></h1>
 <ul>
 <?php
 	foreach($this->documentList as $document)
