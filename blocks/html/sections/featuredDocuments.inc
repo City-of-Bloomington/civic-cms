@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2007-2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Section $this->section
@@ -15,7 +15,6 @@
 			echo "Spotlight $type in $sectionName";
 		?>
 	</h2>
-	<table>
 	<?php
 		foreach($this->documentList as $document)
 		{
@@ -23,14 +22,13 @@
 			$description = View::escape($document->getDescription());
 			$icon = $document->getDocumentType()->getMedia_id() ? "<img src=\"".BASE_URL."/media/media.php?size=thumbnail;media_id={$document->getDocumentType()->getMedia_id()}\" />" : '';
 
+			$class = WikiMarkup::wikify($this->documentType->getType());
 			echo "
-			<tr><th>$icon</th>
-				<td><h4><a href=\"{$document->getURL()}\">$title</a></h4>
-					<p>$description</p>
-				</td>
-			</tr>
+			<div class=\"$class\">
+				<h4><a href=\"{$document->getURL()}\">$title</a></h4>
+				<p>$description</p>
+			</div>
 			";
 		}
 	?>
-	</table>
 </div>
