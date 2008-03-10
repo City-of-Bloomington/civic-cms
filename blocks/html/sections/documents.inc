@@ -7,7 +7,7 @@
  * @param Document $this->document The current document, which should probably be left out of the list
  */
 $documentTypeList = new DocumentTypeList();
-$documentTypeList->find();
+$documentTypeList->find(null,'type desc');
 
 # We only want to display stuff if we've actually got documents
 $output = array();
