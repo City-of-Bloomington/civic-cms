@@ -134,13 +134,15 @@ class WikiMarkup
 		What we're trying to do is defer <a> tag rendering to the innermost
 		content.  In order to do this we keep track of the CURRENT_URL.
 
-		If a parsing function handles a $linkTarget that is NOT the CURRENT_URL
-		it should render the CURRENT_URL appropriately.
-
-		Parsing functions should do the recursive ::parse() call on $linkText
-		BEFORE rendering the $linkTarget.  If the CURRENT_URL changes during
-		that ::parse() we know that there are inner <A> tags, and the $linkTarget
-		should not be rendered (it should have been rendered by an inner ::parse()
+		The order of things is:
+		1 set CURRENT_URL to the link the parse call is asked to render
+		2 parse any inner content (If there are any hrefs in the inner content
+			the inner calls will reset CURRENT_URL
+		3 Check to see if CURRENT_URL is still the same as the link you're
+			trying to render.
+			If it is, go ahead and render the link
+			If it has changed, then the inner content has a link
+				In this case, just output the inner content
 	*/
 	private static function relativeLinkMarkup($link,$linkText=null)
 	{
@@ -151,24 +153,16 @@ class WikiMarkup
 		# Parse the inner custom content for more square brackets
 		$title = $linkText ? self::parse($linkText) : $link;
 
-		# If there were hrefs in linkText
-		# Wiki parsing should have handled putting link where it belongs in linkText
-		if (self::$CURRENT_URL != $link)
+		if (self::$CURRENT_URL == $link)
 		{
-			# Make sure to reset the current URL before returning
 			self::$CURRENT_URL = null;
-
-			# We should not render this link, just render
-			# what the inner ::parse() calls returned
-			return $title;
-
+			$link = BASE_URL.$link;
+			return "<a href=\"$link\">$title</a>";
 		}
-		# There were no hrefs in linkText, so it's safe to draw this href
 		else
 		{
-			# Make sure to reset the current URL before returning
 			self::$CURRENT_URL = null;
-			return "<a href=\"$link\">$title</a>";
+			return $title;
 		}
 	}
 
