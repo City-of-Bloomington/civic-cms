@@ -37,6 +37,11 @@ dt { font-weight:bold; }
 
 blockquote { margin:1em 40px; }
 
+form { }
+fieldset { border:1px solid black; margin-bottom:10px; }
+legend { background-color:#5a8fdc; font-weight:bold; padding:4px; color:white; }
+label { font-weight:bold; }
+
 .comments { color:red; background-color:inherit; }
 .money { text-align:right; }
 .void,.void td { text-decoration:line-through; }
