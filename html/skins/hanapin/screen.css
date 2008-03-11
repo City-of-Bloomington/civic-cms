@@ -323,4 +323,7 @@ a.unwatch { width:22px; height:22px; padding:11px; background: url('../default/i
 /* Styles for stuff that is invalid */
 .badlink { background-color:red; }
 
-#tooltip { border:2px solid #5a8fdc; background-color:white; padding:4px; }
+/* Javascript creates tooltips on the fly */
+/* There is only one tooltip div, javascript just replaces it's contents */
+#tooltip { border:2px solid #5a8fdc; background-color:white; padding:4px; font-size:11px; }
+#tooltip.enlarge { padding-left:18px; background:white url('images/icons/viewmag.png') top left no-repeat; }

@@ -76,7 +76,7 @@ FRAMEWORK.limit = function (field,maxNumChars)
 };
 
 
-FRAMEWORK.popupTooltip = function (text)
+FRAMEWORK.popupTooltip = function (text,class)
 {
 	function newelement(newid)
 	{
@@ -97,6 +97,7 @@ FRAMEWORK.popupTooltip = function (text)
 	}
     if(!document.getElementById('tooltip')) newelement('tooltip');
     var tooltip = document.getElementById('tooltip');
+    if (class) { tooltip.className = class; }
 
 
     while(tooltip.childNodes.length>=1) { tooltip.removeChild(tooltip.firstChild); }

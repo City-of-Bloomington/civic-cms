@@ -537,7 +537,7 @@ class WikiMarkup
 			{
 				$imageTag = "
 				<a href=\"{$image->getURL('original')}\"
-					onmouseover=\"FRAMEWORK.popupTooltip('View Original Size');\"
+					onmouseover=\"FRAMEWORK.popupTooltip('Enlarge This Image','enlarge');\"
 					onmouseout=\"FRAMEWORK.hideTooltip();\">
 				$imageTag
 				</a>
@@ -601,7 +601,7 @@ class WikiMarkup
 			{
 				$imageTag = "
 				<a href=\"{$image->getURL('original')}\"
-					onmouseover=\"FRAMEWORK.popupTooltip('View Original Size');\"
+					onmouseover=\"FRAMEWORK.popupTooltip('Enlarge This Image','enlarge');\"
 					onmouseout=\"FRAMEWORK.hideTooltip();\">
 				$imageTag
 				</a>
