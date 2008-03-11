@@ -5,4 +5,11 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 ?>
-<h1>Sitemap</h1>
+<div id="pageTitle">
+	<div class="breadcrumbs">
+		<ul><li><a href="<?php echo BASE_URL; ?>">Home</a></li>
+			<li><a href="<?php echo BASE_URL; ?>/sitemap">Sitemap</a></li>
+		</ul>
+	</div>
+	<h1>Sitemap</h1>
+</div>
