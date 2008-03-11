@@ -265,8 +265,8 @@ a.next { width:22px; height:22px; padding:11px; background: url('../default/imag
 a.first { width:22px; height:22px; padding:11px; background: url('../default/images/player_start.png') no-repeat; font-size:0 !important; }
 a.last { width:22px; height:22px; padding:11px; background: url('../default/images/player_end.png') no-repeat; font-size:0 !important; }
 
-a.subscribe { width:22px; height:22px; padding:11px; background: url('../default/images/news_subscribe.png') no-repeat; font-size:0 !important; }
-a.unsubscribe { width:22px; height:22px; padding:11px; background: url('../default/images/news_unsubscribe.png') no-repeat; font-size:0 !important; }
+a.subscribe { width:22px; height:22px; padding:11px; background: url('images/buttons/x.gif') no-repeat; font-size:0 !important; }
+a.unsubscribe { width:22px; height:22px; padding:11px; background: url('images/buttons/checkmark.gif') no-repeat; font-size:0 !important; }
 a.notify { width:22px; height:22px; padding:11px; background: url('../default/images/mail_send.png') no-repeat; font-size:0 !important; }
 a.watch { width:22px; height:22px; padding:11px; background: url('../default/images/mail_get.png') no-repeat; font-size:0 !important; }
 a.unwatch { width:22px; height:22px; padding:11px; background: url('../default/images/mail_delete.png') no-repeat; font-size:0 !important; }
