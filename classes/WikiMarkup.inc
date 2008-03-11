@@ -257,7 +257,7 @@ class WikiMarkup
 			$title = $linkText ? self::parse($linkText) : null;
 
 			# If we didn't render an href inside of the linkText
-			if (self::$CURRENT_URL == $media->getURL())
+			if (self::$CURRENT_URL == $media->getURL('original'))
 			{
 				# We should go ahead and render this href
 				if (!$title) { $title = View::escape($media->getTitle()); }
@@ -279,7 +279,7 @@ class WikiMarkup
 		catch (Exception $e)
 		{
 			self::$CURRENT_URL = null;
-			return $linkText;
+			return self::parse($linkText);
 		}
 	}
 
