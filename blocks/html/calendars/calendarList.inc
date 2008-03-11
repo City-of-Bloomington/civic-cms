@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006-2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
@@ -30,7 +30,7 @@
 
 				echo "
 				<li>$editButton
-					<a href=\"".BASE_URL."/calendars/viewCalendar.php?calendar_id={$calendar->getId()}\">$name</a>
+					<a href=\"{$calendar->getURL()}\">$name</a>
 				</li>
 				";
 			}

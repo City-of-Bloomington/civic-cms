@@ -226,6 +226,11 @@
 			return $recurrenceArray;
 		}
 
+		public function getURL()
+		{
+			return BASE_URL.'/calendars?calendar_id='.$this->id;
+		}
+
 		/**
 		 * Generic Getters
 		 */
