@@ -212,6 +212,9 @@
 	var endTime = document.getElementById("endTime");
 	var LDAPSelect = document.getElementById('ldap_username');
 
+	var lastKnownStartTime = '';
+	var lastKnownEndTime = '';
+
 	<?php
 		if ($this->event->isAllDayEvent())
 		{
@@ -228,13 +231,17 @@
 	{
 		if (startTime.style.display == "none")
 		{
-			startTime.value = startValue;
-			endTime.value = endValue;
+			startTime.value = lastKnownStartTime;
+			endTime.value = lastKnownEndTime;
 			startTime.style.display = "";
 			endTime.style.display = "";
 		}
 		else
 		{
+			// Remember whatever the user typed, so we can bring it back
+			lastKnownStartTime = startTime.value;
+			lastKnownEndTime = endTime.value;
+
 			startTime.value = "";
 			endTime.value = "";
 			startTime.style.display = "none";
