@@ -323,3 +323,4 @@ a.unwatch { width:22px; height:22px; padding:11px; background: url('../default/i
 /* Styles for stuff that is invalid */
 .badlink { background-color:red; }
 
+#tooltip { border:2px solid #5a8fdc; background-color:white; padding:4px; }

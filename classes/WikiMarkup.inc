@@ -529,6 +529,22 @@ class WikiMarkup
 			$imageTag = "<a href=\"$imageLink\">$imageTag</a>";
 			self::$CURRENT_URL = $url;
 		}
+		# If there isn't a CURRENT_URL, create a link to the Original Sized Image
+		else
+		{
+			# Only draw this link if the picture was resized
+			if ($image->getWidth()!=$width || $image->getHeight()!=$height)
+			{
+				$imageTag = "
+				<a href=\"{$image->getURL('original')}\"
+					onmouseover=\"FRAMEWORK.popupTooltip('View Original Size');\"
+					onmouseout=\"FRAMEWORK.hideTooltip();\">
+				$imageTag
+				</a>
+				";
+				self::$CURRENT_URL = $image->getURL('original');
+			}
+		}
 
 		# Wrap the caption in a span
 		$caption = $caption ? "<span class=\"caption\">$caption</span>" : null;
@@ -576,6 +592,22 @@ class WikiMarkup
 		{
 			$imageTag = "<a href=\"$imageLink\">$imageTag</a>";
 			self::$CURRENT_URL = $url;
+		}
+		# If there isn't a CURRENT_URL, create a link to the Original Sized Image
+		else
+		{
+			# Only draw this link if the picture was resized
+			if ($image->getWidth()!=$width || $image->getHeight()!=$height)
+			{
+				$imageTag = "
+				<a href=\"{$image->getURL('original')}\"
+					onmouseover=\"FRAMEWORK.popupTooltip('View Original Size');\"
+					onmouseout=\"FRAMEWORK.hideTooltip();\">
+				$imageTag
+				</a>
+				";
+				self::$CURRENT_URL = $image->getURL('original');
+			}
 		}
 
 		# Wrap the caption in a span
