@@ -160,7 +160,9 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 
 .interfaceBox { border-top:1px solid #003366; margin-top:10px; margin-bottom:10px; padding-top:6px; }
 .interfaceBox h1 { width:190px; background:url('images/widgets/widget_top_bg.gif') top no-repeat; background-color:#5a8fdc; padding:5px 10px 5px 10px; font-size:14px; color:#ffffff; }
+.interfaceBox h1 a { color:white; }
 .interfaceBox h2 { font-size:14px; border-bottom:none; }
+
 
 #footer { width:938px; padding:20px; font-size:11px; color:#003366; clear:both; border-left:1px solid black; border-right:1px solid black; border-bottom:1px solid black; }
 #footer ul { list-style-type:none; margin:0; float:right; width:600px; text-align:right; }
