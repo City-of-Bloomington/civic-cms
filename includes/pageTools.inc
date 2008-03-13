@@ -117,7 +117,7 @@ echo "
 				foreach($this->document->getLanguages() as $language)
 				{
 					$selected = ($language->getCode()==$_SESSION['LANGUAGE']) ? 'selected="selected"' : '';
-					echo "<option value=\"{$language->getCode()}\" $selected>{$language->getNative()} ({$language->getEnglish()})</option>";
+					echo "<option value=\"{$language->getCode()}\" $selected>{$language->getNative()}</option>";
 				}
 echo "
 				</select>
