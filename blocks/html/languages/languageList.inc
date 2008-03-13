@@ -17,7 +17,7 @@
 		{
 			echo "
 			<li><a href=\"".BASE_URL."/languages/documents.php?language={$language->getCode()}\">
-				{$language->getNative()}</a>
+				{$language->getNative()} ({$language->getEnglish()}) </a>
 			</li>
 			";
 		}
