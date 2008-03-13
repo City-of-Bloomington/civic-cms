@@ -66,11 +66,14 @@ as well as find driving directions, and information specific to a certain site.<
 
 					$n = addslashes($name);
 					$d = addslashes(str_replace(array("\r\n","\n","\r"),' ',$description));
+					$a = addslashes($location->getAddress());
 
 					$title = "<h3 style=\"width:200px\">$n</h3>";
 					$desc = "<p style=\"width:200px\">$d</p>";
 					$directions = "<p>Get Directions: <a href=\"http://maps.google.com/?q=to:$n@{$location->getLatitude()},{$location->getLongitude()}\">To Here</a></p>";
-					$info[] = "'{$title}{$desc}{$directions}'";
+					$address = "<address>$a</address>";
+
+					$info[] = "'{$title}{$desc}{$a}{$directions}'";
 
 					$i = count($points) - 1;
 					$mapButton = "<a href=\"#\" onclick=\"popup($i)\">Reveal In Map</a>";
