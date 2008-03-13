@@ -290,9 +290,9 @@ a.unwatch { width:22px; height:22px; padding:11px; background: url('../default/i
 .ram { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/real.png') no-repeat; }
 .mp3 { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/sound.png') no-repeat; }
 .wma { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/sound.png') no-repeat; }
-.tar { }
-.dxf { }
-.folder { }
+.tar { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/tar.png') no-repeat; }
+.dxf { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/dwg-autocad-drawing.ico') no-repeat; }
+.folder { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/folder.png') no-repeat; }
 
 /* Icons for each of the document types */
 .featured .agenda { height:80px; padding-left:90px; background:url('images/contentpicsamples/spotlight-cats.gif') top left no-repeat; }
