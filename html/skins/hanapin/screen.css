@@ -88,7 +88,7 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 #secondaryLinks li { float:left;  padding-right:4px; margin-right:4px; }
 #secondaryLinks li.first { border-right:1px solid #003366; }
 #secondaryLinks form { width:140px;  background:url('images/banner/search.gif') top left no-repeat; position:relative; top:-2px; }
-#secondaryLinks fieldset {  }
+#secondaryLinks fieldset { border:0; }
 #secondaryLinks legend { display:none; }
 #secondaryLinks input { border:0; background-color:transparent; width:82px; margin-left:18px; }
 #secondaryLinks button { display:none; }
@@ -109,6 +109,7 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 .sidebar .widget ul,.sidebar .widget ol { margin:0; padding:0; list-style-type:none; }
 .sidebar .widget li { background:url('images/icons/bullet_arrow_right.gif') no-repeat 0 .5em; padding:6px 0 6px 20px; border-bottom:1px solid #bdbdbd; vertical-align:top; }
 .sidebar .widget form {  }
+.sidebar .widget fieldset { border:0; }
 .sidebar .widget select { width:180px; }
 
 .sidebar p { font-size:11px; }
@@ -140,9 +141,9 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 #pageTools ul { list-style-type:none; width:160px; height:39px; text-align:right; float:right; margin:0; margin-top:7px; margin-right:10px; }
 #pageTools li { display:inline; }
 #pageTools form { display:inline; }
-#pageTools fieldset { display:inline; vertical-align:bottom; }
+#pageTools fieldset { border:0; display:inline; vertical-align:bottom; }
 #pageTools legend { display:none; }
-#pageTools select { width:10ex; margin:0; padding:0; }
+#pageTools select { width:18ex; margin:0; padding:0; }
 
 
 /*  mainContent allows for 3 columns,	*/
