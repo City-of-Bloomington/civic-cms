@@ -91,7 +91,7 @@
 				if (isset($fields['lang']))
 				{
 					$PDO = Database::getConnection();
-					$query = $PDO->prepare('create temporary table language_ids (id int unsigned not null primary key)');
+					$query = $PDO->prepare('create temporary table if not exists language_ids (id int unsigned not null primary key)');
 					$query->execute();
 
 					# This is just in case we have a previous temp table hanging around.

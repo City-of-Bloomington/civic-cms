@@ -15,9 +15,13 @@
 		# Don't bother showing English
 		if ($language->getCode()!= 'en')
 		{
+			# Find out how many documents we have
+			$list = new DocumentList(array('lang'=>$language->getCode()));
+			$count = count($list);
+
 			echo "
 			<li><a href=\"".BASE_URL."/languages/documents.php?language={$language->getCode()}\">
-				{$language->getNative()} ({$language->getEnglish()}) </a>
+				{$language->getNative()} ({$language->getEnglish()}) ($count)</a>
 			</li>
 			";
 		}
