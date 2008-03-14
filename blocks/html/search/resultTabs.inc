@@ -26,7 +26,7 @@
 		$url->type = 'Media';
 		$class = $this->currentType=='Media' ? 'class="current"' : '';
 		$count = isset($this->results['media']) ? count($this->results['media']) : 0;
-		echo "<li $class><a href=\"$url\">Media</a> ($count)</li>";
+		echo "<li $class><a href=\"$url\">Files &amp; Media</a> ($count)</li>";
 	?>
 	</ul>
 </div>
