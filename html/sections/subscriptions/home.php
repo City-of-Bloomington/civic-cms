@@ -4,8 +4,14 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
-$list = new SectionList(array('highlightSubscription'=>1));
+verifyUser();
 
+if (isset($_POST['section']))
+{
+	$_SESSION['USER']->setSubscriptions(array_keys($_POST['section']));
+}
+
+$list = new SectionList(array('highlightSubscription'=>1));
 $template = new Template();
 $template->blocks[] = new Block('sections/subscriptions/highlightedSubscriptions.inc',array('sectionList'=>$list));
 echo $template->render();

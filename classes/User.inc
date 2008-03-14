@@ -213,6 +213,27 @@ class User extends SystemUser
 		$list = new SectionSubscriptionList(array('user_id'=>$this->id,'section_id'=>$section->getId()));
 		return count($list) ? true : false;
 	}
+	/**
+	 * Takes an array of section-ids and subscribes the user to all of them
+	 * @param array $sectionIds
+	 */
+	public function setSubscriptions(array $sectionIds)
+	{
+		if ($this->id)
+		{
+			$PDO = Database::getConnection();
+			$query = $PDO->prepare('delete from section_subscriptions where user_id=?');
+			$query->execute(array($this->id));
+
+			foreach($sectionIds as $id)
+			{
+				$subscription = new SectionSubscription();
+				$subscription->setSection_id($id);
+				$subscription->setUser($this);
+				$subscription->save();
+			}
+		}
+	}
 
 	/**
 	 * Generates an MD5 hash that can uniquely identify this user
