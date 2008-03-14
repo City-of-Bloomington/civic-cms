@@ -21,7 +21,7 @@ if (count($this->results))
 			{
 				$title = View::escape($hit->getTitle());
 
-				if ($hit->getDescription()) { $description = View::escape($hit->getDescription()); }
+				if ($hit->getDescription()) { $description = View::escape(strip_tags($hit->getDescription())); }
 				else
 				{
 					$description = '';
