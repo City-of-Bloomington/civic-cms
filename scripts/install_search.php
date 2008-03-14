@@ -62,4 +62,22 @@
 		}
 	}
 
+	# Load all the Media into the new Index
+	$list = new MediaList();
+	$list->find();
+	$c = 0;
+	foreach($list as $media)
+	{
+		$c++;
+		$search->add($media);
+		$used_memory = memory_get_usage();
+		echo "Added media: {$media->getId()} - $used_memory/$memory_limit\n";
+		if ($c>=200)
+		{
+			echo "Optimizing\n";
+			$search->optimize();
+			$c = 0;
+		}
+	}
+
 	echo "Search now has {$search->count()} entries\n";

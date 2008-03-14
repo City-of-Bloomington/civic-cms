@@ -64,7 +64,7 @@ if (count($this->results))
 		elseif ($hit instanceof Event)
 		{
 			$title = View::escape($hit->getTitle());
-			$description = View::escape($hit->getDescription());
+			$description = View::escape(strip_tags($hit->getDescription()));
 			echo "
 			<div id=\"searchResult\">
 				<h3><a href=\"{$hit->getURL()}\">$title</a></h3>
@@ -72,7 +72,23 @@ if (count($this->results))
 				<span>last updated {$hit->getModified('%D')}</span>
 			</div>
 			";
+		}
 
+		#------------------------------------------------------------
+		# Media Results
+		#------------------------------------------------------------
+		elseif ($hit instanceof Media)
+		{
+			$title = View::escape($hit->getTitle());
+			$description = View::escape(strip_tags($hit->getDescription()));
+			$class = $hit->getExtension();
+			echo "
+			<div id=\"searchResult\">
+				<h3><a href=\"{$hit->getURL('original')}\" class=\"$class\">$title</a></h3>
+				<p>$description</p>
+				<span>uploaded {$hit->getUploaded('%D')}</span>
+			</div>
+			";
 		}
 	}
 }

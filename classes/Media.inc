@@ -325,6 +325,15 @@
 		}
 
 		/**
+		 * Alias for Upload date
+		 * Media doesn't get modified, it just gets re-uploaded
+		 */
+		public function getModified($format)
+		{
+			return $this->getUploaded($format);
+		}
+
+		/**
 		 * Generic Getters
 		 */
 		public function getId() { return $this->id; }

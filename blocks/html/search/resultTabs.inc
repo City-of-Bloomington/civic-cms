@@ -22,6 +22,11 @@
 		$class = $this->currentType=='Events' ? 'class="current"' : '';
 		$count = isset($this->results['events']) ? count($this->results['events']) : 0;
 		echo "<li $class><a href=\"$url\">Events</a> ($count)</li>";
+
+		$url->type = 'Media';
+		$class = $this->currentType=='Media' ? 'class="current"' : '';
+		$count = isset($this->results['media']) ? count($this->results['media']) : 0;
+		echo "<li $class><a href=\"$url\">Media</a> ($count)</li>";
 	?>
 	</ul>
 </div>

@@ -20,7 +20,6 @@ if (isset($_GET['search']) && $_GET['search'])
 	$currentType = isset($_GET['type']) ? Inflector::pluralize($_GET['type']) : 'Documents';
 	$type = strtolower($currentType);
 
-
 	if (isset($results[$type]) && count($results[$type]))
 	{
 		# If we've got a lot of results, split them up into seperate pages
