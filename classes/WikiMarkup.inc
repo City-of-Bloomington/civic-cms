@@ -143,6 +143,7 @@ class WikiMarkup
 			If it is, go ahead and render the link
 			If it has changed, then the inner content has a link
 				In this case, just output the inner content
+		4 Set CURRENT_URL to null, so that outer calls know somethings changed
 	*/
 	private static function relativeLinkMarkup($link,$linkText=null)
 	{
@@ -527,7 +528,7 @@ class WikiMarkup
 		if ($imageLink)
 		{
 			$imageTag = "<a href=\"$imageLink\">$imageTag</a>";
-			self::$CURRENT_URL = $url;
+			self::$CURRENT_URL = null;
 		}
 		# If there isn't a CURRENT_URL, create a link to the Original Sized Image
 		else
@@ -542,7 +543,7 @@ class WikiMarkup
 				$imageTag
 				</a>
 				";
-				self::$CURRENT_URL = $image->getURL('original');
+				self::$CURRENT_URL = null;
 			}
 		}
 
@@ -586,12 +587,12 @@ class WikiMarkup
 		# We couldn't find an image with that filename, just display the raw text
 		else { return $caption; }
 
-		# Wrap the Image an CURRENT_URL, if there is one
+		# Wrap the Image in in a link to CURRENT_URL, if there is one
 		$imageTag = "<img src=\"$url\" alt=\"$alt\" width=\"$width\" height=\"$height\" />";
 		if ($imageLink)
 		{
 			$imageTag = "<a href=\"$imageLink\">$imageTag</a>";
-			self::$CURRENT_URL = $url;
+			self::$CURRENT_URL = null;
 		}
 		# If there isn't a CURRENT_URL, create a link to the Original Sized Image
 		else
@@ -606,7 +607,7 @@ class WikiMarkup
 				$imageTag
 				</a>
 				";
-				self::$CURRENT_URL = $image->getURL('original');
+				self::$CURRENT_URL = null;
 			}
 		}
 
