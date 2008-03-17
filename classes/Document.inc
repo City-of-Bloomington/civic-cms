@@ -22,6 +22,7 @@
 		private $description;
 		private $lockedBy;
 		private $enablePHP;
+		private $banner_media_id;
 
 		private $department;
 		private $content = array();
@@ -36,6 +37,7 @@
 
 		private $widgets = array();
 		private $attachments = array();
+		private $banner;
 
 		/**
 		 * This will load all fields in the table as properties of this class.
@@ -45,8 +47,8 @@
 		{
 			if ($id)
 			{
-				if (is_numeric($id)) { $sql = "select * from documents where id=?"; }
-				else { $sql = "select * from documents where title=?"; }
+				if (is_numeric($id)) { $sql = 'select * from documents where id=?'; }
+				else { $sql = 'select * from documents where title=?'; }
 
 				$PDO = Database::getConnection();
 				$query = $PDO->prepare($sql);
@@ -108,6 +110,7 @@
 			$fields['description'] = $this->description ? $this->description : null;
 			$fields['lockedBy'] = $this->lockedBy ? $this->lockedBy : null;
 			$fields['enablePHP'] = $this->enablePHP ? 1 : 0;
+			$fields['banner_media_id'] = $this->banner_media_id ? $this->banner_media_id : null;
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
@@ -707,6 +710,9 @@
 			return $info;
 		}
 
+		public function getBanner() { return $this->getBanner_media(); }
+		public function setBanner() { return $this->setBanner_media(); }
+
 		/**
 		 * Generic Getters
 		 */
@@ -781,6 +787,15 @@
 			}
 			else return null;
 		}
+		public function getBanner_media_id() { return $this->banner_media_id; }
+		public function getBanner_media()
+		{
+			if ($this->banner_media_id && !$this->banner)
+			{
+				$this->banner = new Media($this->banner_media_id);
+			}
+			return $this->banner;
+		}
 
 
 
@@ -835,4 +850,6 @@
 				if (!isset($this->content[$lang])) { $this->content[$lang] = $this->documentType->getTemplate(); }
 			}
 		}
+		public function setBanner_media_id($int) { $this->banner = new Media($int); $this->banner_media_id = $int; }
+		public function setBanner_media($media) { $this->banner_media_id = $media->getId(); $this->banner = $media; }
 	}

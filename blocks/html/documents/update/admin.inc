@@ -20,6 +20,46 @@
 	</table>
 	</fieldset>
 
+	<fieldset><legend>Banner</legend>
+	<p>Banner images will not be resized when displayed.  They will be used in their original form.
+		Please choose or upload an appropriately sized image.</p>
+	<table>
+	<tr><td><label for="document-banner_media_id">Banner</label></td>
+		<td><button type="button" class="browse" onclick="window.open('<?php echo BASE_URL; ?>/media/imageBrowser.php');">Choose Media</button>
+			<button type="button" class="deleteSmall" onclick="removeIcon();">Delete</button>
+			<input name="document[banner_media_id]" id="document-banner_media_id" type="hidden" value="<?php echo $this->document->getBanner_media_id(); ?>" />
+			<span id="icon">
+			<?php
+				if ($this->document->getBanner_media_id())
+				{
+					echo "<img src=\"".BASE_URL."/media/media.php?media_id={$this->document->getBanner_media_id()};size=original\" />";
+				}
+			?>
+			</span>
+			<script type="text/javascript">
+			var icon = document.getElementById('icon');
+			function handleSelection(media_id)
+			{
+				var BASE_URL = '<?php echo BASE_URL; ?>';
+				document.getElementById('document-banner_media_id').value = media_id;
+
+				// Update the icon
+				while(icon.hasChildNodes()) { icon.removeChild(icon.firstChild); }
+				var img = document.createElement('img');
+				img.src = BASE_URL+'/media/media.php?size=original;media_id='+media_id;
+				icon.appendChild(img);
+			}
+			function removeIcon()
+			{
+				while(icon.hasChildNodes()) { icon.removeChild(icon.firstChild); }
+				document.getElementById('document-banner_media_id').value = '';
+			}
+			</script>
+		</td>
+	</tr>
+	</table>
+	</fieldset>
+
 	<fieldset><legend>Language</legend>
 		<input type="hidden" name="tab" id="tab" value="info" />
 		<input type="hidden" name="action" id="action" value="next" />

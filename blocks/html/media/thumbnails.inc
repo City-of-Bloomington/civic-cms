@@ -16,11 +16,15 @@ echo "
 
 foreach($this->imageList as $image)
 {
-	$title = htmlspecialchars($image->getTitle(),ENT_QUOTES);
+	$title = View::escape($image->getTitle());
+	$width = $image->getWidth('thumbnail');
+	$height = $image->getHeight('thumbnail');
+	$src = $image->getURL('thumbnail');
+
 	echo "
-	<span class=\"image thumbnail\">
+	<span class=\"image thumbnail\" style=\"width:{$width}px;height:150px;float:left;\">
 		<a href=\"{$image->getURL()}\" onclick=\"insert('{$image->getId()}');return false;\">
-			<img src=\"".BASE_URL."/media/media.php?media_id={$image->getId()};size=thumbnail\" alt=\"$title\" />
+			<img src=\"$src\" width=\"$width\" height=\"$height\" alt=\"$title\" />
 		</a>
 		<span class=\"caption\">{$image->getId()}</span>
 	</span>

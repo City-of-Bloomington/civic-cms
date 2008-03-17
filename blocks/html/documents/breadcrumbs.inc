@@ -56,3 +56,14 @@ echo "
 	<h1>$title</h1>
 </div>
 ";
+
+if ($this->document->getBanner_media_id())
+{
+	$src = $this->document->getBanner()->getURL('original');
+	$alt = View::escape($this->document->getBanner()->getTitle());
+	echo "
+	<div id=\"pageBanner\">
+		<img src=\"$src\" alt=\"$alt\" />
+	</div>
+	";
+}
