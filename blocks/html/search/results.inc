@@ -49,7 +49,7 @@ if (count($this->results))
 
 
 				echo "
-				<div id=\"searchResult\">
+				<div class=\"searchResult\">
 					<h3><a href=\"{$hit->getURL()}\">$title</a></h3>
 					<p>$description</p>
 					<span><a href=\"{$hit->getURL()}\">".BASE_URL."/{$hit->getWikiTitle()}</a> - $size
