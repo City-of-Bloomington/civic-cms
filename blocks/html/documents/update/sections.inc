@@ -119,7 +119,7 @@
 					foreach($vector['vector'] as $p)
 					{
 						$name = View::escape($p->getName());
-						echo "<li>$name</li>";
+						echo "<li><a href=\"{$p->getURL()}\">$name</a></li>";
 					}
 					echo "</ul></div>";
 

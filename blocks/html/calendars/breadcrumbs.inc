@@ -27,7 +27,7 @@
 			{
 				$url->calendar_id = $calendar->getId();
 			}
-			echo "<li>$name</li>";
+			echo "<li><a href=\"$url\">$name</a></li>";
 		?>
 	</div>
 	<h1><a href="<?php echo BASE_URL; ?>/calendars">City of Bloomington Calendars</a></h1>

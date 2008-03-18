@@ -14,7 +14,7 @@ $title = isset($this->facet) ? View::escape($this->facet->getName()) : 'Facets';
 		<?php
 			if (isset($this->facet))
 			{
-				echo "<li>$title</li>";
+				echo "<li><a href=\"{$this->facet->getURL()}\">$title</a></li>";
 			}
 		?>
 	</ul>
