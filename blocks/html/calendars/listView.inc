@@ -10,7 +10,7 @@ $MAX_DAYS_AHEAD = 60;
 $MAX_EVENTS = 15;
 ?>
 <div class="interfaceBox">
-	<h1>Upcoming Events</h1>
+	<h2>Upcoming Events</h2>
 	<table class="calendar">
 	<?php
 		$rangeStart = time();

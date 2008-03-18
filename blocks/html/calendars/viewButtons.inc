@@ -18,20 +18,23 @@ if ($this->calendar->getName())
 	echo "<p>".View::escape($this->calendar->getDescription())."</p>";
 }
 ?>
-<div class="contextualMenu">
+<div>
+	<p>Use the drop down menus below to switch between calendar types and views.</p>
 	<form method="get" action="<?php echo BASE_URL; ?>/calendars">
 	<fieldset>
 		<?php
 			$currentView = isset($_GET['view']) ? strtolower($_GET['view']) : 'list';
 		?>
-		<select name="view" onchange="this.form.submit();">
+		<label for="view">Calendar View</label>
+		<select name="view" id="view" onchange="this.form.submit();">
 			<option value="list" <?php if($currentView=='list') echo 'selected="selected"'; ?>>List View</option>
 			<option value="day" <?php if($currentView=='day') echo 'selected="selected"'; ?>>Day View</option>
 			<option value="week" <?php if($currentView=='week') echo 'selected="selected"'; ?>>Week View</option>
 			<option value="month" <?php if($currentView=='month') echo 'selected="selected"'; ?>>Month View</option>
 		</select>
 
-		<select name="calendar_id" onchange="this.form.submit();">
+		<label for="calendar_id">Calendar</label>
+		<select name="calendar_id" id="calendar_id" onchange="this.form.submit();">
 			<option value=''>All Calendars</option>
 			<?php
 				$list = new CalendarList();

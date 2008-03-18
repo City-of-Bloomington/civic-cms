@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006-2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Calendar $this->calendar
@@ -9,7 +9,7 @@
  */
 ?>
 <div class="interfaceBox">
-	<h1>
+	<h2>
 		<?php
 			$rangeStart = mktime(0,0,0,$this->date['mon'],$this->date['mday'],$this->date['year']);
 			$rangeEnd = strtotime('+7 day',$rangeStart);
@@ -31,7 +31,7 @@
 			$url->parameters['year'] = $next['year'];
 			echo "<a class=\"next\" href=\"{$url->getURL()}\">Next Week</a>";
 		?>
-	</h1>
+	</h2>
 	<table class="calendar">
 	<?php
 		# We only want to iterate through one week

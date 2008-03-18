@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2006 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006-2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param object $this->calendar The calendar holding all the events we want to display
@@ -16,7 +16,7 @@
 	$month = $date['mon'];
 ?>
 <div class="interfaceBox">
-	<h1>
+	<h2>
 	<?php
 		$back = getdate(strtotime('-1 month',$start));
 		$next = getdate($end);
@@ -33,7 +33,7 @@
 		$url->mon = $next['mon'];
 		echo "<a class=\"next\" href=\"$url\">Next Month</a>";
 	?>
-	</h1>
+	</h2>
 <table class="calendar">
 <?php
 	# Loop through all the days of the month
