@@ -46,10 +46,10 @@
 	<td>[event:/2008/2/22/MPO Technical Advisory Committee]</td></tr>
 </table>
 
-<h4>To a Location Group [location group:____]</h4>
+<h4>To a Location Group [locationGroup:____]</h4>
 <table>
 <tr><th>e.g.</th>
-	<td>[location group:public art]</td></tr>
+	<td>[locationGroup:public art]</td></tr>
 </table>
 
 <h4>To a Location [location:____]</h4>
