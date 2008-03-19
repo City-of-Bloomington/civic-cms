@@ -7,6 +7,20 @@
 <div id="footer">
 	<div>
 		<ul>
+			<?php
+				if(!isset($_SESSION['USER']))
+				{
+					echo "
+					<li class=\"first\"><a href=\"".BASE_URL."/login\">Sign In</a></li>
+					";
+				}
+				else
+				{
+					echo "
+					<li class=\"first\"><a href=\"".BASE_URL."/login/logout.php\">Sign Out</a></li>
+					";
+				}
+			?>
 			<li><a href="<?php echo BASE_URL; ?>/documents/az_index.php">A-Z Index</a></li>
 			<li><a href="<?php echo BASE_URL; ?>/website-privacy-statement">Privacy</a></li>
 			<li><a href="<?php echo BASE_URL; ?>/Website-Accessibility-Statement">Accessibility</a></li>
