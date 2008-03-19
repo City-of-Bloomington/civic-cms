@@ -5,7 +5,6 @@ body { width:980px; position:relative; margin:0 auto; text-align:left; backgroun
 
 /* DEFAULT TEXT */
 a { color:#3399cc; }
-a:visited { color:#3399cc; }
 a:active { color:#3399cc; }
 a:hover { color:#3399cc; text-decoration:underline; }
 
@@ -192,7 +191,7 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 #mainContent tr { vertical-align:top; }
 #mainContent td { padding:.5em; background-color:inherit; border:1px solid #e0e0e0; vertical-align:top; }
 #mainContent th { text-align:left; background-color:#e0e0e0; padding:.5em; border-bottom:1px solid #e0e0e0; vertical-align: top; font-weight:bold; }
-#mainContent th a:link,th a:visited { color:#3366cc; background-color:inherit; }
+#mainContent th a { color:#3366cc; background-color:inherit; }
 
 /* HANAPIN - STYLES FOR EVENTS SECTION */
 /* Calendars MUST BE marked up as tables */
@@ -360,7 +359,6 @@ a.unwatch { width:22px; height:22px; padding:11px; background: url('../default/i
 .tabBar ul { margin:0; padding:0; font-size:11px; list-style-type:none; }
 .tabBar li { list-style-type:none; display:inline; background-color:#f3f3f3; border:1px solid #5a8fdc; padding:3px; }
 .tabBar a { font-size:11px; color:#003366; text-decoration:none; }
-.tabBar a:visited a:active { color:#003366; text-decoration:none; }
 .tabBar a:hover { color:#003366; text-decoration:underline; }
 .tabBar .title { font-size:11px; color:#003366; float:left; width:120px; font-weight:bold; }
 .tabBar .active { font-weight:bold; }
