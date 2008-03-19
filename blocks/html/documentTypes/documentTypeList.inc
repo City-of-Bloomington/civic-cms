@@ -6,6 +6,7 @@
  */
 ?>
 <div class="interfaceBox">
+<h1>Document Types</h1>
 <ul>
 <?php
 	$list = new DocumentTypeList();
