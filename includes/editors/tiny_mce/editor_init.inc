@@ -61,8 +61,8 @@
 		"tbody," +
 		"thead," +
 		"tfoot," +
-		"-td[class|colspan]," +
-		"-th[class|colspan|rowspan|width|height|align|valign|scope]," +
+		"td[class|colspan]," +
+		"th[class|colspan|rowspan|width|height|align|valign|scope]," +
 		"caption[class]," +
 		"-div[id|class]," +
 		"-span[class]," +
