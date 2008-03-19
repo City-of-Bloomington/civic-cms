@@ -537,9 +537,7 @@ class WikiMarkup
 			if ($image->getWidth()!=$width || $image->getHeight()!=$height)
 			{
 				$imageTag = "
-				<a href=\"{$image->getURL('original')}\"
-					onmouseover=\"FRAMEWORK.popupTooltip('Enlarge This Image','enlarge');\"
-					onmouseout=\"FRAMEWORK.hideTooltip();\">
+				<a href=\"{$image->getURL('original')}\" rel=\"lightbox\">
 				$imageTag
 				</a>
 				";
@@ -601,9 +599,7 @@ class WikiMarkup
 			if ($image->getWidth()!=$width || $image->getHeight()!=$height)
 			{
 				$imageTag = "
-				<a href=\"{$image->getURL('original')}\"
-					onmouseover=\"FRAMEWORK.popupTooltip('Enlarge This Image','enlarge');\"
-					onmouseout=\"FRAMEWORK.hideTooltip();\">
+				<a href=\"{$image->getURL('original')}\" rel=\"lightbox\">
 				$imageTag
 				</a>
 				";
