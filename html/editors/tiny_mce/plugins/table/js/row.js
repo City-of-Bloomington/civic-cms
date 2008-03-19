@@ -136,9 +136,12 @@ function updateRow(tr_elm, skip_id, skip_parent) {
 		if (newParent == null) {
 			newParent = doc.createElement(dest);
 
-			if (dest == "thead")
-				theTable.insertBefore(newParent, theTable.firstChild);
-			else
+			if (dest == "thead") {
+				if (theTable.firstChild.nodeName == 'CAPTION')
+					inst.dom.insertAfter(newParent, theTable.firstChild);
+				else
+					theTable.insertBefore(newParent, theTable.firstChild);
+			} else
 				theTable.appendChild(newParent);
 		}
 
@@ -151,6 +154,8 @@ function updateRow(tr_elm, skip_id, skip_parent) {
 		// set tr_elm to the new node
 		tr_elm = newRow;
 	}
+
+	dom.setAttrib(tr_elm, 'style', dom.serializeStyle(dom.parseStyle(tr_elm.style.cssText)));
 }
 
 function changedBackgroundImage() {

@@ -1,8 +1,8 @@
 /**
- * $Id: editor_plugin_src.js 403 2007-11-18 15:58:58Z spocke $
+ * $Id: editor_plugin_src.js 615 2008-02-20 23:18:01Z spocke $
  *
  * @author Moxiecode
- * @copyright Copyright © 2004-2007, Moxiecode Systems AB, All rights reserved.
+ * @copyright Copyright © 2004-2008, Moxiecode Systems AB, All rights reserved.
  */
 
 (function() {
@@ -23,8 +23,8 @@
 			ed.addCommand('mceMedia', function() {
 				ed.windowManager.open({
 					file : url + '/media.htm',
-					width : 430 + ed.getLang('media.delta_width', 0),
-					height : 470 + ed.getLang('media.delta_height', 0),
+					width : 430 + parseInt(ed.getLang('media.delta_width', 0)),
+					height : 470 + parseInt(ed.getLang('media.delta_height', 0)),
 					inline : 1
 				}, {
 					plugin_url : url
@@ -76,27 +76,29 @@
 				var h = o.content;
 
 				h = h.replace(/<script[^>]*>\s*write(Flash|ShockWave|WindowsMedia|QuickTime|RealMedia)\(\{([^\)]*)\}\);\s*<\/script>/gi, function(a, b, c) {
-					return '<img class="mceItem' + b + '" title="' + ed.dom.encode(c) + '" src="' + url + '/img/trans.gif" />'
+					var o = t._parse(c);
+
+					return '<img class="mceItem' + b + '" title="' + ed.dom.encode(c) + '" src="' + url + '/img/trans.gif" width="' + o.width + '" height="' + o.height + '" />'
 				});
 
-				h = h.replace(/<object([^>]*)>/gi, '<div class="mceItemObject" $1>');
-				h = h.replace(/<embed([^>]*)>/gi, '<div class="mceItemEmbed" $1>');
-				h = h.replace(/<\/(object|embed)([^>]*)>/gi, '</div>');
-				h = h.replace(/<param([^>]*)>/gi, '<div $1 class="mceItemParam"></div>');
-				h = h.replace(/\/ class=\"mceItemParam\"><\/div>/gi, 'class="mceItemParam"></div>');
+				h = h.replace(/<object([^>]*)>/gi, '<span class="mceItemObject" $1>');
+				h = h.replace(/<embed([^>]*)>/gi, '<span class="mceItemEmbed" $1>');
+				h = h.replace(/<\/(object|embed)([^>]*)>/gi, '</span>');
+				h = h.replace(/<param([^>]*)>/gi, function(a, b) {return '<span ' + b.replace(/value=/gi, '_value=') + ' class="mceItemParam"></span>'});
+				h = h.replace(/\/ class=\"mceItemParam\"><\/span>/gi, 'class="mceItemParam"></span>');
 
 				o.content = h;
 			});
 
 			ed.onSetContent.add(function() {
-				t._divsToImgs(ed.getBody());
+				t._spansToImgs(ed.getBody());
 			});
 
 			ed.onPreProcess.add(function(ed, o) {
 				var dom = ed.dom;
 
 				if (o.set) {
-					t._divsToImgs(o.node);
+					t._spansToImgs(o.node);
 
 					each(dom.select('IMG', o.node), function(n) {
 						var p;
@@ -163,6 +165,10 @@
 				}
 			});
 
+			ed.onPostProcess.add(function(ed, o) {
+				o.content = o.content.replace(/_value=/g, 'value=');
+			});
+
 			if (ed.getParam('media_use_script')) {
 				function getAttr(s, n) {
 					n = new RegExp(n + '=\"([^\"]+)\"', 'g').exec(s);
@@ -205,7 +211,7 @@
 			p.width = o.width = dom.getAttrib(n, 'width') || 100;
 			p.height = o.height = dom.getAttrib(n, 'height') || 100;
 
-			ob = dom.create('div', {
+			ob = dom.create('span', {
 				mce_name : 'object',
 				classid : "clsid:" + o.classid,
 				codebase : o.codebase,
@@ -217,19 +223,19 @@
 				p.src = ed.convertURL(p.src, 'src', n);
 
 			each (p, function(v, k) {
-				if (v && !/^(width|height|codebase|classid)$/.test(k))
-					dom.add(ob, 'div', {mce_name : 'param', name : k, value : v});
+				if (!/^(width|height|codebase|classid)$/.test(k))
+					dom.add(ob, 'span', {mce_name : 'param', name : k, '_value' : v});
 			});
 
-			dom.add(ob, 'div', tinymce.extend({mce_name : 'embed', type : o.type}, p));
+			dom.add(ob, 'span', tinymce.extend({mce_name : 'embed', type : o.type}, p));
 
 			return ob;
 		},
 
-		_divsToImgs : function(p) {
+		_spansToImgs : function(p) {
 			var t = this, dom = t.editor.dom, im, ci;
 
-			each(dom.select('div', p), function(n) {
+			each(dom.select('span', p), function(n) {
 				// Convert object into image
 				if (dom.getAttrib(n, 'class') == 'mceItemObject') {
 					ci = dom.getAttrib(n, "classid").toLowerCase().replace(/\s+/g, '');
@@ -260,7 +266,37 @@
 						default:
 							dom.replace(t._createImg('mceItemFlash', n), n);
 					}
+					
+					return;
 				}
+
+				// Convert embed into image
+				if (dom.getAttrib(n, 'class') == 'mceItemEmbed') {
+					switch (dom.getAttrib(n, 'type')) {
+						case 'application/x-shockwave-flash':
+							dom.replace(t._createImg('mceItemFlash', n), n);
+							break;
+
+						case 'application/x-director':
+							dom.replace(t._createImg('mceItemShockWave', n), n);
+							break;
+
+						case 'application/x-mplayer2':
+							dom.replace(t._createImg('mceItemWindowsMedia', n), n);
+							break;
+
+						case 'video/quicktime':
+							dom.replace(t._createImg('mceItemQuickTime', n), n);
+							break;
+
+						case 'audio/x-pn-realaudio-plugin':
+							dom.replace(t._createImg('mceItemRealMedia', n), n);
+							break;
+
+						default:
+							dom.replace(t._createImg('mceItemFlash', n), n);
+					}
+				}			
 			});
 		},
 
@@ -276,17 +312,17 @@
 			});
 
 			// Setup base parameters
-			each(['id', 'name', 'width', 'height', 'bgcolor', 'align'], function(n) {
-				var v = dom.getAttrib(n, 'align');
+			each(['id', 'name', 'width', 'height', 'bgcolor', 'align', 'flashvars', 'src', 'wmode'], function(na) {
+				var v = dom.getAttrib(n, na);
 
 				if (v)
-					pa[v] = v;
+					pa[na] = v;
 			});
 
 			// Add optional parameters
-			each(dom.select('div', n), function(n) {
+			each(dom.select('span', n), function(n) {
 				if (dom.hasClass(n, 'mceItemParam'))
-					pa[dom.getAttrib(n, 'name')] = dom.getAttrib(n, 'value');
+					pa[dom.getAttrib(n, 'name')] = dom.getAttrib(n, '_value');
 			});
 
 			// Use src not movie

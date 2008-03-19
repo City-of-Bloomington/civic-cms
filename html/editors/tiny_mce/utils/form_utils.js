@@ -1,10 +1,10 @@
 /**
- * $Id: form_utils.js 453 2007-11-27 17:36:55Z spocke $
+ * $Id: form_utils.js 673 2008-03-06 13:26:20Z spocke $
  *
  * Various form utilitiy functions.
  *
  * @author Moxiecode
- * @copyright Copyright © 2004-2007, Moxiecode Systems AB, All rights reserved.
+ * @copyright Copyright © 2004-2008, Moxiecode Systems AB, All rights reserved.
  */
 
 var themeBaseURL = tinyMCEPopup.editor.baseURI.toAbsolute('themes/' + tinyMCEPopup.getParam("theme"));
@@ -32,7 +32,9 @@ function setBrowserDisabled(id, state) {
 			lnk.removeAttribute("href");
 			tinyMCEPopup.dom.addClass(img, 'disabled');
 		} else {
-			lnk.setAttribute("href", lnk.getAttribute("realhref"));
+			if (lnk.getAttribute("realhref"))
+				lnk.setAttribute("href", lnk.getAttribute("realhref"));
+
 			tinyMCEPopup.dom.removeClass(img, 'disabled');
 		}
 	}
@@ -168,7 +170,7 @@ function convertHexToRGB(col) {
 }
 
 function trimSize(size) {
-	return size.replace(new RegExp('[^0-9%]', 'gi'), '');
+	return size.replace(/([0-9\.]+)px|(%|in|cm|mm|em|ex|pt|pc)/, '$1$2');
 }
 
 function getCSSSize(size) {
@@ -177,7 +179,11 @@ function getCSSSize(size) {
 	if (size == "")
 		return "";
 
-	return size.indexOf('%') != -1 ? size : size + "px";
+	// Add px
+	if (/^[0-9]+$/.test(size))
+		size += 'px';
+
+	return size;
 }
 
 function getStyle(elm, attrib, style) {

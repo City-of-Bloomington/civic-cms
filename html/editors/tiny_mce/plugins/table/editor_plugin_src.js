@@ -1,8 +1,8 @@
 /**
- * $Id: editor_plugin_src.js 373 2007-11-12 17:57:47Z spocke $
+ * $Id: editor_plugin_src.js 691 2008-03-09 19:58:20Z spocke $
  *
  * @author Moxiecode
- * @copyright Copyright © 2004-2007, Moxiecode Systems AB, All rights reserved.
+ * @copyright Copyright © 2004-2008, Moxiecode Systems AB, All rights reserved.
  */
 
 (function() {
@@ -72,6 +72,26 @@
 							m.add({title : 'table.desc', icon : 'table', cmd : 'mceInsertTable', ui : true});
 					});
 				}
+			});
+
+			// Block delete on gecko inside TD:s. Gecko is removing table elements and then produces incorrect tables
+			// The backspace key also removed TD:s but this one can not be blocked
+			if (tinymce.isGecko) {
+				ed.onKeyPress.add(function(ed, e) {
+					var n;
+
+					if (e.keyCode == 46) {
+						n = ed.dom.getParent(ed.selection.getNode(), 'TD,TH');
+						if (n && (!n.hasChildNodes() || (n.childNodes.length == 1 && n.firstChild.nodeName == 'BR')))
+							tinymce.dom.Event.cancel(e);
+					}
+				});
+			}
+
+			// Add undo level when new rows are created using the tab key
+			ed.onKeyDown.add(function(ed, e) {
+				if (e.keyCode == 9 && ed.dom.getParent(ed.selection.getNode(), 'TABLE'))
+					ed.undoManager.add();
 			});
 
 			ed.onNodeChange.add(function(ed, cm, n) {
@@ -170,6 +190,25 @@
 				return false;
 			}
 
+			function select(dx, dy) {
+				var td;
+
+				grid = getTableGrid(tableElm);
+				dx = dx || 0;
+				dy = dy || 0;
+				dx = Math.max(cpos.cellindex + dx, 0);
+				dy = Math.max(cpos.rowindex + dy, 0);
+
+				// Recalculate grid and select
+				inst.execCommand('mceRepaint');
+				td = getCell(grid, dy, dx);
+
+				if (td) {
+					inst.selection.select(td.firstChild || td);
+					inst.selection.collapse(1);
+				}
+			};
+
 			function makeTD() {
 				var newTD = doc.createElement("td");
 
@@ -208,7 +247,7 @@
 			}
 
 			function getTableGrid(table) {
-				var grid = new Array(), rows = table.rows, x, y, td, sd, xstart, x2, y2;
+				var grid = [], rows = table.rows, x, y, td, sd, xstart, x2, y2;
 
 				for (y=0; y<rows.length; y++) {
 					for (x=0; x<rows[y].cells.length; x++) {
@@ -221,7 +260,7 @@
 						// Fill box
 						for (y2=y; y2<y+sd['rowspan']; y2++) {
 							if (!grid[y2])
-								grid[y2] = new Array();
+								grid[y2] = [];
 
 							for (x2=xstart; x2<xstart+sd['colspan']; x2++)
 								grid[y2][x2] = td;
@@ -381,8 +420,8 @@
 					if (user_interface) {
 						inst.windowManager.open({
 							url : url + '/row.htm',
-							width : 400 + inst.getLang('table.rowprops_delta_width', 0),
-							height : 295 + inst.getLang('table.rowprops_delta_height', 0),
+							width : 400 + parseInt(inst.getLang('table.rowprops_delta_width', 0)),
+							height : 295 + parseInt(inst.getLang('table.rowprops_delta_height', 0)),
 							inline : 1
 						}, {
 							plugin_url : url
@@ -398,8 +437,8 @@
 					if (user_interface) {
 						inst.windowManager.open({
 							url : url + '/cell.htm',
-							width : 400 + inst.getLang('table.cellprops_delta_width', 0),
-							height : 295 + inst.getLang('table.cellprops_delta_height', 0),
+							width : 400 + parseInt(inst.getLang('table.cellprops_delta_width', 0)),
+							height : 295 + parseInt(inst.getLang('table.cellprops_delta_height', 0)),
 							inline : 1
 						}, {
 							plugin_url : url
@@ -412,8 +451,8 @@
 					if (user_interface) {
 						inst.windowManager.open({
 							url : url + '/table.htm',
-							width : 400 + inst.getLang('table.table_delta_width', 0),
-							height : 320 + inst.getLang('table.table_delta_height', 0),
+							width : 400 + parseInt(inst.getLang('table.table_delta_width', 0)),
+							height : 320 + parseInt(inst.getLang('table.table_delta_height', 0)),
 							inline : 1
 						}, {
 							plugin_url : url,
@@ -534,6 +573,7 @@
 								}
 
 								trElm.parentNode.insertBefore(newTR, trElm);
+								select(0, 1);
 							break;
 
 							case "mceTableInsertRowAfter":
@@ -573,6 +613,8 @@
 									else
 										tableElm.appendChild(newTR);
 								}
+
+								select(0, 1);
 							break;
 
 							case "mceTableDeleteRow":
@@ -584,8 +626,7 @@
 
 								// Only one row, remove whole table
 								if (grid.length == 1) {
-									tableElm = inst.dom.getParent(tableElm, "table"); // Look for table instead of tbody
-									tableElm.parentNode.removeChild(tableElm);
+									inst.dom.remove(inst.dom.getParent(tableElm, "table"));
 									return true;
 								}
 
@@ -629,13 +670,7 @@
 
 								deleteMarked(tableElm);
 
-								cpos.rowindex--;
-								if (cpos.rowindex < 0)
-									cpos.rowindex = 0;
-
-								// Recalculate grid and select
-								grid = getTableGrid(tableElm);
-								inst.selection.select(getCell(grid, cpos.rowindex, 0), tinymce.isGecko, true); // Only collape on gecko
+								select(0, -1);
 							break;
 
 							case "mceTableInsertColBefore":
@@ -665,6 +700,8 @@
 										lastTDElm = tdElm;
 									}
 								}
+
+								select();
 							break;
 
 							case "mceTableInsertColAfter":
@@ -698,6 +735,8 @@
 										lastTDElm = tdElm;
 									}
 								}
+
+								select(1);
 							break;
 
 							case "mceTableDeleteCol":
@@ -710,8 +749,7 @@
 
 								// Only one col, remove whole table
 								if (grid.length > 1 && grid[0].length <= 1) {
-									tableElm = inst.dom.getParent(tableElm, "table"); // Look for table instead of tbody
-									tableElm.parentNode.removeChild(tableElm);
+									inst.dom.remove(inst.dom.getParent(tableElm, "table"));
 									return true;
 								}
 
@@ -731,13 +769,7 @@
 									}
 								}
 
-								cpos.cellindex--;
-								if (cpos.cellindex < 0)
-									cpos.cellindex = 0;
-
-								// Recalculate grid and select
-								grid = getTableGrid(tableElm);
-								inst.selection.select(getCell(grid, cpos.rowindex, 0), tinymce.isGecko, true); // Only collape on gecko
+								select(-1);
 							break;
 
 						case "mceTableSplitCells":
@@ -784,8 +816,8 @@
 
 									inst.windowManager.open({
 										url : url + '/merge_cells.htm',
-										width : 240 + inst.getLang('table.merge_cells_delta_width', 0),
-										height : 110 + inst.getLang('table.merge_cells_delta_height', 0),
+										width : 240 + parseInt(inst.getLang('table.merge_cells_delta_width', 0)),
+										height : 110 + parseInt(inst.getLang('table.merge_cells_delta_height', 0)),
 										inline : 1
 									}, {
 										action : "update",
@@ -809,7 +841,7 @@
 									// Get rows and cells
 									var tRows = tableElm.rows;
 									for (var y=cpos.rowindex; y<grid.length; y++) {
-										var rowCells = new Array();
+										var rowCells = [];
 
 										for (var x=cpos.cellindex; x<grid[y].length; x++) {
 											var td = getCell(grid, y, x);
@@ -825,6 +857,12 @@
 
 										if (rowCells.length > 0)
 											rows[rows.length] = rowCells;
+
+										var td = getCell(grid, cpos.rowindex, cpos.cellindex);
+										each(ed.dom.select('br', td), function(e, i) {
+											if (i > 0 && ed.dom.getAttrib('mce_bogus'))
+												ed.dom.remove(e);
+										});
 									}
 
 									//return true;
@@ -855,7 +893,7 @@
 								// Get rows and cells
 								var tRows = tableElm.rows;
 								for (var y=0; y<tRows.length; y++) {
-									var rowCells = new Array();
+									var rowCells = [];
 
 									for (var x=0; x<tRows[y].cells.length; x++) {
 										var td = tRows[y].cells[x];
@@ -872,7 +910,7 @@
 								}
 
 								// Find selected cells in grid and box
-								var curRow = new Array();
+								var curRow = [];
 								var lastTR = null;
 								for (var y=0; y<grid.length; y++) {
 									for (var x=0; x<grid[y].length; x++) {
@@ -999,13 +1037,18 @@
 								}
 							}
 
+							// Remove all but one bogus br
+							each(ed.dom.select('br', tdElm), function(e, i) {
+								if (i > 0 && ed.dom.getAttrib(e, 'mce_bogus'))
+									ed.dom.remove(e);
+							});
+
 							break;
 						}
 
 						tableElm = inst.dom.getParent(inst.selection.getNode(), "table");
 						inst.addVisual(tableElm);
 						inst.nodeChanged();
-						inst.execCommand('mceRepaint');
 					}
 
 				return true;

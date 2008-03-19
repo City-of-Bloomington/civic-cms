@@ -2,7 +2,7 @@
  * $Id: editor_plugin_src.js 264 2007-04-26 20:53:09Z spocke $
  *
  * @author Moxiecode
- * @copyright Copyright © 2004-2007, Moxiecode Systems AB, All rights reserved.
+ * @copyright Copyright © 2004-2008, Moxiecode Systems AB, All rights reserved.
  */
 
 (function() {
@@ -25,6 +25,19 @@
 				ed.execCommand("mceInsertContent", false, '<a href="' + dom.encode(v) + '">' + ed.selection.getContent() + '</a>');
 			});*/
 
+			ed.onKeyUp.add(function(ed, e) {
+				var h;
+
+				// If backspace or delete key
+				if (e.keyCode == 46 || e.keyCode == 8) {
+					h = ed.getBody().innerHTML;
+
+					// If there is no text content or images or hr elements then remove everything
+					if (!/<(img|hr)/.test(h) && tinymce.trim(h.replace(/<[^>]+>/g, '')).length == 0)
+						ed.setContent('', {format : 'raw'});
+				}
+			});
+
 			// Workaround for FormatBlock bug, http://bugs.webkit.org/show_bug.cgi?id=16004
 			ed.addCommand('FormatBlock', function(u, v) {
 				var dom = ed.dom, e = dom.getParent(ed.selection.getNode(), dom.isBlock);
@@ -33,6 +46,22 @@
 					dom.replace(dom.create(v), e, 1);
 				else
 					ed.getDoc().execCommand("FormatBlock", false, v);
+			});
+
+			// Workaround for InsertHTML bug, http://bugs.webkit.org/show_bug.cgi?id=16382
+			ed.addCommand('mceInsertContent', function(u, v) {
+				ed.getDoc().execCommand("InsertText", false, 'mce_marker');
+				ed.getBody().innerHTML = ed.getBody().innerHTML.replace(/mce_marker/g, v + '<span id="_mce_tmp">XX</span>');
+				ed.selection.select(ed.dom.get('_mce_tmp'));
+				ed.getDoc().execCommand("Delete", false, ' ');
+			});
+
+			// Workaround for missing shift+enter support, http://bugs.webkit.org/show_bug.cgi?id=16973
+			ed.onKeyPress.add(function(ed, e) {
+				if (e.keyCode == 13 && (e.shiftKey || ed.settings.force_br_newlines && ed.selection.getNode().nodeName != 'LI')) {
+					t._insertBR(ed);
+					Event.cancel(e);
+				}
 			});
 
 			// Safari returns incorrect values
@@ -244,6 +273,9 @@
 		_fixAppleSpan : function(e) {
 			var ed = this.editor, dom = ed.dom, fz = this.webKitFontSizes, fzn = this.namedFontSizes, s = ed.settings, st, p;
 
+			if (dom.getAttrib(e, 'mce_fixed'))
+				return;
+
 			// Handle Apple style spans
 			if (e.nodeName == 'SPAN' && e.className == 'Apple-style-span') {
 				st = e.style;
@@ -290,6 +322,8 @@
 
 				if (st.verticalAlign == 'sub')
 					dom.setAttrib(e, 'mce_name', 'sub');
+
+				dom.setAttrib(e, 'mce_fixed', '1');
 			}
 		},
 
@@ -363,6 +397,27 @@
 					});
 				}
 			};
+		},
+
+		_insertBR : function(ed) {
+			var dom = ed.dom, s = ed.selection, r = s.getRng(), br;
+
+			// Insert BR element
+			r.insertNode(br = dom.create('br'));
+
+			// Place caret after BR
+			r.setStartAfter(br);
+			r.setEndAfter(br);
+			s.setRng(r);
+
+			// Could not place caret after BR then insert an nbsp entity and move the caret
+			if (s.getSel().focusNode == br.previousSibling) {
+				s.select(dom.insertAfter(dom.doc.createTextNode('\u00a0'), br));
+				s.collapse(1);
+			}
+
+			// Scroll to new position, scrollIntoView can't be used due to bug: http://bugs.webkit.org/show_bug.cgi?id=16117
+			ed.getWin().scrollTo(0, dom.getPos(s.getRng().startContainer).y);
 		}
 	});
 

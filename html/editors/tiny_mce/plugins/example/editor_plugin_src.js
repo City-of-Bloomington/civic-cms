@@ -2,16 +2,18 @@
  * $Id: editor_plugin_src.js 201 2007-02-12 15:56:56Z spocke $
  *
  * @author Moxiecode
- * @copyright Copyright © 2004-2007, Moxiecode Systems AB, All rights reserved.
+ * @copyright Copyright © 2004-2008, Moxiecode Systems AB, All rights reserved.
  */
 
-// Load plugin specific language pack
-tinymce.PluginManager.requireLangPack('example');
-
 (function() {
+	// Load plugin specific language pack
+	tinymce.PluginManager.requireLangPack('example');
+
 	tinymce.create('tinymce.plugins.ExamplePlugin', {
 		/**
 		 * Initializes the plugin, this will be executed after the plugin has been created.
+		 * This call is done before the editor instance has finished it's initialization so use the onInit event
+		 * of the editor instance to intercept that event.
 		 *
 		 * @param {tinymce.Editor} ed Editor instance that the plugin is initialized in.
 		 * @param {string} url Absolute URL to where the plugin is located.
@@ -21,8 +23,8 @@ tinymce.PluginManager.requireLangPack('example');
 			ed.addCommand('mceExample', function() {
 				ed.windowManager.open({
 					file : url + '/dialog.htm',
-					width : 320 + ed.getLang('example.delta_width', 0),
-					height : 120 + ed.getLang('example.delta_height', 0),
+					width : 320 + parseInt(ed.getLang('example.delta_width', 0)),
+					height : 120 + parseInt(ed.getLang('example.delta_height', 0)),
 					inline : 1
 				}, {
 					plugin_url : url, // Plugin absolute URL

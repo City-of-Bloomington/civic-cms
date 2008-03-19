@@ -109,12 +109,10 @@ function init() {
 		selectByValue(formObj, 'targetlist', inst.dom.getAttrib(elm, 'target'), true);
 	} else
 		addClassesToList('classlist', 'advlink_styles');
-
-	window.focus();
 }
 
 function checkPrefix(n) {
-	if (Validator.isEmail(n) && !/^\s*mailto:/i.test(n.value) && confirm(tinyMCEPopup.getLang('advlink_dlg.is_email')))
+	if (n.value && Validator.isEmail(n) && !/^\s*mailto:/i.test(n.value) && confirm(tinyMCEPopup.getLang('advlink_dlg.is_email')))
 		n.value = 'mailto:' + n.value;
 
 	if (/^\s*www./i.test(n.value) && confirm(tinyMCEPopup.getLang('advlink_dlg.is_external')))
@@ -344,6 +342,7 @@ function buildOnClick() {
 function setAttrib(elm, attrib, value) {
 	var formObj = document.forms[0];
 	var valueElm = formObj.elements[attrib.toLowerCase()];
+	var dom = tinyMCEPopup.editor.dom;
 
 	if (typeof(value) == "undefined" || value == null) {
 		value = "";
@@ -352,21 +351,11 @@ function setAttrib(elm, attrib, value) {
 			value = valueElm.value;
 	}
 
-	if (value != "") {
-		elm.setAttribute(attrib.toLowerCase(), value);
+	// Clean up the style
+	if (attrib == 'style')
+		value = dom.serializeStyle(dom.parseStyle(value));
 
-		if (attrib == "style")
-			attrib = "style.cssText";
-
-		if (attrib.substring(0, 2) == 'on')
-			value = 'return true;' + value;
-
-		if (attrib == "class")
-			attrib = "className";
-
-		eval('elm.' + attrib + "=value;");
-	} else
-		elm.removeAttribute(attrib);
+	dom.setAttrib(elm, attrib, value);
 }
 
 function getAnchorListHTML(id, target) {
@@ -396,11 +385,23 @@ function insertAction() {
 	checkPrefix(document.forms[0].href);
 
 	elm = inst.dom.getParent(elm, "A");
+
+	// Remove element if there is no href
+	if (!document.forms[0].href.value) {
+		tinyMCEPopup.execCommand("mceBeginUndoLevel");
+		i = inst.selection.getBookmark();
+		inst.dom.remove(elm, 1);
+		inst.selection.moveToBookmark(i);
+		tinyMCEPopup.execCommand("mceEndUndoLevel");
+		tinyMCEPopup.close();
+		return;
+	}
+
 	tinyMCEPopup.execCommand("mceBeginUndoLevel");
 
 	// Create new anchor elements
 	if (elm == null) {
-		tinyMCEPopup.execCommand("CreateLink", false, "#mce_temp_url#");
+		tinyMCEPopup.execCommand("CreateLink", false, "#mce_temp_url#", {skip_undo : 1});
 
 		elementArray = tinymce.grep(inst.dom.select("a"), function(n) {return inst.dom.getAttrib(n, 'href') == '#mce_temp_url#';});
 		for (i=0; i<elementArray.length; i++) {

@@ -1,8 +1,8 @@
 /**
- * $Id: editor_plugin_src.js 453 2007-11-27 17:36:55Z spocke $
+ * $Id: editor_plugin_src.js 689 2008-03-09 18:47:19Z spocke $
  *
  * @author Moxiecode
- * @copyright Copyright © 2004-2007, Moxiecode Systems AB, All rights reserved.
+ * @copyright Copyright © 2004-2008, Moxiecode Systems AB, All rights reserved.
  */
 
 (function() {
@@ -16,33 +16,57 @@
 
 			// Register commands
 			ed.addCommand('mceFullScreen', function() {
-				var win;
+				var win, de = document.documentElement;
 
 				if (ed.getParam('fullscreen_is_enabled')) {
 					if (ed.getParam('fullscreen_new_window'))
 						closeFullscreen(); // Call to close in new window
 					else {
 						window.setTimeout(function() {
+							tinymce.dom.Event.remove(window, 'resize', t.resizeFunc);
 							tinyMCE.get(ed.getParam('fullscreen_editor_id')).setContent(ed.getContent({format : 'raw'}), {format : 'raw'});
 							tinyMCE.remove(ed);
 							DOM.remove('mce_fullscreen_container');
+							de.style.overflow = ed.getParam('fullscreen_html_overflow');
 							DOM.setStyle(document.body, 'overflow', ed.getParam('fullscreen_overflow'));
+							window.scrollTo(ed.getParam('fullscreen_scrollx'), ed.getParam('fullscreen_scrolly'));
+							tinyMCE.settings = tinyMCE.oldSettings; // Restore old settings
 						}, 10);
 					}
+
 					return;
 				}
 
 				if (ed.getParam('fullscreen_new_window')) {
-					win = window.open(url + "/fullscreen.htm", "mceFullScreenPopup", "fullscreen=yes,menubar=no,toolbar=no,scrollbars=no,resizable=no,left=0,top=0,width=" + screen.availWidth + ",height=" + screen.availHeight);
+					win = window.open(url + "/fullscreen.htm", "mceFullScreenPopup", "fullscreen=yes,menubar=no,toolbar=no,scrollbars=no,resizable=yes,left=0,top=0,width=" + screen.availWidth + ",height=" + screen.availHeight);
 					try {
 						win.resizeTo(screen.availWidth, screen.availHeight);
 					} catch (e) {
 						// Ignore
 					}
 				} else {
+					tinyMCE.oldSettings = tinyMCE.settings; // Store old settings
 					s.fullscreen_overflow = DOM.getStyle(document.body, 'overflow', 1) || 'auto';
-					DOM.setStyle(document.body, 'overflow', 'hidden');
+					s.fullscreen_html_overflow = DOM.getStyle(de, 'overflow', 1);
 					vp = DOM.getViewPort();
+					s.fullscreen_scrollx = vp.x;
+					s.fullscreen_scrolly = vp.y;
+
+					// Fixes an Opera bug where the scrollbars doesn't reappear
+					if (tinymce.isOpera && s.fullscreen_overflow == 'visible')
+						s.fullscreen_overflow = 'auto';
+
+					// Fixes an IE bug where horizontal scrollbars would appear
+					if (tinymce.isIE && s.fullscreen_overflow == 'scroll')
+						s.fullscreen_overflow = 'auto';
+
+					if (s.fullscreen_overflow == '0px')
+						s.fullscreen_overflow = '';
+
+					DOM.setStyle(document.body, 'overflow', 'hidden');
+					de.style.overflow = 'hidden'; //Fix for IE6/7
+					vp = DOM.getViewPort();
+					window.scrollTo(0, 0);
 
 					if (tinymce.isIE)
 						vp.h -= 1;
@@ -60,6 +84,10 @@
 					s.fullscreen_is_enabled = true;
 					s.fullscreen_editor_id = ed.id;
 					s.theme_advanced_resizing = false;
+					s.save_onsavecallback = function() {
+						ed.setContent(tinyMCE.get(s.id).getContent({format : 'raw'}), {format : 'raw'});
+						ed.execCommand('mceSave');
+					};
 
 					tinymce.each(ed.getParam('fullscreen_settings'), function(v, k) {
 						s[k] = v;
@@ -70,7 +98,7 @@
 
 					t.fullscreenEditor = new tinymce.Editor('mce_fullscreen', s);
 					t.fullscreenEditor.onInit.add(function() {
-						t.fullscreenEditor.setContent(ed.getContent({format : 'raw', no_events : 1}), {format : 'raw', no_events : 1});
+						t.fullscreenEditor.setContent(ed.getContent());
 					});
 
 					t.fullscreenEditor.render();
@@ -79,6 +107,12 @@
 					t.fullscreenElement = new tinymce.dom.Element('mce_fullscreen_container');
 					t.fullscreenElement.update();
 					//document.body.overflow = 'hidden';
+
+					t.resizeFunc = tinymce.dom.Event.add(window, 'resize', function() {
+						var vp = tinymce.DOM.getViewPort();
+
+						t.fullscreenEditor.theme.resizeTo(vp.w, vp.h);
+					});
 				}
 			});
 

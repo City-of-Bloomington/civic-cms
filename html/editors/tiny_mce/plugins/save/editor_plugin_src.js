@@ -1,8 +1,8 @@
 /**
- * $Id: editor_plugin_src.js 372 2007-11-11 18:38:50Z spocke $
+ * $Id: editor_plugin_src.js 609 2008-02-18 16:19:27Z spocke $
  *
  * @author Moxiecode
- * @copyright Copyright © 2004-2007, Moxiecode Systems AB, All rights reserved.
+ * @copyright Copyright © 2004-2008, Moxiecode Systems AB, All rights reserved.
  */
 
 (function() {
@@ -50,31 +50,28 @@
 		_save : function() {
 			var ed = this.editor, formObj, os, i, elementId;
 
-			if (ed.getParam("fullscreen_is_enabled"))
-				return true;
-
-			formObj = tinymce.DOM.get(ed.id).form;
+			formObj = tinymce.DOM.get(ed.id).form || tinymce.DOM.getParent(ed.id, 'form');
 
 			if (ed.getParam("save_enablewhendirty") && !ed.isDirty())
 				return true;
 
-			if (formObj) {
-				tinyMCE.triggerSave();
+			tinyMCE.triggerSave();
 
-				// Use callback instead
-				if (os = ed.getParam("save_onsavecallback")) {
-					if (ed.execCallback('save_onsavecallback', ed)) {
-						ed.startContent = tinymce.trim(ed.getContent({format : 'raw'}));
-						ed.nodeChanged();
-					}
-
-					return;
+			// Use callback instead
+			if (os = ed.getParam("save_onsavecallback")) {
+				if (ed.execCallback('save_onsavecallback', ed)) {
+					ed.startContent = tinymce.trim(ed.getContent({format : 'raw'}));
+					ed.nodeChanged();
 				}
 
+				return;
+			}
+
+			if (formObj) {
 				ed.isNotDirty = true;
 
 				if (formObj.onsubmit == null || formObj.onsubmit() != false)
-					tinymce.DOM.get(ed.id).form.submit();
+					formObj.submit();
 
 				ed.nodeChanged();
 			} else

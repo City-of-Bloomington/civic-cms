@@ -10,7 +10,7 @@ var defaultFonts = "" +
 	"Geneva, Arial, Helvetica, sans-serif=Geneva, Arial, Helvetica, sans-serif";
 
 var defaultSizes = "9;10;12;14;16;18;24;xx-small;x-small;small;medium;large;x-large;xx-large;smaller;larger";
-var defaultMeasurement = "+pixels=px;points=pt;in;cm;mm;picas;ems;exs;%";
+var defaultMeasurement = "+pixels=px;points=pt;em;in;cm;mm;picas;ems;exs;%";
 var defaultSpacingMeasurement = "pixels=px;points=pt;in;cm;mm;picas;+ems;exs;%";
 var defaultIndentMeasurement = "pixels=px;+points=pt;in;cm;mm;picas;ems;exs;%";
 var defaultWeight = "normal;bold;bolder;lighter;100;200;300;400;500;600;700;800;900";
@@ -138,7 +138,7 @@ function setupFormData() {
 	selectByValue(f, 'text_lineheight_measurement', getMeasurement(ce.style.lineHeight));
 	selectByValue(f, 'text_case', ce.style.textTransform, true, true);
 	selectByValue(f, 'text_variant', ce.style.fontVariant, true, true);
-	f.text_color.value = ce.style.color;
+	f.text_color.value = tinyMCEPopup.editor.dom.toHex(ce.style.color);
 	updateColor('text_color_pick', 'text_color');
 	f.text_underline.checked = inStr(ce.style.textDecoration, 'underline');
 	f.text_overline.checked = inStr(ce.style.textDecoration, 'overline');
@@ -147,7 +147,7 @@ function setupFormData() {
 
 	// Setup background fields
 
-	f.background_color.value = ce.style.backgroundColor;
+	f.background_color.value = tinyMCEPopup.editor.dom.toHex(ce.style.backgroundColor);
 	updateColor('background_color_pick', 'background_color');
 	f.background_image.value = ce.style.backgroundImage.replace(new RegExp("url\\('?([^']*)'?\\)", 'gi'), "$1");
 	selectByValue(f, 'background_repeat', ce.style.backgroundRepeat, true, true);
@@ -198,6 +198,11 @@ function setupFormData() {
 	updateColor('border_color_right_pick', 'border_color_right');
 	updateColor('border_color_bottom_pick', 'border_color_bottom');
 	updateColor('border_color_left_pick', 'border_color_left');
+
+	f.elements.border_color_top.value = tinyMCEPopup.editor.dom.toHex(f.elements.border_color_top.value);
+	f.elements.border_color_right.value = tinyMCEPopup.editor.dom.toHex(f.elements.border_color_right.value);
+	f.elements.border_color_bottom.value = tinyMCEPopup.editor.dom.toHex(f.elements.border_color_bottom.value);
+	f.elements.border_color_left.value = tinyMCEPopup.editor.dom.toHex(f.elements.border_color_left.value);
 
 	// Setup list fields
 
@@ -386,7 +391,7 @@ function generateCSS() {
 
 	// Build text styles
 	ce.style.fontFamily = f.text_font.value;
-	ce.style.fontSize = f.text_size.value + (isNum(f.text_size.value) ? f.text_size_measurement.value : "");
+	ce.style.fontSize = f.text_size.value + (isNum(f.text_size.value) ? (f.text_size_measurement.value || 'px') : "");
 	ce.style.fontStyle = f.text_style.value;
 	ce.style.lineHeight = f.text_lineheight.value + (isNum(f.text_lineheight.value) ? f.text_lineheight_measurement.value : "");
 	ce.style.textTransform = f.text_case.value;

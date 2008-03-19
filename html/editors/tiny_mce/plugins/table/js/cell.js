@@ -133,6 +133,7 @@ function updateCell(td, skip_id) {
 	var curCellType = td.nodeName.toLowerCase();
 	var celltype = getSelectValue(formObj, 'celltype');
 	var doc = inst.getDoc();
+	var dom = ed.dom;
 
 	if (!skip_id)
 		td.setAttribute('id', formObj.id.value);
@@ -176,14 +177,14 @@ function updateCell(td, skip_id) {
 		for (var c=0; c<td.childNodes.length; c++)
 			newCell.appendChild(td.childNodes[c].cloneNode(1));
 
-		for (var a=0; a<td.attributes.length; a++) {
-			var attr = td.attributes[a];
-			newCell.setAttribute(attr.name, attr.value);
-		}
+		for (var a=0; a<td.attributes.length; a++)
+			ed.dom.setAttrib(newCell, td.attributes[a].name, ed.dom.getAttrib(td, td.attributes[a].name));
 
 		td.parentNode.replaceChild(newCell, td);
 		td = newCell;
 	}
+
+	dom.setAttrib(td, 'style', dom.serializeStyle(dom.parseStyle(td.style.cssText)));
 
 	return td;
 }
