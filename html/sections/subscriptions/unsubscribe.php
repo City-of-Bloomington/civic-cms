@@ -6,6 +6,7 @@
  * @param GET section_id
  * @param GET return_url
  */
+/*
 if (isset($_SESSION['USER']))
 {
 	try
@@ -16,4 +17,5 @@ if (isset($_SESSION['USER']))
 	}
 	catch (Exception $e) { $_SESSION['errorMessages'][] = $e; }
 }
+*/
 Header("Location: $_GET[return_url]");

@@ -7,7 +7,7 @@
  * @param GET return_url
  */
 verifyUser();
-
+/*
 $section = new Section($_REQUEST['section_id']);
 
 if ($section->permitsPostingBy($_SESSION['USER']))
@@ -61,3 +61,4 @@ else
 	$_SESSION['errorMessages'][] = new Exception('noAccessAllowed');
 	Header("Location: $_REQUEST[return_url]");
 }
+*/

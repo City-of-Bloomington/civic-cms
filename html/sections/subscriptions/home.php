@@ -6,12 +6,12 @@
  */
 verifyUser();
 
-if (isset($_POST['section']))
-{
-	$_SESSION['USER']->setSubscriptions(array_keys($_POST['section']));
-}
+#if (isset($_POST['section']))
+#{
+#	$_SESSION['USER']->setSubscriptions(array_keys($_POST['section']));
+#}
 
-$list = new SectionList(array('highlightSubscription'=>1));
+#$list = new SectionList(array('highlightSubscription'=>1));
 $template = new Template();
-$template->blocks[] = new Block('sections/subscriptions/highlightedSubscriptions.inc',array('sectionList'=>$list));
+#$template->blocks[] = new Block('sections/subscriptions/highlightedSubscriptions.inc',array('sectionList'=>$list));
 echo $template->render();

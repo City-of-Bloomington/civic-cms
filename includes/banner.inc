@@ -30,14 +30,12 @@
 			{
 				echo "
 				<li class=\"first\"><a href=\"".BASE_URL."/login\">Sign In</a></li>
-				<li><a href=\"".BASE_URL."/login\">Subscribe</a></li>
 				";
 			}
 			else
 			{
 				echo "
 				<li class=\"first\"><a href=\"".BASE_URL."/login/logout.php\">Sign Out</a></li>
-				<li><a href=\"".BASE_URL."/sections/subscriptions\">Subscribe</a></li>
 				";
 			}
 		?>
