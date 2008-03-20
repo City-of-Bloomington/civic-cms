@@ -48,7 +48,13 @@ if (isset($this->facetGroup))
 	echo '</ul></div>';
 	foreach($this->facetGroup->getFacets() as $facet)
 	{
-		$documents = $facet->getDocuments(array('documentType_id'=>$this->documentType->getId()));
+		$documents = new DocumentList();
+		$fields = array('facet_id'=>$facet->getId(),
+						'active'=>date('Y-m-d'),
+						'documentType_id'=>$this->documentType->getId());
+		$sort = $this->documentType->getOrdering();
+		$documents->find($fields,$sort);
+
 		if (count($documents))
 		{
 			$name = View::escape($facet->getName());
