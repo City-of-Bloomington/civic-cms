@@ -290,6 +290,8 @@ insert languages (code,english,native) values ('it','Italian','Italiano');
 insert languages (code,english,native) values ('ko','Korean','한국어');
 insert languages (code,english,native) values ('ja','Japanese','日本語');
 insert languages (code,english,native) values ('zh','Chinese','中文');
+insert languages (code,english,native) values ('fi','Finnish','Suomi');
+insert languages (code,english,native) values ('tr','Turkish','Türkçe');
 
 ---------------------------------------------------------------------
 -- Events
