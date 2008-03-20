@@ -158,7 +158,15 @@
 
 		public function setType($string) { $this->type = trim($string); }
 		public function setTemplate($text) { $this->template = $text; }
-		public function setOrdering($string) { $this->ordering = trim($string); }
+		public function setOrdering($ordering)
+		{
+			if (is_array($ordering))
+			{
+				$string = $ordering['field'].' '.$ordering['direction'];
+			}
+			else { $string = $ordering; }
+			$this->ordering = trim($string);
+		}
 		public function setDefaultFacetGroup_id($int) { $this->defaultFacetGroup = new FacetGroup($int); $this->defaultFacetGroup_id = $int; }
 		public function setDefaultFacetGroup($facetGroup) { $this->defaultFacetGroup_id = $facetGroup->getId(); $this->defaultFacetGroup = $facetGroup; }
 		public function setDocumentInfoFields($array)

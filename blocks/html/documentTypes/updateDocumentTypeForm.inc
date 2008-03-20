@@ -76,10 +76,19 @@ are displayed in a list.</p>
 
 <fieldset><legend>Display Options</legend>
 	<table>
-	<tr><td><label for="documentType-ordering">Ordering</label></td>
-		<td><select name="documentType[ordering]" id="documentType-ordering">
-				<option value="title" <?php if ($this->documentType->getOrdering()=='title') echo 'selected="selected"'; ?>>Alphabetical</option>
-				<option value="publishDate desc" <?php if ($this->documentType->getOrdering()=='publishDate desc') echo 'selected="selected"'; ?>>Publish Date</option>
+	<tr><td><label for="documentType-ordering-field">Ordering</label></td>
+		<td><select name="documentType[ordering][field]" id="documentType-ordering-field">
+			<?php
+				foreach(Document::getDisplayableFields() as $field=>$name)
+				{
+					$selected = preg_match("/$field/",$this->documentType->getOrdering()) ? 'selected="selected"' : '';
+					echo "<option value=\"$field\" $selected>$name</option>\n";
+				}
+			?>
+			</select>
+			<select name="documentType[ordering][direction]" id="documentType-ordering-direction">
+				<option value="asc" <?php if(preg_match('/asc/',$this->documentType->getOrdering())) echo 'selected="selected"'; ?>>Ascending</option>
+				<option value="desc"<?php if(preg_match('/desc/',$this->documentType->getOrdering())) echo 'selected="selected"'; ?>>Descending</option>
 			</select>
 		</td>
 		<td><p>This ordering field controls how documents of this type are sorted when they are displayed as a list.

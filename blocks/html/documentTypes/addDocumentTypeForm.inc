@@ -65,10 +65,18 @@ are displayed in a list.</p>
 
 <fieldset><legend>Display Options</legend>
 	<table>
-	<tr><td><label for="documentType-ordering">Ordering</label></td>
-		<td><select name="documentType[ordering]" id="documentType-ordering">
-				<option value="title">Alphabetical</option>
-				<option value="publishDate desc">Publish Date</option>
+	<tr><td><label for="documentType-ordering-field">Ordering</label></td>
+		<td><select name="documentType[ordering][field]" id="documentType-ordering-field">
+			<?php
+				foreach(Document::getDisplayableFields() as $field=>$name)
+				{
+					echo "<option value=\"$field\">$name</option>\n";
+				}
+			?>
+			</select>
+			<select name="documentType[ordering][direction]" id="documentType-ordering-direction">
+				<option value="asc">Ascending</option>
+				<option value="desc">Descending</option>
 			</select>
 		</td>
 		<td><p>This ordering field controls how documents of this type are sorted when they are displayed as a list.
