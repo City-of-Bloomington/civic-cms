@@ -33,8 +33,8 @@
 "Subscriptions" page.</p>
 <div>
 <label>Highlight this subscription?</label>
-<label><input name="section[highlightSubscription]" type="radio" value="yes" />Yes</label>
-<label><input name="section[highlightSubscription]" type="radio" value="no" checked="checked" />No</label>
+<label><input name="section[highlightSubscription]" type="radio" value="1" />Yes</label>
+<label><input name="section[highlightSubscription]" type="radio" value="0" checked="checked" />No</label>
 </div>
 </fieldset>
 

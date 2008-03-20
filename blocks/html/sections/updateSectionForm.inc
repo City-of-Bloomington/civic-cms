@@ -49,8 +49,8 @@
 "Subscriptions" page.</p>
 <div>
 <label>Highlight this subscription?</label>
-<label><input name="section[highlightSubscription]" type="radio" value="yes" <?php if($this->section->isHighlightedSubscription()) echo 'checked="checked"'; ?> />Yes</label>
-<label><input name="section[highlightSubscription]" type="radio" value="no" <?php if(!$this->section->isHighlightedSubscription()) echo 'checked="checked"'; ?> />No</label>
+<label><input name="section[highlightSubscription]" type="radio" value="1" <?php if($this->section->isHighlightedSubscription()) echo 'checked="checked"'; ?> />Yes</label>
+<label><input name="section[highlightSubscription]" type="radio" value="0" <?php if(!$this->section->isHighlightedSubscription()) echo 'checked="checked"'; ?> />No</label>
 </div>
 </fieldset>
 
