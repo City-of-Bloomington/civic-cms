@@ -41,7 +41,7 @@ foreach($documentTypeList as $type)
 			$name = View::escape(Inflector::pluralize($type->getType()));
 			$output[] = "
 			<li class=\"liOpen\">
-				<a href=\"".BASE_URL."/documentTypes/documents.php?documentType_id={$type->getId()}\">$name</a>
+				$name
 				<ul>
 					$documentListHTML
 				</ul>
