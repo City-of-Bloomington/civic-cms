@@ -64,6 +64,20 @@ class Image extends Media
 		}
 	}
 
+	/**
+	 * Delete any cached preview version of this image
+	 */
+	public function clearCache()
+	{
+		foreach($this->sizes as $size=>$info)
+		{
+			foreach(glob("{$this->getDirectory()}/$size/{$this->getId()}.*") as $file)
+			{
+				unlink($file);
+			}
+		}
+	}
+
 
 	/**
 	 * Returns the width of the requested version of an image

@@ -210,9 +210,16 @@
 			# Clean out any previous version of the file
 			if ($this->id)
 			{
-				foreach(glob($this->getDirectory().'/'.$this->id.'.') as $file)
+				foreach(glob("{$this->getDirectory()}/{$this->id}.*") as $file)
 				{
-					unlink($this->getDirectory().'/'.$file);
+					unlink($file);
+				}
+				# Images create a seperate cached version for each size displayed
+				# We need to clear the cache, otherwise, the old version will continue showing up
+				if ($this->media_type == 'image')
+				{
+					$image = new Image($this->id);
+					$image->clearCache();
 				}
 			}
 
@@ -224,7 +231,7 @@
 
 			if (!is_file($this->getDirectory().'/'.$this->getInternalFilename()))
 			{
-				echo "Upload failed\n";
+				throw new Exception('media/uploadFailed');
 				exit();
 			}
 			else { $this->uploaded = date('Y-m-d'); }
