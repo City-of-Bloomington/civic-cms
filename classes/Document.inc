@@ -351,18 +351,24 @@
 		}
 		private function saveFacets()
 		{
+			# Do not run getFacets() as it will load them fresh from the database
+			# We want to save the set of facets that they've changed, not what's in the database
 			$PDO = Database::getConnection();
-			$facets = $this->getFacets();
 
-			$sql = "delete from document_facets where document_id={$this->id}";
-			if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
+			$query = $PDO->prepare('delete from document_facets where document_id=?');
+			$query->execute(array($this->id));
 
 			$query = $PDO->prepare('insert document_facets values(?,?)');
-			foreach($facets as $facet_id=>$facet)
+			foreach($this->facets as $facet_id=>$facet)
 			{
 				$query->execute(array($this->id,$facet_id));
 			}
 		}
+		/**
+		 * Takes an array of id numbers for facets and applies them to the internal
+		 * set of facets
+		 * @param array $facet_ids The array of ID numbers for the facets
+		 */
 		public function setFacets(array $facet_ids)
 		{
 			$this->facets = array();

@@ -143,6 +143,13 @@
 		}
 	}
 
+	# Facet handling
+	if (isset($_POST['facetData']))
+	{
+		$facets = isset($_POST['facets']) ? $_POST['facets'] : array();
+		$_SESSION['document'][$instance_id]->setFacets($facets);
+	}
+
 
 	# Attachments need to be saved right away
 	# CONTENT_LENGTH will be set if there's a POST.  If it's too big, most
