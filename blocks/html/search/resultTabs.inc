@@ -9,6 +9,7 @@
 ?>
 <h1>Search Results</h1>
 <div class="tabBar">
+	<p>Choose the type of results:</p>
 	<ul>
 	<?php
 		$url = new URL($_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
