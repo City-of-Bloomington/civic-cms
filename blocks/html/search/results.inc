@@ -66,7 +66,7 @@ if (count($this->results))
 			$title = View::escape($hit->getTitle());
 			$description = View::escape(strip_tags($hit->getDescription()));
 			echo "
-			<div id=\"searchResult\">
+			<div class=\"searchResult\">
 				<h3><a href=\"{$hit->getURL()}\">$title</a></h3>
 				<p>$description</p>
 				<span>last updated {$hit->getModified('%D')}</span>
@@ -83,7 +83,7 @@ if (count($this->results))
 			$description = View::escape(strip_tags($hit->getDescription()));
 			$class = $hit->getExtension();
 			echo "
-			<div id=\"searchResult\">
+			<div class=\"searchResult\">
 				<h3><a href=\"{$hit->getURL('original')}\" class=\"$class\">$title</a></h3>
 				<p>$description</p>
 				<span>uploaded {$hit->getUploaded('%D')}</span>

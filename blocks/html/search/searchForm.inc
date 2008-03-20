@@ -8,7 +8,7 @@
 ?>
 <form method="get" action="<?php echo BASE_URL; ?>/search">
 <fieldset><legend>Search</legend>
-	<input name="search" id="search" size="60" value="<?php echo $this->search; ?>" />
+	<input name="search" size="60" value="<?php echo $this->search; ?>" />
 	<button type="submit" class="search">Search</button>
 </fieldset>
 </form>
