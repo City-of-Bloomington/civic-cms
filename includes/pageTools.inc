@@ -7,7 +7,7 @@
  */
 $page = new URL($_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
 if (isset($page->lang)) { unset($page->lang); }
-$printURL = $page;
+$printURL = clone $page;
 $printURL->format = 'print';
 if (isset($this->section))
 {
