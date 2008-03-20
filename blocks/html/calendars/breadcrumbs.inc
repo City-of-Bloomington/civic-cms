@@ -12,24 +12,17 @@
 	<div class="breadcrumbs">
 	<ul><li><a href="<?php echo BASE_URL; ?>">Home</a></li>
 		<li><a href="<?php echo BASE_URL; ?>/calendars">Calendars</a></li>
-		<?php
+	</ul>
+	</div>
+	<h1><?php
 			if (isset($this->event)) { $calendar = $this->event->getCalendar(); }
 			else { $calendar = $this->calendar; }
 
-
-			$url = new URL(BASE_URL.'/calendars');
-			$name = View::escape($calendar->getName());
-			if(!$name)
+			if (isset($_SESSION['USER']) && $this->calendar->permitsEditingBy($_SESSION['USER']))
 			{
-				$name = 'All Calendars';
+				echo "<a class=\"editSmall\" href=\"".BASE_URL."/calendars/updateCalendar.php?calendar_id={$this->calendar->getId()}\">Edit</a>";
 			}
-			else
-			{
-				$url->calendar_id = $calendar->getId();
-			}
-			echo "<li><a href=\"$url\">$name</a></li>";
+			echo $calendar->getName() ? View::escape($calendar->getName()) : 'All Calendars';
 		?>
-	</ul>
-	</div>
-	<h1><a href="<?php echo BASE_URL; ?>/calendars">City of Bloomington Calendars</a></h1>
+	</h1>
 </div>
