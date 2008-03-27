@@ -7,6 +7,7 @@
  * @param Event $this->event
  * Either an event or a calendar must be passed
  */
+	if (isset($this->event)) { $this->calendar = $this->event->getCalendar(); }
 ?>
 <div id="pageTitle">
 	<div class="breadcrumbs">
@@ -15,14 +16,11 @@
 	</ul>
 	</div>
 	<h1><?php
-			if (isset($this->event)) { $calendar = $this->event->getCalendar(); }
-			else { $calendar = $this->calendar; }
-
 			if (isset($_SESSION['USER']) && $this->calendar->permitsEditingBy($_SESSION['USER']))
 			{
 				echo "<a class=\"editSmall\" href=\"".BASE_URL."/calendars/updateCalendar.php?calendar_id={$this->calendar->getId()}\">Edit</a>";
 			}
-			echo $calendar->getName() ? View::escape($calendar->getName()) : 'All Calendars';
+			echo $this->calendar->getName() ? View::escape($this->calendar->getName()) : 'All Calendars';
 		?>
 	</h1>
 </div>
