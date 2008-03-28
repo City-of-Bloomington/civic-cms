@@ -51,7 +51,7 @@ as well as find driving directions, and information specific to a certain site.<
 			$url->format = 'kml';
 			$url->locationGroup_id = isset($this->locationGroup) ? $this->locationGroup->getId() : 0;
 			$title = View::escape($this->title);
-			echo "<a class=\"kml\" href=\"$url\">$title KML</a>";
+			echo "<a class=\"kmlFeed\" href=\"$url\">$title KML</a>";
 
 			echo View::escape($this->title);
 		?>
