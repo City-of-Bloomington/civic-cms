@@ -104,26 +104,33 @@ echo "
 		$watchButton
 		$rssButton
 		<li><button type=\"button\" class=\"printSmall\" onclick=\"window.open('$printURL');\">Print</button></li>
-		<li><form method=\"get\" action=\"{$page->getProtocol()}{$page->getScript()}\">
-			<fieldset>
 ";
-			foreach($page->parameters as $field=>$value)
-			{
-				echo "<input name=\"$field\" type=\"hidden\" value=\"$value\" />";
-			}
-echo "
-				<select name=\"lang\" onchange=\"this.form.submit();\">
-";
+		if (count($this->document->getLanguages()) > 1)
+		{
+			echo "
+			<li><form method=\"get\" action=\"{$page->getProtocol()}{$page->getScript()}\">
+				<fieldset>
+			";
+				foreach($page->parameters as $field=>$value)
+				{
+					echo "<input name=\"$field\" type=\"hidden\" value=\"$value\" />";
+				}
+				echo "
+					<select name=\"lang\" onchange=\"this.form.submit();\">
+				";
 				foreach($this->document->getLanguages() as $language)
 				{
 					$selected = ($language->getCode()==$_SESSION['LANGUAGE']) ? 'selected="selected"' : '';
 					echo "<option value=\"{$language->getCode()}\" $selected>{$language->getNative()}</option>";
 				}
+			echo "
+					</select>
+				</fieldset>
+				</form>
+			</li>
+			";
+		}
 echo "
-				</select>
-			</fieldset>
-			</form>
-		</li>
 	</ul>
 </div>
 ";
