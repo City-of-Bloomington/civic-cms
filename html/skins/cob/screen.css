@@ -13,15 +13,15 @@ hr { border:0; height:1px; background-color:#003366; margin-bottom:10px; margin-
 p { margin:0; margin-bottom:.5em; }
 
 h1 { font-size:18px; color:#003366; margin:0; padding:0; font-weight:bold; clear:both; }
-h2 { font-size:16px; color:#003366;  margin:5px 0px 5px 0px; padding-bottom:5px; font-weight:bold; border-bottom:1px; border-bottom-color:#bdbdbd; border-bottom-style:solid; clear:both; }
+h2 { font-size:16px; color:#003366;  margin:10px 0px 5px 0px; padding-bottom:2px; font-weight:bold; border-bottom:1px; border-bottom-color:#bdbdbd; border-bottom-style:solid; clear:both; }
 h2 a { color:#003366; }
-h3 { font-size:14px; color:#003366; margin:5px 0px 5px 0px; padding:0; font-weight:bold; clear:both; }
+h3 { font-size:14px; color:#003366; margin:10px 0px 5px 0px; padding:0; font-weight:bold; clear:both; }
 h3 a { color:#003366; }
-h4 { font-size:13px; color:#003366; margin:5px 0px 5px 0px; padding:0; font-weight:bold; clear:both; }
+h4 { font-size:13px; color:#003366; margin:10px 0px 5px 0px; padding:0; font-weight:bold; clear:both; }
 h4 a { color:#003366; }
-h5 { font-size:13px; color:#003366; margin:5px 0px 5px 0px; padding:0; font-weight:bold; clear:both; }
+h5 { font-size:13px; color:#003366; margin:10px 0px 5px 0px; padding:0; font-weight:bold; clear:both; }
 h5 a { color:#003366; }
-h6 { font-size:12px; color:#003366; font-weight:bold; clear:both; }
+h6 { font-size:12px; color:#003366; margin:10px 0px 5px 0px; font-weight:bold; clear:both; }
 h6 a { color:#003366; }
 
 strong { font-weight:bold; }
@@ -37,8 +37,8 @@ dt { font-weight:bold; }
 blockquote { margin:1em 40px; }
 
 form { }
-fieldset { margin-bottom:10px; border:0; }
-legend { font-weight:bold; }
+fieldset { margin-bottom:10px; }
+legend { background-color:#5a8fdc; font-weight:bold; padding:4px; color:white; }
 label { font-weight:bold; }
 select { font-size:12px; }
 textarea { }
@@ -152,13 +152,13 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 #pageTools ul { list-style-type:none; width:160px; height:39px; text-align:right; float:right; margin:0; margin-top:7px; margin-right:10px; }
 #pageTools li { display:inline; }
 #pageTools form { display:inline; }
-#pageTools fieldset { border:0; display:inline; vertical-align:bottom; }
+#pageTools fieldset { display:inline; vertical-align:bottom; }
 #pageTools legend { display:none; }
 #pageTools select { width:90px; margin:0; padding:0; font-size:11px; }
 /*  mainContent allows for 3 columns,	*/
 /*	backendContent allows for 2 columns	*/
 #mainContent { float:left; margin-left:18px; width:480px; font-size:12px; line-height:1.25; }
-#backendContent { float:left; margin-left:18px; width:680px; font-size:12px; }
+#backendContent { float:left; margin-left:18px; width:720px; font-size:12px; }
 
 
 #pageTitle { background:url('images/contentarea/pageTitle-background.gif') top repeat-y; width:488px; margin-bottom:10px; padding-top:5px; }
@@ -250,8 +250,13 @@ ul.mktree li.liOpen ul { display: block; }
 ul.mktree li.liClosed ul { display: none; }
 
 /* Table of Contents styles */
+/* HANAPIN  - created new styles for TOC - using drop down list menu*/
+.table-of-contents { padding-bottom:10px; padding-top:10px; }
 .table-of-contents ul { list-style-type:none; }
 .table-of-contents li { display:inline; }
+.table-of-contents .title { font-size:12px; color:#003366; float:left; width:120px; font-weight:bold; }
+.tabbar select { font-size:11px; margin-left:6px;  }
+
 
 /*  Custom buttons for forms */
 button { cursor:pointer; overflow:hidden; vertical-align:middle; }
@@ -340,7 +345,7 @@ a.unwatch { width:22px; height:22px; padding:11px; background: url('../default/i
 #locationGroups_list li { display:inline; }
 #location_list { float:right; width:200px; margin-right:1em; }
 #location_list ul {  }
-#location_map { width:360px; height:360px; border:2px solid black; margin-right:200px; }
+#location_map { width:480px; height:480px; border:2px solid black; margin-right:200px; margin-bottom:20px; }
 #locationGroup_description { margin-right:200px; }
 .handicap_accessible { height:16px; padding-left:18px; background: url('../default/images/access.png') no-repeat; }
 
@@ -357,7 +362,7 @@ a.unwatch { width:22px; height:22px; padding:11px; background: url('../default/i
 /* HANAPIN - Styles for filter and organize by lists in page content area */
 .tabBar { padding-bottom:10px; padding-top:10px; }
 .tabBar ul { margin:0; padding:0; font-size:11px; list-style-type:none; }
-.tabBar li { list-style-type:none; display:inline; background-color:#f3f3f3; border:1px solid #5a8fdc; padding:3px; }
+.tabBar li { list-style-type:none; display:inline; background-color:#f3f3f3; border:1px solid #013466; padding:3px; }
 .tabBar a { font-size:11px; color:#003366; text-decoration:none; }
 .tabBar a:hover { color:#003366; text-decoration:underline; }
 .tabBar .title { font-size:11px; color:#003366; float:left; width:120px; font-weight:bold; }
