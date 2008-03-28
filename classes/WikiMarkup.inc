@@ -254,7 +254,7 @@ class WikiMarkup
 		{
 			$media = new Media($linkTarget);
 
-			self::$CURRENT_URL = $media->getURL();
+			self::$CURRENT_URL = $media->getURL('original');
 			$title = $linkText ? self::parse($linkText) : null;
 
 			# If we didn't render an href inside of the linkText

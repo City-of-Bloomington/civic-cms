@@ -55,7 +55,6 @@
 			if ($id)
 			{
 				if(is_numeric($id)) { $sql = 'select * from media where id=?'; }
-				elseif(strlen($id)==32) { $sql = 'select * from media where md5=?'; }
 				else { $sql = 'select * from media where filename=?'; }
 
 				$PDO = Database::getConnection();
@@ -296,7 +295,6 @@
 				if (!count($this->documents))
 				{
 					$list = new DocumentList(array('media_id'=>$this->id));
-					echo $list->getSQL();
 					foreach($list as $document) { $this->documents[$document->getId()] = $document; }
 				}
 			}
