@@ -10,7 +10,7 @@
  *								$_SESSION['IP_ADDRESS']
  *								$_SESSION['APPLICATION_NAME']
  */
-if (isset($_GET['username']) && isset($_GET['password']))
+if (isset($_REQUEST['username']) && isset($_REQUEST['password']))
 {
 	try
 	{
