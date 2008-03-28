@@ -9,7 +9,7 @@ $url = new URL($_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
 ?>
 <form id="filter" method="get" action="<?php echo BASE_URL; ?>/media">
 <div class="interfaceBox">
-	<h1>Media</h1>
+	<h2>Media</h2>
 	<?php
 		echo "
 		<input name=\"mime_type\" id=\"mime_type\" type=\"hidden\" value=\"{$url->mime_type}\" />

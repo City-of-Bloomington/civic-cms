@@ -1,7 +1,5 @@
 <div class="interfaceBox">
-	<h1>
-		<a href="<?php echo BASE_URL; ?>/facets">Facets</a>
-	</h1>
+	<h2><a href="<?php echo BASE_URL; ?>/facets">Facets</a></h2>
 <?php
 /**
  * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.

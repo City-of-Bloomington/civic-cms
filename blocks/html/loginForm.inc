@@ -1,5 +1,5 @@
 <div id="login" class="interfaceBox">
-	<h1>Login</h1>
+	<h2>Login</h2>
 	<table>
 	<tr><th>Already a User?</th>
 		<td><form method="post" action="<?php echo BASE_URL; ?>/login/login.php">

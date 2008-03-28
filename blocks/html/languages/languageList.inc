@@ -5,6 +5,7 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 ?>
+<div class="interfaceBox">
 <h2>Languages</h2>
 <p>Use the links below to search our website for documents that have been translated into that language.</p>
 <ul>
@@ -29,3 +30,4 @@
 	}
 ?>
 </ul>
+</div>

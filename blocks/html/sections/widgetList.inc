@@ -9,7 +9,7 @@
 ?>
 <h1><?php echo $this->section->getName(); ?></h1>
 <div class="interfaceBox">
-	<h1>Widgets</h1>
+	<h2>Widgets</h2>
 	<table>
 	<tr><th></th><th>Widget</th><th>Panel</th><th>Order</th></tr>
 	<?php
@@ -29,7 +29,7 @@
 </div>
 
 <div class="interfaceBox">
-	<h1>Available Widgets</h1>
+	<h2>Available Widgets</h2>
 	<table>
 	<?php
 		$list = new WidgetInstallationList();

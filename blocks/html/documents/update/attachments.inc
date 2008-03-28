@@ -47,7 +47,7 @@
 </form>
 
 <div class="interfaceBox">
-	<h1>Attachments</h1>
+	<h2>Attachments</h2>
 	<?php
 		# Make sure the document has been saved before we attempt to do attachments
 		if ($this->document->getId())

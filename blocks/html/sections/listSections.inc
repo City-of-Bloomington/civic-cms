@@ -53,13 +53,13 @@
 	if (userHasRole(array('Administrator','Webmaster')))
 	{
 		echo "
-		<div class=\"contextualMenu\">
-			<span class=\"title\">Sections</span>
-			<ul><li><a href=\"".BASE_URL."/sections/addSection.php\">Add</a></li></ul>
-		</div>
+		<h2>
+			Sections
+			<a href=\"".BASE_URL."/sections/addSection.php\" class=\"addSmall\">Add</a>
+		</h2>
 		";
 	}
-	else { echo "<h1><a href=\"".BASE_URL."/sections\">Sections</a></h1>"; }
+	else { echo "<h2><a href=\"".BASE_URL."/sections\">Sections</a></h2>"; }
 ?>
 	<ul><li>
 		<?php

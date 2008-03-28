@@ -1,15 +1,15 @@
 <?php
 /**
- * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2007-2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 ?>
 <div class="interfaceBox">
-	<h1>
+	<h2>
 		Backups
 		<a class="addSmall" href="<?php echo BASE_URL; ?>/backups/create.php">Add</a>
-	</h1>
+	</h2>
 	<table>
 	<?php
 		$files = array();

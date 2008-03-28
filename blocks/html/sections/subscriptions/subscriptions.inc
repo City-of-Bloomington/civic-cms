@@ -8,7 +8,7 @@
  */
 ?>
 <div class="interfaceBox">
-	<h1><?php echo View::escape($this->title); ?></h1>
+	<h2><?php echo View::escape($this->title); ?></h2>
 	<ul><?php
 			$return_url = new URL($_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
 			foreach($this->subscriptionList as $subscription)

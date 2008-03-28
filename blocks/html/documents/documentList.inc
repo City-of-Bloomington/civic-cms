@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006-2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Inghamn <inghamn@bloomington.in.gov>
  * @param DocumentList $this->documentList
@@ -8,14 +8,14 @@
  */
 ?>
 <div class="interfaceBox">
-	<h1>
+	<h2>
 		<?php
 			echo View::escape($this->title);
 			include APPLICATION_HOME.'/blocks/html/documents/addDocumentToolbar.inc';
 
 			$url = new URL($_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
 		?>
-	</h1>
+	</h2>
 	<table>
 	<thead>
 		<tr><th>Filters:</th>

@@ -18,11 +18,11 @@
 			?>
 		</ul>
 	</div>
-	<h1><?php
+	<h2><?php
 			if (userHasRole('Administrator')) { echo "<a class=\"addSmall\" href=\"".BASE_URL."/users/addUser.php\">Add</a>"; }
 			echo $this->authenticationMethod.' Users';
 		?>
-	</h1>
+	</h2>
 	<table>
 	<?php
 		foreach($this->userList as $user)

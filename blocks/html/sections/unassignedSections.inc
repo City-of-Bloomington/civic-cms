@@ -9,7 +9,7 @@ if (count($this->sectionList)>1)
 {
 	echo "
 	<div class=\"interfaceBox\">
-		<h1>Unassigned Sections</h1>
+		<h2>Unassigned Sections</h2>
 		<p>These Sections have not been assigned any parents.
 			You must assign them a parent to get them to show up in the site.</p>
 		<ul>

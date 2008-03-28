@@ -9,7 +9,7 @@
  */
 ?>
 <div class="interfaceBox">
-	<h1>Add a Related Link</h1>
+	<h2>Add a Related Link</h2>
 	<p>Links created here will show up in a widget on the side of the page.</p>
 
 	<form id="documentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
@@ -48,7 +48,7 @@
 	</form>
 </div>
 <div class="interfaceBox">
-	<h1>Related Links</h1>
+	<h2>Related Links</h2>
 	<?php
 		$links = new DocumentLinkList(array('document_id'=>$this->document->getId()));
 		if (count($links))
