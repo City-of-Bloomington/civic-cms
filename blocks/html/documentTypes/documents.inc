@@ -47,9 +47,12 @@ if (isset($this->facetGroup))
 	";
 			foreach($this->facetGroup->getFacets() as $facet)
 			{
-				$name = View::escape($facet->getName());
-				$anchor = WikiMarkup::wikify($facet->getName());
-				echo "<option value=\"$anchor\">$name</option>\n";
+				if (count($facet->getDocuments(array('documentType_id'=>$this->documentType->getId()))))
+				{
+					$name = View::escape($facet->getName());
+					$anchor = WikiMarkup::wikify($facet->getName());
+					echo "<option value=\"$anchor\">$name</option>\n";
+				}
 			}
 	echo "
 			</select>

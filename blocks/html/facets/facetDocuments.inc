@@ -18,9 +18,13 @@ echo "
 		{
 			foreach($group->getFacets() as $facet)
 			{
-				$name = View::escape($facet->getName());
-				$anchor = WikiMarkup::wikify($facet->getName());
-				echo "<option value=\"$anchor\">$name</option>\n";
+				$list = new DocumentList(array('facet_id'=>array($this->facet->getId(),$facet->getId()),'active'=>date('Y-m-d')));
+				if (count($list))
+				{
+					$name = View::escape($facet->getName());
+					$anchor = WikiMarkup::wikify($facet->getName());
+					echo "<option value=\"$anchor\">$name</option>\n";
+				}
 			}
 		}
 echo "
