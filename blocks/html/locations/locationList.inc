@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006-2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param LocationList $this->locationList
@@ -12,25 +12,31 @@
 Using GoogleMap technology, you can find the position of different locations all across the city,
 as well as find driving directions, and information specific to a certain site.</p>
 <h2>Select a Map</h2>
-<ul id="locationGroups_list">
+<form method="get" action="<?php echo BASE_URL; ?>/locations">
+<fieldset>
+	<label for="locationGroup_id">Select a Map</label>
+	<select name="locationGroup_id" id="locationGroup_id" onchange="this.form.submit();">
+		<option value="">Please make a selection</option>
 	<?php
-		$url = new URL(BASE_URL.'/locations');
-
 		$list = new LocationGroupList();
 		$list->find();
 		foreach($list as $group)
 		{
 			$name = View::escape($group->getName());
-			$url->locationGroup_id = $group->getId();
-			echo "<li><a href=\"$url\">$name</a></li>\n";
+			$selected = (isset($this->locationGroup) && $this->locationGroup->getId()==$group->getId()) ? 'selected="selected"' : '';
+			echo "<option value=\"{$group->getId()}\" $selected>$name</option>";
 		}
-		$url->locationGroup_id = 0;
-		echo "<li><a href=\"$url\">Other</a></li>";
+
+		$selected = $this->title=='Other' ? 'selected="selected"' : '';
+		echo "<option value=\"0\" $selected>Other</option>";
 	?>
-</ul>
+	</select>
+</fieldset>
+</form>
+
 <?php if(isset($this->locationList)) { ?>
 <div class="interfaceBox" id="location_list">
-	<h1>
+	<h2>
 		<?php
 			$return_url = "http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]";
 
@@ -49,7 +55,7 @@ as well as find driving directions, and information specific to a certain site.<
 
 			echo View::escape($this->title);
 		?>
-	</h1>
+	</h2>
 	<ul><?php
 			$points = array();
 			$info = array();
@@ -76,7 +82,7 @@ as well as find driving directions, and information specific to a certain site.<
 					$info[] = "'{$title}{$desc}{$a}{$directions}'";
 
 					$i = count($points) - 1;
-					$mapButton = "<a href=\"#\" onclick=\"popup($i)\">Reveal In Map</a>";
+					$mapButton = "<a href=\"#\" onclick=\"popup($i)\" class=\"reveal\">Reveal In Map</a>";
 				}
 				else { $mapButton = ''; }
 

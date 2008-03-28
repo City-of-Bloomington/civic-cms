@@ -36,6 +36,7 @@
 		}
 
 
+		# The user can ask for the list to be sorted by distance from a given point
 		if (isset($_GET['sort']) && isset($_GET['latitude']) && isset($_GET['longitude']))
 		{
 			$sort = 'distance';
@@ -60,6 +61,7 @@
 	}
 
 
+	# Include blocks for editing Location Groups
 	if ($template->outputFormat==='html')
 	{
 		# If we have a locationGroup, include it in the breadcrumbs

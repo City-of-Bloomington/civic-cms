@@ -256,7 +256,6 @@ ul.mktree li.liClosed ul { display: none; }
 .table-of-contents ul { list-style-type:none; }
 .table-of-contents li { display:inline; }
 .table-of-contents .title { font-size:12px; color:#003366; float:left; width:120px; font-weight:bold; }
-.tabbar select { font-size:11px; margin-left:6px;  }
 
 
 /*  Custom buttons for forms */
@@ -295,6 +294,7 @@ a.unsubscribe { width:22px; height:22px; padding:11px; background: url('images/b
 a.notify { width:22px; height:22px; padding:11px; background: url('../default/images/mail_send.png') no-repeat; font-size:0 !important; }
 a.watch { width:22px; height:22px; padding:11px; background: url('../default/images/mail_get.png') no-repeat; font-size:0 !important; }
 a.unwatch { width:22px; height:22px; padding:11px; background: url('../default/images/mail_delete.png') no-repeat; font-size:0 !important; }
+a.reveal { width:12px; height:12px; padding:6px; background:url('images/icons/reveal_in_map.gif') no-repeat; font-size:0 !important; }
 
 /* ICONS FOR MIME TYPES */
 .jpg { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/image.png') no-repeat; }
@@ -345,10 +345,11 @@ a.unwatch { width:22px; height:22px; padding:11px; background: url('../default/i
 #locationGroups_list { list-style-type:none; }
 #locationGroups_list li { display:inline; }
 #location_list { float:right; width:200px; margin-right:1em; }
-#location_list ul {  }
+#location_list ul { vertical-align:bottom; }
+#location_list li { margin:5px 0 5px 0; }
 #location_map { width:480px; height:480px; border:2px solid black; margin-right:200px; margin-bottom:20px; }
 #locationGroup_description { margin-right:200px; }
-.handicap_accessible { height:16px; padding-left:18px; background: url('../default/images/access.png') no-repeat; }
+.handicap_accessible { min-height:16px; padding-left:18px; background: url('../default/images/access.png') no-repeat; }
 
 /* Styles for stuff that is invalid */
 .badlink { background-color:red; }

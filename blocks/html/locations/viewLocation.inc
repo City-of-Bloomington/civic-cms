@@ -16,9 +16,14 @@ $class = $this->location->isHandicapAccessible() ? 'class="handicap_accessible"'
 
 echo "
 <h1 $class>$name</h1>
-<p>$address</p>
-<p>$description</p>
-<p>$directions</p>
+<table>
+<tr><th>Address</th>
+	<td>$address</td></tr>
+<tr><th>Description</th>
+	<td>$description</td></tr>
+<tr><th>Directions</th>
+	<td>$directions</td></tr>
+</table>
 ";
 echo WikiMarkup::parse($this->location->getContent());
 
