@@ -149,12 +149,13 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 .sidebar .calendar td { padding:2px; }
 
 #pageTools { background:url('images/pagetools/pagetools_bg.gif') top left no-repeat; width:210px; height:39px; margin-bottom:10px; }
-#pageTools ul { list-style-type:none; width:160px; height:39px; text-align:right; float:right; margin:0; margin-top:7px; margin-right:10px; }
-#pageTools li { display:inline; }
+#pageTools ul { list-style-type:none; width:160px; height:39px; text-align:right; float:right; margin:0; margin-top:11px; margin-right:10px; }
+#pageTools li { display:inline; margin-left:5px; }
 #pageTools form { display:inline; }
-#pageTools fieldset { display:inline; vertical-align:bottom; }
+#pageTools fieldset { display:inline; vertical-align:top; }
 #pageTools legend { display:none; }
 #pageTools select { width:90px; margin:0; padding:0; font-size:11px; }
+
 /*  mainContent allows for 3 columns,	*/
 /*	backendContent allows for 2 columns	*/
 #mainContent { float:left; margin-left:18px; width:480px; font-size:12px; line-height:1.25; }
