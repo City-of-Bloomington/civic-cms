@@ -5,6 +5,9 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param GET email
  */
+# This is disabled for now
+Header('Location: '.BASE_URL);
+/*
 $pending = new PendingUser($_GET['email']);
 
 $instructions = new Block('users/pending/activationInstructions.inc');
@@ -16,3 +19,4 @@ $email->blocks[] = $instructions;
 $pending->notify($email->render());
 
 Header('Location: view.php?email='.$pending->getEmail());
+*/

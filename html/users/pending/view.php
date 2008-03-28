@@ -5,6 +5,9 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param GET email
  */
+# This is disabled for now
+Header('Location: '.BASE_URL);
+/*
 try
 {
 	$pending = new PendingUser($_GET['email']);
@@ -19,3 +22,4 @@ catch (Exception $e)
 $template = new Template();
 $template->blocks[] = new Block('users/pending/view.inc',array('pendingUser'=>$pending));
 echo $template->render();
+*/

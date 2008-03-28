@@ -5,6 +5,9 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param GET hash
  */
+# This is disabled for now
+Header('Location: '.BASE_URL);
+/*
 $template = new Template();
 if (isset($_GET['hash']))
 {
@@ -22,3 +25,4 @@ if (isset($_GET['hash']))
 	}
 }
 echo $template->render();
+*/

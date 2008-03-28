@@ -4,6 +4,9 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
+# This is disabled for now
+Header('Location: '.BASE_URL);
+/*
 if (isset($_POST['email']))
 {
 	if ($_POST['password'] && $_POST['retype'] && ($_POST['password']===$_POST['retype']))
@@ -50,3 +53,4 @@ if (isset($_POST['email']))
 $template = new Template();
 $template->blocks[] = new Block('users/pending/createAccountForm.inc');
 echo $template->render();
+*/
