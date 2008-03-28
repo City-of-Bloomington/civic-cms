@@ -158,7 +158,11 @@
 				}
 			}
 
-			$template->blocks[] = new Block('sections/documents.inc',array('section'=>$currentSection,'document'=>$document));
+			# We don't want to show this box on the homepage for now
+			if ($currentSection->getId() != 1)
+			{
+				$template->blocks[] = new Block('sections/documents.inc',array('section'=>$currentSection,'document'=>$document));
+			}
 		}
 	}
 
