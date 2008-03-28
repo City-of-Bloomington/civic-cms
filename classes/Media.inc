@@ -40,7 +40,8 @@
 										'rm'=>array('mime_type'=>'application/vnd.rn-realmedia','media_type'=>'video'),
 										'ram'=>array('mime_type'=>'audio/vnd.rn-realaudio','media_type'=>'audio'),
 										'mp3'=>array('mime_type'=>'audio/mpeg','media_type'=>'audio'),
-										'wma'=>array('mime_type'=>'audio/x-ms-wma','media_type'=>'audio')
+										'wma'=>array('mime_type'=>'audio/x-ms-wma','media_type'=>'audio'),
+										'kml'=>array('mime_type'=>'application/vnd.google-earth.kml+xml','media_type'=>'attachment')
 									);
 
 		public static function getExtensions() { return self::$extensions; }

@@ -275,7 +275,7 @@ a.down { width:16px; height:16px; padding:8px; background: url('../default/image
 a.rssSmall { width:14px; height:14px; padding:7px; background:url('../default/images/feed-icon-14x14.png') no-repeat; font-size:0 !important; }
 a.rss { width:28px; height:28px; padding:14px; background: url('../default/images/feed-icon-28x28.png') no-repeat; font-size:0 !important; }
 a.ical { width:16px; height:16px; padding:8px; background: url('../default/images/date.png') no-repeat; font-size:0 !important; }
-a.kml { width:16px; height:16px; padding:8px; background: url('../default/images/kml_feed_small.png') no-repeat; font-size:0 !important; }
+a.kmlFeed { width:16px; height:16px; padding:8px; background: url('../default/images/kml_feed_small.png') no-repeat; font-size:0 !important; }
 
 a.day { width:16px; height:14px; padding:8px; background: url('../default/images/calendar/day.png') no-repeat; font-size:0 !important; }
 a.week { width:16px; height:14px; padding:8px; background: url('../default/images/calendar/week.png') no-repeat; font-size:0 !important; }
@@ -316,6 +316,7 @@ a.reveal { width:12px; height:12px; padding:6px; background:url('images/icons/re
 .wma { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/sound.png') no-repeat; }
 .tar { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/tar.png') no-repeat; }
 .dxf { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/dwg-autocad-drawing.ico') no-repeat; }
+.kml { height:16px; padding: 0px 0px 10px 22px; background: url('../default/images/kml_feed_small.png') no-repeat; }
 .folder { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/folder.png') no-repeat; }
 
 /* Icons for each of the document types */
