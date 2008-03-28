@@ -115,7 +115,7 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 #rightSidebar { float:right; clear:right; margin-right:10px; }
 .sidebar .widget { padding-left:10px; }
 .sidebar .widget ul,.sidebar .widget ol { margin:0; padding:0; list-style-type:none; }
-.sidebar .widget li { background:url('images/icons/bullet_arrow_right.gif') no-repeat 0 .5em; padding:6px 0 6px 20px; border-bottom:1px solid #bdbdbd; vertical-align:top; }
+.sidebar .widget li { background:url('images/icons/bullet_textarrow_right.gif') no-repeat 0 .5em; padding:4px 0 6px 15px; border-bottom:1px solid #bdbdbd; vertical-align:top; }
 .sidebar .widget form {  }
 .sidebar .widget fieldset { }
 .sidebar .widget select { width:180px; font-size:11px; }
