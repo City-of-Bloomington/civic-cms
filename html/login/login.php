@@ -10,24 +10,33 @@
  *								$_SESSION['IP_ADDRESS']
  *								$_SESSION['APPLICATION_NAME']
  */
-try
+if (isset($_GET['username']) && isset($_GET['password']))
 {
-	$user = new User($_POST['username']);
-	$user->authenticate($_POST['password']);
-	$user->startNewSession();
-}
-catch (Exception $e)
-{
-	$_SESSION['errorMessages'][] = $e;
-	Header('Location: '.BASE_URL.'/login');
-	exit();
-}
+	try
+	{
+		$user = new User($_POST['username']);
+		$user->authenticate($_POST['password']);
+		$user->startNewSession();
+	}
+	catch (Exception $e)
+	{
+		$_SESSION['errorMessages'][] = $e;
+		Header('Location: '.BASE_URL.'/login');
+		exit();
+	}
 
-if (userHasRole(array('Administrator','Webmaster','Content Creator')))
-{
-	Header('Location: '.BASE_URL.'/documents');
+	if (userHasRole(array('Administrator','Webmaster','Content Creator')))
+	{
+		Header('Location: '.BASE_URL.'/documents');
+	}
+	else
+	{
+		Header('Location: '.BASE_URL.'/sections/subscriptions');
+	}
 }
 else
 {
-	Header('Location: '.BASE_URL.'/sections/subscriptions');
+	$_SESSION['errorMessages'][] = new Exception('invalidLogin');
+	Header('Location: '.BASE_URL.'/login');
+	exit();
 }
