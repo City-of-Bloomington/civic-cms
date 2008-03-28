@@ -44,7 +44,7 @@ select { font-size:12px; }
 textarea { }
 input { }
 
-table { border-collapse:collapse; border:1px solid #e0e0e0; }
+table { border-collapse:collapse; border:1px solid #999999; }
 tr { vertical-align:top; }
 td { padding:.5em; background-color:inherit; border:1px solid #e0e0e0; }
 th { text-align:left; background-color:#e0e0e0; padding:.5em; vertical-align: top; font-weight:bold; }
@@ -188,9 +188,9 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 
 
 /* defines table styles for tables in the center column / content area. Will not affect other tables like the calendar */
-#mainContent table { border-collapse:collapse; border:1px solid #e0e0e0; }
+#mainContent table { border-collapse:collapse; border:1px solid #999999; }
 #mainContent tr { vertical-align:top; }
-#mainContent td { padding:.5em; background-color:inherit; border:1px solid #e0e0e0; vertical-align:top; }
+#mainContent td { padding:.5em; background-color:inherit; border:1px solid #999999; vertical-align:top; }
 #mainContent th { text-align:left; background-color:#e0e0e0; padding:.5em; border-bottom:1px solid #e0e0e0; vertical-align: top; font-weight:bold; }
 #mainContent th a { color:#3366cc; background-color:inherit; }
 
