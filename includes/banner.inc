@@ -7,6 +7,7 @@
 ?>
 <div id="banner">
 	<div id="logo"><a href="<?php echo BASE_URL; ?>/">City of Bloomington, Indiana</a></div>
+	<div id="skipNavigation"><a href="#mainContent" title="Skip Navigation">Skip Navigation</a></div>
 	<div class="widgets">
 		<?php
 			$panel = new Panel('banner');
