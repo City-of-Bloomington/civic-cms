@@ -26,6 +26,7 @@
 	</div>
 	<div id="secondaryLinks">
 	<ul><li><a href="<?php echo BASE_URL; ?>/subscribe">Subscribe</a></li>
+		<li><a href="<?php echo BASE_URL; ?>/contact">Contact Us</a></li>
 		<li><?php include APPLICATION_HOME.'/blocks/html/search/searchForm.inc'; ?></li>
 	</ul>
 	</div>

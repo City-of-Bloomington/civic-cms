@@ -95,7 +95,7 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 #secondaryLinks { width:260px; height:30px; position:absolute; top:10px; right:4px; padding-top:6px; }
 #secondaryLinks li { float:left;  padding-right:4px; margin-right:4px; }
 #secondaryLinks li.first { border-right:1px solid #003366; }
-#secondaryLinks form { width:140px; height:20px;  background:url('images/banner/search.gif') top left no-repeat; position:relative; top:-3px; left:12px; }
+#secondaryLinks form { width:120px; height:20px;  background:url('images/banner/search.gif') top left no-repeat; position:relative; top:-3px; left:12px; }
 #secondaryLinks fieldset { }
 #secondaryLinks legend { display:none; }
 #secondaryLinks input { border:0; background-color:transparent; width:82px; margin-left:18px; font-size:11px; }

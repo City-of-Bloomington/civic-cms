@@ -28,7 +28,6 @@
 			<li><a href="<?php echo BASE_URL; ?>/feeds">Feeds</a></li>
 			<li><a href="<?php echo BASE_URL; ?>/jobs">Jobs</a></li>
 			<li><a href="<?php echo BASE_URL; ?>/search/sitemap.php">Sitemap</a></li>
-			<li><a href="<?php echo BASE_URL; ?>/contact">Contact Us</a></li>
 		</ul>
 	</div>
 	<div><a href="http://validator.w3.org/check?uri=referer">
