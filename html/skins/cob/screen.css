@@ -363,12 +363,13 @@ a.reveal { width:12px; height:12px; padding:6px; background:url('images/icons/re
 
 /* HANAPIN - Styles for filter and organize by lists in page content area */
 .tabBar { padding-bottom:10px; padding-top:10px; }
-.tabBar ul { margin:0; padding:0; font-size:11px; list-style-type:none; }
+.tabBar ul { margin:10px 0 0 0; padding:0; font-size:11px; list-style-type:none; }
 .tabBar li { list-style-type:none; display:inline; background-color:#f3f3f3; border:1px solid #013466; padding:3px; }
 .tabBar a { font-size:11px; color:#003366; text-decoration:none; }
 .tabBar a:hover { color:#003366; text-decoration:underline; }
 .tabBar .title { font-size:11px; color:#003366; float:left; width:120px; font-weight:bold; }
-.tabBar .active { font-weight:bold; }
+.tabBar .current { font-weight:bold; background-color:#013466; padding:3px; }
+.tabBar .current a { color:white; }
 .tabBar select { font-size:11px; margin-left:6px;  }
 .tabBar button { font-size:11px; }
 

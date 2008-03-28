@@ -21,7 +21,7 @@
 	foreach($alphabet as $letter)
 	{
 		$class = ($this->letter == $letter) ? 'class="current"' : '';
-		echo "<li><a href=\"".BASE_URL."/documents/az_index.php?letter=$letter\" $class>$letter</a></li>";
+		echo "<li $class><a href=\"".BASE_URL."/documents/az_index.php?letter=$letter\">$letter</a></li>";
 	}
 ?>
 </ul>

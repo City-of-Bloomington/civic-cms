@@ -22,7 +22,7 @@
 		$href->parameters['tab'] = $tab;
 		$onclick = "FRAMEWORK.processTabbedForm('eventForm','$tab','next');return false;";
 		$class = $this->currentTab==$tab ? 'class="current"' : '';
-		echo "<li><a href=\"$href\" onclick=\"$onclick\" $class>$name</a></li>";
+		echo "<li $class><a href=\"$href\" onclick=\"$onclick\">$name</a></li>";
 	}
 	if (!isset($this->next_tab)) { $this->next_tab = $tabs[0]; }
 ?>

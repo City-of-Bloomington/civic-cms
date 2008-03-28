@@ -26,7 +26,7 @@ foreach($groups as $group)
 		$href->parameters['facetGroup_id'] = $group->getId();
 		$name = View::escape($group->getName());
 		$class = (isset($this->facetGroup) && $group->getId()==$this->facetGroup->getId()) ? 'class="current"' : '';
-		echo "<li><a href=\"$href\" $class>$name</a></li>";
+		echo "<li $class><a href=\"$href\">$name</a></li>";
 	}
 }
 echo "</ul></div>";

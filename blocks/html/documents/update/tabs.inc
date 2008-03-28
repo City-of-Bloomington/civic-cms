@@ -20,7 +20,7 @@
 		$name = ucfirst($tab);
 		$onclick = "FRAMEWORK.processTabbedForm('documentForm','$tab','next');return false;";
 		$class = $this->current_tab==$tab ? 'class="current"' : '';
-		echo "<li><a onclick=\"$onclick\" $class>$name</a></li>";
+		echo "<li $class><a onclick=\"$onclick\">$name</a></li>";
 	}
 	if (!isset($this->next_tab)) { $this->next_tab = $tabs[0]; }
 
@@ -29,7 +29,7 @@
 	{
 		$class = $this->current_tab=='admin' ? 'class="current"' : '';
 		$onclick = "FRAMEWORK.processTabbedForm('documentForm','admin','next');return false;";
-		echo "<li><a onclick=\"$onclick\" $class>Admin</a></li>";
+		echo "<li $class><a onclick=\"$onclick\">Admin</a></li>";
 	}
 ?>
 </ul>
