@@ -371,7 +371,7 @@ a.reveal { width:12px; height:12px; padding:6px; background:url('images/icons/re
 .tabBar a { font-size:11px; color:#003366; text-decoration:none; }
 .tabBar a:hover { color:#003366; text-decoration:underline; }
 .tabBar .title { font-size:11px; color:#003366; float:left; width:120px; font-weight:bold; }
-.tabBar .current { font-weight:bold; background-color:#013466; padding:3px; }
+.tabBar .current { font-weight:bold; background-color:#013466; color:white; padding:3px; }
 .tabBar .current a { color:white; }
 .tabBar select { font-size:11px; margin-left:6px;  }
 .tabBar button { font-size:11px; }
