@@ -9,7 +9,7 @@
 	include APPLICATION_HOME.'/includes/xhtmlStrictHeader.inc';
 ?>
 <div id="main-content-container">
-	<div class="left sidebar">
+	<div id="leftSidebar" class="left sidebar">
 		<div><h1>Departments</h1>
 			<ul>
 			<?php

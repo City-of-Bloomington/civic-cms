@@ -16,6 +16,9 @@
 		include APPLICATION_HOME.'/includes/rightSidebar.inc';
 	?>
 	<div id="mainContent" xml:lang="<?php echo $_SESSION['LANGUAGE']; ?>">
+	<script type="text/javascript" src="<?php echo BASE_URL; ?>/js/lightbox/js/prototype.js"></script>
+	<script type="text/javascript" src="<?php echo BASE_URL; ?>/js/lightbox/js/scriptaculous.js?load=effects,builder"></script>
+	<script type="text/javascript" src="<?php echo BASE_URL; ?>/js/lightbox/js/lightbox.js"></script>
 	<?php
 		include FRAMEWORK.'/errorMessages.inc';
 

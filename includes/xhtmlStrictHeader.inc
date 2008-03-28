@@ -33,9 +33,6 @@
 	<style type="text/css" media="screen">
 		@import url('<?php echo BASE_URL; ?>/js/lightbox/css/lightbox.css');
 	</style>
-	<script type="text/javascript" src="<?php echo BASE_URL; ?>/js/prototype.js"></script>
-	<script type="text/javascript" src="<?php echo BASE_URL; ?>/js/scriptaculous/src/scriptaculous.js?load=effects,builder"></script>
-	<script type="text/javascript" src="<?php echo BASE_URL; ?>/js/lightbox/js/lightbox.js"></script>
 
 	<?php
 		if (isset($this->document))
