@@ -142,7 +142,7 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 .sidebar .widget li.students-guide { background-image: url('images/icons/bullet_rec_orange.gif'); }
 .sidebar .widget li.visitors-guide { background-image: url('images/icons/bullet_rec_lgreen.gif'); }
 .sidebar .widget li.volunteers-guide { background-image: url('images/icons/bullet_rec_lblue.gif'); }
-.sidebar .widget li.voters-guide { background-image: url('images/icons/bullet_rec_lblue.gif'); }
+.sidebar .widget li.voters-guide { background-image: url('images/icons/bullet_rec_yellow.gif'); }
 
 /* styles for the Attachments Widget */
 .sidebar .attachments li { background-image:none; border-bottom:0; padding-left:0px; }
