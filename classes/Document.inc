@@ -445,13 +445,36 @@
 			}
 		}
 
-		public function isHomepage()
+		/**
+		 * Tells whether this document is a homepage.
+		 *
+		 * If you pass it a Section, it will tell you whether this document
+		 * is the homepage for that section.  Otherwise, it will tell you
+		 * if the document is a homepage for any of it's sections
+		 * @param Section $section
+		 */
+		public function isHomepage(Section $section=null)
 		{
-			foreach($this->getSections() as $section)
+			if ($section)
 			{
-				if ($section->getDocument_id() == $this->id) { return true; }
+				return $section->getDocument_id() == $this->id;
 			}
-			return false;
+			else
+			{
+				foreach($this->getSections() as $section)
+				{
+					if ($section->getDocument_id() == $this->id) { return true; }
+				}
+				return false;
+			}
+		}
+
+		/**
+		 * Gives you a list of Sections this document is the homepage of
+		 */
+		public function getHomeSections()
+		{
+			return new SectionList(array('homeDocument_id'=>$this->id));
 		}
 
 		/**

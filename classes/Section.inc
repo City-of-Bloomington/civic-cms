@@ -448,7 +448,22 @@ class Section extends ActiveRecord
 	public function getId() { return $this->id; }
 	public function getName() { return $this->name; }
 	public function getNickname() { return $this->nickname; }
+	/**
+	 * The section document is the Homepage for this section.
+	 *
+	 * Sections have many documents, only one of which is the homepage.
+	 * sectionDocument_id is the ID from the sectionDocuments table for the entry
+	 * for the home document
+	 * Not to be confused with the ID for the document itself
+	 */
 	public function getSectionDocument_id() { return $this->sectionDocument_id; }
+	/**
+	 * The section document is the Homepage for this section.
+	 *
+	 * Sections have many documents, only one of which is the homepage.
+	 * sectionDocument is the entry corresponding to the homepage
+	 * Not to be confused with the document itself
+	 */
 	public function getSectionDocument()
 	{
 		if ($this->sectionDocument_id && !$this->sectionDocument)
@@ -457,7 +472,13 @@ class Section extends ActiveRecord
 		}
 		return $this->sectionDocument;
 	}
+	/**
+	 * Returns the Home document for this section
+	 */
 	public function getDocument() { return $this->getSectionDocument()->getDocument(); }
+	/**
+	 * Returns the ID for the Home document of this section
+	 */
 	public function getDocument_id() { return $this->getDocument()->getId(); }
 	public function getHighlightSubscription() { return $this->highlightSubscription; }
 

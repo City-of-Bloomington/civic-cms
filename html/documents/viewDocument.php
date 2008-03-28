@@ -139,29 +139,29 @@
 
 
 		# If we're viewing the homepage of the current section
-		if (isset($currentSection) && $currentSection->getDocument_id() === $document->getId())
+		foreach($document->getHomeSections() as $section)
 		{
 			# Check for Featured Documents in this Section
 			$types = new DocumentTypeList();
 			$types->find();
 			foreach($types as $type)
 			{
-				$documentList = new DocumentList(array('documentType_id'=>$type->getId(),'section_id'=>$currentSection->getId(),'featured'=>1,'active'=>date('Y-m-d')));
+				$documentList = new DocumentList(array('documentType_id'=>$type->getId(),'section_id'=>$section->getId(),'featured'=>1,'active'=>date('Y-m-d')));
 				if (count($documentList))
 				{
 					$featuredDocuments = new Block('sections/featuredDocuments.inc');
 					$featuredDocuments->documentType = $type;
 					$featuredDocuments->documentList = $documentList;
-					$featuredDocuments->section = $currentSection;
+					$featuredDocuments->section = $section;
 
 					$template->blocks[] = $featuredDocuments;
 				}
 			}
 
 			# We don't want to show this box on the homepage for now
-			if ($currentSection->getId() != 1)
+			if ($section->getId() != 1)
 			{
-				$template->blocks[] = new Block('sections/documents.inc',array('section'=>$currentSection,'document'=>$document));
+				$template->blocks[] = new Block('sections/documents.inc',array('section'=>$section,'document'=>$document));
 			}
 		}
 	}

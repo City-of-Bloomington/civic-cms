@@ -75,12 +75,25 @@
 				$options[] = $fields['parent_id']=='null' ? "p.parent_id is null" : "p.parent_id=$fields[parent_id]";
 			}
 
+			/**
+			 * Use this field to get a list of all sections that include a certain document
+			 */
 			if (isset($fields['document_id']))
 			{
 				$this->joins.= " left join sectionDocuments d on s.id=d.section_id";
 				$options[] = "d.document_id='$fields[document_id]'";
 			}
 
+			/**
+			 * Use this field to get a list of all sections that have a certain document
+			 * as the Homepage for the Section.
+			 * There are many documents in a section, only one of them is the home
+			 */
+			 if (isset($fields['homeDocument_id']))
+			 {
+			 	$this->joins = " left join sectionDocuments home on s.sectionDocument_id=home.id";
+			 	$options[] = "home.document_id='$fields[homeDocument_id]'";
+			 }
 
 			$this->populateList($options);
 		}
