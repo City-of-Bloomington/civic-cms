@@ -3,7 +3,7 @@
  * @copyright Copyright (C) 2007-2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
- * @param char $this->letter
+ * @param char $this->letterGroup
  */
 ?>
 <div id="pageTitle">
@@ -15,45 +15,73 @@
 	<h1>A-Z Index</h1>
 </div>
 <div class="tabBar">
-<ul>
-<?php
-	$alphabet = array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z');
-	foreach($alphabet as $letter)
-	{
-		$class = ($this->letter == $letter) ? 'class="current"' : '';
-		echo "<li $class><a href=\"".BASE_URL."/documents/az_index.php?letter=$letter\">$letter</a></li>";
-	}
-?>
+<ul><li <?php if ($this->letterGroup=='A,B,C') echo 'class="current"'; ?>>
+		<a href="<?php echo BASE_URL; ?>/documents/az_index.php?letterGroup=A,B,C">A - C</a>
+	</li>
+	<li <?php if ($this->letterGroup=='D,E,F') echo 'class="current"'; ?>>
+		<a href="<?php echo BASE_URL; ?>/documents/az_index.php?letterGroup=D,E,F">D - F</a>
+	</li>
+	<li <?php if ($this->letterGroup=='G,H,I') echo 'class="current"'; ?>>
+		<a href="<?php echo BASE_URL; ?>/documents/az_index.php?letterGroup=G,H,I">G - I</a>
+	</li>
+	<li <?php if ($this->letterGroup=='J,K,L') echo 'class="current"'; ?>>
+		<a href="<?php echo BASE_URL; ?>/documents/az_index.php?letterGroup=J,K,L">J - L</a>
+	</li>
+	<li <?php if ($this->letterGroup=='M,N,O') echo 'class="current"'; ?>>
+		<a href="<?php echo BASE_URL; ?>/documents/az_index.php?letterGroup=M,N,O">M - O</a>
+	</li>
+	<li <?php if ($this->letterGroup=='P,Q,R') echo 'class="current"'; ?>>
+		<a href="<?php echo BASE_URL; ?>/documents/az_index.php?letterGroup=P,Q,R">P - R</a>
+	</li>
+	<li <?php if ($this->letterGroup=='S,T,U') echo 'class="current"'; ?>>
+		<a href="<?php echo BASE_URL; ?>/documents/az_index.php?letterGroup=S,T,U">S - U</a>
+	</li>
+	<li <?php if ($this->letterGroup=='V,W,X') echo 'class="current"'; ?>>
+		<a href="<?php echo BASE_URL; ?>/documents/az_index.php?letterGroup=V,W,X">V - X</a>
+	</li>
+	<li <?php if ($this->letterGroup=='Y-Z') echo 'class="current"'; ?>>
+		<a href="<?php echo BASE_URL; ?>/documents/az_index.php?letterGroup=Y,Z">Y - Z</a>
+	</li>
 </ul>
 </div>
 <?php
-	echo "<h1>{$this->letter}</h1>";
-
-	$service = new DocumentType('Service');
-	$list = new DocumentList(array('documentType_id'=>$service->getId(),'first_letter'=>$this->letter));
-	if (count($list))
+	$letterGroup = array();
+	$g = explode(',',$_GET['letterGroup']);
+	foreach($g as $l)
 	{
-		echo '<h3>Services</h3><ul>';
-		foreach($list as $document)
-		{
-			$title = View::escape($document->getTitle());
-			echo "<li><a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$document->getId()}\">$title</a></li>";
-		}
-		echo '</ul>';
+		$letterGroup[] = strtoupper(substr($l,0,1));
 	}
 
-	$list = new DepartmentList(array('first_letter'=>$this->letter));
-	if (count($list))
+	foreach($letterGroup as $letter)
 	{
-		echo '<h3>Departments</h3><ul>';
-		foreach($list as $department)
+		echo "<h2>$letter</h2>";
+
+		$service = new DocumentType('Service');
+		$list = new DocumentList(array('documentType_id'=>$service->getId(),'first_letter'=>$letter));
+		if (count($list))
 		{
-			if ($department->getDocument_id())
+			echo '<h3>Services</h3><ul>';
+			foreach($list as $document)
 			{
-				$title = View::escape($department->getDocument()->getTitle());
-				echo "<li><a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$department->getDocument()->getId()}\">$title</a></li>";
+				$title = View::escape($document->getTitle());
+				echo "<li><a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$document->getId()}\">$title</a></li>";
 			}
+			echo '</ul>';
 		}
-		echo '</ul>';
+
+		$list = new DepartmentList(array('first_letter'=>$letter));
+		if (count($list))
+		{
+			echo '<h3>Departments</h3><ul>';
+			foreach($list as $department)
+			{
+				if ($department->getDocument_id())
+				{
+					$title = View::escape($department->getDocument()->getTitle());
+					echo "<li><a href=\"".BASE_URL."/documents/viewDocument.php?document_id={$department->getDocument()->getId()}\">$title</a></li>";
+				}
+			}
+			echo '</ul>';
+		}
 	}
 ?>

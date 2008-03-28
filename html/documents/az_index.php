@@ -1,13 +1,12 @@
 <?php
 /**
- * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2007-2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param GET letter
  */
-	$letter = isset($_GET['letter']) ? substr($_GET['letter'],0,1) : 'A';
+if (!isset($_GET['letterGroup'])) { $_GET['letterGroup'] = 'A,B,C'; }
 
-	$template = new Template();
-	$template->blocks[] = new Block('documents/index.inc',array('letter'=>$letter));
-	echo $template->render();
-?>
+$template = new Template();
+$template->blocks[] = new Block('documents/index.inc',array('letterGroup'=>$_GET['letterGroup']));
+echo $template->render();
