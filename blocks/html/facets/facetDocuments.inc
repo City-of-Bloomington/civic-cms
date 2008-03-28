@@ -9,19 +9,24 @@ $description = WikiMarkup::parse($this->facet->getDescription());
 echo "
 <div>$description</div>
 <div class=\"table-of-contents\">
-	<ul>
+	<form method=\"get\">
+	<fieldset>
+		<label for=\"table-of-contents-anchor\">Table of Contents:</label>
+		<select name=\"anchor\" id=\"table-of-contents-anchor\" onchange=\"document.location.href='#'+this.options[this.selectedIndex].value;\">
 ";
-foreach($this->facet->getRelatedGroups() as $group)
-{
-	foreach($group->getFacets() as $facet)
-	{
-		$name = View::escape($facet->getName());
-		$anchor = WikiMarkup::wikify($facet->getName());
-		echo "<li><a href=\"#$anchor\">$name</a></li>\n";
-	}
-}
+		foreach($this->facet->getRelatedGroups() as $group)
+		{
+			foreach($group->getFacets() as $facet)
+			{
+				$name = View::escape($facet->getName());
+				$anchor = WikiMarkup::wikify($facet->getName());
+				echo "<option value=\"$anchor\">$name</option>\n";
+			}
+		}
 echo "
-	</ul>
+		</select>
+	</fieldset>
+	</form>
 </div>
 ";
 

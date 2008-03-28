@@ -38,14 +38,26 @@ echo "</ul></div>";
 # List all the documents, grouped by Facet - inside the current FacetGroup
 if (isset($this->facetGroup))
 {
-	echo '<div class="table-of-contents"><ul>';
-	foreach($this->facetGroup->getFacets() as $facet)
-	{
-		$name = View::escape($facet->getName());
-		$anchor = WikiMarkup::wikify($facet->getName());
-		echo "<li><a href=\"#$anchor\">$name</a></li>\n";
-	}
-	echo '</ul></div>';
+	echo "
+	<div class=\"table-of-contents\">
+		<form method=\"get\">
+		<fieldset>
+			<label for=\"table-of-contents-anchor\">Table of Contents:</label>
+			<select name=\"anchor\" id=\"table-of-contents-anchor\" onchange=\"document.location.href='#'+this.options[this.selectedIndex].value;\">
+	";
+			foreach($this->facetGroup->getFacets() as $facet)
+			{
+				$name = View::escape($facet->getName());
+				$anchor = WikiMarkup::wikify($facet->getName());
+				echo "<option value=\"$anchor\">$name</option>\n";
+			}
+	echo "
+			</select>
+		</fieldset>
+		</form>
+	</div>
+	";
+
 	foreach($this->facetGroup->getFacets() as $facet)
 	{
 		$documents = new DocumentList();
