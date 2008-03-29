@@ -22,7 +22,10 @@ class UpcomingEventsWidget extends Widget
 
 	public function render($template)
 	{
-		if ($this->isSectionBased)
+		# We want the Homepage to always display events from the entire site,
+		# even though this is usually a global widget and is marked as section-based
+		$isHomepage = (isset($template->document) && $template->document->getId()==1) ? true : false;
+		if ($this->isSectionBased && !$isHomepage)
 		{
 			$search = array();
 			if (isset($template->document))
@@ -42,7 +45,7 @@ class UpcomingEventsWidget extends Widget
 
 		$t = getdate();
 		$rangeStart = mktime(0,0,0,$t['mon'],$t['mday'],$t['year']);
-		$rangeEnd = strtotime('+7 days',$rangeStart);
+		$rangeEnd = strtotime("+{$this->numDays} days",$rangeStart);
 
 		$calendar = ($this->calendar_id > 0) ? new Calendar($this->calendar_id) : new Calendar();
 		$this->recurrenceArray = $calendar->getEventRecurrenceArray($rangeStart,$rangeEnd,$search);
