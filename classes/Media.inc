@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006-2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
@@ -202,7 +202,7 @@
 				# Otherwise, then the file is already in the system
 				if ($list[0]->getId() != $this->id)
 				{
-					throw new Exception('media/fileAlreadyExists');
+					throw new MediaException('media/fileAlreadyExists',$this->md5);
 				}
 			}
 
@@ -385,4 +385,17 @@
 
 		public function setDepartment($department) { $this->department_id = $department->getId(); $this->department = $department; }
 	}
-?>
+
+class MediaException extends Exception
+{
+	protected $md5;
+
+	public function __construct($message=null,$md5=null)
+	{
+		parent::__construct($message);
+
+		$this->md5 = $md5;
+	}
+
+	public function getMd5() { return $this->md5; }
+}

@@ -14,7 +14,8 @@
 			$error = $e->getMessage();
 			if (file_exists(APPLICATION_HOME."/blocks/html/errorMessages/$error.inc"))
 			{
-				include APPLICATION_HOME."/blocks/html/errorMessages/$error.inc";
+				$block = new Block("errorMessages/$error.inc",array('error'=>$e));
+				echo $block->render();
 			}
 			else
 			{

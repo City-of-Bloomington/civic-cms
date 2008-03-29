@@ -89,5 +89,13 @@
 			document.getElementById('attachment-media_id').value = media_id;
 			FRAMEWORK.processTabbedForm('documentForm','attachments','next');
 		}
+		// Fix Me
+		// This function exists only so we have the same named function that
+		// we use when we handle images.  Any error handling is currently going
+		// to try to call this function
+		function insert(media_id)
+		{
+			addAttachment(media_id);
+		}
 	</script>
 </div>

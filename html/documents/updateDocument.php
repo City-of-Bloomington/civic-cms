@@ -183,18 +183,7 @@
 			}
 			catch(Exception $e)
 			{
-				if ($e->getMessage()=='media/fileAlreadyExists')
-				{
-					try
-					{
-						$md5 = $attachment->getMd5();
-						$media = new Media($md5);
-						$_SESSION['document'][$instance_id]->attach($media);
-						$_SESSION['errorMessages'][] = new Exception('media/existingFileFound');
-					}
-					catch(Exception $e) { $_SESSION['errorMessages'][] = $e; }
-				}
-				else { $_SESSION['errorMessages'][] = $e; }
+				$_SESSION['errorMessages'][] = $e;
 			}
 		}
 		# Handle selecting existing media to attach
