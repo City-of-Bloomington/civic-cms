@@ -13,30 +13,20 @@ class RelatedSectionsWidget extends Widget
 		$this->className = 'RelatedSectionsWidget';
 		$this->displayName = 'Related Sections';
 		$this->includeFile = 'sidebar.inc';
-		$this->description = 'Shows other sections the current section is a child of';
+		$this->description = 'Shows other sections for the information being displayed';
 	}
 
+	/**
+	 * We want to show other sections for the document
+	 */
 	public function render($template)
 	{
-		global $section;
-		if ($section)
+		if (isset($template->document))
 		{
-			if (isset($template->document))
+			$this->sectionList = $template->document->getSections();
+			if (count($this->sectionList) > 1)
 			{
-				$sections = $section->getParents();
-				foreach($sections as $id=>$section)
-				{
-					if (in_array($id,array_keys($template->currentAncestors)))
-					{
-						unset($sections[$id]);
-					}
-				}
-				$this->sectionList = $sections;
-
-				if (count($this->sectionList))
-				{
-					echo $this->renderIncludeFile($this);
-				}
+				echo $this->renderIncludeFile($this);
 			}
 		}
 	}

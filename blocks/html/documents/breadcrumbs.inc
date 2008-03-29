@@ -23,29 +23,6 @@ echo "
 	</div>
 ";
 
-# List all the parents of the curent document as a related section
-# Don't try and show the full ancestral line of each of these
-if (count($this->document->getSections())>1)
-{
-	$relatedSections = array();
-	foreach($this->document->getSections() as $section)
-	{
-		if ($section->getId() != $currentSection)
-		{
-			$name = View::escape($section);
-			$relatedSections[] = "<a href=\"{$section->getURL()}\">$name</a>";
-		}
-	}
-	$relatedSections = implode(', ',$relatedSections);
-
-	echo "
-	<div class=\"related-sections\">
-		Related Sections:
-		$relatedSections
-	</div>
-	";
-}
-
 $title = View::escape($this->document->getTitle());
 echo "
 	<h1>$title</h1>
