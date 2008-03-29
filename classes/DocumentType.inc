@@ -171,7 +171,11 @@
 		public function setDefaultFacetGroup($facetGroup) { $this->defaultFacetGroup_id = $facetGroup->getId(); $this->defaultFacetGroup = $facetGroup; }
 		public function setDocumentInfoFields($array)
 		{
-			if (count($array)) { $this->documentInfoFields = $array; }
+			if (count($array))
+			{
+				ksort($array);
+				$this->documentInfoFields = $array;
+			}
 		}
 		public function setMedia_id($int) { $this->media = new Media($int); $this->media_id = $this->media->getId(); }
 		public function setMedia($media) { $this->media_id = $this->media->getId(); $this->media = $media; }

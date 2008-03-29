@@ -48,19 +48,17 @@
 <fieldset><legend>List Display Information</legend>
 <p>Choose the information you want to display when documents of this type
 are displayed in a list.</p>
-<div>
+<table>
 <?php
 	foreach(Document::getDisplayableFields() as $field=>$name)
 	{
 		echo "
-		<label>
-			<input name=\"documentType[documentInfoFields][]\" type=\"checkbox\" value=\"$field\" />
-			$name
-		</label>
+		<tr><td><input name=\"documentInfoFields[$field]\" id=\"documentInfoFields-$field\" size=\"2\" maxlength=\"2\" /></td>
+			<td><label for=\"documentInfoFields-$field\">$name</label></td></tr>
 		";
 	}
 ?>
-</div>
+</table>
 </fieldset>
 
 <fieldset><legend>Display Options</legend>
