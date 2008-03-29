@@ -76,7 +76,8 @@ as well as find driving directions, and information specific to a certain site.<
 
 					$title = "<h3 style=\"width:200px\">$n</h3>";
 					$desc = "<p style=\"width:200px\">$d</p>";
-					$directions = "<p>Get Directions: <a href=\"http://maps.google.com/?q=to:$n@{$location->getLatitude()},{$location->getLongitude()}\">To Here</a></p>";
+					$directionsURL = "http://maps.google.com/?q=to:$n@{$location->getLatitude()},{$location->getLongitude()}";
+					$directions = "<p>Get Directions: <a href=\"$directionsURL\" onclick=\"window.open(\'$directionsURL\');return false;\">To Here</a></p>";
 					$address = "<address>$a</address>";
 
 					$info[] = "'{$title}{$desc}{$a}{$directions}'";

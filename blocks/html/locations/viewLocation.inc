@@ -10,7 +10,8 @@ $address = View::escape($this->location->getAddress());
 $description = View::escape($this->location->getDescription());
 
 $n = addslashes($name);
-$directions = "Get Directions: <a href=\"http://maps.google.com/?q=to:$n@{$this->location->getLatitude()},{$this->location->getLongitude()}\">To $name</a>";
+$directionsURL = "http://maps.google.com/?q=to:$n@{$this->location->getLatitude()},{$this->location->getLongitude()}";
+$directions = "Get Directions: <a href=\"$directionsURL\" onclick=\"window.open('$directionsURL');return false;\">To $name</a>";
 
 $class = $this->location->isHandicapAccessible() ? 'class="handicap_accessible"' : '';
 
@@ -36,7 +37,9 @@ if (defined('GOOGLE_MAP_KEY'))
 <script type="text/javascript">
 	var point = new GLatLng(<?php echo $this->location->getLatitude(); ?>,<?php echo $this->location->getLongitude(); ?>);
 	<?php
+		# We need to add some more slashes to stuff we're putting inside of JavaScript strings for the map
 		$d = addslashes(str_replace(array("\r\n","\n","\r"),' ',$description));
+		$directions = "Get Directions: <a href=\"$directionsURL\" onclick=\"window.open(\'$directionsURL\');return false;\">To $name</a>";
 	?>
 	var info = '<?php echo "<h3 style=\"width:200px\">$n</h3><p style=\"width:200px\">$d</p><p>$directions</p>"; ?>';
 
