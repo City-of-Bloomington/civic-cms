@@ -147,6 +147,9 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 /* styles for the Attachments Widget */
 .sidebar .attachments li { background-image:none; border-bottom:0; padding-left:0px; }
 
+/* We want the navigation widget to be a different color, matching the TopLevelSections */
+.sidebar .navigation h1 { background:#013466 url('images/widgets/navigation_widget_top_bg.gif') top no-repeat !important; }
+
 .sidebar .calendar { width:190px; }
 .sidebar .calendar td { padding:2px; }
 

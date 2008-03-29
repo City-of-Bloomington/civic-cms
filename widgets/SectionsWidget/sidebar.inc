@@ -11,7 +11,7 @@
  * the user is, though.
  */
 ?>
-<div class="widget">
+<div class="navigation widget">
 	<h1>
 	<?php
 		echo View::escape($this->section->getName());

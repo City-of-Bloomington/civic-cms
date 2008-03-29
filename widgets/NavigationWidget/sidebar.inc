@@ -66,7 +66,7 @@
 		}
 	}
 ?>
-<div class="widget">
+<div class="navigation widget">
 	<h1>
 		<form method="get" action="<?php echo BASE_URL; ?>/search">
 		<fieldset>
