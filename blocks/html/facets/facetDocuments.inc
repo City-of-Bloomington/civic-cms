@@ -47,22 +47,20 @@ echo "
 					$name = View::escape($facet->getName());
 					$anchor = WikiMarkup::wikify($facet->getName());
 					echo "
-					<div class=\"interfaceBox\">
-						<h2><a id=\"$anchor\">$name</a></h2>
-						<ul>
+					<h2><a id=\"$anchor\">$name</a></h2>
+					<ul>
 					";
-						foreach($list as $document)
-						{
-							$displayedDocuments[$document->getId()] = $document;
+					foreach($list as $document)
+					{
+						$displayedDocuments[$document->getId()] = $document;
 
-							$title = $document->getFeature_title() ? $document->getFeature_title() : $document->getTitle();
-							$title = View::escape($title);
-							echo "<li><a href=\"{$document->getURL()}\">$title</a></li>\n";
-						}
+						$title = $document->getFeature_title() ? $document->getFeature_title() : $document->getTitle();
+						$title = View::escape($title);
+						echo "<li><a href=\"{$document->getURL()}\">$title</a></li>\n";
+					}
 					echo "
-						</ul>
-						<a href=\"#top\">[Top]</a>
-					</div>
+					</ul>
+					<a href=\"#top\">[Top]</a>
 					";
 				}
 			}
