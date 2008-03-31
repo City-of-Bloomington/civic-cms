@@ -14,16 +14,15 @@
 	$list->find();
 	foreach($list as $language)
 	{
-		# Don't bother showing English
-		if ($language->getCode()!= 'en')
-		{
-			# Find out how many documents we have
-			$list = new DocumentList(array('lang'=>$language->getCode()));
-			$count = count($list);
+		# Find out how many documents we have
+		$documentCount = $language->getNumDocuments();
 
+		# Don't bother showing English
+		if ($documentCount && $language->getCode()!= 'en')
+		{
 			echo "
 			<li><a href=\"".BASE_URL."/languages/documents.php?language={$language->getCode()}\">
-				{$language->getNative()} ({$language->getEnglish()}) ($count)</a>
+				{$language->getNative()} ({$language->getEnglish()}) ($documentCount)</a>
 			</li>
 			";
 		}
