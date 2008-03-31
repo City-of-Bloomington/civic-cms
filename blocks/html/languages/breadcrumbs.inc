@@ -5,7 +5,14 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Language $this->language (optional)
  */
-$title = isset($this->language) ? $this->language->getNative() : 'Translations';
+if (isset($this->language))
+{
+	$title = "{$this->language->getNative()} ({$this->language->getEnglish()})";
+}
+else
+{
+	$title = 'Translations';
+}
 ?>
 <div id="pageTitle">
 	<div class="breadcrumbs">
