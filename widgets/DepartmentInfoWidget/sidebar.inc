@@ -7,7 +7,7 @@
  */
 ?>
 <div class="widget">
-	<h1>Directory</h1>
+	<h1>Contact Info</h1>
 <table>
 <?php
 	$name = View::escape($this->department->getName());
