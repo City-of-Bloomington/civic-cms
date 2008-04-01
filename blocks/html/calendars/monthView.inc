@@ -15,26 +15,25 @@
 	$year = $date['year'];
 	$month = $date['mon'];
 ?>
-<div class="interfaceBox">
-	<h2>
-	<?php
-		$back = getdate(strtotime('-1 month',$start));
-		$next = getdate($end);
-		$url = new URL($_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
-
-		$url->year = $back['year'];
-		$url->mon = $back['mon'];
-		echo "<a class=\"previous\" href=\"$url\">Previous Month</a>";
-
-		$monthName = date('F',$start);
-		echo "{$this->calendar->getName()} $monthName $year";
-
-		$url->year = $next['year'];
-		$url->mon = $next['mon'];
-		echo "<a class=\"next\" href=\"$url\">Next Month</a>";
-	?>
-	</h2>
 <table class="calendar">
+<tr><th colspan="2">
+<?php
+	$back = getdate(strtotime('-1 month',$start));
+	$next = getdate($end);
+	$url = new URL($_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
+
+	$url->year = $back['year'];
+	$url->mon = $back['mon'];
+	echo "<a class=\"previous button\" href=\"$url\">Previous Month</a>";
+
+	$monthName = date('F',$start);
+	echo "{$this->calendar->getName()} $monthName $year";
+
+	$url->year = $next['year'];
+	$url->mon = $next['mon'];
+	echo "<a class=\"next button\" href=\"$url\">Next Month</a>";
+?>
+</th></tr>
 <?php
 	# Loop through all the days of the month
 	$day = 1;

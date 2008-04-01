@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2007-2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Section $this->section
@@ -17,8 +17,8 @@
 		{
 			$name = View::escape($widget->getName());
 			echo "
-			<tr><td><a class=\"editSmall\" href=\"".BASE_URL."/sections/updateWidget.php?sectionWidget_id={$widget->getId()}\">Edit</a>
-					<a class=\"deleteSmall\" href=\"".BASE_URL."/sections/removeWidget.php?sectionWidget_id={$widget->getId()}\">delete</a></td>
+			<tr><td><a class=\"editSmall button\" href=\"".BASE_URL."/sections/updateWidget.php?sectionWidget_id={$widget->getId()}\">Edit</a>
+					<a class=\"deleteSmall button\" href=\"".BASE_URL."/sections/removeWidget.php?sectionWidget_id={$widget->getId()}\">delete</a></td>
 				<td>$name</td>
 				<td>{$widget->getPanel()}</td>
 				<td>{$widget->getLayout_order()}</td></tr>
@@ -41,7 +41,7 @@
 				$name = View::escape($widget->getName());
 				$description = View::escape($widget->getDescription());
 				echo "
-				<tr><td><a class=\"addSmall\" href=\"".BASE_URL."/sections/addWidget.php?section_id={$this->section->getId()};widget_id={$widget->getId()}\">Add</a></td>
+				<tr><td><a class=\"addSmall button\" href=\"".BASE_URL."/sections/addWidget.php?section_id={$this->section->getId()};widget_id={$widget->getId()}\">Add</a></td>
 					<td>$name</td>
 					<td>$description</td></tr>
 				";

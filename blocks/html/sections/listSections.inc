@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2006,2007,2008 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006-2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Section $this->section
@@ -55,7 +55,7 @@
 		echo "
 		<h2>
 			Sections
-			<a href=\"".BASE_URL."/sections/addSection.php\" class=\"addSmall\">Add</a>
+			<a href=\"".BASE_URL."/sections/addSection.php\" class=\"addSmall button\">Add</a>
 		</h2>
 		";
 	}

@@ -13,7 +13,7 @@ if (isset($this->section))
 {
 	$rss = BASE_URL.'/sections/viewSection.php?format=rss;section_id='.$this->section->getId();
 	$rssButton = "
-	<li><a class=\"rss\"
+	<li><a class=\"rss button\"
 			href=\"$rss\"
 			onmouseover=\"FRAMEWORK.popupTooltip('Subscribe to this page');\"
 			onmouseout=\"FRAMEWORK.hideTooltip();\">
@@ -39,7 +39,7 @@ if (isset($_SESSION['USER']) && $this->document->permitsEditingBy($_SESSION['USE
 	$url->document_id = $this->document->getId();
 	$url->return_url = $return_url;
 	$editButton = "
-	<li><a class=\"editSmall\"
+	<li><a class=\"editSmall button\"
 			href=\"$url\"
 			onmouseover=\"FRAMEWORK.popupTooltip('Edit this document');\"
 			onmouseout=\"FRAMEWORK.hideTooltip();\">
@@ -74,7 +74,7 @@ if (isset($_SESSION['USER']) && $this->document->permitsEditingBy($_SESSION['USE
 	if($_SESSION['USER']->hasWatch($this->document))
 	{
 		$watchButton = "
-		<li><a class=\"unwatch\"
+		<li><a class=\"unwatch button\"
 				href=\"".BASE_URL."/documents/removeWatch.php?document_id={$this->document->getId()};return_url=$return_url\"
 				onmouseover=\"FRAMEWORK.popupTooltip('Stop watching this page.  You will no longer receive emails when changes are made to this page.');\"
 				onmouseout=\"FRAMEWORK.hideTooltip();\">
@@ -86,7 +86,7 @@ if (isset($_SESSION['USER']) && $this->document->permitsEditingBy($_SESSION['USE
 	else
 	{
 		$watchButton = "
-		<li><a class=\"watch\"
+		<li><a class=\"watch button\"
 				href=\"".BASE_URL."/documents/addWatch.php?document_id={$this->document->getId()};return_url=$return_url\"
 				onmouseover=\"FRAMEWORK.popupTooltip('Watch this page.  You will receive emails when changes are made to this page.');\"
 				onmouseout=\"FRAMEWORK.hideTooltip();\">

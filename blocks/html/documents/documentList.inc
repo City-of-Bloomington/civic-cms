@@ -121,17 +121,15 @@
 			if ($document->permitsEditingBy($_SESSION['USER']))
 			{
 				# Show all the editing buttons
-				#$url->parameters['tab'] = 'attachments';
-				# <a href=\"$url\" onclick=\"window.open('$url');return false;\">Attachments</a>
-				$retireButton = !$document->getRetireDate() ? "<a class=\"retire\" href=\"".BASE_URL."/documents/retireDocument.php?document_id={$document->getId()}\">Retire</a>" : "";
+				$retireButton = !$document->getRetireDate() ? "<a class=\"retire button\" href=\"".BASE_URL."/documents/retireDocument.php?document_id={$document->getId()}\">Retire</a>" : "";
 
 				if($_SESSION['USER']->hasWatch($document))
 				{
-					$watch = "<a class=\"unwatch\" href=\"".BASE_URL."/documents/removeWatch.php?document_id={$document->getId()}\">Unwatch</a>";
+					$watch = "<a class=\"unwatch button\" href=\"".BASE_URL."/documents/removeWatch.php?document_id={$document->getId()}\">Unwatch</a>";
 				}
 				else
 				{
-					$watch = "<a class=\"watch\" href=\"".BASE_URL."/documents/addWatch.php?document_id={$document->getId()}\">Watch</a>";
+					$watch = "<a class=\"watch button\" href=\"".BASE_URL."/documents/addWatch.php?document_id={$document->getId()}\">Watch</a>";
 				}
 
 				# Documents that are homepages should not be deleted.
@@ -140,8 +138,8 @@
 
 				echo "
 				<tr><td colspan=\"7\">
-						<a class=\"edit\" href=\"".BASE_URL."/documents/updateDocument.php?document_id={$document->getId()}\">Edit</a>
-						<a class=\"view\" href=\"{$document->getURL()}\">View</a>
+						<a class=\"edit button\" href=\"".BASE_URL."/documents/updateDocument.php?document_id={$document->getId()}\">Edit</a>
+						<a class=\"view button\" href=\"{$document->getURL()}\">View</a>
 						$deleteButton
 						$retireButton
 						$watch

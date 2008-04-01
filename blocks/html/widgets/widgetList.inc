@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006-2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham
  * @param WidgetInstallationList $this->widgetInstallationList
@@ -26,8 +26,8 @@
 		$name = View::escape($widget->getName());
 		$description = View::escape($widget->getDescription());
 		echo "
-		<tr><td><a class=\"editSmall\" href=\"".BASE_URL."/widgets/updateWidget.php?widget_id={$widget->getId()}\">Edit</a>
-				<a class=\"deleteSmall\" href=\"".BASE_URL."/widgets/uninstall.php?widget_id={$widget->getId()}\">Uninstall</a></td>
+		<tr><td><a class=\"editSmall button\" href=\"".BASE_URL."/widgets/updateWidget.php?widget_id={$widget->getId()}\">Edit</a>
+				<a class=\"deleteSmall button\" href=\"".BASE_URL."/widgets/uninstall.php?widget_id={$widget->getId()}\">Uninstall</a></td>
 			<td>$name</td>
 			<td>$description</td>
 			<td>$global</td>
@@ -52,7 +52,7 @@
 			$name = View::escape($widget->getName());
 			$description = View::escape($widget->getDescription());
 			echo "
-			<tr><td><a class=\"addSmall\" href=\"".BASE_URL."/widgets/install.php?widget={$widget->getClassName()}\">Install</a></td>
+			<tr><td><a class=\"addSmall button\" href=\"".BASE_URL."/widgets/install.php?widget={$widget->getClassName()}\">Install</a></td>
 				<td>$name</td>
 				<td>$description</td></tr>
 			";

@@ -18,7 +18,7 @@
 	<h1><?php
 			if (isset($_SESSION['USER']) && $this->calendar->permitsEditingBy($_SESSION['USER']))
 			{
-				echo "<a class=\"editSmall\" href=\"".BASE_URL."/calendars/updateCalendar.php?calendar_id={$this->calendar->getId()}\">Edit</a>";
+				echo "<a class=\"editSmall button\" href=\"".BASE_URL."/calendars/updateCalendar.php?calendar_id={$this->calendar->getId()}\">Edit</a>";
 			}
 			echo $this->calendar->getName() ? View::escape($this->calendar->getName()) : 'All Calendars';
 		?>

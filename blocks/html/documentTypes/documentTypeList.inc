@@ -16,7 +16,7 @@
 		echo '<li>';
 		if (userHasRole(array('Administrator','Webmaster')))
 		{
-			echo "<a class=\"editSmall\" href=\"".BASE_URL."/documentTypes/updateDocumentType.php?documentType_id={$type->getId()}\">Edit</a>";
+			echo "<a class=\"editSmall button\" href=\"".BASE_URL."/documentTypes/updateDocumentType.php?documentType_id={$type->getId()}\">Edit</a>";
 		}
 		echo View::escape($type->getType());
 		$count = count($type->getDocuments());

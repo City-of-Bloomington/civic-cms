@@ -44,14 +44,14 @@ as well as find driving directions, and information specific to a certain site.<
 			{
 				$add_url = new URL(BASE_URL.'/locations/updateLocation.php');
 				$add_url->return_url = $return_url;
-				echo "<a class=\"addSmall\" href=\"$add_url\">Add</a>";
+				echo "<a class=\"addSmall button\" href=\"$add_url\">Add</a>";
 			}
 
 			$url = new URL(BASE_URL.'/locations');
 			$url->format = 'kml';
 			$url->locationGroup_id = isset($this->locationGroup) ? $this->locationGroup->getId() : 0;
 			$title = View::escape($this->title);
-			echo "<a class=\"kmlFeed\" href=\"$url\">$title KML</a>";
+			echo "<a class=\"kmlFeed button\" href=\"$url\">$title KML</a>";
 
 			echo View::escape($this->title);
 		?>
@@ -83,7 +83,7 @@ as well as find driving directions, and information specific to a certain site.<
 					$info[] = "'{$title}{$desc}{$a}{$directions}'";
 
 					$i = count($points) - 1;
-					$mapButton = "<a href=\"#\" onclick=\"popup($i)\" class=\"reveal\">Reveal In Map</a>";
+					$mapButton = "<a href=\"#map\" onclick=\"popup($i)\" class=\"reveal button\">Reveal In Map</a>";
 				}
 				else { $mapButton = ''; }
 
@@ -93,7 +93,7 @@ as well as find driving directions, and information specific to a certain site.<
 					$edit_url = new URL(BASE_URL.'/locations/updateLocation.php');
 					$edit_url->location_id = $location->getId();
 					$edit_url->return_url = $return_url;
-					$editButton = "<a class=\"editSmall\" href=\"$edit_url\">Edit</a>";
+					$editButton = "<a class=\"editSmall button\" href=\"$edit_url\">Edit</a>";
 
 					$delete_url = new URL(BASE_URL.'/locations/deleteLocation.php');
 					$delete_url->location_id = $location->getId();

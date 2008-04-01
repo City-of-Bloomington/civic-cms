@@ -19,7 +19,7 @@
 		</ul>
 	</div>
 	<h2><?php
-			if (userHasRole('Administrator')) { echo "<a class=\"addSmall\" href=\"".BASE_URL."/users/addUser.php\">Add</a>"; }
+			if (userHasRole('Administrator')) { echo "<a class=\"addSmall button\" href=\"".BASE_URL."/users/addUser.php\">Add</a>"; }
 			echo $this->authenticationMethod.' Users';
 		?>
 	</h2>
@@ -29,7 +29,7 @@
 		{
 			if (userHasRole("Administrator"))
 			{
-				$editButton = "<a class=\"editSmall\" href=\"updateUser.php?id={$user->getId()}\">Edit</a>";
+				$editButton = "<a class=\"editSmall button\" href=\"updateUser.php?id={$user->getId()}\">Edit</a>";
 				$deleteButton = "<button type=\"button\" class=\"deleteSmall\" onclick=\"FRAMEWORK.deleteConfirmation('deleteUser.php?id={$user->getId()}');\">Delete</button>";
 			}
 			else

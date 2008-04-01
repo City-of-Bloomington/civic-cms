@@ -8,7 +8,7 @@
 <div class="interfaceBox">
 	<h2>
 		Backups
-		<a class="addSmall" href="<?php echo BASE_URL; ?>/backups/create.php">Add</a>
+		<a class="addSmall button" href="<?php echo BASE_URL; ?>/backups/create.php">Add</a>
 	</h2>
 	<table>
 	<?php
@@ -28,7 +28,7 @@
 
 			echo "
 			<tr><td>$backup</td>
-				<td><a class=\"download\" href=\"".BASE_URL."/backups/download.php?backup=$backup\">Download</a>
+				<td><a class=\"download button\" href=\"".BASE_URL."/backups/download.php?backup=$backup\">Download</a>
 				</td>
 			</tr>
 			";

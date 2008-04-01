@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006-2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Document $this->document
@@ -42,9 +42,6 @@
 				<h3>Information in $name</h3>
 				<ul>
 			";
-					#<a href=\"".BASE_URL."/sections/viewSection.php?section_id={$section->getId()};format=rss\" class=\"rss\">
-					#	<img src=\"".BASE_URL."/skins/default/images/feed-icon-14x14.png\" alt=\"RSS\" />
-					#</a>
 			# List the first five documents
 			$count = 0;
 			foreach($documents as $document)

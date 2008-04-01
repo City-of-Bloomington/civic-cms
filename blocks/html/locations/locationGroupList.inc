@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2007-2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param LocationGroupList $this->locationGroupList
@@ -11,7 +11,7 @@
 		<?php
 			if (userHasRole(array('Administrator','Webmaster')))
 			{
-				echo "<a class=\"addSmall\" href=\"".BASE_URL."/locations/addLocationGroup.php\">Add</a>";
+				echo "<a class=\"addSmall button\" href=\"".BASE_URL."/locations/addLocationGroup.php\">Add</a>";
 			}
 		?>
 		Location Groups
@@ -24,7 +24,7 @@
 				if (isset($_SESSION['USER']) && $locationGroup->permitsEditingBy($_SESSION['USER']))
 				{
 					$buttons = "
-					<a class=\"editSmall\" href=\"".BASE_URL."/locations/updateLocationGroup.php?id={$locationGroup->getId()}\">Edit</a>
+					<a class=\"editSmall button\" href=\"".BASE_URL."/locations/updateLocationGroup.php?id={$locationGroup->getId()}\">Edit</a>
 					<button type=\"button\" class=\"deleteSmall\" onclick=\"FRAMEWORK.deleteConfirmation('".BASE_URL."/locations/deleteLocationGroup.php?locationGroup_id={$locationGroup->getId()}');\">Delete</button>
 					";
 				}

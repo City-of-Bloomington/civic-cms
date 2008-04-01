@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2007-2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Section $this->section
@@ -17,7 +17,7 @@
 				{
 					echo "
 					<a href=\"$url\">$name</a>
-					<a class=\"addSmall\" href=\"$url\">Add</a>
+					<a class=\"addSmall button\" href=\"$url\">Add</a>
 					";
 				}
 				else { echo "<a href=\"#\">$name</a>"; }
@@ -51,7 +51,7 @@
 			{
 				echo "
 				<a href=\"$url\">$name</a>
-				<a class=\"addSmall\" href=\"$url\">Add</a>
+				<a class=\"addSmall button\" href=\"$url\">Add</a>
 				";
 			}
 			else { echo "<a href=\"#\">$name</a>"; }

@@ -24,7 +24,7 @@ if (isset($this->documentType))
 	<?php
 		if (userHasRole(array('Administrator','Webmaster')))
 		{
-			echo "<a class=\"addSmall\" href=\"".BASE_URL."/documentTypes/addDocumentType.php\">Add</a>";
+			echo "<a class=\"addSmall button\" href=\"".BASE_URL."/documentTypes/addDocumentType.php\">Add</a>";
 		}
 		echo "<a href=\"$href\">$title</a>";
 	?>

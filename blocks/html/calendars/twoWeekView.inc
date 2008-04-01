@@ -8,65 +8,63 @@
  * Display 14 days of events starting on the given date
  */
 ?>
-<div class="interfaceBox">
-	<h2>
-		<?php
-			$rangeStart = mktime(0,0,0,$this->date['mon'],$this->date['mday'],$this->date['year']);
-			$rangeEnd = strtotime('+14 day',$rangeStart);
-
-			$back = getdate(strtotime('-14 day',$rangeStart));
-			$url = new URL($_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
-			$url->parameters['mon'] = $back['mon'];
-			$url->parameters['mday'] = $back['mday'];
-			$url->parameters['year'] = $back['year'];
-			echo "<a class=\"previous\" href=\"$url\">Previous Two Weeks</a>";
-
-
-			echo date('M j,Y',$rangeStart).' to '.date('M j,Y',$rangeEnd);
-
-
-			$next = getdate($rangeEnd);
-			$url->parameters['mon'] = $next['mon'];
-			$url->parameters['mday'] = $next['mday'];
-			$url->parameters['year'] = $next['year'];
-			echo "<a class=\"next\" href=\"$url\">Next Two Weeks</a>";
-		?>
-	</h2>
-	<table class="calendar">
+<table class="calendar">
+<tr><th colspan="2">
 	<?php
-		for($i=0; $i<=14; $i++)
-		{
-			$timestamp = strtotime("+$i day",$rangeStart);
+		$rangeStart = mktime(0,0,0,$this->date['mon'],$this->date['mday'],$this->date['year']);
+		$rangeEnd = strtotime('+14 day',$rangeStart);
 
-			$date = getdate($timestamp);
-			$year = $date['year'];
-			$month = $date['mon'];
-			$day = $date['mday'];
-			$recurrences = $this->calendar->getEventRecurrenceArray($rangeStart,$rangeEnd);
+		$back = getdate(strtotime('-14 day',$rangeStart));
+		$url = new URL($_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
+		$url->parameters['mon'] = $back['mon'];
+		$url->parameters['mday'] = $back['mday'];
+		$url->parameters['year'] = $back['year'];
+		echo "<a class=\"previous button\" href=\"$url\">Previous Two Weeks</a>";
 
-			$currentDateString = date('D, M j',$timestamp);
-			$dayOfWeek = date('l',$timestamp);
-			$hasEvent = (isset($recurrences[$year][$month][$day]) && count($recurrences[$year][$month][$day])) ? ' hasEvent' : '';
-			echo "
-			<tr class=\"$dayOfWeek$hasEvent\"><th>$currentDateString</th>
-				<td>
-			";
-			if (isset($recurrences[$year][$month][$day]))
-			{
-				echo '<ul>';
-				foreach($recurrences[$year][$month][$day] as $recurrence)
-				{
-					$time = $recurrence->getEvent()->isAllDayEvent() ? '' : $recurrence->getStart('g:i A');
-					$title = View::escape($recurrence->getEvent()->getTitle());
-					echo "
-					<li><a href=\"".BASE_URL."/calendars/viewEvent.php?event_id={$recurrence->getEvent_id()};date=$year-$month-$day\">
-						$time $title</a></li>
-					";
-				}
-				echo '</ul>';
-			}
-			echo "</td></tr>";
-		}
+
+		echo date('M j,Y',$rangeStart).' to '.date('M j,Y',$rangeEnd);
+
+
+		$next = getdate($rangeEnd);
+		$url->parameters['mon'] = $next['mon'];
+		$url->parameters['mday'] = $next['mday'];
+		$url->parameters['year'] = $next['year'];
+		echo "<a class=\"next button\" href=\"$url\">Next Two Weeks</a>";
 	?>
-	</table>
-</div>
+</th></tr>
+<?php
+	for($i=0; $i<=14; $i++)
+	{
+		$timestamp = strtotime("+$i day",$rangeStart);
+
+		$date = getdate($timestamp);
+		$year = $date['year'];
+		$month = $date['mon'];
+		$day = $date['mday'];
+		$recurrences = $this->calendar->getEventRecurrenceArray($rangeStart,$rangeEnd);
+
+		$currentDateString = date('D, M j',$timestamp);
+		$dayOfWeek = date('l',$timestamp);
+		$hasEvent = (isset($recurrences[$year][$month][$day]) && count($recurrences[$year][$month][$day])) ? ' hasEvent' : '';
+		echo "
+		<tr class=\"$dayOfWeek$hasEvent\"><th>$currentDateString</th>
+			<td>
+		";
+		if (isset($recurrences[$year][$month][$day]))
+		{
+			echo '<ul>';
+			foreach($recurrences[$year][$month][$day] as $recurrence)
+			{
+				$time = $recurrence->getEvent()->isAllDayEvent() ? '' : $recurrence->getStart('g:i A');
+				$title = View::escape($recurrence->getEvent()->getTitle());
+				echo "
+				<li><a href=\"".BASE_URL."/calendars/viewEvent.php?event_id={$recurrence->getEvent_id()};date=$year-$month-$day\">
+					$time $title</a></li>
+				";
+			}
+			echo '</ul>';
+		}
+		echo "</td></tr>";
+	}
+?>
+</table>

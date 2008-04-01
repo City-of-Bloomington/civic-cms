@@ -7,14 +7,14 @@
 ?>
 <div class="interfaceBox">
 	<h2>
-		<a class="addSmall" href="<?php echo BASE_URL; ?>/locations/addLocationType.php">Add</a>
+		<a class="addSmall button" href="<?php echo BASE_URL; ?>/locations/addLocationType.php">Add</a>
 		Location Types
 	</h2>
 	<ul><?php
 			foreach($this->locationTypeList as $locationType)
 			{
 				echo "
-				<li><a class=\"editSmall\" href=\"".BASE_URL."/locations/updateLocationType.php?id={$locationType->getId()}\">Edit</a>
+				<li><a class=\"editSmall button\" href=\"".BASE_URL."/locations/updateLocationType.php?id={$locationType->getId()}\">Edit</a>
 					$locationType</li>
 				";
 			}

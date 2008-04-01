@@ -18,7 +18,7 @@
 
 				echo "
 				<li><a href=\"$url\">$name</a>
-					<a class=\"unsubscribe\"
+					<a class=\"unsubscribe button\"
 						href=\"".BASE_URL."/sections/subscriptions/unsubscribe.php?section_id={$subscription->getSection_id()};return_url=$return_url\"
 						onmouseover=\"FRAMEWORK.popupTooltip('Unsubscribe to this section.');\"
 						onmouseout=\"FRAMEWORK.hideTooltip();\">

@@ -7,58 +7,56 @@
  * @param array $this->date
  */
 ?>
-<div class="interfaceBox">
-	<h2>
-		<?php
-			$rangeStart = mktime(0,0,0,$this->date['mon'],$this->date['mday'],$this->date['year']);
-			$rangeEnd = strtotime('+1 day',$rangeStart);
-
-			$back = getdate(strtotime('-1 day',$rangeStart));
-			$next = getdate($rangeEnd);
-
-			$url = new URL($_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
-			$url->mon = $back['mon'];
-			$url->mday = $back['mday'];
-			$url->year = $back['year'];
-			echo "<a class=\"previous\" href=\"$url\">Previous Day</a>";
-
-			echo date('D, M j, Y',$rangeStart);
-
-			$url->mon = $next['mon'];
-			$url->mday = $next['mday'];
-			$url->year = $next['year'];
-			echo "<a class=\"next\" href=\"$url\">Next Day</a>";
-		?>
-	</h2>
-	<table>
+<table class="calendar">
+<tr><th colspan="2">
 	<?php
-		$year = $this->date['year'];
-		$month = $this->date['mon'];
-		$day = $this->date['mday'];
-		$recurrences = $this->calendar->getEventRecurrenceArray($rangeStart,$rangeEnd);
-		if (isset($recurrences[$year][$month][$day]))
+		$rangeStart = mktime(0,0,0,$this->date['mon'],$this->date['mday'],$this->date['year']);
+		$rangeEnd = strtotime('+1 day',$rangeStart);
+
+		$back = getdate(strtotime('-1 day',$rangeStart));
+		$next = getdate($rangeEnd);
+
+		$url = new URL($_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
+		$url->mon = $back['mon'];
+		$url->mday = $back['mday'];
+		$url->year = $back['year'];
+		echo "<a class=\"previous button\" href=\"$url\">Previous Day</a>";
+
+		echo date('D, M j, Y',$rangeStart);
+
+		$url->mon = $next['mon'];
+		$url->mday = $next['mday'];
+		$url->year = $next['year'];
+		echo "<a class=\"next button\" href=\"$url\">Next Day</a>";
+	?>
+</th></tr>
+<?php
+	$year = $this->date['year'];
+	$month = $this->date['mon'];
+	$day = $this->date['mday'];
+	$recurrences = $this->calendar->getEventRecurrenceArray($rangeStart,$rangeEnd);
+	if (isset($recurrences[$year][$month][$day]))
+	{
+		if (count($recurrences[$year][$month][$day]))
 		{
-			if (count($recurrences[$year][$month][$day]))
+			foreach($recurrences[$year][$month][$day] as $recurrence)
 			{
-				foreach($recurrences[$year][$month][$day] as $recurrence)
-				{
-					$time = $recurrence->getEvent()->isAllDayEvent() ? '' : $recurrence->getStart('g:i A');
-					$title = View::escape($recurrence->getEvent()->getTitle());
-					echo "
-					<tr><td>$time</td>
-						<td><a href=\"".BASE_URL."/calendars/viewEvent.php?event_id={$recurrence->getEvent_id()};date=$year-$month-$day\">
-							$title</a>
-						</td>
-					</tr>
-					";
-				}
+				$time = $recurrence->getEvent()->isAllDayEvent() ? '' : $recurrence->getStart('g:i A');
+				$title = View::escape($recurrence->getEvent()->getTitle());
+				echo "
+				<tr><td>$time</td>
+					<td><a href=\"".BASE_URL."/calendars/viewEvent.php?event_id={$recurrence->getEvent_id()};date=$year-$month-$day\">
+						$title</a>
+					</td>
+				</tr>
+				";
 			}
-			else { echo '<tr><td colspan="2">No events scheduled in this calendar</td></tr>'; }
 		}
 		else { echo '<tr><td colspan="2">No events scheduled in this calendar</td></tr>'; }
-	?>
-	</table>
-</div>
+	}
+	else { echo '<tr><td colspan="2">No events scheduled in this calendar</td></tr>'; }
+?>
+</table>
 <?php
 	/* Debug Code
 	echo '<ul>';

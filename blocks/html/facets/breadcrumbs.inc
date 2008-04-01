@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2007-2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Facet $this->facet (optional)
@@ -23,7 +23,7 @@ $title = isset($this->facet) ? View::escape($this->facet->getName()) : 'Facets';
 	<?php
 		if (userHasRole(array('Administrator','Webmaster')))
 		{
-			echo "<a class=\"addSmall\" href=\"".BASE_URL."/facets/addFacet.php\">Add</a>";
+			echo "<a class=\"addSmall button\" href=\"".BASE_URL."/facets/addFacet.php\">Add</a>";
 		}
 		echo $title;
 	?>

@@ -80,13 +80,17 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 
 /* Take Action */
 #banner .widgets { width:296px; height:24px; position:relative; top:98px; left:16px; padding-top:4px; }
-#banner .widgets h1 { display:inline; margin-left:7px; font-weight:bold; font-size:11px; color:#006600; }
+#banner .widgets h1 { display:inline; margin-left:7px; font-weight:bold; font-size:11px; color:black; }
 #banner .widgets ul,#banner .widgets li { display:inline; }
-#banner .widgets a { font-weight:bold; color:#033266; font-size:11px; }
+#banner .widgets a { font-weight:bold; font-size:11px; }
 #banner .take-action .do { margin-left:30px; }
+#banner .take-action .do a { color:#006600; }
 #banner .take-action .report { margin-left:12px; }
+#banner .take-action .report a { color:#c2221c; }
 #banner .take-action .ask { margin-left:13px; }
+#banner .take-action .ask a { color:#7627c4; }
 #banner .take-action .explore { margin-left:13px; }
+#banner .take-action .explore a { color:#da5700; }
 
 #mainLinks { width:326px; height:30px; position:absolute; top:10px; left:348px; padding-top:6px; padding-left:4px; }
 #mainLinks ul, #mainLinks li { display:inline; }
@@ -271,36 +275,41 @@ button.deleteSmall { width:15px; height:15px; padding-top:15px; background: url(
 button.excel { width:16px; height:16px; padding-top:16px; background: url('../default/images/excel.gif') no-repeat; border:0; }
 button.printSmall { width:16px; height:16px; padding-top:16px; background: url('images/pagetools/print.gif') no-repeat; border:0; }
 
+/* All hrefs that are to be rendered as buttons need to include the button class. */
+/* Technique taken from http://www.evotech.net/blog/2007/09/css-image-replacement-method */
+a.button {
+	display:-moz-inline-box; /* Fix for Mozilla */
+	display:inline-block;
+	background:transparent none 0 0 no-repeat;
+	text-indent:-9999px;
+	font:0/0 Arial; /* Fix for Safari, With just font-size:0, Safari renders a 1px underline */
+	overflow:hidden;
+	vertical-align:bottom;
+}
+
 /* Image Replacements for hrefs that are to be rendered as buttons */
-a.addSmall { width:15px; height:15px; padding:7px; background: url('../default/images/addSmall.gif') no-repeat; font-size:0 !important; }
-a.editSmall { width:15px; height:15px; padding:7px; background: url('../default/images/editSmall.gif') no-repeat; font-size:0 !important; }
-a.deleteSmall { width:15px; height:15px; padding:7px; background: url('../default/images/deleteSmall.gif') no-repeat; font-size:0 !important; }
+a.addSmall { width:15px; height:15px; background-image:url('../default/images/addSmall.gif'); }
+a.editSmall { width:15px; height:15px; background-image:url('../default/images/editSmall.gif'); }
+a.deleteSmall { width:15px; height:15px; background-image:url('../default/images/deleteSmall.gif'); }
 
-a.up { width:16px; height:16px; padding:8px; background: url('../default/images/up.png') no-repeat; font-size:0 !important; }
-a.down { width:16px; height:16px; padding:8px; background: url('../default/images/down.png') no-repeat; font-size:0 !important; }
-a.rssSmall { width:14px; height:14px; padding:7px; background:url('../default/images/feed-icon-14x14.png') no-repeat; font-size:0 !important; }
-a.rss { width:28px; height:28px; padding:14px; background: url('../default/images/feed-icon-28x28.png') no-repeat; font-size:0 !important; }
-a.ical { width:16px; height:16px; padding:8px; background: url('../default/images/date.png') no-repeat; font-size:0 !important; }
-a.kmlFeed { width:16px; height:16px; padding:8px; background: url('../default/images/kml_feed_small.png') no-repeat; font-size:0 !important; }
+a.up { width:16px; height:16px; background-image:url('../default/images/up.png'); }
+a.down { width:16px; height:16px; background-image:url('../default/images/down.png'); }
+a.rssSmall { width:14px; height:14px; background-image:url('../default/images/feed-icon-14x14.png'); }
+a.rss { width:28px; height:28px; background-image:url('../default/images/feed-icon-28x28.png'); }
+a.ical { width:16px; height:16px; background-image:url('../default/images/date.png'); }
+a.kmlFeed { width:16px; height:16px; background-image:url('../default/images/kml_feed_small.png'); }
 
-a.day { width:16px; height:14px; padding:8px; background: url('../default/images/calendar/day.png') no-repeat; font-size:0 !important; }
-a.week { width:16px; height:14px; padding:8px; background: url('../default/images/calendar/week.png') no-repeat; font-size:0 !important; }
-a.twoweek { width:16px; height:14px; padding:8px; background: url('../default/images/calendar/twoweek.png') no-repeat; font-size:0 !important; }
-a.month { width:16px; height:14px; padding:8px; background: url('../default/images/calendar/month.png') no-repeat; font-size:0 !important; }
+a.previous { width:16px; height:16px; background-image:url('../default/images/previous.png'); }
+a.next { width:16px; height:16px; background-image:url('../default/images/next.png'); }
+a.first { width:22px; height:22px; background-image:url('../default/images/player_start.png'); }
+a.last { width:22px; height:22px; background-image:url('../default/images/player_end.png'); }
 
-/*
-a.previous { width:22px; height:22px; padding:11px; background: url('../default/images/previous.png') no-repeat; font-size:0 !important; }
-a.next { width:22px; height:22px; padding:11px; background: url('../default/images/next.png') no-repeat; font-size:0 !important; }
-a.first { width:22px; height:22px; padding:11px; background: url('../default/images/player_start.png') no-repeat; font-size:0 !important; }
-a.last { width:22px; height:22px; padding:11px; background: url('../default/images/player_end.png') no-repeat; font-size:0 !important; }
-*/
-
-a.subscribe { width:22px; height:22px; padding:11px; background: url('images/buttons/x.gif') no-repeat; font-size:0 !important; }
-a.unsubscribe { width:22px; height:22px; padding:11px; background: url('images/buttons/checkmark.gif') no-repeat; font-size:0 !important; }
-a.notify { width:22px; height:22px; padding:11px; background: url('../default/images/mail_send.png') no-repeat; font-size:0 !important; }
-a.watch { width:22px; height:22px; padding:11px; background: url('../default/images/mail_get.png') no-repeat; font-size:0 !important; }
-a.unwatch { width:22px; height:22px; padding:11px; background: url('../default/images/mail_delete.png') no-repeat; font-size:0 !important; }
-a.reveal { width:12px; height:12px; padding:6px; background:url('images/icons/reveal_in_map.gif') no-repeat; font-size:0 !important; }
+a.subscribe { width:22px; height:22px; background-image:url('images/buttons/x.gif'); }
+a.unsubscribe { width:22px; height:22px; background-image:url('images/buttons/checkmark.gif'); }
+a.notify { width:22px; height:22px; background-image:url('../default/images/mail_send.png'); }
+a.watch { width:22px; height:22px; background-image:url('../default/images/mail_get.png'); }
+a.unwatch { width:22px; height:22px; background-image:url('../default/images/mail_delete.png'); }
+a.reveal { width:12px; height:12px; background-image:url('images/icons/reveal_in_map.gif'); }
 
 /* ICONS FOR MIME TYPES */
 .jpg { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/image.png') no-repeat; }

@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2007-2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Media $this->media
@@ -13,7 +13,7 @@
 		if ($this->media->permitsEditingBy($_SESSION['USER']))
 		{
 			echo "
-			<a class=\"editSmall\" href=\"".BASE_URL."/media/updateMedia.php?media_id={$this->media->getId()}\">Edit</a>
+			<a class=\"editSmall button\" href=\"".BASE_URL."/media/updateMedia.php?media_id={$this->media->getId()}\">Edit</a>
 			<button type=\"button\" class=\"deleteSmall\" onclick=\"FRAMEWORK.deleteConfirmation('".BASE_URL."/media/deleteMedia.php?media_id={$this->media->getId()}');\">Delete</button>
 			";
 		}

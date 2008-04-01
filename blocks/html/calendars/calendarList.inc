@@ -10,7 +10,7 @@
 		<?php
 			if (userHasRole(array('Administrator','Webmaster')))
 			{
-				echo "<a class=\"addSmall\" href=\"".BASE_URL."/calendars/addCalendar.php\">Add</a>";
+				echo "<a class=\"addSmall button\" href=\"".BASE_URL."/calendars/addCalendar.php\">Add</a>";
 			}
 		?>
 		<a href="<?php echo BASE_URL; ?>/calendars">Calendars</a>
@@ -24,7 +24,7 @@
 
 				if (isset($_SESSION['USER']) && $calendar->permitsEditingBy($_SESSION['USER']))
 				{
-					$editButton = "<a class=\"editSmall\" href=\"".BASE_URL."/calendars/updateCalendar.php?id={$calendar->getId()}\">Edit</a>";
+					$editButton = "<a class=\"editSmall button\" href=\"".BASE_URL."/calendars/updateCalendar.php?id={$calendar->getId()}\">Edit</a>";
 				}
 				else { $editButton = ''; }
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2007,2008 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2007-2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Section $this->section
@@ -21,7 +21,7 @@
 </ul>
 
 <h3>Parents
-	<a class="addSmall" href="<?php echo BASE_URL; ?>/sections/addParent.php?section_id=<?php echo $this->section->getId(); ?>">Add</a>
+	<a class="addSmall button" href="<?php echo BASE_URL; ?>/sections/addParent.php?section_id=<?php echo $this->section->getId(); ?>">Add</a>
 </h3>
 <ul>
 <?php
@@ -31,7 +31,7 @@
 		$name = View::escape($parent->getName());
 		echo "
 		<li>$name
-			<a class=\"deleteSmall\" href=\"".BASE_URL."/sections/removeParent.php?sectionNode_id={$node->getId()}\">Remove</a>
+			<a class=\"deleteSmall button\" href=\"".BASE_URL."/sections/removeParent.php?sectionNode_id={$node->getId()}\">Remove</a>
 		</li>
 		";
 	}

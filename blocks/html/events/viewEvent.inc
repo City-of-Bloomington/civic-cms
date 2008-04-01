@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006-2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Event $this->event
@@ -12,7 +12,7 @@
 	if (isset($_SESSION['USER']) && $this->event->permitsEditingBy($_SESSION['USER']))
 	{
 		echo "
-		<a class=\"editSmall\" href=\"".BASE_URL."/events/updateEvent.php?event_id={$this->event->getId()};return_url={$this->event->getURL()}\">Edit</a>
+		<a class=\"editSmall button\" href=\"".BASE_URL."/events/updateEvent.php?event_id={$this->event->getId()};return_url={$this->event->getURL()}\">Edit</a>
 		<button type=\"button\" class=\"deleteSmall\" onclick=\"FRAMEWORK.deleteConfirmation('".BASE_URL."/events/deleteEvent.php?event_id={$this->event->getId()}');\">Delete</button>
 		";
 	}

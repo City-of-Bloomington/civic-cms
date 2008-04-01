@@ -37,7 +37,7 @@
 			$url->section_id = $section->getId();
 			$url->return_url = $return_url;
 			$notifyButton = "
-			<a class=\"notify\"
+			<a class=\"notify button\"
 				href=\"$url\"
 				onmouseover=\"FRAMEWORK.popupTooltip('Notify Subscribers.  This will send an email out to all people subscribed to this section.');\"
 				onmouseout=\"FRAMEWORK.hideTooltip();\">
