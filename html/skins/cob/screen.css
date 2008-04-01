@@ -65,6 +65,7 @@ span.image { display:block; text-align:center; margin:0 15px 5px 15px; }
 span.thumbnail {  }
 span.image img { border:1px solid #999999; }
 span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e0e0; }
+#pageBanner img { border:1px solid #999999; }
 
 
 
