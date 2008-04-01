@@ -121,7 +121,7 @@
 			if ($document->permitsEditingBy($_SESSION['USER']))
 			{
 				# Show all the editing buttons
-				$retireButton = !$document->getRetireDate() ? "<a class=\"retire button\" href=\"".BASE_URL."/documents/retireDocument.php?document_id={$document->getId()}\">Retire</a>" : "";
+				$retireButton = !$document->getRetireDate() ? "<a class=\"retire\" href=\"".BASE_URL."/documents/retireDocument.php?document_id={$document->getId()}\">Retire</a>" : "";
 
 				if($_SESSION['USER']->hasWatch($document))
 				{
@@ -138,8 +138,8 @@
 
 				echo "
 				<tr><td colspan=\"7\">
-						<a class=\"edit button\" href=\"".BASE_URL."/documents/updateDocument.php?document_id={$document->getId()}\">Edit</a>
-						<a class=\"view button\" href=\"{$document->getURL()}\">View</a>
+						<a class=\"edit\" href=\"".BASE_URL."/documents/updateDocument.php?document_id={$document->getId()}\">Edit</a>
+						<a class=\"view\" href=\"{$document->getURL()}\">View</a>
 						$deleteButton
 						$retireButton
 						$watch
