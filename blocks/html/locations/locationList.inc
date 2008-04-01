@@ -74,8 +74,8 @@ as well as find driving directions, and information specific to a certain site.<
 					$d = addslashes(str_replace(array("\r\n","\n","\r"),' ',$description));
 					$a = addslashes($location->getAddress());
 
-					$title = "<h3 style=\"width:200px\">$n</h3>";
-					$desc = "<p style=\"width:200px\">$d</p>";
+					$title = "<h3>$n</h3>";
+					$desc = "<p>$d</p>";
 					$directionsURL = "http://maps.google.com/?q=to:$n@{$location->getLatitude()},{$location->getLongitude()}";
 					$directions = "<p>Get Directions: <a href=\"$directionsURL\" onclick=\"window.open(\'$directionsURL\');return false;\">To Here</a></p>";
 					$address = "<address>$a</address>";
@@ -167,7 +167,7 @@ as well as find driving directions, and information specific to a certain site.<
 	{
 		if (map)
 		{
-			map.openInfoWindowHtml(points[point],info[point]);
+			map.openInfoWindowHtml(points[point],info[point],{'maxWidth':350});
 			return false;
 		}
 		else { return true; }
