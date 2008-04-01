@@ -693,7 +693,7 @@
 		 */
 		public function getURL()
 		{
-			return BASE_URL.'/documents/viewDocument.php?document_id='.$this->id;
+			return new URL(BASE_URL.'/documents/viewDocument.php?document_id='.$this->id);
 		}
 
 		/**
