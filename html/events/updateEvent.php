@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2007-2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param GET event_id
@@ -69,10 +69,10 @@
 			switch($_SESSION['event'][$instance_id]->getRrule_freq())
 			{
 				case 'DAILY':
-					$_SESSION['event'][$instance_id]->setRrule_interval = $_POST['daily_interval'];
+					$_SESSION['event'][$instance_id]->setRrule_interval($_POST['daily_interval']);
 					break;
 				case 'WEEKLY':
-					$_SESSION['event'][$instance_id]->setRrule_interval = $_POST['weekly_interval'];
+					$_SESSION['event'][$instance_id]->setRrule_interval($_POST['weekly_interval']);
 					if (isset($_POST['weekly']['BYDAY']))
 					{
 						$byday = array();
@@ -96,10 +96,10 @@
 							$_SESSION['event'][$instance_id]->setRrule_interval($_POST['monthly_interval']);
 							break;
 					}
-					if ($_POST['rrule_end_type']=='count') { $_SESSION['event'][$instance_id]->setRrule_count($_POST['count']); }
-					elseif($_POST['rrule_end_type']=='until') { $_SESSION['event'][$instance_id]->setRrule_until($_POST['until']); }
 					break;
 			}
+			if ($_POST['rrule_end_type']=='count') { $_SESSION['event'][$instance_id]->setRrule_count($_POST['count']); }
+			elseif($_POST['rrule_end_type']=='until') { $_SESSION['event'][$instance_id]->setRrule_until($_POST['until']); }
 		}
 
 		# Choosing from the Full User Contact list should override
@@ -145,4 +145,3 @@
 	$template->blocks[] = $tabs;
 	$template->blocks[] = $form;
 	echo $template->render();
-?>
