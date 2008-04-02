@@ -1,0 +1,319 @@
+/* CSS styles for printer friendly page */
+
+body { font-family: Arial, Helvetica, sans-serif; font-size:12px; color:#000000; background-color:#ffdca8; height:100%; width:640px; margin:0 auto; min-height:100%; text-align:left; }
+
+/* DEFAULT TEXT LINKS */
+a { color:#000000; text-decoration:none; }
+
+hr { border:0; height:1px; background-color:#000000; margin-bottom:10px; margin-top:10px; }
+
+p { margin:0; margin-bottom:.5em; }
+
+h1 { font-size:18px; color:#000000; margin:0; padding:0; font-weight:bold; clear:both; }
+h2 { font-size:16px; color:#000000;  margin:15px 0px 5px 0px; font-weight:bold; border-bottom:1px solid #bdbdbd; clear:both; }
+h2 a { color:#000000; }
+h3 { font-size:14px; color:#000000; margin:15px 0px 5px 0px; padding:0; font-weight:bold; clear:both; }
+h3 a { color:#000000; }
+h4 { font-size:13px; color:#000000; margin:15px 0px 5px 0px; padding:0; font-weight:bold; clear:both; }
+h4 a { color:#000000; }
+h5 { font-size:13px; color:#000000; margin:15px 0px 5px 0px; padding:0; font-weight:bold; clear:both; }
+h5 a { color:#000000; }
+h6 { font-size:12px; color:#000000; margin:15px 0px 5px 0px; font-weight:bold; clear:both; }
+h6 a { color:#000000; }
+
+strong { font-weight:bold; }
+u { text-decoration:underline; }
+em { font-style:italic; }
+sub { vertical-align:sub; }
+sup { vertical-align:super; }
+code { font-family:monospace; }
+address { font-style:normal; }
+
+dt { font-weight:bold; }
+
+blockquote { margin:1em 40px; }
+
+form { }
+fieldset { margin-bottom:10px; }
+legend { background-color:#5a8fdc; font-weight:bold; padding:4px; color:white; }
+label { font-weight:bold; }
+select { font-size:12px; }
+textarea { }
+input { }
+
+table { border-collapse:collapse; border:1px solid #999999; }
+tr { vertical-align:top; }
+td { padding:.5em; background-color:inherit; border:1px solid #999999; }
+th { text-align:left; border:1px solid #999999; background-color:#e0e0e0; padding:.5em; vertical-align: top; font-weight:bold; }
+th a { color:#3366cc; background-color:inherit; }
+
+.comments { color:red; background-color:inherit; }
+.money { text-align:right; }
+.void,.void td { text-decoration:line-through; }
+.total { border-top:1px solid black; text-align:right; }
+.total td { padding-bottom:1em; }
+.instructions { }
+.unpublished { text-decoration:line-through; color:#999999; }
+.current { font-weight:bold; }
+
+
+img { border:0; }
+span.image { display:block; text-align:center; margin:0 15px 5px 15px; }
+span.thumbnail {  }
+span.image img { border:1px solid #999999; }
+span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e0e0; }
+#pageBanner img { border:1px solid #999999; }
+
+
+
+#banner { padding-top:10px; }
+
+#logo { font-family: Arial, Helvetica, sans-serif; font-size:24px; color:#000000; font-weight:bold; margin:0; padding:0; }
+
+#skipNavigation { position:absolute; left:-9999px; }
+
+/* Take Action */
+#banner .widgets { display:none; }
+#mainLinks { display:none; }
+
+#secondaryLinks { display:none; }
+
+#topLevelSections { display:none; }
+
+#main-content-container { padding-top:10px; }
+.sidebar { display:none; }
+#leftSidebar { display:none; }
+#rightSidebar { display:none; }
+
+#pageTools { display:none; }
+
+/*  mainContent allows for 3 columns,	*/
+/*	backendContent allows for 2 columns	*/
+#mainContent { font-size:12px; line-height:1.25; }
+#backendContent { font-size:12px; }
+
+
+#pageTitle { margin-bottom:10px; padding-top:5px; }
+#pageTitle h1 { padding-left:10px; padding-bottom:8px; }
+.breadcrumbs { display:none; }
+
+.interfaceBox { border-top:1px solid #003366; margin-top:10px; margin-bottom:10px; padding-top:6px; }
+.interfaceBox h1 { font-size:14px; border-bottom:none; }
+.interfaceBox h2 { font-size:14px; border-bottom:none; }
+
+#footer { display:none; }
+
+
+/* adds 5px spacing for list items in the content area. does not affect other list items in the layout such as nav and widgets */
+#mainContent li { margin:5px; }
+
+
+/* defines table styles for tables in the center column / content area. Will not affect other tables like the calendar */
+#mainContent table { border-collapse:collapse; border:1px solid #999999; }
+#mainContent tr { vertical-align:top; }
+#mainContent td { padding:.5em; background-color:inherit; border:1px solid #999999; vertical-align:top; }
+#mainContent th { text-align:left; background-color:#e0e0e0; padding:.5em; border:1px solid #999999; vertical-align: top; font-weight:bold; }
+#mainContent th a { color:#3366cc; background-color:inherit; }
+
+/* HANAPIN - STYLES FOR EVENTS SECTION */
+/* Calendars MUST BE marked up as tables */
+.calendar { border:0; width:100%; background-color:white; font-size:12px; }
+.calendar tr { }
+.calendar th { border:0; text-align:left; font-size:12px; font-weight:bold; }
+.calendar td { border:0; text-align:left; font-size:12px; }
+.calendar .date { padding:0; border:0; }
+.calendar ul { list-style-type:none; margin:0; padding:0; }
+.calendar li { margin-bottom:.8em; }
+.calendar .Sunday { }
+.calendar .Saturday {  }
+.calendar .Monday { }
+.calendar .Tuesday { }
+.calendar .Wednesday { }
+.calendar .Thursday { }
+.calendar .Friday { }
+
+.calendar .hasEvent { }
+.calendar .hasEvent a { background-color:white; color:#3399cc; }
+.calendar .hasEvent a:hover { text-decoration:underline; }
+
+/* Sidebar Widget Calendars */
+.widget .calendar { text-align:center; }
+.widget .calendar th { text-align:center; background-color:#c2daff; }
+.widget .calendar td { text-align:center; }
+.widget .calendar li { margin:0; }
+.widget .Month { color:#003366; background-color:#c2daff; }
+.widget .Sunday { background-color:#e6eef9; }
+.widget .Saturday { background-color:#e6eef9; }
+.widget .Monday {}
+.widget .Tuesday {}
+.widget .Wednesday {}
+.widget .Thursday {}
+.widget .Friday {}
+.widget .hasEvent { background-color:#9cbae0; color:#000000; font-weight:bold;  }
+.widget .hasEvent a { background-color:#9cbae0; color:#000000; font-weight:bold; }
+.widget .hasEvent a:hover { text-decoration:none; }
+
+
+
+
+/* JavaScript Tree Generator Styles */
+/* Turn off list bullets */
+ul.mktree  li { list-style: none; }
+/* Control how "spaced out" the tree is */
+ul.mktree, ul.mktree ul , ul.mktree li { margin-left:10px; padding:0px; }
+/* Provide space for our own "bullet" inside the LI */
+ul.mktree  li .bullet { padding-left: 15px; }
+/* Show "bullets" in the links, depending on the class of the LI that the link's in */
+ul.mktree li.liOpen .bullet { cursor: pointer; background: url('../default/images/expanded.gif') center left no-repeat; }
+ul.mktree li.liClosed .bullet { cursor: pointer; background: url('../default/images/collapsed.gif') center left no-repeat; }
+ul.mktree li.bullet .bullet { cursor: default; background: url('../default/images/bullet.gif') center left no-repeat; }
+/* Sublists are visible or not based on class of parent LI */
+ul.mktree li.liOpen ul { display: block; }
+ul.mktree li.liClosed ul { display: none; }
+
+/* Table of Contents styles */
+/* HANAPIN  - created new styles for TOC - using drop down list menu*/
+.table-of-contents { padding-bottom:10px; padding-top:10px; }
+.table-of-contents ul { list-style-type:none; }
+.table-of-contents li { display:inline; }
+.table-of-contents .title { font-size:12px; color:#000000; float:left; width:120px; font-weight:bold; }
+
+
+/*  Custom buttons for forms */
+button { cursor:pointer; overflow:hidden; vertical-align:middle; }
+button.addSmall { width:15px; height:15px; padding-top:15px; background: url('../default/images/addSmall.gif') no-repeat; border:0; }
+button.deleteSmall { width:15px; height:15px; padding-top:15px; background: url('../default/images/deleteSmall.gif') no-repeat; border:0; }
+button.excel { width:16px; height:16px; padding-top:16px; background: url('../default/images/excel.gif') no-repeat; border:0; }
+button.printSmall { width:16px; height:16px; padding-top:16px; background: url('../cob/images/pagetools/print.gif') no-repeat; border:0; }
+
+/* All hrefs that are to be rendered as buttons need to include the button class. */
+/* Technique taken from http://www.evotech.net/blog/2007/09/css-image-replacement-method */
+a.button {
+	display:-moz-inline-box; /* Fix for Mozilla */
+	display:inline-block;
+	background:transparent none 0 0 no-repeat;
+	text-indent:-9999px;
+	font:0/0 Arial; /* Fix for Safari, With just font-size:0, Safari renders a 1px underline */
+	overflow:hidden;
+	vertical-align:bottom;
+}
+
+/* Image Replacements for hrefs that are to be rendered as buttons */
+a.addSmall { width:15px; height:15px; background-image:url('../default/images/addSmall.gif'); }
+a.editSmall { width:15px; height:15px; background-image:url('../default/images/editSmall.gif'); }
+a.deleteSmall { width:15px; height:15px; background-image:url('../default/images/deleteSmall.gif'); }
+
+a.up { width:16px; height:16px; background-image:url('../default/images/up.png'); }
+a.down { width:16px; height:16px; background-image:url('../default/images/down.png'); }
+a.rssSmall { width:14px; height:14px; background-image:url('../default/images/feed-icon-14x14.png'); }
+a.rss { width:28px; height:28px; background-image:url('../default/images/feed-icon-28x28.png'); }
+a.ical { width:16px; height:16px; background-image:url('../default/images/date.png'); }
+a.kmlFeed { width:16px; height:16px; background-image:url('../default/images/kml_feed_small.png'); }
+
+a.previous { width:16px; height:16px; background-image:url('../default/images/previous.png'); }
+a.next { width:16px; height:16px; background-image:url('../default/images/next.png'); }
+a.first { width:22px; height:22px; background-image:url('../default/images/player_start.png'); }
+a.last { width:22px; height:22px; background-image:url('../default/images/player_end.png'); }
+
+a.subscribe { width:22px; height:22px; background-image:url('../cob/images/buttons/x.gif'); }
+a.unsubscribe { width:22px; height:22px; background-image:url('../cob/images/buttons/checkmark.gif'); }
+a.notify { width:22px; height:22px; background-image:url('../default/images/mail_send.png'); }
+a.watch { width:22px; height:22px; background-image:url('../default/images/mail_get.png'); }
+a.unwatch { width:22px; height:22px; background-image:url('../default/images/mail_delete.png'); }
+a.reveal { width:12px; height:12px; background-image:url('../cob/images/icons/reveal_in_map.gif'); }
+
+/* ICONS FOR MIME TYPES */
+.jpg { height:16px; padding: 0px 0px 10px 22px; background: url('../cob/images/icons/mime/image.png') no-repeat; }
+.png { height:16px; padding: 0px 0px 10px 22px; background: url('../cob/images/icons/mime/image.png') no-repeat; }
+.gif { height:16px; padding: 0px 0px 10px 22px; background: url('../cob/images/icons/mime/image.png') no-repeat; }
+.tiff { height:16px; padding: 0px 0px 10px 22px; background: url('../cob/images/icons/mime/page.png') no-repeat; }
+.pdf { height:16px; padding: 0px 0px 10px 22px; background: url('../cob/images/icons/mime/pdf.png') no-repeat; }
+.doc { height:16px; padding: 0px 0px 10px 22px; background: url('../cob/images/icons/mime/doc.png') no-repeat; }
+.xls { height:16px; padding: 0px 0px 10px 22px; background: url('../cob/images/icons/mime/xls.png') no-repeat; }
+.rtf { height:16px; padding: 0px 0px 10px 22px; background: url('../cob/images/icons/mime/page.png') no-repeat; }
+.zip { height:16px; padding: 0px 0px 10px 22px; background: url('../cob/images/icons/mime/zip.png') no-repeat; }
+.gz { height:16px; padding: 0px 0px 10px 22px; background: url('../cob/images/icons/mime/zip.png') no-repeat; }
+.txt { height:16px; padding: 0px 0px 10px 22px; background: url('../cob/images/icons/mime/page.png') no-repeat; }
+.wmv { height:16px; padding: 0px 0px 10px 22px; background: url('../cob/images/icons/mime/windowsMedia.png') no-repeat; }
+.mov { height:16px; padding: 0px 0px 10px 22px; background: url('../cob/images/icons/mime/quicktime.png') no-repeat; }
+.rm { height:16px; padding: 0px 0px 10px 22px; background: url('../cob/images/icons/mime/real.png') no-repeat; }
+.ram { height:16px; padding: 0px 0px 10px 22px; background: url('../cob/images/icons/mime/real.png') no-repeat; }
+.mp3 { height:16px; padding: 0px 0px 10px 22px; background: url('../cob/images/icons/mime/sound.png') no-repeat; }
+.wma { height:16px; padding: 0px 0px 10px 22px; background: url('../cob/images/icons/mime/sound.png') no-repeat; }
+.tar { height:16px; padding: 0px 0px 10px 22px; background: url('../cob/images/icons/mime/tar.png') no-repeat; }
+.dxf { height:16px; padding: 0px 0px 10px 22px; background: url('../cob/images/icons/mime/dwg-autocad-drawing.ico') no-repeat; }
+.kml { height:16px; padding: 0px 0px 10px 22px; background: url('../default/images/kml_feed_small.png') no-repeat; }
+.folder { height:16px; padding: 0px 0px 10px 22px; background: url('../cob/images/icons/mime/folder.png') no-repeat; }
+
+/* Icons for each of the document types */
+.featured .agenda { height:80px; padding-left:90px; background:url('../cob/images/contentpicsamples/spotlight-cats.gif') top left no-repeat; }
+.featured .council-packet { height:80px; padding-left:90px; background:url('../cob/images/contentpicsamples/spotlight-municipalcode.gif') top left no-repeat; }
+.featured .faq { height:80px; padding-left:90px; background:url('../cob/images/contentpicsamples/spotlight-cats.gif') top left no-repeat; }
+.featured .minutes { height:80px; padding-left:90px; background:url('../cob/images/contentpicsamples/spotlight-municipalcode.gif') top left no-repeat; }
+.featured .news { height:80px; padding-left:90px; background:url('../cob/images/contentpicsamples/spotlight-ombudsman.gif') top left no-repeat; }
+.featured .newsletter { height:80px; padding-left:90px; background:url('../cob/images/contentpicsamples/spotlight-ombudsman.gif') top left no-repeat; }
+.featured .proclamation { height:80px; padding-left:90px; background:url('../cob/images/contentpicsamples/spotlight-cats.gif') top left no-repeat; }
+.featured .service { height:80px; padding-left:90px; background:url('../cob/images/contentpicsamples/spotlight-ombudsman.gif') top left no-repeat; }
+.featured .webpage { height:80px; padding-left:90px; background:url('../cob/images/contentpicsamples/spotlight-cats.gif') top left no-repeat; }
+
+
+/* notification blocks */
+#errorMessages { border:1px solid #013567; padding:5px; margin: 10px 0px 10px 0px; background-color:#e6e6e6; clear:both; }
+#errorMessages h1 { color:red; font-size:14px; background-color:#e6e6e6; }
+#warning { border:1px solid #013567; padding:5px; margin: 10px 0px 10px 0px; background-color:#e6e6e6; clear:both; }
+#warning h1 { color:#006600; font-size:14px; background-color:#e6e6e6; }
+#message { border:1px solid #013567; padding:5px; margin: 10px 0px 10px 0px; background-color:#e6e6e6; clear:both; }
+#message h1 { color:#003366; font-size:14px; background-color:#e6e6e6; }
+#alert { border:1px solid #013567; padding:5px; margin: 10px 0px 10px 0px; background-color:#e6e6e6; clear:both; }
+#alert h1 { color:red; font-size:14px; }
+
+
+/* Locations page layout */
+#locationGroups_list { list-style-type:none; }
+#locationGroups_list li { display:inline; }
+#location_list { float:right; width:200px; margin-right:1em; }
+#location_list ul { vertical-align:bottom; }
+#location_list li { margin:5px 0 5px 0; }
+#location_map { width:480px; height:480px; border:2px solid black; margin-right:200px; margin-bottom:20px; }
+#locationGroup_description { margin-right:200px; }
+.handicap_accessible { min-height:16px; padding-left:18px; background: url('../default/images/access.png') no-repeat; }
+
+/* Styles for stuff that is invalid */
+.badlink { background-color:red; }
+
+/* Javascript creates tooltips on the fly */
+/* There is only one tooltip div, javascript just replaces it's contents */
+#tooltip { border:2px solid #5a8fdc; background-color:white; padding:4px; font-size:11px; }
+#tooltip.enlarge { padding-left:18px; background:white url('../cob/images/icons/viewmag.png') top left no-repeat; }
+
+
+
+/* HANAPIN - Styles for filter and organize by lists in page content area */
+.tabBar { padding-bottom:10px; padding-top:10px; }
+.tabBar ul { margin:10px 0 0 0; padding:0; font-size:11px; list-style-type:none; }
+.tabBar li { list-style-type:none; display:inline; background-color:#f3f3f3; border:1px solid #013466; padding:3px; }
+.tabBar a { font-size:11px; color:#003366; text-decoration:none; }
+.tabBar a:hover { color:#003366; text-decoration:underline; }
+.tabBar .title { font-size:11px; color:#003366; float:left; width:120px; font-weight:bold; }
+.tabBar .current { font-weight:bold; background-color:#013466; color:white; padding:3px; }
+.tabBar .current a { color:white; }
+.tabBar select { font-size:11px; margin-left:6px;  }
+.tabBar button { font-size:11px; }
+
+.pageNavigation { text-align:center; padding-top:20px; }
+.pageNavigation ul { list-style-type:none; }
+.pageNavigation li { list-style-type:none; display:inline; background-color:#f3f3f3; border:1px solid #5a8fdc; padding:3px; }
+.pageNavigation a { font-size:11px; color:#003366; }
+.pageNavigation a:hover { text-decoration:underline; }
+.pageNavigation a.previous { width:auto; height:auto; font-size:11px; color:#003366; background-image:none; }
+.pageNavigation a.next { width:auto; height:auto; font-size:11px; color:#003366; background-image:none; }
+.pageNavigation a.first { width:auto; height:auto; font-size:11px; color:#003366; background-image:none; }
+.pageNavigation a.last { width:auto; height:auto; font-size:11px; color:#003366; background-image:none; }
+
+
+/* HANAPIN - Search Page styles */
+.searchResult { }
+.searchResult h3 { margin:0; padding-top:10px; font-size:12px; }
+.searchResult p { margin:0; }
+.searchResult a { color:#3399cc; }
+.searchResult a:hover { text-decoration:underline; }
