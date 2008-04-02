@@ -160,7 +160,7 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 .sidebar .calendar td { padding:2px; }
 
 #pageTools { background:url('images/pagetools/pagetools_bg.gif') top left no-repeat; width:210px; height:39px; margin-bottom:10px; }
-#pageTools ul { list-style-type:none; width:160px; height:39px; text-align:right; float:right; margin:0; margin-top:11px; margin-right:10px; }
+#pageTools ul { list-style-type:none; width:200px; height:39px; text-align:right; float:right; margin:0; padding:0; ;margin-top:11px; margin-right:10px; white-space:nowrap; }
 #pageTools li { display:inline; margin-left:5px; }
 #pageTools form { display:inline; }
 #pageTools fieldset { display:inline; vertical-align:top; }
@@ -284,8 +284,9 @@ a.button {
 	background:transparent none 0 0 no-repeat;
 	text-indent:-9999px;
 	font:0/0 Arial; /* Fix for Safari, With just font-size:0, Safari renders a 1px underline */
+	color:rgba(255,255,255,0); /* If Safari does render the underline, at least it will be white or transparent */
 	overflow:hidden;
-	vertical-align:bottom;
+	vertical-align:middle;
 }
 
 /* Image Replacements for hrefs that are to be rendered as buttons */
