@@ -282,7 +282,6 @@ a.button {
 	display:-moz-inline-box; /* Fix for Mozilla */
 	display:inline-block;
 	background:transparent none 0 0 no-repeat;
-	text-indent:-9999px;
 	font:0/0 Arial; /* Fix for Safari, With just font-size:0, Safari renders a 1px underline */
 	color:rgba(255,255,255,0); /* If Safari does render the underline, at least it will be white or transparent */
 	overflow:hidden;
