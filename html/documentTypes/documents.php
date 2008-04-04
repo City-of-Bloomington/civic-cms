@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2007-2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param GET documentType_id
@@ -8,7 +8,15 @@
  *
  * Displays the documents of a given DocumentType, organized by Facet
  */
-	$type = new DocumentType($_GET['documentType_id']);
+if (isset($_GET['documentType_id']) && $_GET['documentType_id'])
+{
+	try { $type = new DocumentType($_GET['documentType_id']); }
+	catch (Exception $e)
+	{
+		$_SESSION['errorMessages'][] = $e;
+		Header('Location: home.php');
+		exit();
+	}
 
 	$template = (isset($_GET['format'])) ? new Template('default',$_GET['format']) : new Template();
 
@@ -34,4 +42,8 @@
 
 	$template->blocks[] = $block;
 	echo $template->render();
-?>
+}
+else
+{
+	Header('Location: home.php');
+}

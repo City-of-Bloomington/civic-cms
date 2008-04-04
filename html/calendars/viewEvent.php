@@ -6,7 +6,19 @@
  * @param GET event_id
  * @param GET date (optional) A date in the form of Y-m-d
  */
-$event = new Event($_GET['event_id']);
+if (!isset($_GET['event_id']) || !$_GET['event_id'])
+{
+	Header('Location: home.php');
+	exit();
+}
+
+try { $event = new Event($_GET['event_id']); }
+catch (Exception $e)
+{
+	$_SESSION['errorMessages'][] = $e;
+	Header('Location: home.php');
+	exit();
+}
 
 $date = getdate($event->getStart());
 $url = new URL(BASE_URL."/calendars");
