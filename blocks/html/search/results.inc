@@ -21,23 +21,8 @@ if (count($this->results))
 			{
 				$title = View::escape($hit->getTitle());
 
-				if ($hit->getDescription()) { $description = View::escape(strip_tags($hit->getDescription())); }
-				else
-				{
-					$description = '';
-					$words = preg_split('/\s+/',strip_tags($hit->getContent('en')));
-					$c = 0;
-					foreach($words as $word)
-					{
-						$description.= "$word ";
-						$c++;
-						if ($c >= 30)
-						{
-							$description.=  "...";
-							break;
-						}
-					}
-				}
+				$description = $hit->getDescription() ? $hit->getDescription() : $hit->getContent('en');
+				$description = View::escape(View::limitWords(strip_tags(WikiMarkup::parse($description)),30));
 
 				$size_in_bytes = strlen($hit->getContent('en'));
 				if ($size_in_bytes>1000)
@@ -64,7 +49,7 @@ if (count($this->results))
 		elseif ($hit instanceof Event)
 		{
 			$title = View::escape($hit->getTitle());
-			$description = View::escape(strip_tags($hit->getDescription()));
+			$description = View::escape(View::limitWords(strip_tags($hit->getDescription()),30));
 			echo "
 			<div class=\"searchResult\">
 				<h3><a href=\"{$hit->getURL()}\">$title</a></h3>
@@ -80,7 +65,7 @@ if (count($this->results))
 		elseif ($hit instanceof Media)
 		{
 			$title = View::escape($hit->getTitle());
-			$description = View::escape(strip_tags($hit->getDescription()));
+			$description = View::escape(View::limitWords(strip_tags($hit->getDescription()),30));
 			$class = $hit->getExtension();
 			echo "
 			<div class=\"searchResult\">
