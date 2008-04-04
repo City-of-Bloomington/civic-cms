@@ -336,15 +336,15 @@ a.reveal { width:12px; height:12px; background-image:url('images/icons/reveal_in
 .folder { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/folder.png') no-repeat; }
 
 /* Icons for each of the document types */
-.featured .agenda { height:80px; padding-left:90px; background:url('images/contentpicsamples/spotlight-cats.gif') top left no-repeat; }
-.featured .council-packet { height:80px; padding-left:90px; background:url('images/contentpicsamples/spotlight-municipalcode.gif') top left no-repeat; }
-.featured .faq { height:80px; padding-left:90px; background:url('images/contentpicsamples/spotlight-cats.gif') top left no-repeat; }
-.featured .minutes { height:80px; padding-left:90px; background:url('images/contentpicsamples/spotlight-municipalcode.gif') top left no-repeat; }
-.featured .news { height:80px; padding-left:90px; background:url('images/contentpicsamples/spotlight-ombudsman.gif') top left no-repeat; }
-.featured .newsletter { height:80px; padding-left:90px; background:url('images/contentpicsamples/spotlight-ombudsman.gif') top left no-repeat; }
-.featured .proclamation { height:80px; padding-left:90px; background:url('images/contentpicsamples/spotlight-cats.gif') top left no-repeat; }
-.featured .service { height:80px; padding-left:90px; background:url('images/contentpicsamples/spotlight-ombudsman.gif') top left no-repeat; }
-.featured .webpage { height:80px; padding-left:90px; background:url('images/contentpicsamples/spotlight-cats.gif') top left no-repeat; }
+.featured .agenda { min-height:60px; padding-left:60px; background:url('images/contentpicsamples/logo.png') top left no-repeat; }
+.featured .council-packet { min-height:60px; padding-left:60px; background:url('images/contentpicsamples/logo.png') top left no-repeat; }
+.featured .faq { min-height:60px; padding-left:60px; background:url('images/contentpicsamples/logo.png') top left no-repeat; }
+.featured .minutes { min-height:60px; padding-left:60px; background:url('images/contentpicsamples/logo.png') top left no-repeat; }
+.featured .news { min-height:60px; padding-left:60px; background:url('images/contentpicsamples/logo.png') top left no-repeat; }
+.featured .newsletter { min-height:60px; padding-left:60px; background:url('images/contentpicsamples/logo.png') top left no-repeat; }
+.featured .proclamation { min-height:60px; padding-left:60px; background:url('images/contentpicsamples/logo.png') top left no-repeat; }
+.featured .service { min-height:60px; padding-left:60px; background:url('images/contentpicsamples/logo.png') top left no-repeat; }
+.featured .webpage { min-height:60px; padding-left:60px; background:url('images/contentpicsamples/logo.png') top left no-repeat; }
 
 
 /* notification blocks */
