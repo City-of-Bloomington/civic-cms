@@ -6,7 +6,14 @@
  */
 ?>
 <div class="interfaceBox">
-<h2>Languages</h2>
+<h2><?php
+		if (userHasRole('Administrator'))
+		{
+			echo "<a href=\"".BASE_URL."/languages/addLanguage.php\" class=\"addSmall button\">Add</a>";
+		}
+	?>
+	Languages
+</h2>
 <p>Use the links below to search our website for documents that have been translated into that language.</p>
 <ul>
 <?php
@@ -17,8 +24,10 @@
 		# Find out how many documents we have
 		$documentCount = $language->getNumDocuments();
 
-		# Don't bother showing English
-		if ($documentCount && $language->getCode()!= 'en')
+		# Admininstrators need to see the whole list no matter what.
+		# Folks browsing the site only need to see the languages that have documents
+		# We don't want to list english
+		if ((userHasRole('Administrator') || $documentCount) && $language->getCode()!= 'en')
 		{
 			echo "
 			<li><a href=\"".BASE_URL."/languages/documents.php?language={$language->getCode()}\">

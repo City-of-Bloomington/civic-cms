@@ -277,7 +277,7 @@ create table section_widgets (
 ---------------------------------------------------------------------
 create table languages (
 	id int unsigned not null primary key auto_increment,
-	code char(2) not null,
+	code char(3) not null,
 	english varchar(128) not null,
 	native varchar(128) not null,
 	unique (code)
