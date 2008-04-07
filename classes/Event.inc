@@ -1,9 +1,9 @@
 <?php
 /**
- * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2007-2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  */
-	require_once '/var/www/libraries/iCal4PHP/Recur.inc';
+	require_once ICAL4PHP.'/Recur.inc';
 	class Event extends ActiveRecord
 	{
 		private $id;

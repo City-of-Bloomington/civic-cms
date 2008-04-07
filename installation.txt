@@ -37,14 +37,15 @@ Apache
 	in either an httpd.conf file, or in a .htaccess file
 
 Framework:
-	This application requires our Framework to be on the server somewhere.
-	Our Framework is available as a seperate release.  In the configuration,
-	you will need to point this scaffolding to the directory where the
-	Framework is installed.
+	This application comes bundled with our framework library.  They are
+	also available as a seperate release. In the configuration, you will need
+	to point to where the framework library is installed.  The bundled
+	version is APPLICATION_HOME/libraries/framework
 
 ZendFramework
-	The search engine has been built using the ZendFramework.  You will
-	need that installed on the webserver.  ZendFramework is available at
+	The search engine has been built using the ZendFramework.
+	This application comes bundled with a working version of ZendFramework.
+	In the configuration, you can also point to your own copy of ZendFramework.
 	http://framework.zend.com
 
 HTMLPurifier

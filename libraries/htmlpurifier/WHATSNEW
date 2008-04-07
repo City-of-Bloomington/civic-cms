@@ -1,0 +1,10 @@
+Release 3.0.0 is the first release of 2008 and also HTML Purifier's first
+PHP 5 only release. The 2.1 series will still be supported for bug and
+security fixes, but will not get new features. This release a number of
+improvements in CSS handling, including the filter
+HTMLPurifier_Filter_ExtractStyleBlocks which integrates HTML Purifier with
+CSSTidy for cleaning style sheets, contains experimental support for
+proprietary CSS properties with %CSS.Proprietary, case-insensitive
+CSS properties, and more lenient hexadecimal color codes. Also, all code
+has been upgraded to full PHP 5 which is E_STRICT clean for all versions
+of PHP 5 (including the 5.0 series).

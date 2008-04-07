@@ -3,168 +3,168 @@ define('COPYRIGHT',"/**
  * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  */");
-	/**
-	 * Used to keep sessions on the same webserver seperate;
-	 */
-	define('APPLICATION_NAME','application_name');
 
-	/**
-	 * Where on the filesystem the framework is installed.
-	 */
-	define('FRAMEWORK','/var/www/libraries/framework');
+/**
+ * Used to keep sessions on the same webserver seperate;
+ */
+define('APPLICATION_NAME','application_name');
 
-	/**
-	 * This needs to point to the library directory inside your
-	 * installation of the ZendFramework
-	 * http://framework.zend.com
-	 */
-	define('ZEND','/var/www/libraries/ZendFramework/library');
+/**
+ * The URL to get to this site
+ * Do NOT use a trailing slash
+ */
+$protocol = $_SERVER['SERVER_PORT']==443 ? 'https' : 'http';
+define('BASE_URL',"$protocol://localhost");
 
-	/**
-	 * Where on the filesystem this application is installed
-	 */
-	define('APPLICATION_HOME','/var/www/sites/application_name');
+/**
+ * Where on the filesystem this application is installed
+ */
+define('APPLICATION_HOME','/var/www/sites/application_name');
 
-	/**
-	 * The URL to get to this site
-	 * Do NOT use a trailing slash
-	 */
-	$protocol = $_SERVER['SERVER_PORT']==443 ? 'https' : 'http';
-	define('BASE_URL',"$protocol://localhost");
+/**
+ * Where on the filesystem the framework is installed.
+ */
+define('FRAMEWORK',APPLICATION_HOME.'/libraries/framework');
 
-	/**
-	 * Used when there's an error on the site.  The Framework will
-	 * print out a nice error message, encouraging users to report any problems
-	 * See: FRAMEWORK/ITSFunctions.inc
-	 */
-	define('ADMINISTRATOR_NAME','Site Admin');
-	define('ADMINISTRATOR_EMAIL','admin@servername.com');
+/**
+ * This needs to point to the library directory inside your
+ * installation of the ZendFramework
+ * http://framework.zend.com
+ */
+define('ZEND',APPLICATION_HOME.'/libraries/ZendFramework/library');
 
-	/**
-	 * Database Setup
-	 */
-	define('DB_NAME',APPLICATION_NAME);
-	define('DB_USER',APPLICATION_NAME);
-	define('DB_PASS','password');
+/**
+ * iCal library used for calendars and events
+ */
+define('ICAL4PHP',APPLICATION_HOME.'/libraries/iCal4PHP');
 
-	# This application calls mysql and mysqldump from the command line through
-	# exec() and needs the path to the binaries
-	define('MYSQL_PATH','/usr/local/mysql');
+/**
+ * Optional Content cleaning - Comment this out if your don't want
+ * extra cleaning to be done on content submitted from the WYSIWYG editor
+ *
+ * http://htmlpurifier.org
+ *
+ * Content Manager reads the HTMLPurifier_Config.inc file
+ */
+define('HTMLPURIFIER',APPLICATION_HOME.'/libraries/htmlpurifier/library');
 
-	/**
-	 * LDAP Configuration
-	 * This is required in order to use the LDAP authentication
-	 * If you do not want to use LDAP authentication, you can comment this out
-	 */
-	define('LDAP_DOMAIN','city.bloomington.in.us');
-	define('LDAP_DN','ou=people,o='.LDAP_DOMAIN);
-	define('LDAP_USERNAME_ATTRIBUTE','uid');
-	define('LDAP_ADMIN_USER','username');
-	define('LDAP_ADMIN_PASS','password');
-	define('LDAP_SERVER','ldap.bloomington.in.gov');
-	define('LDAP_PASSWORD_ATTRIBUTE','userpassword');
+/**
+ * Optional Content Cleaning - Comment this out if you don't want
+ * content submitted from the WYSIWYG editor to be cleaned by Tidy
+ * This should point to a Tidy config file
+ */
+define('TIDY_CONFIG',APPLICATION_HOME.'/tidy_config.txt');
 
-	/**
-	 * These control search index performance.  If indexing seems slow
-	 * or PHP runs out of memory, you might try adjusting these to suit
-	 * Documentation is available at:
-	 * http://framework.zend.com/manual/en/zend.search.lucene.best-practice.html
-	 */
-	define('ZEND_SEARCH_MAX_BUFFERED_DOCS',5);
-	define('ZEND_SEARCH_MAX_MERGE_DOCS',10000);
-	define('ZEND_SEARCH_MERGE_FACTOR',10);
+/**
+ * Used when there's an error on the site.  The Framework will
+ * print out a nice error message, encouraging users to report any problems
+ * See: FRAMEWORK/ITSFunctions.inc
+ */
+define('ADMINISTRATOR_NAME','Site Admin');
+define('ADMINISTRATOR_EMAIL','admin@servername.com');
 
-	/**
-	 * Optional Content cleaning - Uncomment this if you want
-	 * extra cleaning to be done on content submitted from the WYSIWYG editor
-	 *
-	 * This should point to the library directory inside your
-	 * installation of the HTMLPurifier
-	 * http://htmlpurifier.org
-	 *
-	 * Content Manager reads the HTMLPurifier_Config.inc file
-	 */
-	#define('HTMLPURIFIER','/var/www/libraries/htmlpurifier/library');
+/**
+ * Database Setup
+ */
+define('DB_NAME',APPLICATION_NAME);
+define('DB_USER',APPLICATION_NAME);
+define('DB_PASS','password');
 
-	/**
-	 * Optional Content Cleaning - Uncomment this if you want
-	 * content submitted from the WYSIWYG editor to be cleaned by Tidy
-	 * This should point to a Tidy config file
-	 */
-	define('TIDY_CONFIG',APPLICATION_HOME.'/tidy_config.txt');
+/**
+ * This application calls mysql and mysqldump from the command line through
+ * exec() and needs the path to the binaries
+ */
+define('MYSQL_PATH','/usr/local/mysql');
 
-	/**
-	 * Subversion setup
-	 * This is required in order to use Subversion to version documents
-	 * If you do not want to use Subversion, you can comment this out
-	 */
-	 define('SVN','/usr/local/bin/svn');
+/**
+ * LDAP Configuration
+ * This is required in order to use the LDAP authentication
+ * If you do not want to use LDAP authentication, you can comment this out
+ */
+define('LDAP_DOMAIN','city.bloomington.in.us');
+define('LDAP_DN','ou=people,o='.LDAP_DOMAIN);
+define('LDAP_USERNAME_ATTRIBUTE','uid');
+define('LDAP_ADMIN_USER','username');
+define('LDAP_ADMIN_PASS','password');
+define('LDAP_SERVER','ldap.bloomington.in.gov');
+define('LDAP_PASSWORD_ATTRIBUTE','userpassword');
 
-	/**
-	 * WYSIWYG Editor
-	 * Uncomment one of the following
-	 */
-	#define('EDITOR','FCKeditor');
-	define('EDITOR','tiny_mce');
+/**
+ * These control search index performance.  If indexing seems slow
+ * or PHP runs out of memory, you might try adjusting these to suit
+ * Documentation is available at:
+ * http://framework.zend.com/manual/en/zend.search.lucene.best-practice.html
+ */
+define('ZEND_SEARCH_MAX_BUFFERED_DOCS',5);
+define('ZEND_SEARCH_MAX_MERGE_DOCS',10000);
+define('ZEND_SEARCH_MERGE_FACTOR',10);
 
-	/**
-	 * Image handling library
-	 * Set the path to the ImageMagick binaries
-	 */
-	define('IMAGEMAGICK','/usr/bin');
 
-	/**
-	 * Import global functions that we use for many applications we write
-	 */
-	include FRAMEWORK.'/ITSFunctions.inc';
+/**
+ * WYSIWYG Editor
+ * Uncomment one of the following
+ */
+#define('EDITOR','FCKeditor');
+define('EDITOR','tiny_mce');
 
-	/**
-	 * Session Startup
-	 */
-	ini_set('session.save_path',APPLICATION_HOME.'/data/sessions');
-	ini_set('session.gc_maxlifetime',30*60);
-	session_start();
+/**
+ * Image handling library
+ * Set the path to the ImageMagick binaries
+ */
+define('IMAGEMAGICK','/usr/bin');
 
-	/**
-	 * Language Negotiation
-	 * Order of precedence: GET,SESSION, HTTP_ACCEPT_LANGUAGE, en
-	 */
-	 define('DEFAULT_LANGUAGE','en');
-	 if (isset($_GET['lang'])) { $_SESSION['LANGUAGE'] = strtolower(substr($_GET['lang'],0,2)); }
-	 if (!isset($_SESSION['LANGUAGE']))
-	 {
-	 	if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) { $_SESSION['LANGUAGE'] = strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'],0,2)); }
-	 	else { $_SESSION['LANGUAGE'] = DEFAULT_LANGUAGE; }
-	 }
+/**
+ * Import global functions that we use for many applications we write
+ */
+include FRAMEWORK.'/globalFunctions.inc';
 
-	/**
-	 * Skin Negotiation
-	 * Order of precedence: GET, SESSION, default
-	 */
-	if (isset($_GET['skin'])) { $_SESSION['skin'] = $_GET['skin']; }
-	if (!isset($_SESSION['skin'])) { $_SESSION['skin'] = 'default'; }
+/**
+ * Session Startup
+ */
+ini_set('session.save_path',APPLICATION_HOME.'/data/sessions');
+ini_set('session.gc_maxlifetime',30*60);
+session_start();
 
-	/**
-	 * External Web Services
-	 */
-	define('DIRECTORY_WEBSERVICE','http://isotope.bloomington.in.gov/directory');
+/**
+ * Language Negotiation
+ * Order of precedence: GET,SESSION, HTTP_ACCEPT_LANGUAGE, en
+ */
+define('DEFAULT_LANGUAGE','en');
+if (isset($_GET['lang'])) { $_SESSION['LANGUAGE'] = strtolower(substr($_GET['lang'],0,2)); }
+if (!isset($_SESSION['LANGUAGE']))
+{
+	if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) { $_SESSION['LANGUAGE'] = strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'],0,2)); }
+	else { $_SESSION['LANGUAGE'] = DEFAULT_LANGUAGE; }
+}
 
-	/**
-	 * Google Map Key
-	 * The content manager can map locations using Google Maps.
-	 * If you want this functionality, you must provide your own Google Map Key
-	 * Google issues these on a per-server basis
-	 */
-	 #define('GOOGLE_MAP_KEY','');
+/**
+ * Skin Negotiation
+ * Order of precedence: GET, SESSION, default
+ */
+if (isset($_GET['skin'])) { $_SESSION['skin'] = $_GET['skin']; }
+if (!isset($_SESSION['skin'])) { $_SESSION['skin'] = 'default'; }
 
-	/**
-	 * Bad URL Definitions
-	 * Regular expressions defining what bad links would look like
-	 * URLs that match these regular expressions will be treated as bad
-	 * links by the WikiMarkup parser
-	 * Each of these must be a regular expression in Perl syntax
-	 */
-	 $BAD_LINK_EXPRESSIONS = array(
-		'/http:\/\/bloomington/',
-		'/http:\/\/www\.bloomington\./'
-	 );
+/**
+ * External Web Services
+ */
+define('DIRECTORY_WEBSERVICE','http://isotope.bloomington.in.gov/directory');
+
+/**
+ * Google Map Key
+ * The content manager can map locations using Google Maps.
+ * If you want this functionality, you must provide your own Google Map Key
+ * Google issues these on a per-server basis
+ */
+#define('GOOGLE_MAP_KEY','');
+
+/**
+ * Bad URL Definitions
+ * Regular expressions defining what bad links would look like
+ * URLs that match these regular expressions will be treated as bad
+ * links by the WikiMarkup parser
+ * Each of these must be a regular expression in Perl syntax
+ */
+$BAD_LINK_EXPRESSIONS = array(
+	'/http:\/\/bloomington/',
+	'/http:\/\/www\.bloomington\./'
+);
