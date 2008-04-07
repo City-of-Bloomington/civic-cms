@@ -13,5 +13,5 @@
 	self.close();
 </script>
 <?php
-	include FRAMEWORK.'/xhtmlFooter.inc';
+	include APPLICATION_HOME.'/includes/xhtmlFooter.inc';
 ?>

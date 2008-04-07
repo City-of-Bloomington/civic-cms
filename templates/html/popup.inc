@@ -11,4 +11,4 @@ include FRAMEWORK.'/errorMessages.inc';
 
 echo $this->includeBlocks();
 
-include FRAMEWORK.'/xhtmlFooter.inc';
+include APPLICATION_HOME.'/includes/xhtmlFooter.inc';

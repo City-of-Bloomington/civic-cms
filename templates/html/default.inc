@@ -33,5 +33,5 @@
 </div>
 <?php
 	include APPLICATION_HOME.'/includes/footer.inc';
-	include FRAMEWORK.'/xhtmlFooter.inc';
+	include APPLICATION_HOME.'/includes/xhtmlFooter.inc';
 ?>
