@@ -1,26 +1,25 @@
 /* CSS styles for printer friendly page */
 
-body { font-family: Arial, Helvetica, sans-serif; font-size:12px; color:#000000; background-color:#ffdca8; height:100%; width:640px; margin:0 auto; min-height:100%; text-align:left; }
+body { font-family: Ariel, Helvetica, sans-serif; font-size:12px; color:#000000; height:100%; width:640px; margin:0 auto; min-height:100%; text-align:left; }
 
 /* DEFAULT TEXT LINKS */
-a { color:#000000; text-decoration:none; }
+a { color:#9933cc; text-decoration:none; }
 
 hr { border:0; height:1px; background-color:#000000; margin-bottom:10px; margin-top:10px; }
 
 p { margin:0; margin-bottom:.5em; }
 
 h1 { font-size:18px; color:#000000; margin:0; padding:0; font-weight:bold; clear:both; }
-h2 { font-size:16px; color:#000000;  margin:15px 0px 5px 0px; font-weight:bold; border-bottom:1px solid #bdbdbd; clear:both; }
-h2 a { color:#000000; }
-h3 { font-size:14px; color:#000000; margin:15px 0px 5px 0px; padding:0; font-weight:bold; clear:both; }
-h3 a { color:#000000; }
-h4 { font-size:13px; color:#000000; margin:15px 0px 5px 0px; padding:0; font-weight:bold; clear:both; }
-h4 a { color:#000000; }
+h2 { font-size:16px; font-family: Comic Sans MS, Helvetica, sans-serif; color:#ffffff;  margin:15px 0px 5px 0px; font-weight:bold; border-bottom:1px solid #bdbdbd; clear:both; background-color:#CC3333; }
+h2 a { color:#ffffff; }
+h3 { font-size:14px; font-family: Comic Sans MS, Helvetica, sans-serif; color:#669966; margin:15px 0px 5px 0px; padding:0; font-weight:bold; clear:both; }
+h3 a { color:#669966; }
+h4 { font-size:13px; font-family: Comic Sans MS, Helvetica, sans-serif; color:#669966; margin:15px 0px 5px 0px; padding:0; font-weight:bold; clear:both; }
+h4 a { color:#669966; }
 h5 { font-size:13px; color:#000000; margin:15px 0px 5px 0px; padding:0; font-weight:bold; clear:both; }
 h5 a { color:#000000; }
 h6 { font-size:12px; color:#000000; margin:15px 0px 5px 0px; font-weight:bold; clear:both; }
 h6 a { color:#000000; }
-
 strong { font-weight:bold; }
 u { text-decoration:underline; }
 em { font-style:italic; }
@@ -66,9 +65,9 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 
 
 
-#banner { padding-top:10px; }
+#banner { padding-top:10px; width:640px; height:189px; background: url('images/beadlogo.png') right no-repeat; }
 
-#logo { font-family: Arial, Helvetica, sans-serif; font-size:24px; color:#000000; font-weight:bold; margin:0; padding:0; }
+#logo { display:none; }
 
 #skipNavigation { position:absolute; left:-9999px; }
 
@@ -80,7 +79,7 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 
 #topLevelSections { display:none; }
 
-#main-content-container { padding-top:10px; }
+#main-content-container { padding-top:10px; background:url('images/bead_opacity.png') center no-repeat fixed; }
 .sidebar { display:none; }
 #leftSidebar { display:none; }
 #rightSidebar { display:none; }
@@ -114,6 +113,9 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 #mainContent td { padding:.5em; background-color:inherit; border:1px solid #999999; vertical-align:top; }
 #mainContent th { text-align:left; background-color:#e0e0e0; padding:.5em; border:1px solid #999999; vertical-align: top; font-weight:bold; }
 #mainContent th a { color:#3366cc; background-color:inherit; }
+
+/*trial table of contents with anchors */
+.tocanchor {font-family: Comic Sans MS, Helvetica, sans-serif; }
 
 /* HANAPIN - STYLES FOR EVENTS SECTION */
 /* Calendars MUST BE marked up as tables */
