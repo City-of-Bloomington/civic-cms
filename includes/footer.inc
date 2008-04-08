@@ -29,12 +29,9 @@
 			<li><a href="<?php echo BASE_URL; ?>/jobs">Jobs</a></li>
 			<li><a href="<?php echo BASE_URL; ?>/search/sitemap.php">Sitemap</a></li>
 		</ul>
-	</div>
-	<div><a href="http://validator.w3.org/check?uri=referer">
-			<img src="<?php echo BASE_URL; ?>/media/media.php?media_id=1601" alt="Valid XHTML 1.0 Strict" height="31" width="88" /></a>
-		<a href="http://jigsaw.w3.org/css-validator">
-			<img src="<?php echo BASE_URL; ?>/media/media.php?media_id=1605" alt="Valid CSS" height="31" width="88" /></a>
-		<a href="http://www.w3.org/WAI/WCAG1A-Conformance" title="Explanation of Level A Conformance">
-			<img src="<?php echo BASE_URL; ?>/media/media.php?media_id=1736" alt="Level A conformance icon, W3C-WAI Web Content Accessibility Guidelines 1.0" height="32" width="88" /></a>
+		<ul><li><a href="http://validator.w3.org/check?uri=referer">Valid XHTML 1.0 Strict</a></li>
+			<li><a href="http://jigsaw.w3.org/css-validator">Valid CSS 2.1</a></li>
+			<li><a href="http://www.w3.org/WAI/WCAG1A-Conformance" title="Explanation of Level A Conformance">W3C-WAI WCAG</a></li>
+		</ul>
 	</div>
 </div>
