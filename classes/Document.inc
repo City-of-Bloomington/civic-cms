@@ -238,6 +238,15 @@
 						mkdir($directory,0775,true);
 					}
 					file_put_contents($file,$this->content[$lang]);
+
+					if ($this->PHPIsEnabled())
+					{
+						$output = shell_exec(PHP." -l $file");
+						if (!preg_match('/^No syntax errors detected/',$output))
+						{
+							throw new PHPSyntaxException('documents/PHPSyntaxError',$output);
+						}
+					}
 				}
 				else
 				{
@@ -882,3 +891,16 @@
 		public function setBanner_media_id($int) { $this->banner = new Media($int); $this->banner_media_id = $int; }
 		public function setBanner_media($media) { $this->banner_media_id = $media->getId(); $this->banner = $media; }
 	}
+
+class PHPSyntaxException extends Exception
+{
+	private $detail;
+
+	public function __construct($message,$detail)
+	{
+		parent::__construct($message,0);
+		$this->detail = $detail;
+	}
+
+	public function getDetail() { return $this->detail; }
+}

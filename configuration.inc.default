@@ -114,6 +114,12 @@ define('EDITOR','tiny_mce');
 define('IMAGEMAGICK','/usr/bin');
 
 /**
+ * The system also runs command line PHP scripts.
+ * It needs to know where PHP-CLI is installed
+ */
+define('PHP','/usr/local/php/bin/php');
+
+/**
  * Import global functions that we use for many applications we write
  */
 include FRAMEWORK.'/globalFunctions.inc';

@@ -45,6 +45,7 @@ class Search
 		{
 			$doc->addField(Zend_Search_Lucene_Field::Keyword('type','Document'));
 			$doc->addField(Zend_Search_Lucene_Field::Keyword('document_id',$entry->getId()));
+			$doc->addField(Zend_Search_Lucene_Field::Keyword('documentType',$entry->getDocumentType()->getType()));
 			$doc->addField(Zend_Search_Lucene_Field::UnStored('title',$entry->getTitle(),'utf-8'));
 			$doc->addField(Zend_Search_Lucene_Field::UnStored('content',strtolower(strip_tags(implode("\n",$entry->getContent()))),'utf-8'));
 		}
