@@ -165,6 +165,6 @@ define('DIRECTORY_WEBSERVICE','http://isotope.bloomington.in.gov/directory');
  * Each of these must be a regular expression in Perl syntax
  */
 $BAD_LINK_EXPRESSIONS = array(
-	'/http:\/\/bloomington/',
-	'/http:\/\/www\.bloomington\./'
+#	'/http:\/\/bloomington/',
+#	'/http:\/\/www\.bloomington\./'
 );
