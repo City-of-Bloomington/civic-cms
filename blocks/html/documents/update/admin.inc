@@ -74,8 +74,8 @@
 				$list->find();
 				foreach($list as $language)
 				{
-					if ($this->language->getCode() == $language->getCode()) { echo "<option value=\"{$language->getCode()}\" selected=\"selected\">{$language->getNative()}</option>"; }
-					else { echo "<option value=\"{$language->getCode()}\">{$language->getNative()}</option>"; }
+					if ($this->language->getCode() == $language->getCode()) { echo "<option value=\"{$language->getCode()}\" selected=\"selected\">{$language->getEnglish()}</option>"; }
+					else { echo "<option value=\"{$language->getCode()}\">{$language->getEnglish()}</option>"; }
 				}
 			?>
 		</select>
