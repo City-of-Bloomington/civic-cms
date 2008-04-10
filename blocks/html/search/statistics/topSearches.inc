@@ -6,7 +6,7 @@
  * @param array $this->searches
  */
 ?>
-<h1>Top Searches</h1>
+<h2>Top Searches</h2>
 <table>
 <tr><th>Query String</th><th>Count</th></tr>
 <?php

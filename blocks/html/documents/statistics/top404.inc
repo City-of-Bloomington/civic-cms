@@ -6,7 +6,7 @@
  * @param array $this->requests
  */
 ?>
-<h1>Top 404</h1>
+<h2>Top 404</h2>
 <table>
 <tr><th>Requested URL</th><th>Count</th></tr>
 <?php

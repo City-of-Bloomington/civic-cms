@@ -6,7 +6,7 @@
  * @param array $this->hits
  */
 ?>
-<h1>Most Popular Documents</h1>
+<h2>Most Popular Documents</h2>
 <table>
 <tr><th>ID</th><th>Document</th><th>Hits</th></tr>
 <?php

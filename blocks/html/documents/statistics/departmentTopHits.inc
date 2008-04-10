@@ -1,10 +1,10 @@
 <?php
 /**
- * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2007-2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
-echo "<h1>Most Popular Documents by Department</h1>";
+echo '<h2>Most Popular Documents by Department</h2>';
 
 $list = new DepartmentList();
 $list->find();
@@ -15,8 +15,8 @@ foreach($list as $department)
 	{
 		$name = View::escape($department->getName());
 		echo "
+		<h3>$name</h3>
 		<table>
-		<tr><th colspan=\"3\">$name</th></tr>
 		<tr><th>ID</th><th>Document</th><th>Hits</th></tr>
 		";
 
