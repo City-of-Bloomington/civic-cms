@@ -5,7 +5,7 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 ?>
-<h2>Calendar Feeds</h2>
+<h2 id="calendar_feeds">Calendar Feeds</h2>
 <p>If you keep track of events on multiple websites that use calendar feeds,
 you can view them together using a web-calendar application, such as iCal for
 Mac users or <a href="http://www.mozilla.org/projects/calendar/">Mozilla's Calendar Project</a>
