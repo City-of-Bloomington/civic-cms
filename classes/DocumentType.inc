@@ -12,6 +12,7 @@
 		private $ordering;
 		private $defaultFacetGroup_id;
 		private $media_id;
+		private $seperateInSearch;
 
 		private $defaultFacetGroup;
 		private $documentInfoFields = array();
@@ -71,6 +72,7 @@
 			$fields['defaultFacetGroup_id'] = $this->defaultFacetGroup_id ? $this->defaultFacetGroup_id : null;
 			$fields['documentInfoFields'] = count($this->documentInfoFields) ? serialize($this->documentInfoFields) : null;
 			$fields['media_id'] = $this->media_id ? $this->media_id : null;
+			$fields['seperateInSearch'] = $this->seperateInSearch ? 1 : 0;
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
@@ -124,6 +126,19 @@
 
 		public function __toString() { return $this->type; }
 
+		/**
+		 * This field is a flag to dictate whether documents of this type should
+		 * be show seperate from documents of other types in the Search Results
+		 * @return boolean
+		 */
+		public function isSeperateInSearch()
+		{
+			return $this->seperateInSearch ? true : false;
+		}
+
+		/**
+		 * Generic Getters
+		 */
 		public function getId() { return $this->id; }
 		public function getType() { return $this->type; }
 		public function getTemplate() { return $this->template; }
@@ -154,8 +169,12 @@
 				return $this->media;
 			}
 		}
+		public function getSeperateInSearch() { return $this->seperateInSearch; }
 
 
+		/**
+		 * Generic Setters
+		 */
 		public function setType($string) { $this->type = trim($string); }
 		public function setTemplate($text) { $this->template = $text; }
 		public function setOrdering($ordering)
@@ -179,4 +198,5 @@
 		}
 		public function setMedia_id($int) { $this->media = new Media($int); $this->media_id = $this->media->getId(); }
 		public function setMedia($media) { $this->media_id = $this->media->getId(); $this->media = $media; }
+		public function setSeperateInSearch($int) { $this->seperateInSearch = $int ? 1 : 0; }
 	}

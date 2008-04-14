@@ -10,10 +10,11 @@ define('COPYRIGHT',"/**
 define('APPLICATION_NAME','application_name');
 
 /**
- * The URL to get to this site
+ * Set the base url to be output across all code for the site.
  * Do NOT use a trailing slash
+ * output https:// urls when the site is accessed through https
  */
-$protocol = $_SERVER['SERVER_PORT']==443 ? 'https' : 'http';
+$protocol = (!defined('STDIN') && $_SERVER['SERVER_PORT']==443) ? 'https' : 'http';
 define('BASE_URL',"$protocol://localhost");
 
 /**
@@ -99,6 +100,12 @@ define('ZEND_SEARCH_MAX_BUFFERED_DOCS',5);
 define('ZEND_SEARCH_MAX_MERGE_DOCS',10000);
 define('ZEND_SEARCH_MERGE_FACTOR',10);
 
+/**
+ * Zend Search is very memory Intensive
+ * You can adjust how much memory you want to allow for search code
+ * PHP's default limit is only 16M
+ */
+define('SEARCH_MEMORY_LIMIT','128M');
 
 /**
  * WYSIWYG Editor
@@ -126,10 +133,15 @@ include FRAMEWORK.'/globalFunctions.inc';
 
 /**
  * Session Startup
+ * Don't start a session for CLI usage.
+ * We only want sessions when PHP code is executed from the webserver
  */
-ini_set('session.save_path',APPLICATION_HOME.'/data/sessions');
-ini_set('session.gc_maxlifetime',30*60);
-session_start();
+if (!defined('STDIN'))
+{
+	ini_set('session.save_path',APPLICATION_HOME.'/data/sessions');
+	ini_set('session.gc_maxlifetime',30*60);
+	session_start();
+}
 
 /**
  * Language Negotiation

@@ -14,7 +14,7 @@
 	<tr><td><label for="documentType-media_id">Icon</label></td>
 		<td><button type="button" class="browse" onclick="window.open('<?php echo BASE_URL; ?>/media/imageBrowser.php');">Choose Media</button>
 			<button type="button" class="deleteSmall" onclick="removeIcon();">Delete</button>
-			<input name="documentType[media_id]" id="documentType-media_id" type="hidden" value="<?php echo $this->documentType->getMedia_id(); ?>" />
+			<input name="documentType[media_id]" id="documentType-media_id" type="hidden" />
 			<span id="icon"></span>
 			<script type="text/javascript">
 			var icon = document.getElementById('icon');
@@ -43,6 +43,17 @@
 		</td>
 	</tr>
 	</table>
+</fieldset>
+
+<fieldset><legend>Seperate in Search Results</legend>
+	<p>Do you want documents of this type to be shown seperately from documents
+		of other types in the Search Results?</p>
+	<p><strong>Note:</strong> Changes made to this field will not be reflected in
+		in the actual search results until the site is re-indexed.</p>
+	<div>
+		<label><input name="documentType[seperateInSearch]" type="radio" value="1" />Yes</label>
+		<label><input name="documentType[seperateInSearch]" type="radio" value="0" checked="checked" />No</label>
+	</div>
 </fieldset>
 
 <fieldset><legend>List Display Information</legend>

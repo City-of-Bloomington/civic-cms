@@ -9,6 +9,10 @@
 ini_set('include_path',ini_get('include_path').ZEND.':');
 require_once 'Zend/Search/Lucene.php';
 
+# Zend Search Lucene uses a TON of memory.
+# Make sure to allow PHP enough memory
+ini_set('memory_limit',SEARCH_MEMORY_LIMIT);
+
 class Search
 {
 	private $search;
@@ -43,9 +47,9 @@ class Search
 
 		if ($entry instanceof Document)
 		{
-			$doc->addField(Zend_Search_Lucene_Field::Keyword('type','Document'));
+			$type = $entry->getDocumentType()->isSeperateInSearch() ? $entry->getDocumentType()->getType() : 'Document';
+			$doc->addField(Zend_Search_Lucene_Field::Keyword('type',$type));
 			$doc->addField(Zend_Search_Lucene_Field::Keyword('document_id',$entry->getId()));
-			$doc->addField(Zend_Search_Lucene_Field::Keyword('documentType',$entry->getDocumentType()->getType()));
 			$doc->addField(Zend_Search_Lucene_Field::UnStored('title',$entry->getTitle(),'utf-8'));
 			$doc->addField(Zend_Search_Lucene_Field::UnStored('content',strtolower(strip_tags(implode("\n",$entry->getContent()))),'utf-8'));
 		}
@@ -141,21 +145,22 @@ class Search
 		$results = array();
 		foreach($hits as $hit)
 		{
+			$type = Inflector::pluralize($hit->type);
 			switch ($hit->type)
 			{
-				# If there's a problem loading any of the results, just don't add that thing to the results
-				case 'Document':
-					try { $results['documents'][] = new Document($hit->document_id); }
-					catch(Exception $e) { }
-				break;
-
 				case 'Event':
-					try { $results['events'][] = new Event($hit->event_id); }
+					try { $results[$type][] = new Event($hit->event_id); }
 					catch(Exception $e) { }
 				break;
 
 				case 'Media':
-					try{ $results['media'][] = new Media($hit->media_id); }
+					try { $results[$type][] = new Media($hit->media_id); }
+					catch(Exception $e) { }
+				break;
+
+				# Anything not listed above should be a type of Document
+				default:
+					try { $results[$type][] = new Document($hit->document_id); }
 					catch(Exception $e) { }
 				break;
 			}

@@ -55,6 +55,17 @@
 	</table>
 </fieldset>
 
+<fieldset><legend>Seperate in Search Results</legend>
+	<p>Do you want documents of this type to be shown seperately from documents
+		of other types in the Search Results?</p>
+	<p><strong>Note:</strong> Changes made to this field will not be reflected in
+		in the actual search results until the site is re-indexed.</p>
+	<div>
+		<label><input name="documentType[seperateInSearch]" type="radio" value="1" <?php if ($this->documentType->isSeperateInSearch()) echo 'checked="checked"'; ?> />Yes</label>
+		<label><input name="documentType[seperateInSearch]" type="radio" value="0" <?php if (!$this->documentType->isSeperateInSearch()) echo 'checked="checked"'; ?> />No</label>
+	</div>
+</fieldset>
+
 <fieldset><legend>List Display Information</legend>
 <p>Choose the information you want to display when documents of this type
 are displayed in a list.</p>

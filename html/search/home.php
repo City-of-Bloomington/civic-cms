@@ -6,7 +6,6 @@
  * @param GET search
  * @param GET type Document, Event
  */
-
 if (isset($_GET['search']) && $_GET['search'])
 {
 	try
@@ -16,16 +15,14 @@ if (isset($_GET['search']) && $_GET['search'])
 	}
 	catch (Exception $e) { exception_handler($e); }
 
+	$currentType = (isset($_GET['type']) && in_array($_GET['type'],array_keys($results))) ? $_GET['type'] : 'Documents';
 
-	$currentType = isset($_GET['type']) ? Inflector::pluralize($_GET['type']) : 'Documents';
-	$type = strtolower($currentType);
-
-	if (isset($results[$type]) && count($results[$type]))
+	if (isset($results[$currentType]) && count($results[$currentType]))
 	{
 		# If we've got a lot of results, split them up into seperate pages
-		if ($results[$type] > 10)
+		if ($results[$currentType] > 10)
 		{
-			$resultArray = new ArrayObject($results[$type]);
+			$resultArray = new ArrayObject($results[$currentType]);
 			$pages = new Paginator($resultArray,10);
 
 			# Make sure we're asking for a page that actually exists
@@ -34,29 +31,29 @@ if (isset($_GET['search']) && $_GET['search'])
 
 			$resultsList = new LimitIterator($resultArray->getIterator(),$pages[$page],$pages->getPageSize());
 		}
-		else { $resultsList = $this->results[$type]; }
+		else { $resultsList = $this->results[$currentType]; }
 	}
-	else { $resultsList = array(); }
+	else
+	{
+		$resultsList = array();
+	}
 }
 else { $_GET['search'] = ''; }
-
-
 
 $template = new Template();
 $template->blocks[] = new Block('search/searchForm.inc',array('search'=>$_GET['search']));
 if (isset($results))
 {
+	# Pass all the results to the Tab block
 	$resultsTab = new Block('search/resultTabs.inc');
 	$resultsTab->currentType = $currentType;
-	$resultsTab->type = $type;
 	$resultsTab->results = $results;
+	$template->blocks[] = $resultsTab;
 
+	# Only pass the results you want displayed to the results block
 	$resultBlock = new Block('search/results.inc');
 	$resultBlock->results = $resultsList;
 	$resultBlock->currentType = $currentType;
-	$resultBlock->type = $type;
-
-	$template->blocks[] = $resultsTab;
 	$template->blocks[] = $resultBlock;
 
 	if (isset($pages))
