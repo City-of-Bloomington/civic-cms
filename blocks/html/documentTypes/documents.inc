@@ -40,8 +40,9 @@ if (isset($this->facetGroup))
 {
 	echo "
 	<div class=\"table-of-contents\">
-		<form method=\"get\">
+		<form method=\"get\" action=\"$_SERVER[PHP_SELF]\">
 		<fieldset>
+			<input type=\"hidden\" name=\"documentType_id\" value=\"{$this->documentType->getId()}\" />
 			<label for=\"table-of-contents-anchor\">Table of Contents:</label>
 			<select name=\"anchor\" id=\"table-of-contents-anchor\" onchange=\"document.location.href='#'+this.options[this.selectedIndex].value;\">
 	";
