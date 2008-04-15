@@ -11,7 +11,7 @@
 	<h1>Top <?php echo $name; ?></h1>
 	<ol>
 	<?php
-		$hits = DocumentAccessLog::getTopDocuments(5,$this->documentType->getId());
+		$hits = DocumentAccessLog::getTopDocuments(7,$this->documentType->getId());
 		foreach($hits as $hit)
 		{
 			$title = View::escape($hit['document']->getTitle());
