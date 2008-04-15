@@ -5,14 +5,39 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Calendar $this->calendar
  * @param array $this->date
+ *
+ * List  a good number of events, based on MAX_DAYS_AHEAD and MAX_EVENTS
+ * This screen navigates two weeks forward and back
  */
 $MAX_DAYS_AHEAD = 60;
 $MAX_EVENTS = 15;
 ?>
 <h2>Upcoming Events</h2>
 <table class="calendar">
+<tr><th colspan="2">
+	<?php
+		$rangeStart = !isset($this->date) ? time() : mktime(0,0,0,$this->date['mon'],$this->date['mday'],$this->date['year']);
+		$rangeEnd = strtotime('+14 day',$rangeStart);
+
+		$back = getdate(strtotime('-14 day',$rangeStart));
+		$url = new URL($_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
+		$url->parameters['mon'] = $back['mon'];
+		$url->parameters['mday'] = $back['mday'];
+		$url->parameters['year'] = $back['year'];
+		echo "<a class=\"previous button\" href=\"$url\">Previous Two Weeks</a>";
+
+
+		echo date('M j,Y',$rangeStart).' to '.date('M j,Y',$rangeEnd);
+
+
+		$next = getdate($rangeEnd);
+		$url->parameters['mon'] = $next['mon'];
+		$url->parameters['mday'] = $next['mday'];
+		$url->parameters['year'] = $next['year'];
+		echo "<a class=\"next button\" href=\"$url\">Next Two Weeks</a>";
+	?>
+</th></tr>
 <?php
-	$rangeStart = time();
 	$recurrences = $this->calendar->getEventRecurrenceArray($rangeStart);
 
 	$numDaysAhead = 0;

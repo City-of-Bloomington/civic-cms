@@ -1,5 +1,4 @@
 @import url('../reset.css');
-/* EMily's test change */
 
 html { background:url('images/pagebg.gif'); background-repeat:repeat; background-position:top; text-align:center; padding-bottom:10px; }
 body { width:980px; position:relative; margin:0 auto; text-align:left; background-color:white; font-family:Arial, Helvetica, sans-serif; }
@@ -283,7 +282,7 @@ a.button {
 	display:inline-block;
 	background:transparent none 0 0 no-repeat;
 	font:0/0 Arial; /* Fix for Safari, With just font-size:0, Safari renders a 1px underline */
-	color:rgba(255,255,255,0); /* If Safari does render the underline, at least it will be white or transparent */
+	color:rgba(255,255,255,0) !important; /* If Safari does render the underline, at least it will be white or transparent */
 	overflow:hidden;
 	vertical-align:middle;
 }
