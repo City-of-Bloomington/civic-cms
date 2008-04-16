@@ -10,6 +10,7 @@
  	$url = explode('?',$url);
 
  	$title = $url[0];
+ 	if (substr($title,-1)=='/') { $title = substr($title,0,-1); }
 	$wikiTitle = WikiMarkup::wikify($title);
 
 	$list = new DocumentList(array('wikiTitle_or_alias'=>$wikiTitle));
