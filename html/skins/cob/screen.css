@@ -328,6 +328,7 @@ a.reveal { width:12px; height:12px; background-image:url('images/icons/reveal_in
 .rm { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/real.png') no-repeat; }
 .ram { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/real.png') no-repeat; }
 .mp3 { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/sound.png') no-repeat; }
+.mp4 { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/video.png') no-repeat; }
 .wma { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/sound.png') no-repeat; }
 .tar { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/tar.png') no-repeat; }
 .dxf { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/dwg-autocad-drawing.ico') no-repeat; }
