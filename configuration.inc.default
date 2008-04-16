@@ -146,9 +146,17 @@ if (!defined('STDIN'))
 /**
  * Language Negotiation
  * Order of precedence: GET,SESSION, HTTP_ACCEPT_LANGUAGE, en
+ *
+ * By Default, a chosen language will be stored in the SESSION.  If you
+ * only want translations to be available only per request, you will
+ * need to comment out the second if () and uncomment the else
+ * This will make it so subsequent pages will continue to be served
+ * in the default language
  */
 define('DEFAULT_LANGUAGE','en');
 if (isset($_GET['lang'])) { $_SESSION['LANGUAGE'] = preg_replace('/[^a-z]/','',strtolower(substr($_GET['lang'],0,3))); }
+# Replace this if () line with an else, if you do not want languages to stick in the SESSION
+#else
 if (!isset($_SESSION['LANGUAGE']))
 {
 	if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) { $_SESSION['LANGUAGE'] = preg_replace('/[^a-z]/','',strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'],0,3))); }
@@ -158,9 +166,20 @@ if (!isset($_SESSION['LANGUAGE']))
 /**
  * Skin Negotiation
  * Order of precedence: GET, SESSION, default
+ * By Default, a chosen skin will be stored in the SESSION.  If you
+ * have multiple skins, this lets users chose a skin and stay with it
+ *
+ * If, however, you want users to only see a chosen skin for a single
+ * request, you'll want to comment out the second line below, and
+ * uncomment the else {}
+ * This will make the site serve a custom skin only on request, without
+ * subsequent navigation continuing to use that custom skin
  */
 if (isset($_GET['skin'])) { $_SESSION['skin'] = $_GET['skin']; }
+# Comment out this line, if you do not want Skins to stick in the SESSION
 if (!isset($_SESSION['skin'])) { $_SESSION['skin'] = 'default'; }
+# Uncomment this line if you do not want skins to stick in the SESSION
+#else { $_SESSION['skin'] = 'default'; }
 
 /**
  * External Web Services
