@@ -21,7 +21,8 @@
 
 	try
 	{
-		if (isset($_REQUEST['document_id']) && $_REQUEST['document_id']) { $document = new Document($_REQUEST['document_id']); }
+		if (isset($_GET['document_id']) && $_GET['document_id']) { $document = new Document($_GET['document_id']); }
+		elseif (isset($_POST['document_id']) && $_POST['document_id']) { $document = new Document($_POST['document_id']); }
 		else { $document = new Document(1); }
 	}
 	catch (Exception $e) { $_SESSION['errorMessages'][] = $e; }
