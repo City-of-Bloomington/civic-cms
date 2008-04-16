@@ -121,12 +121,12 @@ class Search
 	 * @param string $string The text to search for
 	 * @param string type One of the types known to the Search class (see Search->add())
 	 */
-	public function find($string,$type=null)
+	public function find($string,$type=null,$logging=true)
 	{
 		$query = new Zend_Search_Lucene_Search_Query_MultiTerm();
 
 		$string = strtolower($string);
-		$this->log($string);
+		if ($logging) { $this->log($string); }
 		$tokens = preg_split('/\s+/',$string);
 		foreach($tokens as $term)
 		{

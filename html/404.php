@@ -24,7 +24,7 @@
 			try
 			{
 				$search = new Search();
-				$results = $search->find($string);
+				$results = $search->find($string,null,false);
 
 				$template->blocks[] = new Block('search/searchForm.inc',array('search'=>$string));
 				$template->blocks[] = new Block('search/results.inc',array('results'=>$results));
