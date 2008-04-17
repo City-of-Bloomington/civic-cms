@@ -29,16 +29,17 @@ if (count($this->results))
 			}
 			else { $size = $size_in_bytes.'bytes'; }
 
-
-			$class = $hit->isActive() ? '' : 'class="unpublished"';
-			echo "
-			<div class=\"searchResult\">
-				<h3><a href=\"{$hit->getURL()}\" $class>$title</a></h3>
-				<p $class>$description</p>
-				<span><a href=\"{$hit->getURL()}\" $class>".BASE_URL."/{$hit->getWikiTitle()}</a> - $size
-					- last updated {$hit->getModified('%D')}</span>
-			</div>
-			";
+			if ($hit->isActive())
+			{
+				echo "
+				<div class=\"searchResult\">
+					<h3><a href=\"{$hit->getURL()}\">$title</a></h3>
+					<p>$description</p>
+					<span><a href=\"{$hit->getURL()}\">".BASE_URL."/{$hit->getWikiTitle()}</a> - $size
+						- last updated {$hit->getModified('%D')}</span>
+				</div>
+				";
+			}
 		}
 		#------------------------------------------------------------
 		# Event Results
