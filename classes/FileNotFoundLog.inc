@@ -33,4 +33,20 @@ class FileNotFoundLog
 
 		return $result;
 	}
+
+	/**
+	 * Returns all the referrers for a URL that errored out
+	 * @param string $path The path from the 404 error log
+	 */
+	public static function getReferers($path)
+	{
+		$output = array();
+		$PDO = Database::getConnection();
+
+		$query = $PDO->prepare('select distinct referer from file_not_found_log where path=?');
+		$query->execute(array($path));
+		$results = $query->fetchAll();
+		foreach($results as $row) { $output[] = $row['referer']; }
+		return $output;
+	}
 }

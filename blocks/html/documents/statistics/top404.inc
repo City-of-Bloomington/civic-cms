@@ -8,14 +8,17 @@
 ?>
 <h2>Top 404</h2>
 <table>
-<tr><th>Requested URL</th><th>Count</th></tr>
+<tr><th>Requested URL</th><th>Count</th><th></th></tr>
 <?php
 	foreach($this->requests as $hit)
 	{
+		$referers = BASE_URL."/documents/statistics/404Referers.php?path=$hit[path]";
 		$path = View::escape($hit['path']);
 		echo "
 		<tr><td>$path</td>
-			<td>$hit[count]</td></tr>
+			<td>$hit[count]</td>
+			<td><button type=\"button\" onclick=\"window.open('$referers');\">Referrers</button></td>
+		</tr>
 		";
 	}
 ?>
