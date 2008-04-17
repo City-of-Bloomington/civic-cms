@@ -10,8 +10,10 @@ class FileNotFoundLog
 	{
 		$PDO = Database::getConnection();
 
-		$query = $PDO->prepare('insert file_not_found_log set path=?');
-		$query->execute(array($string));
+		$referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : null;
+
+		$query = $PDO->prepare('insert file_not_found_log set path=?,referer=?');
+		$query->execute(array($string,$referer));
 	}
 
 	/**

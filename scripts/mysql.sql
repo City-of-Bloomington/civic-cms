@@ -134,7 +134,8 @@ create table search_log (
 
 create table file_not_found_log (
 	path varchar(128) not null,
-	access_time timestamp not null default CURRENT_TIMESTAMP
+	access_time timestamp not null default CURRENT_TIMESTAMP,
+	referer varchar(255)
 ) engine=Archive;
 
 ---------------------------------------------------------------------
