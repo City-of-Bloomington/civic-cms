@@ -17,16 +17,21 @@ class FileNotFoundLog
 	}
 
 	/**
-	 * Returns the top asked for URLs that errored out, along with
-	 * the number of times that URL was requested
+	 * Returns URLs that errored out, along with
+	 * the number of times that URL was requested.
+	 * The list will be order by the number of times requested
+	 * If you give a numRequests, the list will only contain the
+	 * number you ask for.
+	 * @param int $numRequests Limits the number of items returned
 	 */
-	public static function getTopRequests($numRequests=25)
+	public static function getTopRequests($numRequests=null)
 	{
 		$hits = array();
 
 		$PDO = Database::getConnection();
+		$limit = $numRequests ? "limit $numRequests" : '';
 		$sql = "select path,count(*) as count from file_not_found_log
-				group by path order by count desc limit $numRequests";
+				group by path order by count desc $limit";
 		$query = $PDO->prepare($sql);
 		$query->execute();
 		$result = $query->fetchAll();

@@ -14,7 +14,7 @@ if (userHasRole('Administrator'))
 	$hits = SearchLog::getTopSearches();
 	$template->blocks[] = new Block('search/statistics/topSearches.inc',array('searches'=>$hits));
 
-	$hits = FileNotFoundLog::getTopRequests();
+	$hits = FileNotFoundLog::getTopRequests(25);
 	$template->blocks[] = new Block('documents/statistics/top404.inc',array('requests'=>$hits));
 }
 
