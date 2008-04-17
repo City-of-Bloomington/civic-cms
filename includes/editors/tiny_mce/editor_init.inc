@@ -56,13 +56,13 @@
 		"-sub," +
 		"-sup," +
 		"-blockquote," +
-		"-table[width|height|class|align|summary|class]," +
-		"-tr[abbr|align|class|rowspan|id|valign|class]," +
+		"-table[summary|class]," +
+		"-tr[class|rowspan|id|class]," +
 		"tbody," +
 		"thead," +
 		"tfoot," +
 		"td[class|colspan]," +
-		"th[class|colspan|rowspan|width|height|align|valign|scope]," +
+		"th[class|colspan|rowspan]," +
 		"caption[class]," +
 		"-div[id|class]," +
 		"-span[class]," +
