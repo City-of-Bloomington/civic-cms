@@ -19,7 +19,7 @@
 	<meta http-equiv="Content-Script-Type" content="text/javascript" />
 	<link rel="SHORTCUT ICON" href="/favicon.ico" />
 	<style type="text/css">
-		@import url("<?php echo BASE_URL; ?>/skins/print.php");
+		@import url('<?php echo BASE_URL."/skins/$_SESSION[skin]/print.css"; ?>');
 	</style>
 	<script type="text/javascript" src="<?php echo BASE_URL; ?>/js/functions.js"></script>
 	<title><?php echo View::escape($this->title); ?></title>
