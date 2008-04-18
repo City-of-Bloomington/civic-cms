@@ -42,7 +42,8 @@
 										'mp3'=>array('mime_type'=>'audio/mpeg','media_type'=>'audio'),
 										'mp4'=>array('mime_type'=>'video/mp4','media_type'=>'video'),
 										'wma'=>array('mime_type'=>'audio/x-ms-wma','media_type'=>'audio'),
-										'kml'=>array('mime_type'=>'application/vnd.google-earth.kml+xml','media_type'=>'attachment')
+										'kml'=>array('mime_type'=>'application/vnd.google-earth.kml+xml','media_type'=>'attachment'),
+										'swf'=>array('mime_type'=>'application/x-shockwave-flash','media_type'=>'attachment')
 									);
 
 		public static function getExtensions() { return self::$extensions; }
