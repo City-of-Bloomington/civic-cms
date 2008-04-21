@@ -14,7 +14,7 @@
 	<tr><td><label for="event-title" class="required">Title</label></td>
 		<td><input name="event[title]" id="event-title" size="60" value="<?php echo $this->event->getTitle(); ?>" /></td></tr>
 
-	<tr><td><label for="event-location_id">Location</label></td>
+	<tr><td><label for="event-location_id" class="required">Location</label></td>
 		<td><select name="event[location_id]" id="event-location_id">
 			<?php
 				$list = new LocationList();

@@ -58,6 +58,7 @@ th a { color:#3366cc; background-color:inherit; }
 .instructions { }
 .unpublished { text-decoration:line-through; color:#999999; }
 .current { font-weight:bold; }
+.required { color:red; }
 
 
 img { border:0; }

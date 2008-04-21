@@ -83,7 +83,7 @@
 		{
 			# Check for required fields here.  Throw an exception if anything is missing.
 			if (!$this->title) { throw new Exception('missingTitle'); }
-
+			if (!$this->location_id) { throw new Exception('events/missingLocation'); }
 
 			$fields = array();
 			$fields['start'] = $this->start ? date('Y-m-d H:i:s',$this->start) : null;
@@ -101,7 +101,7 @@
 			$fields['rrule_bymonthday'] = $this->rrule_bymonthday ? $this->rrule_bymonthday : null;
 			$fields['rrule_bysetpos'] = $this->rrule_bysetpos ? $this->rrule_bysetpos : null;
 			$fields['calendar_id'] = $this->calendar_id ? $this->calendar_id : null;
-			$fields['location_id'] = $this->location_id ? $this->location_id : null;
+			$fields['location_id'] = $this->location_id;
 			$fields['user_id'] = $_SESSION['USER']->getId();
 			$fields['contact_name'] = $this->contact_name ? $this->contact_name : null;
 			$fields['contact_phone'] = $this->contact_phone ? $this->contact_phone : null;
