@@ -35,6 +35,7 @@
 			if (isset($fields['code'])) { $options[] = "code='$fields[code]'"; }
 			if (isset($fields['english'])) { $options[] = "english='$fields[english]'"; }
 			if (isset($fields['native'])) { $options[] = "native='$fields[native]'"; }
+			if (isset($fields['direction'])) { $options[] = "direction='$fields[direction]'"; }
 
 
 			# Finding on fields from other tables required joining those tables.

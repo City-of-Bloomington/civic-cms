@@ -282,6 +282,7 @@ create table languages (
 	code char(3) not null,
 	english varchar(128) not null,
 	native varchar(128) not null,
+	direction enum('ltr','rtl') not null default 'ltr',
 	unique (code)
 ) engine=InnoDB CHARACTER SET utf8;
 insert languages (code,english,native) values ('en','English','English');

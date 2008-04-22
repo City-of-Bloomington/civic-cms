@@ -2,6 +2,8 @@
 
 body { font-family: Arial, Helvetica, sans-serif; font-size:12px; color:#000000; background-color:white; height:100%; width:640px; margin:0 auto; min-height:100%; text-align:left; }
 
+*[dir="rtl"] { text-align:right; }
+
 /* DEFAULT TEXT LINKS */
 a { color:#000000; text-decoration:none; }
 

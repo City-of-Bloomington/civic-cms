@@ -9,6 +9,7 @@ class Language extends ActiveRecord
 	private $code;
 	private $english;
 	private $native;
+	private $direction;
 
 	/**
 	 * This will load all fields in the table as properties of this class.
@@ -50,6 +51,7 @@ class Language extends ActiveRecord
 		$fields['code'] = $this->code ? $this->code : null;
 		$fields['english'] = $this->english ? $this->english : null;
 		$fields['native'] = $this->native ? $this->native : null;
+		$fields['direction'] = $this->direction ? $this->direction : null;
 
 		# Split the fields up into a preparedFields array and a values array.
 		# PDO->execute cannot take an associative array for values, so we have
@@ -94,6 +96,8 @@ class Language extends ActiveRecord
 		return count(glob(APPLICATION_HOME.'/data/documents/*/*/*/*.'.$this->code));
 	}
 
+	public function __toString() { return $this->code; }
+
 	/**
 	 * Generic Getters
 	 */
@@ -101,6 +105,7 @@ class Language extends ActiveRecord
 	public function getCode() { return $this->code; }
 	public function getEnglish() { return $this->english; }
 	public function getNative() { return $this->native; }
+	public function getDirection() { return $this->direction; }
 
 	/**
 	 * Generic Setters
@@ -108,4 +113,5 @@ class Language extends ActiveRecord
 	public function setCode($char) { $this->code = $char; }
 	public function setEnglish($string) { $this->english = trim($string); }
 	public function setNative($string) { $this->native = trim($string); }
+	public function setDirection($string) { $this->direction = $string=='rtl' ? 'rtl' : 'ltr'; }
 }

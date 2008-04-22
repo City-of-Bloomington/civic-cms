@@ -29,8 +29,10 @@
 		# We don't want to list english
 		if ((userHasRole('Administrator') || $documentCount) && $language->getCode()!= 'en')
 		{
+			$button = userHasRole('Administrator') ? "<a href=\"".BASE_URL."/languages/updateLanguage.php?language_id={$language->getId()}\" class=\"editSmall button\">Edit</a>" : '';
 			echo "
-			<li><a href=\"".BASE_URL."/languages/documents.php?language={$language->getCode()}\">
+			<li>$button
+				<a href=\"".BASE_URL."/languages/documents.php?language={$language->getCode()}\">
 				{$language->getNative()} ({$language->getEnglish()}) ($documentCount)</a>
 			</li>
 			";

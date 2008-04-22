@@ -3,6 +3,8 @@
 html { background:url('images/pagebg.gif'); background-repeat:repeat; background-position:top; text-align:center; padding-bottom:10px; }
 body { width:980px; position:relative; margin:0 auto; text-align:left; background-color:white; font-family:Arial, Helvetica, sans-serif; }
 
+*[dir="rtl"] { text-align:right; }
+
 /* DEFAULT TEXT */
 a { color:#0066CC; }
 a:active { color:#0066CC; }
