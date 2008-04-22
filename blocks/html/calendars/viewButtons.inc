@@ -10,7 +10,8 @@
 echo '<p>'.View::escape($this->calendar->getDescription()).'</p>';
 ?>
 <div>
-	<p><a href="<?php echo BASE_URL; ?>/feeds#calendar_feeds" class="ical button">View Calendar Feeds</a> Download event calendars into your calendar program</p>
+	<p><a href="<?php echo BASE_URL; ?>/feeds#calendar_feeds" class="ical button">View Calendar Feeds</a> 
+	<a href="<?php echo BASE_URL; ?>/feeds#calendar_feeds"> Download event calendars into your calendar program</a></p>
 	<p>Use the drop down menus below to switch between calendar types and views.</p>
 	<form method="get" action="<?php echo BASE_URL; ?>/calendars">
 	<fieldset>
