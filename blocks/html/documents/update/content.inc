@@ -54,6 +54,7 @@
 			{
 				$content = $this->document->getContent($this->language->getCode());
 				$content_field_name = "content_{$this->language->getCode()}";
+				$language = $this->language;
 				include APPLICATION_HOME.'/includes/editors/'.EDITOR.'/editor_init.inc';
 			}
 			else

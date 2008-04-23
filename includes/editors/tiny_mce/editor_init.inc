@@ -5,7 +5,9 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param string $content
  * @param string $content_field_name
+ * @param Language $language
  */
+$language = isset($language) ? $language : new Language(DEFAULT_LANGUAGE);
 ?>
 <script type="text/javascript" src="<?php echo BASE_URL; ?>/editors/tiny_mce/tiny_mce.js"></script>
 <script type="text/javascript">
@@ -92,4 +94,11 @@
 	}
 	);
 </script>
-<textarea name="<?php echo $content_field_name; ?>" id="<?php echo $content_field_name; ?>" rows="40" cols="80"><?php echo $content ?></textarea>
+<?php
+	$xmllang = "xml:lang=\"$language\"";
+	$lang = "lang=\"$language\"";
+	$dir = $language->getDirection()=='rtl' ? 'dir="rtl"' : '';
+	echo "
+<textarea name=\"$content_field_name\" id=\"$content_field_name\" rows=\"40\" cols=\"80\" $xmllang $lang $dir>$content</textarea>
+	";
+?>

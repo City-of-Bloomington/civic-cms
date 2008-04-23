@@ -68,7 +68,7 @@
 		<input type="hidden" name="continue" id="continue" value="true" />
 
 		<label for="lang">Language</label>
-		<select name="lang" id="lang">
+		<select name="lang" id="lang" onchange="FRAMEWORK.processTabbedForm('documentForm','admin','next');">
 			<?php
 				$list = new LanguageList();
 				$list->find();
@@ -127,8 +127,14 @@
 	<fieldset><legend>Source Code</legend>
 	<p>Content provided here is used <em>as is</em>!.
 		There will be no stripping or escaping of characters, tags, code, or anything else.  Use with discretion.</p>
-		<?php if (!$this->document->isLocked()) { ?>
-			<textarea name="source_<?php echo $this->language->getCode(); ?>" rows="30" cols="100"><?php echo View::escape($this->document->getContent($this->language->getCode())); ?></textarea>
+		<?php
+			if (!$this->document->isLocked())
+			{
+				$xmllang = "xml:lang=\"{$this->language}\"";
+				$lang = "lang=\"{$this->language}\"";
+				$dir = $this->language->getDirection()=='rtl' ? 'dir="rtl"' : '';
+		?>
+			<textarea name="source_<?php echo $this->language ?>" rows="30" cols="100" <?php echo "$xmllang $lang $dir"; ?>><?php echo View::escape($this->document->getContent($this->language->getCode())); ?></textarea>
 			<div>
 				<?php
 					# You can't download anything until we've saved the document, and have a document_id
