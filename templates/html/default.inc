@@ -15,7 +15,8 @@
 		include APPLICATION_HOME.'/includes/leftSidebar.inc';
 		include APPLICATION_HOME.'/includes/rightSidebar.inc';
 
-		$lang = new Language($_SESSION['LANGUAGE']);
+		try { $lang = new Language($_SESSION['LANGUAGE']); }
+		catch (Exception $e) { $lang = new Language(DEFAULT_LANGUAGE); }
 		$dir = $lang->getDirection()=='rtl' ? 'dir="rtl"' : '';
 	?>
 	<div id="mainContent" <?php echo "xml:lang=\"$lang\" lang=\"$lang\" $dir"; ?>>
