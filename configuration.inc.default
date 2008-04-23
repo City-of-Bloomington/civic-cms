@@ -32,7 +32,7 @@ define('FRAMEWORK',APPLICATION_HOME.'/libraries/framework');
  * installation of the ZendFramework
  * http://framework.zend.com
  */
-define('ZEND',APPLICATION_HOME.'/libraries/ZendFramework/library');
+define('ZEND','/var/www/libraries/ZendFramework/library');
 
 /**
  * iCal library used for calendars and events
@@ -47,7 +47,7 @@ define('ICAL4PHP',APPLICATION_HOME.'/libraries/iCal4PHP');
  *
  * Content Manager reads the HTMLPurifier_Config.inc file
  */
-define('HTMLPURIFIER',APPLICATION_HOME.'/libraries/htmlpurifier/library');
+define('HTMLPURIFIER','/var/www/libraries/htmlpurifier/library');
 
 /**
  * Optional Content Cleaning - Comment this out if you don't want
