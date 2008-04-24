@@ -28,7 +28,9 @@
 		# Make sure the document is actually still loaded in the SESSION
 		if (!isset($_SESSION['document'][$instance_id]))
 		{
-			$_SESSION['errorMessages'][] = new Exception('documents/documentNoLongerAvailable.inc');
+			$_SESSION['errorMessages'][] = new Exception('documents/documentNoLongerAvailable');
+			Header("Location: $return_url");
+			exit();
 		}
 	}
 	# If they don't pass an instance_id, this must be the first time to this page
