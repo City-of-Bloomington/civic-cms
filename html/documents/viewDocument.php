@@ -56,7 +56,11 @@
 		# If there isn't one in the URL, try pulling it from $currentAncestors
 		if (isset($_GET['section_id']))
 		{
-			$currentSection = new Section($_GET['section_id']);
+			try { $currentSection = new Section($_GET['section_id']); }
+			catch(Exception $e)
+			{
+				if (count($currentAncestors)) { $currentSection = end($currentAncestors); }
+			}
 		}
 		elseif(count($currentAncestors)) { $currentSection = end($currentAncestors); }
 
