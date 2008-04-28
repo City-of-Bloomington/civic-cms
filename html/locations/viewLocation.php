@@ -5,6 +5,12 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param GET location_id
  */
+if (!isset($_GET['location_id']) || !$_GET['location_id'])
+{
+	Header('Location: '.BASE_URL.'/locations');
+	exit();
+}
+
 try { $location = new Location($_GET['location_id']); }
 catch (Exception $e)
 {

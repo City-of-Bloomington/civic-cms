@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006-2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
@@ -30,13 +30,9 @@
 			if ($id)
 			{
 				$PDO = Database::getConnection();
-				$sql = "select * from locations where id=?";
-				try
-				{
-					$query = $PDO->prepare($sql);
-					$query->execute(array($id));
-				}
-				catch (Exception $e) { throw $e; }
+				$sql = 'select * from locations where id=?';
+				$query = $PDO->prepare($sql);
+				$query->execute(array($id));
 
 				$result = $query->fetchAll();
 				if (!count($result)) { throw new Exception('locations/unknownLocation'); }
@@ -47,7 +43,7 @@
 				# This is where the code goes to generate a new, empty instance.
 				# Set any default values for properties that need it here
 				$this->locationType_id = 1;
-				$this->department_id = $_SESSION['USER']->getDepartment_id();
+				if (isset($_SESSION['USER'])) { $this->department_id = $_SESSION['USER']->getDepartment_id(); }
 			}
 		}
 
@@ -63,7 +59,7 @@
 			if (!$this->name) { throw new Exception('missingName'); }
 			if (!$this->description) { throw new Exception('missingDescription'); }
 			if (!$this->address) { throw new Exception('locations/missingAddress'); }
-
+			if (!$this->department_id) { throw new Exception('locations/missingDepartment'); }
 
 			$fields = array();
 			$fields['name'] = $this->name ? $this->name : null;
