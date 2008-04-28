@@ -9,8 +9,7 @@
  */
 if (!isset($_GET['section_id']) || !ctype_digit($_GET['section_id']))
 {
-	include APPLICATION_HOME.'/html/404.php';
-	exit();
+	$_GET['section_id'] = 1;
 }
 
 # make sure we've got a section homepage
