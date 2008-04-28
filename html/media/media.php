@@ -8,7 +8,7 @@
  *
  * Script to serve all media
  */
-if ($_GET['media_id'])
+if (isset($_GET['media_id']) && $_GET['media_id'])
 {
 	try
 	{
@@ -28,6 +28,14 @@ if ($_GET['media_id'])
 		$path = APPLICATION_HOME.'/html/media';
 		$internalFilename = $filename;
 	}
+}
+else
+{
+	$mime = 'image/png';
+	$disposition = 'inline';
+	$filename = 'missing.png';
+	$path = APPLICATION_HOME.'/html/media';
+	$internalFilename = $filename;
 }
 
 Header('Expires: 0');
