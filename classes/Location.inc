@@ -95,7 +95,7 @@ class Location extends ActiveRecord
 		$PDO = Database::getConnection();
 
 		$sql = "update locations set $preparedFields where id={$this->id}";
-		$query = $PDO->prepare($sql)
+		$query = $PDO->prepare($sql);
 		$query->execute($values);
 	}
 
