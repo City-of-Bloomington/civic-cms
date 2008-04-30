@@ -56,16 +56,13 @@
 		{
 			if ($id)
 			{
+				$PDO = Database::getConnection();
+
 				if(is_numeric($id)) { $sql = 'select * from media where id=?'; }
 				else { $sql = 'select * from media where filename=?'; }
 
-				$PDO = Database::getConnection();
-				try
-				{
-					$query = $PDO->prepare($sql);
-					$query->execute(array($id));
-				}
-				catch (Exception $e) { throw $e; }
+				$query = $PDO->prepare($sql);
+				$query->execute(array($id));
 
 				$result = $query->fetchAll();
 				if (!count($result)) { throw new Exception('media/404'); }
@@ -132,8 +129,8 @@
 			$PDO = Database::getConnection();
 
 			$sql = "update media set $preparedFields where id={$this->id}";
-			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
-			if (false === $query->execute($values)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
+			$query = $PDO->prepare($sql);
+			$query->execute($values);
 		}
 
 		private function insert($values,$preparedFields)
@@ -141,8 +138,8 @@
 			$PDO = Database::getConnection();
 
 			$sql = "insert media set $preparedFields";
-			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
-			if (false === $query->execute($values)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
+			$query = $PDO->prepare($sql);
+			$query->execute($values);
 			$this->id = $PDO->lastInsertID();
 		}
 		public function delete()
@@ -152,12 +149,15 @@
 			# Delete the file from the hard drive
 			unlink($this->getDirectory().'/'.$this->getInternalFilename());
 
-			# Clear out the database
-			$sql = "delete from media_documents where media_id={$this->id}";
-			if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
+			if ($this->id)
+			{
+				# Clear out the database
+				$query = $PDO->prepare('delete from media_documents where media_id=?');
+				$query->execute(array($this->id));
 
-			$sql = "delete from media where id={$this->id}";
-			if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
+				$query = $PDO->prepare('delete from media where id=?');
+				$query->execute(array($this->id));
+			}
 		}
 
 		public function setFile($file)
@@ -257,8 +257,7 @@
 			# If that fails, we most likely don't have enough required info yet
 			if (!$this->id)
 			{
-				try { $this->save(); }
-				catch(Exception $e) { throw $e; }
+				$this->save();
 			}
 			return "{$this->id}.{$this->getExtension()}";
 		}

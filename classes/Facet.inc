@@ -77,8 +77,8 @@
 			$PDO = Database::getConnection();
 
 			$sql = "update facets set $preparedFields where id={$this->id}";
-			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
-			if (false === $query->execute($values)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
+			$query = $PDO->prepare($sql);
+			$query->execute($values);
 		}
 
 		private function insert($values,$preparedFields)
@@ -86,8 +86,8 @@
 			$PDO = Database::getConnection();
 
 			$sql = "insert facets set $preparedFields";
-			if (false === $query = $PDO->prepare($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
-			if (false === $query->execute($values)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
+			$query = $PDO->prepare($sql);
+			$query->execute($values);
 			$this->id = $PDO->lastInsertID();
 		}
 
@@ -98,11 +98,11 @@
 			$PDO = Database::getConnection();
 			if ($this->id)
 			{
-				$sql = "delete from document_facets where facet_id={$this->id}";
-				if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
+				$query = $PDO->prepare('delete from document_facets where facet_id=?');
+				$query->execute(array($this->id));
 
-				$sql = "delete from facets where id={$this->id}";
-				if (false === $PDO->exec($sql)) { $e = $PDO->errorInfo(); throw new Exception($sql.$e[2]); }
+				$query = $PDO->prepare('delete from facets where id=?');
+				$query->execute(array($this->id));
 			}
 		}
 		public function hasGroup($group) { return in_array($group->getId(),array_keys($this->getGroups())); }

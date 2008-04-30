@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006-2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
@@ -164,25 +164,25 @@
 
 				$this->deleteContent();
 
-				$query = $PDO->prepare("delete from documentLinks where document_id={$this->id}");
-				$query->execute();
+				$query = $PDO->prepare('delete from documentLinks where document_id=?');
+				$query->execute(array($this->id));
 
-				$query = $PDO->prepare("delete from document_watches where document_id={$this->id}");
-				$query->execute();
+				$query = $PDO->prepare('delete from document_watches where document_id=?');
+				$query->execute(array($this->id));
 
-				$query = $PDO->prepare("delete from sectionDocuments where document_id={$this->id}");
-				$query->execute();
+				$query = $PDO->prepare('delete from sectionDocuments where document_id=?');
+				$query->execute(array($this->id));
 
-				$query = $PDO->prepare("delete from document_facets where document_id={$this->id}");
-				$query->execute();
+				$query = $PDO->prepare('delete from document_facets where document_id=?');
+				$query->execute(array($this->id));
 
-				$query = $PDO->prepare("delete from media_documents where document_id={$this->id}");
-				$query->execute();
+				$query = $PDO->prepare('delete from media_documents where document_id=?');
+				$query->execute(array($this->id));
 
 				$this->deleteContent();
 
-				$query = $PDO->prepare("delete from documents where id={$this->id}");
-				$query->execute();
+				$query = $PDO->prepare('delete from documents where id=?');
+				$query->execute(array($this->id));
 
 				foreach($this->getWatches() as $watch) { $watch->notify("Document: '{$this->getTitle()}' has been deleted\n"); }
 			}
@@ -391,9 +391,12 @@
 				$PDO = Database::getConnection();
 				$sql = "select distinct b.document_id,count(*) as relevance
 						from document_facets d left join document_facets b using (facet_id)
-						where d.document_id={$this->id} and b.document_id!={$this->id}
+						where d.document_id=? and b.document_id!=?
 						group by b.document_id order by relevance";
-				foreach($PDO->query($sql) as $row) { $this->related[$row['document_id']] = new Document($row['document_id']); }
+				$query = $PDO->prepare($sql);
+				$query->execute(array($this->id,$this->id));
+				$result = $query->fetchAll();
+				foreach($result as $row) { $this->related[$row['document_id']] = new Document($row['document_id']); }
 			}
 			return $this->related;
 		}
@@ -493,22 +496,26 @@
 		{
 			$PDO = Database::getConnection();
 
-			$query = $PDO->prepare("insert document_watches values(?,?)");
+			$query = $PDO->prepare('insert document_watches values(?,?)');
 			$query->execute(array($this->id,$user->getId()));
 		}
 		public function removeWatch($user)
 		{
 			$PDO = Database::getConnection();
 
-			$query = $PDO->prepare("delete from document_watches where document_id=? and user_id=?");
+			$query = $PDO->prepare('delete from document_watches where document_id=? and user_id=?');
 			$query->execute(array($this->id,$user->getId()));
 		}
 		public function getWatches()
 		{
 			$PDO = Database::getConnection();
 
+			$query = $PDO->prepare('select * from document_watches where document_id=?');
+			$query->execute(array($this->id));
+			$result = $query->fetchAll();
+
 			$watches = array();
-			foreach($PDO->query("select * from document_watches where document_id={$this->id}") as $row)
+			foreach($result as $row)
 			{
 				$watches[] = new Watch($this->id,$row['user_id']);
 			}

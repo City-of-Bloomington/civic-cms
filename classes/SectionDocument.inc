@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2007-2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  */
 	class SectionDocument extends ActiveRecord
@@ -31,6 +31,7 @@
 				$query->execute(array($id));
 
 				$result = $query->fetchAll();
+				if (!count($result)) { throw new Exception('sections/unknownSectionDocument'); }
 				foreach($result[0] as $field=>$value) { if ($value) $this->$field = $value; }
 			}
 			else
