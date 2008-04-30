@@ -24,15 +24,11 @@
 			if ($id)
 			{
 				$PDO = Database::getConnection();
-				$sql = "select * from facets where id=?";
-				try
-				{
-					$query = $PDO->prepare($sql);
-					$query->execute(array($id));
-				}
-				catch (Exception $e) { throw $e; }
+				$query = $PDO->prepare('select * from facets where id=?');
+				$query->execute(array($id));
 
 				$result = $query->fetchAll();
+				if (!count($result)) { throw new Exception('facets/unknownFacet'); }
 				foreach($result[0] as $field=>$value) { if ($value) $this->$field = $value; }
 			}
 			else
