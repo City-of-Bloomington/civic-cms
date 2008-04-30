@@ -430,8 +430,17 @@
 
 			# Until cannot happen before the end of the event.
 			if ($this->rrule_until < $this->end) { $this->rrule_until = $this->end; }
+
+			#RRule Until and RRule Count must be mutually exclusive
+			if ($this->rrule_until) { $this->rrule_count = null; }
 		}
-		public function setRrule_count($int) { $this->rrule_count = ereg_replace("[^0-9]","",$int); }
+		public function setRrule_count($int)
+		{
+			$this->rrule_count = ereg_replace("[^0-9]","",$int);
+
+			#RRule Until and RRule Count must be mutually exclusive
+			$this->rrule_until = null;
+		}
 		public function setRrule_interval($int) { $this->rrule_interval = ereg_replace("[^0-9]","",$int); }
 		public function setRrule_byday($string) { $this->rrule_byday = trim($string); }
 		public function setRrule_bymonthday($string) { $this->rrule_bymonthday = trim($string); }
