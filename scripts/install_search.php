@@ -26,7 +26,7 @@ $search = new Search();
 
 
 $documents = new DocumentList();
-$documents->find();
+$documents->find(array('active'=>date('Y-m-d')));
 foreach($documents as $document)
 {
 	$search->add($document);
