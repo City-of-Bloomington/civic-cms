@@ -6,7 +6,7 @@
  */
 ?>
 <h2>KML for Google Earth and Google Maps</h2>
-<p>KML is a file format that tells a map aplpication how to display geographical
+<p>KML is a file format that tells a map application how to display geographical
 information.  Paste a KML address into an application, such as Google Earth,
 AutoCAD, or Yahoo Pipes, and the application will read the file from our server
 and display the information as a map.  Once saved, your application should identify
