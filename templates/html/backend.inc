@@ -5,7 +5,7 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param string $this->title
  */
-	if (!isset($this->title)) { $this->title = "Content Manager - City of Bloomington"; }
+	if (!isset($this->title)) { $this->title = "City of Bloomington"; }
 	include APPLICATION_HOME.'/includes/xhtmlStrictHeader.inc';
 	include APPLICATION_HOME.'/includes/banner.inc';
 	include APPLICATION_HOME.'/includes/menubar.inc';
