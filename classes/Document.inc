@@ -606,9 +606,7 @@
 		{
 			if ($this->id)
 			{
-				$PDO = Database::getConnection();
-				$query = $PDO->prepare('insert document_accesslog set document_id=?');
-				$query->execute(array($this->id));
+				DocumentAccessLog::logHit($this);
 			}
 		}
 
