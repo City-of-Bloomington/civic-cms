@@ -77,5 +77,5 @@ if (count($this->results))
 }
 else
 {
-	echo '<p>We were unable to find anything that matches your search terms.</p>';
+	echo "<p>We were unable to find any {$this->currentType} that match your search terms.</p>";
 }
