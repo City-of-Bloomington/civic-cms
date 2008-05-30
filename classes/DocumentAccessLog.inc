@@ -34,13 +34,22 @@ class DocumentAccessLog
 		$query = $PDO->prepare('insert document_accesslog set document_id=?');
 		$query->execute(array($document->getId()));
 
+		/**
+		* The summary tables need to be updated periodically.
+		* Right now, we've created a cron script to do this.  If you
+		* don't use the cron script, but still want to use the summary tables,
+		* you will need to uncomment this code.  
+		* This will check if it's time to update the summary tables on every 
+		* page request.  The cron script is the more effecient solution, as
+		* it doesn't impact anyone browsing the website
+		*/
 		# Check to see if it's time to update the summary tables
-		$result = $PDO->query('select ifnull(datediff(curdate(),max(date)),1) as days_since_last_generated from document_hits_daily');
-		$r = $result->fetchAll();
-		if ($r[0]['days_since_last_generated'] > 0)
-		{
-			self::updateSummaryTables();
-		}
+		#$result = $PDO->query('select ifnull(datediff(curdate(),max(date)),1) as days_since_last_generated from document_hits_daily');
+		#$r = $result->fetchAll();
+		#if ($r[0]['days_since_last_generated'] > 0)
+		#{
+		#	self::updateSummaryTables();
+		#}
 	}
 
 	/**
