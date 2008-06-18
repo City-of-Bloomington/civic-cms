@@ -43,7 +43,7 @@
 	{
 		echo "
 		<h3>Children</h3>
-		<form method=\"post\" action=\"$_SERVER[PHP_SELF]\">
+		<form method=\"post\" action=\"$_SERVER[SCRIPT_NAME]\">
 		<fieldset><legend>Ordering</legend>
 			<p>You can adjust the order of the child sections here.</p>
 			<ul class=\"compact\">

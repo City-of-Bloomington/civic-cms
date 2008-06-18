@@ -7,7 +7,7 @@
  */
 ?>
 <h1>Update Facet Group</h1>
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form method="post" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>">
 <fieldset><legend>Facet Group Info</legend>
 	<input name="facetGroup_id" type="hidden" value="<?php echo $this->facetGroup->getId(); ?>" />
 

@@ -6,7 +6,7 @@
  */
 ?>
 <h1>Update Calendar</h1>
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form method="post" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>">
 <fieldset><legend>Calendar Info</legend>
 	<input name="calendar_id" type="hidden" value="<?php echo $this->calendar->getId(); ?>" />
 	<table>

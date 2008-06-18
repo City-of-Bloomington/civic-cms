@@ -14,7 +14,7 @@
 how to activate that account.  Account requests that are not activated within a period of time
 are deleted.</p>
 
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form method="post" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>">
 <fieldset><legend>Login Information</legend>
 	<table>
 	<tr><td><label for="email" class="required">Email Address</label></td>

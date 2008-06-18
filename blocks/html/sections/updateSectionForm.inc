@@ -26,7 +26,7 @@
 	}
 ?>
 <h1>Edit <?php echo $this->section; ?></h1>
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form method="post" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>">
 <fieldset><legend>Section Info</legend>
 	<input name="id" type="hidden" value="<?php echo $this->section->getId(); ?>" />
 	<table>

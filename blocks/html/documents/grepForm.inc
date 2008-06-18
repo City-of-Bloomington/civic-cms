@@ -7,7 +7,7 @@
 ?>
 <h1>Document Content Search</h1>
 <p>This page will perform a regular expression search for Documents.</p>
-<form id="grepForm" method="get" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form id="grepForm" method="get" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>">
 <fieldset><legend>Grep</legend>
 	<table>
 	<tr><td><label for="grep">Grep</label></td>

@@ -18,7 +18,7 @@
 	}
 ?>
 <h1>New Section</h1>
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form method="post" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>">
 <fieldset><legend>Section Info</legend>
 	<table>
 	<tr><td><label for="section-name" class="required">Name</label></td>

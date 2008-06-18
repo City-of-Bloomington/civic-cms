@@ -8,7 +8,7 @@
  * @param int $this->instance_id
  */
 ?>
-<form id="documentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form id="documentForm" method="post" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>">
 	<fieldset><legend>Current Sections</legend>
 	<p>This Document is currently showing up in these sections on the site.</p>
 		<input type="hidden" name="tab" id="tab" value="facets" />

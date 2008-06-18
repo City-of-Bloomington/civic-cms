@@ -6,7 +6,7 @@
  */
 ?>
 <h1>New Language</h1>
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form method="post" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>">
 <fieldset><legend>Language</legend>
 	<table>
 	<tr><td><label for="language-code">Code</label></td>

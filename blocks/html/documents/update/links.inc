@@ -12,7 +12,7 @@
 	<h2>Add a Related Link</h2>
 	<p>Links created here will show up in a widget on the side of the page.</p>
 
-	<form id="documentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
+	<form id="documentForm" method="post" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" enctype="multipart/form-data">
 	<fieldset><legend>Link</legend>
 		<input type="hidden" name="tab" id="tab" value="info" />
 		<input type="hidden" name="action" id="action" value="next" />

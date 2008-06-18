@@ -7,7 +7,7 @@
  */
 ?>
 <h1>Edit <?php echo View::escape($this->department->getName()); ?></h1>
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form method="post" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>">
 <fieldset><legend>Department Info</legend>
 	<input name="department_id" type="hidden" value="<?php echo View::escape($this->department->getId()); ?>" />
 	<table>

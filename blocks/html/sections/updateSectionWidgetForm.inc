@@ -8,7 +8,7 @@
 ?>
 <h1><?php echo View::escape($this->sectionWidget->getSection()->getName()); ?></h1>
 <h1>Edit <?php echo View::escape($this->sectionWidget->getWidget()->getName()); ?> Widget</h1>
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form method="post" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>">
 <fieldset><legend>Widget</legend>
 	<input name="sectionWidget_id" type="hidden" value="<?php echo $this->sectionWidget->getId(); ?>" />
 	<table>

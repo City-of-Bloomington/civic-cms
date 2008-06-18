@@ -9,7 +9,7 @@
  * @param int $this->instance_id
  */
 ?>
-<form id="documentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form id="documentForm" method="post" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>">
 	<fieldset><legend>Tools</legend>
 		<button type="button" class="browse" onclick="window.open('<?php echo BASE_URL; ?>/media/imageBrowser.php');">Browse Images</button>
 		<script type="text/javascript">

@@ -7,7 +7,7 @@
  */
 ?>
 <h1>Update Media</h1>
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
+<form method="post" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" enctype="multipart/form-data">
 <fieldset><legend>Media Info</legend>
 	<input name="media_id" type="hidden" value="<?php echo $this->media->getId(); ?>" />
 	<table>

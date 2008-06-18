@@ -29,7 +29,7 @@
 <h1>Reorder the Sections</h1>
 <p>The site will use the numbers you give to order the sections in relation to their siblings.  You can use any number from 0-99.
 Un-numbered sections may be ordered differently each time they are displayed.</p>
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form method="post" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>">
 <fieldset><legend>Sections Layout</legend>
 	<ul style="list-style-type:none">
 		<?php listEditableSections($this->section); ?>

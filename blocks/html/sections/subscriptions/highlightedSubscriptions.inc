@@ -14,7 +14,7 @@
 	</div>
 	<h1>Subscriptions</h1>
 </div>
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form method="post" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>">
 <fieldset><legend>Manage your subscriptions</legend>
 <table>
 <?php

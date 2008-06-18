@@ -11,7 +11,7 @@
 ?>
 <h1>Document Admin</h1>
 
-<form id="documentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
+<form id="documentForm" method="post" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" enctype="multipart/form-data">
 	<fieldset><legend>Alias</legend>
 	<p>This is an alternative title used to find this document when the user types this into the URL</p>
 	<table>

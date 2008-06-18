@@ -6,7 +6,7 @@
  * @param DocumentType $this->documentType
  * @param FacetGroup $this->facetGroup
  */
-$href = new URL($_SERVER['SERVER_NAME'].$_SERVER['PHP_SELF']);
+$href = new URL($_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME']);
 $href->documentType_id = $this->documentType->getId();
 $href->facetGroup_id = 'none';
 
@@ -40,7 +40,7 @@ if (isset($this->facetGroup))
 {
 	echo "
 	<div class=\"table-of-contents\">
-		<form method=\"get\" action=\"$_SERVER[PHP_SELF]\">
+		<form method=\"get\" action=\"$_SERVER[SCRIPT_NAME]\">
 		<fieldset>
 			<input type=\"hidden\" name=\"documentType_id\" value=\"{$this->documentType->getId()}\" />
 			<label for=\"table-of-contents-anchor\">Table of Contents:</label>

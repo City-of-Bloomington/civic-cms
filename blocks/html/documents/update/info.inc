@@ -8,7 +8,7 @@
  * @param int $this->instance_id
  */
 ?>
-<form id="documentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form id="documentForm" method="post" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>">
 	<fieldset><legend>Document Info</legend>
 		<input type="hidden" name="tab" id="tab" value="content" />
 		<input type="hidden" name="action" id="action" value="next" />

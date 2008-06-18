@@ -7,7 +7,7 @@
  */
 ?>
 <h1>Update Event</h1>
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form method="post" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>">
 <fieldset><legend>Event Info</legend>
 	<input name="event_id" type="hidden" value="<?php echo $this->event->getId(); ?>" />
 	<table>

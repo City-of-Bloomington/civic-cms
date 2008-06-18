@@ -6,7 +6,7 @@
  * @param DocumentType $this->documentType (optional)
  */
 $title = 'Document Types';
-$href = new URL($_SERVER['SERVER_NAME'].$_SERVER['PHP_SELF']);
+$href = new URL($_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME']);
 $href->facetGroup_id = 'none';
 if (isset($this->documentType))
 {

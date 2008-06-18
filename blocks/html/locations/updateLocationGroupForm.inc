@@ -7,7 +7,7 @@
  */
 ?>
 <h1>Update Location Group</h1>
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form method="post" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>">
 <fieldset><legend>LocationGroup Info</legend>
 	<input name="id" type="hidden" value="<?php echo $this->locationGroup->getId(); ?>" />
 

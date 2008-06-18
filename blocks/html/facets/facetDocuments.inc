@@ -9,7 +9,7 @@ $description = WikiMarkup::parse($this->facet->getDescription());
 echo "
 <div>$description</div>
 <div class=\"table-of-contents\">
-	<form method=\"get\" action=\"$_SERVER[PHP_SELF]\">
+	<form method=\"get\" action=\"$_SERVER[SCRIPT_NAME]\">
 	<fieldset>
 		<input type=\"hidden\" name=\"facet_id\" value=\"{$this->facet->getId()}\" />
 		<label for=\"table-of-contents-anchor\">Table of Contents:</label>

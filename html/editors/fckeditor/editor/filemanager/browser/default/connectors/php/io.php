@@ -106,7 +106,7 @@ function GetRootPath()
 {
 	$sRealPath = realpath( './' ) ;
 
-	$sSelfPath = $_SERVER['PHP_SELF'] ;
+	$sSelfPath = $_SERVER['SCRIPT_NAME'] ;
 	$sSelfPath = substr( $sSelfPath, 0, strrpos( $sSelfPath, '/' ) ) ;
 
 	// Get the slash according to the filesystem

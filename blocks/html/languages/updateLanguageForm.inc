@@ -7,7 +7,7 @@
  */
 ?>
 <h1>Edit <?php echo $this->language->getEnglish(); ?></h1>
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form method="post" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>">
 <fieldset><legend>Language</legend>
 	<input type="hidden" name="language_id" value="<?php echo $this->language->getId(); ?>" />
 	<table>

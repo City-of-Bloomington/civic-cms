@@ -9,7 +9,7 @@
  */
 ?>
 <h1>Add an Attachment</h1>
-<form id="documentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
+<form id="documentForm" method="post" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" enctype="multipart/form-data">
 	<fieldset><legend>Browse</legend>
 		<input type="hidden" name="tab" id="tab" value="links" />
 		<input type="hidden" name="action" id="action" value="next" />

@@ -15,7 +15,7 @@
 			<?php
 				$departments = new DepartmentList();
 				$departments->find();
-				$url = new URL($_SERVER['SERVER_NAME'].$_SERVER['PHP_SELF']);
+				$url = new URL($_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME']);
 				foreach($departments as $department)
 				{
 					$name = View::escape($department->getName());

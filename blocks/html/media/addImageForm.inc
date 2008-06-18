@@ -6,7 +6,7 @@
  */
 ?>
 <h1>Upload a new Image</h1>
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
+<form method="post" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" enctype="multipart/form-data">
 <fieldset><legend>Image Info</legend>
 	<table>
 	<tr><td><label for="image-title" class="required">Title</label></td>

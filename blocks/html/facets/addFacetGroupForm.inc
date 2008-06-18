@@ -6,7 +6,7 @@
  */
 ?>
 <h1>Add Facet Group</h1>
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form method="post" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>">
 <fieldset><legend>Facet Group Info</legend>
 
 	<table>

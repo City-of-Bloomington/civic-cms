@@ -7,7 +7,7 @@
  */
 ?>
 <h1>Edit <?php echo View::escape($this->widgetInstallation->getName()); ?></h1>
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form method="post" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>">
 <fieldset><legend>Global Widget</legend>
 	<input name="widget_id" type="hidden" value="<?php echo $this->widgetInstallation->getId(); ?>" />
 	<p>Set this information if you want the widget to always be used throughout the site</p>

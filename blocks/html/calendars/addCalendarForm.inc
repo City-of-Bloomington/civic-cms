@@ -5,7 +5,7 @@
  */
 ?>
 <h1>Add Calendar</h1>
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form method="post" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>">
 <fieldset><legend>Calendar Info</legend>
 	<table>
 	<tr><td><label for="calendar-name" class="required">Name</label></td>

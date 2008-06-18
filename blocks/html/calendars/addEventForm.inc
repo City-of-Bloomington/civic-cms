@@ -8,7 +8,7 @@
  	$now = time();
 ?>
 <h1>Add Event</h1>
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form method="post" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>">
 <fieldset><legend>Event Info</legend>
 	<table>
 

@@ -12,7 +12,7 @@
 <p>You can choose documents to be included in the body of the email.  If you do
 not choose any documents, then the email will contain a link to the section as a whole.</p>
 </p>
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" onsubmit="return confirmation(this);">
+<form method="post" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" onsubmit="return confirmation(this);">
 <fieldset><legend>Message</legend>
 	<input name="section_id" type="hidden" value="<?php echo $this->section->getId(); ?>" />
 	<input name="return_url" type="hidden" value="<?php echo $this->return_url; ?>" />

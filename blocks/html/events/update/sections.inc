@@ -8,7 +8,7 @@
  * @param int $this->instance_id
  */
 ?>
-<form id="eventForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form id="eventForm" method="post" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>">
 <fieldset><legend>Sections</legend>
 	<p>Where on the site do you want this event to show up?</p>
 	<table>

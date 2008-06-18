@@ -6,7 +6,7 @@
  */
 ?>
 <h1>New Document Type</h1>
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form method="post" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>">
 <fieldset><legend>Document Type</legend>
 	<table>
 	<tr><td><label for="documentType-type">Type</label></td>

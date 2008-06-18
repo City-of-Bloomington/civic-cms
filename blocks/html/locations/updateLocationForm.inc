@@ -7,7 +7,7 @@
  */
 ?>
 <h1>Update Location</h1>
-<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+<form method="post" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>">
 <fieldset><legend>Location Info</legend>
 	<input name="location_id" type="hidden" value="<?php echo $this->location->getId(); ?>" />
 	<input name="return_url" type="hidden" value="<?php echo $this->return_url; ?>" />
