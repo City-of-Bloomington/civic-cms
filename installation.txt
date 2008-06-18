@@ -43,10 +43,9 @@ Framework:
 	version is APPLICATION_HOME/libraries/framework
 
 ZendFramework
-	The search engine has been built using the ZendFramework.
-	This application comes bundled with a working version of ZendFramework.
-	In the configuration, you can also point to your own copy of ZendFramework.
-	http://framework.zend.com
+	The search engine has been built using the ZendFramework.  It is
+	available at http://framework.zend.com.
+	In the configuration, you will need to point to your install of ZendFramework.
 
 HTMLPurifier
 	Content is cleaned using HTMLPurifier, a standards-compliant
@@ -95,15 +94,6 @@ Browscap
 
 	You can download the latest version of browscap.ini from:
 	http://browsers.garykeith.com/downloads.asp
-
-Subversion:
-	Content is versioned using subversion.  You will need subversion
-	installed on your webserver, so that PHP can call the svn commands
-	to keep track of the documents.
-
-	The repository does not have to be located on the webserver,
-	however, in our case, we just create the repository inside the
-	web application directory once it's installed.
 
 ImageMagick
 	Images in the content manager are resized as necessary.  This is done
@@ -169,35 +159,44 @@ this application's html directory with the php_value line from above.
 add an include() command to the top of every last PHP script in the html directory.
 
 ---------------------------------------------------------------------
+Create Database
+---------------------------------------------------------------------
+If you don't already have a database set up, you will need to create one.
+It's recommended to create a database user for this application that will
+only have access to the database for this application.  Here are the commands
+to create the database and set up a user in MySQL:
+
+mysql> create database content_manager;
+mysql> grant all privileges on content_manager.* to username@localhost identified by 'password';
+mysql> flush privileges;
+
+---------------------------------------------------------------------
 Configuration
 ---------------------------------------------------------------------
 	Edit configuration.inc with appropriate values for your installation.
+This will include where you installed the application, and the username and 
+password for the database user you created.
 
+---------------------------------------------------------------------
+Load Initial Database
+---------------------------------------------------------------------
+Content manager ships with an SQL script to create the database tables,
+and load some initial data.  You can pass this file directly to MySQL.
+
+cd /path/to/application/scripts
+mysql -u username -p password content_manager < mysql.sql
 
 ---------------------------------------------------------------------
 Prepare Non-Database Data
 ---------------------------------------------------------------------
-Install Subversion repository:
-	This application uses subversion to track changes to the documents.
-	You will need to set up a repository that PHP can checkout and commit to.
-	Typically you just create the repository in the application's data
-	directory once it's installed.
-
-	1) Create the document_repository
-	cd /path/to/application/data
-	svnadmin create repository
-
-	2) Import the default homepage into the document_repository
-	cd documents
-	svn import file:///path/to/application/data/repository -m 'Initial repository population.'
-
-	3) Check the default documents out of the repository
-	cd ..
-	rm -Rf documents
-	svn checkout file:///path/to/application/data/repository documents
-
-
-
+Rename the data_default directory to data.
+	All non-database data is stored in the data directory of the application.
+	To avoid overwriting existing application data whenever we release updates,
+	the install comes with a data_default directory.  This includes the directory
+	structure for data.  It needs to be renamed to be just, "data".  This means
+	any future updates can be copied over the top of your installation without 
+	altering your existing data.
+	
 Install Search Engine:
 	This application uses a search index stored on the hard drive.
 	You will need to install the index, then set permissions so that
@@ -215,6 +214,29 @@ Set Permissions:
 	chown -R apache data
 	chmod -R u+rw data
 
+---------------------------------------------------------------------
+-- Create the first Administrator User
+---------------------------------------------------------------------
+Until you create an administrator, your site will just sit empty.  An
+administrator will be able to start creating sections for the site, as
+well as other users.
+
+You will need to add the user directly to the MySQL database.  The default
+authenticationMethod is LDAP, so if you don't have an LDAP server, you'll want
+to use set the authenticationMethod to "local".
+
+If you've configured LDAP authentication:
+mysql> insert users set username='username',firstname='Someone',lastname='Else',email='someone@somewhere.com';
+
+If you need local authentication:
+mysql> insert users set username='username',password=md5('password'),authenticationMethod='local',
+	-> firstname='Someone',lastname='Else',email='someone@somewhere.com';
+	
+And to make them an Administrator:
+mysql> insert user_roles values(1,1);
+	
+	( This works since the first user should be user_id=1 and
+		because the initial data has the Administrator as role_id=1 )
 
 ---------------------------------------------------------------------
 CRON scripts
