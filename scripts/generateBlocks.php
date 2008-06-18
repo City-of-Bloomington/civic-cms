@@ -28,21 +28,24 @@ foreach($tables as $tableName)
 	$variableName = Inflector::singularize($tableName);
 
 	/**
-		* Generate the list block
-		*/
+	 * Generate the list block
+	 */
 	$getId = "get".ucwords($key['Column_name']);
 	$HTML = "<div class=\"interfaceBox\">
 	<h1>
-		<button type=\"button\" class=\"addSmall\" onclick=\"document.location.href='<?php echo BASE_URL; ?>/$tableName/add$className.php';\">Add</button>
+		<?php
+			if (userHasRole('Administrator'))
+			{
+				echo \"<a class=\\\"add button\\\" href=\\\"\".BASE_URL.\"/$tableName/add$className.php\\\">Add</a>\";
+			}
+		?>
 		{$className}s
 	</h1>
 	<ul><?php
 			foreach(\$this->{$variableName}List as \${$variableName})
 			{
-				echo \"
-				<li><button type=\\\"button\\\" class=\\\"editSmall\\\" onclick=\\\"document.location.href='\".BASE_URL.\"/$tableName/update$className.php?$key[Column_name]={\${$variableName}->{$getId}()}';\\\">Edit</button>
-					\$$variableName</li>
-				\";
+				\$editButton = userHasRole('Administrator') ? \"<a class=\\\"edit button\\\" href=\\\"\".BASE_URL.\"/$tableName/update$className.php?$key[Column_name]={\${$variableName}->{$getId}()}\\\">Edit</a>\" : '';
+				echo \"<li>\$editButton \$$variableName</li>\";
 			}
 		?>
 	</ul>
@@ -63,7 +66,7 @@ $HTML";
  * Generate the addForm
  */
 $HTML = "<h1>Add $className</h1>
-<form method=\"post\" action=\"<?php echo \$_SERVER['PHP_SELF']; ?>\">
+<form method=\"post\" action=\"<?php echo \$_SERVER['SCRIPT_NAME']; ?>\">
 <fieldset><legend>$className Info</legend>
 	<table>
 ";
@@ -166,7 +169,7 @@ foreach($fields as $field)
 	</table>
 
 	<button type=\"submit\" class=\"submit\">Submit</button>
-	<button type=\"button\" class=\"cancel\" onclick=\"document.location.href='<?php echo BASE_URL; ?>/{$variableName}s';\">Cancel</button>
+	<a class=\"cancel button\" href=\"<?php echo BASE_URL; ?>/{$variableName}s\">Cancel</a>
 </fieldset>
 </form>";
 
@@ -181,7 +184,7 @@ file_put_contents("$dir/add{$className}Form.inc",$contents);
  * Generate the Update Form
  */
 $HTML = "<h1>Update $className</h1>
-<form method=\"post\" action=\"<?php echo \$_SERVER['PHP_SELF']; ?>\">
+<form method=\"post\" action=\"<?php echo \$_SERVER['SCRIPT_NAME']; ?>\">
 <fieldset><legend>$className Info</legend>
 	<input name=\"$key[Column_name]\" type=\"hidden\" value=\"<?php echo \$this->{$variableName}->{$getId}(); ?>\" />
 	<table>
@@ -285,7 +288,7 @@ foreach($fields as $field)
 	</table>
 
 	<button type=\"submit\" class=\"submit\">Submit</button>
-	<button type=\"button\" class=\"cancel\" onclick=\"document.location.href='<?php echo BASE_URL; ?>/{$variableName}s';\">Cancel</button>
+	<a class=\"cancel button\" href=\"<?php echo BASE_URL; ?>/{$variableName}s\">Cancel</a>
 </fieldset>
 </form>";
 $contents = "<?php\n";
@@ -297,4 +300,3 @@ file_put_contents("$dir/update{$className}Form.inc",$contents);
 
 	echo "$className\n";
 }
-?>

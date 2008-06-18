@@ -35,7 +35,7 @@ $PHP = "\${$variableName}List = new {$className}List();
 
 \$template = new Template();
 \$template->blocks[] = new Block('{$variableName}s/{$variableName}List.inc',array('{$variableName}List'=>\${$variableName}List));
-\$template->render();";
+echo \$template->render();";
 
 $contents = "<?php\n";
 $contents.= COPYRIGHT."\n";
@@ -48,7 +48,7 @@ $contents.= $PHP;
 /**
  * Generate the Add controller
  */
-$PHP = "verifyUser();
+$PHP = "verifyUser('Administrator');
 
 if (isset(\$_POST['{$variableName}']))
 {
@@ -70,7 +70,7 @@ if (isset(\$_POST['{$variableName}']))
 
 \$template = new Template();
 \$template->blocks[] = new Block('{$variableName}s/add{$className}Form.inc');
-\$template->render();";
+echo \$template->render();";
 $contents = "<?php\n";
 $contents.= COPYRIGHT."\n";
 $contents.= $PHP;
@@ -80,12 +80,11 @@ $contents.= $PHP;
 /**
  * Generate the Update controller
  */
-$PHP = "verifyUser();
+$PHP = "verifyUser('Administrator');
 
-if (isset(\$_GET['$key[Column_name]'])) { \${$variableName} = new {$className}(\$_GET['$key[Column_name]']); }
-if (isset(\$_POST['$key[Column_name]']))
+\${$variableName} = new {$className}(\$_REQUEST['$key[Column_name]']);
+if (isset(\$_POST['$variableName']))
 {
-	\${$variableName} = new {$className}(\$_POST['$key[Column_name]']);
 	foreach(\$_POST['$variableName'] as \$field=>\$value)
 	{
 		\$set = 'set'.ucfirst(\$field);
@@ -103,7 +102,7 @@ if (isset(\$_POST['$key[Column_name]']))
 
 \$template = new Template();
 \$template->blocks[] = new Block('{$variableName}s/update{$className}Form.inc',array('{$variableName}'=>\${$variableName}));
-\$template->render();";
+echo \$template->render();";
 $contents = "<?php\n";
 $contents.= COPYRIGHT."\n";
 $contents.= $PHP;

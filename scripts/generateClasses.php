@@ -158,12 +158,15 @@ foreach($tables as $tableName)
 		if (is_array(\$$field[Type])) { \$this->$field[Field] = \$this->dateArrayToTimestamp(\$$field[Type]); }
 		elseif(ctype_digit(\$$field[Type])) { \$this->$field[Field] = \$$field[Type]; }
 		else { \$this->$field[Field] = strtotime(\$$field[Type]); }
-	}
-	";
+	}\n";
 				break;
 
 				case 'float':
 					$setters.= "\tpublic function set$fieldFunctionName(\$$field[Type]) { \$this->$field[Field] = ereg_replace(\"[^0-9.\-]\",\"\",\$$field[Type]); }\n";
+				break;
+
+				case 'bool':
+					$setters.= "\tpublic function set$fieldFunctionName(\$$field[Type]) { \$this->$field[Field] = \$$field[Type] ? true : false; }\n";
 				break;
 
 				default:
@@ -190,6 +193,15 @@ class $className extends ActiveRecord
 $properties
 
 $constructor
+	/**
+	 * Throws an exception if anything's wrong
+	 * @throws Exception \$e
+	 */
+	public function validate()
+	{
+		# Check for required fields here.  Throw an exception if anything is missing.
+
+	}
 
 	/**
 	 * This generates generic SQL that should work right away.
@@ -198,8 +210,8 @@ $constructor
 	 */
 	public function save()
 	{
-		# Check for required fields here.  Throw an exception if anything is missing.
-
+		\$this->validate();
+		
 		\$fields = array();
 ";
 			foreach($fields as $field)
@@ -245,14 +257,19 @@ $contents.= "
 		\$this->$key[Column_name] = \$PDO->lastInsertID();
 	}
 
-	/**
-	 * Generic Getters
-	 */
+	#----------------------------------------------------------------
+	# Generic Getters
+	#----------------------------------------------------------------
 $getters
-	/**
-	 * Generic Setters
-	 */
+	#----------------------------------------------------------------
+	# Generic Setters
+	#----------------------------------------------------------------
 $setters
+	
+	#----------------------------------------------------------------
+	# Custom Functions
+	# We recommend adding all your custom code down here at the bottom
+	#----------------------------------------------------------------
 }
 ";
 	$dir = APPLICATION_HOME.'/scripts/stubs/classes';
@@ -260,4 +277,3 @@ $setters
 	file_put_contents("$dir/$className.inc",$contents);
 	echo "$className\n";
 }
-?>
