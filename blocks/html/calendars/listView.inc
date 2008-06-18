@@ -27,7 +27,7 @@ $MAX_EVENTS = 15;
 		echo "<a class=\"previous button\" href=\"$url\">Previous Two Weeks</a>";
 
 
-		echo date('M j,Y',$rangeStart).' to '.date('M j,Y',$rangeEnd);
+		echo 'From: '.date('M j,Y',$rangeStart).' on...';
 
 
 		$next = getdate($rangeEnd);
