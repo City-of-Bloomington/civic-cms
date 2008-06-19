@@ -86,6 +86,7 @@ class WikiMarkup
 			preg_match('/^([^:]*):(.*)/',$link,$matches);
 			$type = trim($matches[1]);
 			$linkTarget = trim($matches[2]);
+			if (!$linkTarget) { return $link; }
 
 			# Colon specified types are declared as private functions
 			# They are written at the bottom of this script
