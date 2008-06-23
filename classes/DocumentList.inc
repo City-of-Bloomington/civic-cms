@@ -50,6 +50,8 @@
 				if (isset($fields['description'])) { $options[] = "description='$fields[description]'"; }
 				if (isset($fields['lockedBy'])) { $options[] = "lockedBy='$fields[lockedBy]'"; }
 				if (isset($fields['enablePHP'])) { $options[] = "enablePHP='$fields[enablePHP]'"; }
+				if (isset($fields['banner_media_id'])) { $options[] = "banner_media_id='$fields[banner_media_id]'"; }
+				if (isset($fields['icon_media_id'])) { $options[] = "icon_media_id='$fields[icon_media_id]'"; }
 
 				# Provide a way to find out active documents.  Documents are active during the time
 				# between their Publish and Retire dates.

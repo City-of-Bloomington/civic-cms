@@ -95,12 +95,14 @@ create table documents (
   lockedBy int unsigned,
   enablePHP tinyint(1) unsigned not null default 0,
   banner_media_id int unsigned,
+  icon_media_id int unsigned,
   foreign key (createdBy) references users(id),
   foreign key (modifiedBy) references users(id),
   foreign key (department_id) references departments(id),
   foreign key (documentType_id) references documentTypes(id),
   foreign key (lockedBy) references users(id),
-  foreign key (banner_media_id) references media(id)
+  foreign key (banner_media_id) references media(id),
+  foreign key (icon_media_id) references media(id)
 ) engine=InnoDB;
 
 create table documentLinks (

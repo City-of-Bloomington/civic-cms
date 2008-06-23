@@ -23,6 +23,7 @@
 		private $lockedBy;
 		private $enablePHP;
 		private $banner_media_id;
+		private $icon_media_id;
 
 		private $department;
 		private $content = array();
@@ -38,6 +39,7 @@
 		private $widgets = array();
 		private $attachments = array();
 		private $banner;
+		private $icon;
 
 		/**
 		 * This will load all fields in the table as properties of this class.
@@ -111,6 +113,7 @@
 			$fields['lockedBy'] = $this->lockedBy ? $this->lockedBy : null;
 			$fields['enablePHP'] = $this->enablePHP ? 1 : 0;
 			$fields['banner_media_id'] = $this->banner_media_id ? $this->banner_media_id : null;
+			$fields['icon_media_id'] = $this->icon_media_id ? $this->icon_media_id : null;
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
@@ -839,6 +842,15 @@
 			}
 			return $this->banner;
 		}
+		public function getIcon_media_id() { return $this->icon_media_id; }
+		public function getIcon_media()
+		{
+			if ($this->icon_media_id)
+			{
+				if (!$this->icon) { $this->icon = new Media($this->icon_media_id); }
+				return $this->icon;
+			}
+		}
 
 
 
@@ -895,6 +907,8 @@
 		}
 		public function setBanner_media_id($int) { $this->banner = new Media($int); $this->banner_media_id = $int; }
 		public function setBanner_media($media) { $this->banner_media_id = $media->getId(); $this->banner = $media; }
+		public function setIcon_media_id($int) { $this->icon = new Media($int); $this->icon_media_id = $this->icon->getId(); }
+		public function setIcon_media($media) { $this->icon_media_id = $media->getId(); $this->icon = $media; }
 	}
 
 class PHPSyntaxException extends Exception

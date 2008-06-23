@@ -25,40 +25,69 @@
 		Please choose or upload an appropriately sized image.</p>
 	<table>
 	<tr><td><label for="document-banner_media_id">Banner</label></td>
-		<td><button type="button" class="browse" onclick="window.open('<?php echo BASE_URL; ?>/media/imageBrowser.php');">Choose Media</button>
-			<button type="button" class="deleteSmall" onclick="removeIcon();">Delete</button>
+		<td><button type="button" class="browse" onclick="startImageBrowser('banner-image','document-banner_media_id','original');">Choose Media</button>
+			<button type="button" class="deleteSmall" onclick="removeImage('banner-image','document-banner_media_id');">Delete</button>
 			<input name="document[banner_media_id]" id="document-banner_media_id" type="hidden" value="<?php echo $this->document->getBanner_media_id(); ?>" />
-			<span id="icon">
+			<span id="banner-image">
 			<?php
 				if ($this->document->getBanner_media_id())
 				{
-					echo "<img src=\"".BASE_URL."/media/media.php?media_id={$this->document->getBanner_media_id()};size=original\" />";
+					echo "<img src=\"{$this->document->getBanner_media()->getURL('original')}\" />";
+				}
+			?>
+			</span>
+		</td>
+	</tr>
+	</table>
+	</fieldset>
+	
+	<fieldset><legend>Icon</legend>
+	<p>Icons will be displayed as thumbnails when the document is featured.</p>
+	<table>
+	<tr><td><label for="document-icon_media_id">Icon</label></td>
+		<td><button type="button" class="browse" onclick="startImageBrowser('icon-thumbnail','document-icon_media_id','thumbnail');">Choose Media</button>
+			<button type="button" class="deleteSmall" onclick="removeImage('icon-thumbnail','document-icon_media_id');">Delete</button>
+			<input name="document[icon_media_id]" id="document-icon_media_id" type="hidden" value="<?php echo $this->document->getIcon_media_id(); ?>" />
+			<span id="icon-thumbnail">
+			<?php
+				if ($this->document->getIcon_media_id())
+				{
+					echo "<img src=\"{$this->document->getIcon_media()->getURL('thumbnail')}\" />";
 				}
 			?>
 			</span>
 			<script type="text/javascript">
-			var icon = document.getElementById('icon');
+			var span = {}
+			var field = {}
+			var size = '';
+			function startImageBrowser(span_id,field_id,targetSize)
+			{
+				span = document.getElementById(span_id);
+				field = document.getElementById(field_id);
+				size = targetSize;
+				window.open('<?php echo BASE_URL; ?>/media/imageBrowser.php');
+			}
 			function handleSelection(media_id)
 			{
-				var BASE_URL = '<?php echo BASE_URL; ?>';
-				document.getElementById('document-banner_media_id').value = media_id;
-
-				// Update the icon
-				while(icon.hasChildNodes()) { icon.removeChild(icon.firstChild); }
+				field.value = media_id;
+				
+				while (span.hasChildNodes()) { span.removeChild(span.firstChild); }
 				var img = document.createElement('img');
-				img.src = BASE_URL+'/media/media.php?size=original;media_id='+media_id;
-				icon.appendChild(img);
+				img.src = '<?php echo BASE_URL; ?>/media/media.php?size='+size+';media_id='+media_id;
+				span.appendChild(img);
 			}
-			function removeIcon()
+			function removeImage(span_id,field_id)
 			{
-				while(icon.hasChildNodes()) { icon.removeChild(icon.firstChild); }
-				document.getElementById('document-banner_media_id').value = '';
+				span = document.getElementById(span_id);
+				field = document.getElementById(field_id);
+				
+				while(span.hasChildNodes()) { span.removeChild(span.firstChild); }
+				field.value = '';
 			}
 			</script>
 		</td>
 	</tr>
 	</table>
-	</fieldset>
 
 	<fieldset><legend>Language</legend>
 		<input type="hidden" name="tab" id="tab" value="info" />

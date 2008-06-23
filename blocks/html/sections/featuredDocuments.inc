@@ -20,12 +20,22 @@
 		{
 			$title = $document->getFeature_title() ? View::escape($document->getFeature_title()) : View::escape($document->getTitle());
 			$description = View::escape($document->getDescription());
-			$icon = $document->getDocumentType()->getMedia_id() ? "<img src=\"".BASE_URL."/media/media.php?size=thumbnail;media_id={$document->getDocumentType()->getMedia_id()}\" />" : '';
+			
+			if ($document->getIcon_media())
+			{
+				$icon = WikiMarkup::parse("[thumbnail:{$document->getIcon_media_id()},left]");
+			}
+			elseif($document->getDocumentType()->getMedia_id())
+			{
+				$icon = WikiMarkup::parse("[thumbnail:{$document->getDocumentType()->getMedia_id()},left]");
+			}
+			else { $icon = ''; }
+			
 
-			$class = WikiMarkup::wikify($this->documentType->getType());
 			echo "
-			<div class=\"$class\">
+			<div>
 				<h4><a href=\"{$document->getURL()}\">$title</a></h4>
+				$icon
 				<p>$description</p>
 			</div>
 			";

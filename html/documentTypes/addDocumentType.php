@@ -31,6 +31,6 @@ if (isset($_POST['documentType']))
 	catch (Exception $e) { $_SESSION['errorMessages'][] = $e; }
 }
 
-$template = new Template();
+$template = new Template('backend');
 $template->blocks[] = new Block('documentTypes/addDocumentTypeForm.inc');
 echo $template->render();
