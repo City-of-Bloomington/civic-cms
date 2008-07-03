@@ -4,6 +4,8 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
+Header('http/1.1 404 Not Found');
+Header('Status: 404 Not Found');
 $u = new URL($_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
 $path = str_replace(BASE_URL.'/','',$u->getURL());
 $url = urldecode($path);
