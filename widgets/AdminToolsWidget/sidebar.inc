@@ -23,6 +23,7 @@
 
 	if (userHasRole('Webmaster') || userHasRole('Administrator'))
 	{
+		$links['Alerts'] = "<li><a href=\"".BASE_URL."/alerts\">Alerts</a></li>";
 		$links['Widgets'] = "<li><a href=\"".BASE_URL."/widgets\">Widgets</a></li>";
 		$links['Facets'] = "<li><a href=\"".BASE_URL."/facets\">Facets</a></li>";
 		$links['DocumentTypes'] = "<li><a href=\"".BASE_URL."/documentTypes\">Document Types</a></li>";

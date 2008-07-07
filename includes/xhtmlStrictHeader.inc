@@ -34,6 +34,10 @@
 		@import url('<?php echo BASE_URL; ?>/js/lightbox/css/lightbox.css');
 	</style>
 
+	<!-- Load the YUI toolkit -->
+	<style type="text/css" media="screen">@import url('http://yui.yahooapis.com/2.5.2/build/assets/skins/sam/skin.css');</style>
+	<style type="text/css" media="screen">@import url('http://yui.yahooapis.com/2.5.2/build/calendar/assets/skins/sam/calendar.css');</style>
+
 	<?php
 		if (isset($this->document))
 		{

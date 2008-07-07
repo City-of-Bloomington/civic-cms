@@ -351,8 +351,10 @@ a.reveal { width:12px; height:12px; background-image:url('images/icons/reveal_in
 #warning h1 { color:#006600; font-size:14px; background-color:#e6e6e6; }
 #message { border:1px solid #013567; padding:5px; margin: 10px 0px 10px 0px; background-color:#e6e6e6; clear:both; }
 #message h1 { color:#003366; font-size:14px; background-color:#e6e6e6; }
-#alert { border:1px solid #013567; padding:5px; margin: 10px 0px 10px 0px; background-color:#e6e6e6; clear:both; }
-#alert h1 { color:red; font-size:14px; }
+div.alert { border:1px solid #013567; padding:5px; margin: 10px 0px 10px 0px; background-color:#e6e6e6; clear:both; }
+div.alert h1 { color:red; font-size:14px; }
+div.alert ul {  }
+div.alert li { display:inline; color:red; }
 
 
 /* Locations page layout */

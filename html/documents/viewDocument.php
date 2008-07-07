@@ -63,6 +63,12 @@
 			}
 		}
 		elseif(count($currentAncestors)) { $currentSection = end($currentAncestors); }
+		
+		#------------------------------------------------------------
+		# Create the panel for alerts
+		#------------------------------------------------------------
+		$template->blocks[] = new Block('alerts/alertPanel.inc',array('document'=>$document));
+
 
 		#------------------------------------------------------------
 		# Set up the content of the document

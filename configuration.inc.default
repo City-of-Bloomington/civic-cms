@@ -187,6 +187,29 @@ if (!isset($_SESSION['skin'])) { $_SESSION['skin'] = 'default'; }
 define('DIRECTORY_WEBSERVICE','http://isotope.bloomington.in.gov/directory');
 
 /**
+ * Emergency Weather Alerts
+ * Point this to a CAP.xml source for your area
+ * More information about this system is at http://www.weather.gov/alerts
+ * The National Weather Service publishes these cap files for each State
+ */
+define('NATIONAL_WEATHER_SERVICE_CAP_FILE','http://www.weather.gov/alerts/in.cap');
+/**
+ * Add the counties (as regular expressions) to this array.  Alerts will
+ * only be parsed from the CAP file for the counties you define here.
+ */
+$ALERT_COUNTIES = array(
+	'/Monroe/'
+);
+/**
+ * The National Weather service is publishing alerts even for mundane things
+ * like the short term forcast.  If there are alert info events in the CAP
+ * file that you want to ignore, add a regular expression for them in this array
+ */
+$ALERT_IGNORE = array(
+	'/Forecast/'
+);
+
+/**
  * Google Map Key
  * The content manager can map locations using Google Maps.
  * If you want this functionality, you must provide your own Google Map Key
@@ -202,6 +225,6 @@ define('DIRECTORY_WEBSERVICE','http://isotope.bloomington.in.gov/directory');
  * Each of these must be a regular expression in Perl syntax
  */
 $BAD_LINK_EXPRESSIONS = array(
-#	'/http:\/\/bloomington/',
-#	'/http:\/\/www\.bloomington\./'
+#	'|http://bloomington|',
+s#	'|http://www\.bloomington\.|'
 );

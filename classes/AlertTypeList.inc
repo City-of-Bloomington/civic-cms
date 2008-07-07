@@ -1,33 +1,21 @@
 <?php
 /**
- * @copyright Copyright (C) 2007-2008 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
- * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
-class PanelList extends PDOResultIterator
+class AlertTypeList extends PDOResultIterator
 {
-
-	public function __construct($fields=null,$sort='id')
+	public function __construct($fields=null)
 	{
-		$this->select = 'select panels.id as id from panels';
-		$this->sort = $sort;
+		$this->select = 'select alertTypes.id as id from alertTypes';
 		if (is_array($fields)) $this->find($fields);
 	}
-
 
 	public function find($fields=null,$sort='id',$limit=null,$groupBy=null)
 	{
 		$this->sort = $sort;
 		$this->limit = $limit;
 		$this->groupBy = $groupBy;
-
-		if (is_array($fields))
-		{
-			foreach($fields as $key=>$value)
-			{
-				if (!is_array($value) && !is_object($value)) { $fields[$key] = addslashes($value); }
-			}
-		}
 
 		$options = array();
 		if (isset($fields['id'])) { $options[] = "id='$fields[id]'"; }
@@ -41,6 +29,5 @@ class PanelList extends PDOResultIterator
 		$this->populateList($options);
 	}
 
-
-	protected function loadResult($key) { return new Panel($this->list[$key]); }
+	protected function loadResult($key) { return new AlertType($this->list[$key]); }
 }

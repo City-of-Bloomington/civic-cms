@@ -269,12 +269,13 @@ create table facetGroup_departments (
 ---------------------------------------------------------------------
 create table panels (
 	id int unsigned not null primary key auto_increment,
-	div_id varchar(128) not null
+	name varchar(128) not null unique
 ) engine=InnoDB;
-insert panels set div_id='leftSidebar';
-insert panels set div_id='rightSidebar';
-insert panels set div_id='mainContent';
-insert panels set div_id='banner';
+insert panels set name='leftSidebar';
+insert panels set name='rightSidebar';
+insert panels set name='mainContent';
+insert panels set name='banner';
+insert panels set name='alerts';
 
 create table widgets (
 	id int unsigned not null primary key auto_increment,
@@ -300,6 +301,25 @@ create table section_widgets (
 	foreign key (widget_id) references widgets(id),
 	foreign key (panel_id) references panels(id)
 ) engine=InnoDB;
+
+create table alertTypes (
+	id int unsigned not null primary key auto_increment,
+	name varchar(128) not null
+) engine=InnoDB;
+insert alertTypes set name='Custom';
+insert alertTypes set name='Weather';
+
+create table alerts (
+	id int unsigned not null primary key auto_increment,
+	title varchar(128) not null unique,
+	alertType_id int unsigned not null default 1,
+	startTime timestamp not null,
+	endTime timestamp not null,
+	url varchar(255),
+	text text,
+	foreign key (alertType_id) references alertTypes(id)
+) engine=InnoDB;
+
 
 ---------------------------------------------------------------------
 -- Languages
