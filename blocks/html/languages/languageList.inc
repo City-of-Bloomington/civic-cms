@@ -40,4 +40,4 @@
 	}
 ?>
 </ul>
-</div>
+<h2> Set Up a Preferred Language in Your Browser</h2><p>You can set up your browser to automatically display a specific language whenever a webpage has been translated. Follow these guidelines to edit your browser's settings.</p><ul>					<li> 						<p><strong>Internet Explorer 7</strong>: Tools &gt; Internet Options &gt; General (tab) &gt; Languages &gt; Language preference</p>					</li>					<li> 						<p><strong>Internet Explorer 6</strong>: Tools &gt; Internet Options &gt; General (tab) &gt; Languages</p>					</li>					<li><p><strong>Firefox 3 (PC)</strong>: Tools -&gt; Options -&gt; Content (tab) -&gt; Languages</p></li>					<li> 						<p><strong>Firefox 2 (PC)</strong>: Tools -&gt; Options -&gt; Advanced (tab) -&gt; General (tab) -&gt; Languages</p>					</li><li> 						<p><strong>Safari</strong>: (Set via the Mac OS X system preferences) System preferences &gt; International &gt; Language</p>					</li></ul></div>
