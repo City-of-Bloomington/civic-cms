@@ -351,10 +351,10 @@ a.reveal { width:12px; height:12px; background-image:url('images/icons/reveal_in
 #warning h1 { color:#006600; font-size:14px; background-color:#e6e6e6; }
 #message { border:1px solid #013567; padding:5px; margin: 10px 0px 10px 0px; background-color:#e6e6e6; clear:both; }
 #message h1 { color:#003366; font-size:14px; background-color:#e6e6e6; }
-div.alert { border:1px solid #013567; padding:5px; margin: 10px 0px 10px 0px; background-color:#e6e6e6; clear:both; }
-div.alert h1 { color:red; font-size:14px; }
-div.alert ul {  }
-div.alert li { display:inline; color:red; }
+div.alert { border:2px solid red; margin: 10px 0px 10px 0px; clear:both; }
+div.alert h1 { background-color:red; color:white; font-size:16px; }
+div.alert ul { overflow:auto; list-style-image: url('images/banners/exclamation_point.jpg'); margin:0; }
+div.alert li { float:left; font-size:14px; color:red; }
 
 
 /* Locations page layout */
