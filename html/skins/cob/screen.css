@@ -351,10 +351,13 @@ a.reveal { width:12px; height:12px; background-image:url('images/icons/reveal_in
 #warning h1 { color:#006600; font-size:14px; background-color:#e6e6e6; }
 #message { border:1px solid #013567; padding:5px; margin: 10px 0px 10px 0px; background-color:#e6e6e6; clear:both; }
 #message h1 { color:#003366; font-size:14px; background-color:#e6e6e6; }
-div.alert { border:2px solid red; margin: 10px 0px 10px 0px; clear:both; }
-div.alert h1 { background-color:red; color:white; font-size:16px; }
-div.alert ul { overflow:auto; list-style-image: url('images/banners/exclamation_point.jpg'); margin:0; }
-div.alert li { float:left; font-size:14px; color:red; }
+div.weatheralert { border:1px solid red; margin: 10px 0px 10px 0px; clear:both; }
+div.weatheralert h1 { background-color:#CC0000; color:white; font-size:16px; }
+div.weatheralert ul { overflow:auto; list-style-image: url('images/banners/exclamation_point.jpg'); margin:0; }
+div.weatheralert li { float:left; font-size:14px; color:red; }
+div.customalert { border:1px #013466; margin: 10px 0px 10px 0px; clear:both; }
+div.customalert h1 { background-color:#013466; color:white; font-size:16px; }
+div.customalert p { margin: 1px 1px 1px 3px; font-size:14px; } 
 
 
 /* Locations page layout */
