@@ -12,7 +12,7 @@ if (count($list))
 	if ($type=='Weather')
 	{
 		echo "
-		<div class=\"alert widget\">
+		<div class=\"weatheralert widget\">
 		<h1>Severe Weather Alerts</h1>
 		<ul>
 		";
@@ -36,7 +36,7 @@ if (count($list))
 			$title = $alert->getURL() ? "<a href=\"{$alert->getURL()}\">$title</a>" : $title;
 			$text = View::escape($alert->getText());
 			echo "
-			<div class=\"alert\">
+			<div class=\"customalert\">
 				<h1>$title</h1>
 				<p>$text</p>
 			</div>
