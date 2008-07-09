@@ -578,7 +578,7 @@ class WikiMarkup
 		if (count($list))
 		{
 			$image = $list[0];
-			$url = BASE_URL.'/media/media.php?size=thumbnail;media_id='.$image->getId();
+			$url = $image->getURL('thumbnail');
 			$alt = View::escape($image->getTitle());
 			$width = $image->getWidth('thumbnail');
 			$height = $image->getHeight('thumbnail');

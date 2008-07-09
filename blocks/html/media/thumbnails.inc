@@ -26,7 +26,7 @@ foreach($this->imageList as $image)
 		<a href=\"{$image->getURL()}\" onclick=\"insert('{$image->getId()}');return false;\">
 			<img src=\"$src\" width=\"$width\" height=\"$height\" alt=\"$title\" />
 		</a>
-		<span class=\"caption\">{$image->getId()}</span>
+		<span class=\"caption\">{$image->getInternalFilename()}</span>
 	</span>
 	";
 }

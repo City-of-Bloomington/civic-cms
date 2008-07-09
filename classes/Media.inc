@@ -237,6 +237,15 @@
 				exit();
 			}
 			else { $this->uploaded = date('Y-m-d'); }
+			
+			# Generate Thumbnails for Images
+			if ($this->media_type == 'image')
+			{
+				foreach(array_keys(Image::getSizes()) as $size)
+				{
+					Image::resize("{$this->getDirectory()}/{$this->getInternalFilename()}",$size);
+				}
+			}
 		}
 
 		/**
@@ -244,7 +253,6 @@
 		 */
 		public function getDirectory()
 		{
-			$department = $this->createValidFilename($this->getDepartment()->getName());
 			return APPLICATION_HOME."/data/media/{$this->mime_type}";
 		}
 		public function getInternalFilename()
@@ -269,17 +277,26 @@
 
 
 		/**
-		 *  All media will be served by scripts that stream the media to the browser
+		 * @param String $size One of the sizes declared in Image::sizes
 		 */
 		public function getURL($size=null)
 		{
-			$url = BASE_URL."/media/media.php?media_id={$this->id}";
+			$url = BASE_URL."/media/media/{$this->mime_type}";
+			$filename = $this->getInternalFilename();
 
 			# Sizes only really apply to images
 			if ($this->media_type == 'image' && $size)
 			{
-				$url.= ';size='.$size;
+				$sizes = Image::getSizes();
+				if (in_array($size,array_keys($sizes)))
+				{
+					$ext = $sizes[$size]['ext'];
+					$url .= "/$size";
+					$filename = "{$this->id}.$ext";
+				}
 			}
+			$url.="/$filename";
+			
 			return $url;
 		}
 
