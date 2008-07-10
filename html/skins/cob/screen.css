@@ -358,7 +358,7 @@ div.weatheralert ul { overflow:auto; list-style-image: url('images/banners/bulle
 div.weatheralert li { float:left; font-size:12px; }
 div.customalert { border:1px #013466 solid; margin: 10px 0px 10px 0px; clear:both; }
 div.customalert h1 { background-color:#013466; color:white; font-size:13px; padding-left:3px; }
-div.customalert p { margin: 1px 1px 1px 3px; font-size:12px; padding-left:10px; background: url('images/banners/bullet_flashing_green.gif') no-repeat; } 
+div.customalert p { margin: 1px 1px 1px 3px; font-size:12px; padding-left:14px; background: url('images/banners/bullet_flashing_green.gif') no-repeat; } 
 
 
 /* Locations page layout */
