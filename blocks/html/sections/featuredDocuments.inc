@@ -15,30 +15,37 @@
 			echo "Spotlight $type in $sectionName";
 		?>
 	</h2>
+	<table>
 	<?php
 		foreach($this->documentList as $document)
 		{
 			$title = $document->getFeature_title() ? View::escape($document->getFeature_title()) : View::escape($document->getTitle());
 			$description = View::escape($document->getDescription());
 			
+			$icon = false;
 			if ($document->getIcon_media())
 			{
-				$icon = WikiMarkup::parse("[thumbnail:{$document->getIcon_media_id()},left]");
+				$icon = $document->getIcon_media();
 			}
 			elseif($document->getDocumentType()->getMedia_id())
 			{
-				$icon = WikiMarkup::parse("[thumbnail:{$document->getDocumentType()->getMedia_id()},left]");
+				$icon = $document->getDocumentType()->getMedia();
 			}
-			else { $icon = ''; }
 			
-
+			if ($icon)
+			{
+				$alt = View::escape($icon->getTitle());
+				$img = "<img src=\"{$icon->getURL('thumbnail')}\" alt=\"$alt\" />";
+			}
+			else { $img = ''; }
+			
 			echo "
-			<div>
-				<h4><a href=\"{$document->getURL()}\">$title</a></h4>
-				$icon
-				<p>$description</p>
-			</div>
+			<tr><th colspan=\"2\"><h4><a href=\"{$document->getURL()}\">$title</a></h4></th></tr>
+			<tr><td>$img</td>
+				<td><p>$description</p></td>
+			</tr>
 			";
 		}
 	?>
+	</table>
 </div>

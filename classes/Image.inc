@@ -10,7 +10,7 @@ class Image extends Media
 	 * The sizes, in pixels for the various versions of Images
 	 */
 	private static $sizes = array(	'medium'=>array('size'=>350,'ext'=>'jpg'),
-									'thumbnail'=>array('size'=>100,'ext'=>'gif')
+									'thumbnail'=>array('size'=>60,'ext'=>'gif')
 								);
 
 

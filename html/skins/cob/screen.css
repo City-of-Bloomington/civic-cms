@@ -19,7 +19,7 @@ h2 { font-size:16px; color:#003366;  margin:15px 0px 5px 0px; font-weight:bold; 
 h2 a { color:#003366; }
 h3 { font-size:14px; color:#003366; margin:15px 0px 5px 0px; padding:0; font-weight:bold; clear:both; }
 h3 a { color:#003366; }
-h4 { font-size:13px; color:#003366; margin:15px 0px 5px 0px; padding:0; font-weight:bold; clear:both; }
+h4 { font-size:13px; color:#003366; margin:0; padding:0; font-weight:bold; clear:both; }
 h4 a { color:#003366; }
 h5 { font-size:13px; color:#003366; margin:15px 0px 5px 0px; padding:0; font-weight:bold; clear:both; }
 h5 a { color:#003366; }
@@ -48,8 +48,8 @@ input { }
 
 table { border-collapse:collapse; border:1px solid #999999; }
 tr { vertical-align:top; }
-td { padding:.5em; background-color:inherit; border:1px solid #999999; }
-th { text-align:left; border:1px solid #999999; background-color:#e0e0e0; padding:.5em; vertical-align: top; font-weight:bold; }
+td { padding:2px; background-color:inherit; border:1px solid #999999; }
+th { text-align:left; border:1px solid #999999; background-color:#e0e0e0; padding:2px; vertical-align: top; font-weight:bold; }
 th a { color:#3366cc; background-color:inherit; }
 
 .comments { color:red; background-color:inherit; }
@@ -203,8 +203,8 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 /* defines table styles for tables in the center column / content area. Will not affect other tables like the calendar */
 #mainContent table { border-collapse:collapse; border:1px solid #999999; }
 #mainContent tr { vertical-align:top; }
-#mainContent td { padding:.5em; background-color:inherit; border:1px solid #999999; vertical-align:top; }
-#mainContent th { text-align:left; background-color:#e0e0e0; padding:.5em; border:1px solid #999999; vertical-align: top; font-weight:bold; }
+#mainContent td { background-color:inherit; border:1px solid #999999; vertical-align:top; }
+#mainContent th { text-align:left; background-color:#e0e0e0; border:1px solid #999999; vertical-align: top; font-weight:bold; }
 #mainContent th a { color:#3366cc; background-color:inherit; }
 
 /* HANAPIN - STYLES FOR EVENTS SECTION */
@@ -340,8 +340,9 @@ a.reveal { width:12px; height:12px; background-image:url('images/icons/reveal_in
 .folder { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/folder.png') no-repeat; }
 
 /* Styles for the Featured "Spotlight" blocks */
-.featured div { overflow:auto; } /* This is so we can float the icons and still have the div grow in size */
-.featured span.image img { border:0; }
+.featured table { width:100%; border:0 !important; }
+.featured th { background-color:inherit !important; border:0 !important; }
+.featured td { border:0 !important; }
 
 
 /* notification blocks */
