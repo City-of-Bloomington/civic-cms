@@ -23,7 +23,12 @@ today=`date +%F`
 cd $APPLICATION_HOME
 
 # Dump the database
-$MYSQLDUMP -u $MYSQL_USER -p$MYSQL_PASS $MYSQL_DBNAME > data/database.sql
+$MYSQLDUMP -u $MYSQL_USER -p$MYSQL_PASS \
+--ignore-table=$MYSQL_DBNAME.document_accesslog \
+--ignore-table=$MYSQL_DBNAME.document_hits_daily \
+--ignore-table=$MYSQL_DBNAME.document_hits_monthly \
+--ignore-table=$MYSQL_DBNAME.document_hits_yearly \
+$MYSQL_DBNAME > data/database.sql
 
 # Tarball the Data
 tar czf backups/$today.tar.gz data
