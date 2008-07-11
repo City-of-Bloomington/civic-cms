@@ -226,5 +226,5 @@ $ALERT_IGNORE = array(
  */
 $BAD_LINK_EXPRESSIONS = array(
 #	'|http://bloomington|',
-s#	'|http://www\.bloomington\.|'
+#	'|http://www\.bloomington\.|'
 );
