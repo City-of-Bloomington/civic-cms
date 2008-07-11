@@ -8,6 +8,8 @@ class AlertList extends PDOResultIterator
 {
 	public function __construct($fields=null)
 	{
+		$this->deleteExpiredAlerts();
+	
 		$this->select = 'select alerts.id as id from alerts';
 		if (is_array($fields)) $this->find($fields);
 	}
