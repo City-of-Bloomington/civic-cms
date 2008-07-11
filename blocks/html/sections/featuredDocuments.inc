@@ -35,7 +35,7 @@
 			if ($icon)
 			{
 				$alt = View::escape($icon->getTitle());
-				$img = "<img src=\"{$icon->getURL('thumbnail')}\" alt=\"$alt\" />";
+				$img = "<img src=\"{$icon->getURL('icon')}\" alt=\"$alt\" />";
 			}
 			else { $img = ''; }
 			

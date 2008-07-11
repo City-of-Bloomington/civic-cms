@@ -7,10 +7,11 @@
 include '../configuration.inc';
 
 $images = new ImageList();
+$images->disableCache();
 $images->find();
 foreach($images as $image)
 {
 	$file = "{$image->getDirectory()}/{$image->getInternalFilename()}";
-	Image::resize($file,'thumbnail');
+	Image::resize($file,'icon');
 	echo "$file\n";
 }

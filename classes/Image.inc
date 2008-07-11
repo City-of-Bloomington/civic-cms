@@ -7,10 +7,13 @@
 class Image extends Media
 {
 	/**
-	 * The sizes, in pixels for the various versions of Images
+	 * The sizes, in pixels for the various versions of Image
+	 * Provide the dimensions in the format recognized by ImageMagick
+	 * http://www.imagemagick.org/script/command-line-options.php#resize
 	 */
-	private static $sizes = array(	'medium'=>array('size'=>350,'ext'=>'jpg'),
-									'thumbnail'=>array('size'=>60,'ext'=>'gif')
+	private static $sizes = array(	'medium'=>array('dimensions'=>'350x350>','ext'=>'jpg'),
+									'thumbnail'=>array('dimensions'=>'100x100>','ext'=>'gif'),
+									'icon'=>array('dimensions'=>'x60','ext'=>'gif')
 								);
 
 
@@ -79,9 +82,9 @@ class Image extends Media
 
 			if (!is_dir($directory)) { mkdir($directory,0777,true); }
 
-			$dimension = self::$sizes[$size]['size'];
+			$dimensions = self::$sizes[$size]['dimensions'];
 			$newFile = "$directory/$filename.$ext";
-			exec(IMAGEMAGICK."/convert $inputFile -resize '{$dimension}x{$dimension}>' $newFile");
+			exec(IMAGEMAGICK."/convert $inputFile -resize '$dimensions' $newFile");
 		}
 		else { throw new Exception('media/unknownSize'); }
 	}
