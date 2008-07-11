@@ -148,6 +148,9 @@ Alias /application_name "/path/to/application_name/html"
 	php_value post_max_size 100M
 	php_value upload_max_filesize 100M
 </Directory>
+<Directory "/path/to/application_name/html/media/media">
+    ErrorDocument 404 /application_name/media/404.php
+</Directory>
 
 
 	If you're running in a shared hosting environment, you cannot do Alias or
