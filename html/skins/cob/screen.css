@@ -19,7 +19,7 @@ h2 { font-size:16px; color:#003366;  margin:15px 0px 5px 0px; font-weight:bold; 
 h2 a { color:#003366; }
 h3 { font-size:14px; color:#003366; margin:15px 0px 5px 0px; padding:0; font-weight:bold; clear:both; }
 h3 a { color:#003366; }
-h4 { font-size:13px; color:#003366; margin:0; padding:0; font-weight:bold; clear:both; }
+h4 { font-size:13px; color:#003366; margin:15px 0px 5px 0px; padding:0; font-weight:bold; clear:both; }
 h4 a { color:#003366; }
 h5 { font-size:13px; color:#003366; margin:15px 0px 5px 0px; padding:0; font-weight:bold; clear:both; }
 h5 a { color:#003366; }
@@ -341,9 +341,9 @@ a.reveal { width:12px; height:12px; background-image:url('images/icons/reveal_in
 
 /* Styles for the Featured "Spotlight" blocks */
 .featured table { width:100%; border:0 !important; }
-.featured th { background-color:inherit !important; border:0 !important; }
+.featured th { background-color:white !important; border:0 !important; }
 .featured td { border:0 !important; }
-
+.featured h4 { margin:0; }
 
 /* notification blocks */
 #errorMessages { border:1px solid #013567; padding:5px; margin: 10px 0px 10px 0px; background-color:#e6e6e6; clear:both; }
