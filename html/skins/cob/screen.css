@@ -95,7 +95,7 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 #banner .take-action .explore { margin-left:13px; }
 #banner .take-action .explore a { color:#c13100; }
 
-#mainLinks { width:326px; height:30px; position:absolute; top:10px; left:348px; padding-top:6px; padding-left:4px; }
+#mainLinks #mainLinks { width:329px; height:30px; position:absolute; top:10px; left:346px; padding-top:6px; padding-left:3px; }
 #mainLinks ul, #mainLinks li { display:inline; }
 
 #mainLinks a, #secondaryLinks a { color:#003366; }
