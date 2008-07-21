@@ -95,7 +95,7 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 #banner .take-action .explore { margin-left:13px; }
 #banner .take-action .explore a { color:#c13100; }
 
-#mainLinks #mainLinks { width:329px; height:30px; position:absolute; top:10px; left:346px; padding-top:6px; padding-left:3px; }
+#mainLinks { width:329px; height:30px; position:absolute; top:10px; left:346px; padding-top:6px; padding-left:3px; }
 #mainLinks ul, #mainLinks li { display:inline; }
 
 #mainLinks a, #secondaryLinks a { color:#003366; }
@@ -358,7 +358,7 @@ div.weatheralert ul { overflow:auto; list-style-image: url('images/banners/bulle
 div.weatheralert li { float:left; font-size:12px; }
 div.customalert { border:1px #013466 solid; margin: 10px 0px 10px 0px; clear:both; }
 div.customalert h1 { background-color:#013466; color:white; font-size:13px; padding-left:3px; }
-div.customalert p { margin: 1px 1px 1px 3px; font-size:12px; padding-left:14px; background: url('images/banners/bullet_flashing_green.gif') no-repeat; } 
+div.customalert p { margin: 1px 1px 1px 3px; font-size:12px; padding-left:14px; background: url('images/banners/bullet_flashing_green.gif') no-repeat; }
 
 
 /* Locations page layout */
