@@ -19,7 +19,7 @@
 	<div id="mainLinks">
 		<ul><li class="first"><a href="<?php echo BASE_URL; ?>/documentTypes/documents.php?documentType_id=4">Services</a></li>
 			<li><a href="<?php echo BASE_URL; ?>/documentTypes/documents.php?documentType_id=5">News</a></li>
-			<li><a href="<?php echo BASE_URL; ?>/calendars">Events</a></li>
+			<li><a href="<?php echo BASE_URL; ?>/calendars">Calendars</a></li>
 			<li><a href="<?php echo BASE_URL; ?>/locations">Locations</a></li>
 			<li><a href="<?php echo BASE_URL; ?>/mybloomington">myBloomington</a></li>
 			<li><a href="<?php echo BASE_URL; ?>/search/sitemap.php">Sitemap</a></li>
