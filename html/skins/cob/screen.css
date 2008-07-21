@@ -95,15 +95,15 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 #banner .take-action .explore { margin-left:13px; }
 #banner .take-action .explore a { color:#c13100; }
 
-#mainLinks { width:329px; height:30px; position:absolute; top:10px; left:346px; padding-top:6px; padding-left:3px; }
+#mainLinks { width:335px; height:30px; position:absolute; top:10px; left:330px; padding-top:6px; padding-left:3px; }
 #mainLinks ul, #mainLinks li { display:inline; }
 
 #mainLinks a, #secondaryLinks a { color:#003366; }
-#mainLinks li { border-left:1px solid #003366; padding-left:4px; }
+#mainLinks li { border-left:1px solid #003366; padding-left:5px; }
 #mainLinks li.first { border-left:0; }
 
 #secondaryLinks { width:260px; height:30px; position:absolute; top:10px; right:4px; padding-top:6px; }
-#secondaryLinks li { float:left;  padding-right:4px; margin-right:4px; }
+#secondaryLinks li { float:left;  padding-right:5px; margin-right:4px; }
 #secondaryLinks li.first { border-right:1px solid #003366; }
 #secondaryLinks form { width:120px; height:20px;  background:url('images/banner/search.gif') top left no-repeat; position:relative; top:-3px; left:12px; }
 #secondaryLinks fieldset { }
