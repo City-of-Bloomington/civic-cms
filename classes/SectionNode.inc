@@ -85,7 +85,7 @@ class SectionNode extends ActiveRecord
 		$query->execute(array($this->section_id,$this->parent_id,$this->placement));
 		$this->id = $PDO->lastInsertID();
 
-		$this->updateSectionIndex();
+		self::updateSectionIndex();
 	}
 	public function delete()
 	{
@@ -94,7 +94,7 @@ class SectionNode extends ActiveRecord
 		$query = $PDO->prepare('delete from section_parents where id=?');
 		$query->execute(array($this->id));
 
-		$this->updateSectionIndex();
+		self::updateSectionIndex();
 	}
 
 	public function moveUp()
@@ -147,27 +147,27 @@ class SectionNode extends ActiveRecord
 	 * See: http://dev.mysql.com/tech-resources/articles/hierarchical-data.html
 	 * Whenever you insert or remove a node, you must update the index
 	 */
-	private function updateSectionIndex()
+	public static function updateSectionIndex()
 	{
 		$PDO = Database::getConnection();
 		# Update the index
 		$query = $PDO->prepare('delete from sectionIndex');
 		$query->execute();
 
-		$this->createPrePostOrder(1,1);
+		self::createPrePostOrder(1,1);
 	}
-	private function createPrePostOrder($section_id,$pre)
+	private static function createPrePostOrder($section_id,$pre)
 	{
 		$PDO = Database::getConnection();
 
 		$post = $pre + 1;
 
 		$children = array();
-		$query = $PDO->prepare('select section_id from section_parents where parent_id=$section_id');
-		$query->execute();
+		$query = $PDO->prepare('select section_id from section_parents where parent_id=?');
+		$query->execute(array($section_id));
 		$result = $query->fetchAll(PDO::FETCH_ASSOC);
 		foreach($result as $row) { $children[] = $row['section_id']; }
-		foreach($children as $id) { $post = $this->createPrePostOrder($id,$post); }
+		foreach($children as $id) { $post = self::createPrePostOrder($id,$post); }
 
 		$query = $PDO->prepare('insert sectionIndex values(?,?,?)');
 		$query->execute(array($section_id,$pre,$post));
