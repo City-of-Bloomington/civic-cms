@@ -9,11 +9,11 @@
  * Add this script to your CRON system to update the content manager
  * with alerts from the National Weather Service.
  * The National Weather Service updates their system every 2 minutes;
- * adjust your CRON settings accordingly.  For our website, we run 
+ * adjust your CRON settings accordingly.  For our website, we run
  * this script every 5 minutes.
  */
 include '/var/www/sites/content_manager/configuration.inc';
-
+$c = 0;
 $alerts = simplexml_load_file(NATIONAL_WEATHER_SERVICE_CAP_FILE);
 foreach($alerts->children('http://www.incident.com/cap/1.0') as $info)
 {
@@ -25,7 +25,7 @@ foreach($alerts->children('http://www.incident.com/cap/1.0') as $info)
 			{
 				if (preg_match($ignore,$info->event)) { break 2; }
 			}
-			
+
 			$alert = new Alert($info->event);
 			$alert->setAlertType(new AlertType('Weather'));
 			$alert->setStartTime($info->effective);
@@ -33,6 +33,10 @@ foreach($alerts->children('http://www.incident.com/cap/1.0') as $info)
 			$alert->setText($info->description);
 			$alert->setURL($info->web);
 			$alert->save();
+
+			$c++;
 		}
 	}
 }
+echo $alerts->asXML();
+echo date('Y-m-d H:i:sp')." Added $c alerts\n";

@@ -1,6 +1,6 @@
 # Add this script to your CRON system to update the content manager
 # with alerts from the National Weather Service.
 # The National Weather Service updates their system every 2 minutes;
-# adjust your CRON settings accordingly.  For our website, we run 
+# adjust your CRON settings accordingly.  For our website, we run
 # this script every 5 minutes.
-*/5 * * * * apache /var/www/sites/content_manager/scripts/updateWeatherAlerts.php > /dev/null 2>&1
+*/5 * * * * apache /var/www/sites/content_manager/scripts/updateWeatherAlerts.php >> /var/log/httpd/weatherAlerts.log
