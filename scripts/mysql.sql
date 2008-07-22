@@ -289,6 +289,7 @@ create table widgets (
 	foreign key (global_panel_id) references panels(id),
 	foreign key (default_panel_id) references panels(id)
 ) engine=InnoDB;
+insert widgets set class='AdminToolsWidget',global_panel_id=1;
 
 create table section_widgets (
 	id int unsigned not null primary key auto_increment,
