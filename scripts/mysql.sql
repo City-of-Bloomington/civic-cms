@@ -18,6 +18,7 @@ create table departments (
 	foreign key (document_id) references documents(id),
 	foreign key (location_id) references locations(id)
 ) engine=InnoDB;
+insert departments set id=1,name='IT Department';
 
 ---------------------------------------------------------------------
 -- User tables
@@ -35,6 +36,8 @@ create table users (
   unique key (username),
   foreign key (department_id) references departments(id)
 ) engine=InnoDB;
+insert users set id=1,username='administrator',password=md5('welcome'),authenticationMethod='local',
+firstname='Administrator',lastname='User',department_id=1;
 
 create table roles (
   id int unsigned not null primary key auto_increment,
@@ -52,6 +55,7 @@ create table user_roles (
   foreign key (user_id) references users (id),
   foreign key (role_id) references roles (id)
 ) engine=InnoDB;
+insert user_roles values(1,1);
 
 create table pendingUsers (
 	id int unsigned not null primary key auto_increment,
@@ -104,6 +108,7 @@ create table documents (
   foreign key (banner_media_id) references media(id),
   foreign key (icon_media_id) references media(id)
 ) engine=InnoDB;
+insert documents set id=1,title='Welcome',department_id=1,created=now();
 
 create table documentLinks (
 	id int unsigned not null primary key auto_increment,
@@ -177,6 +182,7 @@ create table sections (
   highlightSubscription boolean,
   foreign key (sectionDocument_id) references sectionDocuments(id) on delete set null
 ) engine=InnoDB;
+insert sections set id=1,name='Welcome';
 
 create table section_departments (
 	section_id int unsigned not null,
@@ -212,6 +218,8 @@ create table sectionDocuments (
 	foreign key (section_id) references sections (id) on delete cascade,
 	foreign key (document_id) references documents (id) on delete cascade
 ) engine=InnoDB;
+insert sectionDocuments set id=1,section_id=1,document_id=1;
+update sections set sectionDocument_id=1 where id=1;
 
 create table section_subscriptions (
 	id int unsigned not null primary key auto_increment,

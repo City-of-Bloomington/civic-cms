@@ -5,7 +5,15 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 $template = new Template();
-$template->blocks[] = new Block("sections/listSections.inc",array('section'=>new Section(1)));
+
+$sectionTree = new Block('sections/listSections.inc');
+try
+{
+	$section = new Section(1);
+	$sectionTree->section = $section;
+}
+catch(Exception $e) { }
+$template->blocks[] = $sectionTree;
 
 if (userHasRole(array('Administrator','Webmaster')))
 {
