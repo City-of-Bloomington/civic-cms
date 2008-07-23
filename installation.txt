@@ -21,8 +21,8 @@ Copyright
 	This content manager is written and copyrighted by the
 City of Bloomington, IN.  It is being released as free software;
 you can redistribute it and/or modify it under the terms of the
-GNU General Public License as published by the Free Software Foundation;
-either version 2 of the License, or (at your option) any later version.
+GNU Affero General Public License as published by the Free Software Foundation;
+either version 3 of the License, or (at your option) any later version.
 
 See: LICENSE.txt
 
@@ -177,7 +177,7 @@ mysql> flush privileges;
 Configuration
 ---------------------------------------------------------------------
 	Edit configuration.inc with appropriate values for your installation.
-This will include where you installed the application, and the username and 
+This will include where you installed the application, and the username and
 password for the database user you created.
 
 ---------------------------------------------------------------------
@@ -197,9 +197,9 @@ Rename the data_default directory to data.
 	To avoid overwriting existing application data whenever we release updates,
 	the install comes with a data_default directory.  This includes the directory
 	structure for data.  It needs to be renamed to be just, "data".  This means
-	any future updates can be copied over the top of your installation without 
+	any future updates can be copied over the top of your installation without
 	altering your existing data.
-	
+
 Install Search Engine:
 	This application uses a search index stored on the hard drive.
 	You will need to install the index, then set permissions so that
@@ -234,10 +234,10 @@ mysql> insert users set username='username',firstname='Someone',lastname='Else',
 If you need local authentication:
 mysql> insert users set username='username',password=md5('password'),authenticationMethod='local',
 	-> firstname='Someone',lastname='Else',email='someone@somewhere.com';
-	
+
 And to make them an Administrator:
 mysql> insert user_roles values(1,1);
-	
+
 	( This works since the first user should be user_id=1 and
 		because the initial data has the Administrator as role_id=1 )
 
