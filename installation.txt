@@ -249,16 +249,13 @@ They will need to have correct full paths.
 
 Backups
 	Edit /scripts/backup
-		Set the path to PHP
-		Set the path to your configuration.inc
-	You can then copy the /scripts/backup to your /etc/cron.daily
-		Make sure you chmod it to be executable
+		set the path to the application
+		set the path to mysqldump
+		provide the mysql authentication information
+		set the number of days worth of backups to keep
+		make the script executable
 
 Search Engine Indexing
-	Edit /scripts/install_search.php
-		This is the PHP script that the cron script will call.
-		Set the path to your configuration.inc
-
 	Edit /scripts/index_search
 		Set the path to PHP
 		Set the path to your installation of Content Manager
