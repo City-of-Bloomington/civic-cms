@@ -46,7 +46,7 @@ select { font-size:12px; }
 textarea { }
 input { }
 
-table { border-collapse:collapse; border:1px solid #999999; }
+table { border-collapse:collapse; border:1px solid #999999; margin:2px; }
 tr { vertical-align:top; }
 td { padding:2px; background-color:inherit; border:1px solid #999999; }
 th { text-align:left; border:1px solid #999999; background-color:#e0e0e0; padding:2px; vertical-align: top; font-weight:bold; }
