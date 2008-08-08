@@ -29,9 +29,9 @@
 		$now = getdate();
 		if (isset($_GET['year']) || isset($_GET['mon']) || isset($_GET['mday']))
 		{
-			$date['year'] = isset($_GET['year']) ? $_GET['year'] : $now['year'];
-			$date['mon'] = isset($_GET['mon']) ? $_GET['mon'] : $now['mon'];
-			$date['mday'] = isset($_GET['mday']) ? $_GET['mday'] : $now['mday'];
+			$date['year'] = isset($_GET['year']) ? (int)$_GET['year'] : $now['year'];
+			$date['mon'] = isset($_GET['mon']) ? (int)$_GET['mon'] : $now['mon'];
+			$date['mday'] = isset($_GET['mday']) ? (int)$_GET['mday'] : $now['mday'];
 		}
 		else { $date = $now; }
 
