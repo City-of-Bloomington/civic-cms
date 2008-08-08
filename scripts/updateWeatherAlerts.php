@@ -15,6 +15,7 @@
 include '/var/www/sites/content_manager/configuration.inc';
 $c = 0;
 $alerts = simplexml_load_file(NATIONAL_WEATHER_SERVICE_CAP_FILE);
+$events = array();
 foreach($alerts->children('http://www.incident.com/cap/1.0') as $info)
 {
 	foreach($ALERT_COUNTIES as $county)
@@ -25,6 +26,8 @@ foreach($alerts->children('http://www.incident.com/cap/1.0') as $info)
 			{
 				if (preg_match($ignore,$info->event)) { break 2; }
 			}
+			
+			$events[] = $info->event;
 
 			$alert = new Alert($info->event);
 			$alert->setAlertType(new AlertType('Weather'));
@@ -38,5 +41,14 @@ foreach($alerts->children('http://www.incident.com/cap/1.0') as $info)
 		}
 	}
 }
+$list = new AlertList(array('alertType'=>'Weather'));
+foreach($list as $alert)
+{
+	if (!in_array($alert->getName(),$events))
+	{
+		$alert->delete();
+	}
+}
+
 echo $alerts->asXML();
 echo date('Y-m-d H:i:sp')." Added $c alerts\n";

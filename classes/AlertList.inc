@@ -28,6 +28,16 @@ class AlertList extends PDOResultIterator
 		if (isset($fields['endTime'])) { $options[] = "endTime='$fields[endTime]'"; }
 		if (isset($fields['url'])) { $options[] = "url='$fields[url]'"; }
 		if (isset($fields['text'])) { $options[] = "text='$fields[text]'"; }
+		
+		if (isset($fields['alertType']))
+		{
+			$this->joins.= ' left join alertTypes on alerts.alertType_id=alertTypes.id';
+			if ($fields['alertType'] instanceof AlertType)
+			{
+				$options[] = "alertType.name='{$fields['alertType']->getName()}'";
+			}
+			else { $options[] = "alertType.name='$fields[alertType]'"; }
+		}
 
 
 		# Finding on fields from other tables required joining those tables.
@@ -41,6 +51,14 @@ class AlertList extends PDOResultIterator
 	{
 		$PDO = Database::getConnection();
 		$PDO->query('delete from alerts where endTime<now()');
+	}
+	
+	public static function deleteWeatherAlerts()
+	{
+		$PDO = Database::getConnection();
+		$type = new AlertType('Weather');
+		$query = $PDO->prepare('delete from alerts where alertType_id=?');
+		$query->execute(array($type->getId()));
 	}
 	
 	protected function loadResult($key) { return new Alert($this->list[$key]); }
