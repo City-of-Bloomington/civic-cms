@@ -9,7 +9,7 @@ class AlertList extends PDOResultIterator
 	public function __construct($fields=null)
 	{
 		$this->deleteExpiredAlerts();
-	
+
 		$this->select = 'select alerts.id as id from alerts';
 		if (is_array($fields)) $this->find($fields);
 	}
@@ -28,15 +28,15 @@ class AlertList extends PDOResultIterator
 		if (isset($fields['endTime'])) { $options[] = "endTime='$fields[endTime]'"; }
 		if (isset($fields['url'])) { $options[] = "url='$fields[url]'"; }
 		if (isset($fields['text'])) { $options[] = "text='$fields[text]'"; }
-		
+
 		if (isset($fields['alertType']))
 		{
 			$this->joins.= ' left join alertTypes on alerts.alertType_id=alertTypes.id';
 			if ($fields['alertType'] instanceof AlertType)
 			{
-				$options[] = "alertType.name='{$fields['alertType']->getName()}'";
+				$options[] = "alertTypes.name='{$fields['alertType']->getName()}'";
 			}
-			else { $options[] = "alertType.name='$fields[alertType]'"; }
+			else { $options[] = "alertTypes.name='$fields[alertType]'"; }
 		}
 
 
@@ -46,13 +46,13 @@ class AlertList extends PDOResultIterator
 
 		$this->populateList($options);
 	}
-	
+
 	public function deleteExpiredAlerts()
 	{
 		$PDO = Database::getConnection();
 		$PDO->query('delete from alerts where endTime<now()');
 	}
-	
+
 	public static function deleteWeatherAlerts()
 	{
 		$PDO = Database::getConnection();
@@ -60,6 +60,6 @@ class AlertList extends PDOResultIterator
 		$query = $PDO->prepare('delete from alerts where alertType_id=?');
 		$query->execute(array($type->getId()));
 	}
-	
+
 	protected function loadResult($key) { return new Alert($this->list[$key]); }
 }
