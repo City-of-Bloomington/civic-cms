@@ -367,7 +367,7 @@ create table locations (
 	name varchar(60) not null,
 	locationType_id int unsigned not null default 1,
 	address varchar(128) not null,
-	description varchar(255) not null,
+	description text not null,
 	content text,
 	latitude float(10,6),
 	longitude float(10,6),
