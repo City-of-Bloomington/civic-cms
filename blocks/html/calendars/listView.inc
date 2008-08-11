@@ -17,9 +17,9 @@ $MAX_EVENTS = 15;
 <tr><th colspan="2">
 	<?php
 		$rangeStart = !isset($this->date) ? time() : mktime(0,0,0,$this->date['mon'],$this->date['mday'],$this->date['year']);
-		$rangeEnd = strtotime('+14 day',$rangeStart);
+		$rangeEnd = strtotime('+7 day',$rangeStart);
 
-		$back = getdate(strtotime('-14 day',$rangeStart));
+		$back = getdate(strtotime('-7 day',$rangeStart));
 		$url = new URL($_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
 		$url->parameters['mon'] = $back['mon'];
 		$url->parameters['mday'] = $back['mday'];
@@ -27,7 +27,7 @@ $MAX_EVENTS = 15;
 		echo "<a class=\"previous button\" href=\"$url\">Previous Two Weeks</a>";
 
 
-		echo 'From: '.date('M j,Y',$rangeStart).' on...';
+		echo 'Events starting '.date('M j,Y',$rangeStart).'...';
 
 
 		$next = getdate($rangeEnd);
