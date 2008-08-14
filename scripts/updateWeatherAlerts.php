@@ -26,7 +26,7 @@ foreach($alerts->children('http://www.incident.com/cap/1.0') as $info)
 			{
 				if (preg_match($ignore,$info->event)) { break 2; }
 			}
-			
+
 			$events[] = $info->event;
 
 			$alert = new Alert($info->event);
@@ -44,7 +44,7 @@ foreach($alerts->children('http://www.incident.com/cap/1.0') as $info)
 $list = new AlertList(array('alertType'=>'Weather'));
 foreach($list as $alert)
 {
-	if (!in_array($alert->getName(),$events))
+	if (!in_array($alert->getTitle(),$events))
 	{
 		$alert->delete();
 	}
