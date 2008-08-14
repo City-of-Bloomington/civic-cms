@@ -240,6 +240,32 @@
 			}
 		}
 
+		public function setRRule($string=null)
+		{
+			$string = trim($string);
+			if ($string)
+			{
+				$recur = new Recur($string);
+				$this->rrule_freq = $recur->getFrequency();
+				$this->rrule_until = $recur->getUntil();
+				$this->rrule_count = $recur->getCount();
+				$this->rrule_interval = $recur->getInterval();
+				$this->rrule_byday = implode(',',$recur->getDayList());
+				$this->rrule_bymonthday = implode(',',$recur->getMonthDayList());
+				$this->rrule_bysetpos = implode(',',$recur->getSetPosList());
+			}
+			else
+			{
+				$this->rrule_freq = null;
+				$this->rrule_until = null;
+				$this->rrule_count = null;
+				$this->rrule_interval = null;
+				$this->rrule_byday = null;
+				$this->rrule_bymonthday = null;
+				$this->rrule_bysetpos = null;
+			}
+		}
+
 		/**
 		 * Returns an array of timestamps for the recurrences for this event that
 		 * happen during the given time period
@@ -422,24 +448,32 @@
 		public function setDescription($text) { $this->description = $text; }
 		public function setAllDayEvent($int) { if ($int) $this->allDayEvent = 1; }
 		public function setRrule_freq($string) { $this->rrule_freq = trim($string); $this->validateFrequency(); }
-		public function setRrule_until($datetime)
+		public function setRrule_until($datetime=null)
 		{
-			if (is_array($datetime)) { $this->rrule_until = $this->dateArrayToTimestamp($datetime); }
-			elseif(ctype_digit($datetime)) { $this->rrule_until = $datetime; }
-			else { $this->rrule_until = strtotime($datetime); }
+			if ($datetime)
+			{
+				if (is_array($datetime)) { $this->rrule_until = $this->dateArrayToTimestamp($datetime); }
+				elseif(ctype_digit($datetime)) { $this->rrule_until = $datetime; }
+				else { $this->rrule_until = strtotime($datetime); }
 
-			# Until cannot happen before the end of the event.
-			if ($this->rrule_until < $this->end) { $this->rrule_until = $this->end; }
+				# Until cannot happen before the end of the event.
+				if ($this->rrule_until < $this->end) { $this->rrule_until = $this->end; }
 
-			#RRule Until and RRule Count must be mutually exclusive
-			if ($this->rrule_until) { $this->rrule_count = null; }
+				#RRule Until and RRule Count must be mutually exclusive
+				if ($this->rrule_until) { $this->rrule_count = null; }
+			}
+			else { $this->rrule_until = null; }
 		}
-		public function setRrule_count($int)
+		public function setRrule_count($int=null)
 		{
-			$this->rrule_count = ereg_replace("[^0-9]","",$int);
+			if ($int)
+			{
+				$this->rrule_count = ereg_replace("[^0-9]","",$int);
 
-			#RRule Until and RRule Count must be mutually exclusive
-			$this->rrule_until = null;
+				#RRule Until and RRule Count must be mutually exclusive
+				$this->rrule_until = null;
+			}
+			else { $this->rrule_count = null; }
 		}
 		public function setRrule_interval($int) { $this->rrule_interval = ereg_replace("[^0-9]","",$int); }
 		public function setRrule_byday($string) { $this->rrule_byday = trim($string); }

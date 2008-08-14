@@ -63,43 +63,56 @@
 		}
 
 		# Parse all the RRULE stuff
-		if (isset($_POST['freq']) && $_POST['freq'])
+		if (isset($_POST['freq']))
 		{
-			$_SESSION['event'][$instance_id]->setRrule_freq($_POST['freq']);
-			switch($_SESSION['event'][$instance_id]->getRrule_freq())
+			if ($_POST['freq'])
 			{
-				case 'DAILY':
-					$_SESSION['event'][$instance_id]->setRrule_interval($_POST['daily_interval']);
-					break;
-				case 'WEEKLY':
-					$_SESSION['event'][$instance_id]->setRrule_interval($_POST['weekly_interval']);
-					if (isset($_POST['weekly']['BYDAY']))
-					{
-						$byday = array();
-						foreach($_POST['weekly']['BYDAY'] as $day=>$value)
+				$_SESSION['event'][$instance_id]->setRrule_freq($_POST['freq']);
+				switch($_SESSION['event'][$instance_id]->getRrule_freq())
+				{
+					case 'DAILY':
+						$_SESSION['event'][$instance_id]->setRrule_interval($_POST['daily_interval']);
+						break;
+					case 'WEEKLY':
+						$_SESSION['event'][$instance_id]->setRrule_interval($_POST['weekly_interval']);
+						if (isset($_POST['weekly']['BYDAY']))
 						{
-							$byday[] = $day;
+							$byday = array();
+							foreach($_POST['weekly']['BYDAY'] as $day=>$value)
+							{
+								$byday[] = $day;
+							}
+							$_SESSION['event'][$instance_id]->setRrule_byday(implode(',',$byday));
 						}
-						$_SESSION['event'][$instance_id]->setRrule_byday(implode(',',$byday));
-					}
-					break;
-				case 'MONTHLY':
-					switch($_POST['monthly_type'])
-					{
-						case 'BYMONTHDAY':
-							$_SESSION['event'][$instance_id]->setRrule_bymonthday($_POST['bymonthday']);
-							$_SESSION['event'][$instance_id]->setRrule_interval($_POST['bymonthday_interval']);
-							break;
-						case 'BYDAY':
-							$day = $_POST['offset'].$_POST['monthly_byday'];
-							$_SESSION['event'][$instance_id]->setRrule_byday($day);
-							$_SESSION['event'][$instance_id]->setRrule_interval($_POST['monthly_interval']);
-							break;
-					}
-					break;
+						break;
+					case 'MONTHLY':
+						switch($_POST['monthly_type'])
+						{
+							case 'BYMONTHDAY':
+								$_SESSION['event'][$instance_id]->setRrule_bymonthday($_POST['bymonthday']);
+								$_SESSION['event'][$instance_id]->setRrule_interval($_POST['bymonthday_interval']);
+								break;
+							case 'BYDAY':
+								$day = $_POST['offset'].$_POST['monthly_byday'];
+								$_SESSION['event'][$instance_id]->setRrule_byday($day);
+								$_SESSION['event'][$instance_id]->setRrule_interval($_POST['monthly_interval']);
+								break;
+						}
+						break;
+				}
+				if ($_POST['rrule_end_type']=='count') { $_SESSION['event'][$instance_id]->setRrule_count($_POST['count']); }
+				elseif($_POST['rrule_end_type']=='until') { $_SESSION['event'][$instance_id]->setRrule_until($_POST['until']); }
+				else
+				{
+					$_SESSION['event'][$instance_id]->setRrule_count(null);
+					$_SESSION['event'][$instance_id]->setRrule_until(null);
+				}
 			}
-			if ($_POST['rrule_end_type']=='count') { $_SESSION['event'][$instance_id]->setRrule_count($_POST['count']); }
-			elseif($_POST['rrule_end_type']=='until') { $_SESSION['event'][$instance_id]->setRrule_until($_POST['until']); }
+			else
+			{
+				# Clear out the RRULE
+				$_SESSION['event'][$instance_id]->setRRule(null);
+			}
 		}
 
 		# Choosing from the Full User Contact list should override
