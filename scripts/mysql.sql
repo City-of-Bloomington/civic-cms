@@ -129,11 +129,6 @@ create table document_watches (
 	foreign key (user_id) references users(id) on delete cascade
 ) engine=InnoDB;
 
-create table document_accesslog (
-	document_id int unsigned not null,
-	access_time timestamp not null default CURRENT_TIMESTAMP
-) engine=Archive;
-
 create table search_log (
 	queryString varchar(128) not null,
 	access_time timestamp not null default CURRENT_TIMESTAMP
@@ -148,6 +143,11 @@ create table file_not_found_log (
 ---------------------------------------------------------------------
 -- Summary Tables for the document_accesslog
 ---------------------------------------------------------------------
+create table document_accesslog (
+	document_id int unsigned not null,
+	access_time timestamp not null default CURRENT_TIMESTAMP
+) engine=Archive;
+
 create table document_hits_yearly (
 	year year(4) not null,
 	document_id int unsigned not null,
