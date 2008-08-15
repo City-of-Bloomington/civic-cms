@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2006,2007,2008 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006-2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
@@ -8,43 +8,76 @@ class UserList extends PDOResultIterator
 {
 	public function __construct($fields=null)
 	{
-		$this->select = 'select distinct users.id from users';
-		if (is_array($fields)) { $this->find($fields); }
+		$this->select = 'select users.id as id from users';
+		if (is_array($fields)) $this->find($fields);
 	}
 
-	public function find($fields=null,$sort="username",$limit=null,$groupBy=null)
+	public function find($fields=null,$sort='username',$limit=null,$groupBy=null)
 	{
 		$this->sort = $sort;
 		$this->limit = $limit;
 		$this->groupBy = $groupBy;
-
-		if (is_array($fields))
-		{
-			foreach($fields as $key=>$value)
-			{
-				if (!is_array($value) && !is_object($value)) { $fields[$key] = addslashes($value); }
-			}
-		}
+		$this->joins = '';
 
 		$options = array();
-		if (isset($fields['id'])) { $options[] = "id='$fields[id]'"; }
-		if (isset($fields['username'])) { $options[] = "username='$fields[username]'"; }
-		if (isset($fields['password'])) { $options[] = "password='$fields[password]'"; }
-		if (isset($fields['authenticationMethod'])) { $options[] = "authenticationMethod='$fields[authenticationMethod]'"; }
-		if (isset($fields['firstname'])) { $options[] = "firstname='$fields[firstname]'"; }
-		if (isset($fields['lastname'])) { $options[] = "lastname='$fields[lastname]'"; }
-		if (isset($fields['email'])) { $options[] = "email='$fields[email]'"; }
-		if (isset($fields['access'])) { $options[] = "access='$fields[access]'"; }
-		if (isset($fields['department_id'])) { $options[] = "department_id='$fields[department_id]'"; }
-
-		# To search on Role, you have to join the userRoles table
-		if (isset($fields['role']))
+		$parameters = array();
+		if (isset($fields['id']))
 		{
-			$this->joins.= " left join user_roles on users.id=user_id left join roles on role_id=roles.id";
-			$options[] = "role='$fields[role]'";
+			$options[] = 'id=:id';
+			$parameters[':id'] = $fields['id'];
+		}
+		if (isset($fields['username']))
+		{
+			$options[] = 'username=:username';
+			$parameters[':username'] = $fields['username'];
+		}
+		if (isset($fields['password']))
+		{
+			$options[] = 'password=:password';
+			$parameters[':password'] = $fields['password'];
+		}
+		if (isset($fields['authenticationMethod']))
+		{
+			$options[] = 'authenticationMethod=:authenticationMethod';
+			$parameters[':authenticationMethod'] = $fields['authenticationMethod'];
+		}
+		if (isset($fields['firstname']))
+		{
+			$options[] = 'firstname=:firstname';
+			$parameters[':firstname'] = $fields['firstname'];
+		}
+		if (isset($fields['lastname']))
+		{
+			$options[] = 'lastname=:lastname';
+			$parameters[':lastname'] = $fields['lastname'];
+		}
+		if (isset($fields['department_id']))
+		{
+			$options[] = 'department_id=:department_id';
+			$parameters[':department_id'] = $fields['department_id'];
+		}
+		if (isset($fields['email']))
+		{
+			$options[] = 'email=:email';
+			$parameters[':email'] = $fields['email'];
+		}
+		if (isset($fields['access']))
+		{
+			$options[] = 'access=:access';
+			$parameters[':access'] = $fields['access'];
 		}
 
-		$this->populateList($options);
+		# Finding on fields from other tables required joining those tables.
+		# You can add fields from other tables to $options by adding the join SQL
+		# to $this->joins here
+		if (isset($fields['role']))
+		{
+			$this->joins.= ' left join user_roles on users.id=user_id left join roles on role_id=roles.id';
+			$options[] = 'role=:role';
+			$parameters[':role'] = $fields['role'];
+		}
+
+		$this->populateList($options,$parameters);
 	}
 
 	protected function loadResult($key) { return new User($this->list[$key]); }

@@ -18,15 +18,23 @@ class AlertTypeList extends PDOResultIterator
 		$this->groupBy = $groupBy;
 
 		$options = array();
-		if (isset($fields['id'])) { $options[] = "id='$fields[id]'"; }
-		if (isset($fields['name'])) { $options[] = "name='$fields[name]'"; }
-
+		$parameters = array();
+		if (isset($fields['id']))
+		{
+			$options[] = "id=:id";
+			$parameters[':id'] = $fields['id'];
+		}
+		if (isset($fields['name']))
+		{
+			$options[] = "name=:name";
+			$parameters[':name'] = $fields['name'];
+		}
 
 		# Finding on fields from other tables required joining those tables.
 		# You can add fields from other tables to $options by adding the join SQL
 		# to $this->joins here
 
-		$this->populateList($options);
+		$this->populateList($options,$parameters);
 	}
 
 	protected function loadResult($key) { return new AlertType($this->list[$key]); }

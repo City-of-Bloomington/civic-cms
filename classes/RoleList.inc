@@ -1,37 +1,47 @@
 <?php
 /**
- * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006-2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
 */
-/*
-	Roles are really just an attribute array for users.  For now, I'm not loading them in as objects.
-*/
-	class RoleList extends PDOResultIterator
+class RoleList extends PDOResultIterator
+{
+	/**
+	 *Roles are really just an attribute array for users.  For now, I'm not loading them in as objects.
+	 */
+	public function __construct($fields=null)
 	{
+		$this->select = 'select role from roles';
+		if (is_array($fields)) $this->find($fields);
+	}
 
-		public function find($fields=null,$sort='role',$limit=null,$groupBy=null)
+	public function find($fields=null,$sort='role',$limit=null,$groupBy=null)
+	{
+		$this->sort = $sort;
+		$this->limit = $limit;
+		$this->groupBy = $groupBy;
+		$this->joins = '';
+
+		$options = array();
+		$parameters = array();
+		if (isset($fields['id']))
 		{
-			$PDO = Database::getConnection();
-
-			if (is_array($fields))
-			{
-				foreach($fields as $key=>$value)
-				{
-					if (!is_array($value) && !is_object($value)) { $fields[$key] = addslashes($value); }
-				}
-			}
-
-			$options = array();
-			if (isset($fields['role'])) { $options[] = "role='$fields[role]'"; }
-
-			if (count($options)) { $where = " where ".implode(" and ",$options); } else { $where = ""; }
-			$sql = "select role from roles $where order by $sort";
-
-			foreach($PDO->query($sql) as $row) { $this->list[] = $row['role']; }
+			$options[] = 'id=:id';
+			$parameters[':id'] = $fields['id'];
+		}
+		if (isset($fields['role']))
+		{
+			$options[] = 'role=:role';
+			$parameters[':role'] = $fields['role'];
 		}
 
 
-		protected function loadResult($key) { return $this->list[$key]; }
+		# Finding on fields from other tables required joining those tables.
+		# You can add fields from other tables to $options by adding the join SQL
+		# to $this->joins here
+
+		$this->populateList($options,$parameters);
 	}
-?>
+
+	protected function loadResult($key) { return new Role($this->list[$key]); }
+}

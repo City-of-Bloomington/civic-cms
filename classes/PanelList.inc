@@ -6,41 +6,38 @@
  */
 class PanelList extends PDOResultIterator
 {
-
-	public function __construct($fields=null,$sort='id')
+	public function __construct($fields=null)
 	{
 		$this->select = 'select panels.id as id from panels';
-		$this->sort = $sort;
 		if (is_array($fields)) $this->find($fields);
 	}
 
-
-	public function find($fields=null,$sort='id',$limit=null,$groupBy=null)
+	public function find($fields=null,$sort='name',$limit=null,$groupBy=null)
 	{
 		$this->sort = $sort;
 		$this->limit = $limit;
 		$this->groupBy = $groupBy;
-
-		if (is_array($fields))
-		{
-			foreach($fields as $key=>$value)
-			{
-				if (!is_array($value) && !is_object($value)) { $fields[$key] = addslashes($value); }
-			}
-		}
+		$this->joins = '';
 
 		$options = array();
-		if (isset($fields['id'])) { $options[] = "id='$fields[id]'"; }
-		if (isset($fields['name'])) { $options[] = "name='$fields[name]'"; }
-
+		$parameters = array();
+		if (isset($fields['id']))
+		{
+			$options[] = 'id=:id';
+			$parameters[':id'] = $fields['id'];
+		}
+		if (isset($fields['name']))
+		{
+			$options[] = 'name=:name';
+			$parameters[':name'] = $fields['name'];
+		}
 
 		# Finding on fields from other tables required joining those tables.
 		# You can add fields from other tables to $options by adding the join SQL
 		# to $this->joins here
 
-		$this->populateList($options);
+		$this->populateList($options,$parameters);
 	}
-
 
 	protected function loadResult($key) { return new Panel($this->list[$key]); }
 }

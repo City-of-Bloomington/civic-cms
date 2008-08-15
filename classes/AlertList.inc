@@ -21,22 +21,56 @@ class AlertList extends PDOResultIterator
 		$this->groupBy = $groupBy;
 
 		$options = array();
-		if (isset($fields['id'])) { $options[] = "id='$fields[id]'"; }
-		if (isset($fields['title'])) { $options[] = "title='$fields[title]'"; }
-		if (isset($fields['alertType_id'])) { $options[] = "alertType_id='$fields[alertType_id]'"; }
-		if (isset($fields['startTime'])) { $options[] = "startTime='$fields[startTime]'"; }
-		if (isset($fields['endTime'])) { $options[] = "endTime='$fields[endTime]'"; }
-		if (isset($fields['url'])) { $options[] = "url='$fields[url]'"; }
-		if (isset($fields['text'])) { $options[] = "text='$fields[text]'"; }
+		$parameters = array();
+		if (isset($fields['id']))
+		{
+			$options[] = "id=:id";
+			$parameters[':id'] = $fields['id'];
+		}
+		if (isset($fields['title']))
+		{
+			$options[] = "title=:title";
+			$parameters[':title'] = $fields['title'];
+		}
+		if (isset($fields['alertType_id']))
+		{
+			$options[] = "alertType_id=:alertType_id";
+			$parameters[':alertType_id'] = $fields['alertType_id'];
+		}
+		if (isset($fields['startTime']))
+		{
+			$options[] = "startTime=:startTime";
+			$parameters[':startTime'] = $fields['startTime'];
+		}
+		if (isset($fields['endTime']))
+		{
+			$options[] = "endTime=:endTime";
+			$parameters[':endTime'] = $fields['endTime'];
+		}
+		if (isset($fields['url']))
+		{
+			$options[] = "url=:url";
+			$parameters[':url'] = $fields['url'];
+		}
+		if (isset($fields['text']))
+		{
+			$options[] = "text=:text";
+			$parameters[':text'] = $fields['text'];
+		}
 
 		if (isset($fields['alertType']))
 		{
 			$this->joins.= ' left join alertTypes on alerts.alertType_id=alertTypes.id';
 			if ($fields['alertType'] instanceof AlertType)
 			{
-				$options[] = "alertTypes.name='{$fields['alertType']->getName()}'";
+				$options[] = "alertTypes.name=:name";
+				$parameters[':name'] = $fields['alertType']->getName();
 			}
-			else { $options[] = "alertTypes.name='$fields[alertType]'"; }
+			else
+			{
+				$options[] = "alertTypes.name=:name";
+				$parameters[':name'] = $fields['alertType'];
+			}
 		}
 
 
@@ -44,7 +78,7 @@ class AlertList extends PDOResultIterator
 		# You can add fields from other tables to $options by adding the join SQL
 		# to $this->joins here
 
-		$this->populateList($options);
+		$this->populateList($options,$parameters);
 	}
 
 	public function deleteExpiredAlerts()
