@@ -8,7 +8,7 @@
  */
 # This must be a full path, in order to be able to run
 # the index_search CRON script
-include '../configuration.inc';
+include '/var/www/sites/content_manager/configuration.inc';
 
 # The class file has the ini_set definition we need to do Zend stuff
 require_once APPLICATION_HOME.'/classes/Search.inc';
