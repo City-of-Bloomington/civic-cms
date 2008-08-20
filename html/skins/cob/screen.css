@@ -60,8 +60,7 @@ th a { color:#3366cc; background-color:inherit; }
 .instructions { }
 .unpublished { text-decoration:line-through; color:#999999; }
 .current { font-weight:bold; }
-.required { color:red; }
-
+.required { background:url('images/icons/required_asterik.gif') no-repeat; }
 
 img { border:0; }
 span.image { display:block; text-align:center; margin:0 15px 5px 15px; }
