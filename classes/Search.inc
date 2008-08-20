@@ -111,27 +111,16 @@ class Search
 	}
 
 	/**
-	 * Does a search, using AND for each of the words in the string
-	 * The string is tokenized and built in Zend_Search as a multi-term
-	 * query.  This enables searching for words that are reserved words
-	 * in Zend_Search_Lucene.
-	 *
-	 * Reserved words and fancy boolean searches are not parsed.
+	 * Does a search using Zend_Search_Lucene's built in query parser
 	 *
 	 * @param string $string The text to search for
 	 * @param string type One of the types known to the Search class (see Search->add())
 	 */
 	public function find($string,$type=null,$logging=true)
 	{
-		$query = new Zend_Search_Lucene_Search_Query_MultiTerm();
-
-		$string = strtolower($string);
 		if ($logging) { $this->log($string); }
-		$tokens = preg_split('/\s+/',$string);
-		foreach($tokens as $term)
-		{
-			$query->addTerm(new Zend_Search_Lucene_Index_Term($term), true);
-		}
+
+		$query = Zend_Search_Lucene_Search_QueryParser::parse($string);
 
 		if ($type)
 		{
