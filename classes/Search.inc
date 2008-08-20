@@ -106,8 +106,8 @@ class Search
 
 	public function update($entry)
 	{
-		$this->removeDocument($entry);
-		$this->addDocument($entry);
+		$this->remove($entry);
+		$this->add($entry);
 	}
 
 	/**
