@@ -1,0 +1,18 @@
+Site organization
+
+The content manager is ultimately a system for organizing user contributed "Documents".  The system provides three ways of organizing Documents: Sections, Facets and Document Types.
+
+
+Sections
+Sections are ultimately used to provide the main navigation for the site.  There are no seperate menus to build; the Section structure *is* the structure for the site.  Sections are created by either the Administrator or the Webmaster.  Users (see User Accounts) create and edit Documents, putting them into the Sections of the site.
+
+Sections are a directed graph with the homepage as the root.  Each Section is a node in the graph.  Each Section can have multiple parents, which means each Section can exist in more than one place in the graph.
+
+The site organization is modelled after a file system.  Think of the Sections as directories, and the Documents as files placed into the directories.  Just like directories can be symbolically linked or hard linked inside any other directory, each Section can be a child of one or more other Sections.  Documents are then placed inside on or more Sections.  The navigation of the site is rendered based on the Sections and the Documents inside of them.
+
+
+Document Types
+The Admnistrator or Webmaster creates the available Document Types.  Users choose a type from the ones available.  When a user adds a new Document, it is populated with the contents of a template for that Document Type.
+
+Facets
+In addition to the main navigation system, the Administrator or Webmaster can create a set of keyword-type meta data, called Facets, that can be applied to the documents.  Facets are organized into Facet Groups.  Facets are seperate from the main navigation.

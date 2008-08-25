@@ -1,0 +1,13 @@
+User Accounts
+The Adminstrator creates the Departments and User accounts.  Permissions throughout the site are based on the user's Department.  Sections, Facets, Calendars, and Location Groups are all associated with one or more Departments.  Editing content is restricted to only the Users in the associated Departments.
+
+Authentication
+The content manager comes with support for multiple authentication types.  Each user is assigned one authentication type.
+
+LDAP
+If LDAP is configured, users can be authenticated against an LDAP directory.  For LDAP users, any password in the database is ignored and the system will try and validate their login agains the configured LDAP directory.
+
+local
+Local users are authenticated based on the password in the database.  Local users must have a password in the database if they are to log in.  Local passwords are MD5 encrypted.  Even the Administrator cannot look up forgotten passwords.  If a user forgets their password, the password will need to be reset by the Administrator.
+
+Local users without a password in the database will not be able to log in.  This can be useful for keeping track of people, without giving them the ability to log in and do anything.
