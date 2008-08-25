@@ -1,7 +1,7 @@
 Unless listed below, all software contained in this distribution is copyrighted
 by the City of Bloomington, Indiana
 
-Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
+Copyright (C) 2006-2008 City of Bloomington, Indiana. All rights reserved.
 
 This content manager is free software; you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published by
