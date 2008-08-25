@@ -45,27 +45,45 @@ class Search
 	{
 		$doc = new Zend_Search_Lucene_Document();
 
+		# The UTF8 analyzer is case-sensitive.  So we need to lowercase everything before indexing
 		if ($entry instanceof Document)
 		{
+			$title = strtolower($entry->getTitle());
+			$description = strtolower($entry->getDescription());
+			$content = strtolower(strip_tags(implode("\n",$entry->getContent())));
+			$combined = "$title $description $content";
+
 			$type = $entry->getDocumentType()->isSeperateInSearch() ? $entry->getDocumentType()->getType() : 'Document';
 			$doc->addField(Zend_Search_Lucene_Field::Keyword('type',$type));
 			$doc->addField(Zend_Search_Lucene_Field::Keyword('document_id',$entry->getId()));
-			$doc->addField(Zend_Search_Lucene_Field::UnStored('title',$entry->getTitle(),'utf-8'));
-			$doc->addField(Zend_Search_Lucene_Field::UnStored('content',strtolower(strip_tags(implode("\n",$entry->getContent()))),'utf-8'));
+			$doc->addField(Zend_Search_Lucene_Field::UnStored('title',$title,'utf-8'));
+			$doc->addField(Zend_Search_Lucene_Field::UnStored('description',$description,'utf-8'));
+			$doc->addField(Zend_Search_Lucene_Field::UnStored('content',$content,'utf-8'));
+			$doc->addField(Zend_Search_Lucene_Field::UnStored('combined',$combined,'utf-8'));
 		}
 		elseif ($entry instanceof Event)
 		{
+			$title = strtolower($entry->getTitle());
+			$description = strtolower(strip_tags($entry->getDescription()));
+			$combined = "$title $description";
+
 			$doc->addField(Zend_Search_Lucene_Field::Keyword('type','Event'));
 			$doc->addField(Zend_Search_Lucene_Field::Keyword('event_id',$entry->getId()));
-			$doc->addField(Zend_Search_Lucene_Field::UnStored('title',$entry->getTitle(),'utf-8'));
-			$doc->addField(Zend_Search_Lucene_Field::UnStored('content',strtolower(strip_tags($entry->getDescription())),'utf-8'));
+			$doc->addField(Zend_Search_Lucene_Field::UnStored('title',$title,'utf-8'));
+			$doc->addField(Zend_Search_Lucene_Field::UnStored('description',$description,'utf-8'));
+			$doc->addField(Zend_Search_Lucene_Field::UnStored('combined',$combined,'utf-8'));
 		}
 		elseif ($entry instanceof Media)
 		{
+			$title = strtolower($entry->getTitle());
+			$description = strtolower($entry->getDescription());
+			$combined = "$title $description";
+
 			$doc->addField(Zend_Search_Lucene_Field::Keyword('type','Media'));
 			$doc->addField(Zend_Search_Lucene_Field::Keyword('media_id',$entry->getId()));
-			$doc->addField(Zend_Search_Lucene_Field::UnStored('title',$entry->getTitle(),'utf-8'));
-			$doc->addField(Zend_Search_Lucene_Field::UnStored('content',strtolower(strip_tags($entry->getDescription())),'utf-8'));
+			$doc->addField(Zend_Search_Lucene_Field::UnStored('title',$title,'utf-8'));
+			$doc->addField(Zend_Search_Lucene_Field::UnStored('description',$description,'utf-8'));
+			$doc->addField(Zend_Search_Lucene_Field::UnStored('combined',$combined,'utf-8'));
 		}
 		else { throw new Exception('search/unknownType'); }
 
@@ -120,6 +138,7 @@ class Search
 	{
 		if ($logging) { $this->log($string); }
 
+		Zend_Search_Lucene::setDefaultSearchField('combined');
 		$query = Zend_Search_Lucene_Search_QueryParser::parse($string);
 
 		if ($type)
