@@ -138,8 +138,15 @@ class Search
 	{
 		if ($logging) { $this->log($string); }
 
+		$string = strtolower(str_replace('\\','',$string));
+
 		Zend_Search_Lucene::setDefaultSearchField('combined');
-		$query = Zend_Search_Lucene_Search_QueryParser::parse($string);
+		try { $query = Zend_Search_Lucene_Search_QueryParser::parse($string); }
+		catch (Exception $e)
+		{
+			# If the query parser has any trouble, we're just going to ignore it.
+			# The end result is that the user will just not get any hits on their search
+		}
 
 		if ($type)
 		{
