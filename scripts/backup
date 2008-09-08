@@ -28,6 +28,8 @@ $MYSQLDUMP -u $MYSQL_USER -p$MYSQL_PASS \
 --ignore-table=$MYSQL_DBNAME.document_hits_daily \
 --ignore-table=$MYSQL_DBNAME.document_hits_monthly \
 --ignore-table=$MYSQL_DBNAME.document_hits_yearly \
+--ignore-table=$MYSQL_DBNAME.search_log \
+--ignore-table=$MYSQL_DBNAME.file_not_found_log \
 $MYSQL_DBNAME > data/database.sql
 
 # Tarball the Data

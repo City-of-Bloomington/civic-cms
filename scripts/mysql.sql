@@ -129,6 +129,11 @@ create table document_watches (
 	foreign key (user_id) references users(id) on delete cascade
 ) engine=InnoDB;
 
+---------------------------------------------------------------------
+-- Log tables.  These should not get backed up.  When restoring
+-- from backup, you will need to recreate these tables by hand.
+-- The easiest way is to just copy and paste from here
+---------------------------------------------------------------------
 create table search_log (
 	queryString varchar(128) not null,
 	access_time timestamp not null default CURRENT_TIMESTAMP
@@ -140,9 +145,6 @@ create table file_not_found_log (
 	referer varchar(255)
 ) engine=Archive;
 
----------------------------------------------------------------------
--- Summary Tables for the document_accesslog
----------------------------------------------------------------------
 create table document_accesslog (
 	document_id int unsigned not null,
 	access_time timestamp not null default CURRENT_TIMESTAMP
