@@ -10,61 +10,90 @@
 	<title>Backups</title>
 </head>
 <body>
-<h1>Backups</h1>
-<p>
-	Setting up automated backups involves editing and installing a CRON script.
-	Information on the backup CRON script is on the Post-Install page.
-	The provided CRON script if the optimum way to ensure backups.
-	In the script, you can adjust how many days of tarballs to keep.
-	The script will delete tarballs older than the number of days you specify.
-</p>
-<p>
-	You can also manually create a backup snapshot by logging in as an Administrator.
-	As an admin, you have access to the Backups page.
-	Just click on the 'Add' button to create a new snapshot of that point in time.
-	Large sites could take a while to create the tarball.
-	If you are doing this from the web browser, make sure to give it enough time to complete.
-	As the site grows, you may need to adjust the MAX_EXECUTION_TIME for the /html/backups/create.php script.
-</p>
-
-<h2>Restoring</h2>
-<p>
-	The backup tarballs are stored in /backups.
-	In the event of a catastrophe, you can do a full restore from any of these tarballs.
-	Each backup contains the full data directory, including a mysqldump file from that point in time.
-	To restore:
-</p>
-<ul><li>Uncompress the tarball</li>
-	<li>Put the uncompressed data directory in place (replacing/removing any old data directory)</li>
-	<li>Drop the database and recreate it using the database.sql</li>
+<div class="breadcrumbs">
+<ul><li><a href="index.html">Home</a></li>
+	<li><a href="adminGuide.html">Administrator's Guide</a></li>
+	<li><a href="backups.html">Backups</a></li>
 </ul>
+</div>
 
-<h3>Restoring individual documents</h3>
-<p>
-	Most often you will need to only restore individual documents, rather than doing a full restore.
-	This happens as users tend to inadvertantly delete or replace live documents.
-	Once you've uncompressed a backup tarball, you can copy an individual document file to the live data directory to restore it.
-</p>
-<p>
-	The database only contains meta-data about the documents.
-	The actual contents of the documents are stored as files on the filesystem in /data/documents.
-	To avoid dumping all the document files into a single directory, the files are organized by "Created" date.
-	Currently to restore an individual document you will need to look up it's created date in the database.
-	If the document has been deleted, and you're trying to restore it,
-	you will need to create a temporary database for the backup data and populate it using the database.sql from the tarball.
-</p>
-<p>
-	Once you have the "Created" date, you just copy the document file(s)
-	from the uncompressed data to the live data directory.
-	The files are stored in /data/documents/$year/$mon/$day/$id.lang.
-</p>
-<p>
-	Multiple language versions of the same document are stored in the same directory
-	using the ID of the document as the filename, and the language code as the extension.
-</p>
-<ul><li>/data/documents/2008/07/19/3149.en</li>
-	<li>/data/documents/2008/07/19/3149.es</li>
-	<li>/data/documents/2008/07/19/3149.fr</li>
+<div id="navigation">
+<ul><li><a href="index.html">Home</a><li>
+	<li><a href="adminGuide.html">Administrator's Guide</a>
+		<ul><li><a href="installation.html">Installation</a></li>
+			<li><a href="postInstall.html">Post-Install</a></li>
+			<li><a href="backups.html">Backups</a></li>
+			<li><a href="userAccounts.html">User Accounts</a></li>
+			<li><a href="siteOrganization.html">Site Organization</a></li>
+		</ul>
+	</li>
+	<li><a href="userGuide.html">User's Guide</a>
+		<ul><li><a href="documents.html">Documents</a>
+				<ul><li><a href="linkSyntax.html">Link Syntax</a></li>
+				</ul>
+			</li>
+		</ul>
+	</li>
 </ul>
+</div>
+
+<div id="mainContent">
+	<h1>Backups</h1>
+	<p>
+		Setting up automated backups involves editing and installing a CRON script.
+		Information on the backup CRON script is on the Post-Install page.
+		The provided CRON script if the optimum way to ensure backups.
+		In the script, you can adjust how many days of tarballs to keep.
+		The script will delete tarballs older than the number of days you specify.
+	</p>
+	<p>
+		You can also manually create a backup snapshot by logging in as an Administrator.
+		As an admin, you have access to the Backups page.
+		Just click on the 'Add' button to create a new snapshot of that point in time.
+		Large sites could take a while to create the tarball.
+		If you are doing this from the web browser, make sure to give it enough time to complete.
+		As the site grows, you may need to adjust the MAX_EXECUTION_TIME for the /html/backups/create.php script.
+	</p>
+
+	<h2>Restoring</h2>
+	<p>
+		The backup tarballs are stored in /backups.
+		In the event of a catastrophe, you can do a full restore from any of these tarballs.
+		Each backup contains the full data directory, including a mysqldump file from that point in time.
+		To restore:
+	</p>
+	<ul><li>Uncompress the tarball</li>
+		<li>Put the uncompressed data directory in place (replacing/removing any old data directory)</li>
+		<li>Drop the database and recreate it using the database.sql</li>
+	</ul>
+
+	<h3>Restoring individual documents</h3>
+	<p>
+		Most often you will need to only restore individual documents, rather than doing a full restore.
+		This happens as users tend to inadvertantly delete or replace live documents.
+		Once you've uncompressed a backup tarball, you can copy an individual document file to the live data directory to restore it.
+	</p>
+	<p>
+		The database only contains meta-data about the documents.
+		The actual contents of the documents are stored as files on the filesystem in /data/documents.
+		To avoid dumping all the document files into a single directory, the files are organized by "Created" date.
+		Currently to restore an individual document you will need to look up it's created date in the database.
+		If the document has been deleted, and you're trying to restore it,
+		you will need to create a temporary database for the backup data and populate it using the database.sql from the tarball.
+	</p>
+	<p>
+		Once you have the "Created" date, you just copy the document file(s)
+		from the uncompressed data to the live data directory.
+		The files are stored in /data/documents/$year/$mon/$day/$id.lang.
+	</p>
+	<p>
+		Multiple language versions of the same document are stored in the same directory
+		using the ID of the document as the filename, and the language code as the extension.
+	</p>
+	<ul><li>/data/documents/2008/07/19/3149.en</li>
+		<li>/data/documents/2008/07/19/3149.es</li>
+		<li>/data/documents/2008/07/19/3149.fr</li>
+	</ul>
+</div>
 </body>
 </html>

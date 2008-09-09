@@ -10,128 +10,157 @@
 	<title></title>
 </head>
 <body>
-<h1>Installation</h1>
+<div class="breadcrumbs">
+<ul><li><a href="index.html">Home</a></li>
+	<li><a href="adminGuide.html">Administrator's Guide</a></li>
+	<li><a href="installation.html">Installation</a></li>
+</ul>
+</div>
 
-<p>Uncompress the application somwhere accessible by Apache.</p>
+<div id="navigation">
+<ul><li><a href="index.html">Home</a><li>
+	<li><a href="adminGuide.html">Administrator's Guide</a>
+		<ul><li><a href="installation.html">Installation</a></li>
+			<li><a href="postInstall.html">Post-Install</a></li>
+			<li><a href="backups.html">Backups</a></li>
+			<li><a href="userAccounts.html">User Accounts</a></li>
+			<li><a href="siteOrganization.html">Site Organization</a></li>
+		</ul>
+	</li>
+	<li><a href="userGuide.html">User's Guide</a>
+		<ul><li><a href="documents.html">Documents</a>
+				<ul><li><a href="linkSyntax.html">Link Syntax</a></li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+</ul>
+</div>
 
-<h2>Edit Configuration.inc</h2>
-<p>
-	Edit configuration.inc with appropriate values for your installation.
-	This will include where you installed the application, and the username
-	and password for the database user you created.
-</p>
+<div id="mainContent">
+	<h1>Installation</h1>
 
-<p>
-	All of the application's settings are set in configuration.inc.
-	This file acts as a bootstrap for the entire application and must
-	be included before any other PHP code.
-</p>
+	<p>Uncompress the application somwhere accessible by Apache.</p>
 
-<h2>Configure Apache to load configuration.inc</h2>
-<p>
-	The best way is to have PHP auto_prepend the configuration.inc.
-	If this is the only web application on your apache server,
-	you can just point your apache's web directory to the html directory
-	inside the application and edit the auto_prepend in your php.ini file.
-</p>
+	<h2>Edit Configuration.inc</h2>
+	<p>
+		Edit configuration.inc with appropriate values for your installation.
+		This will include where you installed the application, and the username
+		and password for the database user you created.
+	</p>
 
-<p>
-	This can be done either by editing httpd.conf or by using an .htaccess
-	file in the root directory of the application. If you cannot edit httpd.conf
-	or use .htaccess files, this software is probably not for you.
-</p>
+	<p>
+		All of the application's settings are set in configuration.inc.
+		This file acts as a bootstrap for the entire application and must
+		be included before any other PHP code.
+	</p>
 
-<h3>Here's an example entry usable in httpd.conf:</h3>
-<code>
-Alias /application_name "/path/to/application_name/html"
-&lt;Directory "/path/to/application_name/html"&gt;
-    Options FollowSymLinks
-    AllowOverride None
-    Order allow,deny
-    Allow from all
+	<h2>Configure Apache to load configuration.inc</h2>
+	<p>
+		The best way is to have PHP auto_prepend the configuration.inc.
+		If this is the only web application on your apache server,
+		you can just point your apache's web directory to the html directory
+		inside the application and edit the auto_prepend in your php.ini file.
+	</p>
 
-    RewriteEngine On
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_FILENAME} !\.
-    RewriteRule .? /404.php [L]
+	<p>
+		This can be done either by editing httpd.conf or by using an .htaccess
+		file in the root directory of the application. If you cannot edit httpd.conf
+		or use .htaccess files, this software is probably not for you.
+	</p>
 
-    php_value auto_prepend_file /path/to/application_name/configuration.inc
-    php_value post_max_size 100M
-    php_value upload_max_filesize 100M
-&lt;/Directory&gt;
-&lt;Directory "/path/to/application_name/html/media/media"&gt;
-    ErrorDocument 404 /application_name/media/404.php
-&lt;/Directory&gt;
-</code>
+	<h3>Here's an example entry usable in httpd.conf:</h3>
+	<code>
+	Alias /application_name "/path/to/application_name/html"
+	&lt;Directory "/path/to/application_name/html"&gt;
+		Options FollowSymLinks
+		AllowOverride None
+		Order allow,deny
+		Allow from all
 
+		RewriteEngine On
+		RewriteCond %{REQUEST_FILENAME} !-f
+		RewriteCond %{REQUEST_FILENAME} !-d
+		RewriteCond %{REQUEST_FILENAME} !\.
+		RewriteRule .? /404.php [L]
 
-<h2>Post Max Size</h2>
-<p>
-	We also need to allow for large file uploads.
-	Content creators may need to upload attachments and images larger than the
-	default allowed by PHP. To increase the size, two PHP.ini values need to be set,
-	post_max_size and max_uploaded_file.  For our purposes, we put these PHP.ini
-	settings inside of the Apache httpd.conf or .htaccess, along with the auto_prepend.
-</p>
+		php_value auto_prepend_file /path/to/application_name/configuration.inc
+		php_value post_max_size 100M
+		php_value upload_max_filesize 100M
+	&lt;/Directory&gt;
+	&lt;Directory "/path/to/application_name/html/media/media"&gt;
+		ErrorDocument 404 /application_name/media/404.php
+	&lt;/Directory&gt;
+	</code>
 
 
-<h2>Mod_Rewrite</h2>
-<p>
-	We use Apache's mod_rewrite to allow human readable URLs.
-	Any incoming url that doesn't match something on the site is sent to 404.php.
-	Make sure Apache is using the correct URL for the document.
-	It doesn't need the server portion, though. So the leading slash means root of the webserver.
-	It should start with whatever Alias you're using for the site.
-</p>
+	<h2>Post Max Size</h2>
+	<p>
+		We also need to allow for large file uploads.
+		Content creators may need to upload attachments and images larger than the
+		default allowed by PHP. To increase the size, two PHP.ini values need to be set,
+		post_max_size and max_uploaded_file.  For our purposes, we put these PHP.ini
+		settings inside of the Apache httpd.conf or .htaccess, along with the auto_prepend.
+	</p>
 
 
-<h2>Load the Initial Database</h2>
-<p>
-	We ship with an SQL script to create the database tables, and load some initial data.
-	You can pass this file directly to MySQL.
-</p>
-<code>
-cd /path/to/application/scripts
-mysql -u username -p password content_manager &lt; mysql.sql
-</code>
+	<h2>Mod_Rewrite</h2>
+	<p>
+		We use Apache's mod_rewrite to allow human readable URLs.
+		Any incoming url that doesn't match something on the site is sent to 404.php.
+		Make sure Apache is using the correct URL for the document.
+		It doesn't need the server portion, though. So the leading slash means root of the webserver.
+		It should start with whatever Alias you're using for the site.
+	</p>
 
-<h2>Prepare the Data directory</h2>
-<p>
-	This application stores information in files as well as the database.
-	Things that are stored as files are: document content, the search index,
-	media and attachments, and the PHP sessions.
-</p>
 
-<h2>Rename the data_default directory to data.</h2>
-<p>
-	All non-database data is stored in the data directory of the application.
-	To avoid overwriting existing application data whenever we release updates,
-	the install comes with a data_default directory. This includes the directory structure for data.
-	It needs to be renamed to be just, "data". This means any future updates can
-	be copied over the top of your installation without altering your existing data.
-</p>
+	<h2>Load the Initial Database</h2>
+	<p>
+		We ship with an SQL script to create the database tables, and load some initial data.
+		You can pass this file directly to MySQL.
+	</p>
+	<code>
+	cd /path/to/application/scripts
+	mysql -u username -p password content_manager &lt; mysql.sql
+	</code>
 
-<h2>Install Search Engine:</h2>
-<p>
-	This application uses a search index stored on the hard drive.
-	You will need to install the index, then set permissions so that PHP has
-	read/write permissions to the search index.
-</p>
-<code>
-cd /path/to/application/scripts
-php install_search.php
-</code>
+	<h2>Prepare the Data directory</h2>
+	<p>
+		This application stores information in files as well as the database.
+		Things that are stored as files are: document content, the search index,
+		media and attachments, and the PHP sessions.
+	</p>
 
-<h2>Set Permissions:</h2>
-<p>
-	The data directory is where the application stores all non-database information.
-	You will need to make sure that the webserver has read/write permissions to everything in this directory.
-</p>
-<code>
-cd /path/to/application
-chown -R apache data
-chmod -R u+rw data
-</code>
+	<h2>Rename the data_default directory to data.</h2>
+	<p>
+		All non-database data is stored in the data directory of the application.
+		To avoid overwriting existing application data whenever we release updates,
+		the install comes with a data_default directory. This includes the directory structure for data.
+		It needs to be renamed to be just, "data". This means any future updates can
+		be copied over the top of your installation without altering your existing data.
+	</p>
+
+	<h2>Install Search Engine:</h2>
+	<p>
+		This application uses a search index stored on the hard drive.
+		You will need to install the index, then set permissions so that PHP has
+		read/write permissions to the search index.
+	</p>
+	<code>
+	cd /path/to/application/scripts
+	php install_search.php
+	</code>
+
+	<h2>Set Permissions:</h2>
+	<p>
+		The data directory is where the application stores all non-database information.
+		You will need to make sure that the webserver has read/write permissions to everything in this directory.
+	</p>
+	<code>
+	cd /path/to/application
+	chown -R apache data
+	chmod -R u+rw data
+	</code>
+</div>
 </body>
 </html>

@@ -7,55 +7,84 @@
 	<style type="text/css" media="screen">
 		@import url('documentation.css');
 	</style>
-	<title></title>
+	<title>Post-Install Setup</title>
 </head>
 <body>
-<h1>Post-Installation Setup</h1>
-<p>
-	Once you've gone through the installation instructions, your new website is functional.
-	Right away, though, you will want to change the administrator's user account
-	information from the default values.
-</p>
-
-<h2>Change the Admin Account</h2>
-<p>
-	After install, you can log in as user=administrator, pass=welcome.
-	You will immediately want to change these values once you've logged in for the first time.
-	The system will not work without at least one user in the system;
-	so, you cannot delete the administrator account, but you can change all of
-	it's information to whatever you want to log in as.
-</p>
-
-<h2>CRON scripts</h2>
-<p>
-	The content manager ships with several bash scripts suitable for cron or command line usage.
-	Before using them, however, they all need to be modified to provide appropriate path information for your install.
-	Once these scripts are edited and set to be executable, they can be used in CRON.
-	Typically, this means adding the file to /etc/cron.daily.
-</p>
-
-<h2>Backups</h2>
-<p>
-	The system provides support for automated backups.
-	Each backup will be a snapshot tarball of the database and data directory.
-</p>
-<h3>Edit /scripts/backup</h3>
-<ul><li>set the path to the application</li>
-    <li>set the path to mysqldump</li>
-	<li>provide the mysql authentication information</li>
-	<li>set the number of days worth of backups to keep</li>
+<div class="breadcrumbs">
+<ul><li><a href="index.html">Home</a></li>
+	<li><a href="adminGuide.html">Administrator's Guide</a></li>
+	<li><a href="postInstall.html">Post-Install Setup</a></li>
 </ul>
-<p>
-	Once it's executable you can add it to your systems' /etc/cron.daily.
-	Because the script needs mysql username and password information,
-	be sure to set the permissions on the script to readable only by root.
-</p>
+</div>
 
-<h2>Search Engine Indexing</h2>
-<h3>Edit /scripts/index_search</h3>
-<ul><li>Set the path to PHP</li>
-	<li>Set the path to your installation of Content Manager</li>
-	<li>Set user that Apache runs as</li>
+<div id="navigation">
+<ul><li><a href="index.html">Home</a><li>
+	<li><a href="adminGuide.html">Administrator's Guide</a>
+		<ul><li><a href="installation.html">Installation</a></li>
+			<li><a href="postInstall.html">Post-Install</a></li>
+			<li><a href="backups.html">Backups</a></li>
+			<li><a href="userAccounts.html">User Accounts</a></li>
+			<li><a href="siteOrganization.html">Site Organization</a></li>
+		</ul>
+	</li>
+	<li><a href="userGuide.html">User's Guide</a>
+		<ul><li><a href="documents.html">Documents</a>
+				<ul><li><a href="linkSyntax.html">Link Syntax</a></li>
+				</ul>
+			</li>
+		</ul>
+	</li>
 </ul>
+</div>
+
+<div id="mainContent">
+	<h1>Post-Installation Setup</h1>
+	<p>
+		Once you've gone through the installation instructions, your new website is functional.
+		Right away, though, you will want to change the administrator's user account
+		information from the default values.
+	</p>
+
+	<h2>Change the Admin Account</h2>
+	<p>
+		After install, you can log in as user=administrator, pass=welcome.
+		You will immediately want to change these values once you've logged in for the first time.
+		The system will not work without at least one user in the system;
+		so, you cannot delete the administrator account, but you can change all of
+		it's information to whatever you want to log in as.
+	</p>
+
+	<h2>CRON scripts</h2>
+	<p>
+		The content manager ships with several bash scripts suitable for cron or command line usage.
+		Before using them, however, they all need to be modified to provide appropriate path information for your install.
+		Once these scripts are edited and set to be executable, they can be used in CRON.
+		Typically, this means adding the file to /etc/cron.daily.
+	</p>
+
+	<h2>Backups</h2>
+	<p>
+		The system provides support for automated backups.
+		Each backup will be a snapshot tarball of the database and data directory.
+	</p>
+	<h3>Edit /scripts/backup</h3>
+	<ul><li>set the path to the application</li>
+		<li>set the path to mysqldump</li>
+		<li>provide the mysql authentication information</li>
+		<li>set the number of days worth of backups to keep</li>
+	</ul>
+	<p>
+		Once it's executable you can add it to your systems' /etc/cron.daily.
+		Because the script needs mysql username and password information,
+		be sure to set the permissions on the script to readable only by root.
+	</p>
+
+	<h2>Search Engine Indexing</h2>
+	<h3>Edit /scripts/index_search</h3>
+	<ul><li>Set the path to PHP</li>
+		<li>Set the path to your installation of Content Manager</li>
+		<li>Set user that Apache runs as</li>
+	</ul>
+</div>
 </body>
 </html>
