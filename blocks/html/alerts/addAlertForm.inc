@@ -5,9 +5,9 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 ?>
-<script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/utilities/utilities.js"></script>
-<script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/yahoo-dom-event/yahoo-dom-event.js"></script>
-<script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/calendar/calendar-min.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>/js/yui/build/utilities/utilities.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>/js/yui/build/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URL; ?>/js/yui/build/calendar/calendar-min.js"></script>
 
 <h1>Add Alert</h1>
 <form method="post" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>" class="yui-skin-sam">
