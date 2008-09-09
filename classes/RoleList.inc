@@ -6,12 +6,9 @@
 */
 class RoleList extends PDOResultIterator
 {
-	/**
-	 *Roles are really just an attribute array for users.  For now, I'm not loading them in as objects.
-	 */
 	public function __construct($fields=null)
 	{
-		$this->select = 'select role from roles';
+		$this->select = 'select id from roles';
 		if (is_array($fields)) $this->find($fields);
 	}
 

@@ -86,4 +86,9 @@ class Role extends ActiveRecord
 	public function getRole() { return $this->role; }
 
 	public function setRole($string) { $this->role = trim($string); }
+
+	#----------------------------------------------------------------
+	# Custom Functions
+	#----------------------------------------------------------------
+	public function __toString() { return $this->role; }
 }
