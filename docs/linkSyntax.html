@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+	<meta http-equiv="Content-Script-Type" content="text/javascript" />
+	<style type="text/css" media="screen">
+		@import url('documentation.css');
+	</style>
+	<title>Creating Links</title>
+</head>
+<body>
+<h1>Creating Links</h1>
+<p>
+	Links in the system are created using a custom syntax. It is generally of the form of:
+</p>
+<code>
+[target]
+or
+[link text|target]
+</code>
+
+<p>
+	Where "target" is the thing you are linking to,
+	and "link text" is any custom text to be displayed.
+	The "link text" portion is not required.
+</p>
+<p>
+	In the following examples "link text|" is not required.
+	If you leave this off, then the system will use the title of the page/content for the text of your link.
+</p>
+
+<h2>External Links</h2>
+<p>Links to URLs outside of the web server. You can use full URLs.</p>
+<code>
+[link text|full URL of external webpage]
+[Monroe County|http://www.co.monroe.in.us]
+</code>
+
+<h2>Relative Links</h2>
+<p>
+	To link to website content on the same server,
+	but not contained in the content manager application, you can use relative URLs.
+	The URL must start with a slash, "/", signifying the root of the webserver.
+</p>
+<code>
+[link text|/path to file from website root]
+[Community Profile|/profile.php]
+</code>
+
+
+<h2>Email Address</h2>
+<code>
+[link text|mailto:email@address.com]
+[Click to email John Smith|mailto:johnsmith@gmail.com]
+</code>
+
+<h2>Create an Anchor</h2>
+<code>
+[anchor:somename]
+[anchor:section2]
+</code>
+
+<h2>Create a Link to that Anchor</h2>
+<code>
+[link text|#section2]
+</code>
+
+<h2>Internal Links</h2>
+<p>
+	Links to content contained in the content manager.
+	Items in the content manager can be linked to directly:
+</p>
+
+<h3>Documents (links to a page within the site)</h3>
+<p>
+	You can link to any document in the system by Title, Alias, or ID number.
+	Document links do not need a prefix on the target portion.
+</p>
+<code>
+[link text|document]
+or just
+[document]
+
+Examples:
+[The homepage of the ITS department|Information and Technology Services]
+[The homepage of the ITS department|ITS]
+[The homepage of the ITS department|32]
+
+[Information and Technology Services]
+[ITS]
+[32]
+</code>
+
+<h3>Media</h3>
+<p>
+	You can link to any media in the system by filename or by ID number.
+	The media does not have to be attached to a document to be able to create a link to the media.
+	Media links use a prefix, "file:" on the target portion.
+</p>
+<code>
+[link text|file:media]
+or just
+[file:media]
+
+Examples:
+[2007-08-01 Plan Commission Minutes|file:pcminutes_20070801.pdf]
+[2007-08-01 Plan Commission Minutes|file:6]
+
+[file:pcminutes_20070801.pdf]
+[file:6]
+</code>
+
+<h3>Locations</h3>
+<p>
+	You can create a link to a Location by name or by ID number.
+	Links to locations use "location:" in the target portion.
+</p>
+<code>
+[link text|location:location]
+or just
+[location:location]
+
+Examples:
+[The Animal Shelter|location:Animal Shelter]
+[The Animal Shelter|location:12]
+
+[location:Animal Shelter]
+[location:12]
+</code>
+
+<h3>Location Groups</h3>
+<p>
+	You can create a link to the group of locations by name or by ID number.
+	Links to location groups use "locationGroup:" in the target portion.
+</p>
+<code>
+[link text|locationGroup:group]
+or just
+[locationGroup:group]
+
+Examples:
+[City Parks|locationGroup:Parks]
+[City Parks|locationGroup:1]
+
+[locationGroup:Parks]
+[locationGroup:1]
+</code>
+
+<h3>Calendars</h3>
+<p>
+	You can link to whole calendars by name or ID number.
+	Links to calendars use "calendar:" in the target portion.
+</p>
+<code>
+[link text|calendar:calendar]
+or just
+[calendar:calendar]
+
+Examples:
+[The City Government Calendar|calendar:Government]
+[The City Government Calendar|calendar:3]
+
+[calendar:Government]
+[calendar:3]
+</code>
+
+<h3>Events</h3>
+<p>
+	You can link to events by name or ID number.
+	Since events can be recurring events, you can link to a specific instance of an event by including the date as well.
+	Links to events use "event:" in the target portion.
+</p>
+<code>
+[link text|event:event]
+[link text|event:date/event]
+or just
+[event:event]
+[event:date/event]
+
+Examples:
+[MPO Technical Advisory Committee Meeting|event:MPO meeting]
+[MPO Technical Advisory Committee Meeting|event:/2008/1/25/MPO meeting]
+
+[MPO Technical Advisory Committee Meeting|event:114]
+[MPO Technical Advisory Committee Meeting|event:/2008/1/25/114]
+</code>
+
+<h3>Facets</h3>
+<p>
+	You can link to a facet by name or ID number.
+	Links to facets use "facet:" in the target portion.
+</p>
+<code>
+[link text|facet:facet]
+or just
+[facet:facet]
+
+Examples:
+[The Residents Guide|facet:Residents]
+[The Residents Guide|facet:3]
+
+[facet:Residents]
+[facet:3]
+</code>
+</body>
+</html>

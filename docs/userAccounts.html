@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+	<meta http-equiv="Content-Script-Type" content="text/javascript" />
+	<style type="text/css" media="screen">
+		@import url('documentation.css');
+	</style>
+	<title>User Accounts</title>
+</head>
+<body>
+<h1>User Accounts</h1>
+<p>
+	The Adminstrator creates the Departments and User accounts.
+	Permissions throughout the site are based on the user's Department.
+	Sections, Facets, Calendars, and Location Groups are all associated with one or more Departments.
+	Editing content is restricted to only the Users in the associated Departments.
+</p>
+
+<h2>Authentication</h2>
+<p>
+	The content manager comes with support for multiple authentication types.
+	Each user is assigned one authentication type.
+</p>
+
+<h2>LDAP</h2>
+<p>
+	If LDAP is configured, users can be authenticated against an LDAP directory.
+	For LDAP users, any password in the database is ignored and the system will
+	try and validate their login agains the configured LDAP directory.
+</p>
+
+<h2>local</h2>
+<p>
+	Local users are authenticated based on the password in the database.
+	Local users must have a password in the database if they are to log in.
+	Local passwords are MD5 encrypted. Even the Administrator cannot look up forgotten passwords.
+	If a user forgets their password, the password will need to be reset by the Administrator.
+</p>
+<p>
+	Local users without a password in the database will not be able to log in.
+	This can be useful for keeping track of people, without giving them the ability to log in and do anything.
+</p>
+</body>
+</html>
