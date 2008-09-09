@@ -8,7 +8,7 @@ class RoleList extends PDOResultIterator
 {
 	public function __construct($fields=null)
 	{
-		$this->select = 'select id from roles';
+		$this->select = 'select role as id from roles';
 		if (is_array($fields)) $this->find($fields);
 	}
 
@@ -40,5 +40,5 @@ class RoleList extends PDOResultIterator
 		$this->populateList($options,$parameters);
 	}
 
-	protected function loadResult($key) { return new Role($this->list[$key]); }
+	protected function loadResult($key) { return $this->list[$key]; }
 }
