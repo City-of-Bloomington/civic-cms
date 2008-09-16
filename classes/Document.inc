@@ -31,7 +31,6 @@
 		private $documentType;
 		private $lockedByUser;
 
-		private $facets = array();
 		private $related = array();
 
 		private $sections = array();
@@ -131,7 +130,6 @@
 			else { $this->insert($values,$preparedFields); }
 
 			$this->saveContent();
-			$this->saveFacets();
 		}
 
 		private function update($values,$preparedFields)
@@ -347,46 +345,45 @@
 		}
 
 		/**
-		 * Facet functions
+		 * @return FacetList
 		 */
 		public function getFacets()
 		{
 			if ($this->id)
 			{
-				if (!count($this->facets))
-				{
-					$list = new FacetList(array('document_id'=>$this->id));
-					foreach($list as $facet) { $this->facets[$facet->getId()] = $facet; }
-				}
+				return new FacetList(array('document_id'=>$this->id));
 			}
-			return $this->facets;
+			else { return array(); }
 		}
-		private function saveFacets()
+		/**
+		 * Takes an array of id numbers for facets and saves them to the database
+		 * @param array $facet_ids The array of ID numbers for the facets
+		 */
+		public function setFacets(array $facet_ids)
 		{
-			# Do not run getFacets() as it will load them fresh from the database
-			# We want to save the set of facets that they've changed, not what's in the database
 			$PDO = Database::getConnection();
 
 			$query = $PDO->prepare('delete from document_facets where document_id=?');
 			$query->execute(array($this->id));
 
 			$query = $PDO->prepare('insert document_facets values(?,?)');
-			foreach($this->facets as $facet_id=>$facet)
+			foreach($facet_ids as $facet_id)
 			{
 				$query->execute(array($this->id,$facet_id));
 			}
 		}
 		/**
-		 * Takes an array of id numbers for facets and applies them to the internal
-		 * set of facets
-		 * @param array $facet_ids The array of ID numbers for the facets
+		 * @param Facet $facet
+		 * @return boolean
 		 */
-		public function setFacets(array $facet_ids)
+		public function hasFacet($facet)
 		{
-			$this->facets = array();
-			foreach($facet_ids as $facet_id) { $this->facets[$facet_id] = new Facet($facet_id); }
+			$PDO = Database::getConnection();
+			$query = $PDO->prepare('select facet_id from document_facets where document_id=? and facet_id=?');
+			$query->execute(array($this->id,$facet->getId()));
+			$result = $query->fetchAll();
+			return count($result) ? true : false;
 		}
-		public function hasFacet($facet) { return array_key_exists($facet->getId(),$this->getFacets()); }
 		public function getRelatedDocuments()
 		{
 			if (!count($this->related))
