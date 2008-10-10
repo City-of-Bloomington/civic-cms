@@ -63,7 +63,7 @@ th a { color:#3366cc; background-color:inherit; }
 .current { font-weight:bold; }
 .required { background:url('images/icons/required_asterik.gif') no-repeat; }
 
-img { border:0; }
+img { border:1px solid black; }
 span.image { display:block; text-align:center; margin:0 15px 5px 15px; }
 span.thumbnail {  }
 span.image img { }
