@@ -515,7 +515,7 @@ class WikiMarkup
 			if (count($list))
 			{
 				$image = $list[0];
-				$url = $image->getURL();
+				$url = $image->getURL('medium');
 				$alt = View::escape($image->getTitle());
 				$width = $image->getWidth('medium');
 				$height = $image->getHeight('medium');
