@@ -8,7 +8,7 @@ class FacetList extends PDOResultIterator
 {
 	public function __construct($fields=null)
 	{
-		$this->select = 'select facets.id as id from facets';
+		$this->select = 'select distinct facets.id as id from facets';
 		if (is_array($fields)) $this->find($fields);
 	}
 
@@ -51,18 +51,18 @@ class FacetList extends PDOResultIterator
 		# Finding on fields from other tables required joining those tables.
 		# You can add fields from other tables to $options by adding the join SQL
 		# to $this->joins here
-
 		/**
-		 * Passing in facet_id should trigger the SQL for relatedFacets
+		 * If you want a set of related facets, pass in the documentList
+		 * from a facet
 		 */
-		if (isset($fields['facet_id']))
+		if (isset($fields['documentList']))
 		{
-			$this->select = 'select distinct(g.facet_id) as id from facets f';
-			$this->joins.= ' left join document_facets d on f.id=facet_id';
-			$this->joins.= ' left join document_facets g on d.document_id=g.document_id';
-			$options[] = 'f.id=:facet_id and g.facet_id!=:not_facet_id';
-			$parameters[':facet_id'] = $fields['facet_id'];
-			$parameters[':not_facet_id'] = $fields['facet_id'];
+			$documents = $fields['documentList']->getSQL();
+
+			$this->joins.= ' join document_facets df on facets.id=df.facet_id';
+			$this->joins.= " join ($documents)related_documents on df.document_id=related_documents.id";
+
+			$parameters = array_merge($parameters,$fields['documentList']->getParameters());
 		}
 
 		if (isset($fields['document_id']))

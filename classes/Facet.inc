@@ -110,10 +110,11 @@
 
 		/**
 		 * Facets are related to each other if they both have the same documents
+		 * @return FacetList
 		 */
 		public function getRelatedFacets()
 		{
-			return new FacetList(array('facet_id'=>$this->id));
+			return new FacetList(array('documentList'=>$this->getDocuments()));
 		}
 
 		public function getRelatedGroups()

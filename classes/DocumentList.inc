@@ -192,20 +192,23 @@ class DocumentList extends PDOResultIterator
 			$this->joins = ' right join language_ids l on documents.id=l.id';
 		}
 
-		if (is_array($fields) && array_key_exists('facet_id',$fields))
+		/**
+		 * Pass in an array of facet_ids to get a list of documents matching
+		 * all the desired facets
+		 * @param array $fields['facet_ids']
+		 */
+		if (isset($fields['facet_ids']))
+		{
+			$facets = implode(',',$fields['facet_ids']);
+			$this->joins.= " inner join document_facets df on documents.id=df.document_id and df.facet_id in ($facets)";
+			$this->groupBy = 'documents.id having count(*)='.count($fields['facet_ids']);
+		}
+
+		if (isset($fields['facet_id']))
 		{
 			$this->joins.= ' left join document_facets f on documents.id=f.document_id';
-
-			if (is_array($fields['facet_id']))
-			{
-				$facets = implode(',',$fields['facet_id']);
-				$options[] =  "facet_id in ($facets)";
-			}
-			else
-			{
-				$options[] = 'facet_id=:facet_id';
-				$parameters[':facet_id'] = $fields['facet_id'];
-			}
+			$options[] = 'facet_id=:facet_id';
+			$parameters[':facet_id'] = $fields['facet_id'];
 		}
 
 		if (isset($fields['media_id']))

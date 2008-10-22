@@ -120,6 +120,16 @@ class FacetGroup extends ActiveRecord
 		}
 	}
 
+	/**
+	 * Returns whether this group is related to some other group
+	 * @param FacetGroup $group
+	 * @return boolean
+	 */
+	public function isRelated(FacetGroup $group)
+	{
+		return array_key_exists($group->getId(),$this->getRelatedGroups());
+	}
+
 	private function saveRelatedGroups()
 	{
 		if ($this->id)

@@ -5,68 +5,75 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Facet $this->facet
  */
-$description = WikiMarkup::parse($this->facet->getDescription());
-echo "
-<div>$description</div>
-<div class=\"table-of-contents\">
-	<form method=\"get\" action=\"$_SERVER[SCRIPT_NAME]\">
-	<fieldset>
-		<input type=\"hidden\" name=\"facet_id\" value=\"{$this->facet->getId()}\" />
-		<label for=\"table-of-contents-anchor\">Table of Contents:</label>
-		<select name=\"anchor\" id=\"table-of-contents-anchor\" onchange=\"document.location.href='#'+this.options[this.selectedIndex].value;\">
-";
-		foreach($this->facet->getRelatedGroups() as $group)
-		{
-			foreach($group->getFacets() as $facet)
-			{
-				$list = new DocumentList(array('facet_id'=>array($this->facet->getId(),$facet->getId()),'active'=>date('Y-m-d')));
-				if (count($list))
-				{
-					$name = View::escape($facet->getName());
-					$anchor = WikiMarkup::wikify($facet->getName());
-					echo "<option value=\"$anchor\">$name</option>\n";
-				}
-			}
-		}
-echo "
-		</select>
-	</fieldset>
-	</form>
-</div>
-";
-
-	$displayedDocuments = array();
-	foreach($this->facet->getRelatedGroups() as $group)
+#--------------------------------------------------------------------
+# Create the markup for the list of documents
+# Remember the anchors we create, we're going to delay the rendering
+# of this list, so we can display a table of contents on top
+#--------------------------------------------------------------------
+$displayedDocuments = array();
+$anchors = array();
+$output = '';
+foreach($this->facet->getRelatedFacets() as $facet)
+{
+	if ( ($facet->getId() != $this->facet->getId()) &&
+		 ($this->facet->getFacetGroup()->isRelated($facet->getFacetGroup())) )
 	{
-		foreach($group->getFacets() as $facet)
+		$list = new DocumentList(array('facet_ids'=>array($this->facet->getId(),$facet->getId()),'active'=>date('Y-m-d')));
+		if (count($list))
 		{
-			if ($facet->getId() != $this->facet->getId())
+			$name = View::escape($facet->getName());
+			$anchor = WikiMarkup::wikify($facet->getName());
+			$anchors[$anchor] = $name;
+			$output.= "
+			<h2><a id=\"$anchor\">$name</a></h2>
+			<ul>
+			";
+			foreach($list as $document)
 			{
-				$list = new DocumentList(array('facet_id'=>array($this->facet->getId(),$facet->getId()),'active'=>date('Y-m-d')));
-				if (count($list))
-				{
-					$name = View::escape($facet->getName());
-					$anchor = WikiMarkup::wikify($facet->getName());
-					echo "
-					<h2><a id=\"$anchor\">$name</a></h2>
-					<ul>
-					";
-					foreach($list as $document)
-					{
-						$displayedDocuments[$document->getId()] = $document;
+				$displayedDocuments[$document->getId()] = $document;
 
-						$title = $document->getFeature_title() ? $document->getFeature_title() : $document->getTitle();
-						$title = View::escape($title);
-						echo "<li><a href=\"{$document->getURL()}\">$title</a></li>\n";
-					}
-					echo "
-					</ul>
-					<a href=\"#top\">[Top]</a>
-					";
-				}
+				$title = $document->getFeature_title() ? $document->getFeature_title() : $document->getTitle();
+				$title = View::escape($title);
+				$output.= "<li><a href=\"{$document->getURL()}\">$title</a></li>\n";
 			}
+			$output.= "
+			</ul>
+			<a href=\"#top\">[Top]</a>
+			";
 		}
 	}
+}
+
+
+#--------------------------------------------------------------------
+# Table of Contents
+# Go through all the anchors we've recorded and display them in
+# a drop down list
+#--------------------------------------------------------------------
+$description = WikiMarkup::parse($this->facet->getDescription());
+echo "<div>$description</div>";
+if (count($displayedDocuments))
+{
+	echo "
+	<div class=\"table-of-contents\">
+		<form method=\"get\" action=\"$_SERVER[SCRIPT_NAME]\">
+		<fieldset>
+			<input type=\"hidden\" name=\"facet_id\" value=\"{$this->facet->getId()}\" />
+			<label for=\"table-of-contents-anchor\">Table of Contents:</label>
+			<select name=\"anchor\" id=\"table-of-contents-anchor\" onchange=\"document.location.href='#'+this.options[this.selectedIndex].value;\">
+	";
+			foreach($anchors as $anchor=>$name)
+			{
+				echo "<option value=\"$anchor\">$name</option>\n";
+			}
+	echo "
+			</select>
+		</fieldset>
+		</form>
+	</div>
+	$output
+	";
+}
 ?>
 <script type="text/javascript">
 	function toggleSiblings(button)
