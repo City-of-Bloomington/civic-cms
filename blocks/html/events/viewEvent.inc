@@ -20,7 +20,7 @@
 ?>
 </h2>
 <?php
-	$format = $this->event->isAllDayEvent() ? 'M j' : 'M j g:i A';
+	$format = $this->event->isAllDayEvent() ? 'M j Y' : 'M j Y g:i A';
 	$start = $this->event->getStart($format);
 	$end = $this->event->getEnd($format);
 
