@@ -1,0 +1,4 @@
+/* IE 6 does not include borders in it's width calulations. */
+/* So, we need to specify the full width here, instead of width - border */
+#main-content-container { width:980px; }
+#footer { width:980px; }
