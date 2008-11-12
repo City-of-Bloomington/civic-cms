@@ -47,7 +47,7 @@ select { font-size:12px; }
 textarea { }
 input { }
 
-table { border-collapse:collapse; border:1px solid #999999; margin:2px; }
+table { border-collapse:collapse; border:1px solid #999999; margin:1em 0 1em 0; }
 tr { vertical-align:top; }
 td { padding:2px; background-color:inherit; border:1px solid #999999; }
 th { text-align:left; border:1px solid #999999; background-color:#e0e0e0; padding:2px; vertical-align: top; font-weight:bold; }
@@ -162,7 +162,11 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 .sidebar .calendar td { padding:2px; }
 
 /* Styles for the YouTube Widget */
-.sidebar .youtube li { background-image:none; padding-left:0; }
+.sidebar .youtube li { background-image:none; padding-left:2px; text-align:center; }
+.sidebar .youtube .thumbnail { padding-top:2px; }
+.sidebar .youtube .image { margin:0; }
+
+.sidebar .channelLink a { font-size:16px; text-align:center; }
 
 #pageTools { background:url('images/pagetools/pagetools_bg.gif') top left no-repeat; width:210px; height:39px; margin-bottom:10px; }
 #pageTools ul { list-style-type:none; width:200px; height:39px; text-align:right; float:right; margin:0; padding:0; ;margin-top:11px; margin-right:10px; white-space:nowrap; }
@@ -413,3 +417,6 @@ div.customalert p { margin: 1px 1px 1px 3px; font-size:12px; padding-left:14px; 
 .searchResult p { margin:0; }
 .searchResult a { color:#3399cc; }
 .searchResult a:hover { text-decoration:underline; }
+
+.blogPost {border-bottom:1px dotted black; }
+

@@ -41,7 +41,7 @@ select { font-size:12px; }
 textarea { }
 input { }
 
-table { border-collapse:collapse; border:1px solid #999999; }
+table { border-collapse:collapse; border:1px solid #999999; margin:1em 0 1em 0; }
 tr { vertical-align:top; }
 td { padding:.5em; background-color:inherit; border:1px solid #999999; }
 th { text-align:left; border:1px solid #999999; background-color:#e0e0e0; padding:.5em; vertical-align: top; font-weight:bold; }
@@ -317,3 +317,6 @@ a.reveal { width:12px; height:12px; background-image:url('../cob/images/icons/re
 .searchResult p { margin:0; }
 .searchResult a { color:#3399cc; }
 .searchResult a:hover { text-decoration:underline; }
+
+.blogPost {border-bottom:1px dotted black; }
+
