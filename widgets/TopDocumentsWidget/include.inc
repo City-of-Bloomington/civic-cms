@@ -24,7 +24,4 @@
 			More <?php echo $name; ?>
 		</a>
 	</div>
-	<?php
-
-	?>
 </div>
