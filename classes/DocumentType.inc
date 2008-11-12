@@ -13,6 +13,7 @@
 		private $defaultFacetGroup_id;
 		private $media_id;
 		private $seperateInSearch;
+		private $listTemplate;
 
 		private $defaultFacetGroup;
 		private $documentInfoFields = array();
@@ -52,7 +53,16 @@
 				# This is where the code goes to generate a new, empty instance.
 				# Set any default values for properties that need it here
 				$this->ordering = 'title';
+				$this->listTemplate = 'expandableTree';
 			}
+		}
+
+		public function validate()
+		{
+			# Check for required fields here.  Throw an exception if anything is missing.
+			if (!$this->type) { throw new Exception('missingRequiredFields'); }
+			if (!$this->ordering) { $this->ordering = 'title'; }
+			if (!$this->listTemplate) { $this->listTemplate = 'expandableTree'; }
 		}
 
 
@@ -63,16 +73,17 @@
 		 */
 		public function save()
 		{
-			# Check for required fields here.  Throw an exception if anything is missing.
+			$this->validate();
 
 			$fields = array();
-			$fields['type'] = $this->type ? $this->type : null;
+			$fields['type'] = $this->type;
 			$fields['template'] = $this->template ? $this->template : null;
-			$fields['ordering'] = $this->ordering ? $this->ordering : null;
+			$fields['ordering'] = $this->ordering;
 			$fields['defaultFacetGroup_id'] = $this->defaultFacetGroup_id ? $this->defaultFacetGroup_id : null;
 			$fields['documentInfoFields'] = count($this->documentInfoFields) ? serialize($this->documentInfoFields) : null;
 			$fields['media_id'] = $this->media_id ? $this->media_id : null;
 			$fields['seperateInSearch'] = $this->seperateInSearch ? 1 : 0;
+			$fields['listTemplate'] = $this->listTemplate;
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
@@ -170,6 +181,7 @@
 			}
 		}
 		public function getSeperateInSearch() { return $this->seperateInSearch; }
+		public function getListTemplate() { return $this->listTemplate; }
 
 
 		/**
@@ -199,4 +211,5 @@
 		public function setMedia_id($int) { $this->media = new Media($int); $this->media_id = $this->media->getId(); }
 		public function setMedia($media) { $this->media_id = $this->media->getId(); $this->media = $media; }
 		public function setSeperateInSearch($int) { $this->seperateInSearch = $int ? 1 : 0; }
+		public function setListTemplate($string) { $this->listTemplate = trim($string); }
 	}

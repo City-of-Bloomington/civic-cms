@@ -76,6 +76,7 @@ create table documentTypes (
 	documentInfoFields varchar(255),
 	media_id int unsigned,
 	seperateInSearch boolean not null default 0,
+	listTemplate varchar(128) not null,
 	foreign key (defaultFacetGroup_id) references facetGroups(id),
 	foreign key (media_id) references media(id)
 ) engine=InnoDB;

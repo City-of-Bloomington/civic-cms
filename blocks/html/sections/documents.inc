@@ -20,34 +20,17 @@ foreach($documentTypeList as $type)
 
 	if (count($documents))
 	{
-		$documentListHTML = '';
-		foreach($documents as $document)
-		{
-			if ($document->getId() != $this->section->getDocument()->getId())
-			{
-				$info = implode(' - ',$document->getInfo());
-				$class = preg_match('/Please add a/',$info) ? 'class="badlink"' : '';
+		/**
+		 * Each of the documentTypes must specify how they want their
+		 * documents displayed.  The available templates are blocks
+		 */
+		$block = new Block("documentTypes/listTemplates/{$type->getListTemplate()}.inc");
+		$block->section = $this->section;
+		$block->documentList = $documents;
+		$block->documentType = $type;
 
-				$documentListHTML.= "
-					<li>
-						<a href=\"{$document->getURL()}\" $class>$info</a>
-					</li>
-				";
-			}
-		}
-
-		if ($documentListHTML)
-		{
-			$name = View::escape(Inflector::pluralize($type->getType()));
-			$output[] = "
-			<li class=\"liOpen\">
-				$name
-				<ul>
-					$documentListHTML
-				</ul>
-			</li>
-			";
-		}
+		$html = $block->render();
+		if ($html) { $output[] = $html; }
 	}
 }
 
@@ -57,18 +40,10 @@ if (count($output))
 	echo "
 	<div class=\"interfaceBox\">
 		<h3>Information in $name</h3>
-		<ul class=\"mktree\">
 	";
 	foreach($output as $html) { echo $html; }
 	echo "
-		</ul>
 	</div>
 	";
 
-	/**
-	 * This fires off the JavaScript that turns the expandable UL into a tree
-	 * This library has a bug - it will freeze if the <li> elements are not on their
-	 * own line.  Make sure to put line breaks for each <li>
-	 */
-	include_once APPLICATION_HOME.'/includes/js/tree.inc';
 }

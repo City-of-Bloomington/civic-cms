@@ -12,7 +12,7 @@
 	<input name="documentType_id" type="hidden" value="<?php echo $this->documentType->getId(); ?>" />
 
 	<table>
-	<tr><td><label for="documentType-type">Type</label></td>
+	<tr><td><label for="documentType-type" class="required">Type</label></td>
 		<td><input name="documentType[type]" id="documentType-type" size="60" value="<?php echo View::escape($this->documentType->getType()); ?>" /></td></tr>
 	<tr><td><label for="documentType-media_id">Icon</label></td>
 		<td><button type="button" class="browse" onclick="window.open('<?php echo BASE_URL; ?>/media/imageBrowser.php');">Choose Media</button>
@@ -66,25 +66,41 @@
 	</div>
 </fieldset>
 
-<fieldset><legend>List Display Information</legend>
-<p>Choose the information you want to display when documents of this type
-are displayed in a list.</p>
-<table>
-<?php
-	foreach(Document::getDisplayableFields() as $field=>$name)
-	{
-		$order = array_search($field,$this->documentType->getDocumentInfoFields());
-		$value = $order!==false ? $order : '';
-		echo "
-		<tr><td><input name=\"documentInfoFields[$field]\" id=\"documentInfoFields-$field\" size=\"2\" maxlength=\"2\" value=\"$value\" /></td>
-			<td><label for=\"documentInfoFields-$field\">$name</label></td></tr>
-		";
-	}
-?>
-</table>
-</fieldset>
+<fieldset><legend>Document Listing Options</legend>
+	<h2>Template for displaying lists of documents</h2>
+	<table>
+	<tr><td><label for="documentType-listTemplate" class="required">Template</label></td>
+		<td><select name="documentType[listTemplate]" id="documentType-listTemplate">
+			<?php
+				$options = array('expandableTree'=>'Expandable Tree','blog'=>'Blog Style');
+				foreach($options as $optionValue=>$optionLabel)
+				{
+					$selected = $this->documentType->getListTemplate()==$optionValue ? ' selected="selected"' : '';
+					echo "<option value=\"$optionValue\"$selected>$optionLabel</option>";
+				}
+			?>
+			</select>
+		</td>
+	</tr>
+	</table>
 
-<fieldset><legend>Display Options</legend>
+	<h2>Information to display as the document label</h2>
+	<p>These fields will be used when displaying a one-line label for each document.</p>
+	<table>
+	<?php
+		foreach(Document::getDisplayableFields() as $field=>$name)
+		{
+			$order = array_search($field,$this->documentType->getDocumentInfoFields());
+			$value = $order!==false ? $order : '';
+			echo "
+			<tr><td><input name=\"documentInfoFields[$field]\" id=\"documentInfoFields-$field\" size=\"2\" maxlength=\"2\" value=\"$value\" /></td>
+				<td><label for=\"documentInfoFields-$field\">$name</label></td></tr>
+			";
+		}
+	?>
+	</table>
+
+	<h2>Display Options</h2>
 	<table>
 	<tr><td><label for="documentType-ordering-field">Ordering</label></td>
 		<td><select name="documentType[ordering][field]" id="documentType-ordering-field">
@@ -123,6 +139,7 @@ are displayed in a list.</p>
 	</tr>
 	</table>
 </fieldset>
+
 
 <fieldset><legend>Submit</legend>
 	<button type="submit" class="submit">Save</button>

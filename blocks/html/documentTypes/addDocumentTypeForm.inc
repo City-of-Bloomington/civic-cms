@@ -9,7 +9,7 @@
 <form method="post" action="<?php echo $_SERVER['SCRIPT_NAME']; ?>">
 <fieldset><legend>Document Type</legend>
 	<table>
-	<tr><td><label for="documentType-type">Type</label></td>
+	<tr><td><label for="documentType-type" class="required">Type</label></td>
 		<td><input name="documentType[type]" id="documentType-type" size="60" /></td></tr>
 	<tr><td><label for="documentType-media_id">Icon</label></td>
 		<td><button type="button" class="browse" onclick="window.open('<?php echo BASE_URL; ?>/media/imageBrowser.php');">Choose Media</button>
@@ -56,23 +56,39 @@
 	</div>
 </fieldset>
 
-<fieldset><legend>List Display Information</legend>
-<p>Choose the information you want to display when documents of this type
-are displayed in a list.</p>
-<table>
-<?php
-	foreach(Document::getDisplayableFields() as $field=>$name)
-	{
-		echo "
-		<tr><td><input name=\"documentInfoFields[$field]\" id=\"documentInfoFields-$field\" size=\"2\" maxlength=\"2\" /></td>
-			<td><label for=\"documentInfoFields-$field\">$name</label></td></tr>
-		";
-	}
-?>
-</table>
-</fieldset>
+<fieldset><legend>Document Listing Options</legend>
+	<h2>Template for displaying lists of documents</h2>
+	<table>
+	<tr><td><label for="documentType-listTemplate" class="required">Template</label></td>
+		<td><select name="documentType[listTemplate]" id="documentType-listTemplate">
+			<?php
+				$options = array('expandableTree'=>'Expandable Tree',
+								  'blog'=>'Blog Style');
+				foreach($options as $optionValue=>$optionLabel)
+				{
+					echo "<option value=\"$optionValue\">$optionLabel</option>";
+				}
+			?>
+			</select>
+		</td>
+	</tr>
+	</table>
 
-<fieldset><legend>Display Options</legend>
+	<h2>Information to display as the document label</h2>
+	<p>These fields will be used when displaying a one-line label for each document.</p>
+	<table>
+	<?php
+		foreach(Document::getDisplayableFields() as $field=>$name)
+		{
+			echo "
+			<tr><td><input name=\"documentInfoFields[$field]\" id=\"documentInfoFields-$field\" size=\"2\" maxlength=\"2\" /></td>
+				<td><label for=\"documentInfoFields-$field\">$name</label></td></tr>
+			";
+		}
+	?>
+	</table>
+
+	<h2>Display Options</h2>
 	<table>
 	<tr><td><label for="documentType-ordering-field">Ordering</label></td>
 		<td><select name="documentType[ordering][field]" id="documentType-ordering-field">
