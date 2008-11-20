@@ -18,6 +18,7 @@
 	<meta name="robots" content="index,follow" />
 	<meta name="Publisher" content="City of Bloomington Indiana 401 N Morton St. Bloomington IN 47403" />
 	<meta name="Publisher-Email" content="webmaster@bloomington.in.gov" />
+	<meta name="verify-v1" content="qf+tXEzM1CfhMG2IHbHh7jb4oRYLgqJ1oed1QZXnqvs=" />
 	<link rel="SHORTCUT ICON" href="<?php echo BASE_URL; ?>/favicon.ico" />
 	<style type="text/css" media="screen">
 		@import url('<?php echo BASE_URL."/skins/$_SESSION[skin]/screen.css"; ?>');
