@@ -162,11 +162,12 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 .sidebar .calendar td { padding:2px; }
 
 /* Styles for the YouTube Widget */
-.sidebar .youtube li { background-image:none; padding-left:2px; text-align:center; }
+.sidebar .youtube ul {list-style-type:none; text-align:center; }
+.sidebar .youtube li { background-image:none; padding-left:2px; }
 .sidebar .youtube .thumbnail { padding-top:2px; }
 .sidebar .youtube .image { margin:0; }
-
-.sidebar .channelLink a { font-size:16px; text-align:center; }
+.sidebar .channelLink {text-align:center; }
+.sidebar .channelLink a { font-size:16px; }
 
 #pageTools { background:url('images/pagetools/pagetools_bg.gif') top left no-repeat; width:210px; height:39px; margin-bottom:10px; }
 #pageTools ul { list-style-type:none; width:200px; height:39px; text-align:right; float:right; margin:0; padding:0; ;margin-top:11px; margin-right:10px; white-space:nowrap; }
