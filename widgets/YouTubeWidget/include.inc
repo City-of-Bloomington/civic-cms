@@ -69,4 +69,5 @@
 		}
 	?>
 	</ul>
+	<p class="channelLink"><a href="http://www.youtube.com/cityofbloomington">View All Videos</a></p>
 </div>
