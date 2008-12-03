@@ -1,0 +1,325 @@
+@import 'reset.css';
+/* Set the default styles for common HTML elements */
+body { width:981px; clip:0px 981px auto 0; color:black; background-color:white; margin:0px; font-family:sans-serif; font-size:10pt;  }
+
+/* Text formatting */
+strong { font-weight:bold; }
+u { text-decoration:underline; }
+em { font-style:italic; }
+sub { vertical-align:sub; }
+sup { vertical-align:super; }
+code { font-family:monospace; }
+
+a { text-decoration:none; cursor:pointer; }
+a:link { color:#3366cc; background-color:transparent; }
+a:active { color:red; background-color:transparent; }
+a:visited { color:#3366cc;  background-color:transparent; }
+a:hover { color:#666666; background-color:transparent; }
+
+img { border:0; }
+span.image { }
+span.image img { }
+span.caption { display:block; }
+.thumbnail { }
+
+
+h1 { text-align:left; margin:0; font-size:16pt; font-weight:bold; }
+h2 { margin:0; font-size:14pt; font-weight:bold; }
+h3 { margin-top:.5em; font-size:12pt; font-weight:bold; }
+h4 { margin-top:.5em; font-size:10pt; font-weight:bold; }
+h5 { margin-top:.5em; font-weight:bold; }
+h6 { margin:0; }
+
+p { margin-top:.5em; margin-bottom:.5em; }
+
+form {  }
+fieldset { border:2px solid black; }
+legend { border:2px solid black; padding:.5em; background-color:#3366cc; color:white; font-weight:bold; }
+label { font-weight:bold; }
+.required { color:red; background-color:inherit; }
+input { font-family:sans-serif; font-size:8pt; }
+button { font-size:8pt; }
+
+table { border-collapse:collapse; border:1px solid #999999; margin:1em 0 1em 0; }
+tr { vertical-align:top; }
+td { padding-left:.5em; padding-right:.5em; background-color:inherit; }
+th { text-align:left; background-color:#dddddd; padding-left:.5em; padding-right:.5em; vertical-align: top; font-weight:bold; }
+th a:link,th a:visited { color:#3366cc; background-color:inherit; }
+form table { border:none; }
+
+ul { margin-top:0em; }
+ul.compact,ul.compact li { list-style-type:none; margin:0; padding:0; }
+li.current>a { background-color:#cccccc; width:100%; }
+
+/* Some styles for the splash page of applications */
+.splashImage { float:right; }
+
+/* Used to set up inline lists.  We want stuff in these to display in a single line  */
+.inline ul { width:100%; list-style-type:none; margin:0; padding:0; }
+.inline li { float:left; list-style-type:none; }
+	/* This lets us put small forms into the menubar without hurting the layout too bad */
+	.inline form { margin:0; padding:0; display:inline; }
+	.inline form fieldset { margin:0; padding:0; border:0; display:inline; }
+	.inline legend { display:none; }
+
+/* Top Banner stuff */
+#banner { height:129px; background:url('default/images/hanapin/banner.jpg') no-repeat; }
+#application_name { color:white; background-color:transparent; text-align:left; }
+#location_name { position:relative; width:268px; height:25px; }
+#banner a { color:white; background-color:transparent; text-decoration:none; }
+#banner ul,#top li { display:inline; border:0; color:black; }
+#banner li { margin-left:.5em; }
+#banner a { color:black; }
+#banner input { width:10ex; }
+#mainLinks { position:relative; top:12px; left:350px; border:none; width:323px; height:27px; }
+#secondaryLinks { position:relative; top:-15px; left:715px; width:266px; height:27px; }
+#banner .widgets { position:relative; top:15px; left:15px; width:300px; height:20px; }
+#banner .widgets h1 { width:80px; }
+#banner .widgets ul { padding:0; }
+#banner .widgets h1,#banner .widgets a { color: black; background:transparent; }
+#location_name a { font-weight:bold; color:white; }
+
+#topLevelSections { height:21px; border-bottom:2px solid black; margin-top:1px; }
+#topLevelSections ul { height:21px; }
+#topLevelSections li { height:21px; color:white; background:#013567 url('default/images/hanapin/tab_left_corner.gif') no-repeat; padding-left:10px; margin-right:1px; }
+#topLevelSections a { font-weight:bold; color:white; background:url('default/images/hanapin/tab_right_corner.gif') no-repeat right; padding-right:10px; }
+
+
+/* Used to draw fancy bordered boxes around content */
+.interfaceBox { border-bottom:2px dotted black; }
+.interfaceBox img { margin:0; }
+
+.interfaceBox h1 { background-color:#5a8fdd; color:white; font-size:14pt; font-weight:bold; padding-left:.5em; padding-right:.5em; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; }
+.interfaceBox h1 a { margin:0px; height:20px; }
+.interfaceBox h1 a:link,.titleBar a:visited { color:white; background-color:transparent; }
+.interfaceBox h1 form { margin:0; padding:0; display:inline; height:1em; }
+.interfaceBox h1 form fieldset { margin:0; padding:0; border:0; display:inline; }
+
+
+
+
+/* These are for the boxes on the sides of the page */
+.sidebar { width:155px; font-size:12px; margin-top:1em; }
+
+.sidebar ul { list-style-type:none; margin-left:0; padding:0; }
+.sidebar ul a { display:inline; color:black; }
+.sidebar ul .current { background-color:#ff6600; font-weight:bold; }
+.sidebar ul li { border-bottom:1px solid #bdbdbd; list-style-image:url('default/images/hanapin/arrow_marker.gif'); list-style-position:inside; }
+.sidebar ol { margin-left:0; padding-left:0; list-style-position:inside; }
+.sidebar fieldset { border:0; }
+.sidebar legend { display:none; }
+.sidebar select { width:140px; }
+.sidebar input { width: 140px; }
+
+.left { float:left; clear:left; }
+.right { float:right; clear:right; }
+
+/* Widget Styles */
+.widget { margin-bottom:2em; }
+.widget h1 { background-color:#5a8fdd; color:white; font-size:10pt; font-family: sans-serif; font-weight:bold; padding:5px; margin:0; border:0;
+    		-moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; }
+	.widget h1 form { margin:0; padding:0; display:inline; height:1em; }
+	.widget h1 form fieldset { margin:0; padding:0; border:0; display:inline; }
+
+#banner .widget { margin:0; border:0; }
+#banner .widget h1 { display:inline; }
+#banner .widget ul,#banner .widget li { display:inline; }
+
+
+
+/* Breadcrumb class for navigational items */
+.breadcrumbs ul { margin:0; }
+.breadcrumbs li { display:inline; list-style-type:none; }
+.breadcrumbs li a { padding-right:8px; background:url('default/images/breadcrumb.gif') no-repeat right; margin-right:8px; }
+
+
+/* The language bar */
+#languages ul { margin:0; float:right; margin-bottom:1em; }
+#languages li { display:inline; list-style-type:none; margin:0; padding:0; }
+
+/*  mainContent allows for 3 columns,	*/
+/*	backendContent allows for 2 columns	*/
+#mainContent { background-color:inherit; margin-left:170px; margin-right:170px; margin-top:1em; }
+#backendContent { background-color:inherit; margin-left:170px; margin-top:1em; }
+
+#documentToolbox { }
+#documentToolbox ul, #documentToolbox li { display:inline; list-style-type:none; }
+#documentToolbox form { display:inline; }
+
+.contextualMenu { background-color:#fba500; color:black; border:2px solid black; margin-bottom:1em; margin-top:1em; }
+.contextualMenu div { display:inline; }
+.contextualMenu span.title { background:inherit; color:white; font-size:12pt; font-weight:bold; border:0; padding-left:1em; padding-right:0; }
+.contextualMenu ul,.contextualMenu li { display:inline; margin:0; padding:0; list-style-type:none; }
+.contextualMenu a {  }
+.contextualMenu a:hover { color:white; background-color:inherit; }
+	/* This lets us put small forms into the menubar without hurting the layout too bad */
+	.contextualMenu form { margin:0; padding:0; display:inline; height:1em; }
+	.contextualMenu form fieldset { margin:0; padding:0; border:0; display:inline; }
+
+/* For pages with tab-type system on them */
+.tabBar ul { list-style: none; margin:0; padding-bottom:7px; border-bottom:1px solid gray; font-weight:bold; white-space:nowrap; }
+.tabBar li { display:inline; margin:0 2px; }
+.tabBar a { border-bottom:4px solid white; color:#999999; }
+.tabBar a.current { border-color:#ff6600; color:#0066ff; }
+.tabBar a:hover { border-color:#ff6600; color:#666666; }
+
+.tabPage { }
+.tabPage > .interfaceBox { margin-left:1em; margin-right:1em; }
+
+/* Styles for the search results page */
+.searchResult h2 { }
+.searchResult p { }
+.searchResult span { }
+
+/* Page Navigation Stuff */
+.pageNavigation { }
+.pageNavigation li { display:inline; }
+.pageNavigation a { }
+.pageNavigation button { }
+
+#footer { font-size:10pt; text-align:center; clear:both; margin-top:1em; }
+#footer p { font-size: 9px; color: #666666; margin:0 2em 2em 0; }
+
+/* Calendars MUST BE marked up as tables */
+table.calendar { width:100%; border:2px solid black; }
+table.calendar tr { }
+table.calendar th { padding:0; text-align:center; }
+table.calendar td { padding:0; border:1px solid black; }
+table.calendar .date {  }
+table.calendar ul { list-style-type:none; margin-top:1em; padding:0; }
+table.calendar li { margin-left:0; }
+.Sunday {}
+.Monday {}
+.Tuesday {}
+.Wednesday {}
+.Thursday {}
+.Friday {}
+.hasEvent {}
+
+/* JavaScript Tree Generator Styles */
+/* Turn off list bullets */
+ul.mktree  li { list-style: none; }
+/* Control how "spaced out" the tree is */
+ul.mktree, ul.mktree ul , ul.mktree li { margin-left:10px; padding:0px; }
+/* Provide space for our own "bullet" inside the LI */
+ul.mktree  li .bullet { padding-left: 15px; }
+/* Show "bullets" in the links, depending on the class of the LI that the link's in */
+ul.mktree li.liOpen .bullet { cursor: pointer; background: url('default/images/expanded.gif') center left no-repeat; }
+ul.mktree li.liClosed .bullet { cursor: pointer; background: url('default/images/collapsed.gif') center left no-repeat; }
+ul.mktree li.bullet .bullet { cursor: default; background: url('default/images/bullet.gif') center left no-repeat; }
+/* Sublists are visible or not based on class of parent LI */
+ul.mktree li.liOpen ul { display: block; }
+ul.mktree li.liClosed ul { display: none; }
+
+
+
+div.featured { }
+div.siblings { }
+div.subsections li { display:inline; margin-right:1em; }
+
+
+/*  Custom buttons for forms */
+button { cursor:pointer; overflow:hidden; vertical-align:middle; }
+/* Rick doesn't want these custom images right now.
+button.login { width:52px; height:15px; padding-top:15px; background: url('default/images/login.gif') no-repeat; border:0; }
+button.submit { width:70px; height:15px; padding-top:15px; background: url('default/images/submit.gif') no-repeat; border:0; }
+button.search { width:67px; height:15px; padding-top:15px; background: url('default/images/search.gif') no-repeat; border:0; }
+button.cancel { width:69px; height:15px; padding-top:15px; background: url('default/images/cancel.gif') no-repeat; border:0; }
+button.save { width:52px; height:15px; padding-top:15px; background: url('default/images/save.gif') no-repeat; border:0; }
+button.addLarge { width:52px; height:15px; padding-top:15px; background: url('default/images/addLarge.gif') no-repeat; border:0; }
+button.editLarge { width:52px; height:15px; padding-top:15px; background: url('default/images/editLarge.gif') no-repeat; border:0; }
+button.deleteLarge { width:63px; height:15px; padding-top:15px; background: url('default/images/deleteLarge.gif') no-repeat; border:0; }
+button.start { width:52px; height:15px; padding-top:15px; background: url('default/images/start.gif') no-repeat; border:0; }
+button.print { }
+*/
+button.addSmall { width:15px; height:15px; padding-top:15px; background: url('default/images/addSmall.gif') no-repeat; border:0; }
+button.deleteSmall { width:15px; height:15px; padding-top:15px; background: url('default/images/deleteSmall.gif') no-repeat; border:0; }
+button.excel { width:16px; height:16px; padding-top:16px; background: url('default/images/excel.gif') no-repeat; border:0; }
+button.printSmall { width:16px; height:16px; padding-top:16px; background: url('default/images/printer1.png') no-repeat; border:0; }
+
+button.previous { width:22px; height:22px; padding-top:22px; background: url('default/images/previous.png') no-repeat; border:0; }
+button.next { width:22px; height:22px; padding-top:22px; background: url('default/images/next.png') no-repeat; border:0; }
+
+/* Image Replacements for hrefs that are to be rendered as buttons */
+a.addSmall { width:15px; height:15px; padding:7px; background: url('default/images/addSmall.gif') no-repeat; font-size:0; }
+a.editSmall { width:15px; height:15px; padding:7px; background: url('default/images/editSmall.gif') no-repeat; font-size:0; }
+a.deleteSmall { width:15px; height:15px; padding:7px; background: url('default/images/deleteSmall.gif') no-repeat; font-size:0; }
+
+a.up { width:16px; height:16px; padding:8px; background: url('default/images/up.png') no-repeat; font-size:0; }
+a.down { width:16px; height:16px; padding:8px; background: url('default/images/down.png') no-repeat; font-size:0; }
+a.rssSmall { width:14px; height:14px; padding:7px; background:url('default/images/feed-icon-14x14.png') no-repeat; font-size:0; }
+a.rss { width:28px; height:28px; padding:14px; background: url('default/images/feed-icon-28x28.png'); font-size:0; }
+a.ical { width:16px; height:16px; padding:8px; background: url('default/images/date.png') no-repeat; font-size:0; }
+a.kml { width:16px; height:16px; padding:8px; background: url('default/images/kml_feed_small.png') no-repeat; font-size:0; }
+
+a.day { width:16px; height:14px; padding:8px; background: url('default/images/calendar/day.png') no-repeat; font-size:0; }
+a.week { width:16px; height:14px; padding:8px; background: url('default/images/calendar/week.png') no-repeat; font-size:0; }
+a.twoweek { width:16px; height:14px; padding:8px; background: url('default/images/calendar/twoweek.png') no-repeat; font-size:0; }
+a.month { width:16px; height:14px; padding:8px; background: url('default/images/calendar/month.png') no-repeat; font-size:0; }
+
+a.previous { width:22px; height:22px; padding:11px; background: url('default/images/previous.png') no-repeat; font-size:0; }
+a.next { width:22px; height:22px; padding:11px; background: url('default/images/next.png') no-repeat; font-size:0; }
+a.first { width:22px; height:22px; padding:11px; background: url('default/images/player_start.png') no-repeat; font-size:0; }
+a.last { width:22px; height:22px; padding:11px; background: url('default/images/player_end.png') no-repeat; font-size:0; }
+
+a.subscribe { width:22px; height:22px; padding:11px; background: url('default/images/news_subscribe.png') no-repeat; font-size:0; }
+a.unsubscribe { width:22px; height:22px; padding:11px; background: url('default/images/news_unsubscribe.png') no-repeat; font-size:0; }
+a.notify { width:22px; height:22px; padding:11px; background: url('default/images/mail_send.png') no-repeat; font-size:0; }
+a.watch { width:22px; height:22px; padding:11px; background: url('default/images/mail_get.png') no-repeat; font-size:0; }
+a.unwatch { width:22px; height:22px; padding:11px; background: url('default/images/mail_delete.png') no-repeat; font-size:0; }
+
+
+/* Custom Icons for mime types */
+.jpg { height:16px; padding-left:18px; background: url('default/images/icons/jpg.png') no-repeat; }
+.png { height:16px; padding-left:18px; background: url('default/images/icons/jpg.png') no-repeat; }
+.gif { height:16px; padding-left:18px; background: url('default/images/icons/gif.png') no-repeat; }
+.tiff { height:16px; padding-left:18px; background: url('default/images/icons/tiff.png') no-repeat; }
+.pdf { height:16px; padding-left:18px; background: url('default/images/icons/pdf.png') no-repeat; }
+.doc { height:16px; padding-left:18px; background: url('default/images/icons/doc.png') no-repeat; }
+.xls { height:16px; padding-left:18px; background: url('default/images/icons/xls.png') no-repeat; }
+.rtf { height:16px; padding-left:18px; background: url('default/images/icons/rtf.png') no-repeat; }
+.zip { height:16px; padding-left:18px; background: url('default/images/icons/zip.png') no-repeat; }
+.gz { height:16px; padding-left:18px; background: url('default/images/icons/gz.png') no-repeat; }
+.txt { height:16px; padding-left:18px; background: url('default/images/icons/txt.png') no-repeat; }
+.wmv { height:16px; padding-left:18px; background: url('default/images/icons/windowsMedia.png') no-repeat; }
+.mov { height:16px; padding-left:18px; background: url('default/images/icons/quicktime.png') no-repeat; }
+.rm { height:16px; padding-left:18px; background: url('default/images/icons/real.png') no-repeat; }
+.ram { height:16px; padding-left:18px; background: url('default/images/icons/real.png') no-repeat; }
+.mp3 { height:16px; padding-left:18px; background: url('default/images/icons/sound.png') no-repeat; }
+.wma { height:16px; padding-left:18px; background: url('default/images/icons/windowsMedia.png') no-repeat; }
+
+/* Controls how error messages are displayed */
+#errorMessages { border:2px solid black; }
+#errorMessages h1 { color:red; background-color:inherit; }
+#warning { border:2px solid red; }
+#warning h1 { color:inherit; background-color:red; font-size:14pt; }
+
+#tooltip { padding:3px; background:white; border:2px solid black; width:100px; }
+
+
+/* Locations page layout */
+#location_list { float:right; width:200px; margin-right:1em; }
+#location_map { width:360px; height:360px; border:2px solid black; margin-right:200px; }
+#locationGroup_description { margin-right:200px; }
+.handicap_accessible { height:16px; padding-left:18px; background: url('default/images/access.png') no-repeat; }
+
+/* Various Styles for text */
+.copyright { text-align:center; font-size:10pt; }
+.comments { color:red; background-color:inherit; }
+.money { text-align:right; }
+.void,.void td { text-decoration:line-through; }
+.total { border-top:1px solid black; text-align:right; }
+.total td { padding-bottom:1em; }
+.instructions { }
+.unpublished { text-decoration:line-through; }
+
+/* Diagnostics Styling - Styles that enhance bad content, so we know to fix it */
+img { border:4px solid red; }
+img[src^="/media/media.php"] { border:none; }
+img[src^="<?php echo BASE_URL; ?>/media/media.php"] { border:none; }
+img[src^="<?php echo BASE_URL; ?>/media/thumbnail.php"] { border:none; }
+img[src^="<?php echo BASE_URL; ?>/documents/icon.php"] { border:none; }
+img[src^="<?php echo BASE_URL; ?>/skins"] { border:none; }
+
+.blogPost {border-bottom:1px dotted black; }
+

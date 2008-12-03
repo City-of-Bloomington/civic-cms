@@ -1,0 +1,123 @@
+/* Set the default styles for common HTML elements */
+body { color:black; background-color:white; margin:0px; font-family:sans-serif; font-size:10pt; }
+
+a { text-decoration:none; }
+a:link { color:#3366cc; background-color:transparent; }
+a:active { color:red; background-color:transparent; }
+a:visited { color:#3366cc;  background-color:transparent; }
+a:hover { color:#666666; background-color:transparent; }
+
+img { border:none; }
+
+h1 { text-align:left; margin:0em; }
+h2 { margin:0em; }
+h3 { margin:0em; }
+
+p { margin-top:0em; margin-bottom:1em; }
+
+form {  }
+fieldset {  }
+label { font-weight:bold; }
+.required { color:red; background-color:inherit; }
+input { font-family:sans-serif; font-size:9pt; }
+
+table { border-collapse:collapse; }
+tr { vertical-align:top; }
+td { padding-left:.5em; padding-right:.5em; background-color:inherit; }
+th { text-align:left; background-color:#dddddd; padding-left:.5em; padding-right:.5em; vertical-align: top; }
+th a:link,th a:visited { color:white; background-color:inherit; }
+
+ul { margin-top:0em; }
+ul.compact { list-style-type:none; margin:0; padding:0; }
+
+/* Some styles for the splash page of applications */
+.splashImage { float:right; }
+
+/* Top Banner stuff */
+#banner { height:62px; background:#3366cc url('<?php echo BASE_URL; ?>/skins/default/images/citylogo-white.gif') no-repeat; padding-left:80px; }
+#application_name { color:white; text-align:left; padding-top:5px; }
+#location_name { color:white; text-align:left; font-size:12pt; }
+#navigation { float:right; }
+#banner a { color:white; text-decoration:none; }
+
+/* Used to create a menu bar across any div */
+.menuBar { display:none; }
+
+/* Used to draw fancy bordered boxes around content */
+.interfaceBox { border-bottom:2px dotted black; }
+.titleBar { background-color:#3366cc; color:white; font-size:14pt; border:2px solid black; font-weight:bold; padding-left:.5em; padding-right:.5em; }
+.titleBar a { margin:0px; height:20px; }
+.titleBar a:link { color:white; background-color:transparent; }
+
+
+
+/* These are for the boxes on the side of the page */
+#sidebar { display:none; }
+
+/* Breadcrumb class for navigational items */
+.breadcrumbs { font-size:10pt; font-weight:bold; }
+
+#mainContent { background-color:inherit; padding-left:3px; }
+.contextualMenu { background-color:#fba500; color:black; border:2px solid black; margin-bottom:1em; margin-top:1em; }
+.contextualMenu .titleBar { background:inherit; display:inline; color:white; font-size:12pt; font-weight:bold; border:0; padding-left:1em; padding-right:0; }
+.contextualMenu a { padding-left:1em; padding-right:1em; font-weight:bold; color:black; }
+.contextualMenu a:hover { color:white; background-color:inherit; }
+
+/* For pages with tab-type system on them */
+.tabBar { background-color:inherit; font-family: serif; font-weight: bold; border-bottom:2px solid black; }
+.tabBar a:link, div.tabBar a:visited { color:white; background-color:gray; padding-left:1em; padding-right:1em; }
+.tabBar a.current:link,.tabBar a.current:visited { color:black; background-color:#fba500; border-top:2px solid black; border-right:2px solid black; border-left:2px solid black; }
+
+.tabPage { }
+.tabPageTitle { background-color:#fba500; color:black; height:20px; font-size:14pt; border:2px solid black; font-weight:bold; margin-bottom:1em; }
+.tabPage > .interfaceBox { margin-left:1em; margin-right:1em; }
+
+
+/* Page Navigation Stuff */
+.pageNavigation { }
+.pageNavigation a { }
+.pageNavigation button { }
+
+#footer { display:none; }
+
+/* Calendars MUST BE marked up as tables */
+table.calendar { width:100%; }
+table.calendar tr { }
+table.calendar th { padding:0; text-align:center; }
+table.calendar td { padding:0; }
+
+/*  Custom buttons for forms */
+/* Rick doesn't want these custom images right now.
+button.login { width:52px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/login.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.submit { width:70px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/submit.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.search { width:67px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/search.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.cancel { width:69px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/cancel.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.save { width:52px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/save.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.addLarge { width:52px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/addLarge.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.editLarge { width:52px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/editLarge.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.deleteLarge { width:63px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/deleteLarge.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.start { width:52px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/start.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.print { }
+*/
+button.addSmall { width:15px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/addSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.editSmall { width:15px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/editSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.deleteSmall { width:15px; height:15px; padding-top:15px; background: url('<?php echo BASE_URL; ?>/skins/default/images/deleteSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.excel { width:16px; height:16px; padding-top:16px; background: url('<?php echo BASE_URL; ?>/skins/default/images/excel.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+button.printSmall { width:16px; height:16px; padding-top:16px; background: url('<?php echo BASE_URL; ?>/skins/default/images/printSmall.gif') no-repeat; cursor:pointer; overflow:hidden; border:0; vertical-align:middle; }
+
+
+/* Controls how error messages are displayed */
+#errorMessages { border:2px solid black; }
+#errorMessages h1 { color:red; }
+#warning { border:2px solid red; }
+#warning h1 { color:inherit; background-color:red; font-size:14pt; }
+
+
+/* Various Styles for text */
+.copyright { text-align:center; font-size:10pt; }
+.comments { color:red; background-color:inherit; }
+.money { text-align:right; }
+.void,.void td { text-decoration:line-through; }
+.total { border-top:1px solid black; text-align:right; }
+.total td { padding-bottom:1em; }
+.instructions { }
