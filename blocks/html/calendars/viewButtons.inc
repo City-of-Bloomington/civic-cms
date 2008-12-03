@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2006,2007,2008 City of Bloomington, Indiana. All rights reserved.
+ * @copyright Copyright (C) 2006-2008 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  *
@@ -10,7 +10,7 @@
 echo '<p>'.View::escape($this->calendar->getDescription()).'</p>';
 ?>
 <div>
-	<p><a href="<?php echo BASE_URL; ?>/feeds#calendar_feeds" class="ical button">View Calendar Feeds</a> 
+	<p><a href="<?php echo BASE_URL; ?>/feeds#calendar_feeds" class="ical button">View Calendar Feeds</a>
 	<a href="<?php echo BASE_URL; ?>/feeds#calendar_feeds"> Download event calendars into your calendar program</a></p>
 	<p>Use the drop down menus below to switch between calendar types and views.</p>
 	<form method="get" action="<?php echo BASE_URL; ?>/calendars">
@@ -44,7 +44,7 @@ echo '<p>'.View::escape($this->calendar->getDescription()).'</p>';
 		<?php
 			if (userHasRole(array('Administrator','Webmaster')))
 			{
-				echo "<a class=\"add\" href=\"".BASE_URL."/calendars/addCalendar.php';\">Add Calendar</a>";
+				echo "<a class=\"add\" href=\"".BASE_URL."/calendars/addCalendar.php\">Add Calendar</a>";
 			}
 		?>
 	</fieldset>
