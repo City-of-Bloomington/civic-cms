@@ -28,12 +28,12 @@ echo "
 ";
 echo WikiMarkup::parse($this->location->getContent());
 
-if (defined('GOOGLE_MAP_KEY'))
+if (defined('GOOGLE_API_KEY'))
 {
 ?>
 <div id="location_map">
 </div>
-<script src="http://maps.google.com/maps?file=api&amp;v=2.77&amp;key=<?php echo GOOGLE_MAP_KEY; ?>" type="text/javascript"></script>
+<script src="http://maps.google.com/maps?file=api&amp;v=2.77&amp;key=<?php echo GOOGLE_API_KEY; ?>" type="text/javascript"></script>
 <script type="text/javascript">
 	var point = new GLatLng(<?php echo $this->location->getLatitude(); ?>,<?php echo $this->location->getLongitude(); ?>);
 	<?php
@@ -73,5 +73,5 @@ if (defined('GOOGLE_MAP_KEY'))
 	setTimeout('loadMap()',500);
 </script>
 <?php
-} # End of If checking for GOOGLE_MAP_KEY
+} # End of If checking for GOOGLE_API_KEY
 ?>
