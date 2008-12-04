@@ -33,7 +33,7 @@ catch(Exception $e)
 $format = isset($_GET['format']) ? strtolower($_GET['format']) : 'html';
 if ($format == 'rss')
 {
-	$template = new Template($format,$format);
+	$template = new Template('default',$format);
 	$block = new Block('sections/documentList.inc');
 	$block->url = new URL(BASE_URL.'/sections/viewSection.php?section_id='.$section->getId());
 
