@@ -8,7 +8,6 @@ class YouTubeWidget extends Widget
 {
 	public $XMLFeedURL;
 	public $numVideosToDisplay;
-	public $xml;
 
 	public function __construct()
 	{
@@ -20,7 +19,6 @@ class YouTubeWidget extends Widget
 
 	public function render($template)
 	{
-		$this->xml = simplexml_load_file($this->XMLFeedURL);
 		echo $this->renderIncludeFile($this);
 	}
 
