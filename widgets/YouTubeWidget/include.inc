@@ -25,9 +25,10 @@
 
 		feed.load(function(result)
 		{
+			var widget = document.getElementById(divID);
+
 			if (!result.error)
 			{
-				var widget = document.getElementById(divID);
 
 				var ul = document.createElement('ul');
 
@@ -73,11 +74,22 @@
 					ul.appendChild(li);
 				}
 				widget.appendChild(ul);
+
+
 			}
+
+			var viewMore = document.createElement('div');
+			viewMore.setAttribute('class','viewMoreLink');
+			viewMore.className = 'viewMoreLink';
+
+			var link = document.createElement('a');
+			link.setAttribute('href','http://www.youtube.com/cityofbloomington');
+			link.appendChild(document.createTextNode('View All Videos'));
+			viewMore.appendChild(link);
+			widget.appendChild(viewMore);
 		});
 	}
 </script>
 <div class="youtube widget" id="youtube_widget">
 	<h1>YouTube Videos</h1>
-	<div class="channelLink"><a href="http://www.youtube.com/cityofbloomington">View All Videos</a></div>
 </div>

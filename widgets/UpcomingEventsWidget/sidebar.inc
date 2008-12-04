@@ -38,7 +38,7 @@ if (count($this->recurrenceArray))
 	}
 
 	echo "
-		<p><a href=\"".BASE_URL."/calendars\">More Events</a></p>
+		<div class=\"viewMore\"><a href=\"".BASE_URL."/calendars\">More Events</a></div>
 	</div>
 	";
 }
