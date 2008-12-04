@@ -48,8 +48,8 @@ textarea { }
 input { }
 
 table { border-collapse:collapse; border:1px solid #999999; margin:1em 0 1em 0; }
-tr { vertical-align:top; }
-td { padding:2px; background-color:inherit; border:1px solid #999999; }
+tr { }
+td { padding:2px; background-color:inherit; border:1px solid #999999; vertical-align:top; }
 th { text-align:left; border:1px solid #999999; background-color:#e0e0e0; padding:2px; vertical-align: top; font-weight:bold; }
 th a { color:#3366cc; background-color:inherit; }
 
