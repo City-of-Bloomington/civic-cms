@@ -6,6 +6,7 @@
  * @param string $this->XMLFeedURL;
  * @param int $this->numVideosToDisplay;
  */
+$this->numVideosToDisplay = $this->numVideosToDisplay ? $this->numVideosToDisplay : 99;
 ?>
 <script type="text/javascript" src="http://www.google.com/jsapi?key=<?php echo GOOGLE_API_KEY; ?>"></script>
 <script type="text/javascript">
