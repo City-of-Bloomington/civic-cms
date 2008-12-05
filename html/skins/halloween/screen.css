@@ -141,6 +141,9 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 .sidebar .widget a { color:black; font-size:11px; }
 .sidebar .widget address a { color:#3399cc; }
 
+.sidebar .viewMoreLink { margin-top:5px; }
+.sidebar .viewMoreLink a { font-size:12px; }
+
 /* styles for Constituencies Widget */
 .sidebar .widget li.business-guide { background-image: url('images/icons/bullet_rec_red.gif'); }
 .sidebar .widget li.for-kids-guide { background-image: url('images/icons/bullet_rec_aqua.gif'); }
@@ -154,6 +157,11 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 
 /* styles for the Attachments Widget */
 .sidebar .attachments li { background-image:none; border-bottom:0; padding-left:0px; }
+
+/* Styles for the YouTube Widget */
+.sidebar .youtube li { background-image:none; padding-left:2px; text-align:center; }
+.sidebar .youtube .thumbnail { padding-top:2px; }
+.sidebar .youtube .image { margin:0; }
 
 /* We want the navigation widget to be a different color, matching the TopLevelSections */
 .sidebar .navigation h1 { background:#013466 url('images/widgets/navigation_widget_top_bg.gif') top no-repeat !important; }
