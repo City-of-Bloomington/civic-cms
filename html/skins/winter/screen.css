@@ -141,6 +141,9 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 .sidebar .widget a { color:black; font-size:11px; }
 .sidebar .widget address a { color:#3399cc; }
 
+.sidebar .viewMoreLink { margin-top:5px; }
+.sidebar .viewMoreLink a { font-size:12px; }
+
 /* styles for Constituencies Widget */
 .sidebar .widget li.business-guide { background-image: url('images/icons/bullet_rec_red.gif'); }
 .sidebar .widget li.for-kids-guide { background-image: url('images/icons/bullet_rec_aqua.gif'); }
@@ -165,8 +168,6 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 .sidebar .youtube li { background-image:none; padding-left:2px; text-align:center; }
 .sidebar .youtube .thumbnail { padding-top:2px; }
 .sidebar .youtube .image { margin:0; }
-
-.sidebar .viewMoreLink a { margin-top:2px; font-size:14px; }
 
 #pageTools { background:url('images/pagetools/pagetools_bg.gif') top left no-repeat; width:210px; height:39px; margin-bottom:10px; }
 #pageTools ul { list-style-type:none; width:200px; height:39px; text-align:right; float:right; margin:0; padding:0; ;margin-top:11px; margin-right:10px; white-space:nowrap; }
@@ -205,7 +206,6 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 
 /* adds 5px spacing for list items in the content area. does not affect other list items in the layout such as nav and widgets */
 #mainContent li { margin:5px; }
-
 
 /* defines table styles for tables in the center column / content area. Will not affect other tables like the calendar */
 #mainContent table { border-collapse:collapse; border:1px solid #999999; }
