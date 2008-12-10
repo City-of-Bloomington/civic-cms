@@ -704,6 +704,7 @@
 
 		/**
 		 * Return a URL that can always navigate to this document
+		 * @return URL
 		 */
 		public function getURL()
 		{
@@ -713,6 +714,7 @@
 		/**
 		 * Returns an array of fields that are publically displayable about this class
 		 * $array[shortname] = 'Display Name'
+		 * @return array
 		 */
 		public static function getDisplayableFields()
 		{
@@ -723,6 +725,7 @@
 						'feature_title'=>'Feature Title',
 						'created'=>'Created Date',
 						'createdBy'=>'Created By Username',
+						'createdByFullname'=>'Created By Fullname',
 						'modified'=>'Modified Date',
 						'modifiedBy'=>'Modified By Username',
 						'publishDate'=>'Publish Date',
@@ -741,8 +744,23 @@
 			$info = array();
 			foreach($this->getDocumentType()->getDocumentInfoFields() as $field)
 			{
-				$getter = 'get'.ucfirst($field);
-				$info[$field] = $this->$getter();
+				switch ($field)
+				{
+					case 'createdBy':
+						$info[$field] = $this->getCreatedByUser()->getUsername();
+						break;
+					case 'createdByFullname':
+						$info[$field] = "{$this->getCreatedByUser()->getFirstname()} {$this->getCreatedByUser()->getLastname()}";
+						break;
+
+					case 'modifiedBy':
+						$info[$field] = $this->getModifiedByUser()->getUsername();
+						break;
+
+					default:
+						$getter = 'get'.ucfirst($field);
+						$info[$field] = $this->$getter();
+				}
 
 				if (!$info[$field])
 				{
@@ -800,7 +818,15 @@
 			}
 			else return $this->retireDate;
 		}
+		/**
+		 * @return int The user_id of the person who created this Document
+		 */
 		public function getCreatedBy() { return $this->createdBy; }
+
+		/**
+		 * @return User The User object of the person who created this Document
+		 */
+		public function getCreatedByUser() { return new User($this->createdBy); }
 		public function getModifiedBy() { return $this->modifiedBy; }
 		public function getDepartment_id() { return $this->department_id; }
 		public function getDocumentType_id() { return $this->documentType_id; }
