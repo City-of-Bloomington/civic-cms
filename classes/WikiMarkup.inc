@@ -27,17 +27,23 @@ class WikiMarkup
 	 */
 	public static function parse($string)
 	{
+		# This callback function will determine what to do with each type
+		# of thing found in the square brackets
+		# These are mostly links, but includes Images as well
 		# This is a recursive regular expression, matching balanced square brackets
 		$pattern = "/\[((?>[^][]+)|(?R))*\]/";
+		$string = preg_replace_callback($pattern,array('WikiMarkup','link_callback'),$string);
 
-		# The callback function will determine what to do with each type
-		# of thing found in the square brackets
-		return preg_replace_callback($pattern,array('WikiMarkup','callback'),$string);
+		# This callback function determines what to do with each type
+		# of thing found in curly braces
+		# The curly braces are used to embed content instead of just linking
+		$pattern = "/\{[^\}]+\}/";
+		return preg_replace_callback($pattern,array('WikiMarkup','embed_callback'),$string);
 	}
 
 	/**
 	 * Replaces content inside of square brackets.
-	 * This function knows how to create links from markup in the form of
+	 * This function knows how to create links in the form of
 	 * [/some/relative/path]
 	 * [http://some.external.url]
 	 * [file:filename.ext]
@@ -51,7 +57,7 @@ class WikiMarkup
 	 * [My Custom Text|file:filename.pdf]
 	 * [Something Special|Document Title]
 	 */
-	public static function callback($matches)
+	public static function link_callback($matches)
 	{
 		# Strip off the brackets
 		$link = substr($matches[0],1,-1);
@@ -70,14 +76,14 @@ class WikiMarkup
 		# Links starting with slash get treated like relative links
 		if (substr($link,0,1)=='/')
 		{
-			return self::relativeLinkMarkup($link,$linkText);
+			return self::relativeLink($link,$linkText);
 		}
 
 		# Check if this is supposed to be a full URL
 		$fullURLPattern = '/^(www\.|https?:\/\/)([\w\.]+)([\#\,\/\~\?\&\=\;\%\-\w+\.]+)/';
 		if (preg_match($fullURLPattern,$link))
 		{
-			return self::fullURLMarkup($link,$linkText);
+			return self::fullURLLink($link,$linkText);
 		}
 
 		# Check for all the colon specified link types
@@ -90,7 +96,7 @@ class WikiMarkup
 
 			# Colon specified types are declared as private functions
 			# They are written at the bottom of this script
-			$parseFunction = $type.'Markup';
+			$parseFunction = $type.'Link';
 			if (method_exists('WikiMarkup',$parseFunction) && $markup = self::$parseFunction($linkTarget,$linkText))
 			{
 				return $markup;
@@ -98,7 +104,7 @@ class WikiMarkup
 		}
 
 		# Check for a link to a Document
-		if ($markup = self::documentLinkMarkup($link,$linkText))
+		if ($markup = self::documentLink($link,$linkText))
 		{
 			return $markup;
 		}
@@ -106,6 +112,35 @@ class WikiMarkup
 		# We could not find a match for the syntax they typed.  They must have typed
 		# something invalid.  Make it big and red, so they don't do it again
 		return "<span class=\"badlink\">$matches[0]</span>";
+	}
+
+	/**
+	 * Replaces curly brace syntax with the full content of whatever
+	 * the syntax is targetting.  Supports embedding content
+	 * {location:}
+	 * {locationGroup:}
+	 * {calendar:}
+	 * {event:}
+	 * {facet:}
+	 * {facetGroup:}
+	 */
+	public static function embed_callback($matches)
+	{
+		# Strip off the curly braces
+		$syntax = substr($matches[0],1,-1);
+
+		if (preg_match('/:/',$syntax))
+		{
+			preg_match('/^([^:]*):(.*)/',$syntax,$matches);
+			$type = trim($matches[1]);
+			$target = trim($matches[2]);
+		}
+		$function = $type.'Embed';
+		if (method_exists('WikiMarkup',$function)
+			&& $markup = self::$function($target))
+		{
+			return $markup;
+		}
 	}
 
 	public static function size_readable ($size, $retstring='%01.2f %s')
@@ -123,7 +158,7 @@ class WikiMarkup
 	}
 
 	/**
-	 * Parses the target and returns appropriate markup for relative links
+	 * Parses the target and returns appropriate relative link
 	 * @param string $linkTarget This should become the URL in the HREF
 	 * @param string $linkText This should used as the content of the <a> tag
 	 */
@@ -146,7 +181,7 @@ class WikiMarkup
 				In this case, just output the inner content
 		4 Set CURRENT_URL to null, so that outer calls know somethings changed
 	*/
-	private static function relativeLinkMarkup($link,$linkText=null)
+	private static function relativeLink($link,$linkText=null)
 	{
 		# Tell all inner parse calls that they are inside of
 		# the link we're handling here
@@ -168,7 +203,7 @@ class WikiMarkup
 		}
 	}
 
-	private static function fullURLMarkup($link,$linkText=null)
+	private static function fullURLLink($link,$linkText=null)
 	{
 		# BAD URLS are specified in configuration.inc
 		global $BAD_LINK_EXPRESSIONS;
@@ -197,11 +232,11 @@ class WikiMarkup
 	}
 
 	/*
-		Document markup must make sure to set a VALID URL in
+		Document links must make sure to set a VALID URL in
 		CURRENT_URL before parsing the linkText.  The parse()
 		must assume that CURRENT_URL is always a valid URL
 	*/
-	private static function documentLinkMarkup($link,$linkText=null)
+	private static function documentLink($link,$linkText=null)
 	{
 		# For Document Links, we must look up the Document first, to
 		# to make sure we have a valid $url
@@ -245,11 +280,11 @@ class WikiMarkup
 	}
 
 	#----------------------------------------------------------------
-	# Colon-specifed Markup functions.
+	# Colon-specifed functions.
 	# These functions parse the target and return appropriate markup if they can
 	# find the target in the system.  If not, they should return false
 	#----------------------------------------------------------------
-	private static function fileMarkup($linkTarget,$linkText=null)
+	private static function fileLink($linkTarget,$linkText=null)
 	{
 		try
 		{
@@ -285,13 +320,31 @@ class WikiMarkup
 		}
 	}
 
-	private static function locationGroupMarkup($linkTarget,$linkText=null)
+	/**
+	 * Tries to find and load an object of $class specified by $target
+	 * @param string $class The Class of the object we're looking for
+	 * @param int|string $target The ID or Name of the object we're looking for
+	 * @return Object
+	 */
+	private static function find($class,$target)
 	{
-		$list = ctype_digit($linkTarget) ? new LocationGroupList(array('id'=>$linkTarget)) : new LocationGroupList(array('name'=>$linkTarget));
-		if (count($list))
+		$classList = $class.'List';
+		$list = ctype_digit($target)
+				? new $classList(array('id'=>$target))
+				: new $classList(array('name'=>$target));
+		if (count($list)) { return $list[0]; }
+	}
+	/**
+	 * Creates an A HREF to the specified LocationGroup
+	 * @param int|string $linkTarget The LocationGroup to link to
+	 * @param string $linkText Any optional text to include in the A tag
+	 * @return string
+	 */
+	private static function locationGroupLink($linkTarget,$linkText=null)
+	{
+		$locationGroup = self::find('LocationGroup',$linkTarget);
+		if ($locationGroup instanceof LocationGroup)
 		{
-			$locationGroup = $list[0];
-
 			self::$CURRENT_URL = $locationGroup->getURL();
 			$title = $linkText ? self::parse($linkText) : null;
 
@@ -313,14 +366,35 @@ class WikiMarkup
 			return $linkText;
 		}
 	}
-
-	private static function locationMarkup($linkTarget,$linkText=null)
+	/**
+	 * Returns the main content of a locationGroup page
+	 * @param int|string $target The LocationGroup to embed
+	 * @return string
+	 */
+	private static function locationGroupEmbed($target)
 	{
-		$list = ctype_digit($linkTarget) ? new LocationList(array('id'=>$linkTarget)) : new LocationList(array('name'=>$linkTarget));
-		if (count($list))
+		$locationGroup = self::find('LocationGroup',$target);
+		if ($locationGroup instanceof LocationGroup)
 		{
-			$location = $list[0];
+			$block = new Block('locations/locationList.inc');
+			$block->title = $locationGroup->getName();
+			$block->locationGroup = $locationGroup;
+			$block->locationList = $locationGroup->getLocations();
+			return $block->render();
+		}
+	}
 
+	/**
+	 * Creates an A HREF to the specified Location
+	 * @param int|string $linkTarget The Location to link to
+	 * @param string $linkText Any optional text to include in the A tag
+	 * @return string
+	 */
+	private static function locationLink($linkTarget,$linkText=null)
+	{
+		$location = self::find('Location',$linkTarget);
+		if ($location instanceof Location)
+		{
 			self::$CURRENT_URL = $location->getURL();
 			$title = $linkText ? self::parse($linkText) : null;
 
@@ -342,7 +416,29 @@ class WikiMarkup
 			return $linkText;
 		}
 	}
-	private static function calendarMarkup($linkTarget,$linkText=null)
+	/**
+	 * Returns the main content of a Location page
+	 * @param int|string $target The Location to embed
+	 * @return string
+	 */
+	private static function locationEmbed($target)
+	{
+		$location = self::find('Location',$target);
+		if ($location instanceof Location)
+		{
+			$block = new Block('locations/viewLocation.inc');
+			$block->location = $location;
+			return $block->render();
+		}
+
+	}
+	/**
+	 * Creates an A HREF to the specified Calendar
+	 * @param int|string $linkTarget The Calendar to link to
+	 * @param string $linkText Any optional text to include in the A tag
+	 * @return string
+	 */
+	private static function calendarLink($linkTarget,$linkText=null)
 	{
 		$list = ctype_digit($linkTarget) ? new CalendarList(array('id'=>$linkTarget)) : new CalendarList(array('name'=>$linkTarget));
 		if (count($list))
@@ -370,36 +466,42 @@ class WikiMarkup
 			return $linkText;
 		}
 	}
-	private static function facetMarkup($linkTarget,$linkText=null)
+	/**
+	 * Returns the main content of a Calendar page
+	 * @param int|string $target The Calendar to embed
+	 * @return string
+	 */
+	private static function calendarEmbed($target)
 	{
-		$list = ctype_digit($linkTarget) ? new FacetList(array('id'=>$linkTarget)) : new FacetList(array('name'=>$linkTarget));
-		if (count($list))
+		$calendar = self::find('Calendar',$target);
+		if (!$calendar instanceof Calendar)
 		{
-			$facet = $list[0];
-
-			self::$CURRENT_URL = $facet->getURL();
-			$title = $linkText ? self::parse($linkText) : null;
-
-			if (self::$CURRENT_URL == $facet->getURL())
-			{
-				if (!$title) { $title = View::escape($facet->getName()); }
-				self::$CURRENT_URL = null;
-				return "<a href=\"{$facet->getURL()}\">$title</a>";
-			}
-			else
-			{
-				self::$CURRENT_URL = null;
-				return $title;
-			}
+			$calendar = new Calendar();
 		}
-		else
-		{
-			self::$CURRENT_URL = null;
-			return $linkText;
-		}
+
+		$block = new Block('calendars/listView.inc');
+		$block->calendar = $calendar;
+		$block->date = getdate();
+		return $block->render();
 	}
-	private static function eventMarkup($linkTarget,$linkText=null)
+
+	/**
+	 * Creates an A HREF to the specified Event.  The target of the Event
+	 * can specify a particular date of the event.  This lets you specify
+	 * a specific occurrence of a recurring event.
+	 * $linkTarget can be in the form of :YYYY/mm/dd/event or just :event
+	 * Examples:
+	 * [event:2008/12/15/Committee Meeting]
+	 * [event:Committee Meeting]
+	 * [event:2008/12/15/114]
+	 * [event:114]
+	 * @param int|string $linkTarget The Event to link to
+	 * @param string $linkText Any optional text to include in the A tag
+	 * @return string
+	 */
+	private static function eventLink($linkTarget,$linkText=null)
 	{
+		# Check for any date information
 		if (preg_match('|^/(\d{4})/(\d{1,2})/(\d{1,2})/(.*)|',$linkTarget,$matches))
 		{
 			$year = $matches[1];
@@ -434,11 +536,110 @@ class WikiMarkup
 			return $linkText;
 		}
 	}
-	private static function languageMarkup($linkTarget,$linkText=null)
+	/**
+	 * Returns the main content of an Event page
+	 * The target of the Event can specify a particular date of the event.
+	 * This lets you specify a specific occurrence of a recurring event.
+	 * $linkTarget can be in the form of :YYYY/mm/dd/event or just :event
+	 * Examples:
+	 * {event:2008/12/15/Committee Meeting}
+	 * {event:Committee Meeting}
+	 * {event:2008/12/15/114}
+	 * {event:114}
+	 * @param int|string $target The Event to embed
+	 * @return string
+	 */
+	private static function eventEmbed($target)
+	{
+		# Check for any date information
+		if (preg_match('|^/(\d{4})/(\d{1,2})/(\d{1,2})/(.*)|',$target,$matches))
+		{
+			$year = $matches[1];
+			$month = $matches[2];
+			$day = $matches[3];
+
+			$target = $matches[4];
+			$date = "$year-$month-$day";
+		}
+
+		try
+		{
+			$event = new Event($target);
+
+			# If a specific date is requested, load the first recurrence
+			# of that event for that date
+			if (isset($date))
+			{
+				$rangeStart = strtotime($_GET['date']);
+				$rangeEnd = strtotime('+1 day',$rangeStart);
+
+				$recurrences = $event->getRecurrences($rangeStart,$rangeEnd);
+				if (count($recurrences))
+				{
+					$event = $recurrences[0];
+				}
+			}
+
+			$block = new Block('events/viewEvent.inc');
+			$block->event = $event;
+			return $block->render();
+		}
+		catch (Exception $e) { return $target; }
+	}
+
+	/**
+	 * Creates an A HREF to the specified Facet
+	 * @param int|string $linkTarget The Facet to link to
+	 * @param string $linkText Any optional text to include in the A tag
+	 * @return string
+	 */
+	private static function facetLink($linkTarget,$linkText=null)
+	{
+		$facet = self::find('Facet',$linkTarget);
+		if ($facet instanceof Facet)
+		{
+			self::$CURRENT_URL = $facet->getURL();
+			$title = $linkText ? self::parse($linkText) : null;
+
+			if (self::$CURRENT_URL == $facet->getURL())
+			{
+				if (!$title) { $title = View::escape($facet->getName()); }
+				self::$CURRENT_URL = null;
+				return "<a href=\"{$facet->getURL()}\">$title</a>";
+			}
+			else
+			{
+				self::$CURRENT_URL = null;
+				return $title;
+			}
+		}
+		else
+		{
+			self::$CURRENT_URL = null;
+			return $linkText;
+		}
+	}
+
+	/**
+	 * Returns the main content of a Facet page
+	 * @param int|string $target The Facet to embed
+	 * @return string
+	 */
+	private static function facetEmbed($target)
+	{
+		$facet = self::find($target);
+		if ($facet instanceof Facet)
+		{
+			$block = new Block('facets/facetDocuments.inc');
+			$block->facet = $facet;
+			return $block->render();
+		}
+	}
+	private static function languageLink($linkTarget,$linkText=null)
 	{
 		return false;
 	}
-	private static function anchorMarkup($linkTarget,$linkText=null)
+	private static function anchorLink($linkTarget,$linkText=null)
 	{
 		self::$CURRENT_URL = $linkTarget;
 		$title = $linkText ? self::parse($linkText) : null;
@@ -455,7 +656,7 @@ class WikiMarkup
 			return $title;
 		}
 	}
-	private static function mailtoMarkup($linkTarget,$linkText=null)
+	private static function mailtoLink($linkTarget,$linkText=null)
 	{
 		self::$CURRENT_URL = $linkTarget;
 		$title = $linkText ? self::parse($linkText) : null;
@@ -476,7 +677,7 @@ class WikiMarkup
 
 
 	/*
-		Images will work slightly different from the linkMarkup functions
+		Images will work slightly different from the other link functions
 		Images need to check to see if they're being used in a CURRENT_URL
 		IF so, they need to render the CURRENT_URL as an HREf around the image
 
@@ -487,7 +688,7 @@ class WikiMarkup
 		image tag BEFORE the caption is parsed.  Otherwise the caption
 		will reset the CURRENT_URL,
 	*/
-	private static function imageMarkup($linkTarget,$linkText=null)
+	private static function imageLink($linkTarget,$linkText=null)
 	{
 		# Decide whether we're going to wrap the <img> tag with an HREF
 		$imageLink = self::$CURRENT_URL ? self::$CURRENT_URL : null;
@@ -560,7 +761,7 @@ class WikiMarkup
 
 		return "<span class=\"image\" $style>$imageTag $caption</span>";
 	}
-	private static function thumbnailMarkup($linkTarget,$linkText=null)
+	private static function thumbnailLink($linkTarget,$linkText=null)
 	{
 		# Decide whether we're going to wrap the <img> tag with an HREF
 		$imageLink = self::$CURRENT_URL ? self::$CURRENT_URL : null;
