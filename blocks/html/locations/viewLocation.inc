@@ -7,7 +7,14 @@
  */
 $name = View::escape($this->location->getName());
 $address = View::escape($this->location->getAddress());
+$phone = View::escape($this->location->getPhone());
 $description = View::escape($this->location->getDescription());
+$website = '';
+if ($this->location->getWebsite())
+{
+	$website = new URL($this->location->getWebsite());
+	$website = "<a href=\"$website\">$website</a>";
+}
 
 $n = addslashes($name);
 $directionsURL = "http://maps.google.com/?q=to:$n@{$this->location->getLatitude()},{$this->location->getLongitude()}";
@@ -20,8 +27,12 @@ echo "
 <table>
 <tr><th>Address</th>
 	<td>$address</td></tr>
+<tr><th>Phone Number</th>
+	<td>$phone</td></tr>
 <tr><th>Description</th>
 	<td>$description</td></tr>
+<tr><th>Website</th>
+	<td>$website</td></tr>
 <tr><th>Directions</th>
 	<td>$directions</td></tr>
 </table>

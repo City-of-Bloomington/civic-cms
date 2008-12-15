@@ -10,7 +10,9 @@ class Location extends ActiveRecord
 	private $name;
 	private $locationType_id;
 	private $address;
+	private $phone;
 	private $description;
+	private $website;
 	private $content;
 	private $latitude;
 	private $longitude;
@@ -65,7 +67,9 @@ class Location extends ActiveRecord
 		$fields['name'] = $this->name ? $this->name : null;
 		$fields['locationType_id'] = $this->locationType_id ? $this->locationType_id : 1;
 		$fields['address'] = $this->address ? $this->address : null;
+		$fields['phone'] = $this->phone ? $this->phone : null;
 		$fields['description'] = $this->description ? $this->description : null;
+		$fields['website'] = $this->website ? $this->website : null;
 		$fields['content'] = $this->content ? $this->content : null;
 		$fields['latitude'] = $this->latitude ? $this->latitude : null;
 		$fields['longitude'] = $this->longitude ? $this->longitude : null;
@@ -187,7 +191,9 @@ class Location extends ActiveRecord
 	public function getName() { return $this->name; }
 	public function getLocationType_id() { return $this->locationType_id; }
 	public function getAddress() { return $this->address; }
+	public function getPhone() { return $this->phone; }
 	public function getDescription() { return $this->description; }
+	public function getWebsite() {return $this->website; }
 	public function getContent() { return $this->content; }
 	public function getLatitude() { return $this->latitude; }
 	public function getLongitude() { return $this->longitude; }
@@ -218,7 +224,9 @@ class Location extends ActiveRecord
 	public function setName($string) { $this->name = trim($string); }
 	public function setLocationType_id($int) { $this->locationType = new LocationType($int); $this->locationType_id = $int; }
 	public function setAddress($string) { $this->address = trim($string); }
+	public function setPhone($string) { $this->phone = trim($string); }
 	public function setDescription($string) { $this->description = trim(str_replace(array("\r\n","\n","\r"),' ',$string)); }
+	public function setWebsite($string) { $this->website = trim($string); }
 	public function setContent($text) { $this->content = $text; }
 	public function setLatitude($float) { $this->latitude = ereg_replace("[^0-9.\-]","",$float); }
 	public function setLongitude($float) { $this->longitude = ereg_replace("[^0-9.\-]","",$float); }

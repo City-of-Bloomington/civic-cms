@@ -53,6 +53,8 @@
 	?>
 	<tr><td><label for="location-address" class="required">Address</label></td>
 		<td><input name="location[address]" id="location-address" size="60" value="<?php echo View::escape($this->location->getAddress()); ?>" /></td></tr>
+	<tr><td><label for="location-phone">Phone</label></td>
+		<td><input name="location[phone]" id="location-phone" size="60" value="<?php echo View::escape($this->location->getPhone()); ?>" /></td></tr>
 	<tr><td><label for="location-latitude">Latitude</label></td>
 		<td><input name="location[latitude]" id="location-latitude" size="60" value="<?php echo $this->location->getLatitude(); ?>" /></td></tr>
 	<tr><td><label for="location-longitude">Longitude</label></td>
@@ -74,6 +76,8 @@
 			<label for="location-description" class="required">Description</label>
 			<textarea name="location[description]" id="location-description" rows="4" cols="60" onkeyup="FRAMEWORK.limit(this,255);"><?php echo View::escape($this->location->getDescription()); ?></textarea>
 	</td></tr>
+		<tr><td><label for="location-website">Website</label></td>
+		<td><input name="location[website]" id="location-website" size="60" value="<?php echo View::escape($this->location->getWebsite()); ?>" /></td></tr>
 
 	</table>
 </fieldset>

@@ -41,10 +41,20 @@ class LocationList extends PDOResultIterator
 			$options[] = 'address=:address';
 			$parameters[':address'] = $fields['address'];
 		}
+		if (isset($fields['phone']))
+		{
+			$options[] = 'phone=:phone';
+			$parameters[':phone'] = $fields['phone'];
+		}
 		if (isset($fields['description']))
 		{
 			$options[] = 'description=:description';
 			$parameters[':description'] = $fields['description'];
+		}
+		if (isset($fields['website']))
+		{
+			$options[] = 'website=:website';
+			$parameters[':website'] = $fields['website'];
 		}
 		if (isset($fields['content']))
 		{
