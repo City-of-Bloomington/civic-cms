@@ -40,7 +40,7 @@ blockquote { margin:1em 40px; }
 
 form { }
 fieldset { margin-bottom:10px; }
-legend { background-color:#5a8fdc; font-weight:bold; padding:4px; color:white; }
+legend { background-color:#5a8fdc; font-weight:bold; padding:4px; margin-bottom:2px; color:white; }
 label { font-weight:bold; }
 label.required {padding-left:15px; }
 select { font-size:12px; }
