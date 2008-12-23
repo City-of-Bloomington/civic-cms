@@ -16,7 +16,7 @@
 	<link><?php echo $this->url; ?></link>
 <?php
 	$documents = new DocumentList();
-	$documents->find(array('documentType_id'=>$this->documentType->getId()),'publishDate desc');
+	$documents->find(array('documentType_id'=>$this->documentType->getId(),'active'=>date('Y-m-d')),'publishDate desc');
 	if (count($documents))
 	{
 		foreach($documents as $document)

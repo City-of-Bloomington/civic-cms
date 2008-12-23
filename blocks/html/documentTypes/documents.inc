@@ -97,7 +97,7 @@ if (isset($this->facetGroup))
 # Otherwise, just list all the documents
 else
 {
-	$documents = $this->documentType->getDocuments();
+	$documents = $this->documentType->getDocuments(array('active'=>date('Y-m-d')));
 	if (count($documents))
 	{
 		echo '<ul>';
