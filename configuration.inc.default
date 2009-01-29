@@ -1,6 +1,6 @@
 <?php
 define('COPYRIGHT',"/**
- * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright 2006-2009 City of Bloomington, Indiana
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  */");
 
@@ -77,12 +77,18 @@ define('ADMINISTRATOR_EMAIL','admin@servername.com');
  * EMAIL_ADMIN - email the Administrator
  * EMAIL_USER - email the logged in user
 */
-define('ERROR_REPORTING','CUSTOM');
-$ERROR_REPORTING = array('EMAIL_ADMIN');
+define('ERROR_REPORTING','PHP_DEFAULT');
+//define('ERROR_REPORTING','CUSTOM');
+//$ERROR_REPORTING = array('EMAIL_ADMIN');
 
 /**
  * Database Setup
+ * Refer to the PDO documentation for DSN sytnax
+ * for your database type
+ * http://www.php.net/manual/en/pdo.drivers.php
  */
+define('DB_TYPE','mysql');
+define('DB_DSN','host=localhost;'); // You must include the trailing semi-colon
 define('DB_NAME',APPLICATION_NAME);
 define('DB_USER',APPLICATION_NAME);
 define('DB_PASS','password');
@@ -127,7 +133,7 @@ define('SEARCH_MEMORY_LIMIT','128M');
  * WYSIWYG Editor
  * Uncomment one of the following
  */
-#define('EDITOR','FCKeditor');
+//define('EDITOR','FCKeditor');
 define('EDITOR','tiny_mce');
 
 /**
@@ -145,15 +151,14 @@ define('PHP','/usr/local/php/bin/php');
 /**
  * Import global functions that we use for many applications we write
  */
-include FRAMEWORK.'/globalFunctions.inc';
+include FRAMEWORK.'/globalFunctions.php';
 
 /**
  * Session Startup
  * Don't start a session for CLI usage.
  * We only want sessions when PHP code is executed from the webserver
  */
-if (!defined('STDIN'))
-{
+if (!defined('STDIN')) {
 	ini_set('session.save_path',APPLICATION_HOME.'/data/sessions');
 	ini_set('session.gc_maxlifetime',30*60);
 	session_start();
@@ -170,13 +175,18 @@ if (!defined('STDIN'))
  * in the default language
  */
 define('DEFAULT_LANGUAGE','en');
-if (isset($_GET['lang'])) { $_SESSION['LANGUAGE'] = preg_replace('/[^a-z]/','',strtolower(substr($_GET['lang'],0,3))); }
-# Replace this if () line with an else, if you do not want languages to stick in the SESSION
-#else
-if (!isset($_SESSION['LANGUAGE']))
-{
-	if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) { $_SESSION['LANGUAGE'] = preg_replace('/[^a-z]/','',strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'],0,3))); }
-	else { $_SESSION['LANGUAGE'] = DEFAULT_LANGUAGE; }
+if (isset($_GET['lang'])) {
+	$_SESSION['LANGUAGE'] = preg_replace('/[^a-z]/','',strtolower(substr($_GET['lang'],0,3)));
+}
+// Replace this if () line with an else, if you do not want languages to stick in the SESSION
+//else {
+if (!isset($_SESSION['LANGUAGE'])) {
+	if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+		$_SESSION['LANGUAGE'] = preg_replace('/[^a-z]/','',strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'],0,3)));
+	}
+	else {
+		$_SESSION['LANGUAGE'] = DEFAULT_LANGUAGE;
+	}
 }
 
 /**
@@ -191,11 +201,17 @@ if (!isset($_SESSION['LANGUAGE']))
  * This will make the site serve a custom skin only on request, without
  * subsequent navigation continuing to use that custom skin
  */
-if (isset($_GET['skin'])) { $_SESSION['skin'] = $_GET['skin']; }
-# Comment out this line, if you do not want Skins to stick in the SESSION
-if (!isset($_SESSION['skin'])) { $_SESSION['skin'] = 'default'; }
-# Uncomment this line if you do not want skins to stick in the SESSION
-#else { $_SESSION['skin'] = 'default'; }
+if (isset($_GET['skin'])) {
+	$_SESSION['skin'] = $_GET['skin'];
+}
+// Comment out this line, if you do not want Skins to stick in the SESSION
+if (!isset($_SESSION['skin'])) {
+	$_SESSION['skin'] = 'default';
+}
+// Uncomment this if you do not want skins to stick in the SESSION
+//else {
+//	$_SESSION['skin'] = 'default';
+//}
 
 /**
  * External Web Services
@@ -231,7 +247,7 @@ $ALERT_IGNORE = array(
  * If you want this functionality, you must provide your own Google API Key
  * Google issues these on a per-server basis
  */
-#define('GOOGLE_API_KEY','');
+//define('GOOGLE_API_KEY','');
 
 /**
  * Bad URL Definitions
@@ -241,6 +257,6 @@ $ALERT_IGNORE = array(
  * Each of these must be a regular expression in Perl syntax
  */
 $BAD_LINK_EXPRESSIONS = array(
-#	'|http://bloomington|',
-#	'|http://www\.bloomington\.|'
+//	'|http://bloomington|',
+//	'|http://www\.bloomington\.|'
 );
