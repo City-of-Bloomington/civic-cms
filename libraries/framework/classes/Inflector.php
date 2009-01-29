@@ -25,16 +25,17 @@
  * Modified to work in City of Bloomington's Framework
  * Relicensed under GPL
  * Redistributions must retain all copyright notices
- * @copyright Copyright (C) 2006-2008 City of Bloomington, Indiana. All rights reserved.
+ * @copyright 2006-2008 City of Bloomington, Indiana
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  */
-class Inflector {
-/**
- * Return $word in plural form.
- *
- * @param string $word Word in singular
- * @return string Word in plural
- */
+class Inflector
+{
+	/**
+	 * Return $word in plural form.
+	 *
+	 * @param string $word Word in singular
+	 * @return string Word in plural
+	 */
 	public static function pluralize($word) {
 		$corePluralRules = array('/(s)tatus$/i' => '\1\2tatuses',
 									'/(quiz)$/i' => '\1zes',
@@ -120,7 +121,7 @@ class Inflector {
 			return $regs[1] . $irregular[strtolower($regs[2])];
 		}
 
-		foreach($pluralRules as $rule => $replacement) {
+		foreach ($pluralRules as $rule => $replacement) {
 			if (preg_match($rule, $word)) {
 				$replace = preg_replace($rule, $replacement, $word);
 				return $replace;
@@ -128,12 +129,12 @@ class Inflector {
 		}
 		return $word;
 	}
-/**
- * Return $word in singular form.
- *
- * @param string $word Word in plural
- * @return string Word in singular
- */
+	/**
+	 * Return $word in singular form.
+	 *
+	 * @param string $word Word in plural
+	 * @return string Word in singular
+	 */
 	public static function singularize($word) {
 		$coreSingularRules = array('/(s)tatuses$/i' => '\1\2tatus',
 									'/^(.*)(menu)s$/i' => '\1\2',
@@ -230,7 +231,7 @@ class Inflector {
 			return $regs[1] . $irregular[strtolower($regs[2])];
 		}
 
-		foreach($singularRules as $rule => $replacement) {
+		foreach ($singularRules as $rule => $replacement) {
 			if (preg_match($rule, $word)) {
 				$replace = preg_replace($rule, $replacement, $word);
 				return $replace;
