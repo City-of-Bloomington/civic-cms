@@ -37,7 +37,7 @@
 ?>
 <div id="mainContent" xml:lang="<?php echo $_SESSION['LANGUAGE']; ?>">
 	<?php
-		include FRAMEWORK.'/errorMessages.inc';
+		include FRAMEWORK.'/errorMessages.php';
 
 		echo $this->includeBlocks();
 

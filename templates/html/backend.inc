@@ -16,7 +16,7 @@
 ?>
 <div id="backendContent">
 	<?php
-		include FRAMEWORK.'/errorMessages.inc';
+		include FRAMEWORK.'/errorMessages.php';
 
 		echo $this->includeBlocks();
 	?>

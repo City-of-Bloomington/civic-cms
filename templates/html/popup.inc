@@ -7,7 +7,7 @@
  */
 if (!isset($this->title)) { $this->title = "Content Manager - City of Bloomington"; }
 include APPLICATION_HOME.'/includes/xhtmlStrictHeader.inc';
-include FRAMEWORK.'/errorMessages.inc';
+include FRAMEWORK.'/errorMessages.php';
 
 echo $this->includeBlocks();
 
