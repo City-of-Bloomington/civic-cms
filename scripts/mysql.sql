@@ -1,7 +1,7 @@
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
----------------------------------------------------------------------
+set foreign_key_checks=0;
+-- ------------------------------------------------------------------
 -- Identify all the departments of the city
----------------------------------------------------------------------
+-- ------------------------------------------------------------------
 create table departments (
 	id int unsigned not null primary key auto_increment,
 	name varchar(50) not null unique,
@@ -20,9 +20,9 @@ create table departments (
 ) engine=InnoDB;
 insert departments set id=1,name='IT Department';
 
----------------------------------------------------------------------
+-- -------------------------------------------------------------------
 -- User tables
----------------------------------------------------------------------
+-- -------------------------------------------------------------------
 create table users (
   id int unsigned not null primary key auto_increment,
   username varchar(128) not null,
@@ -64,9 +64,9 @@ create table pendingUsers (
 	date date not null
 ) engine=InnoDB;
 
----------------------------------------------------------------------
+-- -------------------------------------------------------------------
 -- Document tables
----------------------------------------------------------------------
+-- -------------------------------------------------------------------
 create table documentTypes (
 	id int unsigned not null primary key auto_increment,
 	type varchar(128) not null,
@@ -130,11 +130,11 @@ create table document_watches (
 	foreign key (user_id) references users(id) on delete cascade
 ) engine=InnoDB;
 
----------------------------------------------------------------------
+-- -------------------------------------------------------------------
 -- Log tables.  These should not get backed up.  When restoring
 -- from backup, you will need to recreate these tables by hand.
 -- The easiest way is to just copy and paste from here
----------------------------------------------------------------------
+-- -------------------------------------------------------------------
 create table search_log (
 	queryString varchar(128) not null,
 	access_time timestamp not null default CURRENT_TIMESTAMP
@@ -173,9 +173,9 @@ create table document_hits_daily (
 	foreign key (document_id) references documents(id) on delete cascade
 ) engine=InnoDB;
 
----------------------------------------------------------------------
+-- -------------------------------------------------------------------
 -- Section tables
----------------------------------------------------------------------
+-- -------------------------------------------------------------------
 create table sections (
   id int unsigned not null primary key auto_increment,
   name varchar(128) not null unique,
@@ -233,9 +233,9 @@ create table section_subscriptions (
 	foreign key (user_id) references users(id)
 ) engine=InnoDB;
 
----------------------------------------------------------------------
+-- -------------------------------------------------------------------
 -- Facet tables
----------------------------------------------------------------------
+-- -------------------------------------------------------------------
 create table facetGroups (
 	id int unsigned not null primary key auto_increment,
 	name varchar(128) not null
@@ -275,9 +275,9 @@ create table facetGroup_departments (
 ) engine=InnoDB;
 
 
----------------------------------------------------------------------
+-- -------------------------------------------------------------------
 -- Widgets
----------------------------------------------------------------------
+-- -------------------------------------------------------------------
 create table panels (
 	id int unsigned not null primary key auto_increment,
 	name varchar(128) not null unique
@@ -333,9 +333,9 @@ create table alerts (
 ) engine=InnoDB;
 
 
----------------------------------------------------------------------
+-- -------------------------------------------------------------------
 -- Languages
----------------------------------------------------------------------
+-- -------------------------------------------------------------------
 create table languages (
 	id int unsigned not null primary key auto_increment,
 	code char(3) not null,
@@ -355,9 +355,9 @@ insert languages (code,english,native) values ('zh','Chinese','中文');
 insert languages (code,english,native) values ('fi','Finnish','Suomi');
 insert languages (code,english,native) values ('tr','Turkish','Türkçe');
 
----------------------------------------------------------------------
+-- -------------------------------------------------------------------
 -- Events
----------------------------------------------------------------------
+-- -------------------------------------------------------------------
 create table locationTypes (
 	id int unsigned not null primary key auto_increment,
 	type varchar(128) not null
@@ -459,9 +459,9 @@ create table event_sections (
 ) engine=InnoDB;
 
 
----------------------------------------------------------------------
+-- -------------------------------------------------------------------
 -- Media
----------------------------------------------------------------------
+-- -------------------------------------------------------------------
 create table media (
 	id int unsigned not null primary key auto_increment,
 	filename varchar(128) not null,
@@ -485,4 +485,4 @@ create table media_documents (
 	foreign key (document_id) references documents(id) on delete cascade
 ) engine=InnoDB;
 
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+set foreign_key_checks=1;
