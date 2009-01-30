@@ -224,22 +224,7 @@ define('DIRECTORY_WEBSERVICE','http://isotope.bloomington.in.gov/directory');
  * More information about this system is at http://www.weather.gov/alerts
  * The National Weather Service publishes these cap files for each State
  */
-define('NATIONAL_WEATHER_SERVICE_CAP_FILE','http://www.weather.gov/alerts/in.cap');
-/**
- * Add the counties (as regular expressions) to this array.  Alerts will
- * only be parsed from the CAP file for the counties you define here.
- */
-$ALERT_COUNTIES = array(
-	'/Monroe/'
-);
-/**
- * The National Weather service is publishing alerts even for mundane things
- * like the short term forcast.  If there are alert info events in the CAP
- * file that you want to ignore, add a regular expression for them in this array
- */
-$ALERT_IGNORE = array(
-	'/Forecast/'
-);
+define('NATIONAL_WEATHER_SERVICE_FEED','http://www.weather.gov/alerts/in.cap');
 
 /**
  * Google API Key

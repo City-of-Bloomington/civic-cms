@@ -1,54 +1,54 @@
 #!/usr/local/bin/php
 <?php
 /**
- * @copyright Copyright (C) 2008 City of Bloomington, Indiana. All rights reserved.
- * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
- * @author Cliff Ingham <inghamn@bloomington.in.gov>
- * This is a shell script intended for CRON.
+ * Script to update alerts from the National Weather Service
  *
  * Add this script to your CRON system to update the content manager
  * with alerts from the National Weather Service.
  * The National Weather Service updates their system every 2 minutes;
  * adjust your CRON settings accordingly.  For our website, we run
  * this script every 5 minutes.
+ *
+ * @copyright 2008-2009 City of Bloomington, Indiana
+ * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+ * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
-include '/var/www/sites/content_manager/configuration.inc';
+include '../configuration.inc';
+
 $c = 0;
-$alerts = simplexml_load_file(NATIONAL_WEATHER_SERVICE_CAP_FILE);
 $events = array();
-foreach($alerts->children('http://www.incident.com/cap/1.0') as $info)
-{
-	foreach($ALERT_COUNTIES as $county)
-	{
-		if (preg_match($county,$info->area->areaDesc))
-		{
-			foreach($ALERT_IGNORE as $ignore)
-			{
-				if (preg_match($ignore,$info->event)) { break 2; }
-			}
+$alerts = simplexml_load_file(NATIONAL_WEATHER_SERVICE_FEED);
+foreach($alerts->entry as $entry) {
 
-			$events[] = $info->event;
+	// Grab just the first line of the title
+	preg_match('/^.*$/m',trim($entry->title),$matches);
+	$title = $matches[0];
+	
+	$capInfo = $entry->children('urn:oasis:names:tc:emergency:cap:1.1');
+	if (count($capInfo)) {
+	
+		$events[] = $title;
+		
+		$alert = new Alert($title);
+		$alert->setAlertType(new AlertType('Weather'));
+		$alert->setStartTime($capInfo->effective);
+		$alert->setEndTime($capInfo->expires);
+		$alert->setText($entry->summary);
+		$alert->setURL($entry->link['href']);
+		print_r($alert);
+		$alert->save();
 
-			$alert = new Alert($info->event);
-			$alert->setAlertType(new AlertType('Weather'));
-			$alert->setStartTime($info->effective);
-			$alert->setEndTime($info->expires);
-			$alert->setText($info->description);
-			$alert->setURL($info->web);
-			$alert->save();
-
-			$c++;
-		}
+		$c++;
 	}
 }
+// Clean out weather alerts that the National Weather Service is no longer broadcasting
 $list = new AlertList(array('alertType'=>'Weather'));
-foreach($list as $alert)
-{
-	if (!in_array($alert->getTitle(),$events))
-	{
+foreach ($list as $alert) {
+	if (!in_array($alert->getTitle(),$events)) {
 		$alert->delete();
 	}
 }
 
 echo $alerts->asXML();
 echo date('Y-m-d H:i:sp')." Added $c alerts\n";
+
