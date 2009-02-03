@@ -67,8 +67,8 @@ class FacetList extends PDOResultIterator
 
 		if (isset($fields['document_id']))
 		{
-			$this->joins.= ' left join document_facets on id=facet_id';
-			$options[] = 'document_id=:document_id';
+			$this->joins.= ' left join document_facets df on facets.id=df.facet_id';
+			$options[] = 'df.document_id=:document_id';
 			$parameters[':document_id'] = $fields['document_id'];
 		}
 

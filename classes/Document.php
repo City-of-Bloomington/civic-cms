@@ -345,15 +345,31 @@
 		}
 
 		/**
+		 * @return FacetGroupList
+		 */
+		public function getFacetGroups()
+		{
+			return new FacetGroupList(array('document_id'=>$this->id));
+		}
+
+		/**
+		 * Returns facets for the document.
+		 *
+		 * You can pass in additional search parameters
+		 *
+		 * @param FacetGroup $facetGroup
 		 * @return FacetList
 		 */
-		public function getFacets()
+		public function getFacets(array $fields=null)
 		{
-			if ($this->id)
-			{
-				return new FacetList(array('document_id'=>$this->id));
+			if ($this->id) {
+				$search = array('document_id'=>$this->id);
+				if ($fields) {
+					$search = array_merge($search,$fields);
+				}
+				return new FacetList($search);
 			}
-			else { return array(); }
+			return array();
 		}
 		/**
 		 * Takes an array of id numbers for facets and saves them to the database

@@ -1,29 +1,33 @@
 <?php
 /**
- * @copyright 2009 City of Bloomington, Indiana
+ * Renders links to facets
+ *
+ * If you specify a FacetGroup, this widget will list the facets in the chosen group.
+ * If you do not specify a FacetGroup, this widget will list all of the current document's facets
+ * If listed, the current document's facets will be split up by facet group.
+ *
+ * @copyright 2007-2008 City of Bloomington, Indiana
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
-class FacetGroupWidget extends Widget
+class FacetWidget extends Widget
 {
-	protected $facetGroupList;
+	/**
+	 * The group this widget is supposed to render.
+	 */
+	public $facetGroup;
 
 	public function __construct()
 	{
-		$this->className = 'FacetGroupWidget';
-		$this->displayName = 'Facet Groups';
+		$this->className = 'FacetWidget';
+		$this->displayName = 'Facet Links';
 		$this->includeFile = 'sidebar.inc';
-		$this->description = 'Lists the Facet Groups for the current Document';
+		$this->description = 'Displays links to the facets in the chosen group';
 	}
 
 	public function render($template)
 	{
-		if (isset($template->document)) {
-			$this->facetGroupList = $template->document->getFacetGroups();
-			if (count($this->facetGroupList)) {
-				echo $this->renderIncludeFile($this);
-			}
-		}
+		echo $this->renderIncludeFile($this);
 	}
 
 	/**
@@ -32,7 +36,7 @@ class FacetGroupWidget extends Widget
 	 */
 	public function usesData()
 	{
-		return false;
+		return true;
 	}
 	/**
 	 * Unserializes the string field from the database into a variable
@@ -40,6 +44,7 @@ class FacetGroupWidget extends Widget
 	 */
 	public function setData($string)
 	{
+		$this->facetGroup = new FacetGroup($string);
 	}
 	/**
 	 * Serializes an array into a string that can be inserted into the database
@@ -50,6 +55,9 @@ class FacetGroupWidget extends Widget
 	 */
 	public function serializePost(array $post)
 	{
+		if (isset($_POST['facetGroup_id'])) {
+			return $_POST['facetGroup_id'];
+		}
 	}
 	/**
 	 * This lets the application ask for the path to the file holding the form fields
@@ -58,5 +66,6 @@ class FacetGroupWidget extends Widget
 	 */
 	public function getDataFieldsetInclude()
 	{
+		return dirname(__FILE__).'/dataFields.inc';
 	}
 }

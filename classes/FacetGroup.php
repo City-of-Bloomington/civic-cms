@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2007-2008 City of Bloomington, Indiana. All rights reserved.
+ * @copyright 2007-2009 City of Bloomington, Indiana
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
@@ -19,25 +19,41 @@ class FacetGroup extends ActiveRecord
 	 */
 	public function __construct($id=null)
 	{
-		if ($id)
-		{
-			$PDO = Database::getConnection();
-			if (is_numeric($id)) { $sql = 'select * from facetGroups where id=?'; }
-			else { $sql = 'select * from facetGroups where name=?'; }
-			$query = $PDO->prepare($sql);
+		if ($id) {
+			$pdo = Database::getConnection();
+			if (is_numeric($id)) {
+				$sql = 'select * from facetGroups where id=?';
+			}
+			else {
+				$sql = 'select * from facetGroups where name=?';
+			}
+			$query = $pdo->prepare($sql);
 			$query->execute(array($id));
 
 			$result = $query->fetchAll();
-			if (!count($result)) { throw new Exception('facets/unknownFacetGroup'); }
-			foreach($result[0] as $field=>$value) { if ($value) $this->$field = $value; }
+			if (!count($result)) {
+				throw new Exception('facets/unknownFacetGroup');
+			}
+			foreach ($result[0] as $field=>$value) {
+				if ($value) $this->$field = $value;
+			}
 		}
-		else
-		{
-			# This is where the code goes to generate a new, empty instance.
-			# Set any default values for properties that need it here
+		else {
+			// This is where the code goes to generate a new, empty instance.
+			// Set any default values for properties that need it here
 		}
 	}
 
+	/**
+	 * Checks for required fields.  Throw an exception if anything is missing.
+	 * @throws Exception
+	 */
+	public function validate()
+	{
+		if (!$this->name) {
+			throw new Exception('missingName');
+		}
+	}
 
 	/**
 	 * This generates generic SQL that should work right away.
@@ -46,26 +62,28 @@ class FacetGroup extends ActiveRecord
 	 */
 	public function save()
 	{
-		# Check for required fields here.  Throw an exception if anything is missing.
-		if (!$this->name) { throw new Exception('missingName'); }
+		$this->validate();
 
 		$fields = array();
 		$fields['name'] = $this->name;
 
-		# Split the fields up into a preparedFields array and a values array.
-		# PDO->execute cannot take an associative array for values, so we have
-		# to strip out the keys from $fields
+		// Split the fields up into a preparedFields array and a values array.
+		// PDO->execute cannot take an associative array for values, so we have
+		// to strip out the keys from $fields
 		$preparedFields = array();
-		foreach($fields as $key=>$value)
-		{
+		foreach ($fields as $key=>$value) {
 			$preparedFields[] = "$key=?";
 			$values[] = $value;
 		}
 		$preparedFields = implode(",",$preparedFields);
 
 
-		if ($this->id) { $this->update($values,$preparedFields); }
-		else { $this->insert($values,$preparedFields); }
+		if ($this->id) {
+			$this->update($values,$preparedFields);
+		}
+		else {
+			$this->insert($values,$preparedFields);
+		}
 
 		$this->saveRelatedGroups();
 		$this->saveDepartments();
@@ -73,36 +91,75 @@ class FacetGroup extends ActiveRecord
 
 	private function update($values,$preparedFields)
 	{
-		$PDO = Database::getConnection();
+		$pdo = Database::getConnection();
 
 		$sql = "update facetGroups set $preparedFields where id={$this->id}";
-		$query = $PDO->prepare($sql);
+		$query = $pdo->prepare($sql);
 		$query->execute($values);
 	}
 
 	private function insert($values,$preparedFields)
 	{
-		$PDO = Database::getConnection();
+		$pdo = Database::getConnection();
 
 		$sql = "insert facetGroups set $preparedFields";
-		$query = $PDO->prepare($sql);
+		$query = $pdo->prepare($sql);
 		$query->execute($values);
-		$this->id = $PDO->lastInsertID();
+		$this->id = $pdo->lastInsertID();
 	}
 
+	//----------------------------------------------------------------
+	// Generic Getters
+	//----------------------------------------------------------------
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function getName()
+	{
+		return $this->name;
+	}
+
+	//----------------------------------------------------------------
+	// Generic Setters
+	//----------------------------------------------------------------
+	public function setName($string)
+	{
+		$this->name = trim($string);
+	}
+
+	//----------------------------------------------------------------
+	// Custom Functions
+	//----------------------------------------------------------------
+	/**
+	 * @return string
+	 */
+	public function __toString()
+	{
+		return $this->name;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getURL()
+	{
+		return BASE_URL.'/facets/viewFacetGroup.php?facetGroup_id='.$this->id;
+	}
+
+	/**
+	 * @return array An array of FacetGroups
+	 */
 	public function getRelatedGroups()
 	{
-		$PDO = Database::getConnection();
+		$pdo = Database::getConnection();
 
-		if ($this->id)
-		{
-			if (!count($this->related_groups))
-			{
-				$query = $PDO->prepare('select relatedGroup_id from facetGroups_related where facetGroup_id=?');
+		if ($this->id) {
+			if (!count($this->related_groups)) {
+				$query = $pdo->prepare('select relatedGroup_id from facetGroups_related where facetGroup_id=?');
 				$query->execute(array($this->id));
 				$result = $query->fetchAll();
-				foreach($result as $row)
-				{
+				foreach ($result as $row) {
 					$this->related_groups[$row['relatedGroup_id']] = new FacetGroup($row['relatedGroup_id']);
 				}
 			}
@@ -110,11 +167,13 @@ class FacetGroup extends ActiveRecord
 		return $this->related_groups;
 	}
 
+	/**
+	 * @param array $group_ids
+	 */
 	public function setRelatedGroups(array $group_ids)
 	{
 		$this->related_groups = array();
-		foreach($group_ids as $id)
-		{
+		foreach ($group_ids as $id) {
 			$group = new FacetGroup($id);
 			$this->related_groups[$id] = $group;
 		}
@@ -132,68 +191,87 @@ class FacetGroup extends ActiveRecord
 
 	private function saveRelatedGroups()
 	{
-		if ($this->id)
-		{
-			$PDO = Database::getConnection();
-			$query = $PDO->prepare('delete from facetGroups_related where facetGroup_id=?');
+		if ($this->id) {
+			$pdo = Database::getConnection();
+			$query = $pdo->prepare('delete from facetGroups_related where facetGroup_id=?');
 			$query->execute(array($this->id));
 
-			$query = $PDO->prepare('insert facetGroups_related values(?,?)');
-			foreach($this->getRelatedGroups() as $group)
-			{
+			$query = $pdo->prepare('insert facetGroups_related values(?,?)');
+			foreach ($this->getRelatedGroups() as $group) {
 				$query->execute(array($this->id,$group->getId()));
 			}
 		}
 	}
 
-	public function __toString() { return $this->name; }
-
+	/**
+	 * @return array An array of Facets with facet_id as the index
+	 */
 	public function getFacets()
 	{
-		if (!count($this->facets))
-		{
+		if (!count($this->facets)) {
 			$list = new FacetList(array('facetGroup_id'=>$this->id));
-			foreach($list as $facet) { $this->facets[$facet->getId()] = $facet; }
+			foreach ($list as $facet) {
+				$this->facets[$facet->getId()] = $facet;
+			}
 		}
 		return $this->facets;
 	}
-	public function hasFacet($facet) { return in_array($facet->getId(),array_keys($this->getFacets())); }
 
+	/**
+	 * @return boolean
+	 */
+	public function hasFacet($facet)
+	{
+		return in_array($facet->getId(),array_keys($this->getFacets()));
+	}
 
+	/**
+	 * @return array An array of Departments with department_id as the index
+	 */
 	public function getDepartments()
 	{
-		if ($this->id)
-		{
-			if (!count($this->departments))
-			{
+		if ($this->id) {
+			if (!count($this->departments)) {
 				$list = new DepartmentList(array('facetGroup_id'=>$this->id));
-				foreach($list as $department) { $this->departments[$department->getId()] = $department; }
+				foreach ($list as $department) {
+					$this->departments[$department->getId()] = $department;
+				}
 			}
 		}
 		return $this->departments;
 	}
+
+	/**
+	 * @param array $department_ids
+	 */
 	public function setDepartments(array $department_ids)
 	{
 		$this->departments = array();
-		foreach($department_ids as $id)
-		{
+		foreach ($department_ids as $id) {
 			$department = new Department($id);
 			$this->departments[$department->getId()] = $department;
 		}
 	}
-	public function hasDepartment($department) { return in_array($department->getId(),array_keys($this->getDepartments())); }
+
+	/**
+	 * @param Department $department
+	 * @return boolean
+	 */
+	public function hasDepartment($department)
+	{
+		return in_array($department->getId(),array_keys($this->getDepartments()));
+	}
+
 	private function saveDepartments()
 	{
-		if ($this->id)
-		{
-			$PDO = Database::getConnection();
+		if ($this->id) {
+			$pdo = Database::getConnection();
 
-			$query = $PDO->prepare('delete from facetGroup_departments where facetGroup_id=?');
+			$query = $pdo->prepare('delete from facetGroup_departments where facetGroup_id=?');
 			$query->execute(array($this->id));
 
-			$query = $PDO->prepare('insert facetGroup_departments values(?,?)');
-			foreach($this->getDepartments() as $department)
-			{
+			$query = $pdo->prepare('insert facetGroup_departments values(?,?)');
+			foreach ($this->getDepartments() as $department) {
 				$query->execute(array($this->id,$department->getId()));
 			}
 		}
@@ -206,22 +284,9 @@ class FacetGroup extends ActiveRecord
 	public function hasDocuments($fields=null)
 	{
 		$count = 0;
-		foreach($this->getFacets() as $facet)
-		{
+		foreach ($this->getFacets() as $facet) {
 			$count+= count($facet->getDocuments($fields));
 		}
 		return $count;
 	}
-
-
-	/**
-	 * Generic Getters
-	 */
-	public function getId() { return $this->id; }
-	public function getName() { return $this->name; }
-
-	/**
-	 * Generic Setters
-	 */
-	public function setName($string) { $this->name = trim($string); }
 }
