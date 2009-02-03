@@ -24,6 +24,10 @@ foreach($alerts->entry as $entry) {
 	preg_match('/^.*$/m',trim($entry->title),$matches);
 	$title = $matches[0];
 	
+	foreach ($ALERT_IGNORE as $ignore) {
+		if (preg_match($ignore,$title)) { continue 2; }
+	}
+
 	$capInfo = $entry->children('urn:oasis:names:tc:emergency:cap:1.1');
 	if (count($capInfo)) {
 	

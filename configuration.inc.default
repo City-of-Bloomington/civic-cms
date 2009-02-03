@@ -225,6 +225,14 @@ define('DIRECTORY_WEBSERVICE','http://isotope.bloomington.in.gov/directory');
  * The National Weather Service publishes these cap files for each State
  */
 define('NATIONAL_WEATHER_SERVICE_FEED','http://www.weather.gov/alerts/in.cap');
+/**
+ * The National Weather service is publishing alerts even for mundane things
+ * like the short term forcast.  If there are alert info events in the CAP
+ * file that you want to ignore, add a regular expression for them in this array
+ */
+$ALERT_IGNORE = array(
+	'/Forecast/'
+);
 
 /**
  * Google API Key
