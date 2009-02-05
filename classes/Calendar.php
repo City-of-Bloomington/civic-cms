@@ -218,9 +218,21 @@ class Calendar extends ActiveRecord
 			foreach($event->getRecurrences($rangeStart,$rangeEnd) as $recurrence)
 			{
 				$r = getdate($recurrence->getStart());
-				$recurrenceArray[$r['year']][$r['mon']][$r['mday']][] = $recurrence;
+				$recurrenceArray[$r['year']][$r['mon']][$r['mday']][$recurrence->getStart()] = $recurrence;
 			}
 		}
+
+		// Sort the array before we return it.  The recurrences for each day
+		// were added randomly and are not in order based on their start time
+		foreach ($recurrenceArray as $year=>$monthArray) {
+			foreach ($monthArray as $month=>$dayArray) {
+				$days = array_keys($dayArray);
+				foreach ($days as $day) {
+					ksort($recurrenceArray[$year][$month][$day]);
+				}
+			}
+		}
+
 		return $recurrenceArray;
 	}
 
