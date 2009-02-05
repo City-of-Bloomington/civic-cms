@@ -134,13 +134,15 @@ class WikiMarkup
 			preg_match('/^([^:]*):(.*)/',$syntax,$matches);
 			$type = trim($matches[1]);
 			$target = trim($matches[2]);
+
+			$function = $type.'Embed';
+			if (method_exists('WikiMarkup',$function)
+				&& $markup = self::$function($target))
+			{
+				return $markup;
+			}
 		}
-		$function = $type.'Embed';
-		if (method_exists('WikiMarkup',$function)
-			&& $markup = self::$function($target))
-		{
-			return $markup;
-		}
+		return "<span class=\"badlink\">$matches[0]</span>";
 	}
 
 	public static function size_readable ($size, $retstring='%01.2f %s')
