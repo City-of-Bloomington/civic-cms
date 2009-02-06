@@ -55,6 +55,8 @@ if (defined('GOOGLE_API_KEY'))
 	var info = '<?php echo "<h3 style=\"width:200px\">$n</h3><p style=\"width:200px\">$d</p><p>$directions</p>"; ?>';
 
 	var map = new GMap2(document.getElementById("location_map"));
+	var infoWindowMaxWidth = 350;
+
 	function loadMap()
 	{
 		if (GBrowserIsCompatible())
@@ -78,7 +80,7 @@ if (defined('GOOGLE_API_KEY'))
 	{
 		if (icon == null) { var marker = new GMarker(point); }
 		else { var marker = new GMarker(point, icon); }
-		GEvent.addListener(marker, "click", function() { marker.openInfoWindowHtml(info); });
+		GEvent.addListener( marker, "click", function() { marker.openInfoWindowHtml(info,{'maxWidth':infoWindowMaxWidth}); });
 		return marker;
 	}
 

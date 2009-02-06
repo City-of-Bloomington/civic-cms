@@ -130,6 +130,7 @@ as well as find driving directions, and information specific to a certain site.<
 		echo "var info = [$info];\n";
 	?>
 	var map = new GMap2(document.getElementById("location_map"));
+	var infoWindowMaxWidth = 350;
 
 	function loadMap()
 	{
@@ -159,7 +160,7 @@ as well as find driving directions, and information specific to a certain site.<
 	{
 		if (icon == null) { var marker = new GMarker(point); }
 		else { var marker = new GMarker(point, icon); }
-		GEvent.addListener(marker, "click", function() { marker.openInfoWindowHtml(info); });
+		GEvent.addListener( marker, "click", function() { marker.openInfoWindowHtml(info,{'maxWidth':infoWindowMaxWidth}); });
 		return marker;
 	}
 
@@ -167,7 +168,7 @@ as well as find driving directions, and information specific to a certain site.<
 	{
 		if (map)
 		{
-			map.openInfoWindowHtml(points[point],info[point],{'maxWidth':350});
+			map.openInfoWindowHtml(points[point],info[point],{'maxWidth':infoWindowMaxWidth});
 			return false;
 		}
 		else { return true; }
