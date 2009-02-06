@@ -117,9 +117,11 @@ if (ERROR_REPORTING != 'PHP_DEFAULT') {
 
 /**
  * Makes sure the user is logged in.
+ *
  * If a Role or an array of Roles is passed in, it will check
  * to make sure the user belongs to one of the given roles.
  * If the validation fails, the user will be bounced to the BASE_URL
+ *
  * @param string $role Optional role name
  * @param array $roles Optional array of role names
  */
@@ -131,11 +133,6 @@ function verifyUser($roles=null)
 		$_SESSION['errorMessages'][] = new Exception('notLoggedIn');
 		header("Location: ".BASE_URL);
 		exit();
-	}
-
-	// Handle sessions from other applications
-	if ($_SESSION['APPLICATION_NAME'] != APPLICATION_NAME) {
-		$_SESSION['USER']->startNewSession();
 	}
 
 	// Check their roles against the required roles for the page
