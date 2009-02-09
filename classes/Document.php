@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2006-2008 City of Bloomington, Indiana. All rights reserved.
+ * @copyright 2006-2009 City of Bloomington, Indiana
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
@@ -70,6 +70,34 @@
 			}
 		}
 
+		/**
+		 * Throws an exception if there's anything wrong
+		 *  @throws Exception
+		 */
+		public function validate()
+		{
+			if (!$this->department_id) {
+				throw new Exception('missingRequiredFields');
+			}
+			if (!$this->title) {
+				throw new Exception('documents/missingTitle');
+			}
+			if (!$this->wikiTitle) {
+				$this->wikiTitle = WikiMarkup::wikify($this->title);
+			}
+
+			// Make sure the title is unique
+			$pdo = Database::getConnection();
+			$query = $pdo->prepare('select id from documents where title=?');
+			$query->execute(array($this->title));
+			$result = $query->fetchAll(PDO::FETCH_ASSOC);
+			foreach ($result as $row) {
+				if ($row['id'] != $this->id) {
+					throw new Exception('documents/duplicateTitle');
+				}
+			}
+		}
+
 
 		/**
 		 * This generates generic SQL that should work right away.
@@ -78,10 +106,7 @@
 		 */
 		public function save()
 		{
-			# Check for required fields here.  Throw an exception if anything is missing.
-			if (!$this->department_id) { throw new Exception('missingRequiredFields'); }
-			if (!$this->title) { throw new Exception('documents/missingTitle'); }
-			if (!$this->wikiTitle) { $this->wikiTitle = WikiMarkup::wikify($this->title); }
+			$this->validate();
 
 			# Make sure we've got something for content
 			$hasContent = false;
@@ -724,7 +749,12 @@
 		 */
 		public function getURL()
 		{
-			return new URL(BASE_URL.'/documents/viewDocument.php?document_id='.$this->id);
+			if ($this->getAlias()) {
+				return new URL(BASE_URL.'/'.$this->getAlias());
+			}
+			else {
+				return new URL(BASE_URL.'/documents/viewDocument.php?document_id='.$this->id);
+			}
 		}
 
 		/**

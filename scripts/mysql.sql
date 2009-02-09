@@ -84,7 +84,7 @@ insert documentTypes set type='Webpage';
 
 create table documents (
   id int unsigned not null primary key auto_increment,
-  title varchar(128) not null,
+  title varchar(128) not null unique,
   wikiTitle varchar(128) not null,
   alias varchar(128),
   feature_title varchar(128),
