@@ -212,11 +212,6 @@ a.rss { width:28px; height:28px; background-image:url('../default/images/feed-ic
 a.ical { width:16px; height:16px; background-image:url('../default/images/date.png'); }
 a.kmlFeed { width:16px; height:16px; background-image:url('../default/images/kml_feed_small.png'); }
 
-a.previous { width:16px; height:16px; background-image:url('../default/images/previous.png'); }
-a.next { width:16px; height:16px; background-image:url('../default/images/next.png'); }
-a.first { width:22px; height:22px; background-image:url('../default/images/player_start.png'); }
-a.last { width:22px; height:22px; background-image:url('../default/images/player_end.png'); }
-
 a.subscribe { width:22px; height:22px; background-image:url('../cob/images/buttons/x.gif'); }
 a.unsubscribe { width:22px; height:22px; background-image:url('../cob/images/buttons/checkmark.gif'); }
 a.notify { width:22px; height:22px; background-image:url('../default/images/mail_send.png'); }
@@ -304,13 +299,9 @@ a.reveal { width:12px; height:12px; background-image:url('../cob/images/icons/re
 
 .pageNavigation { text-align:center; padding-top:20px; }
 .pageNavigation ul { list-style-type:none; }
-.pageNavigation li { list-style-type:none; display:inline; background-color:#f3f3f3; border:1px solid #5a8fdc; padding:3px; }
-.pageNavigation a { font-size:11px; color:#003366; }
+.pageNavigation li { list-style-type:none; display:inline; padding:0 5px; }
+.pageNavigation a { font-size:14px; color:#003366; }
 .pageNavigation a:hover { text-decoration:underline; }
-.pageNavigation a.previous { width:auto; height:auto; font-size:11px; color:#003366; background-image:none; }
-.pageNavigation a.next { width:auto; height:auto; font-size:11px; color:#003366; background-image:none; }
-.pageNavigation a.first { width:auto; height:auto; font-size:11px; color:#003366; background-image:none; }
-.pageNavigation a.last { width:auto; height:auto; font-size:11px; color:#003366; background-image:none; }
 
 
 /* HANAPIN - Search Page styles */

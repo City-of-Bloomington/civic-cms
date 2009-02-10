@@ -257,11 +257,6 @@ a.week { width:16px; height:14px; padding:8px; background: url('default/images/c
 a.twoweek { width:16px; height:14px; padding:8px; background: url('default/images/calendar/twoweek.png') no-repeat; font-size:0; }
 a.month { width:16px; height:14px; padding:8px; background: url('default/images/calendar/month.png') no-repeat; font-size:0; }
 
-a.previous { width:22px; height:22px; padding:11px; background: url('default/images/previous.png') no-repeat; font-size:0; }
-a.next { width:22px; height:22px; padding:11px; background: url('default/images/next.png') no-repeat; font-size:0; }
-a.first { width:22px; height:22px; padding:11px; background: url('default/images/player_start.png') no-repeat; font-size:0; }
-a.last { width:22px; height:22px; padding:11px; background: url('default/images/player_end.png') no-repeat; font-size:0; }
-
 a.subscribe { width:22px; height:22px; padding:11px; background: url('default/images/news_subscribe.png') no-repeat; font-size:0; }
 a.unsubscribe { width:22px; height:22px; padding:11px; background: url('default/images/news_unsubscribe.png') no-repeat; font-size:0; }
 a.notify { width:22px; height:22px; padding:11px; background: url('default/images/mail_send.png') no-repeat; font-size:0; }
@@ -302,6 +297,12 @@ a.unwatch { width:22px; height:22px; padding:11px; background: url('default/imag
 #location_map { width:360px; height:360px; border:2px solid black; margin-right:200px; }
 #locationGroup_description { margin-right:200px; }
 .handicap_accessible { height:16px; padding-left:18px; background: url('default/images/access.png') no-repeat; }
+
+.pageNavigation { text-align:center; padding-top:20px; }
+.pageNavigation ul { list-style-type:none; }
+.pageNavigation li { list-style-type:none; display:inline; padding:0 5px; }
+.pageNavigation a { font-size:14px; color:#003366; }
+.pageNavigation a:hover { text-decoration:underline; }
 
 /* Various Styles for text */
 .copyright { text-align:center; font-size:10pt; }
