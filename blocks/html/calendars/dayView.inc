@@ -20,14 +20,22 @@
 		$url->mon = $back['mon'];
 		$url->mday = $back['mday'];
 		$url->year = $back['year'];
-		echo "<a class=\"previous button\" href=\"$url\">Previous Day</a>";
+		echo "
+		<button type=\"button\" class=\"previous\" onclick=\"document.location.href='$url';\">
+			Previous Day
+		</button>
+		";
 
 		echo date('D, M j, Y',$rangeStart);
 
 		$url->mon = $next['mon'];
 		$url->mday = $next['mday'];
 		$url->year = $next['year'];
-		echo "<a class=\"next button\" href=\"$url\">Next Day</a>";
+		echo "
+		<button type=\"button\" class=\"next\" onclick=\"document.location.href='$url';\">
+			Next Day
+		</button>
+		";
 	?>
 </th></tr>
 <?php

@@ -24,14 +24,22 @@
 
 	$url->year = $back['year'];
 	$url->mon = $back['mon'];
-	echo "<a class=\"previous button\" href=\"$url\">Previous Month</a>";
+		echo "
+		<button type=\"button\" class=\"previous\" onclick=\"document.location.href='$url';\">
+			Previous Month
+		</button>
+		";
 
 	$monthName = date('F',$start);
 	echo "{$this->calendar->getName()} $monthName $year";
 
 	$url->year = $next['year'];
 	$url->mon = $next['mon'];
-	echo "<a class=\"next button\" href=\"$url\">Next Month</a>";
+		echo "
+		<button type=\"button\" class=\"next\" onclick=\"document.location.href='$url';\">
+			Next Month
+		</button>
+		";
 ?>
 </th></tr>
 <?php

@@ -24,7 +24,11 @@ $MAX_EVENTS = 15;
 		$url->parameters['mon'] = $back['mon'];
 		$url->parameters['mday'] = $back['mday'];
 		$url->parameters['year'] = $back['year'];
-		echo "<a class=\"previous button\" href=\"$url\">Previous Two Weeks</a>";
+		echo "
+		<button type=\"button\" class=\"previous\" onclick=\"document.location.href='$url';\">
+			Previous
+		</button>
+		";
 
 
 		echo 'Events starting '.date('M j,Y',$rangeStart).'...';
@@ -34,7 +38,11 @@ $MAX_EVENTS = 15;
 		$url->parameters['mon'] = $next['mon'];
 		$url->parameters['mday'] = $next['mday'];
 		$url->parameters['year'] = $next['year'];
-		echo "<a class=\"next button\" href=\"$url\">Next Two Weeks</a>";
+		echo "
+		<button type=\"button\" class=\"next\" onclick=\"document.location.href='$url';\">
+			Next
+		</button>
+		";
 	?>
 </th></tr>
 <?php

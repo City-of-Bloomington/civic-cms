@@ -19,7 +19,11 @@
 		$url->parameters['mon'] = $back['mon'];
 		$url->parameters['mday'] = $back['mday'];
 		$url->parameters['year'] = $back['year'];
-		echo "<a class=\"previous button\" href=\"{$url->getURL()}\">Previous Week</a>";
+		echo "
+		<button type=\"button\" class=\"previous\" onclick=\"document.location.href='$url';\">
+			Previous Week
+		</button>
+		";
 
 
 		echo date('M j,Y',$rangeStart).' to '.date('M j,Y',$rangeEnd);
@@ -29,7 +33,11 @@
 		$url->parameters['mon'] = $next['mon'];
 		$url->parameters['mday'] = $next['mday'];
 		$url->parameters['year'] = $next['year'];
-		echo "<a class=\"next button\" href=\"{$url->getURL()}\">Next Week</a>";
+		echo "
+		<button type=\"button\" class=\"next\" onclick=\"document.location.href='$url';\">
+			Next Week
+		</button>
+		";
 	?>
 </th></tr>
 <?php
