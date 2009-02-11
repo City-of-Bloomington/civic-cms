@@ -13,7 +13,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
-include '../configuration.inc';
+include dirname(__FILE__).'/../configuration.inc';
 
 $c = 0;
 $events = array();
@@ -23,16 +23,16 @@ foreach($alerts->entry as $entry) {
 	// Grab just the first line of the title
 	preg_match('/^.*$/m',trim($entry->title),$matches);
 	$title = $matches[0];
-	
+
 	foreach ($ALERT_IGNORE as $ignore) {
 		if (preg_match($ignore,$title)) { continue 2; }
 	}
 
 	$capInfo = $entry->children('urn:oasis:names:tc:emergency:cap:1.1');
 	if (count($capInfo)) {
-	
+
 		$events[] = $title;
-		
+
 		$alert = new Alert($title);
 		$alert->setAlertType(new AlertType('Weather'));
 		$alert->setStartTime($capInfo->effective);
@@ -55,4 +55,3 @@ foreach ($list as $alert) {
 
 echo $alerts->asXML();
 echo date('Y-m-d H:i:sp')." Added $c alerts\n";
-
