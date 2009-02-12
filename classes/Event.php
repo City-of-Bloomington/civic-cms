@@ -267,8 +267,8 @@
 		}
 
 		/**
-		 * Returns an array of timestamps for the recurrences for this event that
-		 * happen during the given time period
+		 * Returns an array of EventRecurrences for this event
+		 * that happen during the given time period
 		 * @param timestamp $periodStart
 		 * @param timestamp $periodEnd
 		 */

@@ -218,7 +218,7 @@ class Calendar extends ActiveRecord
 			foreach($event->getRecurrences($rangeStart,$rangeEnd) as $recurrence)
 			{
 				$r = getdate($recurrence->getStart());
-				$recurrenceArray[$r['year']][$r['mon']][$r['mday']][$recurrence->getStart()] = $recurrence;
+				$recurrenceArray[$r['year']][$r['mon']][$r['mday']][] = $recurrence;
 			}
 		}
 
@@ -228,12 +228,20 @@ class Calendar extends ActiveRecord
 			foreach ($monthArray as $month=>$dayArray) {
 				$days = array_keys($dayArray);
 				foreach ($days as $day) {
-					ksort($recurrenceArray[$year][$month][$day]);
+					usort($recurrenceArray[$year][$month][$day],
+						  array('Calendar','compareRecurrences'));
 				}
 			}
 		}
 
 		return $recurrenceArray;
+	}
+	public static function compareRecurrences(EventRecurrence $a,EventRecurrence $b)
+	{
+		if ($a->getStart() == $b->getStart()) {
+			return 0;
+		}
+		return ($a->getStart() < $b->getStart()) ? -1 : 1;
 	}
 
 	public function getURL()
