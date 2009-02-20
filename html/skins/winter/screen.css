@@ -145,15 +145,15 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 .sidebar .viewMoreLink a { font-size:12px; }
 
 /* styles for Constituencies Widget */
-.sidebar .widget li.business-guide { background-image: url('images/icons/bullet_rec_red.gif'); }
-.sidebar .widget li.for-kids-guide { background-image: url('images/icons/bullet_rec_aqua.gif'); }
-.sidebar .widget li.local-arts-guide { background-image: url('images/icons/bullet_rec_teal.gif'); }
-.sidebar .widget li.nonprofits-guide { background-image: url('images/icons/bullet_rec_lred.gif'); }
-.sidebar .widget li.residents-guide { background-image: url('images/icons/bullet_rec_violet.gif'); }
-.sidebar .widget li.students-guide { background-image: url('images/icons/bullet_rec_orange.gif'); }
-.sidebar .widget li.visitors-guide { background-image: url('images/icons/bullet_rec_lgreen.gif'); }
-.sidebar .widget li.volunteers-guide { background-image: url('images/icons/bullet_rec_lblue.gif'); }
-.sidebar .widget li.voters-guide { background-image: url('images/icons/bullet_rec_yellow.gif'); }
+.sidebar .widget li.business-guide { background: url('images/icons/bullet_rec_sprites.gif') no-repeat left top; }
+.sidebar .widget li.for-kids-guide { background: url('images/icons/bullet_rec_sprites.gif') no-repeat left top; background-position:0 -30px; }
+.sidebar .widget li.local-arts-guide { background: url('images/icons/bullet_rec_sprites.gif') no-repeat left top; background-position:0 -60px; }
+.sidebar .widget li.nonprofits-guide { background: url('images/icons/bullet_rec_sprites.gif') no-repeat left top; background-position:0 -90px; }
+.sidebar .widget li.residents-guide { background: url('images/icons/bullet_rec_sprites.gif') no-repeat left top; background-position:0 -120px; }
+.sidebar .widget li.students-guide { background: url('images/icons/bullet_rec_sprites.gif') no-repeat left top; background-position:0 -150px; }
+.sidebar .widget li.visitors-guide { background: url('images/icons/bullet_rec_sprites.gif') no-repeat left top; background-position:0 -180px; }
+.sidebar .widget li.volunteers-guide { background: url('images/icons/bullet_rec_sprites.gif') no-repeat left top; background-position:0 -210px; }
+.sidebar .widget li.voters-guide { background: url('images/icons/bullet_rec_sprites.gif') no-repeat left top; background-position:0 -240px; }
 
 /* styles for the Attachments Widget */
 .sidebar .attachments li { background-image:none; border-bottom:0; padding-left:0px; }
@@ -409,4 +409,3 @@ div.customalert p { margin: 1px 1px 1px 3px; font-size:12px; padding-left:14px; 
 .searchResult a:hover { text-decoration:underline; }
 
 .blogPost {border-bottom:1px dotted black; }
-
