@@ -10,7 +10,7 @@
  * This screen navigates two weeks forward and back
  */
 $MAX_DAYS_AHEAD = 60;
-$MAX_EVENTS = 15;
+$MAX_EVENTS = 30;
 ?>
 <h2>Upcoming Events</h2>
 <table class="calendar">
