@@ -475,11 +475,22 @@ class Section extends ActiveRecord
 	/**
 	 * Returns the Home document for this section
 	 */
-	public function getDocument() { return $this->getSectionDocument()->getDocument(); }
+	public function getDocument()
+	{
+		if ($this->getSectionDocument()) {
+			return $this->getSectionDocument()->getDocument();
+		}
+	}
 	/**
 	 * Returns the ID for the Home document of this section
 	 */
-	public function getDocument_id() { return $this->getDocument()->getId(); }
+	public function getDocument_id()
+	{
+		if ($this->getDocument()) {
+			return $this->getDocument()->getId();
+		}
+	}
+
 	public function getHighlightSubscription() { return $this->highlightSubscription; }
 
 	/**
