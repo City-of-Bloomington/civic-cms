@@ -825,4 +825,51 @@ class WikiMarkup
 
 		return "<span class=\"image thumbnail\" $style>$imageTag $caption</span>";
 	}
+
+	/**
+	 * Icons are not rendered in the span class like other image sizes.
+	 * They cannot have captions or be aligned
+	 */
+	private static function iconLink($linkTarget,$linkText=null)
+	{
+		# Decide whether we're going to wrap the <img> tag with an HREF
+		$imageLink = self::$CURRENT_URL ? self::$CURRENT_URL : null;
+
+		$caption = $linkText ? self::parse($linkText) : null;
+
+		$list = ctype_digit($linkTarget) ? new ImageList(array('id'=>$linkTarget)) : new ImageList(array('filename'=>$linkTarget));
+		if (count($list))
+		{
+			$image = $list[0];
+			$url = $image->getURL('icon');
+			$alt = View::escape($image->getTitle());
+			$width = $image->getWidth('icon');
+			$height = $image->getHeight('icon');
+		}
+		# We couldn't find an image with that filename, just display the raw text
+		else { return $caption; }
+
+		# Wrap the Image in in a link to CURRENT_URL, if there is one
+		$imageTag = "<img src=\"$url\" alt=\"$alt\" width=\"$width\" height=\"$height\" />";
+		if ($imageLink)
+		{
+			$imageTag = "<a href=\"$imageLink\">$imageTag</a>";
+			self::$CURRENT_URL = null;
+		}
+		# If there isn't a CURRENT_URL, create a link to the Original Sized Image
+		else
+		{
+			# Only draw this link if the picture was resized
+			if ($image->getWidth()!=$width || $image->getHeight()!=$height)
+			{
+				$imageTag = "
+				<a href=\"{$image->getURL('original')}\" rel=\"lightbox\">
+				$imageTag
+				</a>
+				";
+				self::$CURRENT_URL = null;
+			}
+		}
+		return $imageTag;
+	}
 }
