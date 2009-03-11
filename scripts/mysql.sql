@@ -154,22 +154,28 @@ create table document_accesslog (
 create table document_hits_yearly (
 	year year(4) not null,
 	document_id int unsigned not null,
-	hits int not null,
+	hits int unsigned not null,
 	foreign key (document_id) references documents(id) on delete cascade
 ) engine=InnoDB;
 
 create table document_hits_monthly (
 	date date not null,
 	document_id int unsigned not null,
-	hits int not null,
+	hits int unsigned not null,
 	foreign key (document_id) references documents(id) on delete cascade
 ) engine=InnoDB;
 
 create table document_hits_daily (
 	date date not null,
 	document_id int unsigned not null,
-	hits int not null,
+	hits int unsigned not null,
 	key (date),
+	foreign key (document_id) references documents(id) on delete cascade
+) engine=InnoDB;
+
+create table document_hits_running_totals (
+	document_id int unsigned not null,
+	hits int unsigned not null,
 	foreign key (document_id) references documents(id) on delete cascade
 ) engine=InnoDB;
 
