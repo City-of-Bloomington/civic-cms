@@ -138,7 +138,7 @@ class Search
 	{
 		if ($logging) { $this->log($string); }
 
-		$string = strtolower(str_replace('\\','',$string));
+		$string = strtolower(str_replace(array('\\','"',"'"),'',$string));
 
 		Zend_Search_Lucene::setDefaultSearchField('combined');
 		try { $query = Zend_Search_Lucene_Search_QueryParser::parse($string); }
