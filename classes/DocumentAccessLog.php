@@ -74,10 +74,10 @@ class DocumentAccessLog
 			//		group by l.document_id order by count desc limit $numDocuments";
 
 			// This query reads from Summary tables
-			$sql = "select document_id,hits from document_hits_running_totals
+			$sql = "select document_id,hits as count from document_hits_running_totals
 					left join documents on document_id=id
 					where documentType_id=?
-					order by hits desc limit $numDocuments";
+					order by count desc limit $numDocuments";
 			$query = $pdo->prepare($sql);
 			$query->execute(array($documentType_id));
 		}
@@ -88,8 +88,8 @@ class DocumentAccessLog
 			//		group by document_id order by count desc limit $numDocuments";
 
 			// This query reads from Summary tables
-			$sql = "select document_id,hits from document_hits_running_totals
-					order by hits desc limit $numDocuments";
+			$sql = "select document_id,hits as count from document_hits_running_totals
+					order by count desc limit $numDocuments";
 			$query = $pdo->prepare($sql);
 			$query->execute();
 		}
