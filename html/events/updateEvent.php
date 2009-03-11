@@ -40,9 +40,9 @@
 	# Make sure they're allowed to edit the event
 	if (!$_SESSION['event'][$instance_id]->permitsEditingBy($_SESSION['USER']))
 	{
-		$_SESSION['errorMessages'][] = "noAccessAllowed";
-		$template = new Template('closePopup');
-		echo $template->render();
+		$_SESSION['errorMessages'][] = new Exception('events/noEditingAllowed');
+		unset($_SESSION['event'][$instance_id]);
+		header('Location: '.BASE_URL.'/calendars');
 		exit();
 	}
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright 2007-2009 City of Bloomington, Indiana
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Event $this->event
@@ -38,9 +38,11 @@
 				$list->find();
 				foreach($list as $calendar)
 				{
-					$name = View::escape($calendar->getName());
-					$selected = ($this->event->getCalendar_id() === $calendar->getId()) ? 'selected="selected"' : '';
-					echo "<option value=\"{$calendar->getId()}\" $selected>$name</option>";
+					if ($calendar->permitsPostingBy($_SESSION['USER'])) {
+						$name = View::escape($calendar->getName());
+						$selected = ($this->event->getCalendar_id() === $calendar->getId()) ? 'selected="selected"' : '';
+						echo "<option value=\"{$calendar->getId()}\" $selected>$name</option>";
+					}
 				}
 			?>
 			</select>
