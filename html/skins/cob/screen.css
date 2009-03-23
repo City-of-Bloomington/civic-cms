@@ -63,7 +63,7 @@ th a { color:#3366cc; background-color:inherit; }
 .current { font-weight:bold; }
 .required { background:url('images/icons/required_asterik.gif') no-repeat; }
 
-img { border:1px solid black; }
+img { border:0; }
 span.image { display:block; text-align:center; margin:0 15px 5px 15px; }
 span.thumbnail {  }
 span.image img { }
@@ -158,10 +158,10 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 /* styles for the Attachments Widget */
 .sidebar .attachments li { background-image:none; border-bottom:0; padding-left:0px; }
 
-* Styles for the YouTube Widget */
+/* Styles for the YouTube Widget */
 .sidebar .youtube li { background-image:none; padding-left:2px; text-align:center; }
-.sidebar .youtube .thumbnail { padding-top:2px; }
-.sidebar .youtube .image { margin:0; }
+ .sidebar .youtube .thumbnail { padding-top:2px; }
+ .sidebar .youtube .image { margin:0; }
 
 /* We want the navigation widget to be a different color, matching the TopLevelSections */
 .sidebar .navigation h1 { background:#013466 url('images/widgets/navigation_widget_top_bg.gif') top no-repeat !important; }
