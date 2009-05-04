@@ -221,20 +221,51 @@ class DocumentList extends PDOResultIterator
 		$this->populateList($options,$parameters);
 	}
 
+	/**
+	 * Populates the collection based on a regular expression search of the content
+	 * @param string $regex A grep-formatted regular expression
+	 * @return array $errors Any files that are not found in the database
+	 */
 	public function grep($regex)
 	{
 		$regex = escapeshellarg($regex);
 
 		$this->list = array();
+		$errors = array();
 
+		// Do the grep for all the files matching what the user typed
 		$dir = APPLICATION_HOME.'/data/documents/';
-		$files = explode("\n",shell_exec("grep -lR --exclude '*.svn*' $regex $dir"));
-		foreach($files as $file)
-		{
+		$grep = "grep -lR --exclude '*.svn*' $regex $dir";
+		$files = explode("\n",shell_exec($grep));
+
+		// Verify that all these files are actually in the database
+		$pdo = Database::getConnection();
+		$query = $pdo->prepare('select id from documents where id=?');
+		foreach($files as $file) {
 			$d = explode('.',basename($file));
-			if ($d[0]) { $this->list[] = $d[0]; }
+			if ($d[0]) {
+				$query->execute(array($d[0]));
+				$result = $query->fetchAll(PDO::FETCH_ASSOC);
+				if (count($result)) {
+					$this->list[] = $d[0];
+				}
+				else {
+					$errors[] = $file;
+				}
+			}
+		}
+
+		if (count($errors)) {
+			return $errors;
 		}
 	}
 
-	protected function loadResult($key) { return new Document($this->list[$key]); }
+	/**
+	 * Loads a Document object for each result returned from the PDOResultIterator
+	 * @param int $key The index from the PDOResultIterator to load
+	 */
+	protected function loadResult($key)
+	{
+		return new Document($this->list[$key]);
+	}
 }
