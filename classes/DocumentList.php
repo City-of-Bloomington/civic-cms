@@ -117,6 +117,11 @@ class DocumentList extends PDOResultIterator
 			$options[] = 'icon_media_id=:icon_media_id';
 			$parameters[':icon_media_id'] = $fields['icon_media_id'];
 		}
+		if (isset($fields['skin']))
+		{
+			$options[] = 'skin=:skin';
+			$parameters[':skin'] = $fields['skin'];
+		}
 
 		# Provide a way to find out active documents.  Documents are active during the time
 		# between their Publish and Retire dates.

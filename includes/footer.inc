@@ -31,7 +31,7 @@
 		</ul>
 		<ul><li><a href="http://validator.w3.org/check?uri=referer">Valid XHTML 1.0 Strict</a></li>
 			<?php
-				$css = BASE_URL."/skins/$_SESSION[skin]/screen.css";
+				$css = BASE_URL."/skins/$skin/screen.css";
 			?>
 			<li><a href="http://jigsaw.w3.org/css-validator/validator?uri=<?php echo $css; ?>">Valid CSS 2.1</a></li>
 			<li><a href="http://www.w3.org/WAI/WCAG1A-Conformance" title="Explanation of Level A Conformance">W3C-WAI WCAG</a></li>

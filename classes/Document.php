@@ -24,6 +24,7 @@
 		private $enablePHP;
 		private $banner_media_id;
 		private $icon_media_id;
+		private $skin;
 
 		private $department;
 		private $content = array();
@@ -138,6 +139,7 @@
 			$fields['enablePHP'] = $this->enablePHP ? 1 : 0;
 			$fields['banner_media_id'] = $this->banner_media_id ? $this->banner_media_id : null;
 			$fields['icon_media_id'] = $this->icon_media_id ? $this->icon_media_id : null;
+			$fields['skin'] = $this->skin ? $this->skin : null;
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
@@ -920,7 +922,7 @@
 				return $this->icon;
 			}
 		}
-
+		public function getSkin() { return $this->skin; }
 
 
 		/**
@@ -978,6 +980,7 @@
 		public function setBanner_media($media) { $this->banner_media_id = $media->getId(); $this->banner = $media; }
 		public function setIcon_media_id($int) { $this->icon = new Media($int); $this->icon_media_id = $this->icon->getId(); }
 		public function setIcon_media($media) { $this->icon_media_id = $media->getId(); $this->icon = $media; }
+		public function setSkin($CSSDirectoryName) { $this->skin = trim($CSSDirectoryName); }
 	}
 
 class PHPSyntaxException extends Exception

@@ -101,6 +101,7 @@ create table documents (
   enablePHP tinyint(1) unsigned not null default 0,
   banner_media_id int unsigned,
   icon_media_id int unsigned,
+  skin varchar(128),
   foreign key (createdBy) references users(id),
   foreign key (modifiedBy) references users(id),
   foreign key (department_id) references departments(id),

@@ -20,6 +20,16 @@
 	</table>
 	</fieldset>
 
+	<fieldset><legend>Skin</legend>
+		<p>You can set a sepcific skin for this document.  The name you choose here should match
+			the directory name in /html/skins.</p>
+		<table>
+			<tr><td><label for="document-skin">Skin</label></td>
+				<td><input name="document[skin]" id="document-skin" value="<?php echo View::escape($this->document->getSkin()); ?>" /></td>
+			</tr>
+		</table>
+	</fieldset>
+
 	<fieldset><legend>Banner</legend>
 	<p>Banner images will not be resized when displayed.  They will be used in their original form.
 		Please choose or upload an appropriately sized image.</p>
@@ -40,7 +50,7 @@
 	</tr>
 	</table>
 	</fieldset>
-	
+
 	<fieldset><legend>Icon</legend>
 	<p>Icons will be displayed as thumbnails when the document is featured.</p>
 	<table>
@@ -70,7 +80,7 @@
 			function handleSelection(media_id)
 			{
 				field.value = media_id;
-				
+
 				while (span.hasChildNodes()) { span.removeChild(span.firstChild); }
 				var img = document.createElement('img');
 				img.src = '<?php echo BASE_URL; ?>/media/media.php?size='+size+';media_id='+media_id;
@@ -80,7 +90,7 @@
 			{
 				span = document.getElementById(span_id);
 				field = document.getElementById(field_id);
-				
+
 				while(span.hasChildNodes()) { span.removeChild(span.firstChild); }
 				field.value = '';
 			}

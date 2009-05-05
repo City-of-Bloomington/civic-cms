@@ -199,27 +199,11 @@ if (!isset($_SESSION['LANGUAGE'])) {
 
 /**
  * Skin Negotiation
- * Order of precedence: GET, SESSION, default
- * By Default, a chosen skin will be stored in the SESSION.  If you
- * have multiple skins, this lets users chose a skin and stay with it
- *
- * If, however, you want users to only see a chosen skin for a single
- * request, you'll want to comment out the second line below, and
- * uncomment the else {}
- * This will make the site serve a custom skin only on request, without
- * subsequent navigation continuing to use that custom skin
+ * Set the name for the skin directory you want to use.
+ * Skins are stored in APPLICATION_HOME/html/skins
+ * Documents can now override this skin, if they need to.
  */
-if (isset($_GET['skin'])) {
-	$_SESSION['skin'] = $_GET['skin'];
-}
-// Comment out this line, if you do not want Skins to stick in the SESSION
-if (!isset($_SESSION['skin'])) {
-	$_SESSION['skin'] = 'default';
-}
-// Uncomment this if you do not want skins to stick in the SESSION
-//else {
-//	$_SESSION['skin'] = 'default';
-//}
+define('DEFAULT_SKIN','default');
 
 /**
  * External Web Services
