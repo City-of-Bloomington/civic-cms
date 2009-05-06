@@ -1,12 +1,15 @@
 <?php
 /**
- * @copyright Copyright (C) 2006-2008 City of Bloomington, Indiana. All rights reserved.
+ * @copyright 2006-2009 City of Bloomington, Indiana.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param string $this->title
  */
-	if (!isset($this->title)) { $this->title = "City of Bloomington"; }
-	$startTime = microtime(1);
+if (!isset($this->title)) { $this->title = "City of Bloomington"; }
+$startTime = microtime(1);
+
+$skin = isset($_GET['skin']) ? $_GET['skin'] : DEFAULT_SKIN;
+$skin = isset($this->document)&&$this->document->getSkin() ? $this->document->getSkin() : $skin;
 ?>
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
@@ -19,7 +22,7 @@
 	<meta http-equiv="Content-Script-Type" content="text/javascript" />
 	<link rel="SHORTCUT ICON" href="/favicon.ico" />
 	<style type="text/css">
-		@import url('<?php echo BASE_URL."/skins/$_SESSION[skin]/print.css"; ?>');
+		@import url('<?php echo BASE_URL."/skins/$skin/print.css"; ?>');
 	</style>
 	<script type="text/javascript" src="<?php echo BASE_URL; ?>/js/functions.js"></script>
 	<title><?php echo View::escape($this->title); ?></title>
