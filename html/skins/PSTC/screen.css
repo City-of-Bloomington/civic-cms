@@ -176,7 +176,7 @@ ul.mktree li.liClosed ul { display: none; }
 /*  Custom buttons for forms */
 button { cursor:pointer; overflow:hidden; vertical-align:middle; }
 button.addSmall { width:15px; height:15px; padding-top:15px; background: url('../default/images/addSmall.gif') no-repeat; border:0; }
-button.deleteSmall { width:15px; height:15px; padding-top:15px; background: url('../default/images/deleteSmall.gif') no-repeat; border:0; }
+button.deleteSmall { display:none; }
 button.excel { width:16px; height:16px; padding-top:16px; background: url('../default/images/excel.gif') no-repeat; border:0; }
 button.printSmall { display:none; }
 
