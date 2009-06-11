@@ -31,15 +31,20 @@ class RelatedSectionsWidget extends Widget
 		if (isset($template->document)) {
 			foreach ($template->document->getSections() as $section) {
 				// If this is a homepage, add the section's parents as Related Sections
-				if (count($section->getParents() > 1)) {
+				if ($template->document->isHomepage($section)) {
 					foreach ($section->getParents() as $parent) {
 						$this->sectionList[$parent->getId()] = $parent;
 					}
 				}
 
 				// Add all the document's sections as Related Sections
-				if (!array_key_exists($section->getId(),$this->sectionList)) {
-					$this->sectionList[$section->getId()] = $section;
+				// Except:
+				// we do not want to display Home as related
+				// We do not want to display the current section as related
+				if (!array_key_exists($section->getId(),$this->sectionList)
+					&& ($section->getId() != 1)
+					&& (isset($_GET['section_id']) && $section->getId() != $_GET['section_id'])) {
+						$this->sectionList[$section->getId()] = $section;
 				}
 			}
 
