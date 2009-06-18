@@ -76,6 +76,7 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 #logo { width:300px; height:30px; position:absolute; top:1px; left:1px;  text-indent:50px; }
 #logo a { display:table-cell; width:300px; height:30px; color:white; vertical-align:middle; }
 #topLevelSections { display:none; }
+#banner .take-action {display:none; }
 #skipNavigation { position:absolute; left:-9999px; }
 #mainLinks {display:none; }
 #secondaryLinks {display:none; }
