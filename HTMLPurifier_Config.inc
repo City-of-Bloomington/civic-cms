@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright 2007-2009 City of Bloomington, Indiana
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  *
@@ -9,12 +9,13 @@
 $config = HTMLPurifier_Config::createDefault();
 
 // configuration goes here:
-$config->set('Core', 'Encoding', 'UTF-8'); // replace with your encoding
-$config->set('HTML', 'Doctype', 'XHTML 1.1'); // replace with your doctype
+$config->set('Core','Encoding', 'UTF-8'); // replace with your encoding
+$config->set('HTML','Doctype', 'XHTML 1.1'); // replace with your doctype
 $config->set('Output','TidyFormat',true);
 $config->set('HTML','TidyLevel','heavy');
 $config->set('Output','Newline',"\n");
 $config->set('Cache','DefinitionImpl',null);
+$config->set('Attr','EnableID',true);
 #$config->set('URI','MakeAbsolute',true);
 #$config->set('URI','Host','localhost');
 #$config->set('URI','Base','/content_manager');
