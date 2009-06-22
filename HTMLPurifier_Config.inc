@@ -35,8 +35,5 @@ $config->set('HTML','AllowedElements',$allowedElements);
  * still want to keep people from changing fonts and others.
  * This should strip those from allowed CSS definitions
  */
-$invalid_css = array('font','font-style','font-variant','font-size','font-family','font-weight',
-					'color','background','background-color','background-image');
-
-$css =& $config->getCSSDefinition();
-foreach($invalid_css as $property) { unset($css->info[$property]); }
+$valid_css = array('text-decoration');
+$config->set('CSS','AllowedProperties',$valid_css);
