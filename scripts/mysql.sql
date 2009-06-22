@@ -330,7 +330,7 @@ insert alertTypes set name='Weather';
 
 create table alerts (
 	id int unsigned not null primary key auto_increment,
-	title varchar(128) not null unique,
+	title varchar(255) not null unique,
 	alertType_id int unsigned not null default 1,
 	startTime timestamp not null,
 	endTime timestamp not null,

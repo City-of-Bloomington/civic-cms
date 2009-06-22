@@ -32,6 +32,7 @@ foreach($alerts->entry as $entry) {
 	if (count($capInfo)) {
 
 		$events[] = $title;
+		echo "Adding: $title\n";
 
 		$alert = new Alert($title);
 		$alert->setAlertType(new AlertType('Weather'));
@@ -39,19 +40,21 @@ foreach($alerts->entry as $entry) {
 		$alert->setEndTime($capInfo->expires);
 		$alert->setText($entry->summary);
 		$alert->setURL($entry->link['href']);
-		print_r($alert);
 		$alert->save();
 
 		$c++;
 	}
 }
+echo date('Y-m-d H:i:sp')." Added $c alerts\n";
+
 // Clean out weather alerts that the National Weather Service is no longer broadcasting
+$c = 0;
 $list = new AlertList(array('alertType'=>'Weather'));
 foreach ($list as $alert) {
 	if (!in_array($alert->getTitle(),$events)) {
+		echo "Deleting: {$alert->getTitle()}\n";
 		$alert->delete();
+		$c++;
 	}
 }
-
-echo $alerts->asXML();
-echo date('Y-m-d H:i:sp')." Added $c alerts\n";
+echo date('Y-m-d H:i:sp')." Deleted $c alerts\n";
