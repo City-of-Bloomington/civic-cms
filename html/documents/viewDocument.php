@@ -47,10 +47,13 @@
 		$currentAncestors = $document->getBreadcrumbs($s,$p);
 		$template->currentAncestors = $currentAncestors;
 
-		$breadcrumbs = new Block('documents/breadcrumbs.inc');
-		$breadcrumbs->document = $document;
-		$breadcrumbs->currentAncestors = $currentAncestors;
-		$template->blocks[] = $breadcrumbs;
+		# Don't display the breadcrumbs on the homepage
+		if ($document->getId() != 1) {
+			$breadcrumbs = new Block('documents/breadcrumbs.inc');
+			$breadcrumbs->document = $document;
+			$breadcrumbs->currentAncestors = $currentAncestors;
+			$template->blocks[] = $breadcrumbs;
+		}
 
 		# The current section should be pulled from the URL
 		# If there isn't one in the URL, try pulling it from $currentAncestors
@@ -63,7 +66,7 @@
 			}
 		}
 		elseif(count($currentAncestors)) { $currentSection = end($currentAncestors); }
-		
+
 		#------------------------------------------------------------
 		# Create the panel for alerts
 		#------------------------------------------------------------
