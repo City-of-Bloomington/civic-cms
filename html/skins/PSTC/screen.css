@@ -317,4 +317,6 @@ a.reveal { width:12px; height:12px; background-image:url('images/icons/reveal_in
 .callOut ul { list-style-type:none; }
 
 #frontImages img {margin:0 15px 0 0px; }
-#tagLine {position:absolute; top:-}
+#homepageEvents {border:1px solid red; float:right; color:darkgoldenrod; }
+#homepageEvents h2 {clear:none; }
+#homepageEvents li { list-style-type:none; }

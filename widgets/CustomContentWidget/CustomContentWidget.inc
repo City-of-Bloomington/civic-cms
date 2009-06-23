@@ -7,6 +7,7 @@
 class CustomContentWidget extends Widget
 {
 	public $title;
+	public $class;
 	public $content;
 
 	public function __construct()
@@ -35,6 +36,9 @@ class CustomContentWidget extends Widget
 	{
 		$data = unserialize($string);
 		$this->title = $data['title'];
+		if (isset($data['class'])) {
+			$this->class = $data['class'];
+		}
 		$this->content = $data['content'];
 	}
 	/**
@@ -48,6 +52,7 @@ class CustomContentWidget extends Widget
 	{
 		$data = array();
 		$data['title'] = $_POST['title'];
+		$data['class'] = $_POST['class'];
 		$data['content'] = $_POST['content'];
 		return serialize($data);
 	}

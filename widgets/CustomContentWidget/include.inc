@@ -7,7 +7,7 @@
 	$title = View::escape($this->title);
 	$content = WikiMarkup::parse($this->content);
 ?>
-<div class="widget">
+<div class="widget <?php echo $this->class; ?>">
 	<h1><?php echo $title; ?></h1>
 	<?php echo $content; ?>
 </div>
