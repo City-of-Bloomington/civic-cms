@@ -42,11 +42,20 @@
 			$sort = 'distance';
 			$fields['latitude'] = $_GET['latitude'];
 			$fields['longitude'] = $_GET['longitude'];
+			if (isset($_GET['limit'])) {
+				$limit = (int)$_GET['limit'];
+			}
 		}
 		else { $sort = 'name'; }
 
+
 		# Don't bother trying to look anything up if we don't have a valid group
-		if (isset($fields)) { $listBlock->locationList = new LocationList($fields,$sort); }
+		if (isset($fields)) {
+			$limit = isset($limit) ? $limit : null;
+			$locationList = new LocationList();
+			$locationList->find($fields,$sort,$limit);
+			$listBlock->locationList = $locationList;
+		}
 	}
 	else
 	{
