@@ -37,7 +37,7 @@
 
 
 		# The user can ask for the list to be sorted by distance from a given point
-		if (isset($_GET['sort']) && isset($_GET['latitude']) && isset($_GET['longitude']))
+		if (isset($_GET['latitude']) && isset($_GET['longitude']))
 		{
 			$sort = 'distance';
 			$fields['latitude'] = $_GET['latitude'];
