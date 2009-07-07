@@ -103,22 +103,28 @@ class LocationList extends PDOResultIterator
 
 		if ($sort=='distance')
 		{
-				# Ordering by distance requires giving a point to calculate distance from
-				if (isset($fields['latitude']) && isset($fields['longitude']))
-				{
+			# Ordering by distance requires giving a point to calculate distance from
+			if (isset($fields['latitude']) && isset($fields['longitude']))
+			{
 				# We're going to modify the SQL to select distance as well as the ID
 				# That way, we'll have distance as a field to order by
+				# This function calculates distance in miles based on the
+				# spherical law of cosines.  It should be accurate down to about 3ft.
+				# This formula was taken from:
+				# http://www.movable-type.co.uk/scripts/latlong.html
+				# See Also: Location->getDistance()
 				$this->select = "select distinct locations.id,
-								((latitude-:latA)*(latitude-:latB)*(36./25.)+
-								(longitude-:lonA)*(longitude-:lonB)) as distance from locations";
+								acos(sin(radians(latitude)) * sin(radians(:latA))
+									+ cos(radians(latitude)) * cos(radians(:latB))
+									* cos(radians(:lonA - longitude)))*3958 as distance
+									from locations";
 				$options[] = '(latitude is not null and longitude is not null)';
 				$parameters[':latA'] = $fields['latitude'];
 				$parameters[':latB'] = $fields['latitude'];
 				$parameters[':lonA'] = $fields['longitude'];
-				$parameters[':lonB'] = $fields['longitude'];
-				}
-				# Without a point, we can't sort by distance
-				else { $sort = 'name'; }
+			}
+			# Without a point, we can't sort by distance
+			else { $sort = 'name'; }
 		}
 
 		$this->populateList($options,$parameters);

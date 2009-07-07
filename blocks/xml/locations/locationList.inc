@@ -18,6 +18,11 @@
 
 			$type = View::escape($location->getLocationType()->getType());
 
+			$distance = '';
+			if (isset($_GET['latitude']) && isset($_GET['longitude'])) {
+				$distance = $location->getDistance($_GET['latitude'],$_GET['longitude']);
+			}
+
 			echo "
 			<location id=\"{$location->getId()}\">
 				<name>$name</name>
@@ -26,6 +31,7 @@
 				<description>$description</description>
 				<latitude>{$location->getLatitude()}</latitude>
 				<longitude>{$location->getLongitude()}</longitude>
+				<distance units=\"miles\">$distance</distance>
 			</location>
 			";
 		}

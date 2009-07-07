@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2006-2008 City of Bloomington, Indiana. All rights reserved.
+ * @copyright 2006-2009 City of Bloomington, Indiana
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
@@ -130,31 +130,6 @@ class Location extends ActiveRecord
 		}
 	}
 
-	public function getLocationGroups()
-	{
-		if ($this->id)
-		{
-			if (!count($this->groups))
-			{
-				$list = new LocationGroupList(array('location_id'=>$this->id));
-				foreach($list as $group) { $this->groups[$group->getId()] = $group; }
-			}
-		}
-		return $this->groups;
-	}
-	public function hasGroup($group)
-	{
-		$id = is_int($group) ? $group : $group->getId();
-		return in_array($id,array_keys($this->getLocationGroups()));
-	}
-	public function setLocationGroups(array $group_ids)
-	{
-		$this->groups = array();
-		foreach($group_ids as $id)
-		{
-			$this->groups[$id] = new LocationGroup($id);
-		}
-	}
 	private function saveLocationGroups()
 	{
 		if ($this->id)
@@ -172,17 +147,6 @@ class Location extends ActiveRecord
 		}
 	}
 
-	public function permitsEditingBy($user)
-	{
-		if ($user->hasRole(array('Administrator','Webmaster','Publisher'))) { return true; }
-		if ($user->hasRole('Content Creator') && $user->getDepartment_id()==$this->department_id) { return true; }
-		return false;
-	}
-
-	public function __toString() { return $this->name; }
-	public function getType() { return $this->getLocationType()->getType(); }
-	public function getURL() { return BASE_URL.'/locations/viewLocation.php?location_id='.$this->id; }
-	public function isHandicapAccessible() { return $this->handicap_accessible ? true : false; }
 
 	/**
 	 * Generic Getters
@@ -235,4 +199,71 @@ class Location extends ActiveRecord
 
 	public function setDepartment($department) { $this->department_id = $department->getId(); $this->department = $department; }
 	public function setLocationType($locationType) { $this->locationType_id = $locationType->getId(); $this->locationType = $locationType; }
+
+	/**
+	 * Custom Functions
+	 */
+	public function __toString() { return $this->name; }
+	public function getType() { return $this->getLocationType()->getType(); }
+	public function getURL() { return BASE_URL.'/locations/viewLocation.php?location_id='.$this->id; }
+	public function isHandicapAccessible() { return $this->handicap_accessible ? true : false; }
+
+	public function getLocationGroups()
+	{
+		if ($this->id)
+		{
+			if (!count($this->groups))
+			{
+				$list = new LocationGroupList(array('location_id'=>$this->id));
+				foreach($list as $group) { $this->groups[$group->getId()] = $group; }
+			}
+		}
+		return $this->groups;
+	}
+	public function hasGroup($group)
+	{
+		$id = is_int($group) ? $group : $group->getId();
+		return in_array($id,array_keys($this->getLocationGroups()));
+	}
+	public function setLocationGroups(array $group_ids)
+	{
+		$this->groups = array();
+		foreach($group_ids as $id)
+		{
+			$this->groups[$id] = new LocationGroup($id);
+		}
+	}
+
+	public function permitsEditingBy($user)
+	{
+		if ($user->hasRole(array('Administrator','Webmaster','Publisher'))) { return true; }
+		if ($user->hasRole('Content Creator') && $user->getDepartment_id()==$this->department_id) { return true; }
+		return false;
+	}
+
+	/**
+	 * Calculates the distance in miles
+	 *
+	 * This function calculates distance in miles based on the
+	 * spherical law of cosines.  It should be accurate down to about 3ft.
+	 * This formula was taken from:
+	 * http://www.movable-type.co.uk/scripts/latlong.html
+	 *
+	 * @param float $latitude
+	 * @param float $longitude
+	 * @return float
+	 */
+	public function getDistance($latitude,$longitude)
+	{
+		//$earthRadius = 6371; // Kilometers
+		$earthRadius = 3958; // Miles
+		//$milesConversion = 0.621371192237334;
+
+		if ($this->latitude && $this->longitude) {
+			$distance = acos(sin(deg2rad($this->latitude)) * sin(deg2rad($latitude))
+						+ cos(deg2rad($this->latitude)) * cos(deg2rad($latitude))
+						* cos(deg2rad($longitude - $this->longitude))) * $earthRadius;
+			return $distance;
+		}
+	}
 }
