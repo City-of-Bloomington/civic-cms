@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2007-2008 City of Bloomington, Indiana. All rights reserved.
+ * @copyright 2007-2009 City of Bloomington, Indiana
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param object $this->results An array of search result hits
@@ -28,12 +28,12 @@
 		$url->type = 'Events';
 		$class = $this->currentType=='Events' ? 'class="current"' : '';
 		$count = isset($this->results['Events']) ? count($this->results['Events']) : 0;
-		echo "<li $class><a href=\"$url\">Events</a> ($count)</li>";
+		echo "<li $class><a href=\"$url\">Events ($count)</a></li>";
 
 		$url->type = 'Media';
 		$class = $this->currentType=='Media' ? 'class="current"' : '';
 		$count = isset($this->results['Media']) ? count($this->results['Media']) : 0;
-		echo "<li $class><a href=\"$url\">Media</a> ($count)</li>";
+		echo "<li $class><a href=\"$url\">Media ($count)</a></li>";
 	?>
 	</ul>
 	<ul>
@@ -55,7 +55,7 @@
 				$url->type = $type;
 				$class = $this->currentType == $type ? 'class="current"' : '';
 				$count = isset($this->results[$type]) ? count($this->results[$type]) : 0;
-				echo "<li $class><a href=\"$url\">$type</a> ($count)</li>";
+				echo "<li $class><a href=\"$url\">$type ($count)</a></li>";
 			}
 		}
 	?>
