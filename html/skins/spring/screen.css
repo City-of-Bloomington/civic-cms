@@ -458,7 +458,6 @@ div.customalert p { margin: 1px 1px 1px 3px; font-size:12px; padding-left:14px; 
 		border:0px;
 		background:none;
 		padding:4px 7px 4px 7px;
-		white-space:nowrap;
 	}
 	.gray { background-color:#eee; }
 
