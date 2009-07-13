@@ -53,14 +53,29 @@ if (isset($this->document)) {
 	<![endif]-->
 	<script type="text/javascript" src="<?php echo BASE_URL; ?>/js/functions.js"></script>
 
+	<!-- Load the YUI Toolkit -->
 	<style type="text/css" media="screen">
-		@import url('<?php echo BASE_URL; ?>/js/lightbox/css/lightbox.css');
+		@import url('<?php echo BASE_URL; ?>/js/yui/build/assets/skins/sam/skin.css');
+		@import url('<?php echo BASE_URL; ?>/js/yui/build/calendar/assets/skins/sam/calendar.css');
 	</style>
+	<script src="<?php echo BASE_URL; ?>/js/yui/build/utilities/utilities.js" type="text/javascript"></script>
+	<script src="<?php echo BASE_URL; ?>/js/yui/build/yahoo-dom-event/yahoo-dom-event.js" type="text/javascript"></script>
+	<script src="<?php echo BASE_URL; ?>/js/yui/build/element/element-min.js" type="text/javascript"></script>
+	<script src="<?php echo BASE_URL; ?>/js/yui/build/carousel/carousel-min.js" type="text/javascript"></script>
+	<script src="<?php echo BASE_URL; ?>/js/yui/build/animation/animation-min.js" type="text/javascript"></script>
+	<script src="<?php echo BASE_URL; ?>/js/yui/build/connection/connection-min.js" type="text/javascript"></script>
+	<script src="<?php echo BASE_URL; ?>/js/yui/build/yahoo/yahoo-min.js" type="text/javascript"></script>
+	<script src="<?php echo BASE_URL; ?>/js/yui/build/event/event-min.js" type="text/javascript"></script>
 
-	<!-- Load the YUI toolkit -->
-	<style type="text/css" media="screen">@import url('<?php echo BASE_URL; ?>/js/yui/build/assets/skins/sam/skin.css');</style>
-	<style type="text/css" media="screen">@import url('<?php echo BASE_URL; ?>/js/yui/build/calendar/assets/skins/sam/calendar.css');</style>
-
-	<?php echo $dublinCoreMetaTags; ?>
+	<?php
+		if (isset($this->document) && $this->document->getId()==1) {
+			echo "
+			<style type=\"text/css\" media=\"screen\">
+				@import url('".BASE_URL."/skins/slideshow/slideshow.css');
+			</style>
+			";
+		}
+		echo $dublinCoreMetaTags;
+	?>
 </head>
 <body id="top">

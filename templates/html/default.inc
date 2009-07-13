@@ -14,7 +14,7 @@
 	<?php
 		include APPLICATION_HOME.'/includes/leftSidebar.inc';
 		include APPLICATION_HOME.'/includes/rightSidebar.inc';
-		
+
 		if (isset($_SESSION['LANGUAGE']) && $_SESSION['LANGUAGE'])
 		{
 			try { $lang = new Language($_SESSION['LANGUAGE']); }
@@ -25,9 +25,6 @@
 		$dir = $lang->getDirection()=='rtl' ? 'dir="rtl"' : '';
 	?>
 	<div id="mainContent" <?php echo "xml:lang=\"{$lang->getCode()}\" lang=\"{$lang->getCode()}\" $dir"; ?>>
-	<script type="text/javascript" src="<?php echo BASE_URL; ?>/js/lightbox/js/prototype.js"></script>
-	<script type="text/javascript" src="<?php echo BASE_URL; ?>/js/lightbox/js/scriptaculous.js?load=effects,builder"></script>
-	<script type="text/javascript" src="<?php echo BASE_URL; ?>/js/lightbox/js/lightbox.js"></script>
 	<?php
 		include FRAMEWORK.'/errorMessages.php';
 
