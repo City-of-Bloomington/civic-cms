@@ -65,6 +65,8 @@ function customErrorHandler ($errno, $errstr, $errfile, $errline)
 			$message = "Error on line $errline of file $errfile:\n$errstr\n";
 			$message.= print_r(debug_backtrace(),true);
 
+			$script = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : __FILE__;
+
 			$skidder = curl_init(SKIDDER_URL);
 			curl_setopt($skidder,CURLOPT_POST,true);
 			curl_setopt($skidder,CURLOPT_HEADER,true);
@@ -72,7 +74,7 @@ function customErrorHandler ($errno, $errstr, $errfile, $errline)
 			curl_setopt($skidder,
 						CURLOPT_POSTFIELDS,
 						array('application_id'=>SKIDDER_APPLICATION_ID,
-							  'script'=>$_SERVER['REQUEST_URI'],
+							  'script'=>$script,
 							  'type'=>$errstr,
 							  'message'=>$message));
 			curl_exec($skidder);
