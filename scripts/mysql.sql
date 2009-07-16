@@ -377,9 +377,9 @@ create table locations (
 	name varchar(60) not null,
 	locationType_id int unsigned not null default 1,
 	address varchar(128) not null,
-        phone varchar(15),
+    phone varchar(15),
 	description text not null,
-        website varchar(255),
+    website varchar(255),
 	content text,
 	latitude float(10,6),
 	longitude float(10,6),
@@ -394,6 +394,7 @@ create table locationGroups (
 	name varchar(128) not null,
 	department_id int unsigned not null,
 	description text,
+	defaultFlag boolean,
 	foreign key (department_id) references departments(id)
 ) engine=InnoDB;
 

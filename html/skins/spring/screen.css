@@ -35,6 +35,7 @@ code { font-family:monospace; }
 address { font-style:normal; }
 
 dt { font-weight:bold; }
+li.default { font-weight:bold; }
 
 blockquote { margin:1em 40px; }
 

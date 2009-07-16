@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2007-2008 City of Bloomington, Indiana. All rights reserved.
+ * @copyright 2007-2009 City of Bloomington, Indiana
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
@@ -40,6 +40,11 @@ class LocationGroupList extends PDOResultIterator
 		{
 			$options[] = 'description=:description';
 			$parameters[':description'] = $fields['description'];
+		}
+		if (isset($fields['default'])) {
+			$default = $fields['default'] ? 1 : 0;
+			$options[] = 'defaultFlag=:defaultFlag';
+			$parameters[':defaultFlag'] = $default;
 		}
 
 

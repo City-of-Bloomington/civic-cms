@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright 2007-2009 City of Bloomington, Indiana.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
@@ -24,6 +24,11 @@
 				}
 			?>
 			</select>
+		</td>
+	</tr>
+	<tr><td><label for="locationGroup-defaultFlag">Default</label></td>
+		<td><input name="locationGroup[defaultFlag]" id="locationGroup-defaultFlag" type="checkbox" />
+			Makes this group displayed, by default, on the locations map.
 		</td>
 	</tr>
 	</table>

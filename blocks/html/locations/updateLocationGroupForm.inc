@@ -29,6 +29,14 @@
 			</select>
 		</td>
 	</tr>
+	<tr><td><label for="locationGroup-defaultFlag">Default</label></td>
+		<td><input name="locationGroup[defaultFlag]"
+					id="locationGroup-defaultFlag"
+					type="checkbox"
+					<?php echo $this->locationGroup->isDefault() ? 'checked="checked"' : ''; ?> />
+			Makes this group displayed, by default, on the locations map.
+		</td>
+	</tr>
 	</table>
 </fieldset>
 

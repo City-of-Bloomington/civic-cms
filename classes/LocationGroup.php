@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2007-2008 City of Bloomington, Indiana. All rights reserved.
+ * @copyright 2007-2008 City of Bloomington, Indiana
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
@@ -10,6 +10,7 @@ class LocationGroup extends ActiveRecord
 	private $name;
 	private $department_id;
 	private $description;
+	private $defaultFlag;
 
 	private $department;
 
@@ -51,10 +52,17 @@ class LocationGroup extends ActiveRecord
 		# Check for required fields here.  Throw an exception if anything is missing.
 		if (!$this->name) { throw new Exception('missingRequiredFields'); }
 
+		# Make sure there can only be one default locationGroup
+		if ($this->isDefault()) {
+			$pdo = Database::getConnection();
+			$pdo->query('update locationGroups set defaultFlag=null');
+		}
+
 		$fields = array();
 		$fields['name'] = $this->name;
 		$fields['department_id'] = $this->department_id;
 		$fields['description'] = $this->description ? $this->description : null;
+		$fields['defaultFlag'] = $this->defaultFlag ? 1 : null;
 
 		# Split the fields up into a preparedFields array and a values array.
 		# PDO->execute cannot take an associative array for values, so we have
@@ -119,6 +127,7 @@ class LocationGroup extends ActiveRecord
 
 	public function __toString() { return $this->name; }
 	public function getURL() { return BASE_URL.'/locations/?locationGroup_id='.$this->id; }
+	public function isDefault() { return $this->defaultFlag ? true : false; }
 
 	/**
 	 * Generic Getters
@@ -127,6 +136,7 @@ class LocationGroup extends ActiveRecord
 	public function getName() { return $this->name; }
 	public function getDepartment_id() { return $this->department_id; }
 	public function getDescription() { return $this->description; }
+	public function getDefaultFlag() { return $this->defaultFlag; }
 	public function getDepartment()
 	{
 		if ($this->department_id)
@@ -144,4 +154,5 @@ class LocationGroup extends ActiveRecord
 	public function setDepartment_id($int) { $this->department = new Department($int); $this->department_id = $int; }
 	public function setDescription($text) { $this->description = trim($text); }
 	public function setDepartment($department) { $this->department_id = $department->getId(); $this->department = $department; }
+	public function setDefaultFlag($boolean) { $this->defaultFlag = $boolean ? 1 : null; }
 }
