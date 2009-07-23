@@ -6,7 +6,7 @@
  * Class for working with a previously created search index.  Before this class
  * will work, you must have run /scripts/install_search.php
  */
-ini_set('include_path',ini_get('include_path').ZEND.':');
+ini_set('include_path',ini_get('include_path').':'.ZEND.':');
 require_once 'Zend/Search/Lucene.php';
 
 # Zend Search Lucene uses a TON of memory.
