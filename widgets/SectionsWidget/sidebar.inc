@@ -14,14 +14,18 @@
 <div class="navigation widget">
 	<h1>
 	<?php
-		echo View::escape($this->section->getName());
+		$name = $this->section->getNickname()
+				? $this->section->getNickname()
+				: $this->section->getName();
+		echo View::escape($name);
 	?>
 	</h1>
 	<ul>
 	<?php
 		foreach($this->section->getChildren() as $section)
 		{
-			$name = View::escape($section->getName());
+			$name = $section->getNickname() ? $section->getNickname() : $section->getName();
+			$name = View::escape($name);
 
 			if (isset($this->currentSection) && $section->getId()==$this->currentSection->getId())
 			{
