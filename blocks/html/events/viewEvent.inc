@@ -38,9 +38,4 @@
 	<p><strong>Contact:</strong> $name. $phone, $email</p>
 	<div>$description</div>
 	";
-
-	if (!$this->event instanceof EventRecurrence && $this->event->getRRule())
-	{
-		echo "<div>{$this->event->getRRule()}</div>";
-	}
 ?>
