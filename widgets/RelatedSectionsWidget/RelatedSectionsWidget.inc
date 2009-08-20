@@ -42,9 +42,22 @@ class RelatedSectionsWidget extends Widget
 				// we do not want to display Home as related
 				// We do not want to display the current section as related
 				if (!array_key_exists($section->getId(),$this->sectionList)
-					&& ($section->getId() != 1)
-					&& (isset($_GET['section_id']) && $section->getId() != $_GET['section_id'])) {
+					&& ($section->getId() != 1)) {
+
+					// Find out what the current section is
+					$ancestors = $template->currentAncestors;
+					if (count($ancestors)) {
+						$currentSection = end($ancestors);
+						// Don't list the current section as related
+						if ($section->getId() != $currentSection->getId()) {
+							$this->sectionList[$section->getId()] = $section;
+						}
+					}
+					else {
+						// We have no idea what the current section is
+						// Just list all the sections as related
 						$this->sectionList[$section->getId()] = $section;
+					}
 				}
 			}
 
