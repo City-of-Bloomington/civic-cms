@@ -284,14 +284,14 @@ a.reveal { width:12px; height:12px; background-image:url('images/icons/reveal_in
 .pageNavigation a { font-size:14px; color:#003366; }
 .pageNavigation a:hover { text-decoration:underline; }
  
-.callOutright { width:175px; float:right; margin:1px; display:block; color:red; font-size:18px; padding:20px 0 20px 20px; }
+.callOutright { margin:1px; color:red; font-size:18px; padding:10px 10px 10px 10px; }
 .callOut ul { list-style-type:none; }
 
-.callOutleft { width:175px; float:left; color:red; margin:1px;  display:block;  font-size:18px; font-family:impact; padding:20px 20px 20px 0; }
+.callOutleft { float:left; color:red; margin:1px;  display:block;  font-size:18px; font-family:impact; padding:20px 20px 20px 0; }
 .callOut ul { list-style-type:none; }
 
 #frontImages img { margin:0 15px 0 0px; padding:0px; }
-#homepageEvents { border:1px solid white; padding:0 5px; margin-right:50px; float:right; }
+#homepageEvents { border:1px solid white; padding:0 5px; margin:0 5px; float:right; }
 #homepageEvents h2 { font-size:22px; clear:none; text-align:center; }
 #homepageEvents li { list-style-type:none; margin:0; padding:0; }
 
