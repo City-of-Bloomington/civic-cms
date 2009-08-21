@@ -297,24 +297,24 @@ a.button {
 	vertical-align:middle;
 }
 
-/* Image Replacements for hrefs that are to be rendered as buttons */
-a.addSmall { width:15px; height:15px; background-image:url('../default/images/addSmall.gif'); }
-a.editSmall { width:15px; height:15px; background-image:url('../default/images/editSmall.gif'); }
-a.deleteSmall { width:15px; height:15px; background-image:url('../default/images/deleteSmall.gif'); }
+//* Image Replacements for hrefs that are to be rendered as buttons */
+a.addSmall { width:15px; height:15px; background:url('../default/images/addSmall.gif') no-repeat; }
+a.editSmall { width:15px; height:15px; background:url('../default/images/editSmall.gif') no-repeat; }
+a.deleteSmall { width:15px; height:15px; background:url('../default/images/deleteSmall.gif') no-repeat; }
 
-a.up { width:16px; height:16px; background-image:url('../default/images/up.png'); }
-a.down { width:16px; height:16px; background-image:url('../default/images/down.png'); }
-a.rssSmall { width:14px; height:14px; background-image:url('../default/images/feed-icon-14x14.png'); }
-a.rss { width:28px; height:28px; background-image:url('../default/images/feed-icon-28x28.png'); }
-a.ical { width:16px; height:16px; background-image:url('../default/images/date.png'); }
-a.kmlFeed { width:16px; height:16px; background-image:url('../default/images/kml_feed_small.png'); }
+a.up { width:16px; height:16px; background:url('../default/images/up.png') no-repeat; }
+a.down { width:16px; height:16px; background:url('../default/images/down.png') no-repeat; }
+a.rssSmall { width:14px; height:14px; padding-left:20px; background:url('../default/images/feed-icon-14x14.png') no-repeat; }
+a.rss { width:28px; height:28px; padding-left:20px; background:url('../default/images/feed-icon-28x28.png') no-repeat; }
+a.ical { width:16px; height:16px; padding-left:20px; background:url('../default/images/date.png') no-repeat; }
+a.kmlFeed { width:16px; height:16px; padding-left:20px; background:url('../default/images/kml_feed_small.png') no-repeat; }
 
-a.subscribe { width:22px; height:22px; background-image:url('images/buttons/x.gif'); }
-a.unsubscribe { width:22px; height:22px; background-image:url('images/buttons/checkmark.gif'); }
-a.notify { width:22px; height:22px; background-image:url('../default/images/mail_send.png'); }
-a.watch { width:22px; height:22px; background-image:url('../default/images/mail_get.png'); }
-a.unwatch { width:22px; height:22px; background-image:url('../default/images/mail_delete.png'); }
-a.reveal { width:12px; height:12px; background-image:url('images/icons/reveal_in_map.gif'); }
+a.subscribe { width:22px; height:22px; background:url('images/buttons/x.gif') no-repeat; }
+a.unsubscribe { width:22px; height:22px; background:url('images/buttons/checkmark.gif') no-repeat; }
+a.notify { width:22px; height:22px; background:url('../default/images/mail_send.png') no-repeat; }
+a.watch { width:22px; height:22px; background:url('../default/images/mail_get.png') no-repeat; }
+a.unwatch { width:22px; height:22px; background:url('../default/images/mail_delete.png') no-repeat; }
+a.reveal { width:12px; height:12px; background:url('images/icons/reveal_in_map.gif') no-repeat; }
 
 /* ICONS FOR MIME TYPES */
 .jpg { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/image.png') no-repeat; }

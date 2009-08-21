@@ -305,11 +305,10 @@ a.deleteSmall { width:15px; height:15px; background:url('../default/images/delet
 
 a.up { width:16px; height:16px; background:url('../default/images/up.png') no-repeat; }
 a.down { width:16px; height:16px; background:url('../default/images/down.png') no-repeat; }
-a.rssSmall { width:14px; height:14px; background:url('../default/images/feed-icon-14x14.png') no-repeat; }
-a.rss { width:28px; height:28px; background:url('../default/images/feed-icon-28x28.png') no-repeat; }
+a.rssSmall { width:14px; height:14px; padding-left:20px; background:url('../default/images/feed-icon-14x14.png') no-repeat; }
+a.rss { width:28px; height:28px; padding-left:20px; background:url('../default/images/feed-icon-28x28.png') no-repeat; }
 a.ical { width:16px; height:16px; padding-left:20px; background:url('../default/images/date.png') no-repeat; }
-a.kmlFeed { width:16px; height:16px; background:url('../default/images/kml_feed_small.png') no-repeat; }
-
+a.kmlFeed { width:16px; height:16px; padding-left:20px; background:url('../default/images/kml_feed_small.png') no-repeat; }
 a.subscribe { width:22px; height:22px; background:url('images/buttons/x.gif') no-repeat; }
 a.unsubscribe { width:22px; height:22px; background:url('images/buttons/checkmark.gif') no-repeat; }
 a.notify { width:22px; height:22px; background:url('../default/images/mail_send.png') no-repeat; }
