@@ -17,13 +17,13 @@ p { margin:0; margin-bottom:.5em; }
 h1 { font-size:18px; color:#003366; margin:0; padding:0; font-weight:bold; clear:both; }
 h2 { font-size:16px; color:#003366;  margin:15px 0px 5px 0px; font-weight:bold; border-bottom:1px solid #bdbdbd; clear:both; }
 h2 a { color:#003366; }
-h3 { font-size:14px; color:#003366; margin:15px 0px 5px 0px; padding:0; font-weight:bold; clear:both; }
+h3 { font-size:14px; color:#003366; margin:15px 0px 5px 0px; padding:0; font-weight:bold; }
 h3 a { color:#003366; }
-h4 { font-size:13px; color:#003366; margin:15px 0px 5px 0px; padding:0; font-weight:bold; clear:both; }
+h4 { font-size:13px; color:#003366; margin:15px 0px 5px 0px; padding:0; font-weight:bold;}
 h4 a { color:#003366; }
-h5 { font-size:13px; color:#003366; margin:15px 0px 5px 0px; padding:0; font-weight:bold; clear:both; }
+h5 { font-size:13px; color:#003366; margin:15px 0px 5px 0px; padding:0; font-weight:bold; }
 h5 a { color:#003366; }
-h6 { font-size:12px; color:#003366; margin:15px 0px 5px 0px; font-weight:bold; clear:both; }
+h6 { font-size:12px; color:#003366; margin:15px 0px 5px 0px; font-weight:bold; }
 h6 a { color:#003366; }
 
 strong { font-weight:bold; }
