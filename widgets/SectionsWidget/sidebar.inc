@@ -17,7 +17,8 @@
 		$name = $this->section->getNickname()
 				? $this->section->getNickname()
 				: $this->section->getName();
-		echo View::escape($name);
+		$name = View::escape($name);
+		echo "<a href=\"{$this->section->getURL()}\">$name</a>";
 	?>
 	</h1>
 	<ul>
