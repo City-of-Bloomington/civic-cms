@@ -169,7 +169,7 @@ class SectionWidget extends ActiveRecord
 	public function setSection_id($int) { $this->section = new Section($int); $this->section_id = $int; }
 	public function setWidget_id($int) { $this->widget = new WidgetInstallation($int); $this->widget_id = $int; }
 	public function setPanel_id($int) { $this->panel = new Panel($int); $this->panel_id = $int; }
-	public function setLayout_order($int) { $this->layout_order = ereg_replace("[^0-9]","",$int); }
+	public function setLayout_order($int) { $this->layout_order = preg_replace('/[^0-9]/','',$int); }
 	public function setData($string) { $this->data = trim($string); }
 
 	public function setSection($section) { $this->section_id = $section->getId(); $this->section = $section; }

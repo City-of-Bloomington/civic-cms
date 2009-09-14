@@ -192,8 +192,8 @@ class Location extends ActiveRecord
 	public function setDescription($string) { $this->description = trim(str_replace(array("\r\n","\n","\r"),' ',$string)); }
 	public function setWebsite($string) { $this->website = trim($string); }
 	public function setContent($text) { $this->content = $text; }
-	public function setLatitude($float) { $this->latitude = ereg_replace("[^0-9.\-]","",$float); }
-	public function setLongitude($float) { $this->longitude = ereg_replace("[^0-9.\-]","",$float); }
+	public function setLatitude($float) { $this->latitude = preg_replace('/[^0-9.\-]/','',$float); }
+	public function setLongitude($float) { $this->longitude = preg_replace('/[^0-9.\-]/','',$float); }
 	public function setDepartment_id($int) { $this->department = new Department($int); $this->department_id = $int; }
 	public function setHandicap_accessible($bool) { $this->handicap_accessible = $bool ? true : false; }
 

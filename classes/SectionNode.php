@@ -206,7 +206,7 @@ class SectionNode extends ActiveRecord
 	/**
 	 * Generic Setters
 	 */
-	public function setPlacement($int) { $this->placement = ereg_replace("[^0-9]","",$int); }
+	public function setPlacement($int) { $this->placement = preg_replace('/[^0-9]/','',$int); }
 
 	# Sections should be read only once this is saved in the database
 	public function setSection_id($int)

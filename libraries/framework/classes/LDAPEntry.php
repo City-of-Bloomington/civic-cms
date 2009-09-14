@@ -469,7 +469,7 @@ class LDAPEntry
 	 */
 	public function setPhone($string)
 	{
-		$this->changeProperty("telephoneNumber",ereg_replace("[^0-9[:space:]ext\-]","",$string));
+		$this->changeProperty("telephoneNumber",preg_replace('/[^0-9ext\-\s]/','',$string));
 	}
 	/**
 	 * @param string $string
@@ -477,7 +477,7 @@ class LDAPEntry
 	public function setPreferredPhone($string)
 	{
 		$this->changeProperty("preferredTelephoneNumber",
-							  ereg_replace("[^0-9[:space:]ext\-]","",$string));
+							  preg_replace('/[^0-9ext\-\s]/','',$string));
 	}
 	/**
 	 * @param string $string
@@ -485,7 +485,7 @@ class LDAPEntry
 	public function setWebPhone($string)
 	{
 		$this->changeProperty("webTelephoneNumber",
-							  ereg_replace("[^0-9[:space:]ext\-]","",$string));
+							  preg_replace('/[^0-9ext\-\s]/','',$string));
 	}
 	/**
 	 * @param string $string
@@ -493,28 +493,28 @@ class LDAPEntry
 	public function setFax($string)
 	{
 		$this->changeProperty("facsimileTelephoneNumber",
-							  ereg_replace("[^0-9[:space:]ext\-]","",$string));
+							  preg_replace('/[^0-9ext\-\s]/','',$string));
 	}
 	/**
 	 * @param string $string
 	 */
 	public function setHomePhone($string)
 	{
-		$this->changeProperty("homePhone",ereg_replace("[^0-9[:space:]ext\-]","",$string));
+		$this->changeProperty("homePhone",preg_replace('/[^0-9ext\-\s]/','',$string));
 	}
 	/**
 	 * @param string $string
 	 */
 	public function setCellPhone($string)
 	{
-		$this->changeProperty("mobile",ereg_replace("[^0-9[:space:]ext\-]","",$string));
+		$this->changeProperty("mobile",preg_replace('/[^0-9ext\-\s]/','',$string));
 	}
 	/**
 	 * @param string $string
 	 */
 	public function setDialup($string)
 	{
-		$this->changeProperty("dialupAccess",ereg_replace("[^0-9[:space:]ext\-]","",$string));
+		$this->changeProperty("dialupAccess",preg_replace('/[^0-9ext\-\s]/','',$string));
 	}
 	/**
 	 * @param string $filePath

@@ -192,10 +192,10 @@
 		 */
 		public function setClass($string) { $this->class = trim($string); }
 		public function setGlobal_panel_id($int) { $this->global_panel = new Panel($int); $this->global_panel_id = $int; }
-		public function setGlobal_layout_order($int) { $this->global_layout_order = ereg_replace("[^0-9]","",$int); }
+		public function setGlobal_layout_order($int) { $this->global_layout_order = preg_replace('/[^0-9]/','',$int); }
 		public function setGlobal_data($string) { $this->global_data = trim($string); }
 		public function setDefault_panel_id($int) { $this->default_panel = new Panel($int); $this->default_panel_id = $int; }
-		public function setDefault_layout_order($int) { $this->default_layout_order = ereg_replace("[^0-9]","",$int); }
+		public function setDefault_layout_order($int) { $this->default_layout_order = preg_replace('/[^0-9]/','',$int); }
 		public function setDefault_data($string) { $this->default_data = trim($string); }
 
 		public function setGlobal_panel($panel) { $this->global_panel_id = $panel->getId(); $this->global_panel = $panel; }

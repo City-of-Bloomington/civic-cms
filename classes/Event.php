@@ -468,17 +468,17 @@
 		{
 			if ($int)
 			{
-				$this->rrule_count = ereg_replace("[^0-9]","",$int);
+				$this->rrule_count = preg_replace('/[^0-9]/','',$int);
 
 				#RRule Until and RRule Count must be mutually exclusive
 				$this->rrule_until = null;
 			}
 			else { $this->rrule_count = null; }
 		}
-		public function setRrule_interval($int) { $this->rrule_interval = ereg_replace("[^0-9]","",$int); }
+		public function setRrule_interval($int) { $this->rrule_interval = preg_replace('/[^0-9]/','',$int); }
 		public function setRrule_byday($string) { $this->rrule_byday = trim($string); }
 		public function setRrule_bymonthday($string) { $this->rrule_bymonthday = trim($string); }
-		public function setRrule_bysetpos($int) { $this->rrule_bysetpos = ereg_replace("[^0-9\-]","",$int); }
+		public function setRrule_bysetpos($int) { $this->rrule_bysetpos = preg_replace('/[^0-9\-]/','',$int); }
 		public function setCalendar_id($int) { $this->calendar = new Calendar($int); $this->calendar_id = $int; }
 		public function setLocation_id($int) { $this->location = new Location($int); $this->location_id = $int; }
 		public function setUser_id($int) { $this->user = new User($int); $this->user_id = $int; }
