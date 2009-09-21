@@ -41,6 +41,7 @@
 										'ram'=>array('mime_type'=>'audio/vnd.rn-realaudio','media_type'=>'audio'),
 										'mp3'=>array('mime_type'=>'audio/mpeg','media_type'=>'audio'),
 										'mp4'=>array('mime_type'=>'video/mp4','media_type'=>'video'),
+										'flv'=>array('mime_type'=>'video/x-flv','media_type'=>'video'),
 										'wma'=>array('mime_type'=>'audio/x-ms-wma','media_type'=>'audio'),
 										'kml'=>array('mime_type'=>'application/vnd.google-earth.kml+xml','media_type'=>'attachment'),
 										'swf'=>array('mime_type'=>'application/x-shockwave-flash','media_type'=>'attachment')
