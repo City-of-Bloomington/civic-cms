@@ -461,4 +461,8 @@ div.customalert p { margin: 1px 1px 1px 3px; font-size:12px; padding-left:14px; 
 		padding:4px 7px 4px 7px;
 	}
 	.gray { background-color:#eee; }
+	
+.fan_widget .fan_box .full_widget {border:none; }
+.fan_box .profileImage {display:none;}
+
 
