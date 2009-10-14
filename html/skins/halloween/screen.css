@@ -137,7 +137,8 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 .sidebar td { border:0; }
 
 .sidebar .widget { width:200px; margin-bottom:15px; font-size:11px; }
-.sidebar .widget h1 { width:190px; background:#cc3300; url('images/widgets/widget_top_bg.gif') top no-repeat; margin-left:-10px; padding:5px 10px 5px 10px; font-size:12px; color:#ffffff; font-weight:bold; }
+.sidebar .widget h1 { width:190px; background:#5a8fdc url('images/widgets/widget_top_bg.gif') top no-repeat; margin-left:-10px; padding:5px 10px 5px 10px; font-size:12px; color:#ffffff; font-weight:bold; }
+.sidebar .widget h1 a {color:white; font-size:12px; }
 .sidebar .widget a { color:black; font-size:11px; }
 .sidebar .widget address a { color:#3399cc; }
 
@@ -145,15 +146,15 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 .sidebar .viewMoreLink a { font-size:12px; }
 
 /* styles for Constituencies Widget */
-.sidebar .widget li.business-guide { background-image: url('images/icons/bullet_rec_red.gif'); }
-.sidebar .widget li.for-kids-guide { background-image: url('images/icons/bullet_rec_aqua.gif'); }
-.sidebar .widget li.local-arts-guide { background-image: url('images/icons/bullet_rec_teal.gif'); }
-.sidebar .widget li.nonprofits-guide { background-image: url('images/icons/bullet_rec_lred.gif'); }
-.sidebar .widget li.residents-guide { background-image: url('images/icons/bullet_rec_violet.gif'); }
-.sidebar .widget li.students-guide { background-image: url('images/icons/bullet_rec_orange.gif'); }
-.sidebar .widget li.visitors-guide { background-image: url('images/icons/bullet_rec_lgreen.gif'); }
-.sidebar .widget li.volunteers-guide { background-image: url('images/icons/bullet_rec_lblue.gif'); }
-.sidebar .widget li.voters-guide { background-image: url('images/icons/bullet_rec_yellow.gif'); }
+.sidebar .widget li.business-guide { background: url('images/icons/bullet_rec_sprites.gif') no-repeat left top; }
+.sidebar .widget li.for-kids-guide { background: url('images/icons/bullet_rec_sprites.gif') no-repeat left top; background-position:0 -30px; }
+.sidebar .widget li.local-arts-guide { background: url('images/icons/bullet_rec_sprites.gif') no-repeat left top; background-position:0 -60px; }
+.sidebar .widget li.nonprofits-guide { background: url('images/icons/bullet_rec_sprites.gif') no-repeat left top; background-position:0 -90px; }
+.sidebar .widget li.residents-guide { background: url('images/icons/bullet_rec_sprites.gif') no-repeat left top; background-position:0 -120px; }
+.sidebar .widget li.students-guide { background: url('images/icons/bullet_rec_sprites.gif') no-repeat left top; background-position:0 -150px; }
+.sidebar .widget li.visitors-guide { background: url('images/icons/bullet_rec_sprites.gif') no-repeat left top; background-position:0 -180px; }
+.sidebar .widget li.volunteers-guide { background: url('images/icons/bullet_rec_sprites.gif') no-repeat left top; background-position:0 -210px; }
+.sidebar .widget li.voters-guide { background: url('images/icons/bullet_rec_sprites.gif') no-repeat left top; background-position:0 -240px; }
 
 /* styles for the Attachments Widget */
 .sidebar .attachments li { background-image:none; border-bottom:0; padding-left:0px; }
@@ -165,7 +166,6 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 
 /* We want the navigation widget to be a different color, matching the TopLevelSections */
 .sidebar .navigation h1 { background:#013466 url('images/widgets/navigation_widget_top_bg.gif') top no-repeat !important; }
-.sidebar .navigation h1 a {color:white; font-size:12px; }
 .sidebar .navigation { background-color:#f2f2f2; }
 .sidebar .calendar { width:190px; }
 .sidebar .calendar td { padding:2px; }
@@ -187,9 +187,9 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 #pageTitle { background:url('images/contentarea/pageTitle-background.gif') top repeat-y; width:488px; margin-bottom:10px; padding-top:5px; }
 #pageTitle h1 { background:url('images/contentarea/pageTitle-bottom.gif') bottom left no-repeat; width:488px; padding-left:10px; padding-bottom:8px; }
 
-.breadcrumbs { font-size:11px; color:black; padding-bottom:10px; margin-left:6px;  }
+.breadcrumbs { font-size:11px; color:black; margin-left:6px;  }
 .breadcrumbs ul { margin:0; padding:0; }
-.breadcrumbs li { display:inline; list-style-type:none; font-weight:bold; }
+.breadcrumbs li { display:inline; list-style-type:none; font-weight:bold; padding-bottom:10px; }
 .breadcrumbs li a { padding-right:8px; background:url('images/contentarea/breadcrumb.gif') no-repeat right; color:black; font-weight:normal; }
 
 .interfaceBox { border-top:1px solid #003366; margin-top:10px; margin-bottom:10px; padding-top:6px; }
@@ -207,7 +207,6 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 
 /* adds 5px spacing for list items in the content area. does not affect other list items in the layout such as nav and widgets */
 #mainContent li { margin:5px; }
-
 
 /* defines table styles for tables in the center column / content area. Will not affect other tables like the calendar */
 #mainContent table { border-collapse:collapse; border:1px solid #999999; }
@@ -310,7 +309,6 @@ a.rssSmall { width:14px; height:14px; padding-left:20px; background:url('../defa
 a.rss { width:28px; height:28px; padding-left:20px; background:url('../default/images/feed-icon-28x28.png') no-repeat; }
 a.ical { width:16px; height:16px; padding-left:20px; background:url('../default/images/date.png') no-repeat; }
 a.kmlFeed { width:16px; height:16px; padding-left:20px; background:url('../default/images/kml_feed_small.png') no-repeat; }
-
 a.subscribe { width:22px; height:22px; background:url('images/buttons/x.gif') no-repeat; }
 a.unsubscribe { width:22px; height:22px; background:url('images/buttons/checkmark.gif') no-repeat; }
 a.notify { width:22px; height:22px; background:url('../default/images/mail_send.png') no-repeat; }
@@ -344,6 +342,7 @@ a.reveal { width:12px; height:12px; background:url('images/icons/reveal_in_map.g
 .folder { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/folder.png') no-repeat; }
 
 /* Styles for the Featured "Spotlight" blocks */
+.featured { border:0px; margin-top:0px; }
 .featured table { width:100%; border:0 !important; }
 .featured th { background-color:white !important; border:0 !important; }
 .featured td { border:0 !important; }
@@ -385,15 +384,18 @@ div.customalert p { margin: 1px 1px 1px 3px; font-size:12px; padding-left:14px; 
 
 
 
-/* HANAPIN - Styles for filter and organize by lists in page content area */
-.tabBar { padding-bottom:10px; padding-top:10px; }
-.tabBar ul { margin:10px 0 0 0; padding:0; font-size:11px; list-style-type:none; }
-.tabBar li { list-style-type:none; display:inline; background-color:#f3f3f3; border:1px solid #013466; padding:3px; }
-.tabBar a { font-size:11px; color:#003366; text-decoration:none; }
-.tabBar a:hover { color:#003366; text-decoration:underline; }
-.tabBar .title { font-size:11px; color:#003366; float:left; width:120px; font-weight:bold; }
-.tabBar .current { font-weight:bold; background-color:#013466; color:white; padding:3px; }
-.tabBar .current a { color:white; }
+.tabBar { margin-top:1em; display:table; }
+	.tabBar ul { margin:0; padding:0; list-style-type:none; display:table; float:left; }
+	.tabBar li {
+		display:inline-block; float:left; clear:none;
+		width:auto; padding:0px; margin:0 5px 0 0 ;
+		font-size:14px; font-weight:bold;color:white;
+		background:url('images/tabs/light_blue_gradient.gif');
+	}
+	#mainContent .tabBar li { margin:0 5px 0 0 ; }
+.tabBar a { color:white; text-decoration:none; display:block; padding:4px 7px 4px 7px; white-space:nowrap; }
+.tabBar a:hover { text-decoration:underline; }
+.tabBar .current { background:url('images/tabs/dark_blue_gradient.gif'); }
 .tabBar select { font-size:11px; margin-left:6px;  }
 .tabBar button { font-size:11px; }
 
@@ -458,3 +460,8 @@ div.customalert p { margin: 1px 1px 1px 3px; font-size:12px; padding-left:14px; 
 		padding:4px 7px 4px 7px;
 	}
 	.gray { background-color:#eee; }
+	
+.fan_widget .fan_box .full_widget {border:none; }
+.fan_box .profileImage {display:none;}
+
+
