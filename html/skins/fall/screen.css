@@ -412,3 +412,50 @@ div.customalert p { margin: 1px 1px 1px 3px; font-size:12px; padding-left:14px; 
 
 .blogPost {border-bottom:1px dotted black; }
 
+/* myBloomington */
+#panel-container { border-left:1px solid #000; border-right:1px solid #000; }
+#findAddressForm p { font-size:14px; width:488px; margin-top:1em; }
+#findAddressForm #address {
+	border-left:1px solid #333333;
+	border-top:1px solid #333333;
+	border-bottom:1px solid #333333;
+	border-right:0px;
+	height:16px;
+	color:#777777;
+	padding-left:5px; padding-top:3px;
+	margin:0; float:left;
+	width:28ex;
+}
+#findAddressForm label { float:left; font-size:14px; margin-right:1em; padding-top:3px; }
+#findAddressForm button.search { width:75px; height:22px; padding-top:22px; background:url('images/buttons/search.gif') no-repeat; border:0; }
+#search_tips_link { float:left; clear:left; margin-left:124px; margin-top:5px; }
+
+#map { margin-top:0.5em; }
+.myBloomington_panel { width:488px; border:1px solid #777; font-size:14px; }
+.myBloom_entry { padding:10px; border-right:1px solid #CCC; border-bottom:1px solid #AAA; }
+.myBloom_entry h3 { font-size:14px; margin:0px; }
+.myBloom_entry p { margin-top:0.5em; }
+.myBloom_entry .address { margin:0px; }
+.myBloom_entry .address a { color:#777; font-size:12px; }
+	#mainContent .myBloomington_panel table {
+		width:100%; margin:0px;
+		border:0px;
+		border-collapse:collapse;
+		border-spacing:0px;
+		font-size:14px;
+		border-right:1px solid #CCC;
+		border-bottom:1px solid #AAA;
+	}
+	.myBloomington_panel tr { border-bottom:1px solid #DDD; }
+	#mainContent .myBloomington_panel th {
+		text-align:right; background:none;
+		padding:4px 7px 4px 7px; color:#FFF; background-color:#AAA;
+	}
+
+	#mainContent .myBloomington_panel td {
+		border:0px;
+		background:none;
+		padding:4px 7px 4px 7px;
+	}
+	.gray { background-color:#eee; }
+

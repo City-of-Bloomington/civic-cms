@@ -1,7 +1,7 @@
 @import url('../reset.css');
 
-html { background-color:black; background-position:top; text-align:center; padding-bottom:10px; }
-body { width:750px; position:relative; margin:0 auto; text-align:left; background-color:black; color:white; font-family:Arial, Helvetica, sans-serif; }
+html { text-align:center; padding-bottom:10px;  }
+body { width:900px;  position:relative; margin:0 auto; text-align:left; font-family:Arial, Helvetica, sans-serif; border:1px solid red; overflow:auto; background:url('images/background.png') top left repeat-y; }
 
 *[dir="rtl"] { text-align:right; }
 
@@ -14,16 +14,16 @@ hr { border:0; height:1px; background-color:#003366; margin-bottom:10px; margin-
 
 p { margin:0; margin-bottom:.5em; }
 
-h1 { font-size:18px; color:white; margin:0; padding:0; font-weight:bold; clear:both; }
-h2 { font-size:16px; color:white;  margin:15px 0px 5px 0px; font-weight:bold; border-bottom:1px solid #bdbdbd; clear:both; }
+h1 { font-size:18px; margin:0; padding:0; font-weight:bold; clear:both; }
+h2 { font-size:16px;   margin:15px 0px 5px 0px; font-weight:bold; border-bottom:1px solid #bdbdbd; clear:both; }
 h2 a { color:#003366; }
-h3 { font-size:14px; color:white; margin:15px 0px 5px 0px; padding:0; font-weight:bold; clear:right; }
+h3 { font-size:14px;  margin:15px 0px 5px 0px; padding:0; font-weight:bold; clear:right; }
 h3 a { color:#003366; }
-h4 { font-size:13px; color:white; margin:15px 0px 5px 0px; padding:0; font-weight:bold; clear:both; }
+h4 { font-size:13px;  margin:15px 0px 5px 0px; padding:0; font-weight:bold; clear:both; }
 h4 a { color:#003366; }
-h5 { font-size:13px; color:white; margin:15px 0px 5px 0px; padding:0; font-weight:bold; clear:both; }
+h5 { font-size:13px; margin:15px 0px 5px 0px; padding:0; font-weight:bold; clear:both; }
 h5 a { color:#003366; }
-h6 { font-size:12px; color:white; margin:15px 0px 5px 0px; font-weight:bold; clear:both; }
+h6 { font-size:12px; margin:15px 0px 5px 0px; font-weight:bold; clear:both; }
 h6 a { color:#003366; }
 
 strong { font-weight:bold; }
@@ -40,7 +40,7 @@ blockquote { margin:1em 40px; }
 
 form { }
 fieldset { margin-bottom:10px; }
-legend { background-color:#5a8fdc; font-weight:bold; padding:4px; margin-bottom:2px; color:white; }
+legend { background-color:#5a8fdc; font-weight:bold; padding:4px; margin-bottom:2px; color:black; }
 label { font-weight:bold; }
 label.required {padding-left:15px; }
 select { font-size:12px; }
@@ -72,12 +72,12 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 
 
 
-#banner { width:740px; height:115px; margin:0; padding:0 5px 0 5px;  background-color:black; border:1px solid white; }
-#logo {background:url('images/banner/city_logo_white.gif') top left no-repeat; width:250px; height:30px; position:absolute; top:1px; left:5px;  text-indent:40px; }
-#logo a { display:table-cell; width:250px; height:30px; color:white; vertical-align:middle; }
+#banner { width:900px; height:125px; margin:0; padding:0; background:url('images//banner/pstcbanner.png') top left no-repeat; }
+#logo { width:250px; height:30px; position:absolute; top:1px; left:5px;  text-indent:-999px; }
+#logo a { display:table-cell; width:250px; height:30px; vertical-align:middle; }
 .pstcLinks { height:30px; position:absolute; top:1px; left:275px; text-indent:40px; }
 .pstcLinks h1 {display:none; }
-.pstcLinks a {height:30px; display:table-cell; background:url('images/banner/city_logo_white.gif') top left no-repeat; vertical-align:middle; color:white; padding-right:65px; }
+.pstcLinks a {height:30px; display:table-cell; background:url('images/banner/city_logo_white.gif') top left no-repeat; vertical-align:middle; padding-right:65px; }
 #topLevelSections { display:none; }
 #banner .take-action {display:none; }
 #skipNavigation { position:absolute; left:-9999px; }
@@ -85,21 +85,22 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 #secondaryLinks {display:none; }
 
 
-#main-content-container { width:740px; margin:0; overflow:auto; padding:0 5px 0 5px; background-color:black; color:white; border:1px solid white; }
-#leftSidebar { }
-#leftSidebar .widget { position:absolute; margin-left:-999px; }
+#leftSidebar { width:200px; }
+#leftSidebar .widget { display:none; }
 #rightSidebar { clear:right; }
 #rightSidebar .widget { display:none; }
 
-#leftSidebar .navigation {
-	position:absolute; left:5px; top:45px;
+body #leftSidebar .navigation {
+	display:block;
+	float:left;
+	width:200px; 
 	margin:0px;
 	}
 #leftSidebar .navigation ul {list-style:none; padding:0 0 2px 0px; margin-top:4px; }
-#leftSidebar .navigation li { font-size:15px; display:block; float:left; margin:0 0 2px 0; padding:0 7px 0px 7px; border-right:1px solid white; }
+#leftSidebar .navigation li { font-size:15px; display:block; margin:0 0 2px 0; padding:0 7px 0px 7px;  }
 #leftSidebar .navigation li .current { border-bottom:1px solid red; }
-.navigation a { color:white; }
-.navigation h1 {font-size:35px; color:red; }
+.navigation a { color:black; }
+.navigation h1 {font-size:15px; color:red; }
 
 
 #alerts ul {list-style:none; }
@@ -116,30 +117,29 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 
 /*  mainContent allows for 3 columns,	*/
 /*	backendContent allows for 2 columns	*/
-#mainContent { float:left; width:735px; font-size:12px; line-height:1.25; margin:0; padding:0; }
-#backendContent { float:left; margin-left:18px; width:720px; font-size:12px;  }
+#mainContent
+	{
+		margin-left:210px; width:650px;
+		font-size:12px; line-height:1.25;
+		padding:0 5px;
+		background-color:white; border:1px solid black;
+	}
+#backendContent {  margin-left:18px; width:720px; font-size:12px;  }
 
 
 #pageTitle { padding:0; margin:0 0 10px 0;  }
 #pageTitle h1 {  }
 
-.breadcrumbs { font-size:10px; padding:0 0 10px 0; margin:0; color:white; }
-.breadcrumbs ul { margin:0; padding:0; }
-.breadcrumbs li { display:inline; list-style-type:none; font-weight:bold; }
-.breadcrumbs li a { padding:0 8px 0 0; background:url('images/contentarea/bluebreadcrumb.gif') no-repeat right; font-weight:normal; }
+.breadcrumbs { display:none; }
 
 
 .interfaceBox { border-top:1px solid #003366; margin-top:10px; margin-bottom:10px; padding-top:6px; }
-.interfaceBox h1 { width:190px; background:url('images/widgets/widget_top_bg.gif') top no-repeat; background-color:#5a8fdc; padding:5px 10px 5px 10px; font-size:14px; color:#ffffff; }
-.interfaceBox h1 a { color:white; }
+.interfaceBox h1 { width:190px; background:url('images/widgets/widget_top_bg.gif') top no-repeat; background-color:#5a8fdc; padding:5px 10px 5px 10px; font-size:14px; }
+.interfaceBox h1 a { color:black; }
 .interfaceBox h2 { font-size:14px; border-bottom:none; }
 
 
-#footer { background-color:black; width:735px; padding:20px 20px 40px 20px; font-size:11px; color:white; clear:both; border-left:1px solid black; border-right:1px solid black; border-bottom:1px solid black; }
-#footer ul { list-style-type:none; margin:0; float:right; width:600px; text-align:right; }
-#footer li { display:inline; margin-left:4px; }
-#footer .copyright { width:300px; margin-left:5px; }
-#footer a { color:white; }
+#footer { display:none; }
 
 
 /* adds 5px spacing for list items in the content area. does not affect other list items in the layout such as nav and widgets */
@@ -243,7 +243,7 @@ a.reveal { width:12px; height:12px; background-image:url('images/icons/reveal_in
 
 /* Styles for the Featured "Spotlight" blocks */
 .featured table { width:100%; border:0 !important; }
-.featured th { background-color:white !important; border:0 !important; }
+.featured th { background-color:black !important; border:0 !important; }
 .featured td { border:0 !important; }
 .featured h4 { margin:0; }
 
@@ -261,7 +261,7 @@ a.reveal { width:12px; height:12px; background-image:url('images/icons/reveal_in
 
 /* Javascript creates tooltips on the fly */
 /* There is only one tooltip div, javascript just replaces it's contents */
-#tooltip { border:2px solid #5a8fdc; background-color:white; padding:4px; font-size:11px; }
+#tooltip { border:2px solid #5a8fdc; background-color:black; padding:4px; font-size:11px; }
 #tooltip.enlarge { padding-left:18px; background:white url('images/icons/viewmag.png') top left no-repeat; }
 
 
@@ -273,8 +273,8 @@ a.reveal { width:12px; height:12px; background-image:url('images/icons/reveal_in
 .tabBar a { font-size:11px; color:#003366; text-decoration:none; }
 .tabBar a:hover { color:#003366; text-decoration:underline; }
 .tabBar .title { font-size:11px; color:#003366; float:left; width:120px; font-weight:bold; }
-.tabBar .current { font-weight:bold; background-color:#013466; color:white; padding:3px; }
-.tabBar .current a { color:white; }
+.tabBar .current { font-weight:bold; background-color:#013466; color:black; padding:3px; }
+.tabBar .current a { color:black; }
 .tabBar select { font-size:11px; margin-left:6px;  }
 .tabBar button { font-size:11px; }
 
