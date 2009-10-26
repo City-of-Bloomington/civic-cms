@@ -1,45 +1,41 @@
 <?php
 /**
- * @copyright 2009 City of Bloomington, Indiana
+ * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 class FacetGroupWidget extends Widget
 {
-	protected $facetGroupList;
+	/**
+	 * The group this widget is supposed to render.
+	 */
+	public $facetGroup;
 
 	public function __construct()
 	{
 		$this->className = 'FacetGroupWidget';
-		$this->displayName = 'Facet Groups';
+		$this->displayName = 'Facet Group Links';
 		$this->includeFile = 'sidebar.inc';
-		$this->description = 'Lists the Facet Groups for the current Document';
+		$this->description = 'Displays links to the facets in the chosen group';
 	}
 
 	public function render($template)
 	{
-		if (isset($template->document)) {
-			$this->facetGroupList = $template->document->getFacetGroups();
-			if (count($this->facetGroupList)) {
-				echo $this->renderIncludeFile($this);
-			}
-		}
+		echo $this->renderIncludeFile($this);
 	}
 
 	/**
 	 * The application can call this to find out whether this widget uses stored data
 	 * @return boolean
 	 */
-	public function usesData()
-	{
-		return false;
-	}
+	public function usesData() { return true; }
 	/**
 	 * Unserializes the string field from the database into a variable
 	 * @param string $string
 	 */
 	public function setData($string)
 	{
+		$this->facetGroup = new FacetGroup($string);
 	}
 	/**
 	 * Serializes an array into a string that can be inserted into the database
@@ -50,13 +46,15 @@ class FacetGroupWidget extends Widget
 	 */
 	public function serializePost(array $post)
 	{
+		if(isset($_POST['facetGroup_id']))
+		{
+			return $_POST['facetGroup_id'];
+		}
 	}
 	/**
 	 * This lets the application ask for the path to the file holding the form fields
 	 * this widgets wants used
 	 * @return string Path to include file
 	 */
-	public function getDataFieldsetInclude()
-	{
-	}
+	public function getDataFieldsetInclude() { return dirname(__FILE__).'/dataFields.inc'; }
 }
