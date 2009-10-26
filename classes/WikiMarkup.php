@@ -632,7 +632,7 @@ class WikiMarkup
 		$facet = self::find($target);
 		if ($facet instanceof Facet)
 		{
-			$block = new Block('facets/facetDocuments.inc');
+			$block = new Block('facets/relatedDocuments.inc');
 			$block->facet = $facet;
 			return $block->render();
 		}
