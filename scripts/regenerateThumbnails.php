@@ -12,6 +12,8 @@ $images->find();
 foreach($images as $image)
 {
 	$file = "{$image->getDirectory()}/{$image->getInternalFilename()}";
+	Image::resize($file,'medium');
+	Image::resize($file,'thumbnail');
 	Image::resize($file,'icon');
 	echo "$file\n";
 }

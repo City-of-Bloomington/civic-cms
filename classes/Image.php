@@ -11,9 +11,9 @@ class Image extends Media
 	 * Provide the dimensions in the format recognized by ImageMagick
 	 * http://www.imagemagick.org/script/command-line-options.php#resize
 	 */
-	private static $sizes = array(	'medium'=>array('dimensions'=>'350x350>','ext'=>'jpg'),
+	private static $sizes = array(	'medium'=>array('dimensions'=>'480x480>','ext'=>'jpg'),
 									'thumbnail'=>array('dimensions'=>'100x100>','ext'=>'gif'),
-									'icon'=>array('dimensions'=>'x60','ext'=>'gif')
+									'icon'=>array('dimensions'=>'60x60','ext'=>'gif')
 								);
 
 
@@ -59,7 +59,7 @@ class Image extends Media
 			throw new Exception('media/unknownSize');
 		}
 	}
-	
+
 	/**
 	 * Uses ImageMagick to create a thumbnail file for the given image
 	 * Input must be a full path.
@@ -139,6 +139,6 @@ class Image extends Media
 		}
 		return exec(IMAGEMAGICK."/identify -format '%h' $file");
 	}
-	
+
 	public static function getSizes() { return self::$sizes; }
 }
