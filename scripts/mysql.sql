@@ -245,7 +245,8 @@ create table section_subscriptions (
 -- -------------------------------------------------------------------
 create table facetGroups (
 	id int unsigned not null primary key auto_increment,
-	name varchar(128) not null
+	name varchar(128) not null,
+	description text
 ) engine=InnoDB;
 
 create table facets (

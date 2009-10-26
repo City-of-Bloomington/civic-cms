@@ -9,15 +9,7 @@ $template->blocks[] = new Block('facets/breadcrumbs.inc');
 
 $groups = new FacetGroupList();
 $groups->find();
-foreach($groups as $group) {
-	$template->blocks[] = new Block('facets/facetList.inc',
-									array('facetList'=>$group->getFacets(),
-											'title'=>$group->getName(),
-											'facetGroup'=>$group));
-}
 
-if (userHasRole(array('Administrator','Webmaster'))) {
-	$template->blocks[] = new Block('facets/facetGroupList.inc',array('facetGroupList'=>$groups));
-}
+$template->blocks[] = new Block('facets/facetGroupList.inc',array('facetGroupList'=>$groups));
 
 echo $template->render();

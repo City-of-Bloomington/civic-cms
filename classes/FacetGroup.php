@@ -8,6 +8,7 @@ class FacetGroup extends ActiveRecord
 {
 	private $id;
 	private $name;
+	private $description;
 
 	private $facets = array();
 	private $related_groups = array();
@@ -66,6 +67,7 @@ class FacetGroup extends ActiveRecord
 
 		$fields = array();
 		$fields['name'] = $this->name;
+		$fields['description'] = $this->description ? $this->description : null;
 
 		// Split the fields up into a preparedFields array and a values array.
 		// PDO->execute cannot take an associative array for values, so we have
@@ -115,9 +117,15 @@ class FacetGroup extends ActiveRecord
 	{
 		return $this->id;
 	}
+
 	public function getName()
 	{
 		return $this->name;
+	}
+
+	public function getDescription()
+	{
+		return $this->description;
 	}
 
 	//----------------------------------------------------------------
@@ -126,6 +134,11 @@ class FacetGroup extends ActiveRecord
 	public function setName($string)
 	{
 		$this->name = trim($string);
+	}
+
+	public function setDescription($string)
+	{
+		$this->description = trim(str_replace(array("\r\n","\n","\r"),' ',$string));
 	}
 
 	//----------------------------------------------------------------

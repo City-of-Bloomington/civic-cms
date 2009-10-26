@@ -55,6 +55,15 @@
 	</table>
 </fieldset>
 
+<fieldset><legend>Content</legend>
+	<div><label for="description">Description</label></div>
+	<?php
+		$content = $this->facetGroup->getDescription();
+		$content_field_name = 'description';
+		include APPLICATION_HOME.'/includes/editors/'.EDITOR.'/editor_init.inc';
+	?>
+</fieldset>
+
 <fieldset><legend>Submit</legend>
 	<button type="submit" class="submit">Submit</button>
 	<a class="cancel" href="<?php echo BASE_URL; ?>/facets">Cancel</a>
