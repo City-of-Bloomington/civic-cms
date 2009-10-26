@@ -90,6 +90,12 @@ class LocationList extends PDOResultIterator
 		# Finding on fields from other tables required joining those tables.
 		# You can add fields from other tables to $options by adding the join SQL
 		# to $this->joins here
+		if (isset($fields['facet_id'])) {
+			$this->joins.= ' left join location_facets f on id=f.location_id';
+			$options[] = 'f.id=:facet_id';
+			$parameters[':facet_id'] = $fields['facet_id'];
+		}
+
 		if (is_array($fields) && array_key_exists('locationGroup_id',$fields))
 		{
 			$this->joins.= ' left join locationGroup_locations on id=location_id';

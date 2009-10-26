@@ -5,11 +5,13 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Facet $this->facet
  */
-if (count($this->facet->getDocuments())) {
+$items = $this->facet->getItems();
+if (count($items)) {
 	echo '<ul>';
-	foreach ($this->facet->getDocuments() as $document) {
-		$title = View::escape($document->getTitle());
-		echo "<li><a href=\"{$document->getURL()}\">$title</a></li>";
+	foreach ($items as $item) {
+		$title = $item instanceof Document ? $item->getTitle() : $item->getName();
+		$title = View::escape($title);
+		echo "<li><a href=\"{$item->getURL()}\">$title</a></li>";
 	}
 	echo '</ul>';
 }

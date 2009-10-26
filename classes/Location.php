@@ -4,7 +4,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
-class Location extends ActiveRecord
+class Location
 {
 	private $id;
 	private $name;
@@ -265,5 +265,64 @@ class Location extends ActiveRecord
 						* cos(deg2rad($longitude - $this->longitude))) * $earthRadius;
 			return $distance;
 		}
+	}
+
+	/**
+	 * @return FacetGroupList
+	 */
+	public function getFacetGroups()
+	{
+		return new FacetGroupList(array('location_id'=>$this->id));
+	}
+
+	/**
+	 * Returns facets for this Location
+	 *
+	 * You can pass in additional search parameters
+	 *
+	 * @param array $fields
+	 * @return FacetList
+	 */
+	public function getFacets(array $fields=null)
+	{
+		if ($this->id) {
+			$search = array('location_id'=>$this->id);
+			if ($fields) {
+				$search = array_merge($search,$fields);
+			}
+			return new FacetList($search);
+		}
+		return array();
+	}
+
+	/**
+	 * Takes an array of id numbers for facets and saves them to the database
+	 *
+	 * @param array $facet_ids The array of ID numbers for the facets
+	 */
+	public function setFacets(array $facet_ids)
+	{
+		$PDO = Database::getConnection();
+
+		$query = $PDO->prepare('delete from location_facets where location_id=?');
+		$query->execute(array($this->id));
+
+		$query = $PDO->prepare('insert location_facets values(?,?)');
+		foreach($facet_ids as $facet_id) {
+			$query->execute(array($this->id,$facet_id));
+		}
+	}
+
+	/**
+	 * @param Facet $facet
+	 * @return boolean
+	 */
+	public function hasFacet($facet)
+	{
+		$PDO = Database::getConnection();
+		$query = $PDO->prepare('select facet_id from location_facets where location_id=? and facet_id=?');
+		$query->execute(array($this->id,$facet->getId()));
+		$result = $query->fetchAll();
+		return count($result) ? true : false;
 	}
 }

@@ -19,7 +19,6 @@ class FacetGroupList extends PDOResultIterator
 		$this->sort = $sort;
 		$this->limit = $limit;
 		$this->groupBy = $groupBy;
-		$this->joins = '';
 
 		$options = array();
 		$parameters = array();
@@ -35,25 +34,35 @@ class FacetGroupList extends PDOResultIterator
 		// Finding on fields from other tables required joining those tables.
 		// You can add fields from other tables to $options by adding the join SQL
 		// to $this->joins here
+		$joins = array();
+
 		if (isset($fields['facet_id'])) {
-			$this->joins.= ' left join facets f on g.id=f.facetGroup_id';
+			$joins['facets'] = 'left join facets f on g.id=f.facetGroup_id';
 			$options[] = 'f.id=:facet_id';
 			$parameters[':facet_id'] = $fields['facet_id'];
 		}
 
 		if (isset($fields['department_id'])) {
-			$this->joins.= ' left join facetGroup_departments d on g.id=d.facetGroup_id';
-			$options[] = 'd.department_id=:department_id';
+			$joins['departments'] = 'left join facetGroup_departments dept on g.id=dept.facetGroup_id';
+			$options[] = 'dept.department_id=:department_id';
 			$parameters[':department_id'] = $fields['department_id'];
 		}
 
 		if (isset($fields['document_id'])) {
-			$this->joins.= ' left join facets f on g.id=f.facetGroup_id';
-			$this->joins.= ' left join document_facets d on f.id=d.facet_id';
-			$options[] = 'd.document_id=:document_id';
+			$joins['facets'] = 'left join facets f on g.id=f.facetGroup_id';
+			$joins['documents'] = 'left join document_facets doc on f.id=doc.facet_id';
+			$options[] = 'doc.document_id=:document_id';
 			$parameters[':document_id'] = $fields['document_id'];
 		}
 
+		if (isset($fields['location_id'])) {
+			$joins['facets'] = 'left join facets f on g.id=f.facetGroup_id';
+			$joins['locations'] = 'left join location_facets loc on f.id=loc.facet_id';
+			$options[] = 'loc.location_id=:location_id';
+			$parameters[':document_id'] = $fields['document_id'];
+		}
+
+		$this->joins = implode(' ',$joins);
 		$this->populateList($options,$parameters);
 	}
 

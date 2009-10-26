@@ -4,6 +4,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Location $this->location
+ * @param FacetGroupList $this->facetGroupList The facets the user is allowed to assign
  */
 ?>
 <h1>Update Location</h1>
@@ -100,8 +101,27 @@
 		}
 	?>
 </fieldset>
-<fieldset><legend>Tools</legend>
-	<button type="button" class="browse" onclick="window.open('<?php echo BASE_URL; ?>/media/imageBrowser.php');">Browse Images</button>
+
+<fieldset><legend>Facets</legend>
+<?php
+	foreach($this->facetGroupList as $group) {
+		$name = View::escape($group->getName());
+		echo "<h3>$name</h3>";
+
+		foreach($group->getFacets() as $facet) {
+			$facetName = View::escape($facet->getName());
+			$checked = $this->location->hasFacet($facet) ? $checked = 'checked="checked"' : $checked = '';
+			echo "
+			<label>
+				<input type=\"checkbox\" name=\"facets[{$facet->getId()}]\" value=\"{$facet->getId()}\" $checked />
+				$facetName
+			</label>
+			";
+		}
+	}
+?>
+</fieldset>
+<fieldset><legend>Web Content</legend>
 	<script type="text/javascript">
 	// This declares the function that will handle the return value from the
 	// image browser.  The image browser will call this function with the
@@ -112,9 +132,14 @@
 		tinyMCE.execCommand('mceInsertContent',false,string);
 	}
 	</script>
-	<button type="button" class="help" onclick="window.open('<?php echo BASE_URL; ?>/documents/notationGuide.php');">Notation Guide</button>
-</fieldset>
-<fieldset><legend>Web Content</legend>
+	<div>
+		<button type="button" class="browse" onclick="window.open('<?php echo BASE_URL; ?>/media/imageBrowser.php');">
+			Browse Images
+		</button>
+		<button type="button" class="help" onclick="window.open('<?php echo BASE_URL; ?>/documents/notationGuide.php');">
+			Notation Guide
+		</button>
+	</div>
 	<?php
 		$content = $this->location->getContent();
 		$content_field_name = 'content';

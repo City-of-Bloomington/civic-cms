@@ -266,6 +266,14 @@ create table document_facets (
   foreign key (facet_id) references facets (id) on delete cascade
 ) engine=InnoDB;
 
+create table location_facets (
+	location_id int unsigned not null,
+	facet_id int unsigned not null,
+	primary key (location_id,facet_id),
+	foreign key (location_id) references locations (id) on delete cascade,
+	foreign key (facet_id) references facets (id) on delete cascade
+) engine=InnoDB;
+
 create table facetGroups_related (
 	facetGroup_id int unsigned not null,
 	relatedGroup_id int unsigned not null,

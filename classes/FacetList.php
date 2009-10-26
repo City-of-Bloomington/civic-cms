@@ -72,6 +72,12 @@ class FacetList extends PDOResultIterator
 			$parameters[':document_id'] = $fields['document_id'];
 		}
 
+		if (isset($fields['location_id'])) {
+			$this->joins.= ' left join location_facets lf on facets.id=lf.facet_id';
+			$options[] = 'lf.location_id=:location_id';
+			$parameters[':location_id'] = $fields['location_id'];
+		}
+
 		$this->populateList($options,$parameters);
 	}
 

@@ -4,7 +4,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param FacetList $this->facetList
- * @param FacetGroup $this->facetGroup (optional)  If provided, we'll list the documents as well,
+ * @param FacetGroup $this->facetGroup (optional)  If provided, we'll list the items as well,
 										including a table of contents
  */
 if ($this->facetGroup) {
@@ -54,7 +54,7 @@ foreach ($this->facetList as $facet) {
 	";
 
 	if ($this->facetGroup) {
-		$block = new Block('facets/facetDocuments.inc',array('facet'=>$facet));
+		$block = new Block('facets/facetItems.inc',array('facet'=>$facet));
 		echo $block->render();
 		echo "<a href=\"#top\">[Top]</a>";
 	}

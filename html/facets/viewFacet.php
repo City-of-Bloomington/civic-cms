@@ -17,7 +17,7 @@ if (isset($_GET['facet_id']) && $_GET['facet_id']) {
 if (isset($facet)) {
 	$template = new Template();
 	$template->blocks[] = new Block('facets/breadcrumbs.inc',array('facet'=>$facet));
-	$template->blocks[] = new Block('facets/relatedDocuments.inc',array('facet'=>$facet));
+	$template->blocks[] = new Block('facets/relatedItems.inc',array('facet'=>$facet));
 
 	echo $template->render();
 }
