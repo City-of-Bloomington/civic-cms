@@ -13,7 +13,7 @@ class DocumentTypeList extends PDOResultIterator
 		if (is_array($fields)) $this->find($fields);
 	}
 
-	public function find($fields=null,$sort='id',$limit=null,$groupBy=null)
+	public function find($fields=null,$sort='type',$limit=null,$groupBy=null)
 	{
 		$this->sort = $sort;
 		$this->limit = $limit;
