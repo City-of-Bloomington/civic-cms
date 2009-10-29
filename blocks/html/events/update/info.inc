@@ -71,40 +71,6 @@
 	<p>You can enter contact info, or select a person from the list.  Selecting a person from the list will
 		enter their info into the form.</p>
 	<table>
-	<tr><td><label for="content_manager_username">Contact Person</label></td>
-		<td><select name="content_manager_username" id="content_manager_username" onchange="updateContactInfo(this.options[this.selectedIndex].value);"><option></option>
-			<?php
-				foreach($_SESSION['USER']->getDepartment()->getUsers() as $user)
-				{
-					$firstname = View::escape($user->getFirstname());
-					$lastname = View::escape($user->getLastname());
-					echo "<option value=\"{$user->getUsername()}\">$firstname $lastname</option>";
-				}
-			?>
-			</select>
-			<button type="button" class="button" onclick="toggleLDAPList(this);">Show Full List</button>
-			<select name="ldap_username" id="ldap_username" style="display:none;" onchange="updateContactInfo(this.options[this.selectedIndex].value);"><option></option>
-			<?php
-				$ldap = new SimpleXMLElement('http://isotope.bloomington.in.gov/directory/viewCategory.php?category=City%20Hall;format=xml',null,true);
-				foreach($ldap as $department)
-				{
-					$department_name = View::escape($department['name']);
-					echo "<option value=\"\">$department_name</option>";
-					foreach($department as $office)
-					{
-						$office_name = View::escape($office['name']);
-						echo "<option value=\"\"> - $office_name</option>";
-						foreach($office as $person)
-						{
-							$person_name = View::escape($person->name);
-							echo "<option value=\"{$person->username}\"> - - $person_name</option>";
-						}
-					}
-				}
-			?>
-			</select>
-		</td>
-	</tr>
 	<tr><td><label for="event-contact_name">Name</label></td>
 		<td><input name="event[contact_name]" id="event-contact_name" size="30" value="<?php echo View::escape($this->event->getContact_name()); ?>" /></td></tr>
 	<tr><td><label for="event-contact_phone">Phone</label></td>
@@ -212,7 +178,6 @@
 <script type="text/javascript">
 	var startTime = document.getElementById("startTime");
 	var endTime = document.getElementById("endTime");
-	var LDAPSelect = document.getElementById('ldap_username');
 
 	var lastKnownStartTime = '';
 	var lastKnownEndTime = '';
@@ -251,30 +216,6 @@
 		}
 	}
 
-	function toggleLDAPList(button)
-	{
-		if (LDAPSelect.style.display == 'none')
-		{
-			LDAPSelect.style.display = '';
-			button.firstChild.nodeValue = 'Hide Full List';
-		}
-		else
-		{
-			LDAPSelect.style.display = 'none';
-			button.firstChild.nodeValue = 'Show Full List';
-		}
-	}
-
-	function updateContactInfo(username)
-	{
-		if (username)
-		{
-			document.getElementById('event-contact_name').value = people[username].name;
-			document.getElementById('event-contact_phone').value = people[username].phone;
-			document.getElementById('event-contact_email').value = people[username].email;
-		}
-	}
-
 	function activate(field)
 	{
 		document.getElementById("daily").style.display = "none";
@@ -287,17 +228,4 @@
 		}
 		else { document.getElementById('until_fields').style.display = "none"; }
 	}
-
-	var people = {};
-	<?php
-		$people = array();
-		foreach($ldap->xpath('//person') as $person)
-		{
-			$name = htmlspecialchars($person->name,ENT_QUOTES);
-			$title = htmlspecialchars($person->title,ENT_QUOTES);
-			$phone = htmlspecialchars($person->phone,ENT_QUOTES);
-			$email = htmlspecialchars($person->email,ENT_QUOTES);
-			echo "people.{$person->username} = {'name':'$name','title':'$title','phone':'$phone','email':'$email'}\n\t";
-		}
-	?>
 </script>
