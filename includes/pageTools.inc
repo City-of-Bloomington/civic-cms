@@ -9,21 +9,6 @@ $page = new URL($_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
 if (isset($page->lang)) { unset($page->lang); }
 $printURL = clone $page;
 $printURL->format = 'print';
-if (isset($this->section))
-{
-	$rss = BASE_URL.'/sections/viewSection.php?format=rss;section_id='.$this->section->getId();
-	$rssButton = "
-	<li><a class=\"rss button\"
-			href=\"$rss\"
-			onmouseover=\"FRAMEWORK.popupTooltip('Subscribe to this page');\"
-			onmouseout=\"FRAMEWORK.hideTooltip();\">
-			RSS
-		</a>
-	</li>
-	";
-}
-else { $rssButton = ''; }
-
 
 $editButton = '';
 $deleteButton = '';
@@ -102,7 +87,6 @@ echo "
 	<ul>$editButton
 		$deleteButton
 		$watchButton
-		$rssButton
 		<li><button type=\"button\" class=\"printSmall\" onclick=\"window.open('$printURL');\">Print</button></li>
 		<li><form method=\"get\" action=\"{$page->getProtocol()}{$page->getScript()}\">
 			<fieldset>
