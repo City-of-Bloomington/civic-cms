@@ -171,7 +171,7 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 .sidebar .calendar td { padding:2px; }
 
 #pageTools { background:url('..default/images/pagetools/pagetools_bg.gif') top left no-repeat; width:210px; height:39px; margin-bottom:10px; }
-#pageTools ul { list-style-type:none; width:200px; height:39px; text-align:right; float:right; margin:0; padding:0; ;margin-top:11px; margin-right:10px; white-space:nowrap; }
+#pageTools ul { list-style-type:none; width:200px; height:39px; text-align:right; float:right; margin:0; padding:0; margin-top:11px; margin-right:10px; white-space:nowrap; }
 #pageTools li { display:inline; margin-left:5px; }
 #pageTools form { display:inline; }
 #pageTools fieldset { display:inline; vertical-align:top; }
