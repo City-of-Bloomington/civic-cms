@@ -61,7 +61,7 @@ th a { color:#3366cc; background-color:inherit; }
 .instructions { }
 .unpublished { text-decoration:line-through; color:#999999; }
 .current { font-weight:bold; }
-.required { background:url('..default/images/icons/required_asterik.gif') no-repeat; }
+.required { background:url('../default/images/icons/required_asterik.gif') no-repeat; }
 
 img { border:0; }
 span.image { display:block; text-align:center; margin:0 15px 5px 15px; }
@@ -105,14 +105,14 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 #secondaryLinks { width:260px; height:30px; position:absolute; top:10px; right:4px; padding-top:6px; }
 #secondaryLinks li { float:left;  padding-right:5px; margin-right:4px; }
 #secondaryLinks li.first { border-right:1px solid #003366; }
-#secondaryLinks form { width:120px; height:20px;  background:url('..default/images/banners/search.gif') top left no-repeat; position:relative; top:-3px; left:12px; }
+#secondaryLinks form { width:120px; height:20px;  background:url('../default/images/banners/search.gif') top left no-repeat; position:relative; top:-3px; left:12px; }
 #secondaryLinks fieldset { }
 #secondaryLinks legend { display:none; }
 #secondaryLinks input { border:0; background-color:transparent; width:82px; margin-left:18px; font-size:11px; }
 #secondaryLinks button { display:none; }
 
 
-#topLevelSections { height:21px; padding-top:1px; background:url('..default/images/mainnav/background.gif') top left no-repeat; }
+#topLevelSections { height:21px; padding-top:1px; background:url('../default/images/mainnav/background.gif') top left no-repeat; }
 #topLevelSections ul { list-style-type:none; height:21px; margin:0; padding:0; overflow:hidden; }
 #topLevelSections li { height:19px; float:left; margin-left:14px; border-left:1px solid white; padding-left:14px; padding-top:2px; }
 #topLevelSections li.home { border-left:none; }
@@ -125,7 +125,7 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 #rightSidebar { float:right; clear:right; margin-right:10px; }
 .sidebar .widget { padding-left:10px; }
 .sidebar .widget ul,.sidebar .widget ol { margin:0; padding:0; list-style-type:none; }
-.sidebar .widget li { background:url('..default/images/icons/bullet_textarrow_right.gif') no-repeat 0 .5em; padding:4px 0 6px 15px; border-bottom:1px solid #bdbdbd; vertical-align:top; }
+.sidebar .widget li { background:url('../default/images/icons/bullet_textarrow_right.gif') no-repeat 0 .5em; padding:4px 0 6px 15px; border-bottom:1px solid #bdbdbd; vertical-align:top; }
 .sidebar .widget form {  }
 .sidebar .widget fieldset { }
 .sidebar .widget select { width:180px; font-size:11px; }
@@ -137,7 +137,7 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 .sidebar td { border:0; }
 
 .sidebar .widget { width:200px; margin-bottom:15px; font-size:11px; }
-.sidebar .widget h1 { width:190px; background:#5a8fdc url('..default/images/widgets/widget_top_bg.gif') top no-repeat; margin-left:-10px; padding:5px 10px 5px 10px; font-size:12px; color:#ffffff; font-weight:bold; }
+.sidebar .widget h1 { width:190px; background:#5a8fdc url('../default/images/widgets/widget_top_bg.gif') top no-repeat; margin-left:-10px; padding:5px 10px 5px 10px; font-size:12px; color:#ffffff; font-weight:bold; }
 .sidebar .widget h1 a {color:white; font-size:12px; }
 .sidebar .widget a { color:black; font-size:11px; }
 .sidebar .widget address a { color:#3399cc; }
@@ -146,15 +146,15 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 .sidebar .viewMoreLink a { font-size:12px; }
 
 /* styles for Constituencies Widget */
-.sidebar .widget li.business-guide { background: url('..default/images/icons/bullet_rec_sprites.gif') no-repeat left top; }
-.sidebar .widget li.for-kids-guide { background: url('..default/images/icons/bullet_rec_sprites.gif') no-repeat left top; background-position:0 -30px; }
-.sidebar .widget li.local-arts-guide { background: url('..default/images/icons/bullet_rec_sprites.gif') no-repeat left top; background-position:0 -60px; }
-.sidebar .widget li.nonprofits-guide { background: url('..default/images/icons/bullet_rec_sprites.gif') no-repeat left top; background-position:0 -90px; }
-.sidebar .widget li.residents-guide { background: url('..default/images/icons/bullet_rec_sprites.gif') no-repeat left top; background-position:0 -120px; }
-.sidebar .widget li.students-guide { background: url('..default/images/icons/bullet_rec_sprites.gif') no-repeat left top; background-position:0 -150px; }
-.sidebar .widget li.visitors-guide { background: url('..default/images/icons/bullet_rec_sprites.gif') no-repeat left top; background-position:0 -180px; }
-.sidebar .widget li.volunteers-guide { background: url('..default/images/icons/bullet_rec_sprites.gif') no-repeat left top; background-position:0 -210px; }
-.sidebar .widget li.voters-guide { background: url('..default/images/icons/bullet_rec_sprites.gif') no-repeat left top; background-position:0 -240px; }
+.sidebar .widget li.business-guide { background: url('../default/images/icons/bullet_rec_sprites.gif') no-repeat left top; }
+.sidebar .widget li.for-kids-guide { background: url('../default/images/icons/bullet_rec_sprites.gif') no-repeat left top; background-position:0 -30px; }
+.sidebar .widget li.local-arts-guide { background: url('../default/images/icons/bullet_rec_sprites.gif') no-repeat left top; background-position:0 -60px; }
+.sidebar .widget li.nonprofits-guide { background: url('../default/images/icons/bullet_rec_sprites.gif') no-repeat left top; background-position:0 -90px; }
+.sidebar .widget li.residents-guide { background: url('../default/images/icons/bullet_rec_sprites.gif') no-repeat left top; background-position:0 -120px; }
+.sidebar .widget li.students-guide { background: url('../default/images/icons/bullet_rec_sprites.gif') no-repeat left top; background-position:0 -150px; }
+.sidebar .widget li.visitors-guide { background: url('../default/images/icons/bullet_rec_sprites.gif') no-repeat left top; background-position:0 -180px; }
+.sidebar .widget li.volunteers-guide { background: url('../default/images/icons/bullet_rec_sprites.gif') no-repeat left top; background-position:0 -210px; }
+.sidebar .widget li.voters-guide { background: url('../default/images/icons/bullet_rec_sprites.gif') no-repeat left top; background-position:0 -240px; }
 
 /* styles for the Attachments Widget */
 .sidebar .attachments li { background-image:none; border-bottom:0; padding-left:0px; }
@@ -165,12 +165,12 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 .sidebar .youtube .image { margin:0; }
 
 /* We want the navigation widget to be a different color, matching the TopLevelSections */
-.sidebar .navigation h1 { background:#013466 url('..default/images/widgets/navigation_widget_top_bg.gif') top no-repeat !important; }
+.sidebar .navigation h1 { background:#013466 url('../default/images/widgets/navigation_widget_top_bg.gif') top no-repeat !important; }
 .sidebar .navigation { background-color:#f2f2f2; }
 .sidebar .calendar { width:190px; }
 .sidebar .calendar td { padding:2px; }
 
-#pageTools { background:url('..default/images/pagetools/pagetools_bg.gif') top left no-repeat; width:210px; height:39px; margin-bottom:10px; }
+#pageTools { background:url('../default/images/pagetools/pagetools_bg.gif') top left no-repeat; width:210px; height:39px; margin-bottom:10px; }
 #pageTools ul { list-style-type:none; width:200px; height:39px; text-align:right; float:right; margin:0; padding:0; margin-top:11px; margin-right:10px; white-space:nowrap; }
 #pageTools li { display:inline; margin-left:5px; }
 #pageTools form { display:inline; }
@@ -184,16 +184,16 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 #backendContent { float:left; margin-left:18px; width:720px; font-size:12px; }
 
 
-#pageTitle { background:url('..default/images/contentarea/pageTitle-background.gif') top repeat-y; width:488px; margin-bottom:10px; padding-top:5px; }
-#pageTitle h1 { background:url('..default/images/contentarea/pageTitle-bottom.gif') bottom left no-repeat; width:488px; padding-left:10px; padding-bottom:8px; }
+#pageTitle { background:url('../default/images/contentarea/pageTitle-background.gif') top repeat-y; width:488px; margin-bottom:10px; padding-top:5px; }
+#pageTitle h1 { background:url('../default/images/contentarea/pageTitle-bottom.gif') bottom left no-repeat; width:488px; padding-left:10px; padding-bottom:8px; }
 
 .breadcrumbs { font-size:11px; color:black; margin-left:6px;  }
 .breadcrumbs ul { margin:0; padding:0; }
 .breadcrumbs li { display:inline; list-style-type:none; font-weight:bold; padding-bottom:10px; }
-.breadcrumbs li a { padding-right:8px; background:url('..default/images/contentarea/breadcrumb.gif') no-repeat right; color:black; font-weight:normal; }
+.breadcrumbs li a { padding-right:8px; background:url('../default/images/contentarea/breadcrumb.gif') no-repeat right; color:black; font-weight:normal; }
 
 .interfaceBox { border-top:1px solid #003366; margin-top:10px; margin-bottom:10px; padding-top:6px; }
-.interfaceBox h1 { width:190px; background:url('..default/images/widgets/widget_top_bg.gif') top no-repeat; background-color:#5a8fdc; padding:5px 10px 5px 10px; font-size:14px; color:#ffffff; }
+.interfaceBox h1 { width:190px; background:url('../default/images/widgets/widget_top_bg.gif') top no-repeat; background-color:#5a8fdc; padding:5px 10px 5px 10px; font-size:14px; color:#ffffff; }
 .interfaceBox h1 a { color:white; }
 .interfaceBox h2 { font-size:14px; border-bottom:none; }
 
@@ -309,37 +309,37 @@ a.rssSmall { width:14px; height:16px; padding-left:20px; background:url('../defa
 a.rss { width:28px; height:28px; padding-left:20px; background:url('../default/images/icons/feed-icon-28x28.png') no-repeat; }
 a.ical { width:16px; height:16px; padding-left:20px; background:url('../default/images/icons/date.png') no-repeat; }
 a.kmlFeed { width:16px; height:16px; padding-left:20px; background:url('../default/images/icons/mime/kml_feed_small.png') no-repeat; }
-a.subscribe { width:22px; height:22px; background:url('..default/images/buttons/x.gif') no-repeat; }
-a.unsubscribe { width:22px; height:22px; background:url('..default/images/buttons/checkmark.gif') no-repeat; }
+a.subscribe { width:22px; height:22px; background:url('../default/images/buttons/x.gif') no-repeat; }
+a.unsubscribe { width:22px; height:22px; background:url('../default/images/buttons/checkmark.gif') no-repeat; }
 a.notify { width:22px; height:22px; background:url('../default/images/buttons/mail_send.png') no-repeat; }
 a.watch { width:22px; height:22px; background:url('../default/images/buttons/mail_get.png') no-repeat; }
 a.unwatch { width:22px; height:22px; background:url('../default/images/buttons/mail_delete.png') no-repeat; }
-a.reveal { width:12px; height:12px; background:url('..default/images/buttons/reveal_in_map.gif') no-repeat; }
+a.reveal { width:12px; height:12px; background:url('../default/images/buttons/reveal_in_map.gif') no-repeat; }
 
 /* ICONS FOR MIME TYPES */
-.jpg { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/image.png') no-repeat; }
-.png { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/image.png') no-repeat; }
-.gif { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/image.png') no-repeat; }
-.tiff { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/page.png') no-repeat; }
-.pdf { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/pdf.png') no-repeat; }
-.doc { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/doc.png') no-repeat; }
-.xls { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/xls.png') no-repeat; }
-.rtf { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/page.png') no-repeat; }
-.zip { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/zip.png') no-repeat; }
-.gz { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/zip.png') no-repeat; }
-.txt { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/page.png') no-repeat; }
-.wmv { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/windowsMedia.png') no-repeat; }
-.mov { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/quicktime.png') no-repeat; }
-.rm { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/real.png') no-repeat; }
-.ram { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/real.png') no-repeat; }
-.mp3 { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/sound.png') no-repeat; }
-.mp4 { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/video.png') no-repeat; }
-.wma { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/sound.png') no-repeat; }
-.tar { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/tar.png') no-repeat; }
-.dxf { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/dwg-autocad-drawing.ico') no-repeat; }
+.jpg { height:16px; padding: 0px 0px 10px 22px; background: url('../default/images/icons/mime/image.png') no-repeat; }
+.png { height:16px; padding: 0px 0px 10px 22px; background: url('../default/images/icons/mime/image.png') no-repeat; }
+.gif { height:16px; padding: 0px 0px 10px 22px; background: url('../default/images/icons/mime/image.png') no-repeat; }
+.tiff { height:16px; padding: 0px 0px 10px 22px; background: url('../default/images/icons/mime/page.png') no-repeat; }
+.pdf { height:16px; padding: 0px 0px 10px 22px; background: url('../default/images/icons/mime/pdf.png') no-repeat; }
+.doc { height:16px; padding: 0px 0px 10px 22px; background: url('../default/images/icons/mime/doc.png') no-repeat; }
+.xls { height:16px; padding: 0px 0px 10px 22px; background: url('../default/images/icons/mime/xls.png') no-repeat; }
+.rtf { height:16px; padding: 0px 0px 10px 22px; background: url('../default/images/icons/mime/page.png') no-repeat; }
+.zip { height:16px; padding: 0px 0px 10px 22px; background: url('../default/images/icons/mime/zip.png') no-repeat; }
+.gz { height:16px; padding: 0px 0px 10px 22px; background: url('../default/images/icons/mime/zip.png') no-repeat; }
+.txt { height:16px; padding: 0px 0px 10px 22px; background: url('../default/images/icons/mime/page.png') no-repeat; }
+.wmv { height:16px; padding: 0px 0px 10px 22px; background: url('../default/images/icons/mime/windowsMedia.png') no-repeat; }
+.mov { height:16px; padding: 0px 0px 10px 22px; background: url('../default/images/icons/mime/quicktime.png') no-repeat; }
+.rm { height:16px; padding: 0px 0px 10px 22px; background: url('../default/images/icons/mime/real.png') no-repeat; }
+.ram { height:16px; padding: 0px 0px 10px 22px; background: url('../default/images/icons/mime/real.png') no-repeat; }
+.mp3 { height:16px; padding: 0px 0px 10px 22px; background: url('../default/images/icons/mime/sound.png') no-repeat; }
+.mp4 { height:16px; padding: 0px 0px 10px 22px; background: url('../default/images/icons/mime/video.png') no-repeat; }
+.wma { height:16px; padding: 0px 0px 10px 22px; background: url('../default/images/icons/mime/sound.png') no-repeat; }
+.tar { height:16px; padding: 0px 0px 10px 22px; background: url('../default/images/icons/mime/tar.png') no-repeat; }
+.dxf { height:16px; padding: 0px 0px 10px 22px; background: url('../default/images/icons/mime/dwg-autocad-drawing.ico') no-repeat; }
 .kml { height:16px; padding: 0px 0px 10px 22px; background: url('../default/images/mime/kml_feed_small.png') no-repeat; }
-.swf { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/flash.gif') no-repeat; }
-.folder { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/folder.png') no-repeat; }
+.swf { height:16px; padding: 0px 0px 10px 22px; background: url('../default/images/icons/mime/flash.gif') no-repeat; }
+.folder { height:16px; padding: 0px 0px 10px 22px; background: url('../default/images/icons/mime/folder.png') no-repeat; }
 .facebook { height:25px; padding-left:27px; background: url('../default/images/icons/facebook25px.png') no-repeat; }
 .twitter { height:25px; padding-left:25px; background: url('../default/images/icons/twitter25px.png') no-repeat; }
 .newsletter { height:25px; padding:1px 0 0 35px; background: url('../default/images/icons/newsletter.png') no-repeat; }
@@ -363,11 +363,11 @@ a.reveal { width:12px; height:12px; background:url('..default/images/buttons/rev
 #message h1 { color:#003366; font-size:14px; background-color:#e6e6e6; }
 div.weatheralert { border:1px solid #990000; margin: 10px 0px 10px 0px; clear:both; }
 div.weatheralert h1 { background-color:#990000; color:white; font-size:13px; padding-left:3px; }
-div.weatheralert ul { overflow:auto; list-style-image: url('..default/images/banners/bullet_flashing_red.gif'); margin:0; }
+div.weatheralert ul { overflow:auto; list-style-image: url('../default/images/banners/bullet_flashing_red.gif'); margin:0; }
 div.weatheralert li { float:left; font-size:12px; }
 div.customalert { border:1px #013466 solid; margin: 10px 0px 10px 0px; clear:both; }
 div.customalert h1 { background-color:#013466; color:white; font-size:13px; padding-left:3px; }
-div.customalert p { margin: 1px 1px 1px 3px; font-size:12px; padding-left:14px; background: url('..default/images/banners/bullet_flashing_green.gif') no-repeat; }
+div.customalert p { margin: 1px 1px 1px 3px; font-size:12px; padding-left:14px; background: url('../default/images/banners/bullet_flashing_green.gif') no-repeat; }
 
 
 /* Locations page layout */
@@ -435,7 +435,7 @@ div.customalert p { margin: 1px 1px 1px 3px; font-size:12px; padding-left:14px; 
 	width:28ex;
 }
 #findAddressForm label { float:left; font-size:14px; margin-right:1em; padding-top:3px; }
-#findAddressForm button.search { width:75px; height:22px; padding-top:22px; background:url('..default/images/buttons/search.gif') no-repeat; border:0; }
+#findAddressForm button.search { width:75px; height:22px; padding-top:22px; background:url('../default/images/buttons/search.gif') no-repeat; border:0; }
 #search_tips_link { float:left; clear:left; margin-left:124px; margin-top:5px; }
 
 #map { margin-top:0.5em; }
@@ -466,7 +466,7 @@ div.customalert p { margin: 1px 1px 1px 3px; font-size:12px; padding-left:14px; 
 		padding:4px 7px 4px 7px;
 	}
 	.gray { background-color:#eee; }
-	
+
 .fan_widget .fan_box .full_widget {border:none; }
 .fan_box .profileImage {display:none;}
 
