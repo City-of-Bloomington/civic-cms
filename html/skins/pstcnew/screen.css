@@ -74,7 +74,7 @@ th a { color:#3366cc; background-color:inherit; }
 .instructions { }
 .unpublished { text-decoration:line-through; color:#999999; }
 .current { font-weight:bold; }
-.required { background:url('images/icons/required_asterik.gif') no-repeat; }
+.required { background:url('../default/images/icons/required_asterik.gif') no-repeat; }
 
 img { border:1px solid black; }
 span.image { display:block; text-align:center; margin:0 2px 2px 2px; }
@@ -83,7 +83,7 @@ span.image img { }
 span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e0e0; color:black; }
 #pageBanner img { border:1px solid #999999; }
 
-#banner {width:900px; height:130px; background:url('images//banner/pstcbanner.png') top left no-repeat; margin:0; }
+#banner {width:900px; height:130px; background:url('images/banner/pstcbanner.png') top left no-repeat; margin:0; }
 #logo { width:250px; height:30px; position:absolute; top:1px; left:5px;  text-indent:-999px; }
 #logo a { display:table-cell; width:250px; height:30px; vertical-align:middle; }
 #topLevelSections { display:none; }
@@ -102,7 +102,7 @@ body #leftSidebar .navigation {
 		background-color:white;
 		}
 #leftSidebar .navigation ul {list-style:none; padding:0 0 2px 0px; margin-top:4px; }
-#leftSidebar .navigation li { background:url('images/icons/bullet_textarrow_right.gif') no-repeat 0 .5em; padding:4px 0 6px 15px; font-size:14px; display:block; }
+#leftSidebar .navigation li { background:url('../default/images/icons/bullet_textarrow_right.gif') no-repeat 0 .5em; padding:4px 0 6px 15px; font-size:14px; display:block; }
 #leftSidebar .navigation li .current { border-bottom:2px solid #5cb3ff; }
 .navigation a { color:black; text-decoration:none; }
 .navigation h1 { font-size:14px; font-weight:bold; padding-top:10px; margin-left:-6px; border:none;}
@@ -116,7 +116,7 @@ background-color:white;
 
 }
 #leftSidebar .pstcLinks ul {list-style:none; padding:0 0 2px 0px; margin-top:4px; }
-#leftSidebar .pstcLinks li { background:url('images/icons/bullet_textarrow_right.gif') no-repeat 0 .5em; padding:4px 0 6px 15px; font-size:14px; display:block;  }
+#leftSidebar .pstcLinks li { background:url('../default/images/icons/bullet_textarrow_right.gif') no-repeat 0 .5em; padding:4px 0 6px 15px; font-size:14px; display:block;  }
 #leftSidebar .pstcLinks li .current { border-bottom:2px solid #5cb3ff; }
 .pstcLinks a { color:black; text-decoration:none; }
 .pstcLinks h1 { font-size:14px; font-weight:bold; padding-top:10px; margin-left:-6px; border:none;}
@@ -246,37 +246,37 @@ a.rss { width:28px; height:28px; background-image:url('../default/images/feed-ic
 a.ical { width:16px; height:16px; background-image:url('../default/images/date.png'); }
 a.kmlFeed { width:16px; height:16px; background-image:url('../default/images/kml_feed_small.png'); }
 
-a.subscribe { width:22px; height:22px; background-image:url('images/buttons/x.gif'); }
-a.unsubscribe { width:22px; height:22px; background-image:url('images/buttons/checkmark.gif'); }
+a.subscribe { width:22px; height:22px; background-image:url('../default/images/buttons/x.gif'); }
+a.unsubscribe { width:22px; height:22px; background-image:url('../default/images/buttons/checkmark.gif'); }
 a.notify { width:22px; height:22px; background-image:url('../default/images/mail_send.png'); }
 a.watch { display:none; }
 a.unwatch { display:none; }
-a.reveal { width:12px; height:12px; background-image:url('images/icons/reveal_in_map.gif'); }
+a.reveal { width:12px; height:12px; background-image:url('../default/images/icons/reveal_in_map.gif'); }
 
 /* ICONS FOR MIME TYPES */
-.jpg { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/image.png') no-repeat; }
-.png { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/image.png') no-repeat; }
-.gif { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/image.png') no-repeat; }
-.tiff { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/page.png') no-repeat; }
-.pdf { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/pdf.png') no-repeat; }
-.doc { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/doc.png') no-repeat; }
-.xls { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/xls.png') no-repeat; }
-.rtf { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/page.png') no-repeat; }
-.zip { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/zip.png') no-repeat; }
-.gz { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/zip.png') no-repeat; }
-.txt { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/page.png') no-repeat; }
-.wmv { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/windowsMedia.png') no-repeat; }
-.mov { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/quicktime.png') no-repeat; }
-.rm { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/real.png') no-repeat; }
-.ram { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/real.png') no-repeat; }
-.mp3 { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/sound.png') no-repeat; }
-.mp4 { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/video.png') no-repeat; }
-.wma { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/sound.png') no-repeat; }
-.tar { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/tar.png') no-repeat; }
-.dxf { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/dwg-autocad-drawing.ico') no-repeat; }
+.jpg { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/image.png') no-repeat; }
+.png { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/image.png') no-repeat; }
+.gif { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/image.png') no-repeat; }
+.tiff { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/page.png') no-repeat; }
+.pdf { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/pdf.png') no-repeat; }
+.doc { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/doc.png') no-repeat; }
+.xls { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/xls.png') no-repeat; }
+.rtf { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/page.png') no-repeat; }
+.zip { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/zip.png') no-repeat; }
+.gz { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/zip.png') no-repeat; }
+.txt { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/page.png') no-repeat; }
+.wmv { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/windowsMedia.png') no-repeat; }
+.mov { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/quicktime.png') no-repeat; }
+.rm { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/real.png') no-repeat; }
+.ram { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/real.png') no-repeat; }
+.mp3 { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/sound.png') no-repeat; }
+.mp4 { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/video.png') no-repeat; }
+.wma { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/sound.png') no-repeat; }
+.tar { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/tar.png') no-repeat; }
+.dxf { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/dwg-autocad-drawing.ico') no-repeat; }
 .kml { height:16px; padding: 0px 0px 10px 22px; background: url('../default/images/kml_feed_small.png') no-repeat; }
-.swf { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/flash.gif') no-repeat; }
-.folder { height:16px; padding: 0px 0px 10px 22px; background: url('images/icons/mime/folder.png') no-repeat; }
+.swf { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/flash.gif') no-repeat; }
+.folder { height:16px; padding: 0px 0px 10px 22px; background: url('..default/images/icons/mime/folder.png') no-repeat; }
 
 
 
@@ -295,7 +295,7 @@ a.reveal { width:12px; height:12px; background-image:url('images/icons/reveal_in
 /* Javascript creates tooltips on the fly */
 /* There is only one tooltip div, javascript just replaces it's contents */
 #tooltip { border:2px solid #5a8fdc; background-color:black; padding:4px; font-size:11px; }
-#tooltip.enlarge { padding-left:18px; background:white url('images/icons/viewmag.png') top left no-repeat; }
+#tooltip.enlarge { padding-left:18px; background:white url('..default/images/icons/viewmag.png') top left no-repeat; }
 
 
 
