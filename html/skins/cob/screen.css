@@ -344,7 +344,7 @@ a.reveal { width:12px; height:12px; background:url('../default/images/buttons/re
 .twitter { height:25px; padding-left:25px; background: url('../default/images/icons/twitter25px.png') no-repeat; }
 .newsletter { height:25px; padding:1px 0 0 35px; background: url('../default/images/icons/newsletter.png') no-repeat; }
 .youtube { height:25px; padding:5px 0 0 47px; background: url('../default/images/icons/youtube25px.png') no-repeat; }
-.rssSmall { height:25px; padding-left:20px; background:url('../default/images/feed-icon-14x14.png') no-repeat; }
+.rssSmall { height:25px; padding-left:20px; background:url('../default/images/icons/feed-icon-14x14.png') no-repeat; }
 
 
 /* Styles for the Featured "Spotlight" blocks */
