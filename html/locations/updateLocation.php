@@ -35,7 +35,7 @@ if (isset($_POST['location'])) {
 		$set = 'set'.ucfirst($field);
 		$location->$set($value);
 	}
-	$facets = $_POST['facets'] ? $_POST['facets'] : array();
+	$facets = isset($_POST['facets']) ? $_POST['facets'] : array();
 	$location->setFacets($facets);
 
 	# Departments should only be changeable by Webmaster/Admin
