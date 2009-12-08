@@ -77,6 +77,8 @@ class DocumentAccessLog
 			$sql = "select document_id,hits as count from document_hits_running_totals
 					left join documents on document_id=id
 					where documentType_id=?
+					and (publishDate is null or publishDate<now())
+					and (retireDate is null or retireDate>now())
 					order by count desc limit $numDocuments";
 			$query = $pdo->prepare($sql);
 			$query->execute(array($documentType_id));
@@ -89,6 +91,9 @@ class DocumentAccessLog
 
 			// This query reads from Summary tables
 			$sql = "select document_id,hits as count from document_hits_running_totals
+					left join documents on document_id=id
+					where (publishDate is null or publishDate<now())
+					and (retireDate is null or retireDate>now())
 					order by count desc limit $numDocuments";
 			$query = $pdo->prepare($sql);
 			$query->execute();
