@@ -35,21 +35,21 @@ if (isset($_POST['location'])) {
 		$set = 'set'.ucfirst($field);
 		$location->$set($value);
 	}
-	$facets = isset($_POST['facets']) ? $_POST['facets'] : array();
-	$location->setFacets($facets);
 
-	# Departments should only be changeable by Webmaster/Admin
+	// Departments should only be changeable by Webmaster/Admin
 	if (isset($_POST['department_id']) && userHasRole(array('Administrator','Webmaster'))) {
 		$location->setDepartment_id($_POST['department_id']);
 	}
 
-	# Directions will come in from the WYSIWYG editor
+	// Directions will come in from the WYSIWYG editor
 	if (isset($_POST['content'])) {
 		$location->setContent($_POST['content']);
 	}
 
 	try {
 		$location->save();
+		$facets = isset($_POST['facets']) ? $_POST['facets'] : array();
+		$location->setFacets($facets);
 		header("Location: $_POST[return_url]");
 		exit();
 	}

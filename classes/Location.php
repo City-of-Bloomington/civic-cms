@@ -302,6 +302,13 @@ class Location
 	 */
 	public function setFacets(array $facet_ids)
 	{
+		// We need an ID to save the facets.  If they're adding a new Location,
+		// we have to save the Location to the database, and get an ID back,
+		// before we add the facets
+		if (!$this->id) {
+			$this->save();
+		}
+
 		$PDO = Database::getConnection();
 
 		$query = $PDO->prepare('delete from location_facets where location_id=?');
