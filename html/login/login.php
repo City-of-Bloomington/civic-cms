@@ -1,6 +1,6 @@
 <?php
 /**
- *	Logs a user into the system.
+ *	Logs a user into the system using this application's internal authentication
  *
  *	A logged in user will have a $_SESSION['USER']
  *								$_SESSION['IP_ADDRESS']
