@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2006-2009 City of Bloomington, Indiana
+ * @copyright 2006-2010 City of Bloomington, Indiana
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param string $this->title
@@ -28,11 +28,10 @@ if (isset($this->document)) {
 	<meta name=\"DC.coverage\" content=\"Bloomington City Government\" />
 	";
 }
+if (!isset($this->title)) {
+	$this->title = "City of Bloomington";
+}
 ?>
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-     xml:lang="en" >
 <head profile="http://dublincore.org/documents/dcq-html/">
 	<title><?php echo View::escape($this->title); ?></title>
 	<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />

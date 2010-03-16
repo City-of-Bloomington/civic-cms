@@ -1,21 +1,18 @@
 <?php
 /**
- * @copyright Copyright (C) 2006-2008 City of Bloomington, Indiana. All rights reserved.
+ * @copyright 2006-2010 City of Bloomington, Indiana
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+ * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 ?>
 <div id="footer">
 	<div>
 		<ul>
 			<?php
-				if(!isset($_SESSION['USER']))
-				{
-					echo "
-					<li class=\"first\"><a href=\"".BASE_URL."/login\">Sign In</a></li>
-					";
+				if (!isset($_SESSION['USER'])) {
+					echo "<li class=\"first\"><a href=\"".BASE_URL."/login\">Sign In</a></li>";
 				}
-				else
-				{
+				else {
 					echo "
 					<li class=\"first\"><a href=\"".BASE_URL."/login/logout.php\">Sign Out</a></li>
 					";
@@ -29,15 +26,15 @@
 			<li><a href="<?php echo BASE_URL; ?>/jobs">Jobs</a></li>
 			<li><a href="<?php echo BASE_URL; ?>/search/sitemap.php">Sitemap</a></li>
 		</ul>
-		
 	</div>
-	<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-try {
-var pageTracker = _gat._getTracker("UA-9224894-1");
-pageTracker._trackPageview();
-} catch(err) {}</script>
 </div>
+<script>
+	var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+	document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+	try {
+		var pageTracker = _gat._getTracker("UA-9224894-1");
+		pageTracker._trackPageview();
+	}
+	catch(err) {
+	}
+</script>

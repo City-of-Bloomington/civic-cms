@@ -1,38 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" >
 <?php
-/**
- * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
- * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
- * @author Cliff Ingham <inghamn@bloomington.in.gov>
- * @param string $this->title
- */
-	if (!isset($this->title)) { $this->title = "Media Browser"; }
-	include APPLICATION_HOME.'/includes/xhtmlStrictHeader.inc';
+	$dir = dirname(__FILE__);
+	include $dir.'/partials/header.inc';
 ?>
-<div id="main-content-container">
-	<div id="leftSidebar" class="left sidebar">
-		<div><h1>Departments</h1>
-			<ul>
+<boyd>
+	<div id="main-content-container">
+		<div id="leftSidebar" class="left sidebar">
+			<div><h1>Departments</h1>
+				<ul>
+				<?php
+					$departments = new DepartmentList();
+					$departments->find();
+					$url = new URL($_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME']);
+					foreach ($departments as $department) {
+						$name = View::escape($department->getName());
+						$url->parameters['department_id'] = $department->getId();
+						echo "<li><a href=\"{$url->getURL()}\">$name</a></li>";
+					}
+				?>
+				</ul>
+			</div>
+		</div>
+		<div id="backendContent">
 			<?php
-				$departments = new DepartmentList();
-				$departments->find();
-				$url = new URL($_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME']);
-				foreach($departments as $department)
-				{
-					$name = View::escape($department->getName());
-					$url->parameters['department_id'] = $department->getId();
-					echo "<li><a href=\"{$url->getURL()}\">$name</a></li>";
-				}
+				include FRAMEWORK.'/errorMessages.php';
+				echo $this->includeBlocks();
 			?>
-			</ul>
 		</div>
 	</div>
-	<div id="backendContent">
-		<?php
-			include FRAMEWORK.'/errorMessages.php';
-			echo $this->includeBlocks();
-		?>
-	</div>
-</div>
-<?php
-	include APPLICATION_HOME.'/includes/xhtmlFooter.inc';
-?>
+</body>
+</html>
+<?php include $dir.'/partials/garbageCollection.inc'; ?>
