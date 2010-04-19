@@ -22,10 +22,6 @@ switch (count($list))
 		Header('Status: 404 Not Found');
 		FileNotFoundLog::log($path);
 		$_SESSION['errorMessages'][] = new Exception('404');
-
-		# The Search page expects a search param to be passed in the URL
-		$_GET['search'] = preg_replace('/[^a-zA-Z]/',' ',$title);
-		include APPLICATION_HOME.'/html/search/home.php';
 	break;
 
 	case 1:
