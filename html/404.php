@@ -22,6 +22,8 @@ switch (count($list))
 		Header('Status: 404 Not Found');
 		FileNotFoundLog::log($path);
 		$_SESSION['errorMessages'][] = new Exception('404');
+		$template = new Template();
+		echo $template->render();
 	break;
 
 	case 1:
