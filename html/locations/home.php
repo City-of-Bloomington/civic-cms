@@ -66,11 +66,9 @@ if (isset($_GET['locationGroup_id']) && is_numeric($_GET['locationGroup_id'])) {
 else {
 	$listBlock->title = 'Locations';
 
-	# If they ask for KML without specifying a particular group,
-	# send them a KML file with all the groups
-	if ($template->outputFormat=='kml') {
-		$listBlock = new Block('locations/locationGroupList.inc');
-	}
+	# If they ask for data from a service without specifying a particular group,
+	# send them a file with all the groups
+	$listBlock = new Block('locations/locationGroupList.inc');
 }
 
 
