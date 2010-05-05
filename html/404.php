@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2007-2008 City of Bloomington, Indiana. All rights reserved.
+ * @copyright 2007-2010 City of Bloomington, Indiana
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
@@ -10,30 +10,32 @@ $url = urldecode($path);
 $url = explode('?',$url);
 
 $title = $url[0];
-if (substr($title,-1)=='/') { $title = substr($title,0,-1); }
+if (substr($title,-1)=='/') {
+	$title = substr($title,0,-1);
+}
 $wikiTitle = WikiMarkup::wikify($title);
 
 $list = new DocumentList(array('wikiTitle_or_alias'=>$wikiTitle));
 $count = count($list);
-switch (count($list))
-{
+switch (count($list)) {
 	case 0:
-		Header('http/1.1 404 Not Found');
-		Header('Status: 404 Not Found');
+		header('http/1.1 404 Not Found');
+		header('Status: 404 Not Found');
 		FileNotFoundLog::log($path);
-		$_SESSION['errorMessages'][] = new Exception('404');
 		$template = new Template();
+		$template->blocks[] = new Block('errorMessages/404.inc');
+		$template->blocks[] = new Block('search/searchForm.inc');
 		echo $template->render();
 	break;
 
 	case 1:
-		if (isset($url[1]))
-		{
+		if (isset($url[1])) {
 			$params = explode(';',$url[1]);
-			foreach($params as $param)
-			{
+			foreach($params as $param) {
 				$param = explode('=',$param);
-				if (count($param)==2) { $_GET[$param[0]] = $param[1]; }
+				if (count($param)==2) {
+					$_GET[$param[0]] = $param[1];
+				}
 			}
 		}
 		$document = $list[0];
