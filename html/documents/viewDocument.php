@@ -33,7 +33,10 @@ try {
 	}
 }
 catch (Exception $e) {
-	$_SESSION['errorMessages'][] = $e;
+	header('http/1.1 404 Not Found');
+	header('Status: 404 Not Found');
+	$template->blocks[] = new Block('errorMessages/404.inc');
+	$template->blocks[] = new Block('search/searchForm.inc');
 }
 
 if (isset($document)) {
