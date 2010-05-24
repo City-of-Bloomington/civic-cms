@@ -219,7 +219,7 @@ div.subsections li { display:inline; margin-right:1em; }
 
 
 /*  Custom buttons for forms */
-button { cursor:pointer; overflow:hidden; vertical-align:middle; }
+button { cursor:pointer; overflow:hidden; vertical-align:middle; font:0/0 arial; }
 /* Rick doesn't want these custom images right now.
 button.login { width:52px; height:15px; padding-top:15px; background: url('default/images/login.gif') no-repeat; border:0; }
 button.submit { width:70px; height:15px; padding-top:15px; background: url('default/images/submit.gif') no-repeat; border:0; }
