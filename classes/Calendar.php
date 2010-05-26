@@ -218,7 +218,7 @@ class Calendar extends ActiveRecord
 			foreach($event->getRecurrences($rangeStart,$rangeEnd) as $recurrence)
 			{
 				$r = getdate($recurrence->getStart());
-				$recurrenceArray[$r['year']][$r['mon']][$r['mday']][] = $recurrence;
+				$recurrenceArray[$r['year']] [$r['mon']] [$r['mday']] [] = $recurrence;
 			}
 		}
 
@@ -226,10 +226,9 @@ class Calendar extends ActiveRecord
 		// were added randomly and are not in order based on their start time
 		foreach ($recurrenceArray as $year=>$monthArray) {
 			foreach ($monthArray as $month=>$dayArray) {
-				$days = array_keys($dayArray);
-				foreach ($days as $day) {
-					usort($recurrenceArray[$year][$month][$day],
-						  array('Calendar','compareRecurrences'));
+				foreach ($dayArray as $day=>$e) {
+					usort($e,array('Calendar','compareRecurrences'));
+					$recurrenceArray[$year][$month][$day] = $e;
 				}
 			}
 		}
