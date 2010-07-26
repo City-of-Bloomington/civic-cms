@@ -17,6 +17,9 @@ switch($format) {
 	case 'print':
 		$template = new Template('print','html');
 		break;
+	case 'contentonly':
+		$template = new Template('contentonly','html');
+		break;
 	default:
 		$template = new Template();
 }
