@@ -38,8 +38,11 @@ while ($numDaysAhead<=$MAX_DAYS_AHEAD && $numEventsDisplayed<=$MAX_EVENTS) {
 			$events[] = array('id'=>$recurrence->getId(),
 								'start'=>$time,
 								'title'=>$recurrence->getTitle(),
-								'location_id'=>$recurrence->getLocation()->getId(),
-								'description'=>$recurrence->getDescription());
+								'description'=>WikiMarkup::parse($recurrence->getDescription()),
+								'location'=>array('id'=>$recurrence->getLocation()->getId(),
+												'latitude'=>$recurrence->getLocation()->getLatitude(),
+												'longitude'=>$recurrence->getLocation()->getLongitude())
+							);
 			$numEventsDisplayed++;
 		}
 	}
