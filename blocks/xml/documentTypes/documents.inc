@@ -11,10 +11,14 @@ $documents->find(array('documentType_id'=>$this->documentType->getId(),
 				'active'=>date('d-m-Y')),
 				'publishDate desc',
 				isset($_GET['limit']) ? (int) $_GET['limit'] : null);
-$output = array();
+echo "<documents>";
 foreach ($documents as $document) {
-	$output[] = array('title'=>$document->getTitle(),
-						'url'=>"{$document->getURL()}",
-						'publishDate'=>$document->getPublishDate());
+	echo "
+	<document id=\"{$document->getId()}\">
+		<url>{$document->getURL()}</url>
+		<title>{$document->getTitle()}</title>
+		<publishDate>{$document->getPublishDate('d-m-Y')}</publishDate>
+	</document>
+	";
 }
-echo json_encode($output);
+echo "</documents>";
