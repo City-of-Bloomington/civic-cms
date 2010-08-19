@@ -5,6 +5,18 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param GET location_id
  */
+$format = isset($_GET['format']) ? strtolower($_GET['format']) : 'html';
+switch($format) {
+	case 'print':
+		$template = new Template('print','html');
+		break;
+	case 'contentonly':
+		$template = new Template('contentonly','html');
+		break;
+	default:
+		$template = new Template();
+}
+
 if (!isset($_GET['location_id']) || !$_GET['location_id']) {
 	header('Location: '.BASE_URL.'/locations');
 	exit();
@@ -19,7 +31,6 @@ catch (Exception $e) {
 	exit();
 }
 
-$template = isset($_GET['format']) ? new Template('default',$_GET['format']) : new Template();
 if ($template->outputFormat == 'html') {
 	$template->blocks[] = new Block('locations/breadcrumbs.inc',array('location'=>$location));
 }
