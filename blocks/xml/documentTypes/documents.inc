@@ -8,7 +8,7 @@
  */
 $documents = new DocumentList();
 $documents->find(array('documentType_id'=>$this->documentType->getId(),
-				'active'=>date('d-m-Y')),
+				'active'=>date('Y-m-d')),
 				'publishDate desc',
 				isset($_GET['limit']) ? (int) $_GET['limit'] : null);
 echo "<documents>";

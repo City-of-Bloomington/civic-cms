@@ -65,7 +65,7 @@ if (defined('GOOGLE_API_KEY'))
 			map.addControl(new GSmallMapControl());
 			map.addControl(new GMapTypeControl());
 			map.setCenter(new GLatLng(39.167119,-86.533800), 12);
-			map.setMapType(G_HYBRID_MAP);
+			map.setMapType(G_NORMAL_MAP);
 
 			map.addOverlay(createMarker(point,info));
 
