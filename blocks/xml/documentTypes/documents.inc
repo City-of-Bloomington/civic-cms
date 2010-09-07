@@ -17,7 +17,7 @@ foreach ($documents as $document) {
 	<document id=\"{$document->getId()}\">
 		<url>{$document->getURL()}</url>
 		<title>{$document->getTitle()}</title>
-		<publishDate>{$document->getPublishDate('d-m-Y')}</publishDate>
+		<publishDate>{$document->getPublishDate('Y-m-d')}</publishDate>
 	</document>
 	";
 }

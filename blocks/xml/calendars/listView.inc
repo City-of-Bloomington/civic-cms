@@ -36,7 +36,7 @@ if (isset($recurrences[$year][$month][$day])) {
 			$description = WikiMarkup::parse($recurrence->getDescription());
 			echo "
 			<event id=\"{$recurrence->getId()}\">
-				<start>{$recurrence->getStart('D, F j, Y')}</start>
+				<start>{$recurrence->getStart('Y-m-d')}</start>
 				<title>{$recurrence->getTitle()}</title>
 				<location>{$recurrence->getLocation()->getName()}</location>
 				<description>$description</description>
