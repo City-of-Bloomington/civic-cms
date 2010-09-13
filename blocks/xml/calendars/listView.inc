@@ -33,12 +33,14 @@ while ($numDaysAhead<=$MAX_DAYS_AHEAD && $numEventsDisplayed<=$MAX_EVENTS) {
 
 if (isset($recurrences[$year][$month][$day])) {
 		foreach ($recurrences[$year][$month][$day] as $recurrence) {
-			$description = WikiMarkup::parse($recurrence->getDescription());
+			$title = View::escape($recurrence->getTitle());
+			$location = View::escape($recurrence->getLocation()->getName());
+			$description = WikiMarkup::parse(View::escape($recurrence->getDescription()));
 			echo "
 			<event id=\"{$recurrence->getId()}\">
-				<start>{$recurrence->getStart('Y-m-d')}</start>
-				<title>{$recurrence->getTitle()}</title>
-				<location>{$recurrence->getLocation()->getName()}</location>
+				<start>{$recurrence->getStart('Y-m-d H:i:s')}</start>
+				<title>$title</title>
+				<location>$location</location>
 				<description>$description</description>
 			</event>
 			";
