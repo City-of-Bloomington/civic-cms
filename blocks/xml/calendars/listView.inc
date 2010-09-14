@@ -35,7 +35,7 @@ if (isset($recurrences[$year][$month][$day])) {
 		foreach ($recurrences[$year][$month][$day] as $recurrence) {
 			$title = View::escape($recurrence->getTitle());
 			$location = View::escape($recurrence->getLocation()->getName());
-			$description = WikiMarkup::parse(View::escape($recurrence->getDescription()));
+			$description = View::escape(WikiMarkup::parse($recurrence->getDescription()));
 			echo "
 			<event id=\"{$recurrence->getId()}\">
 				<start>{$recurrence->getStart('Y-m-d H:i:s')}</start>
