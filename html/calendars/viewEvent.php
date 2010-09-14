@@ -1,22 +1,22 @@
 <?php
 /**
- * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright 2006-2010 City of Bloomington, Indiana
  * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param GET event_id
  * @param GET date (optional) A date in the form of Y-m-d
  */
-if (!isset($_GET['event_id']) || !$_GET['event_id'])
-{
-	Header('Location: home.php');
+if (!isset($_GET['event_id']) || !$_GET['event_id']) {
+	header('Location: home.php');
 	exit();
 }
 
-try { $event = new Event($_GET['event_id']); }
-catch (Exception $e)
-{
+try {
+	$event = new Event($_GET['event_id']);
+}
+catch (Exception $e) {
 	$_SESSION['errorMessages'][] = $e;
-	Header('Location: home.php');
+	header('Location: home.php');
 	exit();
 }
 
@@ -26,24 +26,28 @@ $url->parameters = array('year'=>$date['year'],'mon'=>$date['mon'],'mday'=>$date
 
 $calendar = $event->getCalendar();
 
-$template = new Template();
-$template->blocks[] = new Block('calendars/breadcrumbs.inc',array('event'=>$event));
-$template->blocks[] = new Block('calendars/viewButtons.inc',array('url'=>$url,'calendar'=>$calendar));
+$template = isset($_GET['format']) ? new Template('default',$_GET['format']) : new Template();
+if ($template->outputFormat == 'html') {
+	$template->blocks[] = new Block('calendars/breadcrumbs.inc',array('event'=>$event));
+	$template->blocks[] = new Block('calendars/viewButtons.inc',
+									array('url'=>$url,'calendar'=>$calendar));
+}
 
 
-# If a specific date is requested, load the first recurrence
-# of that event for that date
-if (isset($_GET['date']))
-{
+// If a specific date is requested, load the first recurrence
+// of that event for that date
+if (isset($_GET['date'])) {
 	$rangeStart = strtotime($_GET['date']);
 	$rangeEnd = strtotime('+1 day',$rangeStart);
 
 	$recurrences = $event->getRecurrences($rangeStart,$rangeEnd);
-	if (count($recurrences))
-	{
+	if (count($recurrences)) {
 		$event = $recurrences[0];
 	}
-	else { $_SESSION['errorMessages'][] = new Exception('events/unknownRecurrence'); }
+	else {
+		$_SESSION['errorMessages'][] = new Exception('events/unknownRecurrence');
+	}
 }
 $template->blocks[] = new Block('events/viewEvent.inc',array('event'=>$event));
 echo $template->render();
+

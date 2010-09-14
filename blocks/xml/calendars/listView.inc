@@ -40,7 +40,9 @@ if (isset($recurrences[$year][$month][$day])) {
 			<event id=\"{$recurrence->getId()}\">
 				<start>{$recurrence->getStart('Y-m-d H:i:s')}</start>
 				<title>$title</title>
-				<location>$location</location>
+				<location id=\"{$recurrence->getLocation()->getId()}\">
+					$location
+				</location>
 				<description>$description</description>
 			</event>
 			";
