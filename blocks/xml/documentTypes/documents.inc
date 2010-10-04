@@ -13,10 +13,11 @@ $documents->find(array('documentType_id'=>$this->documentType->getId(),
 				isset($_GET['limit']) ? (int) $_GET['limit'] : null);
 echo "<documents>";
 foreach ($documents as $document) {
+	$title = View::escape($document->getTitle());
 	echo "
 	<document id=\"{$document->getId()}\">
 		<url>{$document->getURL()}</url>
-		<title>{$document->getTitle()}</title>
+		<title>$title</title>
 		<publishDate>{$document->getPublishDate('Y-m-d')}</publishDate>
 	</document>
 	";
