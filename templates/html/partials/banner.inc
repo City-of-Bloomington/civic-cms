@@ -32,7 +32,9 @@
 	</ul>
 	</div>
 	<?php
-		if (preg_match('/android|iphone|ipad|ipod|blackberry|symbian|palm|ericsson/',strtolower($_SERVER['HTTP_USER_AGENT']))) {
+		if (isset($_SERVER['HTTP_USER_AGENT'])
+			&& preg_match('/android|iphone|ipad|ipod|blackberry|symbian|palm|ericsson/',
+							strtolower($_SERVER['HTTP_USER_AGENT']))) {
 			echo "
 			<div id=\"mobile_button\">
 				<a href=\"http://bloomington.in.gov/m\">Mobile Site</a>
