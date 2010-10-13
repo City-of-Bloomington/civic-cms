@@ -470,4 +470,10 @@ div.customalert p { margin: 1px 1px 1px 3px; font-size:12px; padding-left:14px; 
 .fan_widget .fan_box .full_widget {border:none; }
 .fan_box .profileImage {display:none;}
 
-
+#mobile_button {
+				text-indent:-9999px; 
+				position:absolute; top:50px; left:325px;
+				width:485px; height:73px; 
+				background:url('../default/images/buttons/mobile_button.png') no-repeat; 
+				}
+#mobile_button a { display:block; width:485px; height:73px; }
