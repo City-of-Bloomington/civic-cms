@@ -29,14 +29,14 @@ $skin = isset($this->document)&&$this->document->getSkin() ? $this->document->ge
 </head>
 <body>
 <?php
-	include APPLICATION_HOME.'/includes/banner.inc';
-	include APPLICATION_HOME.'/includes/menubar.inc';
+	include APPLICATION_HOME.'/templates/html/partials/banner.inc';
+	include APPLICATION_HOME.'/templates/html/partials/menubar.inc';
 ?>
 <div id="main-content-container">
 <?php
-	include APPLICATION_HOME.'/includes/leftSidebar.inc';
-	if (isset($this->document)) { include APPLICATION_HOME.'/includes/pageTools.inc'; }
-	include APPLICATION_HOME.'/includes/rightSidebar.inc';
+	include APPLICATION_HOME.'/templates/html/partials/leftSidebar.inc';
+	if (isset($this->document)) { include APPLICATION_HOME.'/templates/html/partials/pageTools.inc'; }
+	include APPLICATION_HOME.'/templates/html/partials/rightSidebar.inc';
 ?>
 <div id="mainContent" xml:lang="<?php echo $_SESSION['LANGUAGE']; ?>">
 	<?php
@@ -52,6 +52,7 @@ $skin = isset($this->document)&&$this->document->getSkin() ? $this->document->ge
 </div>
 </div>
 <?php
-	include APPLICATION_HOME.'/includes/footer.inc';
-	include APPLICATION_HOME.'/includes/xhtmlFooter.inc';
+	include APPLICATION_HOME.'/templates/html/partials/footer.inc';
 ?>
+</body>
+</html>
