@@ -42,7 +42,7 @@ if (!isset($this->title)) {
 	<meta name="verify-v1" content="qf+tXEzM1CfhMG2IHbHh7jb4oRYLgqJ1oed1QZXnqvs=" />
 	<link rel="SHORTCUT ICON" href="<?php echo BASE_URL; ?>/favicon.ico" />
 	<style type="text/css" media="screen">
-		@import url('<?php echo BASE_URL."/skins/$skin/default/screen.css"; ?>');
+		@import url('<?php echo BASE_URL."/skins/$skin/screen.css"; ?>');
 	</style>
 	<style type="text/css" media="print">
 		@import url('<?php echo BASE_URL."/skins/$skin/print.css"; ?>');

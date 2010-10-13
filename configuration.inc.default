@@ -211,6 +211,19 @@ if (!isset($_SESSION['LANGUAGE'])) {
 }
 
 /**
+ * Mobile Site redirection
+ */
+if (preg_match('/android|iphone|ipad|ipod|blackberry|symbian|palm|ericsson/',strtolower($_SERVER['HTTP_USER_AGENT']))) {
+	if (false !== strpos($_SERVER['HTTP_REFERER'],'http://bloomington.in.gov/m')) {
+		$_SESSION['really_want_to_view_full_site'] = true;
+	}
+	if (!isset($_SESSION['really_want_to_view_full_site'])) {
+		header('Location: http://bloomington.in.gov/m');
+	}
+}
+
+
+/**
  * Skin Negotiation
  * Set the name for the skin directory you want to use.
  * Skins are stored in APPLICATION_HOME/html/skins
