@@ -38,7 +38,7 @@ as well as find driving directions, and information specific to a certain site.<
 <div class="interfaceBox" id="location_list">
 	<h2>
 		<?php
-			$return_url = "http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]";
+			$return_url = new URL("$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]");
 
 			if (userHasRole(array('Administrator','Webmaster','Content Creator')))
 			{

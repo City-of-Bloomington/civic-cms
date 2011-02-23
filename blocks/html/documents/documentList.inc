@@ -91,7 +91,7 @@
 				$url =  new URL(BASE_URL.'/documents/updateDocument.php');
 				$url->parameters['document_id'] = $document->getId();
 				$url->parameters['lang'] = $_SESSION['LANGUAGE'];
-				$url->parameters['return_url'] = "http://$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]";
+				$url->parameters['return_url'] = new URL("$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]");
 			}
 			else { $url = new URL($document->getURL()); }
 
