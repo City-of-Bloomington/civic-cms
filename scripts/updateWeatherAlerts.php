@@ -17,32 +17,35 @@ include dirname(__FILE__).'/../configuration.inc';
 
 $c = 0;
 $events = array();
-$alerts = simplexml_load_file(NATIONAL_WEATHER_SERVICE_FEED);
-foreach($alerts->entry as $entry) {
+$xml = file_get_contents(NATIONAL_WEATHER_SERVICE_FEED);
+if ($xml) {
+	$alerts = simplexml_load_string($xml);
+	foreach($alerts->entry as $entry) {
 
-	// Grab just the first line of the title
-	preg_match('/^.*$/m',trim($entry->title),$matches);
-	$title = $matches[0];
+		// Grab just the first line of the title
+		preg_match('/^.*$/m',trim($entry->title),$matches);
+		$title = $matches[0];
 
-	foreach ($ALERT_IGNORE as $ignore) {
-		if (preg_match($ignore,$title)) { continue 2; }
-	}
+		foreach ($ALERT_IGNORE as $ignore) {
+			if (preg_match($ignore,$title)) { continue 2; }
+		}
 
-	$capInfo = $entry->children('urn:oasis:names:tc:emergency:cap:1.1');
-	if (count($capInfo)) {
+		$capInfo = $entry->children('urn:oasis:names:tc:emergency:cap:1.1');
+		if (count($capInfo)) {
 
-		$events[] = $title;
-		echo "Adding: $title\n";
+			$events[] = $title;
+			echo "Adding: $title\n";
 
-		$alert = new Alert($title);
-		$alert->setAlertType(new AlertType('Weather'));
-		$alert->setStartTime($capInfo->effective);
-		$alert->setEndTime($capInfo->expires);
-		$alert->setText($entry->summary);
-		$alert->setURL($entry->link['href']);
-		$alert->save();
+			$alert = new Alert($title);
+			$alert->setAlertType(new AlertType('Weather'));
+			$alert->setStartTime($capInfo->effective);
+			$alert->setEndTime($capInfo->expires);
+			$alert->setText($entry->summary);
+			$alert->setURL($entry->link['href']);
+			$alert->save();
 
-		$c++;
+			$c++;
+		}
 	}
 }
 echo date('Y-m-d H:i:sp')." Added $c alerts\n";
