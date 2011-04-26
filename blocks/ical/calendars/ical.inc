@@ -31,12 +31,15 @@
 		$SUMMARY = fold('SUMMARY:'.$event->getTitle());
 		$DESCRIPTION = fold('DESCRIPTION:'.$event->getDescription());
 
+		$locationName = $event->getLocation() ? $event->getLocation()->getName() : '';
+		$LOCATION = fold('LOCATION:$locationName');
+
 # icalendar format requires everything be flush left.
 		echo "
 BEGIN:VEVENT
 UID:$start-{$event->getId()}@$_SERVER[SERVER_NAME]
 $SUMMARY
-LOCATION:{$event->getLocation()->getName()}
+$LOCATION
 $DTSTART
 $DTEND
 $DESCRIPTION
