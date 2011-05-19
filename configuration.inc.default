@@ -197,13 +197,27 @@ define('CAS_URI','cas');
  */
 define('DEFAULT_LANGUAGE','en');
 if (isset($_GET['lang'])) {
-	$_SESSION['LANGUAGE'] = preg_replace('/[^a-z]/','',strtolower(substr($_GET['lang'],0,3)));
+	$lang = preg_replace('/[^a-z]/','',strtolower(substr($_GET['lang'],0,3)));
+	try {
+		$lang = new Language($lang);
+		$_SESSION['LANGUAGE'] = $lang->getCode();
+	}
+	catch (Exception $e) {
+		$_SESSION['LANGUAGE'] = DEFAULT_LANGUAGE;
+	}
 }
 // Replace this if () line with an else, if you do not want languages to stick in the SESSION
 //else {
 if (!isset($_SESSION['LANGUAGE'])) {
 	if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-		$_SESSION['LANGUAGE'] = preg_replace('/[^a-z]/','',strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'],0,3)));
+		$lang = preg_replace('/[^a-z]/','',strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'],0,3)));
+		try {
+			$lang = new Language($lang);
+			$_SESSION['LANGUAGE'] = $lang->getCode();
+		}
+		catch (Exception $e) {
+			$_SESSION['LANGUAGE'] = DEFAULT_LANGUAGE;
+		}
 	}
 	else {
 		$_SESSION['LANGUAGE'] = DEFAULT_LANGUAGE;
