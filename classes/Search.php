@@ -1,7 +1,7 @@
 <?php
 /**
  * @copyright Copyright (C) 2007-2008 City of Bloomington, Indiana. All rights reserved.
- * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+ * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * Class for working with a previously created search index.  Before this class
  * will work, you must have run /scripts/install_search.php

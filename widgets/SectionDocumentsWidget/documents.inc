@@ -1,7 +1,7 @@
 <?php
 /**
  * @copyright 2006-2009 City of Bloomington, Indiana
- * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+ * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Section $this->section
  * @param Document $this->document The current document, which should probably be left out of the list

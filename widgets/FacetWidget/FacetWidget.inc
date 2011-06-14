@@ -7,7 +7,7 @@
  * If listed, the current document's facets will be split up by facet group.
  *
  * @copyright 2007-2008 City of Bloomington, Indiana
- * @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
+ * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 class FacetWidget extends Widget

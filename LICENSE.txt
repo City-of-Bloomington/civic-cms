@@ -1,7 +1,7 @@
 Unless listed below, all software contained in this distribution is copyrighted
 by the City of Bloomington, Indiana
 
-Copyright (C) 2006-2010 City of Bloomington, Indiana. All rights reserved.
+Copyright 2006-2011 City of Bloomington, Indiana. All rights reserved.
 
 This content manager is free software; you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published by
@@ -22,7 +22,7 @@ GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this content manager; if not, you can get a copy at:
-http://www.gnu.org/copyleft/agpl.html
+http://www.gnu.org/licenses/agpl.txt
 
 Or, write to
 Free Software Foundation, Inc.
