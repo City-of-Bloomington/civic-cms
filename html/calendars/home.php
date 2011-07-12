@@ -21,7 +21,7 @@ if ($template->outputFormat!='ical') {
 		}
 	}
 	else {
-		$block = 'calendars/listView.inc';
+		$block = 'calendars/monthView.inc';
 	}
 
 	// Get the date that we're wanting to display
