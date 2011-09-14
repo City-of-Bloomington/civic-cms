@@ -1,10 +1,11 @@
 #!/bin/bash
-# @copyright Copyright (C) 2008 City of Bloomington, Indiana. All rights reserved.
+# Creates a tarball containing a full snapshot of the data in the site
+#
+# @copyright 2008-2011 City of Bloomington, Indiana
 # @license http://www.gnu.org/copyleft/gpl.html GNU/GPL, see LICENSE.txt
 # @author Cliff Ingham <inghamn@bloomington.in.gov>
-#
-# Creates a tarball containing a full snapshot of the data in the site
 APPLICATION_HOME=/var/www/sites/content_manager
+BACKUP_DIR=/var/www/backups/content_manager
 MYSQLDUMP=/usr/local/mysql/bin/mysqldump
 
 MYSQL_DBNAME=content_manager
@@ -33,14 +34,15 @@ $MYSQLDUMP -u $MYSQL_USER -p$MYSQL_PASS \
 $MYSQL_DBNAME > data/database.sql
 
 # Tarball the Data
-tar czf backups/$today.tar.gz data
+tar czf $BACKUP_DIR/$today.tar.gz data
 
 # Purge any backup tarballs that are too old
-for file in `ls backups`
+cd $BACKUP_DIR
+for file in `ls`
 do
-	atime=`stat -c %Y backups/$file`
+	atime=`stat -c %Y $file`
 	if [ $(( $now - $atime >= $num_days_to_keep*24*60*60 )) = 1 ]
 	then
-		rm backups/$file
+		rm $file
 	fi
 done
