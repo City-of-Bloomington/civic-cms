@@ -31,7 +31,7 @@ if (count($this->recurrenceArray))
 			foreach($this->recurrenceArray[$year][$month][$day] as $r)
 			{
 				$title = View::escape($r->getEvent()->getTitle());
-				echo "<li><a href=\"{$r->getEvent()->getURL()}\">$title</a></li>";
+				echo "<li><a href=\"{$r->getURL()}\">$title</a></li>";
 			}
 			echo '</ul>';
 		}
