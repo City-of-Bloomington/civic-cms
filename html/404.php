@@ -1,9 +1,14 @@
 <?php
 /**
- * @copyright 2007-2010 City of Bloomington, Indiana
+ * @copyright 2007-2011 City of Bloomington, Indiana
  * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
+if (false !== strpos($_SERVER['REQUEST_URI'],'media/media')) {
+	include APPLICATION_HOME.'/html/media/404.php';
+	exit();
+}
+
 $u = new URL($_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
 $path = str_replace(BASE_URL.'/','',$u->getURL());
 $url = urldecode($path);
