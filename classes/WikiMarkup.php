@@ -51,6 +51,7 @@ class WikiMarkup
 	 * [anchor:Name]
 	 * [mailto:EmailAddress]
 	 * [Document Title#anchor]
+	 * [youtube:video id]
 	 *
 	 * All of these can be prepended with custom text for the link, using the
 	 * pipe to seperate
@@ -485,6 +486,16 @@ class WikiMarkup
 		$block->calendar = $calendar;
 		$block->date = getdate();
 		return $block->render();
+	}
+		/**
+	 * Returns a youtube video
+	 * @param int|string $target youtube to embed
+	 * @return string
+	 */
+	private static function youtubeEmbed($target)
+	{	
+		return "<iframe width=\"480\" height=\"274\" src=\"http://www.youtube.com/embed/$target\" frameborder=\"0\" allowfullscreen></iframe>";
+	
 	}
 
 	/**

@@ -24,6 +24,7 @@
 
 			$title = View::escape($document->getTitle());
 			$link = $document->getURL();
+			$id = $document->getID();
 
 			# Use only the first 30 words of the document
 			$description = '';
@@ -45,6 +46,7 @@
 			<item>
 				<title>$title</title>
 				<link>$link</link>
+				<id>$id</id>
 				<pubDate>$pubDate</pubDate>
 				<description>$description</description>
 			</item>
