@@ -493,53 +493,55 @@ class WikiMarkup
 	 * @return string
 	 */
 	private static function youtubeEmbed($target)
-	{	
+	{
 		return "<iframe width=\"480\" height=\"274\" src=\"http://www.youtube.com/embed/$target\" frameborder=\"0\" allowfullscreen></iframe>";
-	
+
 	}
-	
-			/**
+
+	/**
 	 * Returns a google form
+	 *
 	 * @param int|string $target google to embed
 	 * @return string
 	 */
 	private static function googleFormEmbed($target)
 	{
-		if (preg_match('{formkey="?([0-9a-zA-Z]{34})"?}',$target,$matches))
-		{$key = $matches[1];}
-		
-		if (preg_match('{height="?([0-9]+)"?}',$target,$matches))
-		{$height=$matches[1];}
-		
-		if (isset($key) && isset($height))
-			{		return "<iframe src=\"https://docs.google.com/spreadsheet/embeddedform?formkey=$key\" width=\"480\" height=\"$height\" frameborder=\"0\" marginheight=\"0\" marginwidth=\"0\">Loading...</iframe>";
+		if (preg_match('{formkey="?([0-9a-zA-Z]{34})"?}',$target,$matches)) {
+			$key = $matches[1];
 		}
-		
-		else
-			{ return "<p>The syntax wasn't correct. Please try again or contact the Webmaster for assistance!</p>";}
-	
+		if (preg_match('{height="?([0-9]+)"?}',$target,$matches)) {
+			$height=$matches[1];
+		}
+
+		if (isset($key) && isset($height)) {
+			return "<iframe src=\"https://docs.google.com/spreadsheet/embeddedform?formkey=$key\" width=\"480\" height=\"$height\" frameborder=\"0\" marginheight=\"0\" marginwidth=\"0\">Loading...</iframe>";
+		}
+		else {
+			return "<p>The syntax wasn't correct. Please try again or contact the Webmaster for assistance!</p>";
+		}
 	}
 
 	/**
-	 * Returns a google form
+	 * Returns a Facebook like button
+	 *
 	 * @param int|string $target google to embed
 	 * @return string
 	 */
 	private static function facebookLikeembed($target)
 	{
-		if (preg_match('{formkey="?([0-9a-zA-Z]{34})"?}',$target,$matches))
-		{$page= $matches[1];}
-		
-		if (preg_match('{width="?([0-9]+)"?}',$target,$matches))
-		{$width=$matches[1];}
-		
-		if (isset($page) && isset($width))
-			{		return "<div class=\"fb-like-box\" data-href=\"$page\" data-width=\"$width\" data-show-faces=\"false\" data-stream=\"false\" data-header=\"true\"></div>";
+		if (preg_match('{formkey="?([0-9a-zA-Z]{34})"?}',$target,$matches)) {
+			$page= $matches[1];
 		}
-		
-		else
-			{ return "<p>The syntax wasn't correct. Please try again or contact the Webmaster for assistance!</p>";}
-	
+		if (preg_match('{width="?([0-9]+)"?}',$target,$matches)) {
+			$width=$matches[1];
+		}
+
+		if (isset($page) && isset($width)) {
+			return "<div class=\"fb-like-box\" data-href=\"$page\" data-width=\"$width\" data-show-faces=\"false\" data-stream=\"false\" data-header=\"true\"></div>";
+		}
+		else {
+			return "<p>The syntax wasn't correct. Please try again or contact the Webmaster for assistance!</p>";
+		}
 	}
 
 	/**
@@ -692,10 +694,15 @@ class WikiMarkup
 			return $block->render();
 		}
 	}
+
+	/**
+	 * You can't link to languages yet.
+	 */
 	private static function languageLink($linkTarget,$linkText=null)
 	{
 		return false;
 	}
+
 	private static function anchorLink($linkTarget,$linkText=null)
 	{
 		self::$CURRENT_URL = $linkTarget;
