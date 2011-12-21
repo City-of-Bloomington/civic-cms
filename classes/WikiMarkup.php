@@ -934,4 +934,25 @@ class WikiMarkup
 		}
 		return $imageTag;
 	}
+
+	/**
+	 * Embeds an Open311 client interface in an iframe
+	 *
+	 * @param string $target
+	 */
+	 private static function open311Embed($target=null)
+	 {
+		if (defined('CIVIC_CRM')) {
+			$url = new URL(CIVIC_CRM.'/open311/client.php?api_key='.CIVIC_CRM_API_KEY);
+		}
+		return "
+		<script type=\"text/javascript\">
+			function handleHeightResponse(e) {
+				document.getElementById('open311Client').height = parseInt(e.data + 60);
+			}
+			window.addEventListener('message',handleHeightResponse,false);
+		</script>
+		<iframe id=\"open311Client\" src=\"$url\" onload=\"this.contentWindow.postMessage('height','".CIVIC_CRM."');\"></iframe>
+		";
+	 }
 }
