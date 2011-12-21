@@ -944,15 +944,24 @@ class WikiMarkup
 	 {
 		if (defined('CIVIC_CRM')) {
 			$url = new URL(CIVIC_CRM.'/open311/client.php?api_key='.CIVIC_CRM_API_KEY);
-		}
-		return "
-		<script type=\"text/javascript\">
-			function handleHeightResponse(e) {
-				document.getElementById('open311Client').height = parseInt(e.data + 60);
+
+			if ($target) {
+				if (preg_match('/service_code=([^\,]+)/',$target,$matches)) {
+					$url->service_code = $matches[1];
+				}
+				if (preg_match('/group=([^\,]+)/',$target,$matches)) {
+					$url->group = $matches[1];
+				}
 			}
-			window.addEventListener('message',handleHeightResponse,false);
-		</script>
-		<iframe id=\"open311Client\" src=\"$url\" onload=\"this.contentWindow.postMessage('height','".CIVIC_CRM."');\"></iframe>
-		";
+			return "
+			<script type=\"text/javascript\">
+				function handleHeightResponse(e) {
+					document.getElementById('open311Client').height = parseInt(e.data + 60);
+				}
+				window.addEventListener('message',handleHeightResponse,false);
+			</script>
+			<iframe id=\"open311Client\" src=\"$url\" onload=\"this.contentWindow.postMessage('height','".CIVIC_CRM."');\"></iframe>
+			";
+		}
 	 }
 }
