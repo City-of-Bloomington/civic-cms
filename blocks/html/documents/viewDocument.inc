@@ -40,5 +40,5 @@ if ($this->document->PHPIsEnabled())
 }
 else
 {
-	echo WikiMarkup::parse($this->document->getContent($lang));
+	echo WikiMarkup::parse($this->document->getContent($lang),$this->template);
 }
