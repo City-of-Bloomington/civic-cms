@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2007-2008 City of Bloomington, Indiana. All rights reserved.
+ * @copyright 2007-2012 City of Bloomington, Indiana
  * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param UserList $this->userList
@@ -10,17 +10,18 @@
 <div class="interfaceBox">
 	<div class="tabBar">
 		<ul><?php
-				$class = $this->authenticationMethod==='LDAP' ? 'class="current"' : '';
-				echo "<li $class><a href=\"".BASE_URL."/users?authenticationMethod=LDAP\">LDAP</a></li>";
-
-				$class = $this->authenticationMethod==='local' ? 'class="current"' : '';
-				echo "<li $class><a href=\"".BASE_URL."/users?authenticationMethod=local\">local</a></li>";
+				foreach (User::getAuthenticationMethods() as $method) {
+					$class = $method===$this->authenticationMethod
+						? 'class="current"'
+						: '';
+					echo "<li $class><a href=\"".BASE_URL."/users?authenticationMethod=$method\">$method</a></li>";
+				}
 			?>
 		</ul>
 	</div>
 	<h2><?php
 			if (userHasRole('Administrator')) { echo "<a class=\"addSmall button\" href=\"".BASE_URL."/users/addUser.php\">Add</a>"; }
-			echo $this->authenticationMethod.' Users';
+			echo $this->authenticationMethod.' User Accounts';
 		?>
 	</h2>
 	<table>

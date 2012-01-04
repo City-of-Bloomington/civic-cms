@@ -108,17 +108,25 @@ define('DB_PASS','password');
 define('MYSQL_PATH','/usr/local/mysql');
 
 /**
- * LDAP Configuration
- * This is required in order to use the LDAP authentication
- * If you do not want to use LDAP authentication, you can comment this out
+ * Directory Configuration
+ *
+ * This is required in order to use the LDAP or ADS authentication
+ * If you do not want to use external authentication, you can comment this out
  */
-define('LDAP_DOMAIN','city.bloomington.in.us');
-define('LDAP_DN','ou=people,o='.LDAP_DOMAIN);
-define('LDAP_USERNAME_ATTRIBUTE','uid');
-define('LDAP_ADMIN_USER','username');
-define('LDAP_ADMIN_PASS','password');
-define('LDAP_SERVER','ldap.bloomington.in.gov');
-define('LDAP_PASSWORD_ATTRIBUTE','userpassword');
+// Example for ADS style authentication
+define('DIRECTORY_SERVER','ldaps://example.org:636');
+define('DIRECTORY_BASE_DN','OU=Department,DC=example,DC=org');
+define('DIRECTORY_USERNAME_ATTRIBUTE', 'CN');
+define('DIRECTORY_USER_BINDING','{username}@bloomington.in.gov');
+define('DIRECTORY_ADMIN_BINDING', 'admin@bloomington.in.gov');
+define('DIRECTORY_ADMIN_PASS','password');
+// Example for LDAP style authentication
+//define('DIRECTORY_SERVER','ldaps://example.org:636');
+//define('DIRECTORY_BASE_DN','ou=people,o=ldap.domain.somewhere');
+//define('DIRECTORY_USERNAME_ATTRIBUTE', 'uid');
+//define('DIRECTORY_USER_BINDING','uid={username},'.DIRECTORY_BASE_DN);
+//define('DIRECTORY_ADMIN_BINDING', 'uid=admin,'.DIRECTORY_BASE_DN);
+//define('DIRECTORY_ADMIN_PASS','password');
 
 /**
  * These control search index performance.  If indexing seems slow

@@ -27,7 +27,7 @@ create table users (
   id int unsigned not null primary key auto_increment,
   username varchar(128) not null,
   password varchar(32) default null,
-  authenticationMethod varchar(40) not null default 'LDAP',
+  authenticationMethod varchar(40) not null default 'Employee',
   firstname varchar(128),
   lastname varchar(128),
   department_id int unsigned,

@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright 2006-2011 City of Bloomington, Indiana
  * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
@@ -16,14 +16,14 @@
 
 		try
 		{
-			# Load their information from LDAP
-			# Delete this statement if you're not using LDAP
-			if ($user->getAuthenticationMethod() == 'LDAP')
-			{
-				$ldap = new LDAPEntry($user->getUsername());
-				$user->setFirstname($ldap->getFirstname());
-				$user->setLastname($ldap->getLastname());
-				$user->setEmail($ldap->getEmail());
+			// Load their information from LDAP, ADS, etc.
+			if ($user->getAuthenticationMethod() != 'local') {
+				$externalIdentity = $user->getAuthenticationMethod();
+				$identity = new $externalIdentity($user->getUsername());
+
+				$user->setFirstname($identity->getFirstname());
+				$user->setLastname($identity->getLastname());
+				$user->setEmail($identity->getEmail());
 			}
 
 			$user->save();

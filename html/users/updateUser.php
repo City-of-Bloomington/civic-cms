@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright 2006-2011 City of Bloomington, Indiana
  * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param GET id
@@ -28,4 +28,3 @@
 	$template = new Template();
 	$template->blocks[] = new Block("users/updateUserForm.inc",array('user'=>$user));
 	echo $template->render();
-?>

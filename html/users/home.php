@@ -1,13 +1,15 @@
 <?php
 /**
- * @copyright Copyright (C) 2006,2007,2008 City of Bloomington, Indiana. All rights reserved.
+ * @copyright 2006-2012 City of Bloomington, Indiana
  * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param GET authenticationMethod
  */
 verifyUser('Administrator');
 
-$authenticationMethod = isset($_GET['authenticationMethod']) ? $_GET['authenticationMethod'] : 'LDAP';
+$authenticationMethod = isset($_GET['authenticationMethod'])
+	? $_GET['authenticationMethod']
+	: 'Employee';
 
 $users = new UserList();
 $users->find(array('authenticationMethod'=>$authenticationMethod));
