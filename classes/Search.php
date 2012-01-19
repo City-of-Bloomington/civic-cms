@@ -30,6 +30,7 @@ class Search
 
 		# This analyzer is case-sensitive, but it's the only one that can handle UTF8 characters
 		# We'll need to remember to lowercase search queries before doing the search
+		Zend_Search_Lucene_Search_QueryParser::setDefaultEncoding('utf-8');
 		$analyzer = new Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8();
 		$analyzer->addFilter($stopWordsFilter);
 
