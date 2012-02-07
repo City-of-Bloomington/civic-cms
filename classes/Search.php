@@ -93,7 +93,7 @@ class Search
 
 	/**
 	 * Removed an entry from the search index
-	 * @param Obejct $entry
+	 * @param Object $entry
 	 */
 	public function remove($entry)
 	{

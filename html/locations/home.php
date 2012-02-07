@@ -68,7 +68,9 @@ else {
 
 	# If they ask for data from a service without specifying a particular group,
 	# send them a file with all the groups
-	$listBlock = new Block('locations/locationGroupList.inc');
+	$groups = new LocationGroupList();
+	$groups->find();
+	$listBlock = new Block('locations/locationGroupList.inc',array('locationGroupList'=>$groups));
 }
 
 

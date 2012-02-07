@@ -31,7 +31,12 @@
 				else { $buttons = ''; }
 
 				$class = $locationGroup->isDefault() ? ' class="default"' : '';
-				echo "<li$class>$buttons $name</li>\n";
+				echo "
+				<li$class>
+					$buttons
+					<a href=\"{$locationGroup->getURL()}\">$name</a>
+				</li>
+				";
 			}
 		?>
 	</ul>

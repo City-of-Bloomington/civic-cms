@@ -1,11 +1,20 @@
 <?php
 /**
- * @copyright 2006-2010 City of Bloomington, Indiana
+ * @copyright 2006-2012 City of Bloomington, Indiana
  * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param GET calendar_id
  */
-$calendar = isset($_GET['calendar_id']) ? new Calendar($_GET['calendar_id']) : new Calendar();
+if (isset($_GET['calendar_id'])) {
+	try {
+		$calendar = new Calendar($_GET['calendar_id']);
+	}
+	catch (Exception $e) {
+	}
+}
+if (!isset($calendar)) {
+	$calendar = new Calendar();
+}
 $template = isset($_GET['format']) ? new Template('default',$_GET['format']) : new Template();
 
 if ($template->outputFormat!='ical') {
@@ -40,7 +49,7 @@ if ($template->outputFormat!='ical') {
 		$template->blocks[] = new Block('calendars/breadcrumbs.inc',array('calendar'=>$calendar));
 		$template->blocks[] = new Block('calendars/viewButtons.inc',array('url'=>$url,'calendar'=>$calendar));
 	}
-	
+
 	$template->blocks[] = new Block($block,array('calendar'=>$calendar,'date'=>$date));
 
 	// Only show the event buttons if they can actually add an event
