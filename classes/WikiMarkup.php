@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright 2007-2012 City of Bloomington, Indiana
  * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
@@ -942,17 +942,9 @@ class WikiMarkup
 	 */
 	 private static function open311Embed($target=null)
 	 {
-		if (defined('CIVIC_CRM')) {
-			$url = new URL(CIVIC_CRM.'/open311/client.php?api_key='.CIVIC_CRM_API_KEY);
+		if (defined('OPEN311_PROXY')) {
+			$url = OPEN311_PROXY."/embed?$target";
 
-			if ($target) {
-				if (preg_match('/service_code=([^\,]+)/',$target,$matches)) {
-					$url->service_code = $matches[1];
-				}
-				if (preg_match('/group=([^\,]+)/',$target,$matches)) {
-					$url->group = $matches[1];
-				}
-			}
 			return "
 			<script type=\"text/javascript\">
 				function handleHeightResponse(e) {
@@ -960,7 +952,7 @@ class WikiMarkup
 				}
 				window.addEventListener('message',handleHeightResponse,false);
 			</script>
-			<iframe id=\"open311Client\" src=\"$url\" onload=\"this.contentWindow.postMessage('height','".CIVIC_CRM."');\"></iframe>
+			<iframe id=\"open311Client\" src=\"$url\" onload=\"this.contentWindow.postMessage('height','".OPEN311_PROXY."');\"></iframe>
 			";
 		}
 	 }

@@ -257,9 +257,8 @@ define('DEFAULT_SKIN','default');
 /**
  * External Web Services
  */
-define('DIRECTORY_WEBSERVICE','http://isotope.bloomington.in.gov/directory');
-define('CIVIC_CRM','https://localhost/civic-crm');
-define('CIVIC_CRM_API_KEY','');
+define('DIRECTORY_WEBSERVICE','http://localhost/directory');
+define('OPEN311_PROXY','https://localhost/open311-proxy');
 
 /**
  * Emergency Weather Alerts
