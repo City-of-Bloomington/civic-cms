@@ -42,6 +42,8 @@ catch (Exception $e) {
 	$template->blocks[] = new Block('search/searchForm.inc');
 }
 
+if ($document->getId()==1) { $template->setFilename('homepage'); }
+
 if (isset($document)) {
 	$document->logAccess();
 

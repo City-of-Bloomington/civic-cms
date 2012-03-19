@@ -40,6 +40,19 @@ class Template extends View
 	}
 
 	/**
+	 * @param string $filename
+	 */
+	public function setFilename($filename)
+	{
+		if (is_file(APPLICATION_HOME."/templates/{$this->outputFormat}/$filename.inc")) {
+			$this->filename = $filename;
+		}
+		else {
+			throw new Exception('unknownTemplate');
+		}
+	}
+
+	/**
 	 * Returns all the rendered content of the template
 	 *
 	 * Template files must include a call to $this->includeBlocks(),
