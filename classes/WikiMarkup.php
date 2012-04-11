@@ -950,9 +950,14 @@ class WikiMarkup
 				function handleHeightResponse(e) {
 					document.getElementById('open311Client').height = parseInt(e.data + 60);
 				}
-				window.addEventListener('message',handleHeightResponse,false);
+				if (window.addEventListener) {
+					window.addEventListener('message', handleHeightResponse, false);
+				}
 			</script>
-			<iframe id=\"open311Client\" src=\"$url\" onload=\"this.contentWindow.postMessage('height','".OPEN311_PROXY."');\"></iframe>
+			<iframe id=\"open311Client\"
+					src=\"$url\"
+					height=\"720\"
+					onload=\"this.contentWindow.postMessage('height','".OPEN311_PROXY."');\"></iframe>
 			";
 		}
 	 }
