@@ -506,7 +506,7 @@ class WikiMarkup
 	 */
 	private static function googleFormEmbed($target)
 	{
-		if (preg_match('{formkey="?([0-9a-zA-Z]{34})"?}',$target,$matches)) {
+		if (preg_match('{formkey=?([0-9a-zA-Z]{34})"?}',$target,$matches)) {
 			$key = $matches[1];
 		}
 		if (preg_match('{height="?([0-9]+)"?}',$target,$matches)) {
