@@ -32,7 +32,7 @@
 		$DESCRIPTION = fold('DESCRIPTION:'.$event->getDescription());
 
 		$locationName = $event->getLocation() ? $event->getLocation()->getName() : '';
-		$LOCATION = fold('LOCATION:$locationName');
+		$LOCATION = fold("LOCATION:$locationName");
 
 # icalendar format requires everything be flush left.
 		echo "
