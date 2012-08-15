@@ -4,6 +4,7 @@
  * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
+header('Content-type: text/calendar; charset=utf-8');
 ?>
 BEGIN:VCALENDAR
 PRODID:<?php echo BASE_URL; ?>/calendars
