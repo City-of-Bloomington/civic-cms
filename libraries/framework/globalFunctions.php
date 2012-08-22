@@ -62,15 +62,15 @@ function customErrorHandler ($errno, $errstr, $errfile, $errline)
 				 "From: apache@$_SERVER[SERVER_NAME]");
 		}
 		if (in_array('SKIDDER',$ERROR_REPORTING)) {
-			$message = "Error on line $errline of file $errfile:\n$errstr\n";
+			$script = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : $_SERVER['SCRIPT_NAME'];
+			$message = "$script\nError on line $errline of file $errfile:\n$errstr\n";
 			$message.= print_r(debug_backtrace(),true);
-
-			$script = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : __FILE__;
 
 			$skidder = curl_init(SKIDDER_URL);
 			curl_setopt($skidder,CURLOPT_POST,true);
 			curl_setopt($skidder,CURLOPT_HEADER,true);
 			curl_setopt($skidder,CURLOPT_RETURNTRANSFER,true);
+			curl_setopt($skidder,CURLOPT_SSL_VERIFYPEER, false);
 			curl_setopt($skidder,
 						CURLOPT_POSTFIELDS,
 						array('application_id'=>SKIDDER_APPLICATION_ID,
@@ -127,6 +127,7 @@ function customExceptionHandler($exception)
 				 "From: apache@$_SERVER[SERVER_NAME]");
 		}
 		if (in_array('SKIDDER',$ERROR_REPORTING)) {
+			$script = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : $_SERVER['SCRIPT_NAME'];
 			$message = "Error on line {$exception->getLine()} of file {$exception->getFile()}:\n{$exception->getMessage()}\n";
 			$message.= print_r(debug_backtrace(),true);
 
@@ -134,10 +135,11 @@ function customExceptionHandler($exception)
 			curl_setopt($skidder,CURLOPT_POST,true);
 			curl_setopt($skidder,CURLOPT_HEADER,true);
 			curl_setopt($skidder,CURLOPT_RETURNTRANSFER,true);
+			curl_setopt($skidder,CURLOPT_SSL_VERIFYPEER, false);
 			curl_setopt($skidder,
 						CURLOPT_POSTFIELDS,
 						array('application_id'=>SKIDDER_APPLICATION_ID,
-							  'script'=>$_SERVER['REQUEST_URI'],
+							  'script'=>$script,
 							  'type'=>'Uncaught Exception',
 							  'message'=>$message));
 			curl_exec($skidder);
@@ -147,7 +149,6 @@ function customExceptionHandler($exception)
 if (ERROR_REPORTING != 'PHP_DEFAULT') {
 	set_exception_handler('customExceptionHandler');
 }
-
 
 /**
  * Makes sure the user is logged in.
