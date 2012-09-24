@@ -71,7 +71,7 @@ if (defined('GOOGLE_API_KEY'))
 
 			var bounds = new GLatLngBounds();
 			bounds.extend(point);
-			map.setCenter(bounds.getCenter(),map.getBoundsZoomLevel(bounds));
+			map.setCenter(bounds.getCenter(),17);
 		}
 	}
 
