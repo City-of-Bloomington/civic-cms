@@ -8,7 +8,7 @@
 $name = View::escape($this->location->getName());
 $address = View::escape($this->location->getAddress());
 $phone = View::escape($this->location->getPhone());
-$description = View::escape($this->location->getDescription());
+$description = WikiMarkup::parse($this->location->getDescription());
 $website = '';
 if ($this->location->getWebsite())
 {

@@ -62,7 +62,7 @@ as well as find driving directions, and information specific to a certain site.<
 			foreach($this->locationList as $location)
 			{
 				$name = View::escape($location->getName());
-				$description = View::escape($location->getDescription());
+				$description = WikiMarkup::parse($location->getDescription());
 
 				# Check if the installation has a Google Maps Key
 				# Make sure the location has Latitude and Longitude before trying to map it
