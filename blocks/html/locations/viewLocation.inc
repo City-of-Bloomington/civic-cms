@@ -23,19 +23,41 @@ $directions = "Get Directions: <a href=\"$directionsURL\" onclick=\"window.open(
 $class = $this->location->isHandicapAccessible() ? 'class="handicap_accessible"' : '';
 
 echo "
-<h1 $class>$name</h1>
-<table>
-<tr><th>Address</th>
+	<h1 $class>$name</h1>
+	<table>
+	";
+if($address){
+	echo "
+	<tr><th>Address</th>
 	<td>$address</td></tr>
-<tr><th>Phone Number</th>
+	";
+}
+if($phone){
+	echo "	
+	<tr><th>Phone Number</th>
 	<td>$phone</td></tr>
+	";
+}
+if($description){
+	echo "
 <tr><th>Description</th>
 	<td>$description</td></tr>
-<tr><th>Website</th>
+	";
+}
+if($website){
+	echo "
+	<tr><th>Website</th>
 	<td>$website</td></tr>
-<tr><th>Directions</th>
+	";
+}
+if($directions){
+	echo "
+	<tr><th>Directions</th>
 	<td>$directions</td></tr>
-</table>
+	";
+}
+echo "
+	</table>
 ";
 echo WikiMarkup::parse($this->location->getContent());
 
