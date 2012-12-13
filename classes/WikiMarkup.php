@@ -379,7 +379,7 @@ class WikiMarkup
 		$locationGroup = self::find('LocationGroup',$target);
 		if ($locationGroup instanceof LocationGroup)
 		{
-			$block = new Block('locations/locationList.inc');
+			$block = new Block('locations/locationGroupMap.inc');
 			$block->title = $locationGroup->getName();
 			$block->locationGroup = $locationGroup;
 			$block->locationList = $locationGroup->getLocations();
