@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2006-2010 City of Bloomington, Indiana
+ * @copyright 2006-2013 City of Bloomington, Indiana
  * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
@@ -28,3 +28,15 @@
 		</ul>
 	</div>
 </div>
+<?php
+	if (isset($this->assets['scripts'])) {
+		foreach ($this->assets['scripts'] as $url) {
+			echo "<script type=\"text/javascript\" src=\"$url\"></script>\n";
+		}
+	}
+	if (isset($this->assets['stylesheets'])) {
+		foreach ($this->assets['stylesheets'] as $url) {
+			echo "<link rel=\"stylesheet\" href=\"$url\" />\n";
+		}
+	}
+?>

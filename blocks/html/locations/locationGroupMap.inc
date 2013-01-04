@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2012 City of Bloomington, Indiana
+ * @copyright 2012-2013 City of Bloomington, Indiana
  * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param LocationList $this->locationList
@@ -31,17 +31,14 @@
 	</h2>
 	<ul><?php
 			$points = array();
-			$info = array();
-			foreach($this->locationList as $location)
-			{
+			foreach ($this->locationList as $location) {
 				$name = View::escape($location->getName());
 				$description = WikiMarkup::parse($location->getDescription());
 
 				# Check if the installation has a Google Maps Key
 				# Make sure the location has Latitude and Longitude before trying to map it
-				if (defined('GOOGLE_API_KEY') && $location->getLatitude() && $location->getLongitude())
-				{
-					$points[] = "new GLatLng({$location->getLatitude()},{$location->getLongitude()})";
+				if (defined('GOOGLE_MAPS')
+					&& ($location->getLatitude() && $location->getLongitude())) {
 
 					$n = addslashes($name);
 					$d = addslashes(str_replace(array("\r\n","\n","\r"),' ',$description));
@@ -53,16 +50,20 @@
 					$directions = "<p>Get Directions: <a href=\"$directionsURL\" onclick=\"window.open(\'$directionsURL\');return false;\">To Here</a></p>";
 					$address = "<address>$a</address>";
 
-					$info[] = "'{$title}{$desc}{$a}{$directions}'";
+					$points[] = array(
+						'latitude' => $location->getLatitude(),
+						'longitude'=> $location->getLongitude(),
+						'info' => "{$title}{$desc}{$a}{$directions}"
+					);
 
 					$i = count($points) - 1;
-					$mapButton = "<a href=\"#map\" onclick=\"popup($i)\" class=\"reveal button\">Reveal In Map</a>";
+					$mapButton = "<a href=\"#map\" onclick=\"LOCATION_MAP.popup($i)\" class=\"reveal button\">Reveal In Map</a>";
 				}
 				else { $mapButton = ''; }
 
 
-				if (isset($_SESSION['USER']) && $location->permitsEditingBy($_SESSION['USER']))
-				{
+				if (isset($_SESSION['USER'])
+					&& $location->permitsEditingBy($_SESSION['USER'])) {
 					$edit_url = new URL(BASE_URL.'/locations/updateLocation.php');
 					$edit_url->location_id = $location->getId();
 					$edit_url->return_url = $return_url;
@@ -73,9 +74,8 @@
 					$delete_url->return_url = $return_url;
 					$deleteButton = "<button type=\"button\" class=\"deleteSmall\" onclick=\"FRAMEWORK.deleteConfirmation('$delete_url');\">Delete</button>";
 				}
-				else
-				{
-					$editButton = '';
+				else {
+					$editButton   = '';
 					$deleteButton = '';
 				}
 
@@ -90,70 +90,22 @@
 		?>
 	</ul>
 </div>
-<?php if (defined('GOOGLE_API_KEY')) { ?>
-<div id="location_map">
-</div>
-<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=<?php echo GOOGLE_API_KEY; ?>" type="text/javascript"></script>
-<script type="text/javascript">
-	<?php
-		$points = implode(",\n",$points);
-		$info = implode(",\n",$info);
-
-		echo "var points = [$points];\n";
-		echo "var info = [$info];\n";
-	?>
-	var map = new GMap2(document.getElementById("location_map"));
-	var infoWindowMaxWidth = 350;
-
-	function loadMap()
-	{
-		if (GBrowserIsCompatible())
-		{
-			// Create map and add controls
-			map.addControl(new GLargeMapControl());
-			map.addControl(new GMapTypeControl());
-			map.setCenter(new GLatLng(39.167119,-86.533800), 12);
-			map.setMapType(G_NORMAL_MAP);
-
-			//var boundaries = new GGeoXml("http://bloomington.in.gov/locations/Bloomington.kml");
-			//map.addOverlay(boundaries);
-			var bounds = new GLatLngBounds();
-
-			for(var i=0; i<points.length; i++)
-			{
-				map.addOverlay(createMarker(points[i],info[i]));
-				bounds.extend(points[i]);
-			}
-			map.setCenter(bounds.getCenter(),map.getBoundsZoomLevel(bounds));
-		}
-	}
-
-	//Create a marker with your own icon or with default icon (where icon = null)
-	function createMarker(point, info, icon)
-	{
-		if (icon == null) { var marker = new GMarker(point); }
-		else { var marker = new GMarker(point, icon); }
-		GEvent.addListener( marker, "click", function() { marker.openInfoWindowHtml(info,{'maxWidth':infoWindowMaxWidth}); });
-		return marker;
-	}
-
-	function popup(point)
-	{
-		if (map)
-		{
-			map.openInfoWindowHtml(points[point],info[point],{'maxWidth':infoWindowMaxWidth});
-			return false;
-		}
-		else { return true; }
-	}
-
-	setTimeout('loadMap()',500);
-</script>
 <?php
-	} # End of If checking for GOOGLE_API_KEY
+	if (defined('GOOGLE_MAPS')) {
+		$points = json_encode($points);
 
-	if (isset($this->locationGroup))
-	{
+		$this->template->addToAsset('scripts', GOOGLE_MAPS);
+		$this->template->addToAsset('scripts', BASE_URL.'/js/map.js');
+
+		echo "
+		<div id=\"location_map\"></div>
+		<script type=\"text/javascript\">
+			var points = $points;
+		</script>
+		";
+	}
+
+	if (isset($this->locationGroup)) {
 		echo '<div id="locationGroup_description">';
 		echo WikiMarkup::parse($this->locationGroup->getDescription());
 		echo '</div>';

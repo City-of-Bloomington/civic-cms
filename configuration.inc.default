@@ -277,12 +277,17 @@ $ALERT_IGNORE = array(
 );
 
 /**
- * Google API Key
- * The content manager uses the Google API for Google Maps, and for YouTube.
- * If you want this functionality, you must provide your own Google API Key
- * Google issues these on a per-server basis
+ * Google Maps Api Key
+ *
+ * The content manager uses the Google API for Google Maps.
+ * You must provide your own Google API Key. Google issues these on a
+ * per-server basis.
+ * The api_key is optional, but required if your site exceeds usage limits.
+ * Detailed information about the Google Api Key is at:
+ * https://developers.google.com/maps/documentation/javascript/tutorial
  */
-//define('GOOGLE_API_KEY','');
+//define('GOOGLE_MAPS','http://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&amp;sensor=false');
+define('GOOGLE_MAPS','http://maps.googleapis.com/maps/api/js?sensor=false');
 
 /**
  * Bad URL Definitions
