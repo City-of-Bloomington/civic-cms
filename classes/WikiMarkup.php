@@ -514,7 +514,7 @@ class WikiMarkup
 		}
 
 		if (isset($key) && isset($height)) {
-			return "<iframe src=\"https://docs.google.com/spreadsheet/embeddedform?formkey=$key\" width=\"480\" height=\"$height\" frameborder=\"0\" marginheight=\"0\" marginwidth=\"0\">Loading...</iframe>";
+			return "<iframe src=\"https://docs.google.com/forms/d/$key/viewform?embedded=true\" width=\"480\" height=\"$height\" frameborder=\"0\" marginheight=\"0\" marginwidth=\"0\">Loading...</iframe>";
 		}
 		else {
 			return "<p>The syntax wasn't correct. Please try again or contact the Webmaster for assistance!</p>";
