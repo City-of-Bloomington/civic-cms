@@ -25,11 +25,15 @@ if (isset($_GET['documentType_id']) && $_GET['documentType_id'])
 	{
 		if (is_numeric($_GET['facetGroup_id']) && $_GET['facetGroup_id']>0)
 		{
-			$block->facetGroup = new FacetGroup($_GET['facetGroup_id']);
+			try {
+				$block->facetGroup = new FacetGroup($_GET['facetGroup_id']);
+			}
+			catch (Exception $e) {
+				// Just ignore the unknown facetGroup
+			}
 		}
 	}
-	else
-	{
+	else {
 		# Load the default Facet Group
 		if ($type->getDefaultFacetGroup_id()) { $block->facetGroup = $type->getDefaultFacetGroup(); }
 	}

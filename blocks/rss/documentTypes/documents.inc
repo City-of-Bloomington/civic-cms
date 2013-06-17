@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright 2007-2013 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param DocumentType $this->documentType
@@ -32,18 +32,23 @@
 			$title = View::escape($document->getTitle());
 			$link = $document->getURL();
 
+			$lang = !empty($_SESSION['LANGUAGE']) ? $_SESSION['LANGUAGE'] : 'en';
+
 			# Use only the first 30 words of the document
 			$description = '';
-			$words = preg_split('/\s+/',strip_tags($document->getContent($_SESSION['LANGUAGE'])));
-			$c = 0;
-			foreach($words as $word)
-			{
-				$description.= "$word ";
-				$c++;
-				if ($c >= 30)
+			$text = $document->getContent($lang);
+			if (!empty($text)) {
+				$words = preg_split('/\s+/',strip_tags($text));
+				$c = 0;
+				foreach($words as $word)
 				{
-					$description.=  "...";
-					break;
+					$description.= "$word ";
+					$c++;
+					if ($c >= 30)
+					{
+						$description.=  "...";
+						break;
+					}
 				}
 			}
 			$description = View::escape(WikiMarkup::parse($description));
