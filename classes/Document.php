@@ -247,7 +247,11 @@
 		 */
 		public function setSource($string,$lang)
 		{
-			if (!$this->isLocked()) { $this->content[$lang] = trim($string); }
+			if (!$this->isLocked()) {
+				$this->content[$lang] = trim($string);
+				$search = new Search();
+				$search->add($this);
+			}
 		}
 		private function saveContent()
 		{
@@ -285,6 +289,10 @@
 
 			# Inform the people on the watch list
 			foreach($this->getWatches() as $watch) { $watch->notify(); }
+
+			# Update the search index
+			$search = new Search();
+			$search->add($this);
 		}
 		private function deleteContent($lang='*')
 		{
@@ -295,6 +303,10 @@
 				{
 					unlink($file);
 				}
+
+				# Update the Search index
+				$search = new Search();
+				$search->delete($this);
 			}
 		}
 		public function getContent($lang=null)
