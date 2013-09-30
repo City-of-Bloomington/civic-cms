@@ -130,6 +130,11 @@ class Search
 	}
 
 	/**
+	 * Alias for Search::remove
+	 */
+	public function delete($entry) { $this->remove($entry); }
+
+	/**
 	 * Does a search using Zend_Search_Lucene's built in query parser
 	 *
 	 * @param string $string The text to search for
