@@ -494,7 +494,8 @@ class WikiMarkup
 	 */
 	private static function youtubeEmbed($target)
 	{
-		return "<iframe width=\"480\" height=\"274\" src=\"http://www.youtube.com/embed/$target\" frameborder=\"0\" allowfullscreen></iframe>";
+		global $protocol;
+		return "<iframe width=\"480\" height=\"274\" src=\"$protocol://www.youtube.com/embed/$target\" frameborder=\"0\" allowfullscreen></iframe>";
 
 	}
 
