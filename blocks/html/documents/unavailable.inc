@@ -19,6 +19,4 @@
 		echo 'This document was retired on '.$this->document->getRetireDate('m/d/Y').'.';
 	}
 ?>
-
-Below is a search for related content.
 </p>

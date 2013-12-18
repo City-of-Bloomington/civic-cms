@@ -42,9 +42,9 @@ catch (Exception $e) {
 	$template->blocks[] = new Block('search/searchForm.inc');
 }
 
-if ($document->getId()==1) { $template->setFilename('homepage'); }
-
 if (isset($document)) {
+	if ($document->getId()==1) { $template->setFilename('homepage'); }
+
 	$document->logAccess();
 
 	$template->document = $document;
@@ -111,6 +111,7 @@ if (isset($document)) {
 			$template->blocks[] = $viewDocument;
 		}
 		else {
+			/*
 			try {
 				$search = new Search();
 				$results = $search->find($document->getTitle());
@@ -170,6 +171,7 @@ if (isset($document)) {
 					$template->blocks[] = $pageNavigation;
 				}
 			}
+			*/
 		}
 	}
 	else {
@@ -200,5 +202,4 @@ if (isset($document)) {
 		$template->section = $section;
 	}
 }
-
 echo $template->render();
