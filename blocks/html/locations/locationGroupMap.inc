@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2012-2013 City of Bloomington, Indiana
+ * @copyright 2012-2014 City of Bloomington, Indiana
  * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param LocationList $this->locationList
@@ -11,18 +11,15 @@
 <div class="interfaceBox" id="location_list">
 	<h2>
 		<?php
-			$return_url = new URL("$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]");
+			$return_url = new URL($_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
 
 			if (userHasRole(array('Administrator','Webmaster','Content Creator')))
 			{
-				$add_url = new URL(BASE_URL.'/locations/updateLocation.php');
-				$add_url->return_url = $return_url;
+				$add_url = BASE_URL.'/locations/updateLocation.php?return_url='.$return_url;
 				echo "<a class=\"addSmall button\" href=\"$add_url\">Add</a>";
 			}
 
-			$url = new URL(BASE_URL.'/locations');
-			$url->format = 'kml';
-			$url->locationGroup_id = isset($this->locationGroup) ? $this->locationGroup->getId() : 0;
+			$url = BASE_URL.'/locations?format=kml;locationGroup_id='.isset($this->locationGroup) ? $this->locationGroup->getId() : 0;
 			$title = View::escape($this->title);
 			echo "<a class=\"kmlFeed button\" href=\"$url\">$title KML</a>";
 
@@ -64,14 +61,12 @@
 
 				if (isset($_SESSION['USER'])
 					&& $location->permitsEditingBy($_SESSION['USER'])) {
-					$edit_url = new URL(BASE_URL.'/locations/updateLocation.php');
-					$edit_url->location_id = $location->getId();
-					$edit_url->return_url = $return_url;
+					$edit_url = BASE_URL.'/locations/updateLocation.php?location_id='.$location->getId();
+					$edit_url.= ';return_url='.$return_url;
 					$editButton = "<a class=\"editSmall button\" href=\"$edit_url\">Edit</a>";
 
-					$delete_url = new URL(BASE_URL.'/locations/deleteLocation.php');
-					$delete_url->location_id = $location->getId();
-					$delete_url->return_url = $return_url;
+					$delete_url = BASE_URL.'/locations/deleteLocation.php?location_id='.$location->getId();
+					$delete_url.= ';return_url='.$return_url;
 					$deleteButton = "<button type=\"button\" class=\"deleteSmall\" onclick=\"FRAMEWORK.deleteConfirmation('$delete_url');\">Delete</button>";
 				}
 				else {
