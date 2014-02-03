@@ -15,7 +15,7 @@ $deleteButton = '';
 $watchButton = '';
 if (isset($_SESSION['USER']) && $this->document->permitsEditingBy($_SESSION['USER']))
 {
-	$return_url = new URL($_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
+	$return_url = $_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
 
 	#----------------------------------------------------------------
 	# Edit Button
@@ -88,7 +88,7 @@ echo "
 		$deleteButton
 		$watchButton
 		<li><button type=\"button\" class=\"printSmall\" onclick=\"window.open('$printURL');\">Print</button></li>
-		<li><form method=\"get\" action=\"{$page->getProtocol()}{$page->getScript()}\">
+		<li><form method=\"get\" action=\"{$page->getScheme()}{$page->getScript()}\">
 			<fieldset>
 ";
 			foreach($page->parameters as $field=>$value)

@@ -1,36 +1,30 @@
 <?php
 /**
- * @copyright Copyright (C) 2007-2008 City of Bloomington, Indiana. All rights reserved.
+ * @copyright 2007-2014 City of Bloomington, Indiana
  * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
- * @param object $this->results
- * @param string $this->currentType
+ * @param Array $this->results An array of Documents
  */
-if (count($this->results))
-{
+if (count($this->results)) {
 	# Show the results
-	foreach($this->results as $hit)
-	{
+	foreach($this->results as $hit) {
 		#------------------------------------------------------------
 		# Document Results
 		#------------------------------------------------------------
-		if ($hit instanceof Document)
-		{
+		if ($hit instanceof Document) {
 			$title = View::escape($hit->getTitle());
 
 			$description = $hit->getDescription() ? $hit->getDescription() : $hit->getContent('en');
 			$description = View::escape(View::limitWords(strip_tags(WikiMarkup::parse($description)),30));
 
 			$size_in_bytes = strlen($hit->getContent('en'));
-			if ($size_in_bytes>1000)
-			{
+			if ($size_in_bytes>1000) {
 				$size = round($size_in_bytes/1024);
 				$size.='k';
 			}
 			else { $size = $size_in_bytes.'bytes'; }
 
-			if ($hit->isActive())
-			{
+			if ($hit->isActive()) {
 				echo "
 				<div class=\"searchResult\">
 					<h3><a href=\"{$hit->getURL()}\">$title</a></h3>
@@ -44,8 +38,7 @@ if (count($this->results))
 		#------------------------------------------------------------
 		# Event Results
 		#------------------------------------------------------------
-		elseif ($hit instanceof Event)
-		{
+		elseif ($hit instanceof Event) {
 			$title = View::escape($hit->getTitle());
 			$description = View::escape(View::limitWords(strip_tags($hit->getDescription()),30));
 			echo "
@@ -60,8 +53,7 @@ if (count($this->results))
 		#------------------------------------------------------------
 		# Media Results
 		#------------------------------------------------------------
-		elseif ($hit instanceof Media)
-		{
+		elseif ($hit instanceof Media) {
 			$title = View::escape($hit->getTitle());
 			$description = View::escape(View::limitWords(strip_tags($hit->getDescription()),30));
 			$class = $hit->getExtension();
@@ -75,7 +67,6 @@ if (count($this->results))
 		}
 	}
 }
-else
-{
-	echo "<p>We were unable to find any {$this->currentType} that match your search terms.</p>";
+else {
+	echo "<p>We were unable to find any results that match your search terms.</p>";
 }

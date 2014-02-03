@@ -1,40 +1,26 @@
 <?php
 /**
- * @copyright Copyright (C) 2007-2008 City of Bloomington, Indiana. All rights reserved.
- * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE.txt
- * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * Class for working with a previously created search index.  Before this class
  * will work, you must have run /scripts/install_search.php
+ *
+ * @copyright 2007-2014 City of Bloomington, Indiana
+ * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE.txt
+ * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
-ini_set('include_path',ini_get('include_path').':'.ZEND.':');
-require_once 'Zend/Search/Lucene.php';
-
-# Zend Search Lucene uses a TON of memory.
-# Make sure to allow PHP enough memory
-ini_set('memory_limit',SEARCH_MEMORY_LIMIT);
-
+require_once SOLR_PHP_CLIENT.'/Apache/Solr/Service.php';
 class Search
 {
-	private $search;
+	public $solrClient;
+
+	const ITEMS_PER_PAGE  = 10;
 
 	public function __construct()
 	{
-		$this->search = Zend_Search_Lucene::open(APPLICATION_HOME.'/data/search_index');
-		$this->search->setMaxBufferedDocs(ZEND_SEARCH_MAX_BUFFERED_DOCS);
-		$this->search->setMaxMergeDocs(ZEND_SEARCH_MAX_MERGE_DOCS);
-		$this->search->setMergeFactor(ZEND_SEARCH_MERGE_FACTOR);
-
-		# Set up all the stop words.  Words that we don't want to bother indexing.
-		$stopWordsFilter = new Zend_Search_Lucene_Analysis_TokenFilter_StopWords();
-		$stopWordsFilter->loadFromFile(APPLICATION_HOME.'/includes/search/stopwords.txt');
-
-		# This analyzer is case-sensitive, but it's the only one that can handle UTF8 characters
-		# We'll need to remember to lowercase search queries before doing the search
-		Zend_Search_Lucene_Search_QueryParser::setDefaultEncoding('utf-8');
-		$analyzer = new Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8();
-		$analyzer->addFilter($stopWordsFilter);
-
-		Zend_Search_Lucene_Analysis_Analyzer::setDefault($analyzer);
+		$this->solrClient = new Apache_Solr_Service(
+			SOLR_SERVER_HOSTNAME,
+			SOLR_SERVER_PORT,
+			SOLR_SERVER_PATH
+		);
 	}
 
 	/**
@@ -44,90 +30,63 @@ class Search
 	 */
 	public function add($entry)
 	{
-		$doc = new Zend_Search_Lucene_Document();
+		$document = new Apache_Solr_Document();
 
-		# The UTF8 analyzer is case-sensitive.  So we need to lowercase everything before indexing
-		if ($entry instanceof Document)
-		{
-			$title = strtolower($entry->getTitle());
-			$description = strtolower($entry->getDescription());
-			$content = strtolower(strip_tags(implode("\n",$entry->getContent())));
-			$combined = "$title $description $content";
+		if ($entry instanceof Document) {
+			$recordType = 'document';
+			$type = $entry->getDocumentType()->isSeperateInSearch() ? $entry->getDocumentType()->getType() : 'Documents';
+			$content = strip_tags(implode("\n",$entry->getContent()));
+			$combined = "{$entry->getTitle()} {$entry->getDescription()} $content";
 
-			$type = $entry->getDocumentType()->isSeperateInSearch() ? $entry->getDocumentType()->getType() : 'Document';
-			$doc->addField(Zend_Search_Lucene_Field::Keyword('type',$type));
-			$doc->addField(Zend_Search_Lucene_Field::Keyword('document_id',$entry->getId()));
-			$doc->addField(Zend_Search_Lucene_Field::UnStored('title',$title,'utf-8'));
-			$doc->addField(Zend_Search_Lucene_Field::UnStored('description',$description,'utf-8'));
-			$doc->addField(Zend_Search_Lucene_Field::UnStored('content',$content,'utf-8'));
-			$doc->addField(Zend_Search_Lucene_Field::UnStored('combined',$combined,'utf-8'));
+			$document->addField('type', $type);
+			$document->addField('content', $content);
 		}
-		elseif ($entry instanceof Event)
-		{
-			$title = strtolower($entry->getTitle());
-			$description = strtolower(strip_tags($entry->getDescription()));
-			$combined = "$title $description";
-
-			$doc->addField(Zend_Search_Lucene_Field::Keyword('type','Event'));
-			$doc->addField(Zend_Search_Lucene_Field::Keyword('event_id',$entry->getId()));
-			$doc->addField(Zend_Search_Lucene_Field::UnStored('title',$title,'utf-8'));
-			$doc->addField(Zend_Search_Lucene_Field::UnStored('description',$description,'utf-8'));
-			$doc->addField(Zend_Search_Lucene_Field::UnStored('combined',$combined,'utf-8'));
+		elseif ($entry instanceof Event) {
+			$recordType = 'event';
+			$description = strip_tags($entry->getDescription());
+			$combined = "{$entry->getTitle()} $description";
 		}
-		elseif ($entry instanceof Media)
-		{
-			$title = strtolower($entry->getTitle());
-			$description = strtolower($entry->getDescription());
-			$combined = "$title $description";
-
-			$doc->addField(Zend_Search_Lucene_Field::Keyword('type','Media'));
-			$doc->addField(Zend_Search_Lucene_Field::Keyword('media_id',$entry->getId()));
-			$doc->addField(Zend_Search_Lucene_Field::UnStored('title',$title,'utf-8'));
-			$doc->addField(Zend_Search_Lucene_Field::UnStored('description',$description,'utf-8'));
-			$doc->addField(Zend_Search_Lucene_Field::UnStored('combined',$combined,'utf-8'));
+		elseif ($entry instanceof Media) {
+			$recordType = 'media';
+			$combined = "{$entry->getTitle()} {$entry->getDescription()}";
 		}
 		else { throw new Exception('search/unknownType'); }
 
-		$this->search->addDocument($doc);
+		$document->addField('recordKey', "{$recordType}_{$entry->getId()}");
+		$document->addField('recordType', $recordType);
+		$document->addField("{$recordType}_id", $entry->getId());
+		$document->addField('title', $entry->getTitle());
+		$document->addField('description', $entry->getDescription());
+		$document->addField('combined', $combined);
+
+		$this->solrClient->addDocument($document);
 	}
 
 	/**
 	 * Removed an entry from the search index
+	 *
 	 * @param Object $entry
 	 */
 	public function remove($entry)
 	{
-		if ($entry instanceof Document)
-		{
-			$term  = new Zend_Search_Lucene_Index_Term($entry->getId(),'document_id');
+		if ($entry instanceof Document) {
+			$this->solrClient->deleteById('document_'.$entry->getId());
 		}
-		elseif ($entry instanceof Event)
-		{
-			$term  = new Zend_Search_Lucene_Index_Term($entry->getId(),'event_id');
+		elseif ($entry instanceof Event) {
+			$this->solrClient->deleteById('event_'.$entry->getId());
 		}
-		elseif ($entry instanceof Media)
-		{
-			$term  = new Zend_Search_Lucene_Index_Term($entry->getId(),'media_id');
+		elseif ($entry instanceof Media) {
+			$this->solrClient->deleteById('media_'.$entry->getId());
 		}
 		else { throw new Exception('search/unknownType'); }
-
-
-		$queryTerm = new Zend_Search_Lucene_Search_Query_Term($term);
-		$query = new Zend_Search_Lucene_Search_Query_Boolean();
-		$query->addSubquery($queryTerm, true /* required */);
-
-		$hits = $this->search->find($query);
-		foreach($hits as $hit)
-		{
-			$this->search->delete($hit->id);
-		}
 	}
 
-	public function update($entry)
-	{
-		$this->remove($entry);
-		$this->add($entry);
-	}
+	/**
+	 * Alias of add
+	 *
+	 * Adding a document again to Solr will update the existing record
+	 */
+	public function update($entry) { $this->add($entry); }
 
 	/**
 	 * Alias for Search::remove
@@ -135,69 +94,76 @@ class Search
 	public function delete($entry) { $this->remove($entry); }
 
 	/**
-	 * Does a search using Zend_Search_Lucene's built in query parser
-	 *
-	 * @param string $string The text to search for
+	 * @param array $_GET
 	 * @param string type One of the types known to the Search class (see Search->add())
+	 * @return SolrObject
 	 */
-	public function find($string,$type=null,$logging=true)
+	public function find(&$get)
 	{
-		if ($logging) { $this->log($string); }
+		// Start with all the default query values
+		$query = !empty($get['search'])
+			? "{!df=combined}$get[search]"
+			: '*:*';
+		$additionalParameters = [];
 
-		$string = strtolower(str_replace(array('\\','"',"'"),'',$string));
 
-		Zend_Search_Lucene::setDefaultSearchField('combined');
-		try { $query = Zend_Search_Lucene_Search_QueryParser::parse($string); }
-		catch (Exception $e)
-		{
-			# If the query parser has any trouble, we're just going to ignore it.
-			# The end result is that the user will just not get any hits on their search
+		// Pagination
+		$rows = self::ITEMS_PER_PAGE;
+		$startingPage = 0;
+		if (!empty($get['page'])) {
+			$page = (int)$get['page'];
+			if ($page < 1) { $page = 1; }
+
+			// Solr rows start at 0, but pages start at 1
+			$startingPage = ($page - 1) * $rows;
 		}
 
-		if ($type)
-		{
-			$typeTerm  = new Zend_Search_Lucene_Index_Term($type,'type');
-			$typeQuery = new Zend_Search_Lucene_Search_Query_Term($typeTerm);
-			$query->addSubquery($typeQuery,true /* required */);
-		}
+		// Facets
+		$additionalParameters['facet'] = 'true';
+		$additionalParameters['facet.field'] = ['recordType','type'];
 
-		$hits = $this->search->find($query);
+		// FQ
+		$fq = [];
+		if (!empty($get['recordType'])) { $fq[] = "recordType:$get[recordType]"; }
+		if (!empty($get['type']      )) { $fq[] =       "type:$get[type]";       }
+		if (count($fq)) { $additionalParameters['fq'] = $fq; }
 
-		$results = array();
-		foreach($hits as $hit)
-		{
-			$type = Inflector::pluralize($hit->type);
-			switch ($hit->type)
-			{
-				case 'Event':
-					try { $results[$type][] = new Event($hit->event_id); }
-					catch(Exception $e) { }
-				break;
-
-				case 'Media':
-					try { $results[$type][] = new Media($hit->media_id); }
-					catch(Exception $e) { }
-				break;
-
-				# Anything not listed above should be a type of Document
-				default:
-					try { $results[$type][] = new Document($hit->document_id); }
-					catch(Exception $e) { }
-				break;
-			}
-		}
-		return $results;
+		$solrResponse = $this->solrClient->search($query, $startingPage, $rows, $additionalParameters);
+		return $solrResponse;
 	}
 
-	public function optimize() { $this->search->optimize(); }
-
-	public function count() { return $this->search->count(); }
-	public function numDocs() { return $this->search->numDocs(); }
-
-	private function log($string)
+	/**
+	 * @param Apache_Solr_Response $object
+	 * @return array An array of CRM models based on the search results
+	 */
+	public static function hydrateDocs(Apache_Solr_Response $o)
 	{
-		$PDO = Database::getConnection();
-		$query = $PDO->prepare('insert search_log set queryString=?');
-		$query->execute(array($string));
+		$models = array();
+		if (isset($o->response->docs) && $o->response->docs) {
+			foreach ($o->response->docs as $doc) {
+				$class = ucfirst($doc->recordType);
+				$id = "{$doc->recordType}_id";
+				$m = new $class($doc->$id);
+				$models[] = $m;
+			}
+		}
+		else {
+			header('HTTP/1.1 404 Not Found', true, 404);
+		}
+		return $models;
+	}
+
+	/**
+	 * Retrieves full facet counts for a query
+	 *
+	 * Takes a solrResponse, drops the FQ and does a facet-only query
+	 * Returns the facet results
+	 *
+	 * @param Apache_Solr_Response $solrResponse
+	 * @return Apache_Solr_Response
+	 */
+	public function facetQuery(Apache_Solr_Response $solrResponse)
+	{
+		print_r($solrResponse);
 	}
 }

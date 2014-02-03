@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2006,2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright 2006-2014 City of Bloomington, Indiana
  * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
@@ -34,17 +34,13 @@
 	}
 
 	# For long lists of documents, paginate the list
-	if (count($documentList) > 50)
-	{
-		if (!isset($_GET['page'])) { $_GET['page'] = 0; }
-		$pages = $documentList->getPagination(50);
-		if (!$pages->offsetExists($_GET['page'])) { $_GET['page'] = 0; }
-		$documents = new LimitIterator($documentList->getIterator(),$pages[$_GET['page']],$pages->getPageSize());
+	if (count($documentList) > 50) 	{
+		$page = !empty($_GET['page']) ? (int)$_GET['page'] : 1;
 
-		$pageNavigation = new Block('pageNavigation.inc');
-		$pageNavigation->page = $_GET['page'];
-		$pageNavigation->pages = $pages;
-		$pageNavigation->url = new URL($_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
+		$documents = $documentList->getPagination(50);
+		$documents->setCurrentPageNumber($page);
+
+		$pageNavigation = new Block('pageNavigation.inc', ['paginator'=>$documents]);
 	}
 	else { $documents = $documentList; }
 

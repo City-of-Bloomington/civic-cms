@@ -1,9 +1,4 @@
 <?php
-define('COPYRIGHT',"/**
- * @copyright 2006-2009 City of Bloomington, Indiana
- * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE.txt
- */");
-
 /**
  * Used to keep sessions on the same webserver seperate;
  */
@@ -129,21 +124,12 @@ define('DIRECTORY_ADMIN_PASS','password');
 //define('DIRECTORY_ADMIN_PASS','password');
 
 /**
- * These control search index performance.  If indexing seems slow
- * or PHP runs out of memory, you might try adjusting these to suit
- * Documentation is available at:
- * http://framework.zend.com/manual/en/zend.search.lucene.best-practice.html
+ * Point to the Solr server
  */
-define('ZEND_SEARCH_MAX_BUFFERED_DOCS',5);
-define('ZEND_SEARCH_MAX_MERGE_DOCS',10000);
-define('ZEND_SEARCH_MERGE_FACTOR',10);
-
-/**
- * Zend Search is very memory Intensive
- * You can adjust how much memory you want to allow for search code
- * PHP's default limit is only 16M
- */
-define('SEARCH_MEMORY_LIMIT','128M');
+define('SOLR_SERVER_HOSTNAME', 'rogue.bloomington.in.gov');
+define('SOLR_SERVER_PORT', 8080);
+define('SOLR_SERVER_PATH', '/solr/cms');
+define('SOLR_PHP_CLIENT', APPLICATION_HOME.'/libraries/solr-php-client');
 
 /**
  * WYSIWYG Editor
@@ -165,22 +151,6 @@ define('IMAGEMAGICK','/usr/bin');
 define('PHP','/usr/local/php/bin/php');
 
 /**
- * Import global functions that we use for many applications we write
- */
-include FRAMEWORK.'/globalFunctions.php';
-
-/**
- * Session Startup
- * Don't start a session for CLI usage.
- * We only want sessions when PHP code is executed from the webserver
- */
-if (!defined('STDIN')) {
-	ini_set('session.save_path',APPLICATION_HOME.'/data/sessions');
-	ini_set('session.gc_maxlifetime',30*60);
-	session_start();
-}
-
-/**
  * CAS authentication http://www.jasig.org/cas
  *
  * https://wiki.jasig.org/display/CASC/phpCAS
@@ -191,60 +161,6 @@ if (!defined('STDIN')) {
 //define('CAS','/var/www/libraries/phpCAS');
 //define('CAS_SERVER','cas.somewhere.org');
 //define('CAS_URI','cas');
-
-/**
- * Language Negotiation
- * Order of precedence: GET,SESSION, HTTP_ACCEPT_LANGUAGE, en
- *
- * By Default, a chosen language will be stored in the SESSION.  If you
- * only want translations to be available only per request, you will
- * need to comment out the second if () and uncomment the else
- * This will make it so subsequent pages will continue to be served
- * in the default language
- */
-define('DEFAULT_LANGUAGE','en');
-if (isset($_GET['lang'])) {
-	$lang = preg_replace('/[^a-z]/','',strtolower(substr($_GET['lang'],0,3)));
-	try {
-		$lang = new Language($lang);
-		$_SESSION['LANGUAGE'] = $lang->getCode();
-	}
-	catch (Exception $e) {
-		$_SESSION['LANGUAGE'] = DEFAULT_LANGUAGE;
-	}
-}
-// Replace this if () line with an else, if you do not want languages to stick in the SESSION
-//else {
-if (!isset($_SESSION['LANGUAGE'])) {
-	if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-		$lang = preg_replace('/[^a-z]/','',strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'],0,3)));
-		try {
-			$lang = new Language($lang);
-			$_SESSION['LANGUAGE'] = $lang->getCode();
-		}
-		catch (Exception $e) {
-			$_SESSION['LANGUAGE'] = DEFAULT_LANGUAGE;
-		}
-	}
-	else {
-		$_SESSION['LANGUAGE'] = DEFAULT_LANGUAGE;
-	}
-}
-
-/**
- * Mobile Site redirection
- */
-if (isset($_SERVER['HTTP_USER_AGENT'])
-	&& preg_match('/android|iphone|ipad|ipod|blackberry|symbian|palm|ericsson/',
-					strtolower($_SERVER['HTTP_USER_AGENT']))) {
-	if (false !== strpos($_SERVER['HTTP_REFERER'],'http://bloomington.in.gov/m')) {
-		$_SESSION['really_want_to_view_full_site'] = true;
-	}
-	if (!isset($_SESSION['really_want_to_view_full_site'])) {
-		header('Location: http://bloomington.in.gov/m');
-	}
-}
-
 
 /**
  * Skin Negotiation
@@ -300,3 +216,81 @@ $BAD_LINK_EXPRESSIONS = array(
 //	'|http://bloomington|',
 //	'|http://www\.bloomington\.|'
 );
+
+//-------------------------------------------------------------------
+// Bootstrap code
+// No editing is usually needed after this point
+//-------------------------------------------------------------------
+/**
+ * Enable autoloading for the PHP libraries
+ */
+ini_set('include_path',ini_get('include_path').PATH_SEPARATOR.ZEND);
+require_once 'Zend/Loader/Autoloader.php';
+Zend_Loader_Autoloader::getInstance();
+
+include FRAMEWORK.'/globalFunctions.php';
+spl_autoload_register('autoload');
+
+/**
+ * Session Startup
+ * Don't start a session for CLI usage.
+ * We only want sessions when PHP code is executed from the webserver
+ */
+if (!defined('STDIN')) {
+	ini_set('session.save_path',APPLICATION_HOME.'/data/sessions');
+	ini_set('session.gc_maxlifetime',30*60);
+	session_start();
+}
+
+/**
+ * Language Negotiation
+ * Order of precedence: GET,SESSION, HTTP_ACCEPT_LANGUAGE, en
+ *
+ * By Default, a chosen language will be stored in the SESSION.  If you
+ * only want translations to be available only per request, you will
+ * need to comment out the second if () and uncomment the else
+ * This will make it so subsequent pages will continue to be served
+ * in the default language
+ */
+define('DEFAULT_LANGUAGE','en');
+if (isset($_GET['lang'])) {
+	$lang = preg_replace('/[^a-z]/','',strtolower(substr($_GET['lang'],0,3)));
+	try {
+		$lang = new Language($lang);
+		$_SESSION['LANGUAGE'] = $lang->getCode();
+	}
+	catch (Exception $e) {
+		$_SESSION['LANGUAGE'] = DEFAULT_LANGUAGE;
+	}
+}
+// Replace this if () line with an else, if you do not want languages to stick in the SESSION
+//else {
+if (!isset($_SESSION['LANGUAGE'])) {
+	if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+		$lang = preg_replace('/[^a-z]/','',strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'],0,3)));
+		try {
+			$lang = new Language($lang);
+			$_SESSION['LANGUAGE'] = $lang->getCode();
+		}
+		catch (Exception $e) {
+			$_SESSION['LANGUAGE'] = DEFAULT_LANGUAGE;
+		}
+	}
+	else {
+		$_SESSION['LANGUAGE'] = DEFAULT_LANGUAGE;
+	}
+}
+
+/**
+ * Mobile Site redirection
+ */
+if (isset($_SERVER['HTTP_USER_AGENT'])
+	&& preg_match('/android|iphone|ipad|ipod|blackberry|symbian|palm|ericsson/',
+					strtolower($_SERVER['HTTP_USER_AGENT']))) {
+	if (false !== strpos($_SERVER['HTTP_REFERER'],'http://bloomington.in.gov/m')) {
+		$_SESSION['really_want_to_view_full_site'] = true;
+	}
+	if (!isset($_SESSION['really_want_to_view_full_site'])) {
+		header('Location: http://bloomington.in.gov/m');
+	}
+}

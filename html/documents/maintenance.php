@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2007-2009 City of Bloomington, Indiana
+ * @copyright 2007-2014 City of Bloomington, Indiana
  * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param GET grep
@@ -18,31 +18,18 @@ if (isset($_GET['grep'])) {
 
 	// If we've got a lot of results, split them up into seperate pages
 	if (count($list) > 10) {
-		$pages = $list->getPagination(10);
-		$page = (isset($_GET['page']) && $_GET['page']) ? (int)$_GET['page'] : 0;
-		if (!$pages->offsetExists($page)) {
-			$page = 0;
-		}
-		$resultsList = new LimitIterator($list->getIterator(),$pages[$page],$pages->getPageSize());
+		$page = !empty($_GET['page']) ? (int)$_GET['page'] : 1;
+		$resultsList = $list->getPagination(10);
+		$resultsList->setCurrentPageNumber($page);
 	}
 	else {
 		$resultsList = $list;
 	}
 
-	$resultBlock = new Block('search/results.inc');
-	$resultBlock->results = $resultsList;
-	$resultBlock->currentType = 'Documents';
-	$resultBlock->type = 'documents';
-	$template->blocks[] = $resultBlock;
+	$template->blocks[] = new Block('search/results.inc', ['results'=>$resultsList]);
 
-
-	if (isset($pages)) {
-		$pageNavigation = new Block('pageNavigation.inc');
-		$pageNavigation->page = $page;
-		$pageNavigation->pages = $pages;
-		$pageNavigation->url = new URL("$_SERVER[SERVER_NAME]$_SERVER[REQUEST_URI]");
-
-		$template->blocks[] = $pageNavigation;
+	if (count($list) > 10) {
+		$template->blocks[] = new Block('pageNavigation.inc', ['paginator'=>$resultsList]);
 	}
 }
 echo $template->render();

@@ -74,7 +74,9 @@ abstract class PDOResultIterator implements ArrayAccess,SeekableIterator,Countab
 	 * @return Paginator
 	 */
 	public function getPagination($pageSize) {
-		return new Paginator($this,$pageSize);
+		$paginator = new Zend_Paginator(new Zend_Paginator_Adapter_Iterator($this));
+		$paginator->setItemCountPerPage($pageSize);
+		return $paginator;
 	}
 
 
