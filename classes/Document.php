@@ -190,8 +190,6 @@
 					throw new Exception('documents/sectionHomepage');
 				}
 
-				$this->deleteContent();
-
 				$query = $PDO->prepare('delete from documentLinks where document_id=?');
 				$query->execute(array($this->id));
 
@@ -251,6 +249,7 @@
 				$this->content[$lang] = trim($string);
 				$search = new Search();
 				$search->add($this);
+				$search->commit();
 			}
 		}
 		private function saveContent()
@@ -293,6 +292,7 @@
 			# Update the search index
 			$search = new Search();
 			$search->add($this);
+			$search->commit();
 		}
 		private function deleteContent($lang='*')
 		{
@@ -307,6 +307,7 @@
 				# Update the Search index
 				$search = new Search();
 				$search->delete($this);
+				$search->commit();
 			}
 		}
 		public function getContent($lang=null)

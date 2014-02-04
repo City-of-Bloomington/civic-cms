@@ -23,6 +23,8 @@ class Search
 		);
 	}
 
+	public function commit() { $this->solrClient->commit(); }
+
 	/**
 	 * Takes Objects from the content manager and adds them to the search index
 	 * we can add support for different things from the content manager as time goes on
