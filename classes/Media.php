@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2006-2008 City of Bloomington, Indiana. All rights reserved.
+ * @copyright 2006-2014 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
@@ -124,6 +124,11 @@
 
 			if ($this->id) { $this->update($values,$preparedFields); }
 			else { $this->insert($values,$preparedFields); }
+
+			# Update the search index
+			$search = new Search();
+			$search->add($this);
+			$search->commit();
 		}
 
 		private function update($values,$preparedFields)
@@ -160,6 +165,11 @@
 				$query = $PDO->prepare('delete from media where id=?');
 				$query->execute(array($this->id));
 			}
+
+			# Update the Search index
+			$search = new Search();
+			$search->delete($this);
+			$search->commit();
 		}
 
 		public function setFile($file)
@@ -239,7 +249,7 @@
 				exit();
 			}
 			else { $this->uploaded = date('Y-m-d'); }
-			
+
 			# Generate Thumbnails for Images
 			if ($this->media_type == 'image')
 			{
@@ -298,7 +308,7 @@
 				}
 			}
 			$url.="/$filename";
-			
+
 			return $url;
 		}
 

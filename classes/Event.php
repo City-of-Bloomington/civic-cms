@@ -1,6 +1,7 @@
 <?php
 /**
- * @copyright Copyright (C) 2007-2008 City of Bloomington, Indiana. All rights reserved.
+ * @copyright 2007-2014 City of Bloomington, Indiana
+ * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE.txt
  */
 	require_once ICAL4PHP.'/Recur.inc';
@@ -123,6 +124,11 @@
 			else { $this->insert($values,$preparedFields); }
 
 			$this->saveSections();
+
+			# Update the search index
+			$search = new Search();
+			$search->add($this);
+			$search->commit();
 		}
 
 		private function update($values,$preparedFields)
@@ -159,6 +165,10 @@
 				$query = $PDO->prepare('delete from events where id=?');
 				$query->execute(array($this->id));
 			}
+			# Update the Search index
+			$search = new Search();
+			$search->delete($this);
+			$search->commit();
 		}
 
 		public function permitsEditingBy($user)
