@@ -48,7 +48,7 @@
 
 			if ($id)
 			{
-				$f = ctype_digit($id) ? 'id' : 'title';
+				$f = is_numeric($id) ? 'id' : 'title';
 				$sql = "select id,unix_timestamp(start) as start,unix_timestamp(end) as end,
 								unix_timestamp(created) as created,unix_timestamp(modified) as modified,
 								title,description,allDayEvent,
