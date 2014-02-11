@@ -11,6 +11,7 @@
  * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
+
 class URL
 {
 	private $scheme;
@@ -51,10 +52,10 @@ class URL
 
 		$url = parse_url($script);
 		$this->scheme = $url['scheme'];
-		if (isset($url['host']))     { $this->host   = $url['host'];     }
-		if (isset($url['path']))     { $this->path   = $url['path'];     }
+		if (isset($url['host']))     { $this->host = $url['host'];       }
+		if (isset($url['path']))     { $this->path = $url['path'];       }
 		if (isset($url['fragment'])) { $this->anchor = $url['fragment']; }
-		if (isset($url['query']))    { parse_str($url['query'],$this->parameters); }
+		if (isset($url['query'])) { parse_str($url['query'],$this->parameters); }
 	}
 
 	/**
@@ -98,7 +99,7 @@ class URL
 	 */
 	public function getScheme() {
 		if (!$this->scheme) {
-			$this->scheme = 'http://';
+			$this->scheme = 'http';
 		}
 		return $this->scheme;
 	}
@@ -109,9 +110,7 @@ class URL
 	 */
 	public function setScheme($string)
 	{
-		if (!preg_match('|://|',$string)) {
-			$string .= '://';
-		}
+		$string = preg_replace('|://|', '', $string);
 		$this->scheme = $string;
 	}
 

@@ -1,0 +1,10 @@
+/buildignore
+/build.sh
+/build
+/dist
+.svn*
+configuration.inc
+/data/documents/*
+/data/media/*
+/data/sessions/*
+/scripts/backup.cnf

@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright 2007-2014 City of Bloomington, Indiana
  * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
@@ -43,7 +43,7 @@
 			{
 				$name = View::escape($calendar->getName());
 				$url = new URL(BASE_URL.'/calendars?format=ical;calendar_id='.$calendar->getId());
-				$url->setProtocol('webcal://');
+				$url->setScheme('webcal');
 				echo "
 				<li>
 					<a href=\"$url\">$name</a>
