@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2007 City of Bloomington, Indiana. All rights reserved.
+ * @copyright 2007-2014 City of Bloomington, Indiana. All rights reserved.
  * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
@@ -16,7 +16,7 @@ for PC users.  Follow the intructions of your application to add one of our cale
 	<td>
 	<?php
 		$url = new URL(BASE_URL.'/calendars?format=ical');
-		$url->setProtocol('webcal://');
+		$url->setScheme('webcal');
 		echo "<a href=\"$url\">$url</a>";
 	?>
 	</td>
@@ -29,7 +29,7 @@ for PC users.  Follow the intructions of your application to add one of our cale
 	{
 		$name = View::escape($calendar->getName());
 		$url = new URL(BASE_URL.'/calendars?format=ical;calendar_id='.$calendar->getId());
-		$url->setProtocol('webcal://');
+		$url->setScheme('webcal');
 		echo "<tr><th>$name</th><td><a href=\"$url\">$url</a></td></tr>";
 	}
 ?>

@@ -15,7 +15,7 @@
 	switch ($this->type)
 	{
 		case 'webcal':
-			$this->url->setProtocol('webcal');
+			$this->url->setScheme('webcal');
 			$title = 'Custom Calendar';
 			$message = 'Subscribe to this calendar by copying this URL into your calendar application';
 			break;
