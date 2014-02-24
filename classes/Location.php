@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2006-2009 City of Bloomington, Indiana
+ * @copyright 2006-2014 City of Bloomington, Indiana
  * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
@@ -31,14 +31,25 @@ class Location
 	{
 		if ($id)
 		{
-			$PDO = Database::getConnection();
-			$sql = 'select * from locations where id=?';
-			$query = $PDO->prepare($sql);
-			$query->execute(array($id));
+			if (!is_array($id)) {
+				$PDO = Database::getConnection();
+				$sql = 'select * from locations where id=?';
+				$query = $PDO->prepare($sql);
+				$query->execute(array($id));
 
-			$result = $query->fetchAll();
-			if (!count($result)) { throw new Exception('locations/unknownLocation'); }
-			foreach($result[0] as $field=>$value) { if ($value) $this->$field = $value; }
+				$result = $query->fetchAll();
+				if (count($result)) {
+					foreach($result[0] as $field=>$value) {
+						if ($value) { $this->$field = $value; }
+					}
+				}
+				else {
+					throw new Exception('locations/unknownLocation');
+				}
+			}
+			else {
+				throw new Exception('locations/unknownLocation');
+			}
 		}
 		else
 		{
