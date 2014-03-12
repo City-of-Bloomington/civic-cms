@@ -42,7 +42,6 @@ form { }
 fieldset { margin-bottom:10px; }
 legend { background-color:#5a8fdc; font-weight:bold; padding:4px; margin-bottom:2px; color:white; }
 label { font-weight:bold; }
-label.required {padding-left:15px; }
 select { font-size:12px; }
 textarea { }
 input { }
@@ -61,7 +60,7 @@ th a { color:#3366cc; background-color:inherit; }
 .instructions { }
 .unpublished { text-decoration:line-through; color:#999999; }
 .current { font-weight:bold; }
-.required { background:url('../default/images/icons/required_asterik.gif') no-repeat; }
+.required { padding-left:15px; background:url('../default/images/icons/required_asterik.gif') no-repeat; }
 
 img { border:0; }
 span.image { display:block; text-align:center; margin:0 15px 5px 15px; }
@@ -214,6 +213,8 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 #mainContent td { background-color:inherit; border:1px solid #999999; vertical-align:top; }
 #mainContent th { text-align:left; background-color:#e0e0e0; border:1px solid #999999; vertical-align: top; font-weight:bold; }
 #mainContent th a { color:#3366cc; background-color:inherit; }
+
+#mainContent table, #mainContent form td, #mainContent form th { border:none; }
 
 /* HANAPIN - STYLES FOR EVENTS SECTION */
 /* Calendars MUST BE marked up as tables */
