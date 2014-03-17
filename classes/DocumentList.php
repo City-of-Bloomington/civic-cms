@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright Copyright (C) 2006-2008 City of Bloomington, Indiana. All rights reserved.
+ * @copyright 2006-2014 City of Bloomington, Indiana
  * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
@@ -19,10 +19,11 @@ class DocumentList extends PDOResultIterator
 		$this->groupBy = $groupBy;
 		$this->joins = '';
 
-		# Sorting on type needs to join the documentTypes table
-		if (preg_match('/type/',$this->sort))
-		{
-			$this->joins.= ' left join documentTypes t on documentType_id=t.id';
+		$joins = [];
+
+		// Sorting on type needs to join the documentTypes table
+		if (preg_match('/type/',$this->sort)) {
+			$joins['documentTypes'] = 'left join documentTypes t on documentType_id=t.id';
 		}
 
 		$options = array();
@@ -162,7 +163,7 @@ class DocumentList extends PDOResultIterator
 
 		if (isset($fields['section_id']) || isset($fields['featured']))
 		{
-			$this->joins.= ' left join sectionDocuments s on documents.id=s.document_id';
+			$joins['sectionDocuments'] = 'left join sectionDocuments s on documents.id=s.document_id';
 			if (isset($fields['section_id']))
 			{
 				$options[] = 'section_id=:section_id';
@@ -194,7 +195,7 @@ class DocumentList extends PDOResultIterator
 				$query->execute(array($id));
 			}
 
-			$this->joins = ' right join language_ids l on documents.id=l.id';
+			$joins['language_ids'] = 'right join language_ids l on documents.id=l.id';
 		}
 
 		/**
@@ -202,27 +203,34 @@ class DocumentList extends PDOResultIterator
 		 * all the desired facets
 		 * @param array $fields['facet_ids']
 		 */
-		if (isset($fields['facet_ids']))
-		{
+		if (isset($fields['facet_ids'])) {
 			$facets = implode(',',$fields['facet_ids']);
-			$this->joins.= " inner join document_facets df on documents.id=df.document_id and df.facet_id in ($facets)";
+			$joins['document_facets'] = "inner join document_facets df on documents.id=df.document_id and df.facet_id in ($facets)";
 			$this->groupBy = 'documents.id having count(*)='.count($fields['facet_ids']);
 		}
 
-		if (isset($fields['facet_id']))
-		{
-			$this->joins.= ' left join document_facets f on documents.id=f.document_id';
+		if (isset($fields['facet_id'])) {
+			$joins['document_facets'] = 'left join document_facets f on documents.id=f.document_id';
 			$options[] = 'facet_id=:facet_id';
 			$parameters[':facet_id'] = $fields['facet_id'];
 		}
 
-		if (isset($fields['media_id']))
-		{
-			$this->joins.= ' left join media_documents m on documents.id=m.document_id';
+		if (!empty($fields['facetGroup_id'])) {
+			$joins['document_facets'] = 'left join document_facets f on documents.id=f.document_id';
+			$joins['facets'] = 'left join facets on f.facet_id=facets.id';
+			$options[] = 'facets.facetGroup_id=:facetGroup_id';
+			$parameters[':facetGroup_id'] = $fields['facetGroup_id'];
+		}
+
+		if (isset($fields['media_id'])) {
+			$joins['media_documents'] = 'left join media_documents m on documents.id=m.document_id';
 			$options[] = 'media_id=:media_id';
 			$parameters[':media_id'] = $fields['media_id'];
 		}
 
+		foreach ($joins as $table=>$join) {
+			$this->joins.= ' '.$join;
+		}
 		$this->populateList($options,$parameters);
 	}
 

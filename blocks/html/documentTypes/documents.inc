@@ -1,112 +1,17 @@
 <?php
 /**
- * @copyright Copyright (C) 2007-2008 City of Bloomington, Indiana. All rights reserved.
+ * @copyright 2007-2014 City of Bloomington, Indiana
  * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param DocumentType $this->documentType
- * @param FacetGroup $this->facetGroup
+ * @param DocumentList $this->documents
  */
-$href = new URL($_SERVER['SERVER_NAME'].$_SERVER['SCRIPT_NAME']);
-$href->documentType_id = $this->documentType->getId();
-$href->facetGroup_id = 'none';
-
-$class = (!isset($this->facetGroup)) ? 'class="current"' : '';
-echo "
-<div class=\"tabBar\">
-<h1>Organize By:</h1>
-<ul><li><a href=\"$href\" $class>Show All</a></li>
-";
-
-$groups = new FacetGroupList();
-$groups->find();
-foreach($groups as $group)
-{
-	if ($group->hasDocuments(array('documentType_id'=>$this->documentType->getId())))
-	{
-		$href->parameters['facetGroup_id'] = $group->getId();
-		$name = View::escape($group->getName());
-		$class = (isset($this->facetGroup) && $group->getId()==$this->facetGroup->getId()) ? 'class="current"' : '';
-		echo "<li $class><a href=\"$href\">$name</a></li>";
+if (count($this->documents)) {
+	echo '<ul>';
+	foreach($this->documents as $document) {
+		$info = View::escape(implode(' - ',$document->getInfo()));
+		$class = preg_match('/Please add a/',$info) ? 'class="badlink"' : '';
+		echo "<li><a href=\"{$document->getURL()}\" $class>$info</a></li>";
 	}
-}
-echo "</ul></div>";
-
-
-
-
-
-# List all the documents, grouped by Facet - inside the current FacetGroup
-if (isset($this->facetGroup))
-{
-	echo "
-	<div class=\"table-of-contents\">
-		<form method=\"get\" action=\"$_SERVER[SCRIPT_NAME]\">
-		<fieldset>
-			<input type=\"hidden\" name=\"documentType_id\" value=\"{$this->documentType->getId()}\" />
-			<label for=\"table-of-contents-anchor\">Table of Contents:</label>
-			<select name=\"anchor\" id=\"table-of-contents-anchor\" onchange=\"document.location.href='#'+this.options[this.selectedIndex].value;\">
-	";
-			foreach($this->facetGroup->getFacets() as $facet)
-			{
-				if (count($facet->getDocuments(array('documentType_id'=>$this->documentType->getId()))))
-				{
-					$name = View::escape($facet->getName());
-					$anchor = WikiMarkup::wikify($facet->getName());
-					echo "<option value=\"$anchor\">$name</option>\n";
-				}
-			}
-	echo "
-			</select>
-		</fieldset>
-		</form>
-	</div>
-	";
-
-	foreach($this->facetGroup->getFacets() as $facet)
-	{
-		$documents = new DocumentList();
-		$fields = array('facet_id'=>$facet->getId(),
-						'active'=>date('Y-m-d'),
-						'documentType_id'=>$this->documentType->getId());
-		$sort = $this->documentType->getOrdering();
-		$documents->find($fields,$sort);
-
-		if (count($documents))
-		{
-			$name = View::escape($facet->getName());
-			$anchor = WikiMarkup::wikify($facet->getName());
-			echo "
-			<div class=\"interfaceBox\">
-				<h2><a id=\"$anchor\">$name</a></h2>
-				<ul>
-			";
-				foreach($documents as $document)
-				{
-					$info = View::escape(implode(' - ',$document->getInfo()));
-					$class = preg_match('/Please add a/',$info) ? 'class="badlink"' : '';
-					echo "<li><a href=\"{$document->getURL()}\" $class>$info</a></li>\n";
-				}
-			echo "
-				</ul>
-				<a href=\"#top\">[Top]</a>
-			</div>
-			";
-		}
-	}
-}
-# Otherwise, just list all the documents
-else
-{
-	$documents = $this->documentType->getDocuments(array('active'=>date('Y-m-d')));
-	if (count($documents))
-	{
-		echo '<ul>';
-		foreach($documents as $document)
-		{
-			$info = View::escape(implode(' - ',$document->getInfo()));
-			$class = preg_match('/Please add a/',$info) ? 'class="badlink"' : '';
-			echo "<li><a href=\"{$document->getURL()}\" $class>$info</a></li>\n";
-		}
-		echo '</ul>';
-	}
+	echo '</ul>';
 }

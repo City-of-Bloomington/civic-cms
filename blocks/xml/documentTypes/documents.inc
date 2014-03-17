@@ -1,18 +1,13 @@
 <?php
 /**
- * @copyright 2010 City of Bloomington, Indiana
+ * @copyright 2010-2014 City of Bloomington, Indiana
  * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param DocumentType $this->documentType
- * @param FacetGroup $this->facetGroup
+ * @param DocumentList $this->documents
  */
-$documents = new DocumentList();
-$documents->find(array('documentType_id'=>$this->documentType->getId(),
-				'active'=>date('Y-m-d')),
-				'publishDate desc',
-				isset($_GET['limit']) ? (int) $_GET['limit'] : null);
 echo "<documents>";
-foreach ($documents as $document) {
+foreach ($this->documents as $document) {
 	$title = View::escape($document->getTitle());
 	echo "
 	<document id=\"{$document->getId()}\">

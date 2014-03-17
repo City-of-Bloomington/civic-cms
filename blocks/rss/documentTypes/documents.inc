@@ -1,26 +1,18 @@
 <?php
 /**
- * @copyright 2007-2013 City of Bloomington, Indiana. All rights reserved.
+ * @copyright 2007-2014 City of Bloomington, Indiana
  * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param DocumentType $this->documentType
- * @param FacetGroup $this->facetGroup
+ * @param DocumentList $this->documents
  */
-	$type = View::escape($this->documentType->getType());
-	$href = new URL(BASE_URL.'/documentTypes/documents.php');
-	$href->parameters['documentType_id'] = $this->documentType->getId();
-	$href->parameters['facetGroup_id'] = 'none';
 ?>
 <channel>
-	<title><?php echo $type; ?></title>
-	<link><?php echo $this->url; ?></link>
+	<title><?php echo View::escape($this->documentType); ?></title>
+	<link><?php echo 'http://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']; ?></link>
 <?php
-	$documents = new DocumentList();
-	$documents->find(array('documentType_id'=>$this->documentType->getId(),'active'=>date('Y-m-d')),'publishDate desc');
-	if (count($documents))
-	{
-		foreach($documents as $document)
-		{
+	if (count($this->documents)) {
+		foreach($this->documents as $document) {
 			# Use the publishDate from the first document in the list as the pubDate for the feed
 			if (!isset($pubDate))
 			{
