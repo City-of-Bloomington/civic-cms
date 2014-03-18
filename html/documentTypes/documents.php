@@ -59,7 +59,7 @@ if (!empty($_GET['documentType_id'])) {
 	$documents = new DocumentList();
 	$documents->find($search, $type->getOrdering());
 	$paginator = $documents->getPagination(20);
-	$page = !empty($_GET['page']) ? (int)$page : 1;
+	$page = !empty($_GET['page']) ? (int)$_GET['page'] : 1;
 	$paginator->setCurrentPageNumber($page);
 
 	$template->blocks[] = new Block('documentTypes/documents.inc', ['documents'=>$paginator, 'documentType'=>$type]);
