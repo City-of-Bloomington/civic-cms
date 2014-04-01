@@ -247,9 +247,6 @@
 		{
 			if (!$this->isLocked()) {
 				$this->content[$lang] = trim($string);
-				$search = new Search();
-				$search->add($this);
-				$search->commit();
 			}
 		}
 		private function saveContent()
