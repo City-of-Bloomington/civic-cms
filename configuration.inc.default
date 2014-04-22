@@ -290,7 +290,22 @@ if (isset($_SERVER['HTTP_USER_AGENT'])
 	if (false !== strpos($_SERVER['HTTP_REFERER'],'http://bloomington.in.gov/m')) {
 		$_SESSION['really_want_to_view_full_site'] = true;
 	}
+
+	$url = BASE_URL.'/m';
+	if (!empty($_GET['document_id'])) {
+		$url.= '/viewPage.php?docType=document;document_id='.$_GET['document_id'];
+	}
+	elseif (!empty($_GET['event_id']) && !empty($_GET['date'])) {
+		$url.= "/viewPage.php?docType=event;event_id=$_GET[event_id];date=$_GET[date]";
+	}
+	elseif ($_SERVER['REQUEST_URI'] == 'mybloomington') {
+		$url.= '/my';
+	}
+	elseif ($_SERVER['REQUEST_URI'] == 'contact') {
+		$url.= '/contact';
+	}
+
 	if (!isset($_SESSION['really_want_to_view_full_site'])) {
-		header('Location: http://bloomington.in.gov/m');
+		header("Location: $url");
 	}
 }
