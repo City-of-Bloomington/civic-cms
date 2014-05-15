@@ -46,7 +46,10 @@ class URL
 
 		// If scheme wasn't provided add one to the start of the string
 		if (!strpos(substr($script,0,20),'://')) {
-			$scheme = $_SERVER['SERVER_PORT']==443 ? 'https://' : 'http://';
+			isset($_SERVER['SERVER_PORT']) &&
+			$scheme = (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT']==443)
+				? 'https://'
+				: 'http://';
 			$script = $scheme.$script;
 		}
 

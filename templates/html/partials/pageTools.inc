@@ -1,11 +1,12 @@
 <?php
 /**
- * @copyright Copyright (C) 2008 City of Bloomington, Indiana. All rights reserved.
+ * @copyright 2008-2014 City of Bloomington, Indiana
  * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE.txt
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  * @param Document $this->document
  */
 $page = new URL($_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']);
+
 if (isset($page->lang)) { unset($page->lang); }
 $printURL = clone $page;
 $printURL->format = 'print';
@@ -81,14 +82,13 @@ if (isset($_SESSION['USER']) && $this->document->permitsEditingBy($_SESSION['USE
 		";
 	}
 }
-
 echo "
 <div id=\"pageTools\">
 	<ul>$editButton
 		$deleteButton
 		$watchButton
 		<li><button type=\"button\" class=\"printSmall\" onclick=\"window.open('$printURL');\">Print</button></li>
-		<li><form method=\"get\" action=\"{$page->getScheme()}{$page->getScript()}\">
+		<li><form method=\"get\" action=\"{$page->getScript()}\">
 			<fieldset>
 ";
 			foreach($page->parameters as $field=>$value)
