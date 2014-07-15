@@ -295,6 +295,9 @@ if (isset($_SERVER['HTTP_USER_AGENT'])
 	if (!empty($_GET['document_id'])) {
 		$url.= '/viewPage.php?docType=document;document_id='.$_GET['document_id'];
 	}
+	elseif (!empty($_GET['section_id'])) {
+		$url.= '/viewPage.php?docType=section;section_id='.$_GET['section_id'];
+	}
 	elseif (!empty($_GET['event_id']) && !empty($_GET['date'])) {
 		$url.= "/viewPage.php?docType=event;event_id=$_GET[event_id];date=$_GET[date]";
 	}
