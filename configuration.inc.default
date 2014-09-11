@@ -174,7 +174,8 @@ define('DEFAULT_SKIN','default');
  * External Web Services
  */
 define('DIRECTORY_WEBSERVICE','http://localhost/directory');
-define('OPEN311_PROXY','https://localhost/open311-proxy');
+define('OPEN311_PROXY',       'https://localhost/open311-proxy');
+define('COMMITTEE_MANAGER',   'http://localhost/committee_manager');
 
 /**
  * Emergency Weather Alerts

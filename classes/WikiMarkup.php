@@ -962,4 +962,47 @@ class WikiMarkup
 			";
 		}
 	 }
+
+	 /**
+	  * Embeds a committee's information or a list of committees
+	  *
+	  * If no ID is provided, this will the markup for list of committees
+	  *
+	  * @param int $taget The committee ID
+	  */
+	 private static function committeesEmbed($target=null)
+	 {
+        $html = '';
+        if (!empty($target)) {
+            $id = (int)$target;
+        }
+        else {
+            $json = json_decode(URL::get(COMMITTEE_MANAGER.'/committees?format=json'));
+            if ($json) {
+                $html = "
+                <table>
+                    <thead>
+                        <tr><th>Board / Commission</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                ";
+                foreach ($json as $committee) {
+                    $name = View::escape($committee->name);
+                    if ($committee->website) {
+                        $name = "<a href=\"{$committee->website}\">$name</a>";
+                    }
+                    $html.= "
+                    <tr><td>$name</td>
+                    </tr>
+                    ";
+                }
+                $html.= "
+                    </tbody>
+                </table>
+                ";
+                return $html;
+            }
+        }
+	 }
 }
