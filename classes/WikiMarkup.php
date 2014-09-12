@@ -972,9 +972,56 @@ class WikiMarkup
 	  */
 	 private static function committeesEmbed($target=null)
 	 {
-        $html = '';
+        $html = null;
         if (!empty($target)) {
             $id = (int)$target;
+            $json = json_decode(URL::get(COMMITTEE_MANAGER."/committees/view?committee_id=$id;format=json"));
+            if ($json) {
+                $html = $json->info->description;
+
+                $html.= "
+                <h3>Meetings</h3>
+                <p>{$json->info->meetingSchedule}</p>
+                <h3>Members</h3>
+                <table>
+                    <thead>
+                        <tr><th>Appointee</th>
+                            <th>Appointed By</th>
+                            <th>Term Expiration Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                ";
+                    foreach ($json->seats as $s) {
+                        $c = 0;
+                        $appointer = View::escape($s->appointedBy);
+
+                        foreach ($s->currentMembers as $m) {
+                            $c++;
+                            $name = View::escape($m->name);
+
+                            $html.= "
+                            <tr><td>$name</td>
+                                <td>$appointer</td>
+                                <td>{$m->termEnd}</td>
+                            </tr>
+                            ";
+                        }
+                        $t = $s->maxCurrentTerms;
+                        for ($c; $c < $t; $c++) {
+                            $html.= "
+                            <tr><td>Vacancy</td>
+                                <td>$appointer</td>
+                                <td></td>
+                            </tr>
+                            ";
+                        }
+                    }
+                $html.= "
+                    </tbody>
+                </table>
+                ";
+            }
         }
         else {
             $json = json_decode(URL::get(COMMITTEE_MANAGER.'/committees?format=json'));
@@ -983,6 +1030,7 @@ class WikiMarkup
                 <table>
                     <thead>
                         <tr><th>Board / Commission</th>
+                            <th>Vacancy</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -992,8 +1040,11 @@ class WikiMarkup
                     if ($committee->website) {
                         $name = "<a href=\"{$committee->website}\">$name</a>";
                     }
+                    $vacancy = $committee->vacancy ? '<a href="'.BASE_URL.'/apply">Vacancy</a>' : '';
+
                     $html.= "
                     <tr><td>$name</td>
+                        <td>$vacancy</td>
                     </tr>
                     ";
                 }
@@ -1001,8 +1052,8 @@ class WikiMarkup
                     </tbody>
                 </table>
                 ";
-                return $html;
             }
         }
+        return $html;
 	 }
 }
