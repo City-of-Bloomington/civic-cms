@@ -972,16 +972,32 @@ class WikiMarkup
 	  */
 	 private static function committeesEmbed($target=null)
 	 {
-        $html = null;
+        $html = '';
         if (!empty($target)) {
             $id = (int)$target;
             $json = json_decode(URL::get(COMMITTEE_MANAGER."/committees/view?committee_id=$id;format=json"));
             if ($json) {
-                $html = $json->info->description;
 
+                if ($json->info->description) {
+                    $html = "
+                    <h3>About the {$json->info->name}</h3>
+                    {$json->info->description}
+                    ";
+                    if ($json->info->statuteReference) {
+                        $html.= $json->info->statuteUrl
+                            ? "<p><a href=\"{$json->info->statuteUrl}\">{$json->info->statuteReference}</a></p>"
+                            : "<p>{$json->info->statuteReference}</p>";
+                    }
+                }
+                if ($json->info->meetingSchedule) {
+                    $calendar = new Calendar(1);
+
+                    $html.= "
+                    <p>{$json->info->meetingSchedule}</p>
+                    <p>Please check the city's <a href=\"{$calendar->getURL()}\">government calendar</a> for exact dates and times.</p>
+                    ";
+                }
                 $html.= "
-                <h3>Meetings</h3>
-                <p>{$json->info->meetingSchedule}</p>
                 <h3>Members</h3>
                 <table>
                     <thead>
@@ -1021,6 +1037,9 @@ class WikiMarkup
                     </tbody>
                 </table>
                 ";
+                if ($json->info->contactInfo) {
+                    $html.= "<h3>Contact Info</h3><p>{$json->info->contactInfo}</p>";
+                }
             }
         }
         else {
