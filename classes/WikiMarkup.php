@@ -985,17 +985,20 @@ class WikiMarkup
                     ";
                     if ($json->info->statuteReference) {
                         $html.= $json->info->statuteUrl
-                            ? "<p><a href=\"{$json->info->statuteUrl}\">{$json->info->statuteReference}</a></p>"
-                            : "<p>{$json->info->statuteReference}</p>";
+                            ? "<p>Statutory Authority: <a href=\"{$json->info->statuteUrl}\">{$json->info->statuteReference}</a></p>"
+                            : "<p>Statutory Authority: {$json->info->statuteReference}</p>";
                     }
                 }
                 if ($json->info->meetingSchedule) {
-                    $calendar = new Calendar(1);
+                    $schedule = trim($json->info->meetingSchedule);
+                    if ($schedule) {
+                        $calendar = new Calendar(1);
 
-                    $html.= "
-                    <p>{$json->info->meetingSchedule}</p>
-                    <p>Please check the city's <a href=\"{$calendar->getURL()}\">government calendar</a> for exact dates and times.</p>
-                    ";
+                        $html.= "
+                        <p>{$json->info->meetingSchedule}</p>
+                        <p>Please check the city's <a href=\"{$calendar->getURL()}\">government calendar</a> for exact dates and times.</p>
+                        ";
+                    }
                 }
                 $html.= "
                 <h3>Members</h3>
@@ -1008,6 +1011,7 @@ class WikiMarkup
                     </thead>
                     <tbody>
                 ";
+                    $vacancies = false;
                     foreach ($json->seats as $s) {
                         $c = 0;
                         $appointer = View::escape($s->appointedBy);
@@ -1024,6 +1028,7 @@ class WikiMarkup
                             ";
                         }
                         $t = $s->maxCurrentTerms;
+                        if ($c < $t) { $vacancies = true; }
                         for ($c; $c < $t; $c++) {
                             $html.= "
                             <tr><td>Vacancy</td>
@@ -1037,8 +1042,14 @@ class WikiMarkup
                     </tbody>
                 </table>
                 ";
+                if ($vacancies) {
+                    $html.= '<p><a href="/apply">Apply to fill a vacancy</a></p>';
+                }
                 if ($json->info->contactInfo) {
-                    $html.= "<h3>Contact Info</h3><p>{$json->info->contactInfo}</p>";
+                    $info = trim($json->info->contactInfo);
+                    if ($info) {
+                        $html.= "<h3>Contact Info</h3><p>{$json->info->contactInfo}</p>";
+                    }
                 }
             }
         }
