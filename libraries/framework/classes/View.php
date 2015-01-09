@@ -39,30 +39,49 @@ abstract class View
 		return array_key_exists($key,$this->vars);
 	}
 
-	/**
-	 * Cleans strings for output
-	 *
-	 * There are more bad characters than htmlspecialchars deals with.  We just want
-	 * to add in some other characters to clean.  While here, we might as well
-	 * have it trim out the whitespace too.
-	 *
-	 * @param array|string $string
-	 * @param CONSTANT $quotes Optional, the desired constant to use for the htmlspecidalchars call
-	 * @return string
-	 */
-	public static function escape($input,$quotes=ENT_QUOTES)
-	{
-		if (is_array($input)) {
-			foreach ($input as $key=>$value) {
-				$input[$key] = self::escape($value,$quotes);
-			}
-		}
-		else {
-			$input = htmlspecialchars(trim($input),$quotes);
-		}
+    /**
+     * Cleans strings for output
+     *
+     * There are more bad characters than htmlspecialchars deals with.  We just want
+     * to add in some other characters to clean.  While here, we might as well
+     * have it trim out the whitespace too.
+     *
+     * @param array|string $input
+     * @param CONSTANT $quotes Optional, the desired constant to use for the htmlspecidalchars call
+     * @return string
+     */
+    public static function escape($input, $quotes=ENT_QUOTES)
+    {
+        if (is_array($input)) {
+            foreach ($input as $key=>$value) {
+                $input[$key] = self::escape($value,$quotes);
+            }
+        }
+        else {
+            $input = htmlspecialchars(trim($input), $quotes, 'UTF-8');
+        }
 
-		return $input;
-	}
+        return $input;
+    }
+
+    /**
+     * Reverses the escaping done by View::escape()
+     *
+     * @param array|string $input
+     * @return string
+     */
+    public static function unescape($input)
+    {
+        if (is_array($input)) {
+            foreach ($input as $key=>$value) {
+                $input[$key] = self::unescape($value);
+            }
+        }
+        else {
+            $input = htmlspecialchars_decode(trim($input), ENT_QUOTES);
+        }
+        return $input;
+    }
 
 	/**
 	 * Return the first $n words of the given string
