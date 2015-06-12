@@ -500,6 +500,16 @@ class WikiMarkup
 	}
 
 	/**
+	 * @param string $key Unique ID of the Google Form
+	 * @param string $text
+	 */
+	public static function googleFormLink($key, $text)
+	{
+        $url = "https://docs.google.com.forms/d/$key/viewform";
+        return "<a href=\"$url\" class=\"googleForm\">$text</a>";
+	}
+
+	/**
 	 * Returns a google form
 	 *
 	 * @param int|string $target google to embed
@@ -507,19 +517,7 @@ class WikiMarkup
 	 */
 	private static function googleFormEmbed($target)
 	{
-		if (preg_match('{formkey=?([0-9a-zA-Z]{34})"?}',$target,$matches)) {
-			$key = $matches[1];
-		}
-		if (preg_match('{height="?([0-9]+)"?}',$target,$matches)) {
-			$height=$matches[1];
-		}
-
-		if (isset($key) && isset($height)) {
-			return "<iframe src=\"https://docs.google.com/forms/d/$key/viewform?embedded=true\" width=\"480\" height=\"$height\" frameborder=\"0\" marginheight=\"0\" marginwidth=\"0\">Loading...</iframe>";
-		}
-		else {
-			return "<p>The syntax wasn't correct. Please try again or contact the Webmaster for assistance!</p>";
-		}
+        return "<iframe src=\"https://docs.google.com/forms/d/$key/viewform?embedded=true\" width=\"480\" height=\"480\" frameborder=\"0\" marginheight=\"0\" marginwidth=\"0\">Loading...</iframe>";
 	}
 
 	/**

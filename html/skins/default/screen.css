@@ -282,6 +282,7 @@ a.unwatch { width:22px; height:22px; padding:11px; background: url('default/imag
 .ram { height:16px; padding-left:18px; background: url('default/images/icons/real.png') no-repeat; }
 .mp3 { height:16px; padding-left:18px; background: url('default/images/icons/sound.png') no-repeat; }
 .wma { height:16px; padding-left:18px; background: url('default/images/icons/windowsMedia.png') no-repeat; }
+.googleForms { height:16px; padding-left:18px; background: url('default/images/icons/googleForm.png') no-repeat; }
 
 /* Controls how error messages are displayed */
 #errorMessages { border:2px solid black; }
