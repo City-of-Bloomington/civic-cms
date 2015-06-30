@@ -71,7 +71,7 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 
 
 
-#banner { width:980px; margin:0; padding:0; height:130px; background:url('../winter/images/banner/snowflakesbanner.gif') top left no-repeat; font-size:12px; }
+#banner { width:980px; margin:0; padding:0; height:130px; background:url('images/banner/banner.gif') top left no-repeat; font-size:12px; }
 #banner ul { list-style-type:none; margin:0; padding:0; }
 #banner a { color:black; font-size:11px; }
 
@@ -346,7 +346,47 @@ a.reveal { width:12px; height:12px; background:url('../default/images/buttons/re
 .newsletter { height:25px; padding:1px 0 0 35px; background: url('../default/images/icons/newsletter.png') no-repeat; }
 .youtube { height:25px; padding:5px 0 0 47px; background: url('../default/images/icons/youtube25px.png') no-repeat; }
 .rssSmall { height:25px; padding-left:20px; background:url('../default/images/icons/feed-icon-14x14.png') no-repeat; }
-
+.googleForm {
+	background: #00663c;
+	border: 1px solid #2d6e3f;
+	border-radius: .5em;
+	color: #fff;
+	display: inline-block;
+	*display: inline;
+	margin: 1em 0;
+	padding: 1em;
+	transition: background-color .25s ease-in-out;
+}
+.googleForm:hover {
+	background: #007545;
+	color: #fff;
+	text-decoration: none;
+}
+.googleForm > span {
+	display: block;
+	float: left;
+	font-size: 18px;
+	font-weight: normal;
+	min-width: 14rem;
+}
+.googleForm > em {
+	display: block;
+	font-style: normal;
+}
+.googleForm:before {
+	background: url('../default/images/icons/google-forms-icon-small.png') no-repeat;
+	content: ' ';
+	display: inline-block;
+	height: 37px;
+	float: left;
+	margin: 0 10px 0 0;
+	width: 27px;
+}
+.googleForm:after {
+	content: ' ';
+	clear: both;
+	display: table;
+}
 
 /* Styles for the Featured "Spotlight" blocks */
 .featured { border:0px; margin-top:0px; }
