@@ -15,7 +15,13 @@ if (isset($this->document) && count($this->document->getAttachments()))
 	foreach($this->document->getAttachments() as $attachment)
 	{
 		echo "
-		<li><a href=\"{$attachment->getURL()}\" class=\"{$attachment->getExtension()}\">{$attachment->getTitle()}</a></li>
+			<li>
+				<a href=\"{$attachment->getURL()}\"
+					class=\"{$attachment->getExtension()}\"
+					onClick=\"_gaq.push(['_trackEvent', 'Sidebar Attachments', '{$attachment->getURL()}']);\">
+						{$attachment->getTitle()}
+				</a>
+			</li>
 		";
 	}
 	echo "
