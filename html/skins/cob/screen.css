@@ -1,7 +1,7 @@
 @import url('../reset.css');
 
 html { background:url('../default/images/pagebg.gif'); background-repeat:repeat; background-position:top; text-align:center; padding-bottom:10px; }
-body { width:980px; position:relative; margin:0 auto; text-align:left; background-color:white; font-family:Arial, Helvetica, sans-serif; }
+body { width:980px; margin:50px auto 0; text-align:left; background-color:white; font-family:Arial, Helvetica, sans-serif; }
 
 *[dir="rtl"] { text-align:right; }
 
@@ -71,7 +71,7 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 
 
 
-#banner { width:980px; margin:0; padding:0; height:130px; background:url('images/banner/banner.gif') top left no-repeat; font-size:12px; }
+#banner { width:980px; position:relative; margin:0; padding:0; height:130px; background:url('images/banner/banner.gif') top left no-repeat; font-size:12px; }
 #banner ul { list-style-type:none; margin:0; padding:0; }
 #banner a { color:black; font-size:11px; }
 
@@ -520,3 +520,22 @@ div.customalert p { margin: 1px 1px 1px 3px; font-size:12px; padding-left:14px; 
 #mobile_button a { display:block; width:485px; height:73px; }
 
 #open311Client { width:100%; }
+
+.alphaAnnouncement {
+	background: #315da6;
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+}
+.alphaAnnouncement-container {
+	background: url('images/banner/alpha-banner.png') no-repeat;
+	display: block;
+	height: 40px;
+	margin: 0 auto;
+	padding: 0 20px;
+	overflow: hidden;
+	text-indent: -10000px;
+	width: 940px;
+}

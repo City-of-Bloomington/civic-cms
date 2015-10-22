@@ -5,6 +5,11 @@
  * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 ?>
+<a href="https://bloomington.in.gov/alpha" class="alphaAnnouncement">
+	<span class="alphaAnnouncement-container">
+		New: Bloomington.in.gov/alpha. Your feedback can help make our next website better!
+	</span>
+</a>
 <div id="banner">
 	<div id="logo"><a href="<?php echo BASE_URL; ?>/">City of Bloomington, IN</a></div>
 	<div id="skipNavigation"><a href="#mainContent" title="Skip Navigation">Skip Navigation</a></div>
