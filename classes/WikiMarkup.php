@@ -973,7 +973,7 @@ class WikiMarkup
         $html = '';
         if (!empty($target)) {
             $id = (int)$target;
-            $json = json_decode(URL::get(COMMITTEE_MANAGER."/committees/view?committee_id=$id;format=json"));
+            $json = json_decode(URL::get(COMMITTEE_MANAGER."/committees/members?committee_id=$id;format=json"));
             if ($json) {
 
                 if ($json->info->description) {
@@ -1009,38 +1009,33 @@ class WikiMarkup
                     </thead>
                     <tbody>
                 ";
-                    $vacancies = false;
-                    foreach ($json->seats as $s) {
-                        $c = 0;
-                        $appointer = View::escape($s->appointedBy);
+                foreach ($json->seats as $s) {
+                    $name = $s->vacant
+                        ? 'Vacant'
+                        : View::escape($s->currentMember->name);
 
-                        foreach ($s->currentMembers as $m) {
-                            $c++;
-                            $name = View::escape($m->name);
+                    $appointer = View::escape($s->appointedBy);
 
-                            $html.= "
-                            <tr><td>$name</td>
-                                <td>$appointer</td>
-                                <td>{$m->termEnd}</td>
-                            </tr>
-                            ";
-                        }
-                        $t = $s->maxCurrentTerms;
-                        if ($c < $t) { $vacancies = true; }
-                        for ($c; $c < $t; $c++) {
-                            $html.= "
-                            <tr><td>Vacancy</td>
-                                <td>$appointer</td>
-                                <td></td>
-                            </tr>
-                            ";
-                        }
+                    $termEnd = '';
+                    if ($s->currentMember && $s->currentMember->termEndDate) {
+                        $termEnd = $s->currentMember->termEndDate;
                     }
+                    elseif ($s->currentTerm && $s->currentTerm->endDate) {
+                        $termEnd = $s->currentTerm->endDate;
+                    }
+
+                    $html.= "
+                    <tr><td>$name</td>
+                        <td>$appointer</td>
+                        <td>$termEnd</td>
+                    </tr>
+                    ";
+                }
                 $html.= "
                     </tbody>
                 </table>
                 ";
-                if ($vacancies) {
+                if ($json->info->vacancy) {
                     $html.= '<p><a href="/apply">Apply to fill a vacancy</a></p>';
                 }
                 if ($json->info->contactInfo) {

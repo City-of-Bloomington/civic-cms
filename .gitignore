@@ -1,0 +1,6 @@
+configuration.inc
+site_config.inc
+data/*
+*.mo
+build
+dist
