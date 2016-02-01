@@ -1010,9 +1010,9 @@ class WikiMarkup
                     <tbody>
                 ";
                 foreach ($json->seats as $s) {
-                    $name = $s->vacant
-                        ? 'Vacant'
-                        : View::escape($s->currentMember->name);
+                    $name = '';
+                    if (isset($s->currentMember)) { $name.= View::escape($s->currentMember->name); }
+                    if ($s->vacant) { $name.= ' (Vacant)'; }
 
                     $appointer = View::escape($s->appointedBy);
 
