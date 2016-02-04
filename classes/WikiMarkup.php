@@ -1012,7 +1012,10 @@ class WikiMarkup
                 foreach ($json->seats as $s) {
                     $name = '';
                     if (isset($s->currentMember)) { $name.= View::escape($s->currentMember->name); }
-                    if ($s->vacant) { $name.= ' (Vacant)'; }
+                    if ($s->vacant) {
+                        if ($name) { $name.= ' (Carryover)'; }
+                        else       { $name.= ' (Vacant)'; }
+                    }
 
                     $appointer = View::escape($s->appointedBy);
 
