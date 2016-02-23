@@ -1,8 +1,7 @@
 <?php
 /**
- * @copyright 2007-2012 City of Bloomington, Indiana
+ * @copyright 2007-2016 City of Bloomington, Indiana
  * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE.txt
- * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 class WikiMarkup
 {
@@ -1039,7 +1038,8 @@ class WikiMarkup
                 </table>
                 ";
                 if ($json->info->vacancy) {
-                    $html.= '<p><a href="/apply">Apply to fill a vacancy</a></p>';
+                    $apply = '/onboard/applicants/apply?committee_id='.$json->info->id;
+                    $html.= "<p><a href=\"$apply\">Apply to fill a vacancy</a></p>";
                 }
                 if ($json->info->contactInfo) {
                     $info = trim($json->info->contactInfo);
@@ -1066,7 +1066,8 @@ class WikiMarkup
                     if ($committee->website) {
                         $name = "<a href=\"{$committee->website}\">$name</a>";
                     }
-                    $vacancy = $committee->vacancy ? '<a href="'.BASE_URL.'/apply">Vacancy</a>' : '';
+                    $apply = '/onboard/applicants/apply?committee_id='.$committee->id;
+                    $vacancy = (int)$committee->vacancies ? "<a href=\"$apply\">Vacancy</a>" : '';
 
                     $html.= "
                     <tr><td>$name</td>
