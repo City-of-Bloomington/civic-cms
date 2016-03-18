@@ -768,8 +768,10 @@ class WikiMarkup
 		$fullURLPattern = '/^(www\.|https?:\/\/)([\w\.]+)([\#\,\/\~\?\&\=\;\%\-\w+\.]+)/';
 		if (preg_match($fullURLPattern,$linkTarget))
 		{
-			$url = $linkTarget;
-			$alt = '';
+			$url    = $linkTarget;
+			$alt    = '';
+			$width  = '';
+			$height = '';
 		}
 		# Otherwise look for an image with $linkTarget as a filename
 		else
