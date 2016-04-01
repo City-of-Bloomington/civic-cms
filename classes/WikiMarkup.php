@@ -982,10 +982,12 @@ class WikiMarkup
                     <h3>About the {$json->info->name}</h3>
                     {$json->info->description}
                     ";
-                    if ($json->info->statuteReference) {
-                        $html.= $json->info->statuteUrl
-                            ? "<p>Statutory Authority: <a href=\"{$json->info->statuteUrl}\">{$json->info->statuteReference}</a></p>"
-                            : "<p>Statutory Authority: {$json->info->statuteReference}</p>";
+                    if (isset($json->info->statutes)) {
+                        foreach ($json->info->statutes as $s) {
+                            $citation = View::escape($s->citation);
+                            $url      = $s->url;
+                            $html.= "<p>Statutory Authority: <a href=\"$url\">$citation</a></p>";
+                        }
                     }
                 }
                 if ($json->info->meetingSchedule) {
@@ -1021,10 +1023,10 @@ class WikiMarkup
                     $appointer = View::escape($s->appointedBy);
 
                     $termEnd = '';
-                    if ($s->currentMember && $s->currentMember->termEndDate) {
+                    if (isset($s->currentMember) && $s->currentMember->termEndDate) {
                         $termEnd = $s->currentMember->termEndDate;
                     }
-                    elseif ($s->currentTerm && $s->currentTerm->endDate) {
+                    elseif (isset($s->currentTerm) && $s->currentTerm->endDate) {
                         $termEnd = $s->currentTerm->endDate;
                     }
 
