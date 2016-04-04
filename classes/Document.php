@@ -25,6 +25,7 @@
 		private $banner_media_id;
 		private $icon_media_id;
 		private $skin;
+		private $migratedUrl;
 
 		private $department;
 		private $content = array();
@@ -140,6 +141,7 @@
 			$fields['banner_media_id'] = $this->banner_media_id ? $this->banner_media_id : null;
 			$fields['icon_media_id'] = $this->icon_media_id ? $this->icon_media_id : null;
 			$fields['skin'] = $this->skin ? $this->skin : null;
+			$fields['migratedUrl'] = $this->migratedUrl ? $this->migratedUrl : null;
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
@@ -579,8 +581,11 @@
    		public function permitsEditingBy($user)
    		{
    			if ($user->hasRole(array('Webmaster','Administrator','Publisher'))) { return true; }
-   			if ($user->hasRole('Content Creator') && $this->department_id == $user->getDepartment_id()) { return true; }
-			return false;
+   			return (
+                   $user->hasRole('Content Creator')
+                && $this->department_id == $user->getDepartment_id()
+                && !$this->getMigratedUrl()
+            );
    		}
 
 		public function getWidgets($search=null)
@@ -933,7 +938,7 @@
 			}
 		}
 		public function getSkin() { return $this->skin; }
-
+		public function getMigratedUrl() { return $this->migratedUrl; }
 
 		/**
 		 * Generic Setters
@@ -991,6 +996,7 @@
 		public function setIcon_media_id($int) { $this->icon = new Media($int); $this->icon_media_id = $this->icon->getId(); }
 		public function setIcon_media($media) { $this->icon_media_id = $media->getId(); $this->icon = $media; }
 		public function setSkin($CSSDirectoryName) { $this->skin = trim($CSSDirectoryName); }
+		public function setMigratedUrl($string) { $this->migratedUrl = trim($string); }
 	}
 
 class PHPSyntaxException extends Exception

@@ -30,6 +30,19 @@
 		</table>
 	</fieldset>
 
+	<fieldset><legend>Migrated URL</legend>
+        <p> If you have migrated this page to the new Alpha site, enter the URL here.
+            This locks the page for future changes.
+        </p>
+        <table>
+            <tr><td><label  for="document-migratedUrl">Migrated URL</label></td>
+                <td><input name="document[migratedUrl]" id="document-migratedUrl" size="60"
+                           value="<?= self::escape($this->document->getMigratedUrl()); ?>" />
+                </td>
+            </tr>
+        </table>
+	</fieldset>
+
 	<fieldset><legend>Banner</legend>
 	<p>Banner images will not be resized when displayed.  They will be used in their original form.
 		Please choose or upload an appropriately sized image.</p>

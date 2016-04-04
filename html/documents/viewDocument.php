@@ -94,6 +94,10 @@ if (isset($document)) {
 	#------------------------------------------------------------
 	$template->blocks[] = new Block('alerts/alertPanel.inc',array('document'=>$document));
 
+	if ($document->getMigratedUrl()) {
+        $template->blocks[] = new Block('documents/migrated.inc', ['document'=>$document]);
+	}
+
 
 	#------------------------------------------------------------
 	# Set up the content of the document
