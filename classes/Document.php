@@ -26,6 +26,8 @@
 		private $icon_media_id;
 		private $skin;
 		private $migratedUrl;
+		private $drupalNodeId;
+		private $displayMigratedContent;
 
 		private $department;
 		private $content = array();
@@ -142,6 +144,7 @@
 			$fields['icon_media_id'] = $this->icon_media_id ? $this->icon_media_id : null;
 			$fields['skin'] = $this->skin ? $this->skin : null;
 			$fields['migratedUrl'] = $this->migratedUrl ? $this->migratedUrl : null;
+			$fields['drupalNodeId'] = $this->drupalNodeId ? $this->drupalNodeId : null;
 
 			# Split the fields up into a preparedFields array and a values array.
 			# PDO->execute cannot take an associative array for values, so we have
@@ -939,6 +942,7 @@
 		}
 		public function getSkin() { return $this->skin; }
 		public function getMigratedUrl() { return $this->migratedUrl; }
+		public function getDrupalNodeId() { return $this->drupalNodeId; }
 
 		/**
 		 * Generic Setters
@@ -997,6 +1001,7 @@
 		public function setIcon_media($media) { $this->icon_media_id = $media->getId(); $this->icon = $media; }
 		public function setSkin($CSSDirectoryName) { $this->skin = trim($CSSDirectoryName); }
 		public function setMigratedUrl($string) { $this->migratedUrl = trim($string); }
+		public function setDrupalNodeId($int) { $this->drupalNodeId = (int)$int; }
 	}
 
 class PHPSyntaxException extends Exception

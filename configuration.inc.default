@@ -27,7 +27,8 @@ define('FRAMEWORK',APPLICATION_HOME.'/libraries/framework');
  * installation of the ZendFramework
  * http://framework.zend.com
  */
-define('ZEND','/var/www/libraries/ZendFramework/library');
+define('ZEND',     '/var/www/libraries/ZendFramework/library');
+define('MARKDOWN', '/var/www/libraries/php-markdown-1.6.0/Michelf');
 
 /**
  * iCal library used for calendars and events

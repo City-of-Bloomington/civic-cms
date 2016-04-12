@@ -30,14 +30,22 @@
 		</table>
 	</fieldset>
 
-	<fieldset><legend>Migrated URL</legend>
+	<fieldset><legend>Migration</legend>
         <p> If you have migrated this page to the new Alpha site, enter the URL here.
             This locks the page for future changes.
+        </p>
+        <p>If you provide a Drupal Node ID, then the drupal content will be displayed on the page,
+            instead of this page's current content.
         </p>
         <table>
             <tr><td><label  for="document-migratedUrl">Migrated URL</label></td>
                 <td><input name="document[migratedUrl]" id="document-migratedUrl" size="60"
                            value="<?= self::escape($this->document->getMigratedUrl()); ?>" />
+                </td>
+            </tr>
+            <tr><td><label  for="document-drupalNodeId">Drupal Node ID</label></td>
+                <td><input name="document[drupalNodeId]" id="document-drupalNodeId"
+                           value="<?= $this->document->getDrupalNodeId(); ?>" />
                 </td>
             </tr>
         </table>

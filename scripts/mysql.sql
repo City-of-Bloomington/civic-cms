@@ -103,6 +103,7 @@ create table documents (
   icon_media_id int unsigned,
   skin varchar(128),
   migratedUrl varchar(128),
+  drupalNodeId int unsigned,
   foreign key (createdBy) references users(id),
   foreign key (modifiedBy) references users(id),
   foreign key (department_id) references departments(id),
