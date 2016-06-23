@@ -198,8 +198,8 @@ span.caption { display:block; font-size:11px; padding:7px; background-color:#e0e
 
 
 #footer { width:938px; padding:20px 20px 40px 20px; font-size:11px; color:#003366; clear:both; border-left:1px solid black; border-right:1px solid black; border-bottom:1px solid black; }
-#footer ul { list-style-type:none; margin:0; float:right; width:600px; text-align:right; }
-#footer li { display:inline; margin-left:4px; }
+#footer ul { list-style-type:none; margin:0; float:right; text-align:right; }
+#footer li { display:inline; margin-left:15px; }
 #footer .copyright { width:300px; margin-left:5px; }
 #footer a { color:#003366; }
 

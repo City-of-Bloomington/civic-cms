@@ -25,6 +25,7 @@
 			<li><a href="<?php echo BASE_URL; ?>/feeds">Feeds</a></li>
 			<li><a href="<?php echo BASE_URL; ?>/jobs">Jobs</a></li>
 			<li><a href="<?php echo BASE_URL; ?>/search/sitemap.php">Sitemap</a></li>
+			<li><a href="http://in.gov/itp" target="_blank">Indiana Transparency Portal</a></li>
 		</ul>
 	</div>
 </div>
