@@ -499,12 +499,12 @@ class WikiMarkup
 	}
 
 	/**
-	 * @param string $key Unique ID of the Google Form
+	 * @param string $url   URL to the google form
 	 * @param string $text
 	 */
-	public static function googleFormLink($key, $text)
+	public static function googleFormLink($url, $text)
 	{
-        $url = "https://docs.google.com/a/bloomington.in.gov/forms/d/$key/viewform";
+        #$url = "https://docs.google.com/a/bloomington.in.gov/forms/d/$key/viewform";
         return "<a href=\"$url\" class=\"googleForm\" target=\"_new\"><span>$text</span><em>Opens a Google Form in a new window</em></a>";
 	}
 
