@@ -35,7 +35,6 @@ class URL
 
 		if (substr($url, 0, 5) == 'https://') {
 			curl_setopt($request, CURLOPT_SSL_VERIFYPEER, false);
-			curl_setopt($request, CURLOPT_SSLVERSION, 3);
 		}
 		return curl_exec($request);
 	}

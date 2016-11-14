@@ -32,7 +32,7 @@ em { font-style:italic; }
 sub { vertical-align:sub; }
 sup { vertical-align:super; }
 code { font-family:monospace; }
-address { font-style:normal; }
+address { font-style:normal; white-space:pre-line; }
 
 dt { font-weight:bold; }
 

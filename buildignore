@@ -8,3 +8,4 @@ configuration.inc
 /data/media/*
 /data/sessions/*
 /scripts/backup.cnf
+.git*
