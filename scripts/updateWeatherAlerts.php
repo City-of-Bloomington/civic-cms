@@ -9,15 +9,21 @@
  * adjust your CRON settings accordingly.  For our website, we run
  * this script every 5 minutes.
  *
- * @copyright 2008-2009 City of Bloomington, Indiana
+ * @copyright 2008-2017 City of Bloomington, Indiana
  * @license http://www.gnu.org/licenses/agpl.txt GNU/AGPL, see LICENSE.txt
- * @author Cliff Ingham <inghamn@bloomington.in.gov>
  */
 include dirname(__FILE__).'/../configuration.inc';
 
 $c = 0;
-$events = array();
-$xml = file_get_contents(NATIONAL_WEATHER_SERVICE_FEED);
+$events = [];
+
+$request = curl_init(NATIONAL_WEATHER_SERVICE_FEED);
+curl_setopt($request, CURLOPT_RETURNTRANSFER,true);
+curl_setopt($request, CURLOPT_FOLLOWLOCATION, true);
+curl_setopt($request, CURLOPT_USERAGENT, CMS_USER_AGENT);
+$xml = curl_exec($request);
+echo "$xml\n";
+
 if ($xml) {
 	$alerts = simplexml_load_string($xml);
 	foreach($alerts->entry as $entry) {
@@ -47,6 +53,9 @@ if ($xml) {
 			$c++;
 		}
 	}
+}
+else {
+    echo curl_error($request);
 }
 echo date('Y-m-d H:i:sp')." Added $c alerts\n";
 

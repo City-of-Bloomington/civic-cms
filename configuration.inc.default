@@ -184,6 +184,7 @@ define('COMMITTEE_MANAGER',   'http://localhost/committee_manager');
  * The National Weather Service publishes these cap files for each State
  */
 define('NATIONAL_WEATHER_SERVICE_FEED','http://www.weather.gov/alerts/in.cap');
+define('CMS_USER_AGENT', '');
 /**
  * The National Weather service is publishing alerts even for mundane things
  * like the short term forcast.  If there are alert info events in the CAP
