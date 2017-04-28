@@ -1045,12 +1045,6 @@ class WikiMarkup
                     $apply = '/onboard/applicants/apply?committee_id='.$json->info->id;
                     $html.= "<p><a href=\"$apply\">Apply to fill a vacancy</a></p>";
                 }
-                if ($json->info->contactInfo) {
-                    $info = trim($json->info->contactInfo);
-                    if ($info) {
-                        $html.= "<h3>Contact Info</h3><p>{$json->info->contactInfo}</p>";
-                    }
-                }
             }
         }
         else {
