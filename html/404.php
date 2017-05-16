@@ -45,16 +45,6 @@ switch (count($list)) {
 		}
 		$document = $list[0];
 
-		// Once we have a document, check if we need to redirect to the mobile site
-		if (isset($_SERVER['HTTP_USER_AGENT'])
-			&& preg_match('/android|iphone|ipad|ipod|blackberry|symbian|palm|ericsson/',
-							strtolower($_SERVER['HTTP_USER_AGENT']))
-			&& !isset($_SESSION['really_want_to_view_full_site'])) {
-			$url = BASE_URL.'/m/viewPage.php?docType=document;document_id='.$document->getId();
-			header("Location: $url");
-			exit();
-		}
-
 		$_GET['document_id'] = $document->getId();
 		include APPLICATION_HOME.'/html/documents/viewDocument.php';
 	break;
