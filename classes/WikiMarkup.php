@@ -1013,8 +1013,10 @@ class WikiMarkup
                     <tbody>
                 ";
                 foreach ($json->seats as $s) {
+                    $member = isset($s->currentMember) ? $s->currentMember : null;
+
                     $name = '';
-                    if (isset($s->currentMember)) { $name.= View::escape($s->currentMember->name); }
+                    if ($member) { $name.= View::escape("{$member->firstname} {$member->lastname}"); }
                     if ($s->vacant) {
                         if ($name) { $name.= ' (Carryover)'; }
                         else       { $name.= ' (Vacant)'; }
@@ -1023,10 +1025,11 @@ class WikiMarkup
                     $appointer = View::escape($s->appointedBy);
 
                     $termEnd = '';
-                    if (isset($s->currentMember) && $s->currentMember->termEndDate) {
-                        $termEnd = $s->currentMember->termEndDate;
+                    if ($member && $member->termEndDate) {
+                        $termEnd = $member->termEndDate;
                     }
-                    elseif (isset($s->currentTerm) && $s->currentTerm->endDate) {
+                    elseif (isset($s->currentTerm)
+                            &&     $s->currentTerm->endDate) {
                         $termEnd = $s->currentTerm->endDate;
                     }
 
